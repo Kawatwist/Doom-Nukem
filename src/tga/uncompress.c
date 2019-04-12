@@ -6,11 +6,11 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 17:22:10 by lomasse           #+#    #+#             */
-/*   Updated: 2019/03/28 11:40:35 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/11 17:43:59 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/tga_reader.h"
+#include "../../includes/tga_reader.h"
 
 static void		rle_fillcm(t_tga *tga, unsigned char *new, int again)
 {

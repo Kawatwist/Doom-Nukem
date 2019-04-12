@@ -6,11 +6,11 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 17:51:45 by lomasse           #+#    #+#             */
-/*   Updated: 2019/03/28 16:21:17 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/11 17:43:26 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/tga_reader.h"
+#include "../../includes/tga_reader.h"
 
 static void	bpp32(unsigned char *base, unsigned char *tofill,
 		int index, int index2)

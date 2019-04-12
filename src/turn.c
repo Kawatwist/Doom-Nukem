@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 13:39:58 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/11 18:40:41 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ void	turn(t_win *wn)
 	{
 		time = SDL_GetTicks();
 		setkeyboard(wn->old, wn->state);
+		SDL_ShowCursor(wn->interface != GAME ? SDL_ENABLE : SDL_DISABLE);
+		SDL_CaptureMouse(wn->interface == GAME ? 1 : 0);
+		wn->interface == GAME ? SDL_WarpMouseInWindow(wn->window, XSCREEN/2, YSCREEN/2) : 0;
 		SDL_PollEvent(&(wn->ev));
 		wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
+		wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
 		!wn->old[SDL_SCANCODE_ESCAPE] && wn->state[SDL_SCANCODE_ESCAPE] && wn->interface == MENU ? stop_exec("Escape\n", wn) : 0;
 		wn->interface == MENU ? menu(wn) : 0 ;
 		wn->interface == GAME ? game(wn) : 0 ;

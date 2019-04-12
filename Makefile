@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/04/09 17:52:24 by lomasse          ###   ########.fr        #
+#    Updated: 2019/04/11 18:06:45 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,13 @@ INIT_SRC		= init.c										\
 				  load2.c										\
 				  load_intro.c									\
 				  texture.c										\
+				  skybox.c										\
+				  player.c										\
+				  init_input.c
 
 GAME_SRC		= input.c										\
-				  maingame.c
+				  maingame.c									\
+				  show.c
 
 MENU_SRC		= mainmenu.c									\
 				  menuinput.c									\
@@ -102,7 +106,7 @@ SDL_INC			= -I ./$(SDL_DIR)/include/
 FRAME			= -framework OpenGL -framework AppKit
 
 
-%.o: %.c ./includes/doom.h ./includes/tga_reader.h
+%.o: %.c ./includes/doom.h ./includes/tga_reader.h ./includes/skybox.h ./includes/player.h
 	@$(GCC) $(INC) $(SDL_INC) -o $@ -c $< $(FLAGS)
 
 $(NAME): $(SDL_DIR) $(LIB_FT) $(OBJS)

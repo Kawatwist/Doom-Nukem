@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 13:39:07 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/11 17:36:22 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int				init(t_win **wn, int argc, char **argv)
 
 	initwn(wn);
 	initsdl(wn);
+	init_input(wn);
+	initplayer(wn);
 	SDL_PollEvent(&ev);
 	SDL_PollEvent(&ev);
 	(*wn)->loading = initload2(wn, "./texture/loading.tga");
@@ -100,5 +102,6 @@ int				init(t_win **wn, int argc, char **argv)
 	parsearg(argc, argv, wn) == 0 ? stop_exec("Parsing error\n", *wn) : 0;
 	showload(wn, 30);
 	(*wn)->quality == 0 ? loadmenu(wn) : loadminimenu(wn);
+	initskybox(wn);
 	return (1);
 }

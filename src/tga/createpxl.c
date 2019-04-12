@@ -6,11 +6,11 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 18:18:07 by lomasse           #+#    #+#             */
-/*   Updated: 2019/03/27 16:46:44 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/11 17:43:41 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/tga_reader.h"
+#include "../../includes/tga_reader.h"
 
 unsigned char	*pxlbasecm(t_tga *tga, unsigned char *new)
 {
