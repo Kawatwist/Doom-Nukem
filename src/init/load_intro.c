@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 09:27:37 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 13:46:27 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/17 14:19:21 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void			*load_intro(void	*params)
 	value == 1 ? load_option(&wn) : 0;
 	value == 2 ? load_edit(&wn) : 0;
 	value == 3 ? load_game(&wn) : 0;
+	pthread_exit(NULL);
 	return (0);
 }

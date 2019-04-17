@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 18:27:17 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/17 14:41:54 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ typedef struct		s_win
 	char			interface;
 	char			oldinterface;
 	char			*tmp[4];
-	int				load;
+	int				*load;
 	int				turn;
 	Uint8			*state;
 	Uint8			*old;
@@ -124,9 +124,14 @@ typedef struct		s_win
 	t_elem			*elem;
 	t_joueur		*player;
 	t_skybox		*skybox;
+	t_cloud			*cloud;
 	t_menu			*menu;
 }					t_win;
 
+//GAME
+void				display_skybox(t_win *wn);
+
+//EDIT
 void				edit(t_win *wn);
 void				inputeditor(t_win *wn);
 void				printeditor(t_win *wn);
@@ -149,11 +154,14 @@ SDL_Texture			*initload2(t_win **wn, const char *path);
 void				showlinkedlist(t_win **wn, char *type, char *subtype);
 void				initload(t_win **wn);
 SDL_Texture			*findtexture(t_win *wn, char *type, char *subtype, char *name);
+void				init_cloud(t_win **wn);
 
+//OPTION
 void				option(t_win *wn);
 void				optioninput(t_win *wn);
 void				showoption(t_win *wn);
 
+//CINE
 char				*changename(char *name, int place);
 void				showintro(t_win *wn, t_text *img);
 void				showreverseintro(t_win *wn, t_text *img);
@@ -163,11 +171,11 @@ void				menu(t_win *wn);
 void				menuinput(t_win *wn);
 void				showmenu(t_win *wn);
 
+//MAIN
 void				turn(t_win *wn);
 void				game(t_win *wn);
 void				gameinput(t_win *wn);
 void				setkeyboard(Uint8 *new, Uint8 *current);
-
 void				stop_exec(char *msg, t_win *wn);
 
 #endif

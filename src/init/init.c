@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 17:36:22 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/17 14:36:11 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static void		*loadingthread(void *param)
 	value = 30;
 	while (TRUE)
 	{
-//		showload(wn, value);
-//		value += 1;
-//		SDL_Delay(1000/100);
-//		i++;
+		showload(wn, value);
+//		value = (*((*wn)->load) * 70 / 270) + 30;
+		value = 30;
+		i++;
 		if ((*wn)->turn == 0)
 			break;
 	}
@@ -41,7 +41,7 @@ static void		*loadingthread(void *param)
 
 static void		loadmenu(t_win **wn)
 {
-	t_thread	thread[5];
+	t_thread	thread[4];
 
 	int			i;
 	int			load;
@@ -49,16 +49,14 @@ static void		loadmenu(t_win **wn)
 	i = 0;
 	load = 0;
 	(*wn)->turn = 4;
-	while (i < (int)(sizeof(char) << 2))
+	while (i < 4)
 	{
 		thread[i].wn = *wn;
 		thread[i].value = i;
 		pthread_create(&thread[i].thd, NULL, load_intro, (void *)&(thread[i]));
 		i++;
 	}
-	thread[4].wn = *wn;
-	pthread_create(&thread[4].thd, NULL, loadingthread, (void *)&(thread[i]));
-	pthread_join((thread[0].thd), NULL);
+	pthread_join((thread[0].thd), NULL) != 0 ? printf("Failed\n") : 0;
 	(*wn)->turn = 3;
 	pthread_join((thread[1].thd), NULL);
 	(*wn)->turn = 2;
@@ -66,7 +64,11 @@ static void		loadmenu(t_win **wn)
 	(*wn)->turn = 1;
 	pthread_join((thread[3].thd), NULL);
 	(*wn)->turn = 0;
-	pthread_join(thread[4].thd, NULL);
+//	if (pthread_kill(thread[0].thd, SIGUSR1) != 0)
+//		printf("failed\n");
+//	pthread_kill(thread[1].thd, SIGUSR1);
+//	pthread_kill(thread[2].thd, SIGUSR1);
+//	pthread_kill(thread[3].thd, SIGUSR1);
 }
 
 void			showload(t_win **wn, int load)

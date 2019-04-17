@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:22:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/12 17:16:40 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/17 14:36:07 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 typedef struct s_cloud
 {
 	SDL_Texture *txt;
+	int			life;
+	int			size;
+	int			sens;
+	int			tmp;
+	int			flag;
+	int			start;
+	SDL_Rect	dst;
 	struct s_cloud *next;
 }				t_cloud;
 
