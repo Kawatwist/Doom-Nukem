@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 17:15:15 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/08 12:30:15 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/20 19:19:22 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,18 +95,12 @@ static void	initmenu(t_win **wn)
 
 void	initwn(t_win **wn)
 {
+	ft_bzero(*wn, sizeof(t_win));
 	(*wn)->interface = MENU;
 	(*wn)->oldinterface = MENU;
 	initmap(wn);
 	initelem(wn);
 	initmenu(wn);
 	inittext(wn);
-	(*wn)->state = NULL;
-	(*wn)->difficulty = 0;
-	(*wn)->quality = 0;
-	(*wn)->debug = 0;
-	(*wn)->window = NULL;
-	(*wn)->rend = NULL;
-	(*wn)->txtnotload = NULL;
-	(*wn)->load = 0;
+	(*wn)->debug = -1;
 }

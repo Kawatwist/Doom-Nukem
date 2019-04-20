@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/20 13:56:55 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/20 19:23:51 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ typedef struct		s_win
 	char			interface;
 	char			oldinterface;
 	char			*tmp[4];
+	char			*command;
+	char			**history;
 	int				load;
 	int				turn;
 	Uint8			*state;
