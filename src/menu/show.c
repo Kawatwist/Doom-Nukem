@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 11:44:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/05 13:55:38 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/20 13:42:05 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void	showmenu(t_win *wn)
 	SDL_RenderClear(wn->rend);
 	SDL_RenderCopy(wn->rend, findtexture(wn, "main", "intro", "60"), NULL, NULL);
 	SDL_RenderCopy(wn->rend, findtexture(wn, "main", "intro", "cursor") , NULL, &dst);
-	SDL_RenderPresent(wn->rend);
+//	SDL_RenderPresent(wn->rend);
 }

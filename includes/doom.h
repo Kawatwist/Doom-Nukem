@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/09 17:30:49 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/20 13:56:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ typedef struct		s_win
 void				edit(t_win *wn);
 void				inputeditor(t_win *wn);
 void				printeditor(t_win *wn);
+
+void				mainconsole(t_win *wn);
 
 t_text				*findpostxt(t_win *wn, char *type, char *subtype, char *name);
 t_text				*findpos(t_win *wn, char *type, char *subtype, char *name);

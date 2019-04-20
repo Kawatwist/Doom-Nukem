@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/04/09 17:52:24 by lomasse          ###   ########.fr        #
+#    Updated: 2019/04/20 13:24:43 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ GAME_SRC		= input.c										\
 
 MENU_SRC		= mainmenu.c									\
 				  menuinput.c									\
-				  show.c
+				  show.c										\
+				  console.c
 
 EDITOR_SRC		= mainedit.c									\
 				  printscreen.c 								\

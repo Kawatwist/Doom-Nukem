@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 13:39:58 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/20 13:57:12 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	turn(t_win *wn)
 {
-	Uint8	difftime;
-	Uint8	time;
+	Uint32	difftime;
+	Uint32	time;
 
 	wn->quality == 0 ? mainintro(wn, "main", "intro", 0) : 0;
 	wn->old = malloc(sizeof(Uint8*) * 284);
@@ -32,6 +32,8 @@ void	turn(t_win *wn)
 		wn->interface == GAME ? game(wn) : 0 ;
 		wn->interface == EDITEUR ? edit(wn) : 0;
 		wn->interface == OPTION ? option(wn) : 0 ;
+		wn->debug == 1 ? mainconsole(wn) : 0;
+		SDL_RenderPresent(wn->rend);
 		difftime = SDL_GetTicks();
 		(difftime - time) <  1000 / 60 ? SDL_Delay((1000 / 60) - (difftime - time)) : 0;
 	}
