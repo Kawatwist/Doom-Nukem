@@ -6,23 +6,23 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:57:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/17 15:41:25 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/19 17:18:53 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-	/*while (i++ < XSCREEN)
-	  {
-	  SDL_SetRenderDrawColor(wn->rend, 255, i * 255 / XSCREEN, 255, 255);
-	  ((wn->player->rawx + i) % (XSCREEN / 10)) == 0 ? SDL_RenderDrawLine(wn->rend, i, 0, i, YSCREEN): 0;
-	  }
-	  i = 0;
-	  while (i++ < YSCREEN)
-	  {
-	  SDL_SetRenderDrawColor(wn->rend, 255, i * 255 / YSCREEN, 255, 255);
-	  ((wn->player->rawy + i) % (YSCREEN / 10)) == 0 ? SDL_RenderDrawLine(wn->rend, 0, i, XSCREEN, i): 0;
-	  }*/
+/*while (i++ < XSCREEN)
+  {
+  SDL_SetRenderDrawColor(wn->rend, 255, i * 255 / XSCREEN, 255, 255);
+  ((wn->player->rawx + i) % (XSCREEN / 10)) == 0 ? SDL_RenderDrawLine(wn->rend, i, 0, i, YSCREEN): 0;
+  }
+  i = 0;
+  while (i++ < YSCREEN)
+  {
+  SDL_SetRenderDrawColor(wn->rend, 255, i * 255 / YSCREEN, 255, 255);
+  ((wn->player->rawy + i) % (YSCREEN / 10)) == 0 ? SDL_RenderDrawLine(wn->rend, 0, i, XSCREEN, i): 0;
+  }*/
 
 void		setcloud(t_win *wn, int nb_cloud)
 {
@@ -68,65 +68,85 @@ void		setcloud(t_win *wn, int nb_cloud)
 	}
 }
 /*
-static void show_cloud(t_win *wn, int x, char *name)
-{
-	int			i;
-	static int	tmp = 0;
-	static int	flag = 0;
-	SDL_Rect	dst;
-	t_text		*img;
+   static void show_cloud(t_win *wn, int x, char *name)
+   {
+   int			i;
+   static int	tmp = 0;
+   static int	flag = 0;
+   SDL_Rect	dst;
+   t_text		*img;
 
-	i = 0;
-	img = findpostxt(wn, "game", "skybox", name);
-	SDL_SetRenderDrawColor(wn->rend, 255, 0, 0, 255);
-	dst.x = ((wn->player->rawx) * 3) + ((flag == 0 ? tmp : (700 + 700 - tmp)) * 2) + x;
-	dst.y = 200 - (wn->player->rawy);
-	dst.w = 100 * (tmp * 0.01);
-	dst.h = 100 * (tmp * 0.01);
-	SDL_RenderCopy(wn->rend, img->txt, NULL ,&dst);
-	dst.x = ((wn->player->rawx -XSCREEN) * 3) + ((flag == 0 ? tmp : (700 + 700 - tmp)) * 2) + x;
-	SDL_RenderCopy(wn->rend, img->txt, NULL ,&dst);
-	if (tmp == 0)
-		flag = 0;
-	else if (tmp >= 700)
-		flag = 1;
-	tmp += (flag == 0 ? +2 : -2);
-}
-*/
-/*
+   i = 0;
+   img = findpostxt(wn, "game", "skybox", name);
+   SDL_SetRenderDrawColor(wn->rend, 255, 0, 0, 255);
+   dst.x = ((wn->player->rawx) * 3) + ((flag == 0 ? tmp : (700 + 700 - tmp)) * 2) + x;
+   dst.y = 200 - (wn->player->rawy);
+   dst.w = 100 * (tmp * 0.01);
+   dst.h = 100 * (tmp * 0.01);
+   SDL_RenderCopy(wn->rend, img->txt, NULL ,&dst);
+   dst.x = ((wn->player->rawx -XSCREEN) * 3) + ((flag == 0 ? tmp : (700 + 700 - tmp)) * 2) + x;
+   SDL_RenderCopy(wn->rend, img->txt, NULL ,&dst);
+   if (tmp == 0)
+   flag = 0;
+   else if (tmp >= 700)
+   flag = 1;
+   tmp += (flag == 0 ? +2 : -2);
+   }
+   */
+
 static void	sort_cloud(t_win *wn)
 {
 	t_cloud *cur;
 	t_cloud	*tmp;
+	t_cloud	*tmp_next;
+	t_cloud	*tmp_next2;
 
 	cur = wn->cloud;
 	while (cur != NULL && cur->next != NULL)
 	{
-		if (cur->size > cur->next->size)
+		if (cur == wn->cloud && cur->size > cur->next->size)
 		{
 			tmp = cur;
-			cur = cur->next;
-			cur->next = tmp;
+			tmp_next = cur->next;
+			tmp_next2 = cur->next->next;
+			cur->next = tmp_next2;
+			tmp_next->next = cur;
+			wn->cloud = tmp_next;
+		}
+		else if (cur->next->next != NULL && cur->next->size > cur->next->next->size)
+		{
+			tmp_next = cur->next;
+			tmp_next2 = cur->next->next;
+			tmp_next2->next == NULL ? tmp_next->next = NULL : (tmp_next->next = tmp_next2->next);
+			cur->next = tmp_next2;
+			cur->next->next = tmp_next;
 		}
 		else
 			cur = cur->next;
 	}
 }
-*/
+
 static void show_cloud2(t_win *wn, t_cloud *clood)
 {
 	SDL_Rect	dst;
-	
+
 	dst.x = ((wn->player->rawx) * 3) + ((clood->flag == 0 ? clood->tmp : (clood->life + clood->life + (clood->sens == 0 ? (-clood->tmp) : clood->tmp))) * 2) + clood->start;
 	dst.y = 200 - (wn->player->rawy);
-	dst.w = (clood->life) * (clood->tmp * 0.01);
-	dst.h = (clood->life) * (clood->tmp * 0.01);
+	dst.w = (clood->life * 0.5) * (clood->tmp * 0.01);
+	dst.h = (clood->life * 0.5) * (clood->tmp * 0.01);
 	SDL_RenderCopy(wn->rend, clood->txt, NULL ,&dst);
 	dst.x = ((wn->player->rawx -XSCREEN) * 3) + ((clood->flag == 0 ? clood->tmp : (clood->life + clood->life + (clood->sens == 0 ? -clood->tmp : clood->tmp)) * 2) + clood->start);
 	SDL_RenderCopy(wn->rend, clood->txt, NULL ,&dst);
 	if (clood->tmp >= clood->life)
 		clood->flag = 1;
 	clood->tmp += (clood->flag == 0 ? +2 : -2);
+}
+
+static void	display_cloud(t_win *wn, t_cloud *cloud)
+{
+	SDL_Rect	dst;
+
+
 }
 
 static void	bg2_skybox(t_win *wn)
@@ -172,6 +192,7 @@ void		display_skybox(t_win *wn)
 	static int	time = 0;
 
 	setcloud(wn, a);
+	sort_cloud(wn);
 	SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 0);
 	SDL_RenderDrawRect(wn->rend, NULL);
 	//	bg_skybox(wn);
