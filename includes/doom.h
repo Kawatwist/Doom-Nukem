@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/21 10:53:22 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/21 11:02:03 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,9 @@ typedef struct		s_win
 	t_skybox		*skybox;
 	t_cloud			*cloud;
 	t_menu			*menu;
+
+	int				debugconsole;
+
 }					t_win;
 
 //GAME

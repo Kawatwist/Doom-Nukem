@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 16:39:46 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/20 19:30:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/21 11:20:48 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	menuinput(t_win *wn)
 		wn->menu->choice == 2 ? wn->interface = OPTION : 0;
 		wn->menu->choice == 3 ? stop_exec("Merci d'avoir jouer !\n", wn) : 0; // Verif que le joueur veut bien quitter
 	}
-	wn->state[SDL_SCANCODE_F5] && !wn->old[SDL_SCANCODE_F5] ? wn->debug *= -1 : 0;
+//	wn->state[SDL_SCANCODE_F5] && !wn->old[SDL_SCANCODE_F5] ? wn->debug *= -1 : 0;
 	setkeyboard(last, wn->state);
 }

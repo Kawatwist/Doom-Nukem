@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/17 14:36:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/21 11:00:46 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,8 @@ static void		loadmenu(t_win **wn)
 		i++;
 	}
 	pthread_join((thread[0].thd), NULL) != 0 ? printf("Failed\n") : 0;
-	(*wn)->turn = 3;
 	pthread_join((thread[1].thd), NULL);
-	(*wn)->turn = 2;
 	pthread_join((thread[2].thd), NULL);
-	(*wn)->turn = 1;
 	pthread_join((thread[3].thd), NULL);
 	(*wn)->turn = 0;
 //	if (pthread_kill(thread[0].thd, SIGUSR1) != 0)

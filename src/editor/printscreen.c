@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 11:07:03 by lomasse           #+#    #+#             */
-/*   Updated: 2019/03/30 16:38:22 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/21 11:24:11 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,4 @@ void		printeditor(t_win *wn)
 	SDL_SetRenderDrawColor(wn->rend, 50, 50, 50, 0);
 	SDL_RenderClear(wn->rend);
 	showmap(wn);
-	SDL_RenderPresent(wn->rend);
 }

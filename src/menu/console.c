@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 13:19:22 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/20 19:44:54 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/21 11:23:03 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	readcommand(t_win *wn)
 {
 	ft_strcmp(wn->command, "kill") == 0 ? stop_exec("YOU KILLED THE GAME !\n", wn): 0;
+	ft_strncmp(wn->command, "value", 5) == 0 && ft_strlen(wn->command) > 5? wn->debugconsole = ft_atoi(&(wn->command[5])): 0;
 	free(wn->command);
 	wn->command = NULL;
 }
@@ -43,6 +44,18 @@ static void inputconsole(t_win *wn)
 		else
 			(wn->state[i] && !wn->old[i]) ? (command = ft_strjoinfree(command, ft_strdup(a), 3)) : 0;
 	}
+	i = 88;
+	while (i++ < 97)
+	{
+		a[0] = (i + '1') - 89;
+		if (command == NULL)
+			(wn->state[i] && !wn->old[i]) ? (command = ft_strdup(a)) : 0;
+		else
+			(wn->state[i] && !wn->old[i]) ? (command = ft_strjoinfree(command, ft_strdup(a), 3)) : 0;
+	}
+	a[0] = '0';
+	(command == NULL && wn->state[98] && !wn->old[98]) ? (command = ft_strdup(a)) : 0;
+	(command != NULL && wn->state[98] && !wn->old[98]) ? (command = ft_strjoinfree(command, ft_strdup(a), 3)) : 0;
 	a[0] = ' ';
 	(wn->state[SDL_SCANCODE_SPACE] && !wn->old[SDL_SCANCODE_SPACE]) ? command = ft_strjoinfree(command, ft_strdup(a), 3) : 0;
 	(wn->state[SDL_SCANCODE_BACKSPACE] && !wn->old[SDL_SCANCODE_BACKSPACE]) && command != NULL && ft_strlen(command) ? (command[ft_strlen(command) - 1] = 0) : 0;
@@ -52,7 +65,7 @@ static void inputconsole(t_win *wn)
 		free(command);
 		command = NULL;
 	}
-	printf("%s\n", command);
+//	printf("%s\n", command);
 }
 
 static void showconsole(t_win *wn)

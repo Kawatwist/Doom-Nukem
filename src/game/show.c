@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:57:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/19 17:18:53 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/21 14:45:28 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,21 @@ static void	sort_cloud(t_win *wn)
 	}
 }
 
+static void show_cloud3(t_win *wn, t_cloud *clood)
+{
+	SDL_Rect	dst;
+
+	dst.x = ((wn->player->rawx) * 3) + clood->start;
+	dst.x += (clood->flag == 1 ? clood->tmp : -clood->tmp) * 3;
+	dst.y = 200 - (wn->player->rawy);
+	dst.w = (clood->life * clood->tmp * 0.0005);
+	dst.h = (clood->life * clood->tmp * 0.0005);
+	SDL_RenderCopy(wn->rend, clood->txt, NULL ,&dst);
+	if (clood->tmp >= clood->life)
+		clood->flag = 1;
+	clood->tmp += (clood->flag == 0 ? +2 : -2);
+}
+/*
 static void show_cloud2(t_win *wn, t_cloud *clood)
 {
 	SDL_Rect	dst;
@@ -141,7 +156,7 @@ static void show_cloud2(t_win *wn, t_cloud *clood)
 		clood->flag = 1;
 	clood->tmp += (clood->flag == 0 ? +2 : -2);
 }
-
+*/
 static void	display_cloud(t_win *wn, t_cloud *cloud)
 {
 	SDL_Rect	dst;
@@ -174,7 +189,7 @@ static void	bg_skybox(t_win *wn)
 	SDL_Rect dst;
 
 	src.y = (wn->player->rawy * (1600 - YSCREEN) / YSCREEN);
-	src.x = (wn->player->rawx * (4000 - XSCREEN) / XSCREEN);
+	src.x = ((XSCREEN - wn->player->rawx) * (4000 - XSCREEN) / XSCREEN);
 	src.w = XSCREEN;
 	src.h = YSCREEN;
 	dst.x = 0;
@@ -195,13 +210,14 @@ void		display_skybox(t_win *wn)
 	sort_cloud(wn);
 	SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 0);
 	SDL_RenderDrawRect(wn->rend, NULL);
-	//	bg_skybox(wn);
-	bg2_skybox(wn);
+//	bg_skybox(wn);
+	wn->debugconsole > 5 ? bg_skybox(wn) : bg2_skybox(wn);
 	//show_cloud(wn, 430, "bribri");
 	cloood = wn->cloud;
 	while (cloood != NULL)
 	{
-		show_cloud2(wn, cloood);
+//		show_cloud2(wn, cloood);
+		show_cloud3(wn, cloood);
 		cloood = cloood->next;
 	}
 	time++;
@@ -210,5 +226,4 @@ void		display_skybox(t_win *wn)
 		a ++;
 		time = 0;
 	}
-	SDL_RenderPresent(wn->rend);
 }
