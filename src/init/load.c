@@ -6,12 +6,12 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:35:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/08 16:19:35 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/11 17:55:51 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
-#include "../includes/tga_reader.h"
+#include "../../includes/doom.h"
+#include "../../includes/tga_reader.h"
 
 static void		fillpos(t_text *curr, char *type, char *subtype, char *name)
 {
@@ -30,7 +30,7 @@ t_text			*findpostxt(t_win *wn, char *type, char *subtype, char *name)
 	curr = wn->texture;
 	while (curr->next_type != NULL && ft_strcmp(type, curr->type))
 		curr = curr->next_type;
-	while (curr->next_subtype != NULL && ft_strcmp(subtype, curr->subtype) && !ft_strcmp(type, type))
+	while (curr->next_subtype != NULL && ft_strcmp(subtype, curr->subtype) && !ft_strcmp(type, curr->type))
 		curr = curr->next_subtype;
 	while (curr->next != NULL && ft_strcmp(name, curr->name) && !ft_strcmp(type, curr->type) && !ft_strcmp(subtype, curr->subtype))
 		curr = curr->next;
@@ -46,7 +46,7 @@ t_text			*findpos(t_win *wn, char *type, char *subtype, char *name)
 		curr = curr->next_type;
 	while (curr->next_subtype != NULL && ft_strcmp(subtype, curr->subtype) && !ft_strcmp(type, curr->type))
 		curr = curr->next_subtype;
-	while (curr->next != NULL && ft_strcmp(name, curr->name) && !ft_strcmp(type, curr->type) && !ft_strcmp(curr->subtype, curr->subtype))
+	while (curr->next != NULL && ft_strcmp(name, curr->name) && !ft_strcmp(type, curr->type) && !ft_strcmp(subtype, curr->subtype))
 		curr = curr->next;
 	if (ft_strcmp(curr->type, type))
 	{

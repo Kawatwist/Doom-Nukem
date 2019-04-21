@@ -6,11 +6,11 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 18:08:00 by lomasse           #+#    #+#             */
-/*   Updated: 2019/03/27 17:02:27 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/11 17:44:12 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/tga_reader.h"
+#include "../../includes/tga_reader.h"
 
 static void		swap_bytes(t_tga *tga, unsigned char *new, int i, int j)
 {
