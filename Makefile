@@ -126,7 +126,7 @@ libraries/lib/libSDL2_ttf.dylib: libraries/lib/libfreetype.dylib
 	mkdir -p libraries
 	cd libraries && curl https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -O
 	tar -xf ./libraries/SDL2_ttf-2.0.15.tar.gz -C libraries
-	cd libraries/SDL2_ttf-2.0.15 ; FT2_CONFIG=$(shell pwd)/libraries/dist/bin/freetype-config ./configure --prefix=$(shell pwd)/libraries
+	cd libraries/SDL2_ttf-2.0.15 ; ./configure --prefix=$(shell pwd)/libraries
 	make -C ./libraries/SDL2_ttf-2.0.15
 	make -C ./libraries/SDL2_ttf-2.0.15 install
 
