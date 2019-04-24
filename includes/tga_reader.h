@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 13:54:50 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/05 10:46:58 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/22 11:19:52 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,21 @@ typedef struct		s_tga
 	SDL_Surface		*surface;
 }					t_tga;
 
-void			sym_vert(t_tga *tga);
-void			rotatepxl(t_tga *tga);
-void			fill(t_tga *tga, unsigned char *base, unsigned char *tofill, int bpp);
-unsigned char 	*pxlbasecm(t_tga *tga, unsigned char *newstr);
-unsigned char	*pxlbase(t_tga *tga, unsigned char *newstr);
-int				createpxl(t_tga *tga);
-int				uncompress(t_tga *tga);
-int				getheader(t_tga *tga);
-int				getcm(t_tga *tga);
-int				getdata(t_tga *tga);
-int				getfile(t_tga *tga, const char *path);
-void			*cleartga(t_tga *tga);
-int				inittga(t_tga *tga);
-t_tga			*load_tga(const char *path);
-void			*free_tga(t_tga *tga);
+void				sym_vert(t_tga *tga);
+void				rotatepxl(t_tga *tga);
+void				fill(t_tga *tga, unsigned char *base,
+						unsigned char *tofill, int bpp);
+unsigned char		*pxlbasecm(t_tga *tga, unsigned char *newstr);
+unsigned char		*pxlbase(t_tga *tga, unsigned char *newstr);
+int					createpxl(t_tga *tga);
+int					uncompress(t_tga *tga);
+int					getheader(t_tga *tga);
+int					getcm(t_tga *tga);
+int					getdata(t_tga *tga);
+int					getfile(t_tga *tga, const char *path);
+void				*cleartga(t_tga *tga);
+int					inittga(t_tga *tga);
+t_tga				*load_tga(const char *path);
+void				*free_tga(t_tga *tga);
 
 #endif

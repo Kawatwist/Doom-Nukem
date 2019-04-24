@@ -6,13 +6,12 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 15:05:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/07 15:06:41 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/22 12:03:14 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 
-void		text_box()
+void	text_box()
 {
-
 }

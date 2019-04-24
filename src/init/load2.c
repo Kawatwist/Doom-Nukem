@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 11:10:40 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/05 13:27:33 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/22 11:46:46 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		showlinkedlist(t_win **wn, char *type, char *subtype)
 		printf("%s\n", curr->name);
 		printf("==========TYPE============\n");
 		if (curr == NULL || curr->name == NULL)
-			break;
+			break ;
 	}
 	while (curr->next_subtype != NULL && ft_strcmp(curr->subtype, subtype) != 0)
 	{
@@ -39,7 +39,7 @@ void		showlinkedlist(t_win **wn, char *type, char *subtype)
 		printf("=======================\n");
 		curr = curr->next_subtype;
 		if (curr == NULL || curr->name == NULL)
-			break;
+			break ;
 	}
 	printf("\n");
 	printf("FINAL TYPE=\t%s\n", curr->type);
@@ -67,7 +67,8 @@ SDL_Texture	*initload2(t_win **wn, const char *path)
 	}
 	else
 	{
-		surface = SDL_CreateRGBSurfaceWithFormatFrom(tga->data, tga->w, tga->h, 32, 4 * tga->w, SDL_PIXELFORMAT_ARGB32);
+		surface = SDL_CreateRGBSurfaceWithFormatFrom(tga->data,
+				tga->w, tga->h, 32, 4 * tga->w, SDL_PIXELFORMAT_ARGB32);
 		txt = SDL_CreateTextureFromSurface((*wn)->rend, surface);
 	}
 	return (txt);

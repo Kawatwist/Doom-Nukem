@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:35:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 17:55:51 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/22 11:53:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ t_text			*findpostxt(t_win *wn, char *type, char *subtype, char *name)
 	curr = wn->texture;
 	while (curr->next_type != NULL && ft_strcmp(type, curr->type))
 		curr = curr->next_type;
-	while (curr->next_subtype != NULL && ft_strcmp(subtype, curr->subtype) && !ft_strcmp(type, curr->type))
+	while (curr->next_subtype != NULL && ft_strcmp(subtype, curr->subtype)
+			&& !ft_strcmp(type, curr->type))
 		curr = curr->next_subtype;
-	while (curr->next != NULL && ft_strcmp(name, curr->name) && !ft_strcmp(type, curr->type) && !ft_strcmp(subtype, curr->subtype))
+	while (curr->next != NULL && ft_strcmp(name, curr->name)
+			&& !ft_strcmp(type, curr->type)
+			&& !ft_strcmp(subtype, curr->subtype))
 		curr = curr->next;
 	return (curr);
 }
@@ -44,27 +47,33 @@ t_text			*findpos(t_win *wn, char *type, char *subtype, char *name)
 	curr = wn->texture;
 	while (curr->next_type != NULL && ft_strcmp(type, curr->type))
 		curr = curr->next_type;
-	while (curr->next_subtype != NULL && ft_strcmp(subtype, curr->subtype) && !ft_strcmp(type, curr->type))
+	while (curr->next_subtype != NULL && ft_strcmp(subtype, curr->subtype)
+			&& !ft_strcmp(type, curr->type))
 		curr = curr->next_subtype;
-	while (curr->next != NULL && ft_strcmp(name, curr->name) && !ft_strcmp(type, curr->type) && !ft_strcmp(subtype, curr->subtype))
+	while (curr->next != NULL && ft_strcmp(name, curr->name)
+			&& !ft_strcmp(type, curr->type)
+			&& !ft_strcmp(subtype, curr->subtype))
 		curr = curr->next;
 	if (ft_strcmp(curr->type, type))
 	{
-		(curr->next_type = malloc(sizeof(t_text))) == NULL ? stop_exec("Malloc Failed\n", wn) : 0;
+		(curr->next_type = malloc(sizeof(t_text))) == NULL
+			? stop_exec("Malloc Failed\n", wn) : 0;
 		curr->next_type->before = curr;
-		curr =	curr->next_type;
+		curr = curr->next_type;
 	}
 	else if (ft_strcmp(curr->subtype, subtype))
 	{
-		(curr->next_subtype = malloc(sizeof(t_text))) == NULL ? stop_exec("Malloc Failed\n", wn) : 0;
+		(curr->next_subtype = malloc(sizeof(t_text))) == NULL
+			? stop_exec("Malloc Failed\n", wn) : 0;
 		curr->next_subtype->before = curr;
-		curr =	curr->next_subtype;
+		curr = curr->next_subtype;
 	}
 	else
 	{
-		(curr->next = malloc(sizeof(t_text))) == NULL ? stop_exec("Malloc Failed\n", wn) : 0;
+		(curr->next = malloc(sizeof(t_text))) == NULL
+			? stop_exec("Malloc Failed\n", wn) : 0;
 		curr->next->before = curr;
-		curr =	curr->next;
+		curr = curr->next;
 	}
 	fillpos(curr, type, subtype, name);
 	return (curr);
@@ -72,7 +81,8 @@ t_text			*findpos(t_win *wn, char *type, char *subtype, char *name)
 
 static int		tga2sur(t_tga *tga, t_win *wn, t_text *place)
 {
-	tga->surface = SDL_CreateRGBSurfaceWithFormatFrom(tga->data, tga->w, tga->h, 32, 4 * (tga->w), SDL_PIXELFORMAT_ARGB32);
+	tga->surface = SDL_CreateRGBSurfaceWithFormatFrom(tga->data,
+			tga->w, tga->h, 32, 4 * (tga->w), SDL_PIXELFORMAT_ARGB32);
 	if (tga->surface != NULL)
 		place->txt = SDL_CreateTextureFromSurface(wn->rend, tga->surface);
 	else
@@ -92,7 +102,7 @@ int				load_texture(t_win *wn, char *type, char *subtype, char *name)
 	t_text		*txt;
 	int			i;
 
-	if (ft_strcmp("main", type) == 0) 
+	if (ft_strcmp("main", type) == 0)
 		i = 0;
 	else if (ft_strcmp("editor", type) == 0)
 		i = 1;

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 09:27:37 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/17 14:19:21 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/23 18:41:27 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ static void		load_game(t_win **wn)
 	char	*name;
 	int		img;
 
-	name = ft_strdup("texture/intro/game/test0180.tga");
-	img = 180;
-	while (img <= 239)
+	name = ft_strdup("texture/intro/game/test0060.tga");
+	img = 60;
+	while (img <= 119)
 	{
 		(*wn)->tmp[3] = name;
 		load_texture(*wn, "game", "intro", ft_itoa(img));
@@ -80,19 +80,21 @@ static void		load_game(t_win **wn)
 	}
 }
 
-void			*load_intro(void	*params)
+void			*load_intro(void *params)
 {
 	t_thread	*thd;
-	t_win 		*wn;
-	int 		value;
+	t_win		*wn;
+	int			value;
 
-	thd = (t_thread *)params;	
+	thd = (t_thread *)params;
 	wn = (t_win *)thd->wn;
 	value = (int)thd->value;
 	value == 0 ? load_main(&wn) : 0;
 	value == 1 ? load_option(&wn) : 0;
 	value == 2 ? load_edit(&wn) : 0;
 	value == 3 ? load_game(&wn) : 0;
+	pthread_kill(thd->thd, 0);
+	pthread_exit(thd->thd);
 	pthread_exit(NULL);
 	return (0);
 }

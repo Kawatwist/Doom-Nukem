@@ -6,23 +6,55 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:57:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/21 14:45:28 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/23 18:33:33 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-/*while (i++ < XSCREEN)
-  {
-  SDL_SetRenderDrawColor(wn->rend, 255, i * 255 / XSCREEN, 255, 255);
-  ((wn->player->rawx + i) % (XSCREEN / 10)) == 0 ? SDL_RenderDrawLine(wn->rend, i, 0, i, YSCREEN): 0;
-  }
-  i = 0;
-  while (i++ < YSCREEN)
-  {
-  SDL_SetRenderDrawColor(wn->rend, 255, i * 255 / YSCREEN, 255, 255);
-  ((wn->player->rawy + i) % (YSCREEN / 10)) == 0 ? SDL_RenderDrawLine(wn->rend, 0, i, XSCREEN, i): 0;
-  }*/
+void		setcloudsize(t_win *wn)
+{
+	t_cloud *tmp;
+
+	tmp = wn->cloud;
+	while (tmp != NULL && tmp->next != NULL)
+	{
+		tmp->currsize = (((float)(tmp->life / ((tmp->life - tmp->tmp == 0 ? 1 : (tmp->life - tmp->tmp))))) * (tmp->size));
+//		printf("%d / %d == %d\n", tmp->tmp, tmp->life, tmp->currsize);
+		tmp = tmp->next;
+	}
+}
+
+void		deletcloud(t_win *wn)
+{
+	t_cloud *tmp;
+	t_cloud *tmp2;
+
+	tmp = wn->cloud;
+	while (tmp != NULL && tmp->next != NULL && tmp == wn->cloud)
+	{
+		if (tmp->flag && !tmp->tmp)
+		{
+			wn->cloud = tmp->next;
+			free(tmp);
+			tmp = wn->cloud;
+		}
+		else
+			break ;
+	}
+	tmp = wn->cloud;
+	while (tmp != NULL && tmp->next != NULL && tmp->next->next != NULL)
+	{
+		if (tmp->next->flag == 1 && tmp->next->tmp == 0)
+		{
+			tmp2 = tmp->next->next;
+			free(tmp->next);
+			tmp->next = tmp2;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
 
 void		setcloud(t_win *wn, int nb_cloud)
 {
@@ -31,17 +63,8 @@ void		setcloud(t_win *wn, int nb_cloud)
 	int		nb;
 
 	tmp = wn->cloud;
-	while (tmp != NULL && tmp->next != NULL)
-	{
-		if (tmp->flag == 1 && tmp->tmp == 0)
-		{
-			wn->cloud = tmp->next;
-			free(tmp);
-			tmp = wn->cloud;
-		}
-		tmp = tmp->next;
-	}
-	tmp = wn->cloud;
+	deletcloud(wn);
+	setcloudsize(wn);
 	nb = 0;
 	while (nb < nb_cloud)
 	{
@@ -52,9 +75,11 @@ void		setcloud(t_win *wn, int nb_cloud)
 		}
 		else
 		{
-			(tmp->next = malloc(sizeof(t_cloud))) == NULL ? stop_exec("Fail malloc cloud\n", wn): 0;
+			(tmp->next = malloc(sizeof(t_cloud))) == NULL
+				? stop_exec("Fail malloc cloud\n", wn) : 0;
 			tmp = tmp->next;
-			img = (findpostxt(wn, "game", "skybox", rand() % 2 == 0 ? "bribri" : "cloudy"));
+			img = (findpostxt(wn, "game", "skybox",
+						rand() % 2 == 0 ? "bribri" : "cloudy"));
 			tmp->txt = img->txt;
 			tmp->tmp = 0;
 			tmp->flag = 0;
@@ -67,6 +92,7 @@ void		setcloud(t_win *wn, int nb_cloud)
 		}
 	}
 }
+
 /*
    static void show_cloud(t_win *wn, int x, char *name)
    {
@@ -79,12 +105,14 @@ void		setcloud(t_win *wn, int nb_cloud)
    i = 0;
    img = findpostxt(wn, "game", "skybox", name);
    SDL_SetRenderDrawColor(wn->rend, 255, 0, 0, 255);
-   dst.x = ((wn->player->rawx) * 3) + ((flag == 0 ? tmp : (700 + 700 - tmp)) * 2) + x;
+   dst.x = ((wn->player->rawx) * 3) +
+   ((flag == 0 ? tmp : (700 + 700 - tmp)) * 2) + x;
    dst.y = 200 - (wn->player->rawy);
    dst.w = 100 * (tmp * 0.01);
    dst.h = 100 * (tmp * 0.01);
    SDL_RenderCopy(wn->rend, img->txt, NULL ,&dst);
-   dst.x = ((wn->player->rawx -XSCREEN) * 3) + ((flag == 0 ? tmp : (700 + 700 - tmp)) * 2) + x;
+   dst.x = ((wn->player->rawx -XSCREEN) * 3) +
+   ((flag == 0 ? tmp : (700 + 700 - tmp)) * 2) + x;
    SDL_RenderCopy(wn->rend, img->txt, NULL ,&dst);
    if (tmp == 0)
    flag = 0;
@@ -104,7 +132,7 @@ static void	sort_cloud(t_win *wn)
 	cur = wn->cloud;
 	while (cur != NULL && cur->next != NULL)
 	{
-		if (cur == wn->cloud && cur->size > cur->next->size)
+		if (cur == wn->cloud && cur->currsize > cur->next->currsize)
 		{
 			tmp = cur;
 			tmp_next = cur->next;
@@ -113,11 +141,13 @@ static void	sort_cloud(t_win *wn)
 			tmp_next->next = cur;
 			wn->cloud = tmp_next;
 		}
-		else if (cur->next->next != NULL && cur->next->size > cur->next->next->size)
+		else if (cur->next->next != NULL
+				&& cur->next->currsize > cur->next->next->currsize)
 		{
 			tmp_next = cur->next;
 			tmp_next2 = cur->next->next;
-			tmp_next2->next == NULL ? tmp_next->next = NULL : (tmp_next->next = tmp_next2->next);
+			tmp_next2->next == NULL ? tmp_next->next = NULL :
+				(tmp_next->next = tmp_next2->next);
 			cur->next = tmp_next2;
 			cur->next->next = tmp_next;
 		}
@@ -130,39 +160,40 @@ static void show_cloud3(t_win *wn, t_cloud *clood)
 {
 	SDL_Rect	dst;
 
-	dst.x = ((wn->player->rawx) * 3) + clood->start;
-	dst.x += (clood->flag == 1 ? clood->tmp : -clood->tmp) * 3;
+	dst.x = ((wn->player->rawx)) + clood->start;
+	dst.x += (clood->flag == 1 ? clood->tmp : -clood->tmp);
 	dst.y = 200 - (wn->player->rawy);
-	dst.w = (clood->life * clood->tmp * 0.0005);
-	dst.h = (clood->life * clood->tmp * 0.0005);
-	SDL_RenderCopy(wn->rend, clood->txt, NULL ,&dst);
+	dst.w = (clood->currsize);
+	dst.h = (clood->currsize);
+	SDL_RenderCopy(wn->rend, clood->txt, NULL, &dst);
 	if (clood->tmp >= clood->life)
 		clood->flag = 1;
 	clood->tmp += (clood->flag == 0 ? +2 : -2);
 }
 /*
-static void show_cloud2(t_win *wn, t_cloud *clood)
-{
-	SDL_Rect	dst;
+   static void show_cloud2(t_win *wn, t_cloud *clood)
+   {
+   SDL_Rect	dst;
 
-	dst.x = ((wn->player->rawx) * 3) + ((clood->flag == 0 ? clood->tmp : (clood->life + clood->life + (clood->sens == 0 ? (-clood->tmp) : clood->tmp))) * 2) + clood->start;
-	dst.y = 200 - (wn->player->rawy);
-	dst.w = (clood->life * 0.5) * (clood->tmp * 0.01);
-	dst.h = (clood->life * 0.5) * (clood->tmp * 0.01);
-	SDL_RenderCopy(wn->rend, clood->txt, NULL ,&dst);
-	dst.x = ((wn->player->rawx -XSCREEN) * 3) + ((clood->flag == 0 ? clood->tmp : (clood->life + clood->life + (clood->sens == 0 ? -clood->tmp : clood->tmp)) * 2) + clood->start);
-	SDL_RenderCopy(wn->rend, clood->txt, NULL ,&dst);
-	if (clood->tmp >= clood->life)
-		clood->flag = 1;
-	clood->tmp += (clood->flag == 0 ? +2 : -2);
-}
-*/
-static void	display_cloud(t_win *wn, t_cloud *cloud)
-{
-	SDL_Rect	dst;
-
-
-}
+   dst.x = ((wn->player->rawx) * 3) +
+   ((clood->flag == 0 ? clood->tmp :
+   (clood->life + clood->life +
+   (clood->sens == 0 ? (-clood->tmp) : clood->tmp))) * 2) + clood->start;
+   dst.y = 200 - (wn->player->rawy);
+   dst.w = (clood->life * 0.5) * (clood->tmp * 0.01);
+   dst.h = (clood->life * 0.5) * (clood->tmp * 0.01);
+   SDL_RenderCopy(wn->rend, clood->txt, NULL ,&dst);
+   dst.x = ((wn->player->rawx -XSCREEN) * 3) +
+   ((clood->flag == 0 ? clood->tmp :
+   (clood->life + clood->life +
+   (clood->sens == 0 ? -clood->tmp :
+   clood->tmp)) * 2) + clood->start);
+   SDL_RenderCopy(wn->rend, clood->txt, NULL ,&dst);
+   if (clood->tmp >= clood->life)
+   clood->flag = 1;
+   clood->tmp += (clood->flag == 0 ? +2 : -2);
+   }
+   */
 
 static void	bg2_skybox(t_win *wn)
 {
@@ -173,7 +204,7 @@ static void	bg2_skybox(t_win *wn)
 	(src.y = (wn->player->rawy * 800 / YSCREEN)) > 400 ? src.y = 400 : 0;
 	src.x = 0;
 	src.w = 1;
-	src.h = 600;
+	src.h = 400;
 	dst.x = 0;
 	dst.y = 0;
 	dst.w = XSCREEN;
@@ -184,9 +215,9 @@ static void	bg2_skybox(t_win *wn)
 
 static void	bg_skybox(t_win *wn)
 {
-	t_text	*img;
-	SDL_Rect src;
-	SDL_Rect dst;
+	t_text		*img;
+	SDL_Rect	src;
+	SDL_Rect	dst;
 
 	src.y = (wn->player->rawy * (1600 - YSCREEN) / YSCREEN);
 	src.x = ((XSCREEN - wn->player->rawx) * (4000 - XSCREEN) / XSCREEN);
@@ -202,26 +233,24 @@ static void	bg_skybox(t_win *wn)
 
 void		display_skybox(t_win *wn)
 {
-	t_cloud	*cloood;
+	t_cloud		*cloood;
 	static int	a = 5;
 	static int	time = 0;
 
 	setcloud(wn, a);
+	setcloudsize(wn);
 	sort_cloud(wn);
 	SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 0);
 	SDL_RenderDrawRect(wn->rend, NULL);
-//	bg_skybox(wn);
 	wn->debugconsole > 5 ? bg_skybox(wn) : bg2_skybox(wn);
-	//show_cloud(wn, 430, "bribri");
 	cloood = wn->cloud;
 	while (cloood != NULL)
 	{
-//		show_cloud2(wn, cloood);
 		show_cloud3(wn, cloood);
 		cloood = cloood->next;
 	}
 	time++;
-	if (time > 700)
+	if (time > (rand() % 200) + 700)
 	{
 		a ++;
 		time = 0;

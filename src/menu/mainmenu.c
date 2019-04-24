@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:02:03 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 16:41:35 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/22 15:11:25 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	menu(t_win *wn)
 		else if (wn->oldinterface == OPTION)
 			mainintro(wn, "option", "intro", -120);
 		else if (wn->oldinterface == GAME)
-			mainintro(wn, "game", "intro", -180);
+			mainintro(wn, "game", "intro", -60);
 		wn->oldinterface = wn->interface;
 	}
 	menuinput(wn);

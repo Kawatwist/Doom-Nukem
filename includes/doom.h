@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/21 11:02:03 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/22 12:00:37 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include "skybox.h"
 # include "../SDL2-2.0.9/include/SDL.h"
 
-# define	XSCREEN 1500
-# define	YSCREEN 1200
+# define XSCREEN 1500
+# define YSCREEN 1200
 
 typedef enum		e_bool
 {
@@ -95,9 +95,9 @@ typedef struct		s_menu
 
 typedef	struct		s_input
 {
-	Uint32		mouse;
-	int			x;
-	int			y;
+	Uint32			mouse;
+	int				x;
+	int				y;
 }					t_input;
 
 typedef struct		s_win
@@ -114,7 +114,7 @@ typedef struct		s_win
 	int				turn;
 	Uint8			*state;
 	Uint8			*old;
-	t_input			*input;	
+	t_input			*input;
 	SDL_Event		ev;
 	SDL_Window		*window;
 	SDL_Renderer	*rend;
@@ -125,7 +125,6 @@ typedef struct		s_win
 	t_map			*map;
 	t_elem			*elem;
 	t_joueur		*player;
-	t_skybox		*skybox;
 	t_cloud			*cloud;
 	t_menu			*menu;
 
@@ -133,19 +132,27 @@ typedef struct		s_win
 
 }					t_win;
 
-//GAME
+/**
+ ** GAME
+ **/
 void				display_skybox(t_win *wn);
 
-//EDIT
+/**
+ ** EDIT
+ **/
 void				edit(t_win *wn);
 void				inputeditor(t_win *wn);
 void				printeditor(t_win *wn);
 
 void				mainconsole(t_win *wn);
 
-//INIT
-t_text				*findpostxt(t_win *wn, char *type, char *subtype, char *name);
-t_text				*findpos(t_win *wn, char *type, char *subtype, char *name);
+/**
+ ** INIT
+ **/
+t_text				*findpostxt(t_win *wn, char *type,
+						char *subtype, char *name);
+t_text				*findpos(t_win *wn, char *type,
+						char *subtype, char *name);
 int					parsearg(int argc, char **argv, t_win **wn);
 void				showload(t_win **wn, int load);
 int					init(t_win **wn, int argc, char **argv);
@@ -154,21 +161,27 @@ void				initsdl(t_win **wn);
 void				init_input(t_win **wn);
 void				initskybox(t_win **wn);
 void				initplayer(t_win **wn);
-int					load_texture(t_win *wn, char *type, char *subtype, char *name);
+int					load_texture(t_win *wn, char *type,
+						char *subtype, char *name);
 void				*load_intro(void *params);
 void				inittexture(t_win **wn);
 SDL_Texture			*initload2(t_win **wn, const char *path);
 void				showlinkedlist(t_win **wn, char *type, char *subtype);
 void				initload(t_win **wn);
-SDL_Texture			*findtexture(t_win *wn, char *type, char *subtype, char *name);
+SDL_Texture			*findtexture(t_win *wn, char *type,
+						char *subtype, char *name);
 void				init_cloud(t_win **wn);
 
-//OPTION
+/**
+ ** OPTION
+ **/
 void				option(t_win *wn);
 void				optioninput(t_win *wn);
 void				showoption(t_win *wn);
 
-//CINE
+/**
+ ** CINE
+ **/
 char				*changename(char *name, int place);
 void				showintro(t_win *wn, t_text *img);
 void				showreverseintro(t_win *wn, t_text *img);
@@ -178,7 +191,9 @@ void				menu(t_win *wn);
 void				menuinput(t_win *wn);
 void				showmenu(t_win *wn);
 
-//MAIN
+/**
+ ** MAIN
+ **/
 void				turn(t_win *wn);
 void				game(t_win *wn);
 void				gameinput(t_win *wn);

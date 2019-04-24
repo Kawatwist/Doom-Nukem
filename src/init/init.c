@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/21 11:00:46 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/23 18:36:46 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		loadminimenu(t_win **wn)
 
 static void		*loadingthread(void *param)
 {
-	t_win 	**wn;
+	t_win	**wn;
 	int		value;
 	int		i;
 
@@ -30,11 +30,10 @@ static void		*loadingthread(void *param)
 	while (TRUE)
 	{
 		showload(wn, value);
-//		value = (*((*wn)->load) * 70 / 270) + 30;
-		value = 30;
+		value = ((*wn)->load * 70 / 270) + 30;
 		i++;
 		if ((*wn)->turn == 0)
-			break;
+			break ;
 	}
 	return (0);
 }
@@ -42,7 +41,6 @@ static void		*loadingthread(void *param)
 static void		loadmenu(t_win **wn)
 {
 	t_thread	thread[4];
-
 	int			i;
 	int			load;
 
@@ -56,16 +54,11 @@ static void		loadmenu(t_win **wn)
 		pthread_create(&thread[i].thd, NULL, load_intro, (void *)&(thread[i]));
 		i++;
 	}
-	pthread_join((thread[0].thd), NULL) != 0 ? printf("Failed\n") : 0;
+	pthread_join((thread[0].thd), NULL);
 	pthread_join((thread[1].thd), NULL);
 	pthread_join((thread[2].thd), NULL);
 	pthread_join((thread[3].thd), NULL);
 	(*wn)->turn = 0;
-//	if (pthread_kill(thread[0].thd, SIGUSR1) != 0)
-//		printf("failed\n");
-//	pthread_kill(thread[1].thd, SIGUSR1);
-//	pthread_kill(thread[2].thd, SIGUSR1);
-//	pthread_kill(thread[3].thd, SIGUSR1);
 }
 
 void			showload(t_win **wn, int load)

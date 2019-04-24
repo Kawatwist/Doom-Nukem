@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 11:46:50 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 16:41:21 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/22 11:54:23 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,20 @@ SDL_Texture		*findtexture(t_win *wn, char *type, char *subtype, char *name)
 	{
 		loaded = loaded->next_type;
 		if (loaded == NULL || loaded->name == NULL)
-			break;
+			break ;
 	}
-	while (loaded->next_subtype != NULL && ft_strcmp(loaded->subtype, subtype) != 0)
+	while (loaded->next_subtype != NULL
+			&& ft_strcmp(loaded->subtype, subtype) != 0)
 	{
 		loaded = loaded->next_subtype;
 		if (loaded == NULL || loaded->name == NULL)
-			break;
+			break ;
 	}
 	while (loaded->next != NULL && ft_strcmp(loaded->name, name) != 0)
 	{
 		loaded = loaded->next;
 		if (loaded == NULL || loaded->name == NULL)
-			break;
+			break ;
 	}
 	if (loaded->name == NULL || loaded->txt == NULL)
 		return (wn->txtnotload);

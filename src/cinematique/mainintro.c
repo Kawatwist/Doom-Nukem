@@ -6,13 +6,13 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 17:05:46 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 18:30:42 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/22 11:29:28 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-void		mainintro(t_win *wn, char *type, char *subtype, int	pos)
+void		mainintro(t_win *wn, char *type, char *subtype, int pos)
 {
 	t_text	*img;
 	int		place;

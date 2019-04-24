@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 11:07:03 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/21 11:24:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/22 11:32:43 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ static void	showelem(t_win *wn)
 		SDL_SetRenderDrawColor(wn->rend, 200, 200, 200, 0);
 		if (ft_strcmp(curr->name, "Line") == 0)
 		{
-			SDL_RenderDrawLine(wn->rend, (curr->x1 * wn->map->size) + wn->map->x, (curr->y1 * wn->map->size) + wn->map->y, (curr->x2 * wn->map->size) + wn->map->x, (curr->y2 * wn->map->size) + wn->map->y);
+			SDL_RenderDrawLine(wn->rend,
+					(curr->x1 * wn->map->size) + wn->map->x,
+					(curr->y1 * wn->map->size) + wn->map->y,
+					(curr->x2 * wn->map->size) + wn->map->x,
+					(curr->y2 * wn->map->size) + wn->map->y);
 		}
 		else if (ft_strcmp(curr->name, "Rect") == 0)
 		{
@@ -34,7 +38,7 @@ static void	showelem(t_win *wn)
 			SDL_RenderDrawRect(wn->rend, &rect);
 		}
 		if (curr->next == NULL)
-			break;
+			break ;
 		curr = curr->next;
 	}
 }
@@ -48,17 +52,20 @@ static void	showline2(t_win *wn)
 	i = wn->map->x;
 	if (wn->map->size > 1)
 	{
-		SDL_SetRenderDrawColor(wn->rend, 50 + (wn->map->size * 20 / 6), 50 + (wn->map->size * 20 / 6), 50 + (wn->map->size * 20 / 6), 0);
-
+		SDL_SetRenderDrawColor(wn->rend, 50 + (wn->map->size * 20 / 6),
+				50 + (wn->map->size * 20 / 6),
+				50 + (wn->map->size * 20 / 6), 0);
 		while (j <= wn->map->y + wn->map->h)
 		{
-			SDL_RenderDrawLine(wn->rend, wn->map->x, j, wn->map->w + wn->map->x, j);
+			SDL_RenderDrawLine(wn->rend, wn->map->x, j,
+					wn->map->w + wn->map->x, j);
 			j += wn->map->h / 40;
 		}
 		j = wn->map->y;
 		while (i <= wn->map->x + wn->map->w)
 		{
-			SDL_RenderDrawLine(wn->rend, i, wn->map->y, i, wn->map->h + wn->map->y);
+			SDL_RenderDrawLine(wn->rend, i, wn->map->y, i,
+					wn->map->h + wn->map->y);
 			i += wn->map->w / 40;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:46:22 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 17:20:54 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/23 15:53:26 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,38 @@ void	intro(t_win *wn)
 
 void	showreverseintro(t_win *wn, t_text *img)
 {
+	Uint32 difftime;
+	Uint32 time;
+	
 	if (img != NULL)
 	{
 		while (img->before != NULL)
 		{
+			time = SDL_GetTicks();
 			SDL_RenderCopy(wn->rend, img->txt, NULL, NULL);
 			SDL_RenderPresent(wn->rend);
 			img = img->before;
-			SDL_Delay(30);
+			difftime = SDL_GetTicks();
+			SDL_Delay(difftime - time < 1000 / 30 ? (1000 / 30) - (difftime - time) :  0);
 		}
 	}
 }
 
 void	showintro(t_win *wn, t_text *img)
 {
+	Uint32 difftime;
+	Uint32 time;
+	
 	if (img != NULL)
 	{
 		while (img->next != NULL)
 		{
+			time = SDL_GetTicks();
 			SDL_RenderCopy(wn->rend, img->txt, NULL, NULL);
 			SDL_RenderPresent(wn->rend);
 			img = img->next;
-			SDL_Delay(30);
+			difftime = SDL_GetTicks();
+			SDL_Delay(difftime - time < 1000 / 30 ? (1000 / 30) - (difftime - time) :  0);
 		}
 	}
 }
-

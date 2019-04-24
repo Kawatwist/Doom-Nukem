@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 17:15:15 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/20 19:19:22 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/22 11:45:56 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	inittext2(t_win **wn, int parts, char *type, char *subtype)
 {
 	t_text	*text;
+
 	text = (*wn)->texture;
 	if (parts == 1)
 	{
@@ -35,9 +36,10 @@ static void	inittext2(t_win **wn, int parts, char *type, char *subtype)
 			text = text->next_subtype;
 }
 
-static void inittext(t_win **wn)
+static void	inittext(t_win **wn)
 {
-	((*wn)->texture = malloc(sizeof(t_text))) == NULL ? stop_exec("malloc failed\n", *wn): 0;
+	((*wn)->texture = malloc(sizeof(t_text))) == NULL
+		? stop_exec("malloc failed\n", *wn) : 0;
 	(*wn)->texture->type = ft_strdup("main");
 	(*wn)->texture->subtype = ft_strdup("intro");
 	(*wn)->texture->name = ft_strdup("none");
@@ -53,7 +55,6 @@ static void inittext(t_win **wn)
 static void	initelem(t_win **wn)
 {
 	t_elem	*new;
-
 
 	((*wn)->elem = malloc(sizeof(t_elem))) == NULL ? exit(0) : 0;
 	(*wn)->elem->name = ft_strdup("Line");
@@ -93,7 +94,7 @@ static void	initmenu(t_win **wn)
 	(*wn)->menu->choice = 0;
 }
 
-void	initwn(t_win **wn)
+void		initwn(t_win **wn)
 {
 	ft_bzero(*wn, sizeof(t_win));
 	(*wn)->interface = MENU;
