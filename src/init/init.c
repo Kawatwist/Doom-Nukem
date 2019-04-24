@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/doom.h"
+#include "doom.h"
 
 static void		loadminimenu(t_win **wn)
 {
@@ -18,25 +18,25 @@ static void		loadminimenu(t_win **wn)
 	load_texture(*wn, "main", "intro", "60");
 }
 
-static void		*loadingthread(void *param)
-{
-	t_win	**wn;
-	int		value;
-	int		i;
+// static void		*loadingthread(void *param)
+// {
+// 	t_win	**wn;
+// 	int		value;
+// 	int		i;
 
-	i = 0;
-	wn = &((t_thread *)param)->wn;
-	value = 30;
-	while (TRUE)
-	{
-		showload(wn, value);
-		value = ((*wn)->load * 70 / 270) + 30;
-		i++;
-		if ((*wn)->turn == 0)
-			break ;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	wn = &((t_thread *)param)->wn;
+// 	value = 30;
+// 	while (TRUE)
+// 	{
+// 		showload(wn, value);
+// 		value = ((*wn)->load * 70 / 270) + 30;
+// 		i++;
+// 		if ((*wn)->turn == 0)
+// 			break ;
+// 	}
+// 	return (0);
+// }
 
 static void		loadmenu(t_win **wn)
 {

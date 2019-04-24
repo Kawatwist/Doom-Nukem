@@ -6,16 +6,23 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/04/21 10:53:38 by lomasse          ###   ########.fr        #
+#    Updated: 2019/04/09 17:52:24 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= doom
 
-BASE_SRC		= main.c										\
-				  turn.c
+HEADER 			= $(shell find includes -type f) $(shell find libraries/include -type f)
 
-INIT_SRC		= init.c										\
+SRC_PATH		= $(shell find src -type d)
+
+INC_PATH 		= $(shell find includes -type d) $(shell find libft -type d) $(shell find libraries/include -type d) \
+
+OBJ_PATH		= OBJ
+
+SRC				= main.c										\
+				  turn.c 										\
+				  init.c										\
 				  parse.c										\
 				  initwn.c										\
 				  sdl.c											\
@@ -23,112 +30,161 @@ INIT_SRC		= init.c										\
 				  load2.c										\
 				  load_intro.c									\
 				  texture.c										\
-				  skybox.c										\
-				  player.c										\
-				  init_input.c
-
-GAME_SRC		= input.c										\
-				  maingame.c									\
-				  show.c
-
-MENU_SRC		= mainmenu.c									\
+				  maingame.c 									\
+				  mainmenu.c									\
 				  menuinput.c									\
-				  show.c										\
-				  console.c
-
-EDITOR_SRC		= mainedit.c									\
+				  game_show.c 									\
+				  mainedit.c									\
 				  printscreen.c 								\
-				  input.c
-
-OPTION_SRC		= mainoption.c									\
+				  mainoption.c									\
 				  optioninput.c									\
 				  showoption.c									\
-
-TGA_SRC			= data.c										\
+				  data.c										\
 				  filldata.c									\
 				  createpxl.c									\
 				  uncompress.c									\
 				  rot.c											\
-				  tga_main.c
+				  tga_main.c 									\
+				  intro.c										\
+				  mainintro.c 									\
+				  editor_input.c 								\
+				  game_input.c 									\
+				  skybox.c 										\
+				  init_input.c 									\
+				  player.c 										\
+				  console.c 									\
+				  menu_show.c 									\
 
-CINE_SRC		= intro.c										\
-				  mainintro.c
+OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 
-BASE_PATH		= ./src/
+LIBS 			= SDL2 SDL2_mixer SDL2_ttf freetype ft
 
-GAME_PATH		= ./src/game/
+LIB_PATH 		= ./libft \
+				  ./libraries/lib \
 
-EDITOR_PATH		= ./src/editor/
+FRAMEWORK 		= OpenGL AppKit
 
-INIT_PATH		= ./src/init/
+CC 				= gcc
 
-MENU_PATH		= ./src/menu/
+vpath %.c $(foreach dir, $(SRC_PATH), $(dir):)
 
-OPTION_PATH		= ./src/option/
+IFLAG			= $(foreach dir, $(INC_PATH), -I$(dir) )
 
-TGA_PATH		= ./src/tga/
+CFLAG 			= -Wall -Wextra -Werror
 
-CINE_PATH		= ./src/cinematique/
+LFLAG 			= $(foreach dir, $(LIB_PATH), -L $(dir) ) $(foreach lib, $(LIBS), -l$(lib) ) $(foreach fmw, $(FRAMEWORK), -framework $(fmw) ) \
 
-OBJ_PATH		= ./OBJ
+LIBFTA			= ./libft \
 
-SRCS			=	$(addprefix $(BASE_PATH), $(BASE_SRC))			\
-					$(addprefix $(GAME_PATH), $(GAME_SRC))			\
-					$(addprefix $(INIT_PATH), $(INIT_SRC))			\
-					$(addprefix $(MENU_PATH), $(MENU_SRC))			\
-					$(addprefix $(OPTION_PATH), $(OPTION_SRC))		\
-					$(addprefix $(EDITOR_PATH), $(EDITOR_SRC))		\
-					$(addprefix $(TGA_PATH), $(TGA_SRC))			\
-					$(addprefix $(CINE_PATH), $(CINE_SRC))			\
-
-INC				= -I ./includes
-
-LIB				= -L ./libft/
-
-GCC				= gcc
-
-FLAGS			= -Wall -Wextra -Werror
+IMAGE 			= ./libraries \
 
 DEBUG			= -g -fsanitize=address
 
-OBJS			= $(addprefix $(OBJ), $(SRCS:.c=.o))
+all: $(NAME)
 
-MAKELIB			= make re -C libft/
+$(NAME): $(IMAGE) $(OBJ)
+	$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG)
 
-LIBFT			= -Llibft/ -lft
-LIB_FT			= libft/libft.a
+$(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
+	mkdir -p $(OBJ_PATH)
+	$(CC) $(CFLAG) -o $@ -c $< $(IFLAG)
 
-LIBSDL			= -L ./libui -lSDL2 -lSDL2_mixer -lpthread
+$(IMAGE): FORCE
+	make image
 
-SDL_DIR			= SDL2-2.0.9
-SDL_LIB			= $(SDL_DIR)/build/.libs/libSDL2.a
-SDL_INC			= -I ./$(SDL_DIR)/include/
-
-FRAME			= -framework OpenGL -framework AppKit
-
-
-%.o: %.c ./includes/doom.h ./includes/tga_reader.h ./includes/skybox.h ./includes/player.h
-	@$(GCC) $(INC) $(SDL_INC) -o $@ -c $< $(FLAGS)
-
-$(NAME): $(SDL_DIR) $(LIB_FT) $(OBJS)
-	@$(GCC) -o $@ `sdl2-config --cflags --libs` $(OBJS) $(LIB) $(LIBFT) $(SDL_INC) $(FRAME) $(FLAGS) $(DEBUG)
-
-$(LIB_FT):
+$(LIBFTA): FORCE
 	make -C libft
 
-$(SDL_DIR):
-	$(shell tar -xzf ./libui/$(SDL_DIR).tar.gz)
-	cd $(SDL_DIR) && ./configure
-	cd $(SDL_DIR) && make
-
-all : $(NAME)
+FORCE:
 
 clean :
-	@rm -rf $(OBJS) ; echo "Obj Cleaned"
+	@rm -rf $(OBJ)
 
 fclean : clean
-	@rm -rf $(NAME) ; echo "Exec Cleaned"
+	@rm -rf $(NAME)
 
 re : fclean all
 
-.PHONY : all clean fclean re
+relib:
+	make re -C libft
+
+resdl:
+	rm -rf ./libraries
+	make image
+
+image: libraries/lib/libSDL2_mixer.dylib
+
+libraries/lib/libSDL2_mixer.dylib: libraries/lib/libSDL2_ttf.dylib
+	mkdir -p libraries
+	cd libraries && curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -O
+	tar -xf ./libraries/SDL2_mixer-2.0.4.tar.gz -C libraries
+	cd libraries/SDL2_mixer-2.0.4 ; ./configure --prefix=$(shell pwd)/libraries
+	make -C ./libraries/SDL2_mixer-2.0.4
+	make -C ./libraries/SDL2_mixer-2.0.4 install
+
+libraries/lib/libSDL2_ttf.dylib: libraries/lib/libfreetype.dylib
+	mkdir -p libraries
+	cd libraries && curl https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -O
+	tar -xf ./libraries/SDL2_ttf-2.0.15.tar.gz -C libraries
+	cd libraries/SDL2_ttf-2.0.15 ; FT2_CONFIG=$(shell pwd)/libraries/dist/bin/freetype-config ./configure --prefix=$(shell pwd)/libraries
+	make -C ./libraries/SDL2_ttf-2.0.15
+	make -C ./libraries/SDL2_ttf-2.0.15 install
+
+libraries/lib/libfreetype.dylib: libraries/lib/libSDL2.dylib
+	mkdir -p libraries
+	cd libraries && curl https://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz -LO
+	tar -xf ./libraries/freetype-2.4.11.tar.gz -C libraries
+	cd libraries/freetype-2.4.11 ; ./configure --prefix=$(shell pwd)/libraries
+	make -C ./libraries/freetype-2.4.11
+	make -C ./libraries/freetype-2.4.11 install
+
+libraries/lib/libSDL2.dylib: 
+	mkdir -p libraries
+	cd libraries && curl https://www.libsdl.org/release/SDL2-2.0.8.tar.gz -O
+	tar -xf libraries/SDL2-2.0.8.tar.gz -C libraries
+	cd libraries/SDL2-2.0.8 ; ./configure --prefix=$(shell pwd)/libraries
+	make -C ./libraries/SDL2-2.0.8
+	make -C ./libraries/SDL2-2.0.8 install
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.PHONY : all clean fclean re debug image
