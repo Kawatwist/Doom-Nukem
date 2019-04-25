@@ -12,11 +12,11 @@
 
 NAME			= doom
 
-HEADER 			= $(shell find includes -type f) $(shell find libraries/include -type f)
+HEADER 			= $(shell find includes -type f) $(shell find libraries/include -type f 2>/dev/null || true)
 
 SRC_PATH		= $(shell find src -type d)
 
-INC_PATH 		= $(shell find includes -type d) $(shell find libft -type d) $(shell find libraries/include -type d) \
+INC_PATH 		= $(shell find includes -type d) $(shell find libft -type d) $(shell find libraries/include -type d 2>/dev/null || true) \
 
 OBJ_PATH		= OBJ
 
@@ -90,7 +90,7 @@ $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
 	$(CC) $(CFLAG) -o $@ -c $< $(IFLAG)
 
 $(IMAGE): FORCE
-	make image
+	@make image
 
 $(LIBFTA): FORCE
 	make -C libft
@@ -98,10 +98,16 @@ $(LIBFTA): FORCE
 FORCE:
 
 clean :
+	@echo "Cleaning the project ...\c"
+	@make clean -C libft
 	@rm -rf $(OBJ)
+	@echo "DONE"
 
 fclean : clean
+	@echo "Fcleaning the project ...\c"
+	@make fclean -C libft
 	@rm -rf $(NAME)
+	@echo "DONE"
 
 re : fclean all
 
@@ -109,82 +115,51 @@ relib:
 	make re -C libft
 
 resdl:
-	rm -rf ./libraries
-	make image
+	@echo "Deleting ./libraries ...\c"
+	@rm -rf ./libraries
+	@echo "DONE"
+	@make image
 
 image: libraries/lib/libSDL2_mixer.dylib
 
 libraries/lib/libSDL2_mixer.dylib: libraries/lib/libSDL2_ttf.dylib
-	mkdir -p libraries
-	cd libraries && curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -O
-	tar -xf ./libraries/SDL2_mixer-2.0.4.tar.gz -C libraries
-	cd libraries/SDL2_mixer-2.0.4 ; ./configure --prefix=$(shell pwd)/libraries
-	make -C ./libraries/SDL2_mixer-2.0.4
-	make -C ./libraries/SDL2_mixer-2.0.4 install
+	@echo "Installing SDL2_mixer ...\c"
+	@mkdir -p libraries
+	@curl -s https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -o libraries/SDL2_mixer-2.0.4.tar.gz 
+	@tar -xf ./libraries/SDL2_mixer-2.0.4.tar.gz -C libraries
+	@cd libraries/SDL2_mixer-2.0.4 ; ./configure --prefix=$(shell pwd)/libraries > /dev/null 2>&1
+	@make -C ./libraries/SDL2_mixer-2.0.4 >/dev/null 2>&1
+	@make -C ./libraries/SDL2_mixer-2.0.4 install >/dev/null 2>&1
+	@echo "DONE"
 
 libraries/lib/libSDL2_ttf.dylib: libraries/lib/libfreetype.dylib
-	mkdir -p libraries
-	cd libraries && curl https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -O
-	tar -xf ./libraries/SDL2_ttf-2.0.15.tar.gz -C libraries
-	cd libraries/SDL2_ttf-2.0.15 ; ./configure --prefix=$(shell pwd)/libraries
-	make -C ./libraries/SDL2_ttf-2.0.15
-	make -C ./libraries/SDL2_ttf-2.0.15 install
+	@echo "Installing SDL2_ttf ...\c"
+	@mkdir -p libraries
+	@curl -s https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -o libraries/SDL2_ttf-2.0.15.tar.gz
+	@tar -xf ./libraries/SDL2_ttf-2.0.15.tar.gz -C libraries
+	@cd libraries/SDL2_ttf-2.0.15 ; ./configure --prefix=$(shell pwd)/libraries > /dev/null
+	@make -C ./libraries/SDL2_ttf-2.0.15 >/dev/null 2>&1
+	@make -C ./libraries/SDL2_ttf-2.0.15 install >/dev/null 2>&1
+	@echo "DONE"
 
 libraries/lib/libfreetype.dylib: libraries/lib/libSDL2.dylib
-	mkdir -p libraries
-	cd libraries && curl https://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz -LO
-	tar -xf ./libraries/freetype-2.4.11.tar.gz -C libraries
-	cd libraries/freetype-2.4.11 ; ./configure --prefix=$(shell pwd)/libraries
-	make -C ./libraries/freetype-2.4.11
-	make -C ./libraries/freetype-2.4.11 install
+	@echo "Installing freetype2 ...\c"
+	@mkdir -p libraries
+	@curl -s https://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz -Lo libraries/freetype-2.4.11.tar.gz
+	@tar -xf ./libraries/freetype-2.4.11.tar.gz -C libraries
+	@cd libraries/freetype-2.4.11 ; ./configure --prefix=$(shell pwd)/libraries > /dev/null
+	@make -C ./libraries/freetype-2.4.11 >/dev/null 2>&1
+	@make -C ./libraries/freetype-2.4.11 install >/dev/null 2>&1
+	@echo "DONE"
 
 libraries/lib/libSDL2.dylib: 
-	mkdir -p libraries
-	cd libraries && curl https://www.libsdl.org/release/SDL2-2.0.8.tar.gz -O
-	tar -xf libraries/SDL2-2.0.8.tar.gz -C libraries
-	cd libraries/SDL2-2.0.8 ; ./configure --prefix=$(shell pwd)/libraries
-	make -C ./libraries/SDL2-2.0.8
-	make -C ./libraries/SDL2-2.0.8 install
+	@echo "Installing SDL2 ...\c"
+	@mkdir -p libraries
+	@curl -s https://www.libsdl.org/release/SDL2-2.0.8.tar.gz -o libraries/SDL2-2.0.8.tar.gz
+	@tar -xf libraries/SDL2-2.0.8.tar.gz -C libraries
+	@cd libraries/SDL2-2.0.8 ; ./configure --prefix=$(shell pwd)/libraries > /dev/null
+	@make -C ./libraries/SDL2-2.0.8 >/dev/null 2>&1
+	@make -C ./libraries/SDL2-2.0.8 install >/dev/null 2>&1
+	@echo "DONE"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.PHONY : all clean fclean re debug image
+.PHONY: all clean fclean re image
