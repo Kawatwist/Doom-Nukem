@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/22 12:00:37 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/24 19:11:30 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,6 @@ void				showlinkedlist(t_win **wn, char *type, char *subtype);
 void				initload(t_win **wn);
 SDL_Texture			*findtexture(t_win *wn, char *type,
 						char *subtype, char *name);
-void				init_cloud(t_win **wn);
 
 /**
  ** OPTION

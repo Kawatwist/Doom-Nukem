@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 18:08:00 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 17:44:12 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/25 11:14:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static void		swap_bytes(t_tga *tga, unsigned char *new, int i, int j)
 {
 	new[j + (i * tga->w * 4)] = tga->data[(i * tga->w * 4)
-		+ ((tga->w * 4) - j)];
-	new[j + (i * tga->w * 4) + 1] = tga->data[(i * tga->w * 4)
-		+ ((tga->w * 4) - j) - 3];
-	new[j + (i * tga->w * 4) + 2] = tga->data[(i * tga->w * 4)
-		+ ((tga->w * 4) - j) - 2];
-	new[j + (i * tga->w * 4) + 3] = tga->data[(i * tga->w * 4)
 		+ ((tga->w * 4) - j) - 1];
+	new[j + (i * tga->w * 4) + 1] = tga->data[(i * tga->w * 4)
+		+ ((tga->w * 4) - j) - 3 - 1];
+	new[j + (i * tga->w * 4) + 2] = tga->data[(i * tga->w * 4)
+		+ ((tga->w * 4) - j) - 2 - 1];
+	new[j + (i * tga->w * 4) + 3] = tga->data[(i * tga->w * 4)
+		+ ((tga->w * 4) - j) - 1 - 1];
 }
 
 void			sym_vert(t_tga *tga)
@@ -62,10 +62,10 @@ void			rotatepxl(t_tga *tga)
 		return ;
 	while (i <= (tga->w * tga->h * 4))
 	{
-		done[((tga->w * tga->h * 4) - (i + 0))] = tga->data[i];
-		done[((tga->w * tga->h * 4) - (i + 3))] = tga->data[i + 1];
-		done[((tga->w * tga->h * 4) - (i + 2))] = tga->data[i + 2];
-		done[((tga->w * tga->h * 4) - (i + 1))] = tga->data[i + 3];
+		done[((tga->w * tga->h * 4) - (i + 0))- 1] = tga->data[i];
+		done[((tga->w * tga->h * 4) - (i + 3)) - 1] = tga->data[i + 1];
+		done[((tga->w * tga->h * 4) - (i + 2)) - 1] = tga->data[i + 2];
+		done[((tga->w * tga->h * 4) - (i + 1)) - 1] = tga->data[i + 3];
 		i += 4;
 	}
 	free(tga->data);

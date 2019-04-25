@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:26:36 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/11 17:44:23 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/04/25 11:15:44 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void		*free_tga(t_tga *tga)
 
 int			inittga(t_tga *tga)
 {
+	tga->xorigin = 0;
+	tga->yorigin = 0;
 	tga->data = NULL;
 	tga->cm = NULL;
 	tga->info = NULL;
