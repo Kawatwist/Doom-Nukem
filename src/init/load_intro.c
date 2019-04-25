@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/doom.h"
+#include "doom.h"
 
 static void		load_main(t_win **wn)
 {

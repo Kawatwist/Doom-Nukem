@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/doom.h"
+#include "doom.h"
 
 char	*changename(char *name, int place)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/doom.h"
+#include "doom.h"
 
 int		parsearg(int argc, char **argv, t_win **wn)
 {

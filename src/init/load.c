@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/doom.h"
-#include "../../includes/tga_reader.h"
+#include "doom.h"
+#include "tga_reader.h"
 
 static void		fillpos(t_text *curr, char *type, char *subtype, char *name)
 {

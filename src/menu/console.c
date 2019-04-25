@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/doom.h"
+#include "doom.h"
 
 static void	readcommand(t_win *wn)
 {

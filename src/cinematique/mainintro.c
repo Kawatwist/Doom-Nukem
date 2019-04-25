@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/doom.h"
+#include "doom.h"
 
 void		mainintro(t_win *wn, char *type, char *subtype, int pos)
 {

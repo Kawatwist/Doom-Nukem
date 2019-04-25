@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/doom.h"
-#include "../../includes/tga_reader.h"
+#include "doom.h"
+#include "tga_reader.h"
 
 void		showlinkedlist(t_win **wn, char *type, char *subtype)
 {

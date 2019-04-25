@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
+#include "doom.h"
 
 void	stop_exec(char *msg, t_win *wn)
 {

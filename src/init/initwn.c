@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/doom.h"
+#include "doom.h"
 
 static void	inittext2(t_win **wn, int parts, char *type, char *subtype)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/doom.h"
+#include "doom.h"
 
 SDL_Texture		*findtexture(t_win *wn, char *type, char *subtype, char *name)
 {

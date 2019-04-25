@@ -13,7 +13,7 @@
 #ifndef SKYBOX_H
 # define SKYBOX_H
 
-# include "../SDL2-2.0.9/include/SDL.h"
+# include "SDL.h"
 
 typedef struct		s_cloud
 {

@@ -13,8 +13,8 @@
 #ifndef TGA_READER_H
 # define TGA_READER_H
 
-# include "../libft/libft.h"
-# include "../SDL2-2.0.9/include/SDL.h"
+# include "libft.h"
+# include "SDL.h"
 # include <fcntl.h>
 # include <sys/stat.h>
 
