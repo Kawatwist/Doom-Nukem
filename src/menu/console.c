@@ -57,9 +57,9 @@ static void		print_command(t_win *wn, char *s)
 	font = TTF_OpenFont("/Library/Fonts/Arial.ttf", 35);  //init font outside the loop later
 	if (font == NULL)
 		stop_exec("TTF_OpenFont()failed", wn);
-	color.r = 244;
-	color.g = 66;
-	color.b = 66;
+	color.r = 255;
+	color.g = 255;
+	color.b = 255;
 	color.a = SDL_ALPHA_OPAQUE;
 	surface = TTF_RenderText_Solid(font, s, color);
 	if (surface == NULL)
