@@ -20,6 +20,8 @@
 # include "game.h"
 # include "skybox.h"
 # include "SDL.h"
+# include "SDL_ttf.h"
+
 
 # define XSCREEN 1500
 # define YSCREEN 1200

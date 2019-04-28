@@ -64,7 +64,7 @@ LIB_PATH 		= ./libft \
 
 FRAMEWORK 		= OpenGL AppKit
 
-CC 				= gcc
+CC 				= gcc -g -ggdb
 
 vpath %.c $(foreach dir, $(SRC_PATH), $(dir):)
 
@@ -125,7 +125,7 @@ image: libraries/lib/libSDL2_mixer.dylib
 libraries/lib/libSDL2_mixer.dylib: libraries/lib/libSDL2_ttf.dylib
 	@echo "Installing SDL2_mixer ...\c"
 	@mkdir -p libraries
-	@curl -s https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -o libraries/SDL2_mixer-2.0.4.tar.gz 
+	@curl -s https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -o libraries/SDL2_mixer-2.0.4.tar.gz
 	@tar -xf ./libraries/SDL2_mixer-2.0.4.tar.gz -C libraries
 	@cd libraries/SDL2_mixer-2.0.4 ; ./configure --prefix=$(shell pwd)/libraries > /dev/null 2>&1
 	@make -C ./libraries/SDL2_mixer-2.0.4 >/dev/null 2>&1
@@ -152,7 +152,7 @@ libraries/lib/libfreetype.dylib: libraries/lib/libSDL2.dylib
 	@make -C ./libraries/freetype-2.4.11 install >/dev/null 2>&1
 	@echo "DONE"
 
-libraries/lib/libSDL2.dylib: 
+libraries/lib/libSDL2.dylib:
 	@echo "Installing SDL2 ...\c"
 	@mkdir -p libraries
 	@curl -s https://www.libsdl.org/release/SDL2-2.0.8.tar.gz -o libraries/SDL2-2.0.8.tar.gz
