@@ -16,6 +16,9 @@ void	stop_exec(char *msg, t_win *wn)
 {
 	ft_putstr(msg);
 	(void)wn;
+
+	SDL_Quit();
+	TTF_Quit();
 	exit(0);
 }
 

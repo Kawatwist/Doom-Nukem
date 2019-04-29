@@ -35,16 +35,16 @@ void	sub_print_command(t_win *wn, SDL_Texture *texture, int len)
 {
 	int				tex_width;
 	int				tex_height;
-	SDL_Rect		bg;
+	SDL_Rect		position;
 
 	tex_width = 0;
 	tex_height = 0;
 	SDL_QueryTexture(texture, NULL, NULL, &tex_width, &tex_height);
-	bg.x = 35;
-	bg.y = YSCREEN - 70;
-	bg.w = 20 * len;
-	bg.h = 20;
-	SDL_RenderCopy(wn->rend, texture, NULL, &bg);
+	position.x = 35;
+	position.y = YSCREEN - 70;
+	position.w = 20 * len;
+ 	position.h = 20;
+	SDL_RenderCopy(wn->rend, texture, NULL, &position);
 }
 
 static void		print_command(t_win *wn, char *s)
@@ -63,13 +63,13 @@ static void		print_command(t_win *wn, char *s)
 	color.a = SDL_ALPHA_OPAQUE;
 	surface = TTF_RenderText_Solid(font, s, color);
 	if (surface == NULL)
-		stop_exec("TTF_RenderText_Solid()failed", wn);
+		stop_exec("TTF_RenderText()failed", wn);
 	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
 	if (texture == NULL)
 		stop_exec("SDL_CreateTextureFromSurface()failed", wn);
 	SDL_FreeSurface(surface);
 	sub_print_command(wn, texture, ft_strlen(s));
-	TTF_CloseFont(font);
+	TTF_CloseFont(font); // replace it outside the loop
 }
 
 static char	*check_alphabet_intput(t_win *wn, char *command)
@@ -141,8 +141,7 @@ static void	inputconsole(t_win *wn)
 
 	command = check_alphabet_intput(wn, command);
 	// command = check_numb_intput(wn, command);
-	if (command != NULL)
-		// printf("%s\n", command);
+	if ((command != NULL) && ft_strlen(command))
 		print_command(wn, command);
 
 	// i = 88;
@@ -165,10 +164,10 @@ static void	inputconsole(t_win *wn)
 	// (wn->state[SDL_SCANCODE_SPACE]
 	// 	&& !wn->old[SDL_SCANCODE_SPACE])
 	// 	? command = ft_strjoinfree(command, ft_strdup(a), 3) : 0;
-	// (wn->state[SDL_SCANCODE_BACKSPACE]
-	// 	&& !wn->old[SDL_SCANCODE_BACKSPACE])
-	// 	&& command != NULL && ft_strlen(command)
-	// 	? (command[ft_strlen(command) - 1] = 0) : 0;
+	(wn->state[SDL_SCANCODE_BACKSPACE]
+		&& !wn->old[SDL_SCANCODE_BACKSPACE])
+		&& command != NULL && ft_strlen(command)
+		? (command[ft_strlen(command) - 1] = 0) : 0;
 	// if (wn->state[SDL_SCANCODE_RETURN]
 	// 		&& !wn->old[SDL_SCANCODE_RETURN] && command != NULL)
 	// {
