@@ -83,24 +83,28 @@ DEBUG			= -g -fsanitize=address
 all: $(NAME)
 
 $(NAME): $(IMAGE) $(OBJ)
-	$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG)
+	@echo "Compiling $@ ...\c"
+	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG) 
+	@echo "DONE"
 
 $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
-	mkdir -p $(OBJ_PATH)
-	$(CC) $(CFLAG) -o $@ -c $< $(IFLAG)
+	@mkdir -p $(OBJ_PATH)
+	@echo "Creating $@ ...\c"
+	@$(CC) $(CFLAG) -o $@ -c $< $(IFLAG)
+	@echo "DONE"
 
 $(IMAGE): FORCE
 	@make image
 
 $(LIBFTA): FORCE
-	make -C libft
+	@make -C libft
 
 FORCE:
 
 clean :
 	@echo "Cleaning the project ...\c"
 	@make clean -C libft
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ_PATH) 
 	@echo "DONE"
 
 fclean : clean
@@ -125,41 +129,41 @@ image: libraries/lib/libSDL2_mixer.dylib
 libraries/lib/libSDL2_mixer.dylib: libraries/lib/libSDL2_ttf.dylib
 	@echo "Installing SDL2_mixer ...\c"
 	@mkdir -p libraries
-	@curl -s https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -o libraries/SDL2_mixer-2.0.4.tar.gz 
-	@tar -xf ./libraries/SDL2_mixer-2.0.4.tar.gz -C libraries
-	@cd libraries/SDL2_mixer-2.0.4 ; ./configure --prefix=$(shell pwd)/libraries > /dev/null 2>&1
-	@make -C ./libraries/SDL2_mixer-2.0.4 >/dev/null 2>&1
-	@make -C ./libraries/SDL2_mixer-2.0.4 install >/dev/null 2>&1
+	@curl -s https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -o libraries/SDL2_mixer-2.0.4.tar.gz >>/tmp/doom_log 2>&1
+	@tar -xf ./libraries/SDL2_mixer-2.0.4.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
+	@cd libraries/SDL2_mixer-2.0.4 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log 2>&1
+	@make -C ./libraries/SDL2_mixer-2.0.4 >>/tmp/doom_lib_log 2>&1
+	@make -C ./libraries/SDL2_mixer-2.0.4 install >>/tmp/doom_lib_log 2>&1
 	@echo "DONE"
 
 libraries/lib/libSDL2_ttf.dylib: libraries/lib/libfreetype.dylib
 	@echo "Installing SDL2_ttf ...\c"
 	@mkdir -p libraries
-	@curl -s https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -o libraries/SDL2_ttf-2.0.15.tar.gz
-	@tar -xf ./libraries/SDL2_ttf-2.0.15.tar.gz -C libraries
-	@cd libraries/SDL2_ttf-2.0.15 ; ./configure --prefix=$(shell pwd)/libraries > /dev/null
-	@make -C ./libraries/SDL2_ttf-2.0.15 >/dev/null 2>&1
-	@make -C ./libraries/SDL2_ttf-2.0.15 install >/dev/null 2>&1
+	@curl -s https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -o libraries/SDL2_ttf-2.0.15.tar.gz >>/tmp/doom_log 2>&1
+	@tar -xf ./libraries/SDL2_ttf-2.0.15.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
+	@cd libraries/SDL2_ttf-2.0.15 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log
+	@make -C ./libraries/SDL2_ttf-2.0.15 >>/tmp/doom_lib_log 2>&1
+	@make -C ./libraries/SDL2_ttf-2.0.15 install >>/tmp/doom_lib_log 2>&1
 	@echo "DONE"
 
 libraries/lib/libfreetype.dylib: libraries/lib/libSDL2.dylib
 	@echo "Installing freetype2 ...\c"
 	@mkdir -p libraries
-	@curl -s https://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz -Lo libraries/freetype-2.4.11.tar.gz
-	@tar -xf ./libraries/freetype-2.4.11.tar.gz -C libraries
-	@cd libraries/freetype-2.4.11 ; ./configure --prefix=$(shell pwd)/libraries > /dev/null
-	@make -C ./libraries/freetype-2.4.11 >/dev/null 2>&1
-	@make -C ./libraries/freetype-2.4.11 install >/dev/null 2>&1
+	@curl -s https://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz -Lo libraries/freetype-2.4.11.tar.gz >>/tmp/doom_log 2>&1
+	@tar -xf ./libraries/freetype-2.4.11.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
+	@cd libraries/freetype-2.4.11 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log
+	@make -C ./libraries/freetype-2.4.11 >>/tmp/doom_lib_log 2>&1
+	@make -C ./libraries/freetype-2.4.11 install >>/tmp/doom_lib_log 2>&1
 	@echo "DONE"
 
 libraries/lib/libSDL2.dylib: 
 	@echo "Installing SDL2 ...\c"
 	@mkdir -p libraries
-	@curl -s https://www.libsdl.org/release/SDL2-2.0.8.tar.gz -o libraries/SDL2-2.0.8.tar.gz
-	@tar -xf libraries/SDL2-2.0.8.tar.gz -C libraries
-	@cd libraries/SDL2-2.0.8 ; ./configure --prefix=$(shell pwd)/libraries > /dev/null
-	@make -C ./libraries/SDL2-2.0.8 >/dev/null 2>&1
-	@make -C ./libraries/SDL2-2.0.8 install >/dev/null 2>&1
+	@curl -s https://www.libsdl.org/release/SDL2-2.0.8.tar.gz -o libraries/SDL2-2.0.8.tar.gz >>/tmp/doom_lib_log 2>&1
+	@tar -xf libraries/SDL2-2.0.8.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
+	@cd libraries/SDL2-2.0.8 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log 2>&1
+	@make -C ./libraries/SDL2-2.0.8 >>/tmp/doom_lib_log 2>&1
+	@make -C ./libraries/SDL2-2.0.8 install >>/tmp/doom_lib_log 2>&1
 	@echo "DONE"
 
 .PHONY: all clean fclean re image
