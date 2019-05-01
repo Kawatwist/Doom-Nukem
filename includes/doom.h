@@ -32,6 +32,11 @@ typedef enum		e_bool
 	TRUE = 1,
 }					t_bool;
 
+typedef enum  		e_val
+{
+	INVALID = -1,
+}					t_val;
+
 typedef enum		e_interface
 {
 	MENU,

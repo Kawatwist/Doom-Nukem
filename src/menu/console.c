@@ -72,109 +72,74 @@ static void		print_command(t_win *wn, char *s)
 	TTF_CloseFont(font); // replace it outside the loop
 }
 
-static char	*check_alphabet_intput(t_win *wn, char *command)
+
+static char	find_which_key_pressed(int i)
 {
-	int			i;
-	char		onechar_str[2];
-
-	i = SDL_SCANCODE_A;
-	onechar_str[1] = 0;
-	while (i <= SDL_SCANCODE_0)
-	{
-		if ((command == NULL) && (wn->state[i] && !(wn->old[i])))
-		{
-			onechar_str[0] = i - SDL_SCANCODE_A + 'a';
-			command = ft_strdup(onechar_str);
-			// printf("1=>%s\n", command);
-
-		}
-		else if (wn->state[i] && !(wn->old[i]))
-		{
-			onechar_str[0] = i - SDL_SCANCODE_A + 'a';
-			command = ft_strjoinfree(command, ft_strdup(onechar_str), 3);
-			// printf("2=>%s\n", command);
-		}
-		i++;
-	}
-	return (command);
+	if ((i >= SDL_SCANCODE_A) && (i <= SDL_SCANCODE_Z))
+		return (i - SDL_SCANCODE_A + 'a');
+	else if ((i >= SDL_SCANCODE_1) && (i <= SDL_SCANCODE_9))
+		return (i - SDL_SCANCODE_1 + '1');
+	else if ((i >= SDL_SCANCODE_KP_1) && (i <= SDL_SCANCODE_KP_9))
+		return (i - SDL_SCANCODE_KP_1 + '1');
+	else if ( i == SDL_SCANCODE_SPACE)
+		return (' ');
+	else if (i == SDL_SCANCODE_0)
+		return ('0');
+	else if (i == SDL_SCANCODE_KP_0)
+		return ('0');
+	else
+		return (INVALID);
 }
 
-
-
-
-// static char *check_numb_intput(t_win *wn, char *command)
-// {
-// 	int			i;
-// 	char		onechar_str[2];
-
-// 	i = SDL_SCANCODE_KP_1;
-// 	onechar_str[1] = 0;
-// 	while (i <= SDL_SCANCODE_KP_9)
-// 	{
-// 		if ((command == NULL) && (wn->state[i] && !(wn->old[i])))
-// 		{
-// 			onechar_str[0] = i - SDL_SCANCODE_KP_1 + '1';
-// 			command = ft_strdup(onechar_str);
-// 			printf("1=>%c\n", onechar_str[0]);
-
-// 		}
-// 		else if (wn->state[i] && !(wn->old[i]))
-// 		{
-// 			onechar_str[0] = i - SDL_SCANCODE_KP_1 + '1';
-// 			command = ft_strjoinfree(command, ft_strdup(onechar_str), 3);
-// 			printf("2=>%c\n", onechar_str[0]);
-// 		}
-// 		i++;
-// 	}
-// 	return (command);
-// }
-
-
-
-
-
-
+static int	 key_pressed(t_win *wn, int i)
+{
+	if (wn->state[i] && !(wn->old[i]))
+		return (TRUE);
+	return (FALSE);
+}
 
 static void	inputconsole(t_win *wn)
 {
 	static char		 *command = NULL;
+	int			i;
+	char		str[2];
+	char		key_val;
 
-	command = check_alphabet_intput(wn, command);
-	// command = check_numb_intput(wn, command);
+	i = 0;
+	key_val = 0;
+	while (i <= 99)
+	{
+		if (key_pressed(wn, i) == TRUE)
+		{
+			key_val = find_which_key_pressed(i);
+			if (key_val != INVALID)
+			{
+				str[0] = key_val;
+				str[1] = '\0';
+				if (command == NULL)
+					command = ft_strdup(str);
+				else
+					command = ft_strjoinfree(command, ft_strdup(str), 3);
+			}
+		}
+		i++;
+	}
 	if ((command != NULL) && ft_strlen(command))
 		print_command(wn, command);
 
-	// i = 88;
-	// while (i++ < 97)
-	// {
-	// 	a[0] = (i + '1') - 89;
-	// 	if (command == NULL)
-	// 		(wn->state[i] && !wn->old[i]) ? (command = ft_strdup(a)) : 0;
-	// 	else
-	// 		(wn->state[i] && !wn->old[i])
-	// 			? (command = ft_strjoinfree(command, ft_strdup(a), 3)) : 0;
-	// }
-	// a[0] = '0';
-	// (command == NULL && wn->state[98]
-	// 	&& !wn->old[98]) ? (command = ft_strdup(a)) : 0;
-	// (command != NULL && wn->state[98]
-	// 	&& !wn->old[98])
-	// 	? (command = ft_strjoinfree(command, ft_strdup(a), 3)) : 0;
-	// a[0] = ' ';
-	// (wn->state[SDL_SCANCODE_SPACE]
-	// 	&& !wn->old[SDL_SCANCODE_SPACE])
-	// 	? command = ft_strjoinfree(command, ft_strdup(a), 3) : 0;
+
+
 	(wn->state[SDL_SCANCODE_BACKSPACE]
 		&& !wn->old[SDL_SCANCODE_BACKSPACE])
 		&& command != NULL && ft_strlen(command)
 		? (command[ft_strlen(command) - 1] = 0) : 0;
-	// if (wn->state[SDL_SCANCODE_RETURN]
-	// 		&& !wn->old[SDL_SCANCODE_RETURN] && command != NULL)
-	// {
-	// 	wn->command = ft_strdup(command);
-	// 	free(command);
-	// 	command = NULL;
-	// }
+	if (wn->state[SDL_SCANCODE_RETURN]
+			&& !wn->old[SDL_SCANCODE_RETURN] && command != NULL)
+	{
+		wn->command = ft_strdup(command);
+		free(command);
+		command = NULL;
+	}
 }
 
 static void	showconsole(t_win *wn)
