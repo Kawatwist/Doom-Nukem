@@ -31,7 +31,7 @@ void	menuinput(t_win *wn)
 		wn->menu->choice == 0 ? wn->interface = GAME : 0;
 		wn->menu->choice == 1 ? wn->interface = EDITEUR : 0;
 		wn->menu->choice == 2 ? wn->interface = OPTION : 0;
-		wn->menu->choice == 3 ? stop_exec("Merci d'avoir jouer !\n", wn) : 0;
+		wn->menu->choice == 3 ? stop_exec("Merci d'avoir joué !\n", wn) : 0;
 		// Verif que le joueur veut bien quitter
 	}
 	setkeyboard(last, wn->state);
