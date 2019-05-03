@@ -154,7 +154,7 @@ libraries/lib/libSDL2_ttf.dylib: libraries/lib/libfreetype.dylib
 	@mkdir -p libraries
 	@curl -s https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -o libraries/SDL2_ttf-2.0.15.tar.gz >>/tmp/doom_log 2>&1
 	@tar -xf ./libraries/SDL2_ttf-2.0.15.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
-	@cd libraries/SDL2_ttf-2.0.15 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log
+	@cd libraries/SDL2_ttf-2.0.15 ; FT2_CONFIG=$(shell pwd)/libraries/bin/freetype-config ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log
 	@make -C ./libraries/SDL2_ttf-2.0.15 >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/SDL2_ttf-2.0.15 install >>/tmp/doom_lib_log 2>&1
 	@echo "${cyanclair}DONE${neutre}"
