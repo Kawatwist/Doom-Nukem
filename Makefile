@@ -16,6 +16,7 @@ neutre=\033[0m
 cyanfonce=\033[0;36m
 cyanclair=\033[1;36m
 vertfonce=\033[0;32m
+vertclair=\033[1;32m
 rouge=\033[31m
 
 NAME			= doom
@@ -91,9 +92,9 @@ DEBUG			= -g -fsanitize=address
 all: $(NAME)
 
 $(NAME): $(IMAGE) $(OBJ)
-	@echo "${violetclair}Compiling $@ ...${neutre}\c"
+	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
 	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG) 
-	@echo "${rose}DONE${neutre}"
+	@echo "${vertclair}DONE${neutre}"
 
 $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
 	@mkdir -p $(OBJ_PATH)
@@ -114,16 +115,16 @@ $(LIBFTA): FORCE
 FORCE:
 
 clean :
-	@echo "${cyanfonce}Cleaning the project ...${neutre}\c"
+	@echo "${rouge}Cleaning the project ...${neutre}\c"
 	@make clean -C libft
 	@rm -rf $(OBJ_PATH) 
-	@echo "${cyanclair}DONE${neutre}"
+	@echo "${rose}DONE${neutre}"
 
 fclean : clean
-	@echo "${cyanfonce}Fcleaning the project ...${neutre}\c"
+	@echo "${rouge}Fcleaning the project ...${neutre}\c"
 	@make fclean -C libft
 	@rm -rf $(NAME)
-	@echo "${cyanclair}DONE${neutre}"
+	@echo "${rose}DONE${neutre}"
 
 re : fclean all
 
@@ -131,51 +132,51 @@ relib:
 	@make re -C libft
 
 resdl:
-	@echo "${rouge}Deleting ./libraries ...${neutre}\c"
+	@echo "${cyanfonce}Deleting ./libraries ...${neutre}\c"
 	@rm -rf ./libraries
-	@echo "${rose}DONE${neutre}"
+	@echo "${cyanclair}DONE${neutre}"
 	@make image
 
 image: libraries/lib/libSDL2_mixer.dylib
 
 libraries/lib/libSDL2_mixer.dylib: libraries/lib/libSDL2_ttf.dylib
-	@echo "${rouge}Installing SDL2_mixer ...${neutre}\c"
+	@echo "${cyanfonce}Installing SDL2_mixer ...${neutre}\c"
 	@mkdir -p libraries
 	@curl -s https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -o libraries/SDL2_mixer-2.0.4.tar.gz >>/tmp/doom_log 2>&1
 	@tar -xf ./libraries/SDL2_mixer-2.0.4.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
 	@cd libraries/SDL2_mixer-2.0.4 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/SDL2_mixer-2.0.4 >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/SDL2_mixer-2.0.4 install >>/tmp/doom_lib_log 2>&1
-	@echo "${rose}DONE${neutre}"
+	@echo "${cyanclair}DONE${neutre}"
 
 libraries/lib/libSDL2_ttf.dylib: libraries/lib/libfreetype.dylib
-	@echo "${rouge}Installing SDL2_ttf ...${neutre}\c"
+	@echo "${cyanfonce}Installing SDL2_ttf ...${neutre}\c"
 	@mkdir -p libraries
 	@curl -s https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -o libraries/SDL2_ttf-2.0.15.tar.gz >>/tmp/doom_log 2>&1
 	@tar -xf ./libraries/SDL2_ttf-2.0.15.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
 	@cd libraries/SDL2_ttf-2.0.15 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log
 	@make -C ./libraries/SDL2_ttf-2.0.15 >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/SDL2_ttf-2.0.15 install >>/tmp/doom_lib_log 2>&1
-	@echo "${rose}DONE${neutre}"
+	@echo "${cyanclair}DONE${neutre}"
 
 libraries/lib/libfreetype.dylib: libraries/lib/libSDL2.dylib
-	@echo "${rouge}Installing freetype2 ...${neutre}\c"
+	@echo "${cyanfonce}Installing freetype2 ...${neutre}\c"
 	@mkdir -p libraries
 	@curl -s https://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz -Lo libraries/freetype-2.4.11.tar.gz >>/tmp/doom_log 2>&1
 	@tar -xf ./libraries/freetype-2.4.11.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
 	@cd libraries/freetype-2.4.11 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log
 	@make -C ./libraries/freetype-2.4.11 >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/freetype-2.4.11 install >>/tmp/doom_lib_log 2>&1
-	@echo "${rose}DONE${neutre}"
+	@echo "${cyanclair}DONE${neutre}"
 
 libraries/lib/libSDL2.dylib: 
-	@echo "${rouge}Installing SDL2 ...${neutre}\c"
+	@echo "${cyanfonce}Installing SDL2 ...${neutre}\c"
 	@mkdir -p libraries
 	@curl -s https://www.libsdl.org/release/SDL2-2.0.8.tar.gz -o libraries/SDL2-2.0.8.tar.gz >>/tmp/doom_lib_log 2>&1
 	@tar -xf libraries/SDL2-2.0.8.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
 	@cd libraries/SDL2-2.0.8 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/SDL2-2.0.8 >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/SDL2-2.0.8 install >>/tmp/doom_lib_log 2>&1
-	@echo "${rose}DONE${neutre}"
+	@echo "${cyanclair}DONE${neutre}"
 
 .PHONY: all clean fclean re image
