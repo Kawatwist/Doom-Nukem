@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 13:30:09 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/04 17:57:37 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/04 18:07:18 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void		*loadingthread(void *param)
 		pthread_mutex_lock(&((*wn)->mutex->mutex));
 		pthread_cond_wait(&((*wn)->mutex->condition), &((*wn)->mutex->mutex));
 		value = (*wn)->mutex->load * 70 / 240 + 30;
-		printf("%d\n", value);
 		pthread_mutex_unlock(&((*wn)->mutex->mutex));
 		pthread_cond_signal(&((*wn)->mutex->condition));
 		showload(wn, value);
