@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/24 19:11:30 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/04 17:24:12 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,13 @@ typedef	struct		s_input
 	int				y;
 }					t_input;
 
+typedef struct		s_mut
+{
+	int				load;
+	pthread_cond_t	condition;
+	pthread_mutex_t	mutex;
+}					t_mut;
+
 typedef struct		s_win
 {
 	char			difficulty;
@@ -107,10 +114,10 @@ typedef struct		s_win
 	char			debug;
 	char			interface;
 	char			oldinterface;
+	char			debugcine;
 	char			*tmp[4];
 	char			*command;
 	char			**history;
-	int				load;
 	int				turn;
 	Uint8			*state;
 	Uint8			*old;
@@ -127,6 +134,7 @@ typedef struct		s_win
 	t_joueur		*player;
 	t_cloud			*cloud;
 	t_menu			*menu;
+	t_mut			*mutex;
 
 	int				debugconsole;
 
@@ -170,6 +178,8 @@ void				showlinkedlist(t_win **wn, char *type, char *subtype);
 void				initload(t_win **wn);
 SDL_Texture			*findtexture(t_win *wn, char *type,
 						char *subtype, char *name);
+int					initmutex(t_win **wn);
+void				*loadingthread(void *param);
 
 /**
  ** OPTION

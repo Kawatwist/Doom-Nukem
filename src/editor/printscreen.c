@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 11:07:03 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/22 11:32:43 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/04 15:55:08 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ static void	showline(t_win *wn)
 	i = wn->map->x;
 	showline2(wn);
 	SDL_SetRenderDrawColor(wn->rend, 150, 100, 100, 0);
-	while (j <= wn->map->y + wn->map->h)
+	while (j <= wn->map->y + wn->map->h + 1)
 	{
 		SDL_RenderDrawLine(wn->rend, wn->map->x, j, wn->map->w + wn->map->x, j);
 		j += wn->map->h / 10;
 	}
 	j = wn->map->y;
-	while (i <= wn->map->x + wn->map->w)
+	while (i <= wn->map->x + wn->map->w + 1)
 	{
 		SDL_RenderDrawLine(wn->rend, i, wn->map->y, i, wn->map->h + wn->map->y);
 		i += wn->map->w / 10;
@@ -101,7 +101,5 @@ static void	showmap(t_win *wn)
 
 void		printeditor(t_win *wn)
 {
-	SDL_SetRenderDrawColor(wn->rend, 50, 50, 50, 0);
-	SDL_RenderClear(wn->rend);
 	showmap(wn);
 }

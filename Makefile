@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/04/09 17:52:24 by lomasse          ###   ########.fr        #
+#    Updated: 2019/05/04 17:36:45 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -34,6 +34,7 @@ SRC				= main.c										\
 				  init.c										\
 				  parse.c										\
 				  initwn.c										\
+				  thread.c										\
 				  sdl.c											\
 				  load.c										\
 				  load2.c										\
@@ -93,7 +94,7 @@ all: $(NAME)
 
 $(NAME): $(IMAGE) $(OBJ)
 	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
-	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG) 
+	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG)
 	@echo "${vertclair}DONE${neutre}"
 
 $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)

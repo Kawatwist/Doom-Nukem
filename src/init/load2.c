@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 11:10:40 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/22 11:46:46 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/04 15:52:44 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ SDL_Texture	*initload2(t_win **wn, const char *path)
 		surface = SDL_CreateRGBSurfaceWithFormatFrom(tga->data,
 				tga->w, tga->h, 32, 4 * tga->w, SDL_PIXELFORMAT_ARGB32);
 		txt = SDL_CreateTextureFromSurface((*wn)->rend, surface);
+		free_tga(tga);
 	}
 	return (txt);
 }

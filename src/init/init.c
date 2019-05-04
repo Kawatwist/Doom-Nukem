@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/25 11:15:58 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/04 18:01:02 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,40 +18,23 @@ static void		loadminimenu(t_win **wn)
 	load_texture(*wn, "main", "intro", "60");
 }
 
-// static void		*loadingthread(void *param)
-// {
-// 	t_win	**wn;
-// 	int		value;
-// 	int		i;
-
-// 	i = 0;
-// 	wn = &((t_thread *)param)->wn;
-// 	value = 30;
-// 	while (TRUE)
-// 	{
-// 		showload(wn, value);
-// 		value = ((*wn)->load * 70 / 270) + 30;
-// 		i++;
-// 		if ((*wn)->turn == 0)
-// 			break ;
-// 	}
-// 	return (0);
-// }
-
 static void		loadmenu(t_win **wn)
 {
-	t_thread	thread[4];
+	t_thread	thread[5];
 	int			i;
 	int			load;
 
 	i = 0;
 	load = 0;
 	(*wn)->turn = 4;
-	while (i < 4)
+	while (i < 5)
 	{
 		thread[i].wn = *wn;
 		thread[i].value = i;
-		pthread_create(&thread[i].thd, NULL, load_intro, (void *)&(thread[i]));
+		if (i < 4)
+			pthread_create(&thread[i].thd, NULL, load_intro, (void *)&(thread[i]));
+		else
+			pthread_create(&thread[i].thd, NULL, loadingthread, (void *)&(thread[i]));
 		i++;
 	}
 	pthread_join((thread[0].thd), NULL);
@@ -59,16 +42,17 @@ static void		loadmenu(t_win **wn)
 	pthread_join((thread[2].thd), NULL);
 	pthread_join((thread[3].thd), NULL);
 	(*wn)->turn = 0;
+	pthread_join((thread[4].thd), NULL);
 }
 
 void			showload(t_win **wn, int load)
 {
 	SDL_Rect	loading;
 
-	loading.x = 20;
-	loading.y = (YSCREEN / 4) * 3;
-	loading.w = (load * XSCREEN / 100) - 40;
-	loading.h = 20;
+	loading.x = 40;
+	loading.y = (YSCREEN / 4) * 3.6;
+	loading.w = (load * XSCREEN / 100) - 80;
+	loading.h = 30;
 	SDL_RenderCopy((*wn)->rend, (*wn)->loadingscreen, NULL, NULL);
 	SDL_RenderCopy((*wn)->rend, (*wn)->loading, NULL, &loading);
 	SDL_RenderPresent((*wn)->rend);
