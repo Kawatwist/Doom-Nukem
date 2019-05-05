@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 17:15:15 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/04 17:28:38 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/05 16:54:57 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,5 @@ void		initwn(t_win **wn)
 	inittext(wn);
 	initmutex(wn);
 	(*wn)->debug = -1;
-	(*wn)->debugcine = 0;
+	(*wn)->debugcine = -1;
 }

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:35:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/04 18:03:44 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/05 16:50:47 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,9 @@ int				load_texture(t_win *wn, char *type, char *subtype, char *name)
 		free_tga(tga);
 		return (1);
 	}
-	pthread_mutex_lock(&(wn->mutex->mutex));
-//	printf("|%d Waiting|\t", i);
-	pthread_cond_wait(&(wn->mutex->condition), &(wn->mutex->mutex));
-//	printf("|%d Terminated|\n", i);
 	txt = findpos(wn, type, subtype, name);
+	pthread_mutex_lock(&(wn->mutex->mutex));
+	pthread_cond_wait(&(wn->mutex->condition), &(wn->mutex->mutex));
 	tga2sur(tga, wn, txt);
 	wn->mutex->load += 1;
 	free(tga);

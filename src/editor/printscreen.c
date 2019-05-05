@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 11:07:03 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/04 15:55:08 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/05 16:45:42 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,9 @@ static void	showmap(t_win *wn)
 
 void		printeditor(t_win *wn)
 {
+	t_text	*bg;
+
+	bg = findpostxt(wn, "editor", "intro", "119");
+	bg != NULL && bg->txt != NULL ? SDL_RenderCopy(wn->rend, bg->txt, NULL, NULL) : 0;
 	showmap(wn);
 }

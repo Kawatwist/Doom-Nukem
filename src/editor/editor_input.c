@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 19:02:08 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/22 11:31:02 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/05 16:49:24 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void		inputeditor(t_win *wn)
 
 	mouse = SDL_GetMouseState(&x, &y);
 	wn->state[SDL_SCANCODE_ESCAPE] ? wn->interface = MENU : 0;
-	wn->state[SDL_SCANCODE_LEFT] ? wn->map->x -= (wn->map->size) : 0;
-	wn->state[SDL_SCANCODE_RIGHT] ? wn->map->x += (wn->map->size) : 0;
-	wn->state[SDL_SCANCODE_UP] ? wn->map->y -= (wn->map->size) : 0;
-	wn->state[SDL_SCANCODE_DOWN] ? wn->map->y += (wn->map->size) : 0;
+	wn->state[SDL_SCANCODE_LEFT] ? wn->map->x -= (6.5 - wn->map->size) : 0;
+	wn->state[SDL_SCANCODE_RIGHT] ? wn->map->x += (6.5 - wn->map->size) : 0;
+	wn->state[SDL_SCANCODE_UP] ? wn->map->y -= (6.5 - wn->map->size) : 0;
+	wn->state[SDL_SCANCODE_DOWN] ? wn->map->y += (6.5 - wn->map->size) : 0;
 	wn->state[SDL_SCANCODE_KP_PLUS] && wn->map->size < 6
 		&& !wn->old[SDL_SCANCODE_KP_PLUS] ? wn->map->size *= 1.2 : 0;
 	wn->state[SDL_SCANCODE_KP_PLUS]
