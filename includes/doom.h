@@ -184,6 +184,7 @@ SDL_Texture			*findtexture(t_win *wn, char *type,
 int					initmutex(t_win **wn);
 void				*loadingthread(void *param);
 
+
 /**
  ** OPTION
  **/
@@ -211,5 +212,6 @@ void				game(t_win *wn);
 void				gameinput(t_win *wn);
 void				setkeyboard(Uint8 *new, Uint8 *current);
 void				stop_exec(char *msg, t_win *wn);
+void				full_screen(t_win *wn);
 
 #endif

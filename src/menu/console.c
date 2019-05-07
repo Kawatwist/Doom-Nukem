@@ -16,6 +16,7 @@ static void	readcommand(t_win *wn)
 {
 	ft_strcmp(wn->command, "kill") == 0 ? stop_exec("KILL !\n", wn) : 0;
 	ft_strcmp(wn->command, "slow") == 0 ? wn->debugcine *= -1 : 0;
+	ft_strcmp(wn->command, "fs") == 0 ? full_screen(wn) : 0;
 	ft_strncmp(wn->command, "value", 5) == 0
 		&& ft_strlen(wn->command) > 5
 		? wn->debugconsole = ft_atoi(&(wn->command[5])) : 0;
