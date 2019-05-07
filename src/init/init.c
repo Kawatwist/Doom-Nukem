@@ -52,8 +52,8 @@ void			showload(t_win **wn, int load)
 	SDL_Rect	loading;
 
 	loading.x = 40;
-	loading.y = (YSCREEN / 4) * 3.6;
-	loading.w = (load * XSCREEN / 100) - 80;
+	loading.y = ((*wn)->yscreen / 4) * 3.6;
+	loading.w = (load * (*wn)->xscreen / 100) - 80;
 	loading.h = 30;
 	SDL_RenderCopy((*wn)->rend, (*wn)->loadingscreen, NULL, NULL);
 	SDL_RenderCopy((*wn)->rend, (*wn)->loading, NULL, &loading);

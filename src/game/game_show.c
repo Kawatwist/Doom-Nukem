@@ -85,8 +85,8 @@ void		setcloud(t_win *wn, int nb_cloud)
 			tmp->flag = 0;
 			tmp->size = rand() % 300 + 200;
 			tmp->life = (rand() % 350) + 350;
-			tmp->start = (rand() % XSCREEN) * 3;
-			tmp->sens = (tmp->start > (XSCREEN * 1.5) ? 1 : 0);
+			tmp->start = (rand() % wn->xscreen) * 3;
+			tmp->sens = (tmp->start > (wn->xscreen * 1.5) ? 1 : 0);
 			tmp->next = NULL;
 			nb++;
 		}
@@ -111,7 +111,7 @@ void		setcloud(t_win *wn, int nb_cloud)
    dst.w = 100 * (tmp * 0.01);
    dst.h = 100 * (tmp * 0.01);
    SDL_RenderCopy(wn->rend, img->txt, NULL ,&dst);
-   dst.x = ((wn->player->rawx -XSCREEN) * 3) +
+   dst.x = ((wn->player->rawx -wn->xscreen) * 3) +
    ((flag == 0 ? tmp : (700 + 700 - tmp)) * 2) + x;
    SDL_RenderCopy(wn->rend, img->txt, NULL ,&dst);
    if (tmp == 0)
@@ -183,7 +183,7 @@ static void show_cloud3(t_win *wn, t_cloud *clood)
    dst.w = (clood->life * 0.5) * (clood->tmp * 0.01);
    dst.h = (clood->life * 0.5) * (clood->tmp * 0.01);
    SDL_RenderCopy(wn->rend, clood->txt, NULL ,&dst);
-   dst.x = ((wn->player->rawx -XSCREEN) * 3) +
+   dst.x = ((wn->player->rawx -wn->xscreen) * 3) +
    ((clood->flag == 0 ? clood->tmp :
    (clood->life + clood->life +
    (clood->sens == 0 ? -clood->tmp :
@@ -201,14 +201,14 @@ static void	bg2_skybox(t_win *wn)
 	SDL_Rect	src;
 	SDL_Rect	dst;
 
-	(src.y = (wn->player->rawy * 800 / YSCREEN)) > 400 ? src.y = 400 : 0;
+	(src.y = (wn->player->rawy * 800 / wn->yscreen)) > 400 ? src.y = 400 : 0;
 	src.x = 0;
 	src.w = 1;
 	src.h = 400;
 	dst.x = 0;
 	dst.y = 0;
-	dst.w = XSCREEN;
-	dst.h = YSCREEN;
+	dst.w = wn->xscreen;
+	dst.h = wn->yscreen;
 	img = findpostxt(wn, "game", "skybox", "sky2");
 	SDL_RenderCopy(wn->rend, img->txt, &src, NULL);
 }
@@ -219,14 +219,14 @@ static void	bg_skybox(t_win *wn)
 	SDL_Rect	src;
 	SDL_Rect	dst;
 
-	src.y = (wn->player->rawy * (1600 - YSCREEN) / YSCREEN);
-	src.x = ((XSCREEN - wn->player->rawx) * (4000 - XSCREEN) / XSCREEN);
-	src.w = XSCREEN;
-	src.h = YSCREEN;
+	src.y = (wn->player->rawy * (1600 - wn->yscreen) / wn->yscreen);
+	src.x = ((wn->xscreen - wn->player->rawx) * (4000 - wn->xscreen) / wn->xscreen);
+	src.w = wn->xscreen;
+	src.h = wn->yscreen;
 	dst.x = 0;
 	dst.y = 0;
-	dst.w = XSCREEN;
-	dst.h = YSCREEN;
+	dst.w = wn->xscreen;
+	dst.h = wn->yscreen;
 	img = findpostxt(wn, "game", "skybox", "sky");
 	SDL_RenderCopy(wn->rend, img->txt, &src, NULL);
 }

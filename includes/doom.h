@@ -135,6 +135,9 @@ typedef struct		s_win
 	t_cloud			*cloud;
 	t_menu			*menu;
 	t_mut			*mutex;
+	int 			xscreen;
+	int 			yscreen;
+	int 			full_screen;
 
 	int				debugconsole;
 

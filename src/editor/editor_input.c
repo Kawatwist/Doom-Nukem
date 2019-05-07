@@ -29,10 +29,10 @@ void		inputeditor(t_win *wn)
 
 	mouse = SDL_GetMouseState(&x, &y);
 	wn->state[SDL_SCANCODE_ESCAPE] ? wn->interface = MENU : 0;
-	wn->state[SDL_SCANCODE_LEFT] ? wn->map->x -= (6.5 - wn->map->size) : 0;
-	wn->state[SDL_SCANCODE_RIGHT] ? wn->map->x += (6.5 - wn->map->size) : 0;
-	wn->state[SDL_SCANCODE_UP] ? wn->map->y -= (6.5 - wn->map->size) : 0;
-	wn->state[SDL_SCANCODE_DOWN] ? wn->map->y += (6.5 - wn->map->size) : 0;
+	wn->state[SDL_SCANCODE_LEFT] ? (wn->map->x > 0 ? wn->map->x -= (6.5 - wn->map->size) : 0) : 0;
+	wn->state[SDL_SCANCODE_RIGHT] ? ((wn->map->x + wn->map->w) < 1200 ? wn->map->x += (6.5 - wn->map->size) : 0) : 0;
+	wn->state[SDL_SCANCODE_UP] ? (wn->map->y > 0 ? wn->map->y -= (6.5 - wn->map->size) : 0) : 0;
+	wn->state[SDL_SCANCODE_DOWN] ? ((wn->map->y + wn->map->h) < 1200 ? wn->map->y += (6.5 - wn->map->size) : 0) : 0;
 	wn->state[SDL_SCANCODE_KP_PLUS] && wn->map->size < 6
 		&& !wn->old[SDL_SCANCODE_KP_PLUS] ? wn->map->size *= 1.2 : 0;
 	wn->state[SDL_SCANCODE_KP_PLUS]

@@ -85,16 +85,16 @@ static void	showconsole(t_win *wn)
 {
 	SDL_Rect	bg;
 
-	if (XSCREEN > 300)
+	if (wn->xscreen > 300)
 	{
 		bg.x = 0;
-		bg.y = YSCREEN - 500;
+		bg.y = wn->yscreen - 500;
 		bg.w = 600;
 		bg.h = 500;
 		SDL_SetRenderDrawColor(wn->rend, 50, 50, 50, 0);
 		SDL_RenderFillRect(wn->rend, &bg);
 		bg.x = 30;
-		bg.y = YSCREEN - 70;
+		bg.y = wn->yscreen - 70;
 		bg.w = 540;
 		bg.h = 30;
 		SDL_SetRenderDrawColor(wn->rend, 150, 150, 150, 0);

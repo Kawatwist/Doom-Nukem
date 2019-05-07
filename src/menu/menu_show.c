@@ -16,14 +16,14 @@ void	showmenu(t_win *wn)
 {
 	SDL_Rect	dst;
 
-	dst.x = XSCREEN / 2 - (XSCREEN / 10);
-	dst.y = YSCREEN / 2.15 + (wn->menu->choice * (YSCREEN / 35));
+	dst.x = wn->xscreen / 2 - (wn->xscreen / 10);
+	dst.y = wn->yscreen / 2.15 + (wn->menu->choice * (wn->yscreen / 35));
 	dst.w = 50;
 	dst.h = 50;
 	if (wn->menu->choice == 3)
 	{
-		dst.x = XSCREEN / 2 - (XSCREEN / 40);
-		dst.y = YSCREEN / 2 + (YSCREEN / 4) - (YSCREEN >> 5);
+		dst.x = wn->xscreen / 2 - (wn->xscreen / 40);
+		dst.y = wn->yscreen / 2 + (wn->yscreen / 4) - (wn->yscreen >> 5);
 	}
 	SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 0);
 	SDL_RenderClear(wn->rend);

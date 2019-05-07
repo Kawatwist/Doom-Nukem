@@ -12,6 +12,23 @@
 
 #include "doom.h"
 
+void	full_screen(t_win *wn)
+{
+	if (wn->full_screen == -1)
+	{
+		SDL_SetWindowFullscreen(wn->window, SDL_WINDOW_FULLSCREEN);
+		SDL_GetWindowSize(wn->window, &wn->xscreen, &wn->yscreen);
+	}
+	if (wn->full_screen == 1)
+	{
+		wn->xscreen = XSCREEN;
+		wn->yscreen = YSCREEN;
+		SDL_SetWindowSize(wn->window, wn->xscreen, wn->yscreen);
+		SDL_SetWindowFullscreen(wn->window, 0);
+		SDL_RestoreWindow(wn->window);
+	}
+}
+
 void	turn(t_win *wn)
 {
 	Uint32	difftime;
@@ -31,8 +48,10 @@ void	turn(t_win *wn)
 		time = SDL_GetTicks();
 		SDL_ShowCursor(wn->interface != GAME ? SDL_ENABLE : SDL_DISABLE);
 		SDL_CaptureMouse(wn->interface == GAME ? 1 : 0);
+		!wn->old[SDL_SCANCODE_F] && wn->state[SDL_SCANCODE_F] ? wn->full_screen = -wn->full_screen : 0;
+		full_screen(wn);
 		wn->interface == GAME
-			? SDL_WarpMouseInWindow(wn->window, XSCREEN/2, YSCREEN/2) : 0;
+			? SDL_WarpMouseInWindow(wn->window, wn->xscreen/2, wn->yscreen/2) : 0;
 		!wn->old[SDL_SCANCODE_ESCAPE] && wn->state[SDL_SCANCODE_ESCAPE]
 			&& wn->interface == MENU ? stop_exec("Escape\n", wn) : 0;
 		wn->interface == MENU ? menu(wn) : 0 ;

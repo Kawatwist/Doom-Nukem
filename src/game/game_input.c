@@ -26,11 +26,11 @@ void	setkeyboard(Uint8 *new, Uint8 *current)
 
 void	gameinput(t_win *wn)
 {
-	(wn->player->rawx += (XSCREEN / 2 - wn->input->x)) > XSCREEN
+	(wn->player->rawx += (wn->xscreen / 2 - wn->input->x)) > wn->xscreen
 		? wn->player->rawx = 0 : 0;
-	(wn->player->rawy += (wn->input->y - (YSCREEN / 2))) > YSCREEN
-		? wn->player->rawy = YSCREEN : 0;
-	wn->player->rawx < 0 ? wn->player->rawx = XSCREEN * wn->player->sensi : 0;
+	(wn->player->rawy += (wn->input->y - (wn->yscreen / 2))) > wn->yscreen
+		? wn->player->rawy = wn->yscreen : 0;
+	wn->player->rawx < 0 ? wn->player->rawx = wn->xscreen * wn->player->sensi : 0;
 	wn->player->rawy < 0 ? wn->player->rawy = 0 : 0;
 	wn->state[SDL_SCANCODE_ESCAPE] ? wn->interface = MENU : 0;
 	wn->state[SDL_SCANCODE_KP_PLUS] ? wn->player->sensi += 0.1 : 0;

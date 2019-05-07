@@ -99,6 +99,9 @@ void		initwn(t_win **wn)
 	ft_bzero(*wn, sizeof(t_win));
 	(*wn)->interface = MENU;
 	(*wn)->oldinterface = MENU;
+	(*wn)->xscreen = XSCREEN;
+	(*wn)->yscreen = YSCREEN;
+	(*wn)->full_screen = 1;
 	initmap(wn);
 	initelem(wn);
 	initmenu(wn);
