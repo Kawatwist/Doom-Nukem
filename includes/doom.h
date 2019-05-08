@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/05 17:08:34 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/08 16:11:11 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,21 @@ typedef struct		s_text
 	struct s_text	*before;
 }					t_text;
 
+typedef struct		s_load
+{
+	char			*path;
+	char			*type;
+	char			*subtype;
+	char			*name;
+	void			*tga;
+	t_text			*txt;
+	struct s_load	*next;
+}					t_load;
+
 typedef struct		s_thread
 {
 	pthread_t		thd;
+	t_load			*file;
 	struct s_win	*wn;
 	int				value;
 }					t_thread;
@@ -103,6 +115,7 @@ typedef	struct		s_input
 typedef struct		s_mut
 {
 	int				load;
+	void			*next;
 	pthread_cond_t	condition;
 	pthread_mutex_t	mutex;
 }					t_mut;
@@ -115,9 +128,9 @@ typedef struct		s_win
 	char			interface;
 	char			oldinterface;
 	char			debugcine;
-	char			*tmp[4];
 	char			*command;
 	char			**history;
+	char			*load;
 	int				turn;
 	Uint8			*state;
 	Uint8			*old;
@@ -162,6 +175,7 @@ t_text				*findpostxt(t_win *wn, char *type,
 t_text				*findpos(t_win *wn, char *type,
 						char *subtype, char *name);
 int					parsearg(int argc, char **argv, t_win **wn);
+void				loadminimenu(t_win **wn);
 void				showload(t_win **wn, int load);
 int					init(t_win **wn, int argc, char **argv);
 void				initwn(t_win **wn);
@@ -180,6 +194,7 @@ SDL_Texture			*findtexture(t_win *wn, char *type,
 						char *subtype, char *name);
 int					initmutex(t_win **wn);
 void				*loadingthread(void *param);
+void				loadnothread(t_win **wn);
 
 /**
  ** OPTION
