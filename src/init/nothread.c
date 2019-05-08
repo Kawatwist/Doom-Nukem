@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_intro.c                                       :+:      :+:    :+:   */
+/*   nothread.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/05 09:27:37 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/07 14:51:04 by lomasse          ###   ########.fr       */
+/*   Created: 2019/05/08 15:59:14 by lomasse           #+#    #+#             */
+/*   Updated: 2019/05/08 16:17:29 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-static void		load_main(t_win **wn)
-{
-	char	*name;
-	int		img;
-
-	name = ft_strdup("texture/intro/menu/test0001.tga");
-	img = 1;
-	while (img <= 59)
-	{
-		(*wn)->load = name;
-		load_texture(*wn, "main", "intro", ft_itoa(img));
-		name = changename(name, 23);
-		img++;
-	}
-	free(name);
-}
-
-static void		load_option(t_win **wn)
+static void	load_option(t_win **wn)
 {
 	char	*name;
 	int		img;
@@ -46,7 +29,7 @@ static void		load_option(t_win **wn)
 	free(name);
 }
 
-static void		load_edit(t_win **wn)
+static void	load_editor(t_win **wn)
 {
 	char	*name;
 	int		img;
@@ -63,7 +46,7 @@ static void		load_edit(t_win **wn)
 	free(name);
 }
 
-static void		load_game(t_win **wn)
+static void	load_game(t_win **wn)
 {
 	char	*name;
 	int		img;
@@ -80,21 +63,31 @@ static void		load_game(t_win **wn)
 	free(name);
 }
 
-void			*load_intro(void *params)
+static void	load_menu(t_win **wn)
 {
-	t_thread	*thd;
-	t_win		*wn;
-	int			value;
+	char	*name;
+	int		img;
 
-	thd = (t_thread *)params;
-	wn = (t_win *)thd->wn;
-	value = (int)thd->value;
-	value == 0 ? load_main(&wn) : 0;
-	value == 2 ? load_option(&wn) : 0;
-	value == 1 ? load_edit(&wn) : 0;
-	value == 3 ? load_game(&wn) : 0;
-	pthread_kill(thd->thd, 0);
-	pthread_exit(thd->thd);
-	pthread_exit(NULL);
-	return (0);
+	name = ft_strdup("texture/intro/menu/test0001.tga");
+	img = 1;
+	while (img <= 59)
+	{
+		(*wn)->load = name;
+		load_texture(*wn, "main", "intro", ft_itoa(img));
+		name = changename(name, 23);
+		img++;
+	}
+	free(name);
+}
+
+void		loadnothread(t_win **wn)
+{
+	load_menu(wn);
+	showload(wn, 50);
+	load_game(wn);
+	showload(wn, 70);
+	load_editor(wn);
+	showload(wn, 80);
+	load_option(wn);
+	showload(wn, 100);
 }

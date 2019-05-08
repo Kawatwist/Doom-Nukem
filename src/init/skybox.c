@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:34:05 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/25 11:18:50 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/07 13:32:32 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ static void	init_cloud(t_win **wn)
 
 void		initskybox(t_win **wn)
 {
-	(*wn)->tmp[3] = ft_strdup("texture/skybox/sky.tga");
+	(*wn)->load = ft_strdup("texture/skybox/sky.tga");
 	load_texture(*wn, "game", "skybox", "sky");
-	(*wn)->tmp[3] = ft_strdup("texture/skybox/sky2.tga");
+	(*wn)->load = ft_strdup("texture/skybox/sky2.tga");
 	load_texture(*wn, "game", "skybox", "sky2");
-	(*wn)->tmp[3] = ft_strdup("texture/skybox/cloudy.tga");
+	(*wn)->load = ft_strdup("texture/skybox/cloudy.tga");
 	load_texture(*wn, "game", "skybox", "cloudy");
-	(*wn)->tmp[3] = ft_strdup("texture/skybox/cloud_briocher.tga");
+	(*wn)->load = ft_strdup("texture/skybox/cloud_briocher.tga");
 	load_texture(*wn, "game", "skybox", "bribri");
 	init_cloud(wn);
 }
