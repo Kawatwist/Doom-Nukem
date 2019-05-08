@@ -60,3 +60,9 @@ dkms.conf
 
 #tags code navigation
 tags
+
+#swap file
+*.swp
+
+
+

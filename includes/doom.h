@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/08 16:11:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/08 17:39:58 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "game.h"
 # include "skybox.h"
 # include "SDL.h"
+# include <jeronemo.h>
 
 # define XSCREEN 1500
 # define YSCREEN 1200
@@ -223,5 +224,13 @@ void				game(t_win *wn);
 void				gameinput(t_win *wn);
 void				setkeyboard(Uint8 *new, Uint8 *current);
 void				stop_exec(char *msg, t_win *wn);
+
+
+
+/**
+ ** jeronemo
+ **/
+
+void	ft_jeronemo(t_win *wn);
 
 #endif
