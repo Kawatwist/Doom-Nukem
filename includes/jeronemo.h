@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/09 13:08:57 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/09 17:43:29 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,18 @@ typedef struct		s_mywrite
 	TTF_Font		*font;
 	int				x;
 	int				y;
+	char			*str;
 }					t_mywrite;
+
+typedef struct		s_mywall
+{
+	int				x_a;
+	int				y_a;
+	int				x_b;
+	int				y_b;
+	int				height;
+	int				texture;
+}					t_mywall;
 
 typedef struct		s_mycross
 {

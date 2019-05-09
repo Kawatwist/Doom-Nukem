@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/09 13:11:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/09 17:48:48 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,9 @@ void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square)
 }
 
 
-
 void	ft_draw_wall(void)
 {
 	printf("ft_draw_wall\n");
-}
-
-void	ft_read_map(void)
-{
-	printf("ft_read_map\n");
 }
 
 void	ft_save_map(void)
@@ -122,32 +116,32 @@ t_mycross	ft_setcross(int x, int y, int size, int thickness, t_mycolor color)
 	return (s_cross);
 }
 
-
-
 t_mywrite	ft_setwrite(int x, int y, t_mycolor color, int size, char *str)
 {
 	t_mywrite	s_write;
 
+	s_write.x = x;
+	s_write.y = y;
+	s_write.str = ft_strdup(str);
 	TTF_Init();
 	s_write.color = color;
-	s_write.font = TTF_OpenFont("./media/films.icedeart.ttf", size);
-	if (!text.font)
+	s_write.font = TTF_OpenFont("./OpenSans-Bold.ttf", size);
+	if (!s_write.font)
 		printf("TTF_OpenFont: %s\n", TTF_GetError());
 	return (s_write);
 }
 
-void	ft_write(t_mywrite *s_write)
+void	ft_write(t_mywin *s_win, t_mywrite *s_write)
 {
 	printf("ft_write\n");
 
-	t_my_put_smth		text;
-
-	text.color.a = 0;
-	text.text_w = 0;
-	text.text_h = 0;
-
 	SDL_Surface	*surface;
-	surface = TTF_RenderText_Solid(s_write->font, s_write->str, s_write->color);
+	SDL_Color color;
+
+	color.r = s_write->color.rrr;
+	color.g = s_write->color.ggg;
+	color.b = s_write->color.bbb;
+	surface = TTF_RenderText_Solid(s_write->font, s_write->str, color);
 
 	SDL_Texture	*texture;
 	texture = SDL_CreateTextureFromSurface(s_win->renderer[J_EDITOR], surface);
@@ -162,10 +156,15 @@ void	ft_write(t_mywrite *s_write)
 	rect.w = w;
 	rect.h = h;
 	SDL_RenderCopy(s_win->renderer[J_EDITOR], texture, NULL, &rect);
-	TTF_CloseFont(police);
+	TTF_CloseFont(s_write->font);
 	TTF_Quit();
 }
 
+void	ft_read_map(void)
+{
+	printf("ft_read_map\n");
+
+}
 void	ft_launch_map_editor(t_mywin *s_win)
 {
 	ft_launch_window(s_win);
@@ -180,27 +179,22 @@ void	ft_launch_map_editor(t_mywin *s_win)
 	//	t_mysquare		s_square;
 	//	s_square = ft_setsquare(10, 10, 100, 100, s_color);
 	//	ft_draw_square(s_win, &s_square);
-
 	// CROSS
 	//	s_color = ft_setcolor(0, 255, 0);
 	//	t_mycross		s_cross;
 	//	s_cross = ft_setcross(100, 100, 50, 10, s_color);
 	//	ft_draw_cross(s_win, &s_cross);
-
-
 	//WRITE
-	s_color = ft_setcolor(0, 0, 255);
-	t_mywrite	s_write;
-	s_write = ft_setwrite()
-	ft_write();
+	//	s_color = ft_setcolor(0, 0, 255);
+	//	t_mywrite	s_write;
+	//	s_write = ft_setwrite(10, 10, s_color, 24, "ma phrase");
+	//	ft_write(s_win, &s_write);
+	//READMAP
+	ft_read_map();
 
-
-
-
+	ft_save_map();
 
 	ft_draw_wall();
-	ft_read_map();
-	ft_save_map();
 	SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 }
 
