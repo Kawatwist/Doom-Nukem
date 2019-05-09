@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/09 12:14:09 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/09 13:11:51 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,48 @@ t_mycross	ft_setcross(int x, int y, int size, int thickness, t_mycolor color)
 }
 
 
-void	ft_write(void)
+
+t_mywrite	ft_setwrite(int x, int y, t_mycolor color, int size, char *str)
 {
-	printf("ft_write\n");
+	t_mywrite	s_write;
+
+	TTF_Init();
+	s_write.color = color;
+	s_write.font = TTF_OpenFont("./media/films.icedeart.ttf", size);
+	if (!text.font)
+		printf("TTF_OpenFont: %s\n", TTF_GetError());
+	return (s_write);
 }
 
+void	ft_write(t_mywrite *s_write)
+{
+	printf("ft_write\n");
 
+	t_my_put_smth		text;
+
+	text.color.a = 0;
+	text.text_w = 0;
+	text.text_h = 0;
+
+	SDL_Surface	*surface;
+	surface = TTF_RenderText_Solid(s_write->font, s_write->str, s_write->color);
+
+	SDL_Texture	*texture;
+	texture = SDL_CreateTextureFromSurface(s_win->renderer[J_EDITOR], surface);
+
+	int	w;
+	int	h;
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+
+	SDL_Rect	rect;
+	rect.x = s_write->x;
+	rect.y = s_write->y;
+	rect.w = w;
+	rect.h = h;
+	SDL_RenderCopy(s_win->renderer[J_EDITOR], texture, NULL, &rect);
+	TTF_CloseFont(police);
+	TTF_Quit();
+}
 
 void	ft_launch_map_editor(t_mywin *s_win)
 {
@@ -140,19 +176,28 @@ void	ft_launch_map_editor(t_mywin *s_win)
 
 	t_mycolor		s_color;
 	//	SQUARE
-//	s_color = ft_setcolor(255, 255, 255);
-//	t_mysquare		s_square;
-//	s_square = ft_setsquare(10, 10, 100, 100, s_color);
-//	ft_draw_square(s_win, &s_square);
+	//	s_color = ft_setcolor(255, 255, 255);
+	//	t_mysquare		s_square;
+	//	s_square = ft_setsquare(10, 10, 100, 100, s_color);
+	//	ft_draw_square(s_win, &s_square);
 
 	// CROSS
-//	s_color = ft_setcolor(0, 255, 0);
-//	t_mycross		s_cross;
-//	s_cross = ft_setcross(100, 100, 50, 10, s_color);
-//	ft_draw_cross(s_win, &s_cross);
+	//	s_color = ft_setcolor(0, 255, 0);
+	//	t_mycross		s_cross;
+	//	s_cross = ft_setcross(100, 100, 50, 10, s_color);
+	//	ft_draw_cross(s_win, &s_cross);
 
 
+	//WRITE
+	s_color = ft_setcolor(0, 0, 255);
+	t_mywrite	s_write;
+	s_write = ft_setwrite()
 	ft_write();
+
+
+
+
+
 	ft_draw_wall();
 	ft_read_map();
 	ft_save_map();
