@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/09 17:48:48 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/09 20:13:35 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,6 @@ void		ft_launch_window(t_mywin *s_win)
 		ft_quit("Erreur alloc window\n", s_win);
 }
 
-void	ft_draw_grid(void)
-{
-	printf("ft_draw_grid\n");
-}
 
 void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square)
 {
@@ -149,7 +145,6 @@ void	ft_write(t_mywin *s_win, t_mywrite *s_write)
 	int	w;
 	int	h;
 	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-
 	SDL_Rect	rect;
 	rect.x = s_write->x;
 	rect.y = s_write->y;
@@ -160,20 +155,84 @@ void	ft_write(t_mywin *s_win, t_mywrite *s_write)
 	TTF_Quit();
 }
 
-void	ft_read_map(void)
+int		ft_get_number_of_line(void)
+{
+	int			nbr_line;
+	int			fd;
+	char		*line;
+
+	line = NULL;
+
+	nbr_line = 0;
+	fd = open("./src/jeronemo/file_wall", O_RDWR);
+	while(get_next_line(fd, &line))
+		nbr_line++;
+	close(fd);
+	return (nbr_line);
+}
+
+
+int		ft_get_next_value(char *line, int *j)
+{
+	int k;
+	char		nbr[100];
+
+	k = 0;
+	while( !ft_isdigit(line[*j]) )
+		*j = *j + 1;
+	while(ft_isdigit(line[*j]))
+	{
+		nbr[k] = line[*j];
+		*j = *j + 1;
+		k++;
+	}
+	nbr[k] = '\0';
+	//printf("la value =%d\n", ft_atoi(nbr));
+	return (ft_atoi(nbr));
+}
+
+t_mywall	*ft_read_map(void)
 {
 	printf("ft_read_map\n");
+	int			fd;
+	char		*line;
+	int			nbr_line;
+	t_mywall	*s_wall;
+	int			i;
+	int			j;
 
+	line = NULL;
+	nbr_line = ft_get_number_of_line();
+	s_wall = (t_mywall*)malloc(sizeof(t_mywall) * nbr_line);
+	fd = open("./src/jeronemo/file_wall", O_RDWR);
+	i = 0;
+	while(get_next_line(fd, &line))
+	{
+		j = 0;
+		//printf("%s\n", line);
+		s_wall[i].x_a = ft_get_next_value(line, &j);
+		s_wall[i].y_a = ft_get_next_value(line, &j);
+		s_wall[i].x_b = ft_get_next_value(line, &j);
+		s_wall[i].y_b = ft_get_next_value(line, &j);
+		s_wall[i].height = ft_get_next_value(line, &j);
+		s_wall[i].texture = ft_get_next_value(line, &j);
+		i++;
+	}
+	close(fd);
+	return (s_wall);
 }
+
+void	ft_draw_grid(void)
+{
+	printf("ft_draw_grid\n");
+}
+
 void	ft_launch_map_editor(t_mywin *s_win)
 {
 	ft_launch_window(s_win);
 	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
     SDL_RenderClear(s_win->renderer[J_EDITOR]);
-	ft_draw_grid();
-
-
-	t_mycolor		s_color;
+	//t_mycolor		s_color;
 	//	SQUARE
 	//	s_color = ft_setcolor(255, 255, 255);
 	//	t_mysquare		s_square;
@@ -190,10 +249,12 @@ void	ft_launch_map_editor(t_mywin *s_win)
 	//	s_write = ft_setwrite(10, 10, s_color, 24, "ma phrase");
 	//	ft_write(s_win, &s_write);
 	//READMAP
-	ft_read_map();
+	//t_mywall	*s_wall;
+	//s_wall = ft_read_map();
+	//DRAW GRID
+	ft_draw_grid();
 
 	ft_save_map();
-
 	ft_draw_wall();
 	SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 }
