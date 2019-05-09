@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:35:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/05 16:50:47 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/07 13:27:37 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,55 +77,4 @@ t_text			*findpos(t_win *wn, char *type, char *subtype, char *name)
 	}
 	fillpos(curr, type, subtype, name);
 	return (curr);
-}
-
-static int		tga2sur(t_tga *tga, t_win *wn, t_text *place)
-{
-	tga->surface = SDL_CreateRGBSurfaceWithFormatFrom(tga->data,
-			tga->w, tga->h, 32, 4 * (tga->w), SDL_PIXELFORMAT_ARGB32);
-	if (tga->surface != NULL)
-		place->txt = SDL_CreateTextureFromSurface(wn->rend, tga->surface);
-	else
-	{
-		free(place->name);
-		free(place->subtype);
-		free(place->type);
-		place = NULL;
-	}
-	SDL_FreeSurface(tga->surface);
-	return (0);
-}
-
-int				load_texture(t_win *wn, char *type, char *subtype, char *name)
-{
-	t_tga		*tga;
-	t_text		*txt;
-	int			i;
-
-	if (ft_strcmp("main", type) == 0)
-		i = 0;
-	else if (ft_strcmp("editor", type) == 0)
-		i = 1;
-	else if (ft_strcmp("option", type) == 0)
-		i = 2;
-	else
-		i = 3;
-	tga = NULL;
-	txt = NULL;
-	if (!(tga = (t_tga *)malloc(sizeof(t_tga))))
-		stop_exec("Cant malloc tga\n", wn);
-	if ((tga = load_tga(wn->tmp[i])) == NULL)
-	{
-		free_tga(tga);
-		return (1);
-	}
-	txt = findpos(wn, type, subtype, name);
-	pthread_mutex_lock(&(wn->mutex->mutex));
-	pthread_cond_wait(&(wn->mutex->condition), &(wn->mutex->mutex));
-	tga2sur(tga, wn, txt);
-	wn->mutex->load += 1;
-	free(tga);
-	pthread_cond_signal(&(wn->mutex->condition));
-	pthread_mutex_unlock(&(wn->mutex->mutex));
-	return (0);
 }
