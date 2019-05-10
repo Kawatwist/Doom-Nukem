@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/10 08:35:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/10 11:35:39 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,6 @@ void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square)
 		}
 		j++;
 	}
-}
-
-
-void	ft_draw_wall(void)
-{
-	printf("ft_draw_wall\n");
 }
 
 void	ft_save_map(void)
@@ -241,19 +235,62 @@ void	ft_draw_grid(t_mywin *s_win, t_mygrid *s_grid)
 	printf("ft_draw_grid\n");
 	int	i;
 	int	j;
-	t_mycross
+	t_mycross	s_cross;
+	t_mycolor	s_color;
+	int step;
 
-	i = 0;
+	step = 20;
+
+	s_color = ft_setcolor(10, 10, 255);
 	j = 0;
-	while ( )
+	while ((s_grid->y + (j * step)) < (s_grid->y + s_grid->height))
 	{
-		while ( )
+		i = 0;
+		while ((s_grid->x + (i * step)) < (s_grid->x + s_grid->width))
 		{
 //t_mycross	ft_setcross(int x, int y, int size, int thickness, t_mycolor color)
-
+			s_cross = ft_setcross((s_grid->x + (i * step)),(s_grid->y + (j * step)) , 6, 2, s_color);
+			ft_draw_cross(s_win, &s_cross);
+			i++;
 		}
+		j++;
 	}
+}
 
+t_mypoint		ft_setpoint(int x, int y)
+{
+	t_mypoint	s_point;
+
+	s_point.x = x;
+	s_point.y = y;
+	return (s_point);
+}
+
+t_mywall	ft_setwall(t_mypoint a, t_mypoint b, int height, int texture)
+{
+
+	t_mywall	s_wall;
+
+	s_wall.x_a = a.x;
+	s_wall.y_a = a.y;
+	s_wall.x_b = b.x;
+	s_wall.y_b = b.y;
+	s_wall.height = height;
+	s_wall.texture = texture;
+	return (s_wall);
+}
+
+void	ft_draw_wall(t_mywin *s_win, t_mywall *s_wall)
+{
+	printf("ft_draw_wall\n");
+	t_myputtheline		s_line;
+
+	s_line.un.a = s_wall->x_a;
+	s_line.un.b = s_wall->y_a;
+	s_line.deux.a = s_wall->x_b;
+	s_line.deux.b = s_wall->y_b;
+	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 255, 0, 0);
+	ft_draw_line(s_win, &s_line);
 }
 
 void	ft_launch_map_editor(t_mywin *s_win)
@@ -281,16 +318,20 @@ void	ft_launch_map_editor(t_mywin *s_win)
 	//t_mywall	*s_wall;
 	//s_wall = ft_read_map();
 	//DRAW GRID
-	t_mygrid	s_grid;
-	s_grid = ft_setgrid(int x, int y, int height, int width);
-	ft_draw_grid(s_win, &s_grid);
+	//t_mygrid	s_grid;
+	//s_grid = ft_setgrid(10, 10, 300, 500);
+	//ft_draw_grid(s_win, &s_grid);
+	//DRAW WALL
+	t_mypoint	s_point_a;
+	t_mypoint	s_point_b;
 
-
-
-
+	s_point_a = ft_setpoint(20, 40);
+	s_point_b = ft_setpoint(50, 100);
+	t_mywall	s_wall;
+	s_wall = ft_setwall(s_point_a, s_point_b, 2, 4);
+	ft_draw_wall(s_win, &s_wall);
 
 	ft_save_map();
-	ft_draw_wall();
 	SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 }
 

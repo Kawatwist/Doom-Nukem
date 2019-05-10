@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/09 19:50:15 by jchardin         ###   ########.fr        #
+#    Updated: 2019/05/10 11:32:47 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -66,7 +66,8 @@ SRC				= main.c										\
 				  player.c 										\
 				  console.c 									\
 				  menu_show.c 									\
-				  file_map_editor.c								
+				  file_map_editor.c								\
+				  fille_bresename.c
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 

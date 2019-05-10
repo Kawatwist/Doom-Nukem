@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/10 08:35:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/10 11:34:11 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 # define JERONEMO_H
 
 # include <SDL_ttf.h>
+
+typedef struct		s_mypoint
+{
+	int				x;
+	int				y;
+}					t_mypoint;
 
 typedef struct		s_mycolor
 {
@@ -66,7 +72,7 @@ typedef struct		s_mycross
 	t_mycolor		color;
 }					t_mycross;
 
-typedef				s_mygrid
+typedef struct		s_mygrid
 {
 	int				x;
 	int				y;
@@ -76,9 +82,36 @@ typedef				s_mygrid
 	int				nbr_dot_width;
 }					t_mygrid;
 
+typedef struct			s_xyz_point
+{
+	double				a;
+	double				b;
+}						t_xyz_point;
+
+typedef struct			s_myputtheline
+{
+	int					above;
+	t_xyz_point			un;
+	t_xyz_point			deux;
+	int					ex;
+	int					ey;
+	int					dx;
+	int					dy;
+	int					d_x;
+	int					d_y;
+	int					i;
+	int					j;
+	int					x_incr;
+	int					y_incr;
+	float				ab;
+	float				le_z1;
+	float				le_z2;
+}						t_myputtheline;
+
 typedef enum		e_window
 {
 	J_EDITOR,
 }					t_window;
 
+void			ft_draw_line(t_mywin *s_win, t_myputtheline *s_line);
 #endif
