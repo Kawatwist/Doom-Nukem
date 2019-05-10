@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/10 14:21:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/10 16:11:16 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void	ft_launch_map_editor(t_mywin *s_win)
 		t_mysquare		s_square;
 		t_mywrite	s_write;
 
-		int marge = 60;
+		int marge = 80;
 		int marge_text = 5;
 		int indent_text = 15;
 		int width = 150;
 		int height = 100;
-		
+
 		int box_width = 70;
 		int box_height = 50;
 		int i;
@@ -68,29 +68,110 @@ void	ft_launch_map_editor(t_mywin *s_win)
 
 		//TITRE
 		s_color = ft_setcolor(WHITE);
-		s_write = ft_setwrite(100, 10, s_color, 24, "Doom Map Editor  (en attendant celui de Laetitia)");
+		s_write = ft_setwrite(	100,
+								10,
+ 			   	s_color, 24, "Doom Map Editor  (en attendant celui de Laetitia)");
 		ft_write(s_win, &s_write);
+
+
+	//DRAW GRID
+	t_mygrid	s_grid;
+	s_grid = ft_setgrid(50, 100, 700, 900);
+	ft_draw_grid(s_win, &s_grid);
+
 
 		//Wall height
+		j = 0;
 		s_color = ft_setcolor(WHITE);
-		s_write = ft_setwrite(1920 - (2 * width) - (3 * marge), 10, s_color, 24, "Wall Height");
+		s_write = ft_setwrite(	1920 - (2 * width) - (4 * marge),
+ 			   					((j + 1) * height) + (j * marge)  - (height / 2),
+								s_color, 24, "Wall Height");
 		ft_write(s_win, &s_write);
 
-		//Show
+
+		//Wall texture
+		j = 1;
 		s_color = ft_setcolor(WHITE);
-		s_write = ft_setwrite(1920 - (2 * width) - (3 * marge) - 280, 30, s_color, 19, "Show");
+		s_write = ft_setwrite(	1920 - (2 * width) - (4 * marge),
+ 			   					((j + 1) * height) + (j * marge) - (height / 2) ,
+								s_color, 24, "Wall Texture");
 		ft_write(s_win, &s_write);
+
+
+		//Wall height
+		j = 3;
+		s_color = ft_setcolor(WHITE);
+		s_write = ft_setwrite(	1920 - (2 * width) - (4 * marge),
+ 			   					((j + 1) * height) + (j * marge)  - (height / 2),
+								s_color, 24, "Wall Height");
+		ft_write(s_win, &s_write);
+
+
+		//florr height
+		j = 4;
+		s_color = ft_setcolor(WHITE);
+		s_write = ft_setwrite(	1920 - (2 * width) - (4 * marge),
+ 			   					((j + 1) * height) + (j * marge) - (height / 2) ,
+								s_color, 24, "Floor Height");
+		ft_write(s_win, &s_write);
+
+
+		//floor texture
+		j = 5;
+		s_color = ft_setcolor(WHITE);
+		s_write = ft_setwrite(1920 - (2 * width) - (3 * marge) - 280, 30, s_color, 19, "Floor Texture");
+		ft_write(s_win, &s_write);
+
+
+
 
 		//box
 		i = 4;
 		j = 0;
 		s_color = ft_setcolor(WHITE);
 		s_square = ft_setsquare(1920 - (marge * i) - (width * i) + (width / 2),
- 			   					marge + (j * height) + (j * marge) + ((j + 1) * (width / 4)),
+ 			   					marge + (j * height) + (j * marge) + (height / 4),
 								box_width,
 								box_height,
 								s_color);
 		ft_draw_square(s_win, &s_square);
+
+
+		//box
+		i = 4;
+		j = 1;
+		s_color = ft_setcolor(WHITE);
+		s_square = ft_setsquare(1920 - (marge * i) - (width * i) + (width / 2),
+ 			   					marge + (j * height) + (j * marge) + (height / 4),
+								box_width,
+								box_height,
+								s_color);
+		ft_draw_square(s_win, &s_square);
+
+
+		//box
+		i = 4;
+		j = 3;
+		s_color = ft_setcolor(WHITE);
+		s_square = ft_setsquare(1920 - (marge * i) - (width * i) + (width / 2),
+ 			   					marge + (j * height) + (j * marge) + (height / 4),
+								box_width,
+								box_height,
+								s_color);
+		ft_draw_square(s_win, &s_square);
+
+
+		//box
+		i = 4;
+		j = 4;
+		s_color = ft_setcolor(WHITE);
+		s_square = ft_setsquare(1920 - (marge * i) - (width * i) + (width / 2),
+ 			   					marge + (j * height) + (j * marge) + (height / 4),
+								box_width,
+								box_height,
+								s_color);
+		ft_draw_square(s_win, &s_square);
+
 
 
 		i = 1;
@@ -274,6 +355,30 @@ void	ft_launch_map_editor(t_mywin *s_win)
  	marge + marge_text + ((j + 1) * height) + (j * marge) ,
 				s_color, 14, "filed needed");
 		ft_write(s_win, &s_write);
+
+
+	// CROSS
+		t_mycross		s_cross;
+		i = 4;
+		j = 0;
+		s_color = ft_setcolor(PINK);
+		s_cross = ft_setcross(1920 - (marge * i) - (width * i) + (width / 2) + (box_width / 2),
+							marge + (j * height) + (j * marge) + (height / 4) + (box_height / 2) -5,
+							50, 10, s_color);
+		ft_draw_cross(s_win, &s_cross);
+
+	// CROSS
+		i = 4;
+		j = 3;
+		s_color = ft_setcolor(PINK);
+		s_cross = ft_setcross(1920 - (marge * i) - (width * i) + (width / 2) + (box_width / 2),
+							marge + (j * height) + (j * marge) + (height / 4) + (box_height / 2) -5,
+							50, 10, s_color);
+		ft_draw_cross(s_win, &s_cross);
+
+
+
+
 
 
 
