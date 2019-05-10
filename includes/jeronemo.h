@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/09 17:43:29 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/10 08:35:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,19 @@ typedef struct		s_mycross
 	t_mycolor		color;
 }					t_mycross;
 
+typedef				s_mygrid
+{
+	int				x;
+	int				y;
+	int				height;
+	int				width;
+	int				nbr_dot_height;
+	int				nbr_dot_width;
+}					t_mygrid;
+
 typedef enum		e_window
 {
 	J_EDITOR,
 }					t_window;
-
 
 #endif

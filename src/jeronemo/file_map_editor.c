@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/09 20:13:35 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/10 08:35:15 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,9 +222,38 @@ t_mywall	*ft_read_map(void)
 	return (s_wall);
 }
 
-void	ft_draw_grid(void)
+
+t_mygrid	ft_setgrid(int x, int y, int height, int width)
+{
+	t_mygrid	s_grid;
+
+	s_grid.x = x;
+	s_grid.y = y;
+	s_grid.height = height;
+	s_grid.width = width;
+	s_grid.nbr_dot_height = 10;
+	s_grid.nbr_dot_width = 10;
+	return (s_grid);
+}
+
+void	ft_draw_grid(t_mywin *s_win, t_mygrid *s_grid)
 {
 	printf("ft_draw_grid\n");
+	int	i;
+	int	j;
+	t_mycross
+
+	i = 0;
+	j = 0;
+	while ( )
+	{
+		while ( )
+		{
+//t_mycross	ft_setcross(int x, int y, int size, int thickness, t_mycolor color)
+
+		}
+	}
+
 }
 
 void	ft_launch_map_editor(t_mywin *s_win)
@@ -252,7 +281,13 @@ void	ft_launch_map_editor(t_mywin *s_win)
 	//t_mywall	*s_wall;
 	//s_wall = ft_read_map();
 	//DRAW GRID
-	ft_draw_grid();
+	t_mygrid	s_grid;
+	s_grid = ft_setgrid(int x, int y, int height, int width);
+	ft_draw_grid(s_win, &s_grid);
+
+
+
+
 
 	ft_save_map();
 	ft_draw_wall();
