@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/11 09:20:02 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 16:56:19 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ void	turn(t_win *wn)
 	(wn->old = malloc(sizeof(Uint8*) * 284)) == NULL
 		? stop_exec("Old not malloc\n", wn) : 0;
 	wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
+	wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
 	mainintro(wn, "main", "intro", 1);
 	while (TRUE)
 	{
 		setkeyboard(wn->old, wn->state);
+		wn->input->oldmouse = wn->input->mouse;
 		SDL_PollEvent(&(wn->ev));
 		wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
 		wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);

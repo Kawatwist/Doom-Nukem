@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/10 14:31:44 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 16:48:12 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,16 @@ typedef enum		e_interface
 	PAUSE,
 }					t_interface;
 
+typedef struct		s_point
+{
+	int				x;
+	int				y;
+	struct s_point	*next;
+}					t_point;
+
 typedef struct		s_elem
 {
-	char			*name;
-	int				x1;
-	int				x2;
-	int				y1;
-	int				y2;
-	int				*pos;
+	t_point			*point;
 	struct s_elem	*next;
 }					t_elem;
 
@@ -108,6 +110,7 @@ typedef struct		s_menu
 typedef	struct		s_input
 {
 	Uint32			mouse;
+	Uint32			oldmouse;
 	int				x;
 	int				y;
 }					t_input;
