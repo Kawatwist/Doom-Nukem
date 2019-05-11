@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 13:19:22 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/05 16:52:35 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/10 14:30:22 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ static void	readcommand(t_win *wn)
 	ft_strncmp(wn->command, "value", 5) == 0
 		&& ft_strlen(wn->command) > 5
 		? wn->debugconsole = ft_atoi(&(wn->command[5])) : 0;
+	ft_strncmp(wn->command, "sky", 3) == 0
+		&& ft_strlen(wn->command) > 3
+		? wn->sky = ft_atoi(&(wn->command[3])) : 0;
 	free(wn->command);
 	wn->command = NULL;
 }

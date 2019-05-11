@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/08 16:12:54 by lomasse          ###   ########.fr        #
+#    Updated: 2019/05/11 09:13:28 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -45,7 +45,6 @@ SRC				= main.c										\
 				  maingame.c 									\
 				  mainmenu.c									\
 				  menuinput.c									\
-				  game_show.c 									\
 				  mainedit.c									\
 				  printscreen.c 								\
 				  mainoption.c									\
@@ -62,6 +61,8 @@ SRC				= main.c										\
 				  editor_input.c 								\
 				  game_input.c 									\
 				  skybox.c 										\
+				  hud.c											\
+				  sky.c											\
 				  init_input.c 									\
 				  player.c 										\
 				  console.c 									\
@@ -96,7 +97,7 @@ all: $(NAME)
 
 $(NAME): $(IMAGE) $(OBJ)
 	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
-	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG) $(DEBUG)
+	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG)
 	@echo "${vertclair}DONE${neutre}"
 
 $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
