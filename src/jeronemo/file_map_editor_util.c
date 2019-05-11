@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/10 12:54:34 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/11 13:27:06 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void		ft_launch_window(t_mywin *s_win)
 	if (!(s_win->renderer[J_EDITOR] = SDL_CreateRenderer(s_win->window[J_EDITOR],0, SDL_RENDERER_SOFTWARE)))
 		ft_quit("Erreur alloc window\n", s_win);
 }
-
 
 void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square)
 {
@@ -165,7 +164,6 @@ int		ft_get_number_of_line(void)
 	return (nbr_line);
 }
 
-
 int		ft_get_next_value(char *line, int *j)
 {
 	int k;
@@ -215,7 +213,6 @@ t_mywall	*ft_read_map(void)
 	close(fd);
 	return (s_wall);
 }
-
 
 t_mygrid	ft_setgrid(int x, int y, int height, int width)
 {
@@ -301,7 +298,7 @@ void	ft_jeronemo(t_win *wn)
 	printf("hello chef inca\n");
 	ft_launch_map_editor(&s_win);
 	int i = 1;
-	while(++i < 1000)
+	while(++i < 10000)
 		SDL_Delay(10);
 	ft_quit("je quite\n", &s_win);
 }

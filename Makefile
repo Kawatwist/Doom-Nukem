@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/11 10:03:42 by jchardin         ###   ########.fr        #
+#    Updated: 2019/05/11 13:07:48 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -81,7 +81,7 @@ LIB_PATH 		= ./libft \
 
 FRAMEWORK 		= OpenGL AppKit
 
-CC 				= gcc
+CC 				= gcc -g
 
 vpath %.c $(foreach dir, $(SRC_PATH), $(dir):)
 
