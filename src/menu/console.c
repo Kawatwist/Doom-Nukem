@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 13:19:22 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/10 14:30:22 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 09:16:57 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static void	inputconsole(t_win *wn)
 		&& !wn->old[SDL_SCANCODE_BACKSPACE])
 		&& command != NULL && ft_strlen(command)
 		? (command[ft_strlen(command) - 1] = 0) : 0;
+	!wn->old[SDL_SCANCODE_ESCAPE] && wn->state[SDL_SCANCODE_ESCAPE] ? wn->debug *= -1 : 0;
 	if (wn->state[SDL_SCANCODE_RETURN]
 			&& !wn->old[SDL_SCANCODE_RETURN] && command != NULL)
 	{

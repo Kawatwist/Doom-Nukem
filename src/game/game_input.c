@@ -32,7 +32,7 @@ void	gameinput(t_win *wn)
 		? wn->player->rawy = YSCREEN : 0;
 	wn->player->rawx < 0 ? wn->player->rawx += 360 : 0;
 	wn->player->rawy < 0 ? wn->player->rawy = 0 : 0;
-	wn->state[SDL_SCANCODE_ESCAPE] ? wn->interface = MENU : 0;
+	!wn->old[SDL_SCANCODE_ESCAPE] && wn->state[SDL_SCANCODE_ESCAPE] && wn->debug == -1 ? wn->interface = MENU : 0;
 	wn->state[SDL_SCANCODE_KP_PLUS] ? wn->player->sensi += 0.1 : 0;
 	wn->state[SDL_SCANCODE_KP_MINUS] ? wn->player->sensi -= 0.1 : 0;
 }
