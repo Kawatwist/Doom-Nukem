@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/10 14:31:44 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 12:59:15 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ typedef struct		s_win
 	t_map			*map;
 	t_elem			*elem;
 	t_joueur		*player;
-	t_cloud			*cloud;
+	t_cloudy		*cloud;
 	t_menu			*menu;
 	t_mut			*mutex;
 
@@ -157,6 +157,8 @@ typedef struct		s_win
 /**
  ** GAME
  **/
+void				main_cloud(t_win *wn);
+void				init_cloud(t_cloudy *cloud);
 void				display_skybox(t_win *wn);
 void				display_crosshair(t_win *wn);
 

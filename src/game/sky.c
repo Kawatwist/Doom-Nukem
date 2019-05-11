@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:57:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/11 09:13:05 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 13:13:50 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,12 @@ static void	bg_skybox(t_win *wn)
 		src.y = (wn->player->rawy * (1600 - YSCREEN) / YSCREEN);
 	else
 		src.y = 0;
-	src.x = ((wn->player->rawx * (3600 - XSCREEN)) / 360);
+	if (wn->sky == 3)
+		src.x = ((wn->player->rawx * (4500 - XSCREEN)) / 360);
+	else if (wn->sky == 5)
+		src.x = ((wn->player->rawx * (5400 - XSCREEN)) / 360);
+	else
+		src.x = ((wn->player->rawx * (3600 - XSCREEN)) / 360);
 	src.w = XSCREEN;
 	src.h = YSCREEN;
 	if (wn->sky == 1)
