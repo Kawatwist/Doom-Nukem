@@ -19,6 +19,9 @@ static void	readcommand(t_win *wn)
 	ft_strncmp(wn->command, "value", 5) == 0
 		&& ft_strlen(wn->command) > 5
 		? wn->debugconsole = ft_atoi(&(wn->command[5])) : 0;
+	ft_strncmp(wn->command, "sky", 3) == 0
+		&& ft_strlen(wn->command) > 3
+		? wn->sky = ft_atoi(&(wn->command[3])) : 0;
 	free(wn->command);
 	wn->command = NULL;
 }

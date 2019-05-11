@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/08 16:11:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/10 14:31:44 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct		s_mut
 
 typedef struct		s_win
 {
+	char			sky;
 	char			difficulty;
 	char			quality;
 	char			debug;
@@ -157,6 +158,7 @@ typedef struct		s_win
  ** GAME
  **/
 void				display_skybox(t_win *wn);
+void				display_crosshair(t_win *wn);
 
 /**
  ** EDIT
@@ -170,6 +172,8 @@ void				mainconsole(t_win *wn);
 /**
  ** INIT
  **/
+
+void				initttf(t_win **wn);
 t_text				*findpostxt(t_win *wn, char *type,
 						char *subtype, char *name);
 t_text				*findpos(t_win *wn, char *type,
