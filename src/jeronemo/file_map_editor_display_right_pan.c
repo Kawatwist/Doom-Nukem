@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 10:01:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/11 13:41:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:16:07 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,25 @@ void	ft_display_color_box(t_mywin *s_win, t_mypan *pan)
 }
 
 
+void	ft_display_cross(t_mywin *s_win,t_mypan *pan)
+{
+		t_mycross		s_cross;
+		pan->i = 4;
+		pan->j = 0;
+		pan->s_color = ft_setcolor(PINK);
+		s_cross = ft_setcross(1920 - (pan->marge * pan->i) - (pan->width * pan->i) + (pan->width / 2) + (pan->box_width / 2),
+				pan->marge + (pan->j * pan->height) + (pan->j * pan->marge) + (pan->height / 4) + (pan->box_height / 2) -5,
+				50, 10, pan->s_color);
+		ft_draw_cross(s_win, &s_cross);
+	
+		pan->i = 4;
+		pan->j = 3;
+		pan->s_color = ft_setcolor(PINK);
+		s_cross = ft_setcross(1920 - (pan->marge * pan->i) - (pan->width * pan->i) + (pan->width / 2) + (pan->box_width / 2),
+				pan->marge + (pan->j * pan->height) + (pan->j * pan->marge) + (pan->height / 4) + (pan->box_height / 2) -5,
+				50, 10, pan->s_color);
+		ft_draw_cross(s_win, &s_cross);
+}
 
 void	ft_display_right_pan(t_mywin *s_win)
 {
@@ -193,8 +212,7 @@ void	ft_display_right_pan(t_mywin *s_win)
 	pan.indent_text = 15;
 	pan.width = 150;
 	pan.height = 100;
-	pan.box_width = 70;
-	pan.box_height = 50;
+	pan.box_width = 70; pan.box_height = 50;
 	pan.i = 0;
 	pan.j = 0;
 
@@ -205,25 +223,6 @@ void	ft_display_right_pan(t_mywin *s_win)
 	ft_display_show_text(s_win, &pan);
 	ft_display_box(s_win, &pan);
 	ft_display_color_box(s_win, &pan);
-
-
-	//	// CROSS
-	//	t_mycross		s_cross;
-	//	i = 4;
-	//	j = 0;
-	//	s_color = ft_setcolor(PINK);
-	//	s_cross = ft_setcross(1920 - (marge * i) - (width * i) + (width / 2) + (box_width / 2),
-	//			marge + (j * height) + (j * marge) + (height / 4) + (box_height / 2) -5,
-	//			50, 10, s_color);
-	//	ft_draw_cross(s_win, &s_cross);
-	//
-	//	// CROSS
-	//	i = 4;
-	//	j = 3;
-	//	s_color = ft_setcolor(PINK);
-	//	s_cross = ft_setcross(1920 - (marge * i) - (width * i) + (width / 2) + (box_width / 2),
-	//			marge + (j * height) + (j * marge) + (height / 4) + (box_height / 2) -5,
-	//			50, 10, s_color);
-	//	ft_draw_cross(s_win, &s_cross);
+	ft_display_cross(s_win, &pan);
 }
 

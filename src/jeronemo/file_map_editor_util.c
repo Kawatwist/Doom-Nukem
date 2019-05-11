@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/11 13:27:06 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:33:19 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,11 +292,10 @@ void	ft_draw_wall(t_mywin *s_win, t_mywall *s_wall)
 
 void	ft_jeronemo(t_win *wn)
 {
-	(void)wn;
 	t_mywin	s_win;
 
 	printf("hello chef inca\n");
-	ft_launch_map_editor(&s_win);
+	ft_launch_map_editor(&s_win, wn);
 	int i = 1;
 	while(++i < 10000)
 		SDL_Delay(10);

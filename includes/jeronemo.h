@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/11 09:22:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/11 14:35:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct		s_mywin
 	SDL_Window		*window[3];
 	SDL_Renderer	*renderer[3];
 }					t_mywin;
+
 
 typedef struct		s_mysquare
 {
@@ -139,7 +140,6 @@ void			ft_draw_grid(t_mywin *s_win, t_mygrid *s_grid);
 t_mypoint		ft_setpoint(int x, int y);
 t_mywall		ft_setwall(t_mypoint a, t_mypoint b, int height, int texture);
 void			ft_draw_wall(t_mywin *s_win, t_mywall *s_wall);
-void			ft_launch_map_editor(t_mywin *s_win);
 void			ft_display_ihc(t_mywin *s_win);
 
 
