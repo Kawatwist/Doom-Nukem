@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/11 09:13:28 by lomasse          ###   ########.fr        #
+#    Updated: 2019/05/11 13:29:00 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -63,6 +63,7 @@ SRC				= main.c										\
 				  skybox.c 										\
 				  hud.c											\
 				  sky.c											\
+				  newcloud.c									\
 				  init_input.c 									\
 				  player.c 										\
 				  console.c 									\
