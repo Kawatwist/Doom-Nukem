@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/10 13:15:37 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/11 09:22:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,20 +126,21 @@ typedef enum		e_window
 }					t_window;
 
 void			ft_draw_line(t_mywin *s_win, t_myputtheline *s_line);
-void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square);
-void		ft_launch_window(t_mywin *s_win);
-t_mysquare	ft_setsquare(int x, int  y, int  width, int  height, t_mycolor s_color );
-t_mycolor	ft_setcolor(int rrr, int ggg, int bbb);
-void	ft_draw_cross(t_mywin *s_win, t_mycross *s_cross);
-t_mycross	ft_setcross(int x, int y, int size, int thickness, t_mycolor color);
-t_mywrite	ft_setwrite(int x, int y, t_mycolor color, int size, char *str);
-void	ft_write(t_mywin *s_win, t_mywrite *s_write);
-t_mygrid	ft_setgrid(int x, int y, int height, int width);
-void	ft_draw_grid(t_mywin *s_win, t_mygrid *s_grid);
+void			ft_draw_square(t_mywin *s_win, t_mysquare *s_square);
+void			ft_launch_window(t_mywin *s_win);
+t_mysquare		ft_setsquare(int x, int  y, int  width, int  height, t_mycolor s_color );
+t_mycolor		ft_setcolor(int rrr, int ggg, int bbb);
+void			ft_draw_cross(t_mywin *s_win, t_mycross *s_cross);
+t_mycross		ft_setcross(int x, int y, int size, int thickness, t_mycolor color);
+t_mywrite		ft_setwrite(int x, int y, t_mycolor color, int size, char *str);
+void			ft_write(t_mywin *s_win, t_mywrite *s_write);
+t_mygrid		ft_setgrid(int x, int y, int height, int width);
+void			ft_draw_grid(t_mywin *s_win, t_mygrid *s_grid);
 t_mypoint		ft_setpoint(int x, int y);
-t_mywall	ft_setwall(t_mypoint a, t_mypoint b, int height, int texture);
-void	ft_draw_wall(t_mywin *s_win, t_mywall *s_wall);
-void	ft_launch_map_editor(t_mywin *s_win);
+t_mywall		ft_setwall(t_mypoint a, t_mypoint b, int height, int texture);
+void			ft_draw_wall(t_mywin *s_win, t_mywall *s_wall);
+void			ft_launch_map_editor(t_mywin *s_win);
+void			ft_display_ihc(t_mywin *s_win);
 
 
 

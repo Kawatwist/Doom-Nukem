@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/10 12:39:51 by jchardin         ###   ########.fr        #
+#    Updated: 2019/05/11 10:03:42 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -68,7 +68,9 @@ SRC				= main.c										\
 				  menu_show.c 									\
 				  file_map_editor.c								\
 				  file_map_editor_util.c						\
-				  fille_bresename.c
+				  fille_bresename.c								\
+				  file_map_editor_ihc.c							\
+					file_map_editor_display_right_pan.c
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 
