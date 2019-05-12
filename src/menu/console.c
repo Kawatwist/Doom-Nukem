@@ -78,7 +78,7 @@ static void		print_command(t_win *wn, char *s)
 }
 
 
-static char	find_which_key_pressed(int i)
+static char	printable_key_check(int i)
 {
 	if ((i >= SDL_SCANCODE_A) && (i <= SDL_SCANCODE_Z))
 		return (i - SDL_SCANCODE_A + 'a');
@@ -96,27 +96,26 @@ static char	find_which_key_pressed(int i)
 		return (INVALID);
 }
 
-static int	 key_pressed(t_win *wn, int i)
+static int	 key_pressed(t_win *wn, int key_value)
 {
-	if (wn->state[i] && !(wn->old[i]))
+	if (wn->state[key_value] && !(wn->old[key_value]))
 		return (TRUE);
 	return (FALSE);
 }
 
-static void	inputconsole(t_win *wn)
+static char *printable_input(t_win *wn, char *command)
 {
-	static char		 *command = NULL;
-	int			i;
-	char		str[2];
-	char		key_val;
+	int				i;
+	char			str[2];
+	char			key_val;
 
 	i = 0;
 	key_val = 0;
-	while (i <= 99)
+	while (i <= 98)
 	{
 		if (key_pressed(wn, i) == TRUE)
 		{
-			key_val = find_which_key_pressed(i);
+			key_val = printable_key_check(i);
 			if (key_val != INVALID)
 			{
 				str[0] = key_val;
@@ -129,18 +128,21 @@ static void	inputconsole(t_win *wn)
 		}
 		i++;
 	}
+	return (command);
+}
+
+static void	inputconsole(t_win *wn)
+{
+	static char		*command = NULL;
+
+	command = printable_input(wn, command);
+	if ((key_pressed(wn, SDL_SCANCODE_BACKSPACE) == TRUE) &&  command != NULL && ft_strlen(command))
+		command[ft_strlen(command) - 1] = 0;
 	if ((command != NULL) && ft_strlen(command))
 		print_command(wn, command);
-
-
-
-	(wn->state[SDL_SCANCODE_BACKSPACE]
-		&& !wn->old[SDL_SCANCODE_BACKSPACE])
-		&& command != NULL && ft_strlen(command)
-		? (command[ft_strlen(command) - 1] = 0) : 0;
-	!wn->old[SDL_SCANCODE_ESCAPE] && wn->state[SDL_SCANCODE_ESCAPE] ? wn->debug *= -1 : 0;
-	if (wn->state[SDL_SCANCODE_RETURN]
-			&& !wn->old[SDL_SCANCODE_RETURN] && command != NULL)
+	if (key_pressed(wn, SDL_SCANCODE_ESCAPE) == TRUE)
+		 wn->debug *= -1;
+	if (key_pressed(wn, SDL_SCANCODE_RETURN) == TRUE && command != NULL)
 	{
 		wn->command = ft_strdup(command);
 		free(command);
