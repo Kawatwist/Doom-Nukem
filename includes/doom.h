@@ -150,7 +150,7 @@ typedef struct		s_win
 	t_map			*map;
 	t_elem			*elem;
 	t_joueur		*player;
-	t_cloud			*cloud;
+	t_cloudy		*cloud;
 	t_menu			*menu;
 	t_mut			*mutex;
 	int 			xscreen;
@@ -164,6 +164,8 @@ typedef struct		s_win
 /**
  ** GAME
  **/
+void				main_cloud(t_win *wn);
+void				init_cloud(t_cloudy *cloud);
 void				display_skybox(t_win *wn);
 void				display_crosshair(t_win *wn);
 
