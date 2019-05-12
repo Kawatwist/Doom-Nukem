@@ -20,6 +20,7 @@
 # include "game.h"
 # include "skybox.h"
 # include "SDL.h"
+# include "SDL_ttf.h"
 
 # define XSCREEN 1500
 # define YSCREEN 1200
@@ -152,6 +153,9 @@ typedef struct		s_win
 	t_cloud			*cloud;
 	t_menu			*menu;
 	t_mut			*mutex;
+	int 			xscreen;
+	int 			yscreen;
+	int 			full_screen;
 
 	int				debugconsole;
 
@@ -203,6 +207,7 @@ int					initmutex(t_win **wn);
 void				*loadingthread(void *param);
 void				loadnothread(t_win **wn);
 
+
 /**
  ** OPTION
  **/
@@ -230,5 +235,6 @@ void				game(t_win *wn);
 void				gameinput(t_win *wn);
 void				setkeyboard(Uint8 *new, Uint8 *current);
 void				stop_exec(char *msg, t_win *wn);
+void				full_screen(t_win *wn);
 
 #endif
