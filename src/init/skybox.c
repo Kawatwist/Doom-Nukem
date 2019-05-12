@@ -22,7 +22,7 @@ static void	init_cloud(t_win **wn)
 	(*wn)->cloud->sens = 0;
 	(*wn)->cloud->life = 700;
 	(*wn)->cloud->flag = 0;
-	(*wn)->cloud->start = (rand() % XSCREEN);
+	(*wn)->cloud->start = (rand() % (*wn)->xscreen);
 	(*wn)->cloud->next = NULL;
 }
 */

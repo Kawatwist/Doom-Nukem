@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/11 12:59:15 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 16:48:12 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "game.h"
 # include "skybox.h"
 # include "SDL.h"
+# include "SDL_ttf.h"
 
 # define XSCREEN 1500
 # define YSCREEN 1200
@@ -49,14 +50,16 @@ typedef enum		e_interface
 	PAUSE,
 }					t_interface;
 
+typedef struct		s_point
+{
+	int				x;
+	int				y;
+	struct s_point	*next;
+}					t_point;
+
 typedef struct		s_elem
 {
-	char			*name;
-	int				x1;
-	int				x2;
-	int				y1;
-	int				y2;
-	int				*pos;
+	t_point			*point;
 	struct s_elem	*next;
 }					t_elem;
 
@@ -108,6 +111,7 @@ typedef struct		s_menu
 typedef	struct		s_input
 {
 	Uint32			mouse;
+	Uint32			oldmouse;
 	int				x;
 	int				y;
 }					t_input;
@@ -149,6 +153,9 @@ typedef struct		s_win
 	t_cloudy		*cloud;
 	t_menu			*menu;
 	t_mut			*mutex;
+	int 			xscreen;
+	int 			yscreen;
+	int 			full_screen;
 
 	int				debugconsole;
 
@@ -202,6 +209,7 @@ int					initmutex(t_win **wn);
 void				*loadingthread(void *param);
 void				loadnothread(t_win **wn);
 
+
 /**
  ** OPTION
  **/
@@ -229,5 +237,6 @@ void				game(t_win *wn);
 void				gameinput(t_win *wn);
 void				setkeyboard(Uint8 *new, Uint8 *current);
 void				stop_exec(char *msg, t_win *wn);
+void				full_screen(t_win *wn);
 
 #endif
