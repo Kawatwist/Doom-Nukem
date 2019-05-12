@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 09:27:37 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/25 11:16:31 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 16:19:32 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static void		load_main(t_win **wn)
 	img = 1;
 	while (img <= 59)
 	{
-		(*wn)->tmp[0] = name;
+		(*wn)->load = name;
 		load_texture(*wn, "main", "intro", ft_itoa(img));
 		name = changename(name, 23);
 		img++;
-		(*wn)->load += 1;
 	}
+	free(name);
 }
 
 static void		load_option(t_win **wn)
@@ -38,12 +38,12 @@ static void		load_option(t_win **wn)
 	img = 120;
 	while (img <= 179)
 	{
-		(*wn)->tmp[2] = name;
+		(*wn)->load = name;
 		load_texture(*wn, "option", "intro", ft_itoa(img));
 		name = changename(name, 25);
 		img++;
-		(*wn)->load += 1;
 	}
+	free(name);
 }
 
 static void		load_edit(t_win **wn)
@@ -55,12 +55,12 @@ static void		load_edit(t_win **wn)
 	img = 60;
 	while (img <= 119)
 	{
-		(*wn)->tmp[1] = name;
+		(*wn)->load = name;
 		load_texture(*wn, "editor", "intro", ft_itoa(img));
 		name = changename(name, 23);
 		img++;
-		(*wn)->load += 1;
 	}
+	free(name);
 }
 
 static void		load_game(t_win **wn)
@@ -72,12 +72,12 @@ static void		load_game(t_win **wn)
 	img = 60;
 	while (img <= 119)
 	{
-		(*wn)->tmp[3] = name;
+		(*wn)->load = name;
 		load_texture(*wn, "game", "intro", ft_itoa(img));
 		name = changename(name, 23);
 		img++;
-		(*wn)->load += 1;
 	}
+	free(name);
 }
 
 void			*load_intro(void *params)
@@ -90,8 +90,8 @@ void			*load_intro(void *params)
 	wn = (t_win *)thd->wn;
 	value = (int)thd->value;
 	value == 0 ? load_main(&wn) : 0;
-	value == 1 ? load_option(&wn) : 0;
-	value == 2 ? load_edit(&wn) : 0;
+	value == 2 ? load_option(&wn) : 0;
+	value == 1 ? load_edit(&wn) : 0;
 	value == 3 ? load_game(&wn) : 0;
 	pthread_kill(thd->thd, 0);
 	pthread_exit(thd->thd);

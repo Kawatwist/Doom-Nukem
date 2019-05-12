@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 11:10:40 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/22 11:46:46 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/07 14:48:26 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,46 @@ SDL_Texture	*initload2(t_win **wn, const char *path)
 		surface = SDL_CreateRGBSurfaceWithFormatFrom(tga->data,
 				tga->w, tga->h, 32, 4 * tga->w, SDL_PIXELFORMAT_ARGB32);
 		txt = SDL_CreateTextureFromSurface((*wn)->rend, surface);
+		free_tga(tga);
 	}
 	return (txt);
+}
+
+static int	tga_to_txt(t_tga *tga, t_win *wn, t_text *txt)
+{
+	tga->surface = SDL_CreateRGBSurfaceWithFormatFrom(tga->data,
+			tga->w, tga->h, 32, 4 * tga->w, SDL_PIXELFORMAT_ARGB32);
+	if (tga->surface != NULL)
+		txt->txt = SDL_CreateTextureFromSurface(wn->rend, tga->surface);
+	else
+	{
+		free(txt->name);
+		free(txt->subtype);
+		free(txt->type);
+		txt = NULL;
+	}
+	SDL_FreeSurface(tga->surface);
+	return(0);
+}
+
+int			load_texture(t_win *wn, char *type, char *subtype, char *name) // wn->load (variable path)
+{
+	t_tga	*tga;
+	t_text	*txt;
+
+	tga = NULL;
+	txt = NULL;
+	if (wn->load == NULL)
+		return (1);
+	((tga = (t_tga*)malloc(sizeof(tga))) == NULL) ? stop_exec("Malloc tga failed\n", wn): 0;
+	tga = load_tga(wn->load);
+	if (tga == NULL)
+	{
+		free_tga(tga);
+		return (1);
+	}
+	txt = findpos(wn, type, subtype, name);
+	tga_to_txt(tga, wn, txt);
+	free(tga);
+	return (0);
 }

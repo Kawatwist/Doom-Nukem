@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/24 19:11:30 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 16:48:12 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include "skybox.h"
 # include "SDL.h"
 # include "SDL_ttf.h"
-
-
 # define XSCREEN 1500
 # define YSCREEN 1200
 
@@ -56,14 +54,16 @@ typedef enum		e_interface
 	PAUSE,
 }					t_interface;
 
+typedef struct		s_point
+{
+	int				x;
+	int				y;
+	struct s_point	*next;
+}					t_point;
+
 typedef struct		s_elem
 {
-	char			*name;
-	int				x1;
-	int				x2;
-	int				y1;
-	int				y2;
-	int				*pos;
+	t_point			*point;
 	struct s_elem	*next;
 }					t_elem;
 
@@ -88,9 +88,21 @@ typedef struct		s_text
 	struct s_text	*before;
 }					t_text;
 
+typedef struct		s_load
+{
+	char			*path;
+	char			*type;
+	char			*subtype;
+	char			*name;
+	void			*tga;
+	t_text			*txt;
+	struct s_load	*next;
+}					t_load;
+
 typedef struct		s_thread
 {
 	pthread_t		thd;
+	t_load			*file;
 	struct s_win	*wn;
 	int				value;
 }					t_thread;
@@ -103,21 +115,31 @@ typedef struct		s_menu
 typedef	struct		s_input
 {
 	Uint32			mouse;
+	Uint32			oldmouse;
 	int				x;
 	int				y;
 }					t_input;
 
+typedef struct		s_mut
+{
+	int				load;
+	void			*next;
+	pthread_cond_t	condition;
+	pthread_mutex_t	mutex;
+}					t_mut;
+
 typedef struct		s_win
 {
+	char			sky;
 	char			difficulty;
 	char			quality;
 	char			debug;
 	char			interface;
 	char			oldinterface;
-	char			*tmp[4];
+	char			debugcine;
 	char			*command;
 	char			**history;
-	int				load;
+	char			*load;
 	int				turn;
 	Uint8			*state;
 	Uint8			*old;
@@ -132,8 +154,12 @@ typedef struct		s_win
 	t_map			*map;
 	t_elem			*elem;
 	t_joueur		*player;
-	t_cloud			*cloud;
+	t_cloudy		*cloud;
 	t_menu			*menu;
+	t_mut			*mutex;
+	int 			xscreen;
+	int 			yscreen;
+	int 			full_screen;
 
 	int				debugconsole;
 
@@ -142,7 +168,10 @@ typedef struct		s_win
 /**
  ** GAME
  **/
+void				main_cloud(t_win *wn);
+void				init_cloud(t_cloudy *cloud);
 void				display_skybox(t_win *wn);
+void				display_crosshair(t_win *wn);
 
 /**
  ** EDIT
@@ -156,11 +185,14 @@ void				mainconsole(t_win *wn);
 /**
  ** INIT
  **/
+
+void				initttf(t_win **wn);
 t_text				*findpostxt(t_win *wn, char *type,
 						char *subtype, char *name);
 t_text				*findpos(t_win *wn, char *type,
 						char *subtype, char *name);
 int					parsearg(int argc, char **argv, t_win **wn);
+void				loadminimenu(t_win **wn);
 void				showload(t_win **wn, int load);
 int					init(t_win **wn, int argc, char **argv);
 void				initwn(t_win **wn);
@@ -177,6 +209,10 @@ void				showlinkedlist(t_win **wn, char *type, char *subtype);
 void				initload(t_win **wn);
 SDL_Texture			*findtexture(t_win *wn, char *type,
 						char *subtype, char *name);
+int					initmutex(t_win **wn);
+void				*loadingthread(void *param);
+void				loadnothread(t_win **wn);
+
 
 /**
  ** OPTION
@@ -205,5 +241,6 @@ void				game(t_win *wn);
 void				gameinput(t_win *wn);
 void				setkeyboard(Uint8 *new, Uint8 *current);
 void				stop_exec(char *msg, t_win *wn);
+void				full_screen(t_win *wn);
 
 #endif

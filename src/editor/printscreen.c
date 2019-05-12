@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 11:07:03 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/22 11:32:43 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/12 13:01:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,20 @@
 static void	showelem(t_win *wn)
 {
 	t_elem		*curr;
-	SDL_Rect	rect;
+	t_point		*point;
 
 	curr = wn->elem;
 	while (curr != NULL)
 	{
-		SDL_SetRenderDrawColor(wn->rend, 200, 200, 200, 0);
-		if (ft_strcmp(curr->name, "Line") == 0)
+		point = curr->point;
+		while (point != NULL && point->next != NULL)
 		{
-			SDL_RenderDrawLine(wn->rend,
-					(curr->x1 * wn->map->size) + wn->map->x,
-					(curr->y1 * wn->map->size) + wn->map->y,
-					(curr->x2 * wn->map->size) + wn->map->x,
-					(curr->y2 * wn->map->size) + wn->map->y);
+			SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
+			SDL_RenderDrawLine(wn->rend, point->x, point->y, point->next->x, point->next->y);
+			SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 0);
+			SDL_RenderDrawLine(wn->rend, point->x, point->y + 1, point->next->x, point->next->y + 1);
+			point = point->next;
 		}
-		else if (ft_strcmp(curr->name, "Rect") == 0)
-		{
-			rect.x = (curr->x1 * wn->map->size) + wn->map->x;
-			rect.y = (curr->y1 * wn->map->size) + wn->map->y;
-			rect.h = (curr->x2 * wn->map->size);
-			rect.w = (curr->y2 * wn->map->size);
-			SDL_RenderDrawRect(wn->rend, &rect);
-		}
-		if (curr->next == NULL)
-			break ;
 		curr = curr->next;
 	}
 }
@@ -80,13 +70,13 @@ static void	showline(t_win *wn)
 	i = wn->map->x;
 	showline2(wn);
 	SDL_SetRenderDrawColor(wn->rend, 150, 100, 100, 0);
-	while (j <= wn->map->y + wn->map->h)
+	while (j <= wn->map->y + wn->map->h + 1)
 	{
 		SDL_RenderDrawLine(wn->rend, wn->map->x, j, wn->map->w + wn->map->x, j);
 		j += wn->map->h / 10;
 	}
 	j = wn->map->y;
-	while (i <= wn->map->x + wn->map->w)
+	while (i <= wn->map->x + wn->map->w + 1)
 	{
 		SDL_RenderDrawLine(wn->rend, i, wn->map->y, i, wn->map->h + wn->map->y);
 		i += wn->map->w / 10;
@@ -101,7 +91,9 @@ static void	showmap(t_win *wn)
 
 void		printeditor(t_win *wn)
 {
-	SDL_SetRenderDrawColor(wn->rend, 50, 50, 50, 0);
-	SDL_RenderClear(wn->rend);
+	t_text	*bg;
+
+	bg = findpostxt(wn, "editor", "intro", "119");
+	bg != NULL && bg->txt != NULL ? SDL_RenderCopy(wn->rend, bg->txt, NULL, NULL) : 0;
 	showmap(wn);
 }

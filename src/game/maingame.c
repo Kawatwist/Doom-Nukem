@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/22 15:11:07 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 13:28:01 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,6 @@ void	game(t_win *wn)
 	}
 	gameinput(wn);
 	display_skybox(wn);
+	main_cloud(wn);
+	display_crosshair(wn);
 }

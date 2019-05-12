@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 17:15:15 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/22 11:45:56 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 16:59:16 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,6 @@ static void	inittext(t_win **wn)
 	inittext2(wn, 1, "option", "intro");
 }
 
-static void	initelem(t_win **wn)
-{
-	t_elem	*new;
-
-	((*wn)->elem = malloc(sizeof(t_elem))) == NULL ? exit(0) : 0;
-	(*wn)->elem->name = ft_strdup("Line");
-	(*wn)->elem->x1 = 0;
-	(*wn)->elem->x2 = 200;
-	(*wn)->elem->y1 = 0;
-	(*wn)->elem->y2 = 200;
-	((*wn)->elem->next = malloc(sizeof(t_elem))) == NULL ? exit(0) : 0;
-	(*wn)->elem->next->name = ft_strdup("Rect");
-	(*wn)->elem->next->x1 = 200;
-	(*wn)->elem->next->y1 = 50;
-	(*wn)->elem->next->x2 = 50;
-	(*wn)->elem->next->y2 = 50;
-	((*wn)->elem->next->next = malloc(sizeof(t_elem))) == NULL ? exit(0) : 0;
-	new = (*wn)->elem->next->next;
-	new->name = ft_strdup("Rect");
-	new->x1 = 200;
-	new->y1 = 200;
-	new->x2 = 200;
-	new->y2 = 200;
-	new->next = NULL;
-}
-
 static void	initmap(t_win **wn)
 {
 	((*wn)->map = malloc(sizeof(t_map))) == NULL ? exit(0) : 0;
@@ -86,6 +60,14 @@ static void	initmap(t_win **wn)
 	(*wn)->map->w = 600;
 	(*wn)->map->h = 600;
 	(*wn)->map->size = 1;
+}
+
+static void	initelem(t_win **wn)
+{
+	((*wn)->elem = malloc(sizeof(t_elem))) == NULL ? stop_exec("Elem malloc failed\n", *wn) : 0;
+	((*wn)->elem->point = malloc(sizeof(t_point))) == NULL ? stop_exec("point malloc failed\n", *wn) : 0;
+	(*wn)->elem->next = NULL;
+	(*wn)->elem->point->next = NULL;
 }
 
 static void	initmenu(t_win **wn)
@@ -99,9 +81,15 @@ void		initwn(t_win **wn)
 	ft_bzero(*wn, sizeof(t_win));
 	(*wn)->interface = MENU;
 	(*wn)->oldinterface = MENU;
+	(*wn)->xscreen = XSCREEN;
+	(*wn)->yscreen = YSCREEN;
+	(*wn)->full_screen = 1;
 	initmap(wn);
 	initelem(wn);
 	initmenu(wn);
 	inittext(wn);
+	initmutex(wn);
 	(*wn)->debug = -1;
+	(*wn)->sky = 1;
+	(*wn)->debugcine = -1;
 }
