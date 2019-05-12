@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 13:19:22 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/11 09:16:57 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/12 15:36:13 by jleblond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static void	historyconsole(t_win *wn)
 {
 	static char **history = NULL;
 
+
 	(void)history;
 	(void)wn;
 }
-
 
 void	sub_print_command(t_win *wn, SDL_Texture *texture, int len)
 {
@@ -74,7 +74,7 @@ static void		print_command(t_win *wn, char *s)
 		stop_exec("SDL_CreateTextureFromSurface()failed", wn);
 	SDL_FreeSurface(surface);
 	sub_print_command(wn, texture, ft_strlen(s));
-	TTF_CloseFont(font); // replace it outside the loop
+	TTF_CloseFont(font); // relocate it outside the loop
 }
 
 

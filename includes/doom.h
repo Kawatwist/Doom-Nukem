@@ -128,6 +128,11 @@ typedef struct		s_mut
 	pthread_mutex_t	mutex;
 }					t_mut;
 
+typedef struct 		s_console
+{
+	char			**history;
+	int				current_line_nb;
+}					t_console;
 typedef struct		s_win
 {
 	char			sky;
@@ -137,8 +142,9 @@ typedef struct		s_win
 	char			interface;
 	char			oldinterface;
 	char			debugcine;
-	char			*command;
-	char			**history;
+	t_console		*console;
+	// char			*command;
+	// char			**history;
 	char			*load;
 	int				turn;
 	Uint8			*state;
