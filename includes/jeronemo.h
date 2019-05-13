@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/13 16:48:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:11:20 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,6 @@ typedef struct		s_mylocalisation_box
 }					t_mylocalisation_box;
 
 
-typedef struct				s_mywin
-{
-	SDL_Window				*window[3];
-	SDL_Renderer			*renderer[3];
-	t_mylocalisation_box	*s_localisation_box;
-	int						show_cross[5];
-}							t_mywin;
 
 typedef struct		s_mysquare
 {
@@ -130,6 +123,16 @@ typedef struct			s_myputtheline
 	float				le_z1;
 	float				le_z2;
 }						t_myputtheline;
+
+typedef struct				s_mywin
+{
+	SDL_Window				*window[3];
+	SDL_Renderer			*renderer[3];
+	t_mylocalisation_box	*s_localisation_box;
+	t_mysquare				*s_localisation_quit_button;
+	t_mysquare				*s_localisation_save_button;
+	int						show_cross[5];
+}							t_mywin;
 
 typedef enum		e_window
 {

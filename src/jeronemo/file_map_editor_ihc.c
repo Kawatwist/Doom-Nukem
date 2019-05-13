@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 09:19:14 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/13 16:31:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:08:21 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,20 @@ void	ft_display_save_button(t_mywin *s_win)
 	t_mycolor	s_color;
 	t_mysquare	s_square;
 	t_mywrite	s_write;
+	t_mysquare	*s_localisation_save_button;
 
+	s_localisation_save_button = malloc(sizeof(t_mysquare));
 	s_color = ft_setcolor(WHITE);
-	s_square = ft_setsquare(50,
- 			900,
-			100,
-			50,
+
+	s_localisation_save_button->x = 50;
+	s_localisation_save_button->y = 900;
+	s_localisation_save_button->width = 100;
+	s_localisation_save_button->height = 50;
+	s_square = ft_setsquare(
+			s_localisation_save_button->x,
+ 			s_localisation_save_button->y,
+			s_localisation_save_button->width,
+			s_localisation_save_button->height,
 			s_color);
 	ft_draw_square(s_win, &s_square);
 	s_color = ft_setcolor(BLACK);
@@ -46,6 +54,7 @@ void	ft_display_save_button(t_mywin *s_win)
  			910,
 			s_color, 20, "SAVE");
 	ft_write(s_win, &s_write);
+	s_win->s_localisation_save_button = s_localisation_save_button;
 }
 
 void	ft_display_quit_button(t_mywin *s_win)
@@ -53,16 +62,21 @@ void	ft_display_quit_button(t_mywin *s_win)
 	t_mycolor		s_color;
 	t_mysquare		s_square;
 	t_mywrite		s_write;
+	t_mysquare		*s_localisation_quit_button;
 
+	s_localisation_quit_button = malloc(sizeof(t_mysquare));
+	s_localisation_quit_button->x = 250;
+	s_localisation_quit_button->y = 900;
+	s_localisation_quit_button->width = 100;
+	s_localisation_quit_button->height = 50;
 	s_color = ft_setcolor(WHITE);
 	s_square = ft_setsquare(
-			250,
- 			900,
-			100,
-			50,
+			s_localisation_quit_button->x,
+ 			s_localisation_quit_button->y,
+			s_localisation_quit_button->width,
+			s_localisation_quit_button->height,
 			s_color);
 	ft_draw_square(s_win, &s_square);
-
 	s_color = ft_setcolor(BLACK);
 	s_write = ft_setwrite(
 			265,
@@ -71,6 +85,7 @@ void	ft_display_quit_button(t_mywin *s_win)
 			20,
 			"EXIT");
 	ft_write(s_win, &s_write);
+	s_win->s_localisation_quit_button = s_localisation_quit_button;
 }
 
 void	ft_display_grid(t_mywin *s_win)
