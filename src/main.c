@@ -15,6 +15,7 @@
 void	stop_exec(char *msg, t_win *wn)
 {
 	ft_putstr(msg);
+	TTF_Quit();
 	(void)wn;
 	exit(0);
 }

@@ -99,6 +99,29 @@ static void	showmap(t_win *wn)
 	showelem(wn);
 }
 
+static void		print_x_y_z(t_win *wn)
+{
+	SDL_Color color;
+	TTF_Font *police;
+	SDL_Surface *surface;
+	SDL_Texture *texture;
+	SDL_Rect 	src;
+
+	color.a = 0;
+	color.r = 0;
+	color.g = 0;
+	color.b = 0;
+	src.x = wn->xscreen * 6 / 7;
+	src.y = wn->yscreen / 3;
+	if (!(police = TTF_OpenFont("./texture/arial.ttf", 14)))
+		stop_exec("police failed\n", wn);
+	surface = TTF_RenderText_Solid(police, ft_itoa(wn->input->x), color);
+	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
+	SDL_QueryTexture(texture, NULL, NULL, &src.w, &src.h);
+	if (SDL_RenderCopy(wn->rend, texture, NULL, &src) < 0)
+		stop_exec("rendercopy failed\n", wn);
+}
+
 void		printeditor(t_win *wn)
 {
 	t_text	*bg;
@@ -106,4 +129,5 @@ void		printeditor(t_win *wn)
 	bg = findpostxt(wn, "editor", "intro", "119");
 	bg != NULL && bg->txt != NULL ? SDL_RenderCopy(wn->rend, bg->txt, NULL, NULL) : 0;
 	showmap(wn);
+	print_x_y_z(wn);
 }
