@@ -111,8 +111,8 @@ static void		print_x_y_z(t_win *wn)
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
-	src.x = wn->xscreen * 6 / 7;
-	src.y = wn->yscreen / 3;
+	src.x = wn->input->x;
+	src.y = wn->input->y;
 	if (!(police = TTF_OpenFont("./texture/arial.ttf", 14)))
 		stop_exec("police failed\n", wn);
 	surface = TTF_RenderText_Solid(police, ft_itoa(wn->input->x), color);
