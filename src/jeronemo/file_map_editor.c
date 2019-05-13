@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/13 18:11:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:13:31 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int		ft_clik_wall_height(t_mywin *s_win, t_win *wn)
 {
 	(void)s_win;
 	(void)wn;
-
-
 
 
 		return (0);
@@ -37,6 +35,7 @@ int		ft_click_floor_height(t_mywin *s_win, t_win *wn)
 {
 	(void)s_win;
 	(void)wn;
+
 	return (0);
 }
 
