@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/08 16:17:13 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/10 09:48:14 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 
 int				init(t_win **wn, int argc, char **argv)
 {
-	SDL_Event	ev;
-
 	initwn(wn);
 	initsdl(wn);
 	init_input(wn);
 	initplayer(wn);
-	SDL_PollEvent(&ev);
-	SDL_PollEvent(&ev);
 	(*wn)->loading = initload2(wn, "./texture/loading.tga");
 	(*wn)->loadingscreen = initload2(wn, "./texture/loadingscreen.tga");
 	showload(wn, 10);

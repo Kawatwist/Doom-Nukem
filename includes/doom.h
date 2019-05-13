@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/08 16:11:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 16:48:12 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,16 @@ typedef enum		e_interface
 	PAUSE,
 }					t_interface;
 
+typedef struct		s_point
+{
+	int				x;
+	int				y;
+	struct s_point	*next;
+}					t_point;
+
 typedef struct		s_elem
 {
-	char			*name;
-	int				x1;
-	int				x2;
-	int				y1;
-	int				y2;
-	int				*pos;
+	t_point			*point;
 	struct s_elem	*next;
 }					t_elem;
 
@@ -109,6 +111,7 @@ typedef struct		s_menu
 typedef	struct		s_input
 {
 	Uint32			mouse;
+	Uint32			oldmouse;
 	int				x;
 	int				y;
 }					t_input;
@@ -123,6 +126,7 @@ typedef struct		s_mut
 
 typedef struct		s_win
 {
+	char			sky;
 	char			difficulty;
 	char			quality;
 	char			debug;
@@ -146,7 +150,7 @@ typedef struct		s_win
 	t_map			*map;
 	t_elem			*elem;
 	t_joueur		*player;
-	t_cloud			*cloud;
+	t_cloudy		*cloud;
 	t_menu			*menu;
 	t_mut			*mutex;
 	int 			xscreen;
@@ -160,7 +164,10 @@ typedef struct		s_win
 /**
  ** GAME
  **/
+void				main_cloud(t_win *wn);
+void				init_cloud(t_cloudy *cloud);
 void				display_skybox(t_win *wn);
+void				display_crosshair(t_win *wn);
 
 /**
  ** EDIT
@@ -174,6 +181,8 @@ void				mainconsole(t_win *wn);
 /**
  ** INIT
  **/
+
+void				initttf(t_win **wn);
 t_text				*findpostxt(t_win *wn, char *type,
 						char *subtype, char *name);
 t_text				*findpos(t_win *wn, char *type,
