@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 09:19:14 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/11 10:03:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/13 16:31:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ void	ft_display_grid(t_mywin *s_win)
 	ft_draw_grid(s_win, &s_grid);
 }
 
-
 void	ft_display_ihc(t_mywin *s_win)
 {
+	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
+    SDL_RenderClear(s_win->renderer[J_EDITOR]);
 	ft_display_title(s_win);
 	ft_display_save_button(s_win);
 	ft_display_quit_button(s_win);
 	ft_display_grid(s_win);
 	ft_display_right_pan(s_win);;
+	SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 }
-
-

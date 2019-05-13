@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 10:01:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/11 14:16:07 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/13 16:27:47 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,25 +80,33 @@ void	ft_display_show_text(t_mywin *s_win, t_mypan *pan)
 
 void	ft_display_box(t_mywin *s_win, t_mypan *pan)
 {
+	t_mylocalisation_box		*s_localisation_box;
+
+	s_localisation_box = malloc(sizeof(t_mylocalisation_box) * 5);
+
 	pan->j = 0;
+	pan->i = 4;
 	while(pan->j <= 4)
 	{
 		if (pan->j != 2)
 		{
-			pan->i = 4;
 			pan->s_color = ft_setcolor(WHITE);
+			s_localisation_box[pan->j].x = 1920 - (pan->marge * pan->i) - (pan->width * pan->i) + (pan->width / 2);
+			s_localisation_box[pan->j].y = pan->marge + (pan->j * pan->height) + (pan->j * pan->marge) + (pan->height / 4);
+			s_localisation_box[pan->j].width = pan->box_width;
+			s_localisation_box[pan->j].height = pan->box_height;
 			pan->s_square = ft_setsquare(
-					1920 - (pan->marge * pan->i) - (pan->width * pan->i) + (pan->width / 2),
- 					pan->marge + (pan->j * pan->height) + (pan->j * pan->marge) + (pan->height / 4),
-					pan->box_width,
-					pan->box_height,
+					s_localisation_box[pan->j].x,
+ 					s_localisation_box[pan->j].y,
+					s_localisation_box[pan->j].width,
+					s_localisation_box[pan->j].height,
 					pan->s_color);
 			ft_draw_square(s_win, &(pan->s_square));
 		}
 		pan->j = pan->j + 1;
 	}
+	s_win->s_localisation_box = s_localisation_box;
 }
-
 
 void	ft_display_color_box(t_mywin *s_win, t_mypan *pan)
 {
@@ -182,25 +190,24 @@ void	ft_display_color_box(t_mywin *s_win, t_mypan *pan)
 	}
 }
 
-
 void	ft_display_cross(t_mywin *s_win,t_mypan *pan)
 {
-		t_mycross		s_cross;
-		pan->i = 4;
-		pan->j = 0;
-		pan->s_color = ft_setcolor(PINK);
-		s_cross = ft_setcross(1920 - (pan->marge * pan->i) - (pan->width * pan->i) + (pan->width / 2) + (pan->box_width / 2),
-				pan->marge + (pan->j * pan->height) + (pan->j * pan->marge) + (pan->height / 4) + (pan->box_height / 2) -5,
-				50, 10, pan->s_color);
-		ft_draw_cross(s_win, &s_cross);
-	
-		pan->i = 4;
-		pan->j = 3;
-		pan->s_color = ft_setcolor(PINK);
-		s_cross = ft_setcross(1920 - (pan->marge * pan->i) - (pan->width * pan->i) + (pan->width / 2) + (pan->box_width / 2),
-				pan->marge + (pan->j * pan->height) + (pan->j * pan->marge) + (pan->height / 4) + (pan->box_height / 2) -5,
-				50, 10, pan->s_color);
-		ft_draw_cross(s_win, &s_cross);
+	t_mycross		s_cross;
+
+	pan->i = 4;
+	pan->j = 0;
+	while (pan->j <= 4)
+	{
+		if (s_win->show_cross[pan->j] == 1)
+		{
+			pan->s_color = ft_setcolor(PINK);
+			s_cross = ft_setcross(1920 - (pan->marge * pan->i) - (pan->width * pan->i) + (pan->width / 2) + (pan->box_width / 2),
+					pan->marge + (pan->j * pan->height) + (pan->j * pan->marge) + (pan->height / 4) + (pan->box_height / 2) - 5,
+					50, 10, pan->s_color);
+			ft_draw_cross(s_win, &s_cross);
+		}
+		pan->j = pan->j + 1;
+	}
 }
 
 void	ft_display_right_pan(t_mywin *s_win)

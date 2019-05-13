@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/11 14:33:19 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/13 16:03:35 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void		ft_launch_window(t_mywin *s_win)
 
 void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square)
 {
-	printf("ft_draw_square\n");
 
 	int i;
 	int j;
@@ -84,7 +83,6 @@ t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
 
 void	ft_draw_cross(t_mywin *s_win, t_mycross *s_cross)
 {
-	printf("ft_draw_cross\n");
 	t_mysquare		s_square1;
 	s_square1 = ft_setsquare(s_cross->x - (s_cross->size / 2), s_cross->y, s_cross->size, s_cross->thickness, s_cross->color);
 	ft_draw_square(s_win, &s_square1);
@@ -122,8 +120,6 @@ t_mywrite	ft_setwrite(int x, int y, t_mycolor color, int size, char *str)
 
 void	ft_write(t_mywin *s_win, t_mywrite *s_write)
 {
-	printf("ft_write\n");
-
 	SDL_Surface	*surface;
 	SDL_Color color;
 
@@ -185,7 +181,6 @@ int		ft_get_next_value(char *line, int *j)
 
 t_mywall	*ft_read_map(void)
 {
-	printf("ft_read_map\n");
 	int			fd;
 	char		*line;
 	int			nbr_line;
@@ -229,7 +224,6 @@ t_mygrid	ft_setgrid(int x, int y, int height, int width)
 
 void	ft_draw_grid(t_mywin *s_win, t_mygrid *s_grid)
 {
-	printf("ft_draw_grid\n");
 	int	i;
 	int	j;
 	t_mycross	s_cross;
@@ -279,7 +273,6 @@ t_mywall	ft_setwall(t_mypoint a, t_mypoint b, int height, int texture)
 
 void	ft_draw_wall(t_mywin *s_win, t_mywall *s_wall)
 {
-	printf("ft_draw_wall\n");
 	t_myputtheline		s_line;
 
 	s_line.un.a = s_wall->x_a;
@@ -296,9 +289,6 @@ void	ft_jeronemo(t_win *wn)
 
 	printf("hello chef inca\n");
 	ft_launch_map_editor(&s_win, wn);
-	int i = 1;
-	while(++i < 10000)
-		SDL_Delay(10);
 	ft_quit("je quite\n", &s_win);
 }
 

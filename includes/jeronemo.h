@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/11 14:35:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/13 16:48:15 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,26 @@ typedef struct		s_mycolor
 	int				bbb;
 }					t_mycolor;
 
-typedef struct		s_mywin
+typedef struct		s_mylocalisation_box
 {
-	SDL_Window		*window[3];
-	SDL_Renderer	*renderer[3];
-}					t_mywin;
+	int				x;
+	int				y;
+	int				width;
+	int				height;
+}					t_mylocalisation_box;
 
+
+typedef struct				s_mywin
+{
+	SDL_Window				*window[3];
+	SDL_Renderer			*renderer[3];
+	t_mylocalisation_box	*s_localisation_box;
+	int						show_cross[5];
+}							t_mywin;
 
 typedef struct		s_mysquare
 {
-	int				x;
+	int						x;
 	int				y;
 	int				width;
 	int				height;
