@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/14 15:49:35 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/14 17:01:06 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,63 @@ int		ft_click_quit(t_mywin *s_win, t_win *wn)
 	return (0);
 }
 
+t_mypoint	ft_return_cross_coordonate_grid(t_mywin *s_win, t_win *wn)
+{
+	t_mypoint		s_point;
+
+	//printf("le x %det le x %d\n", wn->input->x, s_win->s_localisation_grid->x);
+
+	s_point.x = (wn->input->x - s_win->s_localisation_grid->x) / 30;
+	s_point.y = (wn->input->y - s_win->s_localisation_grid->y) / 30;
+
+
+	return (s_point);
+}
+
+int		ft_click_on_grid(t_mywin *s_win, t_win *wn)
+{
+	t_mypoint	point;
+
+	if (wn->input->y > s_win->s_localisation_grid->y &&
+			wn->input->y < s_win->s_localisation_grid->y + s_win->s_localisation_grid->height)
+	{
+		if (wn->input->x > s_win->s_localisation_grid->x &&
+				wn->input->x < s_win->s_localisation_grid->x + s_win->s_localisation_grid->width)
+		{
+			point = ft_return_cross_coordonate_grid(s_win, wn);
+			printf("click on x=%d et y=%d\n", point.x, point.y);
+
+			if (s_win->current_wall.first_point.set == FALSE)
+			{
+				s_win->current_wall.first_point.x = point.x;
+				s_win->current_wall.first_point.y = point.y;
+				s_win->current_wall.first_point.set == TRUE;
+			}
+			else
+			{
+				s_win->current_wall.seconde_point.x = point.x;
+				s_win->current_wall.seconde_point.y = point.y;
+				s_win->current_wall.seconde_point.set == TRUE;
+			}
+
+			if (s_win->current_wall.first_point.set == TRUE && s_win->current_wall.seconde_point.set == TRUE)
+			{
+				ft_save_current_wall();
+				s_win->current_wall.first_point.set == FALSE;
+				s_win->current_wall.seconde_point.set == FALSE;
+			}
+
+
+
+
+
+
+			return(1);
+		}
+	}
+	return (0);
+}
+
 void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 {
 	int		quit;
@@ -194,6 +251,7 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 			ft_click_floor_texture(s_win, wn);
 			ft_click_save(s_win, wn);
 			ft_click_quit(s_win, wn);
+			ft_click_on_grid(s_win, wn);
 			ft_display_ihc(s_win);
 		}
 		if (wn->state[SDL_SCANCODE_ESCAPE])

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/14 15:49:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:28:38 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct		s_mylocalisation_box
 	int				width;
 	int				height;
 }					t_mylocalisation_box;
-
 
 
 typedef struct		s_mysquare
@@ -133,6 +132,7 @@ typedef struct				s_mywin
 	t_mysquare				*s_localisation_save_button;
 	int						show_cross[5];
 	t_mysquare				***s_localisation_color_box;
+	t_mysquare				*s_localisation_grid;
 }							t_mywin;
 
 typedef enum		e_window

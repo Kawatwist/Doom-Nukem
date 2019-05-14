@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 09:19:14 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/14 16:20:13 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:46:49 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	ft_display_grid(t_mywin *s_win)
 
 	s_grid = ft_setgrid(50, 100, 900, 700);
 	ft_draw_grid(s_win, &s_grid);
+	s_win->s_localisation_grid = s_grid_location;
 }
 
 void	ft_display_ihc(t_mywin *s_win)
