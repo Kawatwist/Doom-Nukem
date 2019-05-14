@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/14 15:11:43 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/14 15:44:20 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 
 int		ft_clik_wall_height(t_mywin *s_win, t_win *wn)
 {
-	printf("hello1\n");
 	if (wn->input->y > s_win->s_localisation_color_box[0][1]->y && wn->input->y < s_win->s_localisation_color_box[0][1]->y + s_win->s_localisation_color_box[0][1]->height)
 	{
-		printf("hello2\n");
 		//y = 0 <=> wall height
 		//s_win->s_localisation_color_box[0][1]->y
 
@@ -164,6 +162,7 @@ int		ft_click_save(t_mywin *s_win, t_win *wn)
 		if (wn->input->x > s_win->s_localisation_save_button->x &&
 				wn->input->x < s_win->s_localisation_save_button->x + s_win->s_localisation_save_button->width)
 		{
+			printf("CLICK save\n");
 			return(1);
 		}
 	}
@@ -178,6 +177,7 @@ int		ft_click_quit(t_mywin *s_win, t_win *wn)
 		if (wn->input->x > s_win->s_localisation_quit_button->x &&
 				wn->input->x < s_win->s_localisation_quit_button->x + s_win->s_localisation_quit_button->width)
 		{
+			printf("CLICK quit\n");
 			return(1);
 		}
 	}
@@ -201,18 +201,12 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 		if (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT))
 		{
 			ft_update_show_cross(s_win, wn);
-			if (ft_clik_wall_height(s_win, wn))
-				printf("CLIK wall height\n");
-			//if(ft_clik_wall_texture(s_win, wn))
-			//printf("CLIK wall texture\n");
-			//if(ft_click_floor_height(s_win, wn))
-			//printf("CLIK floor height\n");
-			//if(ft_click_floor_texture(s_win, wn))
-			//printf("CLIK floor texture\n");
-			if(ft_click_save(s_win, wn))
-				printf("CLIK save\n");
-			if(ft_click_quit(s_win, wn))
-				printf("CLIK quit\n");
+			ft_clik_wall_height(s_win, wn);
+			ft_clik_wall_texture(s_win, wn);
+			ft_click_floor_height(s_win, wn);
+			ft_click_floor_texture(s_win, wn);
+			ft_click_save(s_win, wn);
+			ft_click_quit(s_win, wn);
 			ft_display_ihc(s_win);
 		}
 		if (wn->state[SDL_SCANCODE_ESCAPE])
