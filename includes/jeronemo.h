@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/13 18:11:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/14 15:09:52 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,11 @@ typedef struct				s_mywin
 	t_mysquare				*s_localisation_quit_button;
 	t_mysquare				*s_localisation_save_button;
 	int						show_cross[5];
+
+
+	t_mysquare				***s_localisation_color_box;
+
+
 }							t_mywin;
 
 typedef enum		e_window
