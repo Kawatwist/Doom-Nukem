@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/13 16:03:35 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:19:55 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ t_mywall	*ft_read_map(void)
 	return (s_wall);
 }
 
-t_mygrid	ft_setgrid(int x, int y, int height, int width)
+t_mygrid	ft_setgrid(int x, int y, int width, int height)
 {
 	t_mygrid	s_grid;
 
@@ -230,8 +230,7 @@ void	ft_draw_grid(t_mywin *s_win, t_mygrid *s_grid)
 	t_mycolor	s_color;
 	int step;
 
-	step = 20;
-
+	step = 30;
 	s_color = ft_setcolor(10, 10, 255);
 	j = 0;
 	while ((s_grid->y + (j * step)) < (s_grid->y + s_grid->height))

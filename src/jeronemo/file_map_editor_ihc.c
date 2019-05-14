@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 09:19:14 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/13 18:08:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:20:13 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,16 @@ void	ft_display_quit_button(t_mywin *s_win)
 void	ft_display_grid(t_mywin *s_win)
 {
 	t_mygrid	s_grid;
-	s_grid = ft_setgrid(50, 100, 700, 900);
+//t_mygrid	ft_setgrid(int x, int y, int height, int width)
+	t_mysquare	*s_grid_location;
+
+	s_grid_location = malloc(sizeof(t_mysquare));
+	s_grid_location->x = 50;
+	s_grid_location->y = 100;
+	s_grid_location->width = 900;
+	s_grid_location->height = 700;
+
+	s_grid = ft_setgrid(50, 100, 900, 700);
 	ft_draw_grid(s_win, &s_grid);
 }
 
