@@ -6,12 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/14 15:44:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/14 15:49:35 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <doom.h>
-
 
 int		ft_clik_wall_height(t_mywin *s_win, t_win *wn)
 {
@@ -42,21 +41,16 @@ int		ft_clik_wall_height(t_mywin *s_win, t_win *wn)
 			return(1);
 		}
 	}
-
-
 	return (0);
 }
 
 int		ft_clik_wall_texture(t_mywin *s_win, t_win *wn)
 {
-	(void)s_win;
-	(void)wn;
 	if (wn->input->y > s_win->s_localisation_color_box[1][1]->y &&
 			wn->input->y < s_win->s_localisation_color_box[1][1]->y + s_win->s_localisation_color_box[1][1]->height)
 	{
 		//y = 1 <=> wall texture
 		//s_win->s_localisation_color_box[1][1]->y
-
 
 		//1 first texture
 		if (wn->input->x > s_win->s_localisation_color_box[1][1]->x &&
@@ -83,11 +77,8 @@ int		ft_clik_wall_texture(t_mywin *s_win, t_win *wn)
 	return (0);
 }
 
-
 int		ft_click_floor_height(t_mywin *s_win, t_win *wn)
 {
-	(void)s_win;
-	(void)wn;
 	if (wn->input->y > s_win->s_localisation_color_box[3][1]->y &&
 			wn->input->y < s_win->s_localisation_color_box[3][1]->y + s_win->s_localisation_color_box[3][1]->height)
 	{
@@ -119,16 +110,12 @@ int		ft_click_floor_height(t_mywin *s_win, t_win *wn)
 	return (0);
 }
 
-
 int		ft_click_floor_texture(t_mywin *s_win, t_win *wn)
 {
-	(void)s_win;
-	(void)wn;
 	if (wn->input->y > s_win->s_localisation_color_box[4][1]->y &&
 			wn->input->y < s_win->s_localisation_color_box[4][1]->y + s_win->s_localisation_color_box[4][1]->height)
 	{
 		//y = 4 <=> floor texture
-
 		//1 first texture
 		if (wn->input->x > s_win->s_localisation_color_box[4][1]->x &&
 				wn->input->x < s_win->s_localisation_color_box[4][1]->x + s_win->s_localisation_color_box[4][1]->width)

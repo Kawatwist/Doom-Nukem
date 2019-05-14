@@ -6,13 +6,12 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 10:01:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/14 15:10:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/14 15:50:18 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <doom.h>
 #include <map_editor_right_pan.h>
-#include <jeronemo.h>
 
 void	ft_display_wall_height_text(t_mywin *s_win, t_mypan *pan)
 {
@@ -118,13 +117,6 @@ void	ft_display_color_box(t_mywin *s_win, t_mypan *pan)
 	t_mysquare		***s_localisation_color_box;
 	s_localisation_color_box = NULL;
 
-
-
-
-
-
-
-
 	s_localisation_color_box = malloc(sizeof(t_mysquare **) * 6);
 	i = 0;
 	while (i <= 4)
@@ -181,8 +173,6 @@ void	ft_display_color_box(t_mywin *s_win, t_mypan *pan)
 				s_localisation_color_box[pan->j][pan->i]->y = pan->marge + (pan->j * pan->height) + (pan->j * pan->marge);
 				s_localisation_color_box[pan->j][pan->i]->width = pan->width;
 				s_localisation_color_box[pan->j][pan->i]->height = pan->height;
-
-
 				pan->s_color = color[pan->j][pan->i];
 				pan->s_square = ft_setsquare(
 						s_localisation_color_box[pan->j][pan->i]->x,
@@ -204,19 +194,7 @@ void	ft_display_color_box(t_mywin *s_win, t_mypan *pan)
 		}
 		pan->j = pan->j + 1;
 	}
-
-
-
-
-
 	s_win->s_localisation_color_box = s_localisation_color_box;
-
-
-
-
-
-
-
 }
 
 void	ft_display_cross(t_mywin *s_win,t_mypan *pan)
