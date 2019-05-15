@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 09:10:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 17:15:43 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_mypoint
 {
 	int				x;
 	int				y;
+	int				set;
 }					t_mypoint;
 
 typedef struct		s_mycolor
@@ -125,6 +126,11 @@ typedef struct			s_myputtheline
 	float				le_z2;
 }						t_myputtheline;
 
+typedef struct			s_mycurrent_wall
+{
+	t_mypoint			first_point;
+	t_mypoint			seconde_point;
+}						t_mycurrent_wall;
 
 typedef struct				s_mywin
 {
@@ -137,6 +143,7 @@ typedef struct				s_mywin
 	t_mysquare				***s_localisation_color_box;
 	t_mygrid				*s_localisation_grid;
 	t_mywall				*lst_wall;
+	t_mycurrent_wall		current_wall;
 }							t_mywin;
 
 typedef enum		e_window
@@ -162,6 +169,8 @@ void			ft_display_ihc(t_mywin *s_win);
 t_mywall		*ft_read_map(void);
 void			ft_quit(char *txt, t_mywin *s_win);
 void			ft_save_map(t_mywin *s_win);
+t_mywall		*ft_create_wall_node(t_mywall wall);
+void			ft_add_wall_node(t_mywall **lst_wall, t_mywall *s_wall);
 
 
 
