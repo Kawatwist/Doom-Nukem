@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 08:52:04 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 09:09:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square)
 	}
 }
 
-void	ft_save_map(void)
+void	ft_save_map(t_mywin *s_win)
 {
+	(void)s_win;
+
 	printf("ft_save_map\n");
 }
 

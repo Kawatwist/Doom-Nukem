@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 08:54:10 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 09:10:21 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ t_mywall		ft_setwall(t_mypoint a, t_mypoint b, int height, int texture);
 void			ft_draw_wall(t_mywin *s_win, t_mywall *s_wall);
 void			ft_display_ihc(t_mywin *s_win);
 t_mywall		*ft_read_map(void);
+void			ft_quit(char *txt, t_mywin *s_win);
+void			ft_save_map(t_mywin *s_win);
 
 
 

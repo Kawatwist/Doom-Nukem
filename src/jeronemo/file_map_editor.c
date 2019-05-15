@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 08:45:38 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 09:10:42 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ int		ft_click_save(t_mywin *s_win, t_win *wn)
 		if (wn->input->x > s_win->s_localisation_save_button->x &&
 				wn->input->x < s_win->s_localisation_save_button->x + s_win->s_localisation_save_button->width)
 		{
+			ft_save_map(s_win);
 			printf("CLICK save\n");
 			return(1);
 		}
@@ -164,7 +165,7 @@ int		ft_click_quit(t_mywin *s_win, t_win *wn)
 		if (wn->input->x > s_win->s_localisation_quit_button->x &&
 				wn->input->x < s_win->s_localisation_quit_button->x + s_win->s_localisation_quit_button->width)
 		{
-			printf("CLICK quit\n");
+			ft_quit("Click sur quit button", s_win);
 			return(1);
 		}
 	}
