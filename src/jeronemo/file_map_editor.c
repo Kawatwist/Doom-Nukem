@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/14 17:01:06 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 08:37:14 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,13 @@ t_mypoint	ft_return_cross_coordonate_grid(t_mywin *s_win, t_win *wn)
 	return (s_point);
 }
 
+void	ft_save_current_wall()
+{
+
+
+
+}
+
 int		ft_click_on_grid(t_mywin *s_win, t_win *wn)
 {
 	t_mypoint	point;
@@ -197,31 +204,25 @@ int		ft_click_on_grid(t_mywin *s_win, t_win *wn)
 			point = ft_return_cross_coordonate_grid(s_win, wn);
 			printf("click on x=%d et y=%d\n", point.x, point.y);
 
-			if (s_win->current_wall.first_point.set == FALSE)
-			{
-				s_win->current_wall.first_point.x = point.x;
-				s_win->current_wall.first_point.y = point.y;
-				s_win->current_wall.first_point.set == TRUE;
-			}
-			else
-			{
-				s_win->current_wall.seconde_point.x = point.x;
-				s_win->current_wall.seconde_point.y = point.y;
-				s_win->current_wall.seconde_point.set == TRUE;
-			}
-
-			if (s_win->current_wall.first_point.set == TRUE && s_win->current_wall.seconde_point.set == TRUE)
-			{
-				ft_save_current_wall();
-				s_win->current_wall.first_point.set == FALSE;
-				s_win->current_wall.seconde_point.set == FALSE;
-			}
-
-
-
-
-
-
+//			if (s_win->current_wall.first_point.set == FALSE)
+//			{
+//				s_win->current_wall.first_point.x = point.x;
+//				s_win->current_wall.first_point.y = point.y;
+//				s_win->current_wall.first_point.set == TRUE;
+//			}
+//			else
+//			{
+//				s_win->current_wall.seconde_point.x = point.x;
+//				s_win->current_wall.seconde_point.y = point.y;
+//				s_win->current_wall.seconde_point.set == TRUE;
+//			}
+//
+//			if (s_win->current_wall.first_point.set == TRUE && s_win->current_wall.seconde_point.set == TRUE)
+//			{
+//				ft_save_current_wall();
+//				s_win->current_wall.first_point.set == FALSE;
+//				s_win->current_wall.seconde_point.set == FALSE;
+//			}
 			return(1);
 		}
 	}
@@ -233,6 +234,20 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 	int		quit;
 
 	ft_init_show_cross(s_win);
+	s_win->lst_wall = ft_read_map();
+	t_mywall *keep;
+
+	keep = s_win->lst_wall;
+
+
+	while (s_win->lst_wall)
+	{
+		printf("le mur =%d\n", s_win->lst_wall->x_a);
+		s_win->lst_wall = s_win->lst_wall->next;
+	}
+
+
+	s_win->lst_wall = keep;
 	ft_launch_window(s_win);
 	ft_display_ihc(s_win);
 	quit = FALSE;
@@ -261,8 +276,6 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 }
 
 //READMAP
-//t_mywall	*s_wall;
-//s_wall = ft_read_map();
 //DRAW GRID
 //t_mygrid	s_grid;
 //s_grid = ft_setgrid(10, 10, 300, 500);

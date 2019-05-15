@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 09:19:14 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/14 16:46:49 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 08:41:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,12 @@ void	ft_display_grid(t_mywin *s_win)
 	ft_draw_grid(s_win, &s_grid);
 	s_win->s_localisation_grid = s_grid_location;
 }
+	
+
+void	ft_draw_map(t_mywin *s_win)
+{
+	(void)s_win;
+}
 
 void	ft_display_ihc(t_mywin *s_win)
 {
@@ -113,6 +119,7 @@ void	ft_display_ihc(t_mywin *s_win)
 	ft_display_save_button(s_win);
 	ft_display_quit_button(s_win);
 	ft_display_grid(s_win);
+	ft_draw_map(s_win);
 	ft_display_right_pan(s_win);;
 	SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 }

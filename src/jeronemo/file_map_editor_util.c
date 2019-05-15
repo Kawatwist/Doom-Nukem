@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/14 16:19:55 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 08:40:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,34 +179,61 @@ int		ft_get_next_value(char *line, int *j)
 	return (ft_atoi(nbr));
 }
 
+t_mywall	*ft_create_wall_node(t_mywall wall)
+{
+	t_mywall	*s_wall;
+
+	s_wall = (t_mywall*)malloc(sizeof(t_mywall));
+	s_wall->x_a = wall.x_a;
+	s_wall->y_a = wall.y_a;
+	s_wall->x_b = wall.x_b;
+	s_wall->y_b = wall.y_b;
+	s_wall->height = wall.height;
+	s_wall->texture = wall.texture;
+	s_wall->next = NULL;
+	return (s_wall);
+}
+
+void		ft_add_wall_node(t_mywall **lst_wall, t_mywall *s_wall)
+{
+	if (*lst_wall == NULL)
+	{
+		*lst_wall = s_wall;
+	}
+	else
+	{
+		s_wall->next = *lst_wall;
+		*lst_wall = s_wall;
+	}
+}
+
+
 t_mywall	*ft_read_map(void)
 {
 	int			fd;
 	char		*line;
-	int			nbr_line;
-	t_mywall	*s_wall;
-	int			i;
+	t_mywall	s_wall;
 	int			j;
+	t_mywall		*lst_wall;
+	t_mywall	*wall;
 
+	lst_wall = NULL;
 	line = NULL;
-	nbr_line = ft_get_number_of_line();
-	s_wall = (t_mywall*)malloc(sizeof(t_mywall) * nbr_line);
 	fd = open("./src/jeronemo/file_wall", O_RDWR);
-	i = 0;
 	while(get_next_line(fd, &line))
 	{
 		j = 0;
-		//printf("%s\n", line);
-		s_wall[i].x_a = ft_get_next_value(line, &j);
-		s_wall[i].y_a = ft_get_next_value(line, &j);
-		s_wall[i].x_b = ft_get_next_value(line, &j);
-		s_wall[i].y_b = ft_get_next_value(line, &j);
-		s_wall[i].height = ft_get_next_value(line, &j);
-		s_wall[i].texture = ft_get_next_value(line, &j);
-		i++;
+		s_wall.x_a = ft_get_next_value(line, &j);
+		s_wall.y_a = ft_get_next_value(line, &j);
+		s_wall.x_b = ft_get_next_value(line, &j);
+		s_wall.y_b = ft_get_next_value(line, &j);
+		s_wall.height = ft_get_next_value(line, &j);
+		s_wall.texture = ft_get_next_value(line, &j);
+		wall = ft_create_wall_node(s_wall);
+		ft_add_wall_node(&lst_wall, wall);
 	}
 	close(fd);
-	return (s_wall);
+	return (lst_wall);
 }
 
 t_mygrid	ft_setgrid(int x, int y, int width, int height)
