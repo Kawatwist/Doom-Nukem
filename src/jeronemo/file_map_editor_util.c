@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 08:40:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 08:52:04 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,7 @@ t_mywall	*ft_read_map(void)
 	return (lst_wall);
 }
 
-t_mygrid	ft_setgrid(int x, int y, int width, int height)
+t_mygrid	ft_setgrid(int x, int y, int width, int height, int step)
 {
 	t_mygrid	s_grid;
 
@@ -246,6 +246,7 @@ t_mygrid	ft_setgrid(int x, int y, int width, int height)
 	s_grid.width = width;
 	s_grid.nbr_dot_height = 10;
 	s_grid.nbr_dot_width = 10;
+	s_grid.step = step;
 	return (s_grid);
 }
 
@@ -255,18 +256,16 @@ void	ft_draw_grid(t_mywin *s_win, t_mygrid *s_grid)
 	int	j;
 	t_mycross	s_cross;
 	t_mycolor	s_color;
-	int step;
 
-	step = 30;
 	s_color = ft_setcolor(10, 10, 255);
 	j = 0;
-	while ((s_grid->y + (j * step)) < (s_grid->y + s_grid->height))
+	while ((s_grid->y + (j * s_grid->step)) < (s_grid->y + s_grid->height))
 	{
 		i = 0;
-		while ((s_grid->x + (i * step)) < (s_grid->x + s_grid->width))
+		while ((s_grid->x + (i * s_grid->step)) < (s_grid->x + s_grid->width))
 		{
 //t_mycross	ft_setcross(int x, int y, int size, int thickness, t_mycolor color)
-			s_cross = ft_setcross((s_grid->x + (i * step)),(s_grid->y + (j * step)) , 6, 2, s_color);
+			s_cross = ft_setcross((s_grid->x + (i * s_grid->step)),(s_grid->y + (j * s_grid->step)) , 6, 2, s_color);
 			ft_draw_cross(s_win, &s_cross);
 			i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 08:37:14 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 08:45:38 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,19 +235,10 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 
 	ft_init_show_cross(s_win);
 	s_win->lst_wall = ft_read_map();
-	t_mywall *keep;
-
-	keep = s_win->lst_wall;
 
 
-	while (s_win->lst_wall)
-	{
-		printf("le mur =%d\n", s_win->lst_wall->x_a);
-		s_win->lst_wall = s_win->lst_wall->next;
-	}
 
 
-	s_win->lst_wall = keep;
 	ft_launch_window(s_win);
 	ft_display_ihc(s_win);
 	quit = FALSE;

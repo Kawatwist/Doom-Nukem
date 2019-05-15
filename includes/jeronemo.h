@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 08:38:25 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 08:54:10 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct		s_mygrid
 	int				width;
 	int				nbr_dot_height;
 	int				nbr_dot_width;
+	int				step;
 }					t_mygrid;
 
 typedef struct			s_xyz_point
@@ -125,8 +126,6 @@ typedef struct			s_myputtheline
 }						t_myputtheline;
 
 
-
-
 typedef struct				s_mywin
 {
 	SDL_Window				*window[3];
@@ -136,7 +135,7 @@ typedef struct				s_mywin
 	t_mysquare				*s_localisation_save_button;
 	int						show_cross[5];
 	t_mysquare				***s_localisation_color_box;
-	t_mysquare				*s_localisation_grid;
+	t_mygrid				*s_localisation_grid;
 	t_mywall				*lst_wall;
 }							t_mywin;
 
@@ -154,7 +153,7 @@ void			ft_draw_cross(t_mywin *s_win, t_mycross *s_cross);
 t_mycross		ft_setcross(int x, int y, int size, int thickness, t_mycolor color);
 t_mywrite		ft_setwrite(int x, int y, t_mycolor color, int size, char *str);
 void			ft_write(t_mywin *s_win, t_mywrite *s_write);
-t_mygrid		ft_setgrid(int x, int y, int height, int width);
+t_mygrid		ft_setgrid(int x, int y, int width, int height, int step);
 void			ft_draw_grid(t_mywin *s_win, t_mygrid *s_grid);
 t_mypoint		ft_setpoint(int x, int y);
 t_mywall		ft_setwall(t_mypoint a, t_mypoint b, int height, int texture);

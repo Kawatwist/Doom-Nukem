@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 09:19:14 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 08:41:37 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 08:56:39 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,16 @@ void	ft_display_grid(t_mywin *s_win)
 {
 	t_mygrid	s_grid;
 //t_mygrid	ft_setgrid(int x, int y, int height, int width)
-	t_mysquare	*s_grid_location;
+	t_mygrid	*s_grid_location;
 
 	s_grid_location = malloc(sizeof(t_mysquare));
 	s_grid_location->x = 50;
 	s_grid_location->y = 100;
 	s_grid_location->width = 900;
 	s_grid_location->height = 700;
+	s_grid_location->step = 30;
 
-	s_grid = ft_setgrid(50, 100, 900, 700);
+	s_grid = ft_setgrid(50, 100, 900, 700, 30);
 	ft_draw_grid(s_win, &s_grid);
 	s_win->s_localisation_grid = s_grid_location;
 }
@@ -108,7 +109,32 @@ void	ft_display_grid(t_mywin *s_win)
 
 void	ft_draw_map(t_mywin *s_win)
 {
-	(void)s_win;
+	t_mywall *keep;
+	t_myputtheline		s_line;
+
+	keep = s_win->lst_wall;
+	while (s_win->lst_wall)
+	{
+		printf("le mur =%d\n", s_win->lst_wall->x_a);
+
+
+
+	s_line.un.a = (s_win->lst_wall->x_a * s_win->s_localisation_grid->step) + s_win->s_localisation_grid->x;
+	s_line.un.b = (s_win->lst_wall->y_a * s_win->s_localisation_grid->step) + s_win->s_localisation_grid->y;
+	s_line.deux.a = (s_win->lst_wall->x_b * s_win->s_localisation_grid->step) + s_win->s_localisation_grid->x;
+	s_line.deux.b = (s_win->lst_wall->y_b * s_win->s_localisation_grid->step) + s_win->s_localisation_grid->y;
+	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 255, 0, 0);
+	ft_draw_line(s_win, &s_line);
+
+
+		s_win->lst_wall = s_win->lst_wall->next;
+	}
+	s_win->lst_wall = keep;
+
+
+
+
+
 }
 
 void	ft_display_ihc(t_mywin *s_win)
