@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/11 13:29:00 by lomasse          ###   ########.fr        #
+#    Updated: 2019/05/15 12:59:46 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -32,6 +32,8 @@ OBJ_PATH		= OBJ
 SRC				= main.c										\
 				  turn.c 										\
 				  init.c										\
+				  poly.c										\
+				  drawpoly.c									\
 				  parse.c										\
 				  initwn.c										\
 				  nothread.c									\

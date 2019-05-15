@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:46:22 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/05 16:54:45 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/13 13:40:56 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	showintro(t_win *wn, t_text *img)
 			while (wn->debugcine == 1) //DEBUG
 			{
 				setkeyboard(wn->old, wn->state);
-				SDL_PollEvent(&wn->ev);
+				SDL_PollEvent(&(wn->ev));
 				wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
 				if (!wn->old[SDL_SCANCODE_RETURN] && wn->state[SDL_SCANCODE_RETURN])
 					break;

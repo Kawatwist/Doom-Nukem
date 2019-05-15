@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 15:27:26 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/12 10:59:13 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/13 13:20:51 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int		main(int argc, char **argv)
 {
 	t_win	*wn;
 
+	printf("AVANT\n");
 	(wn = malloc(sizeof(t_win))) == NULL ? stop_exec("Malloc failed\n", wn): 0;
+	printf("MALLOC\n");
 	init(&wn, argc, argv) == 0 ? stop_exec("Init failed\n", wn) : 0;
+	printf("INIT\n");
 	turn(wn);
 }

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 11:59:53 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/12 13:04:57 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/13 13:34:38 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	setkeyboard(Uint8 *new, Uint8 *current)
 	int	i;
 
 	i = 0;
-	while (i < 284)
+	while (i < 283)
 	{
 		new[i] = current[i];
 		i++;
