@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 15:27:26 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/13 12:42:59 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 07:33:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 
 void	stop_exec(char *msg, t_win *wn)
 {
+	int			fd;
+
 	ft_putstr(msg);
-	(void)wn;
+	if (!access("/tmp/doom_log", F_OK))
+		fd = open("/tmp/doom_log", O_WRONLY | O_APPEND);
+	else
+		fd = creat("/tmp/doom_log", O_WRONLY | O_APPEND);
+	if (fd != 0)
+		write(fd, msg, ft_strlen(msg));
+	(void)wn; // FREE WN
 	exit(0);
 }
 

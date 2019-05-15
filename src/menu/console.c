@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 13:19:22 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/05 16:52:35 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 09:16:57 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@ static void	readcommand(t_win *wn)
 {
 	ft_strcmp(wn->command, "kill") == 0 ? stop_exec("KILL !\n", wn) : 0;
 	ft_strcmp(wn->command, "slow") == 0 ? wn->debugcine *= -1 : 0;
+	ft_strcmp(wn->command, "fs") == 0 ? full_screen(wn) : 0;
 	ft_strncmp(wn->command, "value", 5) == 0
 		&& ft_strlen(wn->command) > 5
 		? wn->debugconsole = ft_atoi(&(wn->command[5])) : 0;
+	ft_strncmp(wn->command, "sky", 3) == 0
+		&& ft_strlen(wn->command) > 3
+		? wn->sky = ft_atoi(&(wn->command[3])) : 0;
 	free(wn->command);
 	wn->command = NULL;
 }
@@ -72,6 +76,7 @@ static void	inputconsole(t_win *wn)
 		&& !wn->old[SDL_SCANCODE_BACKSPACE])
 		&& command != NULL && ft_strlen(command)
 		? (command[ft_strlen(command) - 1] = 0) : 0;
+	!wn->old[SDL_SCANCODE_ESCAPE] && wn->state[SDL_SCANCODE_ESCAPE] ? wn->debug *= -1 : 0;
 	if (wn->state[SDL_SCANCODE_RETURN]
 			&& !wn->old[SDL_SCANCODE_RETURN] && command != NULL)
 	{
@@ -85,16 +90,16 @@ static void	showconsole(t_win *wn)
 {
 	SDL_Rect	bg;
 
-	if (XSCREEN > 300)
+	if (wn->xscreen > 300)
 	{
 		bg.x = 0;
-		bg.y = YSCREEN - 500;
+		bg.y = wn->yscreen - 500;
 		bg.w = 600;
 		bg.h = 500;
 		SDL_SetRenderDrawColor(wn->rend, 50, 50, 50, 0);
 		SDL_RenderFillRect(wn->rend, &bg);
 		bg.x = 30;
-		bg.y = YSCREEN - 70;
+		bg.y = wn->yscreen - 70;
 		bg.w = 540;
 		bg.h = 30;
 		SDL_SetRenderDrawColor(wn->rend, 150, 150, 150, 0);

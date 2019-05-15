@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/13 16:47:23 by jchardin         ###   ########.fr        #
+#    Updated: 2019/05/15 07:35:17 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -45,7 +45,6 @@ SRC				= main.c										\
 				  maingame.c 									\
 				  mainmenu.c									\
 				  menuinput.c									\
-				  game_show.c 									\
 				  mainedit.c									\
 				  printscreen.c 								\
 				  mainoption.c									\
@@ -62,6 +61,9 @@ SRC				= main.c										\
 				  editor_input.c 								\
 				  game_input.c 									\
 				  skybox.c 										\
+				  hud.c											\
+				  sky.c											\
+				  newcloud.c									\
 				  init_input.c 									\
 				  player.c 										\
 				  console.c 									\

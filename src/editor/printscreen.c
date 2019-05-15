@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 11:07:03 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/05 16:45:42 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/12 13:01:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,20 @@
 static void	showelem(t_win *wn)
 {
 	t_elem		*curr;
-	SDL_Rect	rect;
+	t_point		*point;
 
 	curr = wn->elem;
 	while (curr != NULL)
 	{
-		SDL_SetRenderDrawColor(wn->rend, 200, 200, 200, 0);
-		if (ft_strcmp(curr->name, "Line") == 0)
+		point = curr->point;
+		while (point != NULL && point->next != NULL)
 		{
-			SDL_RenderDrawLine(wn->rend,
-					(curr->x1 * wn->map->size) + wn->map->x,
-					(curr->y1 * wn->map->size) + wn->map->y,
-					(curr->x2 * wn->map->size) + wn->map->x,
-					(curr->y2 * wn->map->size) + wn->map->y);
+			SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
+			SDL_RenderDrawLine(wn->rend, point->x, point->y, point->next->x, point->next->y);
+			SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 0);
+			SDL_RenderDrawLine(wn->rend, point->x, point->y + 1, point->next->x, point->next->y + 1);
+			point = point->next;
 		}
-		else if (ft_strcmp(curr->name, "Rect") == 0)
-		{
-			rect.x = (curr->x1 * wn->map->size) + wn->map->x;
-			rect.y = (curr->y1 * wn->map->size) + wn->map->y;
-			rect.h = (curr->x2 * wn->map->size);
-			rect.w = (curr->y2 * wn->map->size);
-			SDL_RenderDrawRect(wn->rend, &rect);
-		}
-		if (curr->next == NULL)
-			break ;
 		curr = curr->next;
 	}
 }

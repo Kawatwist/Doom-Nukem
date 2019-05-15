@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/08 16:10:48 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/11 16:18:27 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ void		loadminimenu(t_win **wn)
 	load_texture(*wn, "main", "intro", "60");
 	(*wn)->load = ft_strdup("./texture/intro/edit/test0119.tga");
 	load_texture(*wn, "editor", "intro", "119");
+	(*wn)->load = ft_strdup("./texture/intro/option/test0179.tga");
+	load_texture(*wn, "editor", "intro", "179");
+	(*wn)->load = ft_strdup("./texture/intro/game/test0119.tga");
+	load_texture(*wn, "game", "intro", "119");
 }
 /*
 static void		initthread(t_thread	thread[1], t_win **wn, int value)

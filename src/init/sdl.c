@@ -17,7 +17,7 @@ void	initsdl(t_win **wn)
 	SDL_Init(SDL_INIT_EVERYTHING) != 0
 		? stop_exec("Init Sdl failed\n", *wn) : 0;
 	(*wn)->window = SDL_CreateWindow("Doom Nukem",
-			0, 0, XSCREEN, YSCREEN, SDL_WINDOW_SHOWN);
+			0, 0, (*wn)->xscreen, (*wn)->yscreen, SDL_WINDOW_SHOWN);
 	(*wn)->window == NULL ? stop_exec("Window error\n", *wn) : 0;
 	(*wn)->rend = SDL_CreateRenderer((*wn)->window,
 			-1, SDL_RENDERER_ACCELERATED);
