@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 09:10:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 13:13:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,8 +236,6 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 
 	ft_init_show_cross(s_win);
 	s_win->lst_wall = ft_read_map();
-
-
 
 
 	ft_launch_window(s_win);

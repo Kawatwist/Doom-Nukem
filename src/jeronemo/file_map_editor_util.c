@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 09:09:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/15 13:54:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void		ft_launch_window(t_mywin *s_win)
 
 void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square)
 {
-
 	int i;
 	int j;
 
@@ -56,8 +55,48 @@ void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square)
 
 void	ft_save_map(t_mywin *s_win)
 {
-	(void)s_win;
+	int			fd;
+	t_mywall	*keep;
+	char		*str_dst;
+	char		*str_src;
+	char		*str_pause;
 
+	remove("./src/jeronemo/file_wall");
+	fd = open("./src/jeronemo/file_wall", O_CREAT | O_RDWR, 0777);
+	str_pause = ft_strdup(", ");
+	str_dst = ft_strdup("");
+	keep = s_win->lst_wall;
+	while (s_win->lst_wall)
+	{
+		str_src = ft_itoa(s_win->lst_wall->x_a);
+		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, str_pause);
+
+		str_src = ft_itoa(s_win->lst_wall->y_a);
+		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, str_pause);
+
+		str_src = ft_itoa(s_win->lst_wall->x_b);
+		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, str_pause);
+
+		str_src = ft_itoa(s_win->lst_wall->y_b);
+		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, str_pause);
+
+		str_src = ft_itoa(s_win->lst_wall->height);
+		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, str_pause);
+
+		str_src = ft_itoa(s_win->lst_wall->texture);
+		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, "\n");
+
+		s_win->lst_wall = s_win->lst_wall->next;
+	}
+	write(fd, str_dst, ft_strlen(str_dst));
+	s_win->lst_wall = keep;
+	close(fd);
 	printf("ft_save_map\n");
 }
 
@@ -266,7 +305,7 @@ void	ft_draw_grid(t_mywin *s_win, t_mygrid *s_grid)
 		i = 0;
 		while ((s_grid->x + (i * s_grid->step)) < (s_grid->x + s_grid->width))
 		{
-//t_mycross	ft_setcross(int x, int y, int size, int thickness, t_mycolor color)
+			//t_mycross	ft_setcross(int x, int y, int size, int thickness, t_mycolor color)
 			s_cross = ft_setcross((s_grid->x + (i * s_grid->step)),(s_grid->y + (j * s_grid->step)) , 6, 2, s_color);
 			ft_draw_cross(s_win, &s_cross);
 			i++;
