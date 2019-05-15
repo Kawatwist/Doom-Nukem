@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/11 16:18:27 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/13 18:10:37 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 void		loadminimenu(t_win **wn)
 {
-	(*wn)->load = ft_strdup("./texture/intro/menu/test0059.tga");
+
+	((*wn)->load = ft_strdup("./texture/intro/menu/test0059.tga")) == NULL ? stop_exec("Failed load\n", *wn) : 0;
 	load_texture(*wn, "main", "intro", "60");
-	(*wn)->load = ft_strdup("./texture/intro/edit/test0119.tga");
+	((*wn)->load = ft_strdup("./texture/intro/edit/test0119.tga")) == NULL ? stop_exec("Failed load\n", *wn) : 0;
 	load_texture(*wn, "editor", "intro", "119");
-	(*wn)->load = ft_strdup("./texture/intro/option/test0179.tga");
+	((*wn)->load = ft_strdup("./texture/intro/option/test0179.tga")) == NULL ? stop_exec("Failed load\n", *wn) : 0;
 	load_texture(*wn, "editor", "intro", "179");
-	(*wn)->load = ft_strdup("./texture/intro/game/test0119.tga");
+	((*wn)->load = ft_strdup("./texture/intro/game/test0119.tga")) == NULL ? stop_exec("Failed load\n", *wn) : 0;
 	load_texture(*wn, "game", "intro", "119");
 }
 /*
