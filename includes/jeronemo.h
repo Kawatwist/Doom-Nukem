@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 17:15:43 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/16 10:47:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,13 @@ void			ft_save_map(t_mywin *s_win);
 t_mywall		*ft_create_wall_node(t_mywall wall);
 void			ft_add_wall_node(t_mywall **lst_wall, t_mywall *s_wall);
 
+void			ft_display_right_pan(t_mywin *s_win);
+void			ft_display_save_button(t_mywin *s_win);
+void			ft_draw_map(t_mywin *s_win);
+void			ft_display_quit_button(t_mywin *s_win);
+void			ft_display_save_button(t_mywin *s_win);
+void			ft_display_title(t_mywin *s_win);
+void			ft_display_grid(t_mywin *s_win);
 
 
 #endif

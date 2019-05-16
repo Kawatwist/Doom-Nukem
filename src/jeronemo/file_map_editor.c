@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 17:25:36 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/16 10:52:10 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,6 @@ int		ft_click_on_grid(t_mywin *s_win, t_win *wn)
 				s_win->current_wall.seconde_point.y = point.y;
 				s_win->current_wall.seconde_point.set = TRUE;
 			}
-
 			if (s_win->current_wall.first_point.set == TRUE && s_win->current_wall.seconde_point.set == TRUE)
 			{
 				ft_save_current_wall(s_win);
@@ -242,8 +241,8 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 	ft_init_show_cross(s_win);
 	s_win->lst_wall = ft_read_map();
 
-				s_win->current_wall.first_point.set = FALSE;
-				s_win->current_wall.first_point.set = FALSE;
+	s_win->current_wall.first_point.set = FALSE;
+	s_win->current_wall.first_point.set = FALSE;
 
 	ft_launch_window(s_win);
 	ft_display_ihc(s_win);
@@ -251,10 +250,38 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 	while (!quit)
 	{
 		SDL_PollEvent(&(wn->ev));
+		wn->input->oldmouse = wn->input->mouse;
 		wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
 		wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
 		//printf("mouse x=%d y=%d\n", wn->input->x, wn->input->y);
-		if (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT))
+
+
+		if (s_win->current_wall.first_point.set == TRUE)
+		{
+			//dessiner la ligne en continue
+			t_myputtheline		s_line;
+
+			s_line.un.a = (s_win->current_wall.first_point.x * s_win->s_localisation_grid->step)
+				+ s_win->s_localisation_grid->x;
+			s_line.un.b = (s_win->current_wall.first_point.y * s_win->s_localisation_grid->step)
+				+ s_win->s_localisation_grid->y;
+			s_line.deux.a = wn->input->x;
+			s_line.deux.b = wn->input->y;
+			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
+    		SDL_RenderClear(s_win->renderer[J_EDITOR]);
+			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
+			ft_draw_line(s_win, &s_line);
+			ft_display_title(s_win);
+			ft_display_save_button(s_win);
+			ft_display_quit_button(s_win);
+			ft_display_grid(s_win);
+			ft_draw_map(s_win);
+			ft_display_right_pan(s_win);
+			SDL_RenderPresent(s_win->renderer[J_EDITOR]);
+		}
+
+
+		if ((wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)) && ((wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT)) == 0)  )
 		{
 			ft_update_show_cross(s_win, wn);
 			ft_clik_wall_height(s_win, wn);
@@ -268,7 +295,7 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 		}
 		if (wn->state[SDL_SCANCODE_ESCAPE])
 			quit = TRUE;
-		SDL_Delay(100);
+		SDL_Delay(10);
 	}
 }
 
