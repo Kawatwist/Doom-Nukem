@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 09:19:14 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/16 11:32:34 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/16 13:58:55 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,18 @@ void	ft_draw_map(t_mywin *s_win)
 			+ s_win->s_localisation_grid->x;
 		s_line.deux.b = (s_win->lst_wall->y_b * s_win->s_localisation_grid->step)
 			+ s_win->s_localisation_grid->y;
-		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 255, 0, 0);
 
+
+		if (s_win->lst_wall->height == up_to_ceilling)
+			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], BLUE, 255);
+		if (s_win->lst_wall->height == middle)
+			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], GREEN, 255);
+		if (s_win->lst_wall->height == down)
+			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], RED, 255);
+		if (s_win->lst_wall->height == -1)
+			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], YELLOW, 255);
 		if (s_win->lst_wall->current_wall == 1)
-			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
+			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);//blanc
 		ft_draw_line(s_win, &s_line);
 		s_win->lst_wall = s_win->lst_wall->next;
 	}
