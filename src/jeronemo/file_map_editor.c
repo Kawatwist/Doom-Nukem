@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/16 10:52:10 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/16 11:45:03 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ t_mypoint	ft_return_cross_coordonate_grid(t_mywin *s_win, t_win *wn)
 	return (s_point);
 }
 
-void	ft_save_current_wall(t_mywin *s_win)
+void	ft_add_current_wall(t_mywin *s_win)
 {
 	t_mywall	s_wall;
 	t_mywall	*wall;
@@ -193,8 +193,24 @@ void	ft_save_current_wall(t_mywin *s_win)
 	s_wall.y_b = s_win->current_wall.seconde_point.y;
 	s_wall.height = -1;
 	s_wall.texture = -1;
+	s_wall.current_wall = 1;
 	wall = ft_create_wall_node(s_wall);
 	ft_add_wall_node(&(s_win->lst_wall), wall);
+}
+
+void	ft_remove_the_current_wall_attribut_from_the_lst(t_mywin *s_win)
+{
+	t_mywall *keep;
+
+	keep = s_win->lst_wall;
+	while (s_win->lst_wall)
+	{
+		if (s_win->lst_wall->current_wall == 1)
+		{
+				s_win->lst_wall->current_wall = 0;
+				break;
+	}
+	s_win->lst_wall = keep;
 }
 
 int		ft_click_on_grid(t_mywin *s_win, t_win *wn)
@@ -224,7 +240,17 @@ int		ft_click_on_grid(t_mywin *s_win, t_win *wn)
 			}
 			if (s_win->current_wall.first_point.set == TRUE && s_win->current_wall.seconde_point.set == TRUE)
 			{
-				ft_save_current_wall(s_win);
+				//si current wall n'est pas dans la liste on l'ajoute et il devient le courant;
+				if(//ce mur n'est pas dans la liste)
+				{
+					ft_remove_the_current_wall_attribut_from_the_lst(s_win);
+					ft_add_current_wall(s_win);
+				}
+				else
+				{
+				//sinon celui qui a ces proprieter dans la liste devient le current
+					ft_remove_the_current_wall_attribut_from_the_lst(s_win);
+				}
 				s_win->current_wall.first_point.set = FALSE;
 				s_win->current_wall.seconde_point.set = FALSE;
 			}
@@ -254,8 +280,6 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 		wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
 		wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
 		//printf("mouse x=%d y=%d\n", wn->input->x, wn->input->y);
-
-
 		if (s_win->current_wall.first_point.set == TRUE)
 		{
 			//dessiner la ligne en continue

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 09:19:14 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 09:05:43 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/16 11:32:34 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,9 @@ void	ft_draw_map(t_mywin *s_win)
 		s_line.deux.b = (s_win->lst_wall->y_b * s_win->s_localisation_grid->step)
 			+ s_win->s_localisation_grid->y;
 		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 255, 0, 0);
+
+		if (s_win->lst_wall->current_wall == 1)
+			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 		ft_draw_line(s_win, &s_line);
 		s_win->lst_wall = s_win->lst_wall->next;
 	}

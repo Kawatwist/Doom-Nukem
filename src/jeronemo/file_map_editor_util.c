@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/15 17:23:05 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/16 11:33:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,7 @@ t_mywall	*ft_create_wall_node(t_mywall wall)
 	s_wall->height = wall.height;
 	s_wall->texture = wall.texture;
 	s_wall->next = NULL;
+	s_wall->current_wall = 0;
 	return (s_wall);
 }
 

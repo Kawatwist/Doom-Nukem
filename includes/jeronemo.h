@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/16 10:47:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/16 11:35:10 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,19 @@ typedef struct		s_mylocalisation_box
 	int				height;
 }					t_mylocalisation_box;
 
+typedef enum		e_wall_height
+{
+	down = 1,
+	middle = 2,
+	up_to_ceilling = 3,
+}					t_wall_height;
+
+typedef enum		e_wall_texture
+{
+	file_1 = 1,
+	file_2 = 2,
+	file_3 = 3,
+}					t_wall_texture;
 
 typedef struct		s_mysquare
 {
@@ -78,6 +91,7 @@ typedef struct		s_mywall
 	int				height;
 	int				texture;
 	void			*next;
+	int				current_wall;
 }					t_mywall;
 
 typedef struct		s_mycross
