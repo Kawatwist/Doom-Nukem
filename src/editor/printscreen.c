@@ -89,27 +89,60 @@ static void	showmap(t_win *wn)
 	showelem(wn);
 }
 
-static void		print_x_y_z(t_win *wn)
+SDL_Color making_color(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
 	SDL_Color color;
-	TTF_Font *police;
-	SDL_Surface *surface;
-	SDL_Texture *texture;
-	SDL_Rect 	src;
 
-	color.a = 0;
-	color.r = 0;
-	color.g = 0;
-	color.b = 0;
-	src.x = wn->input->x;
-	src.y = wn->input->y;
-	if (!(police = TTF_OpenFont("./texture/arial.ttf", 14)))
-		stop_exec("police failed\n", wn);
-	surface = TTF_RenderText_Solid(police, ft_itoa(wn->input->x), color);
-	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
-	SDL_QueryTexture(texture, NULL, NULL, &src.w, &src.h);
-	if (SDL_RenderCopy(wn->rend, texture, NULL, &src) < 0)
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	color.a = a;
+	return (color);
+}
+
+void	load_color(t_win *wn)
+{
+	wn->color.noir = making_color(0, 0, 0, 0);
+	wn->color.rouge = making_color(255, 0, 0, 0);
+	wn->color.vert = making_color(6, 141, 33, 0);
+	wn->color.bleu = making_color(0, 0, 255, 0);
+}
+
+void create_text_texture(t_win *wn, SDL_Texture *texture, int x, SDL_Color color)
+{
+	wn->editext.surface = TTF_RenderText_Solid(wn->editext.police, ft_itoa(x), color);
+	texture = SDL_CreateTextureFromSurface(wn->rend, wn->editext.surface);
+	SDL_QueryTexture(texture, NULL, NULL, &wn->editext.src.w, &wn->editext.src.h);
+	SDL_FreeSurface(wn->editext.surface);
+	if (SDL_RenderCopy(wn->rend, texture, NULL, &wn->editext.src) < 0)
 		stop_exec("rendercopy failed\n", wn);
+}
+
+void		print_x_y_z(t_win *wn)
+{
+	SDL_Texture *texture_x;
+	SDL_Texture *texture_y;
+	SDL_Texture *texture_z;
+	int x;
+	int y;
+
+	texture_x = NULL;
+	texture_y = NULL;
+	texture_z = NULL;
+	x = wn->input->x + wn->editext.countx;
+	y = wn->input->y + wn->editext.county;
+	x = (x * 600) / wn->map->w;
+	y = (y * 600) / wn->map->h;
+	if (x >= 0 && x <= wn->map->w && y <= wn->map->h && y >= 0)
+	{
+		wn->editext.src.x = wn->input->x + 10;
+		wn->editext.src.y = wn->input->y + 1;
+		create_text_texture(wn, texture_x, x, wn->color.rouge);
+		wn->editext.src.y = wn->input->y + wn->editext.src.h;
+		create_text_texture(wn, texture_y, y, wn->color.bleu);
+		wn->editext.src.y += wn->editext.src.h;
+		create_text_texture(wn, texture_z, 200, wn->color.vert);
+	}
 }
 
 void		printeditor(t_win *wn)

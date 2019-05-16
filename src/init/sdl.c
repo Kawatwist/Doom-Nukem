@@ -23,5 +23,7 @@ void	initsdl(t_win **wn)
 	(*wn)->rend = SDL_CreateRenderer((*wn)->window,
 			-1, SDL_RENDERER_ACCELERATED);
 	(*wn)->rend == NULL ? stop_exec("Rend error\n", *wn) : 0;
+	if (!((*wn)->editext.police = TTF_OpenFont("./texture/arial.ttf", 14)))
+		stop_exec("police failed\n", *wn);
 	SDL_RenderPresent((*wn)->rend);
 }

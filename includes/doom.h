@@ -124,6 +124,24 @@ typedef struct		s_mut
 	pthread_mutex_t	mutex;
 }					t_mut;
 
+typedef struct 		s_color
+{
+	SDL_Color		noir;
+	SDL_Color 		rouge;
+	SDL_Color		vert;
+	SDL_Color		bleu;
+}					t_color;
+
+typedef struct 		s_written
+{
+	TTF_Font		*police;
+	SDL_Surface 	*surface;
+	SDL_Rect 		src;
+	int 			countx;
+	int 			county;
+	int 			mult;
+}					t_written;
+
 typedef struct		s_win
 {
 	char			sky;
@@ -156,8 +174,9 @@ typedef struct		s_win
 	int 			xscreen;
 	int 			yscreen;
 	int 			full_screen;
-
+	t_color			color;
 	int				debugconsole;
+	t_written 		editext;
 
 }					t_win;
 
@@ -175,6 +194,10 @@ void				display_crosshair(t_win *wn);
 void				edit(t_win *wn);
 void				inputeditor(t_win *wn);
 void				printeditor(t_win *wn);
+void				load_color(t_win *wn);
+SDL_Color			making_color(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+void				print_x_y_z(t_win *wn);
+void 				create_text_texture(t_win *wn, SDL_Texture *texture, int x, SDL_Color color);
 
 void				mainconsole(t_win *wn);
 
