@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/16 11:45:03 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/16 13:44:51 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,10 +207,37 @@ void	ft_remove_the_current_wall_attribut_from_the_lst(t_mywin *s_win)
 	{
 		if (s_win->lst_wall->current_wall == 1)
 		{
-				s_win->lst_wall->current_wall = 0;
-				break;
+			s_win->lst_wall->current_wall = 0;
+			s_win->lst_wall = keep;
+			break;
+		}
+		s_win->lst_wall = s_win->lst_wall->next;
 	}
 	s_win->lst_wall = keep;
+}
+
+int		ft_wall_in_the_lst(t_mywin *s_win)
+{
+	t_mywall *keep;
+
+	keep = s_win->lst_wall;
+	while (s_win->lst_wall)
+	{
+		if (s_win->current_wall.first_point.x == s_win->lst_wall->x_a)
+		{
+			if (s_win->current_wall.first_point.y == s_win->lst_wall->y_a &&
+					s_win->current_wall.seconde_point.x == s_win->lst_wall->x_b &&
+					s_win->current_wall.seconde_point.y == s_win->lst_wall->y_b)
+			{
+				s_win->lst_wall->current_wall = 1;
+				s_win->lst_wall = keep;
+				return (1);
+			}
+		}
+		s_win->lst_wall = s_win->lst_wall->next;
+	}
+	s_win->lst_wall = keep;
+	return (0);
 }
 
 int		ft_click_on_grid(t_mywin *s_win, t_win *wn)
@@ -224,8 +251,7 @@ int		ft_click_on_grid(t_mywin *s_win, t_win *wn)
 				wn->input->x < s_win->s_localisation_grid->x + s_win->s_localisation_grid->width)
 		{
 			point = ft_return_cross_coordonate_grid(s_win, wn);
-			//printf("click on x=%d et y=%d\n", point.x, point.y);
-
+			//printf("click on x=%d et y=%d\n", point.x, point.y)
 			if (s_win->current_wall.first_point.set == FALSE)
 			{
 				s_win->current_wall.first_point.x = point.x;
@@ -241,14 +267,14 @@ int		ft_click_on_grid(t_mywin *s_win, t_win *wn)
 			if (s_win->current_wall.first_point.set == TRUE && s_win->current_wall.seconde_point.set == TRUE)
 			{
 				//si current wall n'est pas dans la liste on l'ajoute et il devient le courant;
-				if(//ce mur n'est pas dans la liste)
+				if(!(ft_wall_in_the_lst(s_win)))
 				{
 					ft_remove_the_current_wall_attribut_from_the_lst(s_win);
 					ft_add_current_wall(s_win);
 				}
 				else
 				{
-				//sinon celui qui a ces proprieter dans la liste devient le current
+					//sinon celui qui a ces proprieter dans la liste devient le current
 					ft_remove_the_current_wall_attribut_from_the_lst(s_win);
 				}
 				s_win->current_wall.first_point.set = FALSE;
@@ -303,8 +329,6 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 			ft_display_right_pan(s_win);
 			SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 		}
-
-
 		if ((wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)) && ((wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT)) == 0)  )
 		{
 			ft_update_show_cross(s_win, wn);
