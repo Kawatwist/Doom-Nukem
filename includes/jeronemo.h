@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/16 11:35:10 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/16 14:18:58 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct		s_mylocalisation_box
 
 typedef enum		e_wall_height
 {
-	down = 1,
+	down = 4,
 	middle = 2,
 	up_to_ceilling = 3,
 }					t_wall_height;

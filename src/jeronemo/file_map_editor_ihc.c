@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 09:19:14 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/16 13:58:55 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/16 14:29:32 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	ft_display_grid(t_mywin *s_win)
 
 void	ft_draw_map(t_mywin *s_win)
 {
+	printf("DRAW MAP\n");
 	t_mywall *keep;
 	t_myputtheline		s_line;
 
@@ -123,17 +124,33 @@ void	ft_draw_map(t_mywin *s_win)
 		s_line.deux.b = (s_win->lst_wall->y_b * s_win->s_localisation_grid->step)
 			+ s_win->s_localisation_grid->y;
 
+		printf("le wall height =%d\n", s_win->lst_wall->height);
 
 		if (s_win->lst_wall->height == up_to_ceilling)
+		{
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], BLUE, 255);
+			printf("Up to ceilling\n");
+		}
 		if (s_win->lst_wall->height == middle)
+		{
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], GREEN, 255);
+			printf("Middle\n");
+		}
 		if (s_win->lst_wall->height == down)
+		{
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], RED, 255);
+			printf("down\n");
+		}
 		if (s_win->lst_wall->height == -1)
+		{
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], YELLOW, 255);
+			printf("indefinie\n");
+		}
 		if (s_win->lst_wall->current_wall == 1)
+		{
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);//blanc
+			printf("current wall\n");
+		}
 		ft_draw_line(s_win, &s_line);
 		s_win->lst_wall = s_win->lst_wall->next;
 	}
