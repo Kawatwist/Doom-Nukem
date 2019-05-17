@@ -6,13 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/17 11:33:58 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/17 11:44:46 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <doom.h>
-
-
 
 void	ft_set_wall_height(t_mywin *s_win, int wall_height)
 {
@@ -292,13 +290,14 @@ int		ft_click_on_grid(t_mywin *s_win, t_win *wn)
 				//si current wall n'est pas dans la liste on l'ajoute et il devient le courant;
 				if(!(ft_wall_in_the_lst(s_win)))
 				{
+					printf("Ce wall n'est pas dans la liste\n");
 					ft_remove_the_current_wall_attribut_from_the_lst(s_win);
 					ft_add_current_wall(s_win);
 				}
 				else
 				{
 					//sinon celui qui a ces proprieter dans la liste devient le current
-					ft_remove_the_current_wall_attribut_from_the_lst(s_win);
+					printf("Ce wall est dans la liste\n");
 				}
 				s_win->current_wall.first_point.set = FALSE;
 				s_win->current_wall.seconde_point.set = FALSE;
