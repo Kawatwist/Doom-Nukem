@@ -23,7 +23,7 @@
 # include "SDL_ttf.h"
 # define XSCREEN 1500
 # define YSCREEN 1200
-# define CONSOLE_LINE_NB 10
+# define CONSOLE_MAX_LINE_NB 10
 
 typedef enum		e_bool
 {

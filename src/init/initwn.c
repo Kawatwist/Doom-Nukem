@@ -82,9 +82,10 @@ static void initconsole(t_win **wn)
 	if ((*wn)->console == NULL)
 		stop_exec("malloc failed in initconsole()", *wn);
 	ft_bzero((*wn)->console, sizeof(t_console));
-	(*wn)->console->history = (char**)malloc(sizeof(char*) * (CONSOLE_LINE_NB)); // 'free codes' not written yet
+	(*wn)->console->history = (char**)malloc(sizeof(char*) * (CONSOLE_MAX_LINE_NB)); // 'free codes' not written yet
 	if ((*wn)->console->history == NULL)
 		stop_exec("malloc failed in initconsole(): history", *wn);
+	ft_bzero((*wn)->console->history, sizeof(char**));
 }
 
 void		initwn(t_win **wn)

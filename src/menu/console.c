@@ -25,10 +25,21 @@ static void	readcommand(t_win *wn, char *command)
 		? wn->sky = ft_atoi(&(command[3])) : 0;
 }
 
-// static void	print_console_history(t_win *wn)
-// {
+static void	print_console_history(t_win *wn)
+{
+	int		i;
 
-// }
+	i = wn->console->index - 1;
+	if (i >= 0 && i <= CONSOLE_MAX_LINE_NB)
+	{
+		while (i >= 0)
+		{
+			printf("history[%d]:%s\n", i, wn->console->history[i]);
+			i--;
+		}
+	}
+
+}
 
 void	sub_print_command(t_win *wn, SDL_Texture *texture, int len)
 {
@@ -40,7 +51,7 @@ void	sub_print_command(t_win *wn, SDL_Texture *texture, int len)
 	tex_height = 0;
 	SDL_QueryTexture(texture, NULL, NULL, &tex_width, &tex_height);
 	position.x = 35;
-	position.y = YSCREEN - 70;
+	position.y = wn->yscreen - 70;
 	position.w = 20 * len;
  	position.h = 20;
  	(void)len;
@@ -123,16 +134,16 @@ static char *printable_input(t_win *wn, char *command)
 
 static void stock_in_history(t_win *wn, char *command)
 {
-	if (wn->console->index <= CONSOLE_LINE_NB)
+	if (wn->console->index <= CONSOLE_MAX_LINE_NB)
 	{
 		wn->console->history[wn->console->index] = ft_strdup(command);
 		wn->console->index++;
 	}
 	else
 	{
-		free(wn->console->history[wn->console->index % CONSOLE_LINE_NB]);
-		wn->console->history[wn->console->index % CONSOLE_LINE_NB] = NULL;
-		wn->console->history[wn->console->index % CONSOLE_LINE_NB] = ft_strdup(command);
+		free(wn->console->history[wn->console->index % CONSOLE_MAX_LINE_NB]);
+		wn->console->history[wn->console->index % CONSOLE_MAX_LINE_NB] = NULL;
+		wn->console->history[wn->console->index % CONSOLE_MAX_LINE_NB] = ft_strdup(command);
 		wn->console->index++;
 	}
 
@@ -183,5 +194,5 @@ void		mainconsole(t_win *wn)
 {
 	showconsole(wn);
 	inputconsole(wn);
-	// print_console_history(wn);
+	print_console_history(wn);
 }
