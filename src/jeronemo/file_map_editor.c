@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/17 11:54:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/17 13:06:55 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,11 +287,11 @@ int		ft_click_on_grid(t_mywin *s_win, t_win *wn)
 			}
 			if (s_win->current_wall.first_point.set == TRUE && s_win->current_wall.seconde_point.set == TRUE)
 			{
+				ft_remove_the_current_wall_attribut_from_the_lst(s_win);
 				//si current wall n'est pas dans la liste on l'ajoute et il devient le courant;
 				if(!(ft_wall_in_the_lst(s_win)))
 				{
 					printf("Ce wall n'est pas dans la liste\n");
-					ft_remove_the_current_wall_attribut_from_the_lst(s_win);
 					ft_add_current_wall(s_win);
 				}
 				else
@@ -337,8 +337,12 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 				+ s_win->s_localisation_grid->x;
 			s_line.un.b = (s_win->current_wall.first_point.y * s_win->s_localisation_grid->step)
 				+ s_win->s_localisation_grid->y;
-			s_line.deux.a = (wn->input->x % s_win->s_localisation_grid->step) * s_win->s_localisation_grid->step;
-			s_line.deux.b = (wn->input->y % s_win->s_localisation_grid->step) * s_win->s_localisation_grid->step;
+
+			t_mypoint	point;
+			point = ft_return_cross_coordonate_grid(s_win, wn);
+			s_line.deux.a = (point.x * 30) + s_win->s_localisation_grid->x;
+			s_line.deux.b = (point.y * 30) + s_win->s_localisation_grid->y;
+
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
     		SDL_RenderClear(s_win->renderer[J_EDITOR]);
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
