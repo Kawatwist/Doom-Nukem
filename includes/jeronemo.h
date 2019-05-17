@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/16 14:18:58 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/17 11:34:27 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ typedef struct				s_mywin
 	t_mylocalisation_box	*s_localisation_box;
 	t_mysquare				*s_localisation_quit_button;
 	t_mysquare				*s_localisation_save_button;
+	t_mysquare				*s_localisation_delete_button;
 	int						show_cross[5];
 	t_mysquare				***s_localisation_color_box;
 	t_mygrid				*s_localisation_grid;
@@ -193,6 +194,7 @@ void			ft_display_quit_button(t_mywin *s_win);
 void			ft_display_save_button(t_mywin *s_win);
 void			ft_display_title(t_mywin *s_win);
 void			ft_display_grid(t_mywin *s_win);
+void			ft_display_delete_button(t_mywin *s_win);
 
 
 #endif

@@ -6,12 +6,43 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 09:19:14 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/16 14:29:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/17 11:38:33 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <doom.h>
 #include <map_editor_right_pan.h>
+
+
+void	ft_hightlight_red_current_wall(t_mywin *s_win)
+{
+	t_mywall *keep;
+	t_mycross	s_cross;
+	t_mycolor	s_color;
+
+	keep = s_win->lst_wall;
+	while (s_win->lst_wall)
+	{
+		if (s_win->lst_wall->current_wall == 1)
+		{
+			s_color = ft_setcolor(RED);
+			//t_mycross	ft_setcross(int x, int y, int size, int thickness, t_mycolor color)
+			s_cross = ft_setcross(	s_win->lst_wall->x_a * s_win->s_localisation_grid->step + s_win->s_localisation_grid->x,
+									s_win->lst_wall->y_a * s_win->s_localisation_grid->step + s_win->s_localisation_grid->y,
+					6, 5, s_color);
+			ft_draw_cross(s_win, &s_cross);
+
+			s_cross = ft_setcross(	s_win->lst_wall->x_b * s_win->s_localisation_grid->step + s_win->s_localisation_grid->x,
+									s_win->lst_wall->y_b * s_win->s_localisation_grid->step + s_win->s_localisation_grid->y,
+					6, 5, s_color);
+			ft_draw_cross(s_win, &s_cross);
+			s_win->lst_wall = keep;
+			break;
+		}
+		s_win->lst_wall = s_win->lst_wall->next;
+	}
+	s_win->lst_wall = keep;
+}
 
 void	ft_display_title(t_mywin *s_win)
 {
@@ -55,6 +86,35 @@ void	ft_display_save_button(t_mywin *s_win)
 			s_color, 20, "SAVE");
 	ft_write(s_win, &s_write);
 	s_win->s_localisation_save_button = s_localisation_save_button;
+}
+
+void	ft_display_delete_button(t_mywin *s_win)
+{
+	t_mycolor	s_color;
+	t_mysquare	s_square;
+	t_mywrite	s_write;
+	t_mysquare	*s_localisation_delete_button;
+
+	s_localisation_delete_button = malloc(sizeof(t_mysquare));
+	s_color = ft_setcolor(WHITE);
+
+	s_localisation_delete_button->x = 500;
+	s_localisation_delete_button->y = 900;
+	s_localisation_delete_button->width = 100;
+	s_localisation_delete_button->height = 50;
+	s_square = ft_setsquare(
+			s_localisation_delete_button->x,
+ 			s_localisation_delete_button->y,
+			s_localisation_delete_button->width,
+			s_localisation_delete_button->height,
+			s_color);
+	ft_draw_square(s_win, &s_square);
+	s_color = ft_setcolor(BLACK);
+	s_write = ft_setwrite(500 + 15,
+ 			910,
+			s_color, 20, "DELETE");
+	ft_write(s_win, &s_write);
+	s_win->s_localisation_delete_button = s_localisation_delete_button;
 }
 
 void	ft_display_quit_button(t_mywin *s_win)
@@ -108,7 +168,6 @@ void	ft_display_grid(t_mywin *s_win)
 
 void	ft_draw_map(t_mywin *s_win)
 {
-	printf("DRAW MAP\n");
 	t_mywall *keep;
 	t_myputtheline		s_line;
 
@@ -123,34 +182,14 @@ void	ft_draw_map(t_mywin *s_win)
 			+ s_win->s_localisation_grid->x;
 		s_line.deux.b = (s_win->lst_wall->y_b * s_win->s_localisation_grid->step)
 			+ s_win->s_localisation_grid->y;
-
-		printf("le wall height =%d\n", s_win->lst_wall->height);
-
 		if (s_win->lst_wall->height == up_to_ceilling)
-		{
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], BLUE, 255);
-			printf("Up to ceilling\n");
-		}
 		if (s_win->lst_wall->height == middle)
-		{
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], GREEN, 255);
-			printf("Middle\n");
-		}
 		if (s_win->lst_wall->height == down)
-		{
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], RED, 255);
-			printf("down\n");
-		}
 		if (s_win->lst_wall->height == -1)
-		{
-			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], YELLOW, 255);
-			printf("indefinie\n");
-		}
-		if (s_win->lst_wall->current_wall == 1)
-		{
-			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);//blanc
-			printf("current wall\n");
-		}
+			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], WHITE, 255);
 		ft_draw_line(s_win, &s_line);
 		s_win->lst_wall = s_win->lst_wall->next;
 	}
@@ -164,8 +203,10 @@ void	ft_display_ihc(t_mywin *s_win)
 	ft_display_title(s_win);
 	ft_display_save_button(s_win);
 	ft_display_quit_button(s_win);
+	ft_display_delete_button(s_win);
 	ft_display_grid(s_win);
 	ft_draw_map(s_win);
-	ft_display_right_pan(s_win);;
+	ft_display_right_pan(s_win);
+	ft_hightlight_red_current_wall(s_win);
 	SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 }

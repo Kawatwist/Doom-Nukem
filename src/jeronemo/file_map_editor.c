@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/17 11:02:13 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/17 11:33:58 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,6 +350,7 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 			ft_display_grid(s_win);
 			ft_draw_map(s_win);
 			ft_display_right_pan(s_win);
+			ft_display_delete_button(s_win);
 			SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 		}
 		if ((wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)) && ((wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT)) == 0)  )
