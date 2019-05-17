@@ -17,6 +17,7 @@ void	stop_exec(char *msg, t_win *wn)
 	int			fd;
 
 	ft_putstr(msg);
+	wn->fonts->ariel != NULL ? TTF_CloseFont(wn->fonts->ariel) : 0;
 	SDL_Quit();
 	TTF_Quit();
 	if (!access("/tmp/doom_log", F_OK))
@@ -25,7 +26,6 @@ void	stop_exec(char *msg, t_win *wn)
 		fd = creat("/tmp/doom_log", O_WRONLY | O_APPEND);
 	if (fd != 0)
 		write(fd, msg, ft_strlen(msg));
-	(void)wn; // FREE WN
 	exit(0);
 }
 

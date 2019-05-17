@@ -76,6 +76,17 @@ static void	initmenu(t_win **wn)
 	(*wn)->menu->choice = 0;
 }
 
+static void initconsole(t_win **wn)
+{
+	(*wn)->console = (t_console*)malloc(sizeof(t_console)); // 'free codes' not written yet
+	if ((*wn)->console == NULL)
+		stop_exec("malloc failed in initconsole()", *wn);
+	ft_bzero((*wn)->console, sizeof(t_console));
+	(*wn)->console->history = (char**)malloc(sizeof(char*) * (CONSOLE_LINE_NB)); // 'free codes' not written yet
+	if ((*wn)->console->history == NULL)
+		stop_exec("malloc failed in initconsole(): history", *wn);
+}
+
 void		initwn(t_win **wn)
 {
 	ft_bzero(*wn, sizeof(t_win));
@@ -84,6 +95,7 @@ void		initwn(t_win **wn)
 	(*wn)->xscreen = XSCREEN;
 	(*wn)->yscreen = YSCREEN;
 	(*wn)->full_screen = 1;
+	initconsole(wn);
 	initmap(wn);
 	initelem(wn);
 	initmenu(wn);

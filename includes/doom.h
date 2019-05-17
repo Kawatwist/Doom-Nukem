@@ -23,6 +23,7 @@
 # include "SDL_ttf.h"
 # define XSCREEN 1500
 # define YSCREEN 1200
+# define CONSOLE_LINE_NB 10
 
 typedef enum		e_bool
 {
@@ -131,8 +132,14 @@ typedef struct		s_mut
 typedef struct 		s_console
 {
 	char			**history;
-	int				current_line_nb;
+	int				index;
 }					t_console;
+
+typedef struct  	s_fonts
+{
+	TTF_Font		*ariel;
+} 					t_fonts;
+
 typedef struct		s_win
 {
 	char			sky;
@@ -143,8 +150,7 @@ typedef struct		s_win
 	char			oldinterface;
 	char			debugcine;
 	t_console		*console;
-	// char			*command;
-	// char			**history;
+	t_fonts			*fonts;  //structure poour stocker tous les polices de caracteres
 	char			*load;
 	int				turn;
 	Uint8			*state;
@@ -218,6 +224,8 @@ SDL_Texture			*findtexture(t_win *wn, char *type,
 int					initmutex(t_win **wn);
 void				*loadingthread(void *param);
 void				loadnothread(t_win **wn);
+void				load_fonts(t_win *wn);
+
 
 
 /**

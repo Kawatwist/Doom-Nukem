@@ -12,29 +12,23 @@
 
 #include "doom.h"
 
-static void	readcommand(t_win *wn)
+static void	readcommand(t_win *wn, char *command)
 {
-	ft_strcmp(wn->command, "kill") == 0 ? stop_exec("KILL !\n", wn) : 0;
-	ft_strcmp(wn->command, "slow") == 0 ? wn->debugcine *= -1 : 0;
-	ft_strcmp(wn->command, "fs") == 0 ? full_screen(wn) : 0;
-	ft_strncmp(wn->command, "value", 5) == 0
-		&& ft_strlen(wn->command) > 5
-		? wn->debugconsole = ft_atoi(&(wn->command[5])) : 0;
-	ft_strncmp(wn->command, "sky", 3) == 0
-		&& ft_strlen(wn->command) > 3
-		? wn->sky = ft_atoi(&(wn->command[3])) : 0;
-	free(wn->command);
-	wn->command = NULL;
+	ft_strcmp(command, "kill") == 0 ? stop_exec("KILL !\n", wn) : 0;
+	ft_strcmp(command, "slow") == 0 ? wn->debugcine *= -1 : 0;
+	ft_strcmp(command, "fs") == 0 ? full_screen(wn) : 0;
+	ft_strncmp(command, "value", 5) == 0
+		&& ft_strlen(command) > 5
+		? wn->debugconsole = ft_atoi(&(command[5])) : 0;
+	ft_strncmp(command, "sky", 3) == 0
+		&& ft_strlen(command) > 3
+		? wn->sky = ft_atoi(&(command[3])) : 0;
 }
 
-static void	historyconsole(t_win *wn)
-{
-	static char **history = NULL;
+// static void	print_console_history(t_win *wn)
+// {
 
-
-	(void)history;
-	(void)wn;
-}
+// }
 
 void	sub_print_command(t_win *wn, SDL_Texture *texture, int len)
 {
@@ -49,6 +43,7 @@ void	sub_print_command(t_win *wn, SDL_Texture *texture, int len)
 	position.y = YSCREEN - 70;
 	position.w = 20 * len;
  	position.h = 20;
+ 	(void)len;
 	SDL_RenderCopy(wn->rend, texture, NULL, &position);
 }
 
@@ -57,16 +52,12 @@ static void		print_command(t_win *wn, char *s)
 	SDL_Color		color;
 	SDL_Surface		*surface;
 	SDL_Texture		*texture;
-	TTF_Font		*font;
 
-	font = TTF_OpenFont("/Library/Fonts/Arial.ttf", 35);  //init font outside the loop later
-	if (font == NULL)
-		stop_exec("TTF_OpenFont()failed", wn);
 	color.r = 255;
 	color.g = 255;
 	color.b = 255;
 	color.a = SDL_ALPHA_OPAQUE;
-	surface = TTF_RenderText_Solid(font, s, color);
+	surface = TTF_RenderText_Solid(wn->fonts->ariel, s, color);
 	if (surface == NULL)
 		stop_exec("TTF_RenderText()failed", wn);
 	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
@@ -74,7 +65,6 @@ static void		print_command(t_win *wn, char *s)
 		stop_exec("SDL_CreateTextureFromSurface()failed", wn);
 	SDL_FreeSurface(surface);
 	sub_print_command(wn, texture, ft_strlen(s));
-	TTF_CloseFont(font); // relocate it outside the loop
 }
 
 
@@ -131,6 +121,23 @@ static char *printable_input(t_win *wn, char *command)
 	return (command);
 }
 
+static void stock_in_history(t_win *wn, char *command)
+{
+	if (wn->console->index <= CONSOLE_LINE_NB)
+	{
+		wn->console->history[wn->console->index] = ft_strdup(command);
+		wn->console->index++;
+	}
+	else
+	{
+		free(wn->console->history[wn->console->index % CONSOLE_LINE_NB]);
+		wn->console->history[wn->console->index % CONSOLE_LINE_NB] = NULL;
+		wn->console->history[wn->console->index % CONSOLE_LINE_NB] = ft_strdup(command);
+		wn->console->index++;
+	}
+
+}
+
 static void	inputconsole(t_win *wn)
 {
 	static char		*command = NULL;
@@ -144,7 +151,8 @@ static void	inputconsole(t_win *wn)
 		 wn->debug *= -1;
 	if (key_pressed(wn, SDL_SCANCODE_RETURN) == TRUE && command != NULL)
 	{
-		wn->command = ft_strdup(command);
+		stock_in_history(wn, command);
+		readcommand(wn, command);
 		free(command);
 		command = NULL;
 	}
@@ -175,7 +183,5 @@ void		mainconsole(t_win *wn)
 {
 	showconsole(wn);
 	inputconsole(wn);
-	if (wn->command && wn->command != NULL)
-		readcommand(wn);
-	historyconsole(wn);
+	// print_console_history(wn);
 }

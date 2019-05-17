@@ -68,6 +68,7 @@ SRC				= main.c										\
 				  player.c 										\
 				  console.c 									\
 				  menu_show.c 									\
+				  load_fonts.c 									\
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 

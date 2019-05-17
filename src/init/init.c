@@ -25,6 +25,7 @@ int				init(t_win **wn, int argc, char **argv)
 	showload(wn, 15);
 	(*wn)->load = ft_strdup("./texture/menu/cursor.tga");
 	load_texture(*wn, "main", "intro", "cursor");
+	load_fonts(*wn);
 	parsearg(argc, argv, wn) == 0 ? stop_exec("Parsing error\n", *wn) : 0;
 	showload(wn, 30);
 	(*wn)->quality == 0 ? loadnothread(wn) : loadminimenu(wn);
