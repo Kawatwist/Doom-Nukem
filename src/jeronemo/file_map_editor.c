@@ -6,11 +6,31 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/16 13:44:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/17 11:02:13 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <doom.h>
+
+
+
+void	ft_set_wall_height(t_mywin *s_win, int wall_height)
+{
+	t_mywall *keep;
+
+	keep = s_win->lst_wall;
+	while (s_win->lst_wall)
+	{
+		if (s_win->lst_wall->current_wall == 1)
+		{
+			s_win->lst_wall->height = wall_height;
+			s_win->lst_wall = keep;
+			break;
+		}
+		s_win->lst_wall = s_win->lst_wall->next;
+	}
+	s_win->lst_wall = keep;
+}
 
 int		ft_clik_wall_height(t_mywin *s_win, t_win *wn)
 {
@@ -23,6 +43,7 @@ int		ft_clik_wall_height(t_mywin *s_win, t_win *wn)
 		if (wn->input->x > s_win->s_localisation_color_box[0][1]->x &&
 				wn->input->x < s_win->s_localisation_color_box[0][1]->x + s_win->s_localisation_color_box[0][1]->width)
 		{
+			ft_set_wall_height(s_win, down);
 			printf("wall height => down\n");
 			return(1);
 		}
@@ -30,6 +51,7 @@ int		ft_clik_wall_height(t_mywin *s_win, t_win *wn)
 		if (wn->input->x > s_win->s_localisation_color_box[0][2]->x &&
 				wn->input->x < s_win->s_localisation_color_box[0][2]->x + s_win->s_localisation_color_box[0][2]->width)
 		{
+			ft_set_wall_height(s_win, middle);
 			printf("wall height => middle\n");
 			return(1);
 		}
@@ -37,6 +59,7 @@ int		ft_clik_wall_height(t_mywin *s_win, t_win *wn)
 		if (wn->input->x > s_win->s_localisation_color_box[0][3]->x &&
 				wn->input->x < s_win->s_localisation_color_box[0][3]->x + s_win->s_localisation_color_box[0][3]->width)
 		{
+			ft_set_wall_height(s_win, up_to_ceilling);
 			printf("wall height => up to ceilling\n");
 			return(1);
 		}

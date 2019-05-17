@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/16 13:41:38 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/17 10:53:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,9 +207,9 @@ int		ft_get_next_value(char *line, int *j)
 	char		nbr[100];
 
 	k = 0;
-	while( !ft_isdigit(line[*j]) )
+	while( (!ft_isdigit(line[*j])) && line[*j] != '-' )
 		*j = *j + 1;
-	while(ft_isdigit(line[*j]))
+	while(ft_isdigit(line[*j]) || line[*j] == '-' )
 	{
 		nbr[k] = line[*j];
 		*j = *j + 1;
