@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/17 11:44:46 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/17 11:54:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,8 +337,8 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 				+ s_win->s_localisation_grid->x;
 			s_line.un.b = (s_win->current_wall.first_point.y * s_win->s_localisation_grid->step)
 				+ s_win->s_localisation_grid->y;
-			s_line.deux.a = wn->input->x;
-			s_line.deux.b = wn->input->y;
+			s_line.deux.a = (wn->input->x % s_win->s_localisation_grid->step) * s_win->s_localisation_grid->step;
+			s_line.deux.b = (wn->input->y % s_win->s_localisation_grid->step) * s_win->s_localisation_grid->step;
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
     		SDL_RenderClear(s_win->renderer[J_EDITOR]);
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
