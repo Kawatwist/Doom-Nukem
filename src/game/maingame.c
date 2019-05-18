@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/15 11:36:01 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/17 18:24:02 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	game(t_win *wn)
 {
 	if (wn->oldinterface != wn->interface)
 	{
-		mainintro(wn, "game", "intro", 60);
+	//	mainintro(wn, "game", "intro", 60);
 		wn->oldinterface = wn->interface;
 	}
 	gameinput(wn);
 	display_skybox(wn);
-	main_cloud(wn);
+//	main_cloud(wn);
 	maindrawpoly(wn);
 	display_crosshair(wn);
 }

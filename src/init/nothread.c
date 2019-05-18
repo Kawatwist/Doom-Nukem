@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 15:59:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/08 16:17:29 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/17 14:25:20 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,17 @@ static void	load_menu(t_win **wn)
 
 void		loadnothread(t_win **wn)
 {
+	printf("Load start\n");
 	load_menu(wn);
+	printf("Load menu\n");
 	showload(wn, 50);
 	load_game(wn);
+	printf("Load game\n");
 	showload(wn, 70);
 	load_editor(wn);
+	printf("Load edit\n");
 	showload(wn, 80);
 	load_option(wn);
+	printf("Load option\n");
 	showload(wn, 100);
 }
