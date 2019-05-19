@@ -24,6 +24,7 @@
 # define XSCREEN 1500
 # define YSCREEN 1200
 # define CONSOLE_MAX_LINE_NB 10
+# define ARIEL_FONT_SIZE 35
 
 typedef enum		e_bool
 {
@@ -256,5 +257,7 @@ void				gameinput(t_win *wn);
 void				setkeyboard(Uint8 *new, Uint8 *current);
 void				stop_exec(char *msg, t_win *wn);
 void				full_screen(t_win *wn);
+int					key_pressed(t_win *wn, int key_value);
+
 
 #endif

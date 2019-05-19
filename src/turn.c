@@ -50,7 +50,7 @@ void	turn(t_win *wn)
 		time = SDL_GetTicks();
 		SDL_ShowCursor(wn->interface != GAME ? SDL_ENABLE : SDL_DISABLE);
 		SDL_CaptureMouse(wn->interface == GAME ? 1 : 0);
-		!wn->old[SDL_SCANCODE_F] && wn->state[SDL_SCANCODE_F] ? wn->full_screen = -wn->full_screen : 0;
+		!wn->old[SDL_SCANCODE_F] && wn->state[SDL_SCANCODE_F] && !wn->debug ? wn->full_screen = -wn->full_screen : 0;
 		full_screen(wn);
 		wn->interface == GAME
 			? SDL_WarpMouseInWindow(wn->window, wn->xscreen/2, wn->yscreen/2) : 0;

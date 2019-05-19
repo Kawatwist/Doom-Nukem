@@ -16,7 +16,7 @@ static void	readcommand(t_win *wn, char *command)
 {
 	ft_strcmp(command, "kill") == 0 ? stop_exec("KILL !\n", wn) : 0;
 	ft_strcmp(command, "slow") == 0 ? wn->debugcine *= -1 : 0;
-	ft_strcmp(command, "fs") == 0 ? full_screen(wn) : 0;
+	ft_strcmp(command, "fs") == 0 ? wn->full_screen *= -1 : 0;
 	ft_strncmp(command, "value", 5) == 0
 		&& ft_strlen(command) > 5
 		? wn->debugconsole = ft_atoi(&(command[5])) : 0;
@@ -24,60 +24,6 @@ static void	readcommand(t_win *wn, char *command)
 		&& ft_strlen(command) > 3
 		? wn->sky = ft_atoi(&(command[3])) : 0;
 }
-
-static void	print_console_history(t_win *wn)
-{
-	int		i;
-
-	i = wn->console->index - 1;
-	if (i >= 0 && i <= CONSOLE_MAX_LINE_NB)
-	{
-		while (i >= 0)
-		{
-			printf("history[%d]:%s\n", i, wn->console->history[i]);
-			i--;
-		}
-	}
-
-}
-
-void	sub_print_command(t_win *wn, SDL_Texture *texture, int len)
-{
-	int				tex_width;
-	int				tex_height;
-	SDL_Rect		position;
-
-	tex_width = 0;
-	tex_height = 0;
-	SDL_QueryTexture(texture, NULL, NULL, &tex_width, &tex_height);
-	position.x = 35;
-	position.y = wn->yscreen - 70;
-	position.w = 20 * len;
- 	position.h = 20;
- 	(void)len;
-	SDL_RenderCopy(wn->rend, texture, NULL, &position);
-}
-
-static void		print_command(t_win *wn, char *s)
-{
-	SDL_Color		color;
-	SDL_Surface		*surface;
-	SDL_Texture		*texture;
-
-	color.r = 255;
-	color.g = 255;
-	color.b = 255;
-	color.a = SDL_ALPHA_OPAQUE;
-	surface = TTF_RenderText_Solid(wn->fonts->ariel, s, color);
-	if (surface == NULL)
-		stop_exec("TTF_RenderText()failed", wn);
-	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
-	if (texture == NULL)
-		stop_exec("SDL_CreateTextureFromSurface()failed", wn);
-	SDL_FreeSurface(surface);
-	sub_print_command(wn, texture, ft_strlen(s));
-}
-
 
 static char	printable_key_check(int i)
 {
@@ -97,13 +43,6 @@ static char	printable_key_check(int i)
 		return (INVALID);
 }
 
-static int	 key_pressed(t_win *wn, int key_value)
-{
-	if (wn->state[key_value] && !(wn->old[key_value]))
-		return (TRUE);
-	return (FALSE);
-}
-
 static char *printable_input(t_win *wn, char *command)
 {
 	int				i;
@@ -114,7 +53,7 @@ static char *printable_input(t_win *wn, char *command)
 	key_val = 0;
 	while (i <= 98)
 	{
-		if (key_pressed(wn, i) == TRUE)
+		if (key_pressed(wn, i))
 		{
 			key_val = printable_key_check(i);
 			if (key_val != INVALID)
@@ -149,44 +88,122 @@ static void stock_in_history(t_win *wn, char *command)
 
 }
 
-static void	inputconsole(t_win *wn)
-{
-	static char		*command = NULL;
-
-	command = printable_input(wn, command);
-	if ((key_pressed(wn, SDL_SCANCODE_BACKSPACE) == TRUE) &&  command != NULL && ft_strlen(command))
-		command[ft_strlen(command) - 1] = 0;
-	if ((command != NULL) && ft_strlen(command))
-		print_command(wn, command);
-	if (key_pressed(wn, SDL_SCANCODE_ESCAPE) == TRUE)
-		 wn->debug *= -1;
-	if (key_pressed(wn, SDL_SCANCODE_RETURN) == TRUE && command != NULL)
-	{
-		stock_in_history(wn, command);
-		readcommand(wn, command);
-		free(command);
-		command = NULL;
-	}
-}
-
 static void	showconsole(t_win *wn)
 {
 	SDL_Rect	bg;
 
 	if (wn->xscreen > 300)
 	{
-		bg.x = 0;
-		bg.y = wn->yscreen - 500;
 		bg.w = 600;
-		bg.h = 500;
+		bg.h = ARIEL_FONT_SIZE * (CONSOLE_MAX_LINE_NB + 1);
+		bg.x = 0;
+		bg.y = wn->yscreen - bg.h;
 		SDL_SetRenderDrawColor(wn->rend, 50, 50, 50, 0);
 		SDL_RenderFillRect(wn->rend, &bg);
-		bg.x = 30;
-		bg.y = wn->yscreen - 70;
-		bg.w = 540;
-		bg.h = 30;
-		SDL_SetRenderDrawColor(wn->rend, 150, 150, 150, 0);
+		bg.w = 600;
+		bg.h = ARIEL_FONT_SIZE;
+		bg.x = 0;
+		bg.y = wn->yscreen - bg.h;
+		SDL_SetRenderDrawColor(wn->rend, 100, 100, 100, 0);
 		SDL_RenderFillRect(wn->rend, &bg);
+	}
+}
+
+
+void			print_text_with_ariel_font(t_win *wn, char *s, SDL_Color color, SDL_Rect position)
+{
+	SDL_Surface		*surface;
+	SDL_Texture		*texture;
+
+	surface = TTF_RenderText_Solid(wn->fonts->ariel, s, color);
+	if (surface == NULL)
+		stop_exec("TTF_RenderText()failed", wn);
+	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
+	if (texture == NULL)
+		stop_exec("SDL_CreateTextureFromSurface()failed", wn);
+	SDL_FreeSurface(surface);
+	SDL_RenderCopy(wn->rend, texture, NULL, &position);
+}
+
+static void		print_one_line(t_win *wn, char *s, int posi_x, int posi_y)
+{
+	SDL_Color		color;
+	int				w;
+	int				h;
+	SDL_Rect		position;
+
+
+	color.r = 150;
+	color.g = 150;
+	color.b = 150;
+	color.a = SDL_ALPHA_OPAQUE;
+	TTF_SizeText(wn->fonts->ariel, s, &w, &h);
+	position.x = posi_x;
+	position.y = posi_y;
+	// position.w = w < XSCREEN / 4 ? w : 200;
+	position.w = w - 5;
+ 	position.h = h - 5;
+	print_text_with_ariel_font(wn, s, color, position);
+}
+
+
+static void		print_command(t_win *wn, char *s, int posi_x, int posi_y)
+{
+	SDL_Color		color;
+	int				w;
+	int				h;
+	SDL_Rect		position;
+
+
+	color.r = 255;
+	color.g = 255;
+	color.b = 255;
+	color.a = SDL_ALPHA_OPAQUE;
+	TTF_SizeText(wn->fonts->ariel, s, &w, &h);
+	position.x = posi_x;
+	position.y = posi_y - 5;
+	// position.w = w < XSCREEN / 4 ? w : 200;
+	position.w = w;
+ 	position.h = h;
+	print_text_with_ariel_font(wn, s, color, position);
+}
+
+static void	print_console_history(t_win *wn)
+{
+	int		i;
+	int		count;
+
+	count = 1;
+	i = (wn->console->index  - 1);
+	if (wn->console->index == 0)
+		return ;
+	while (i  >= 0)
+	{
+		print_one_line(wn, wn->console->history[i % CONSOLE_MAX_LINE_NB], 35, wn->yscreen - (count + 1) * ARIEL_FONT_SIZE);
+		i--;
+		count++;
+		if (count > CONSOLE_MAX_LINE_NB)
+			break;
+	}
+}
+
+static void	inputconsole(t_win *wn)
+{
+	static char		*command = NULL;
+
+	command = printable_input(wn, command);
+	if ((key_pressed(wn, SDL_SCANCODE_BACKSPACE)) && command != NULL && ft_strlen(command))
+		command[ft_strlen(command) - 1] = 0;
+	if ((command != NULL) && ft_strlen(command))
+		print_command(wn, command, 35, wn->yscreen - ARIEL_FONT_SIZE);
+	if (key_pressed(wn, SDL_SCANCODE_ESCAPE))
+		 wn->debug *= -1;
+	if (key_pressed(wn, SDL_SCANCODE_RETURN) && command != NULL)
+	{
+		stock_in_history(wn, command);
+		readcommand(wn, command);
+		free(command);
+		command = NULL;
 	}
 }
 

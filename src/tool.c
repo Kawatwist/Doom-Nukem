@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_fonts.c                                       :+:      :+:    :+:   */
+/*   tool.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/17 14:32:38 by jleblond          #+#    #+#             */
-/*   Updated: 2019/05/17 14:32:41 by jleblond         ###   ########.fr       */
+/*   Created: 2019/05/19 17:25:49 by jleblond          #+#    #+#             */
+/*   Updated: 2019/05/19 17:25:51 by jleblond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void		load_fonts(t_win *wn)
+int	 key_pressed(t_win *wn, int key_value)
 {
-	wn->fonts = (t_fonts*)malloc(sizeof(t_fonts));
-	if (wn->fonts == NULL)
-		stop_exec("malloc failed in load_fonts()", wn);
-	wn->fonts->ariel = TTF_OpenFont("/Library/Fonts/Arial.ttf", ARIEL_FONT_SIZE);
-	if (wn->fonts->ariel == NULL)
-		stop_exec("TTF_OpenFont() failed in load_font()", wn);
+	if (wn->state[key_value] && !(wn->old[key_value]))
+		return (TRUE);
+	return (FALSE);
 }
