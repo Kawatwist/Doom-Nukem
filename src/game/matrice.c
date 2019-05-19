@@ -6,11 +6,17 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 15:10:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/17 17:45:31 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/18 10:32:27 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+
+void	trans(t_win *wn, double **mat)
+{
+	mat[0][3] = wn->player->rawx;
+	mat[1][3] = wn->player->rawy;
+}
 
 void	rotatez(double ang, double **mat)
 {

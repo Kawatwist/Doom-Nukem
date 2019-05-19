@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/17 17:39:05 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/18 10:32:47 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void				main_cloud(t_win *wn);
 void				init_cloud(t_cloudy *cloud);
 void				display_skybox(t_win *wn);
 void				display_crosshair(t_win *wn);
+void				trans(t_win *wn, double **mat);
 void				rotatex(double ang, double **mat);
 void				rotatey(double ang, double **mat);
 void				rotatez(double ang, double **mat);

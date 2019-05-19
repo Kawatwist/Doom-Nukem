@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/17 18:47:40 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/18 10:36:28 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	turn(t_win *wn)
 		difftime = SDL_GetTicks();
 		(difftime - time) <  1000 / 60
 			? SDL_Delay((1000 / 60) - (difftime - time)) : 0;
-		SDL_Delay(100);
 		SDL_RenderPresent(wn->rend);
 		printf("End Turn\n");
 	}
