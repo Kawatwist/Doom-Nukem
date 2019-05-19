@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:34:05 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/15 10:55:56 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/19 16:39:21 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ static void	loadsky(t_win **wn, char *path, char *name)
 {
 	if	(((*wn)->load = ft_strdup(path)) == NULL)
 		return ;
-	printf("Dup\n");
 	load_texture(*wn, "game", "skybox", name);
-	printf("Load\n");
 	if ((*wn)->load != NULL)
 		free((*wn)->load);
 }
@@ -76,22 +74,14 @@ static void	loadsky(t_win **wn, char *path, char *name)
 
 void		initskybox(t_win **wn)
 {
-	printf("Before\n");
 	loadsky(wn, "texture/skybox/sky.tga\0", "sky\0");
-	printf("Before 1\n");
 	loadsky(wn, "texture/skybox/sky2.tga\0", "sky2\0");
-	printf("Before 2\n");
 	loadsky(wn, "texture/skybox/sky3.tga\0", "sky3\0");
-	printf("Before 3\n");
 	loadsky(wn, "texture/skybox/sky4.tga\0", "sky4\0");
-	printf("Before 4\n");
 	loadsky(wn, "texture/skybox/sky6.tga\0", "sky5\0");
-	printf("Before 5\n");
 	loadsky(wn, "texture/skybox/cloud.tga\0", "cloudy\0");
-	printf("Before 6\n");
 //	loadsky(wn, "texture/skybox/cloud_briocher.tga\0", "bribri\0");
 //	((*wn)->cloud = malloc(sizeof(t_cloudy))) == NULL
 //		? stop_exec("cloud not malloc\n", *wn) : 0;
 	init_cloudy(wn);
-	printf("DONE\n");
 }

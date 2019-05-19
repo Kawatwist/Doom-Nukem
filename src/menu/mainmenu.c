@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:02:03 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/13 13:23:35 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/19 16:34:42 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ void	menu(t_win *wn)
 			mainintro(wn, "game", "intro", -60);
 		wn->oldinterface = wn->interface;
 	}
-	printf("MENUv1\n");
 	menuinput(wn);
-	printf("MENUv2\n");
 	showmenu(wn);
-	printf("MENUend\n");
 }

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 11:32:23 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/18 11:51:41 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/19 16:33:45 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,6 @@ static void		matrice(t_poly *curr, double **mat, t_vec *ver)
 
 static void		drawtriangle(t_win *wn, t_vec *v1, t_vec *v2, t_vec *v3)
 {
-	printf("DRAW TRIANGLE\n");
-	printf("RAW X= %d\n", wn->player->rawx);
-	printf("RAW Y= %d\n", wn->player->rawy);
-	printf("V 1X= %f\n", v1->x);
-	printf("V 1Y= %f\n", v1->y);
-	printf("V 2X= %f\n", v2->x);
-	printf("V 2Y= %f\n", v2->y);
-	printf("V 3X= %f\n", v3->x);
-	printf("V 3Y= %f\n", v3->y);
 	SDL_RenderDrawLine(wn->rend, (int)v1->x, (int)v1->y, (int)v2->x, (int)v2->y);
 	SDL_RenderDrawLine(wn->rend, (int)v1->x, (int)v1->y, (int)v3->x, (int)v3->y);
 	SDL_RenderDrawLine(wn->rend, (int)v2->x, (int)v2->y, (int)v3->x, (int)v3->y);
@@ -94,33 +85,21 @@ void			maindrawpoly(t_win *wn)
 	while (i < 4)
 		mat[i++] = (double*)malloc(sizeof(double) * 4);
 	curr = wn->poly;
-	printf("Set\n");
 	SDL_SetRenderDrawColor(wn->rend, 200, 200, 200, 0);
-	printf("Color\n");
 	initmatrice(mat);
 	printmatrice(mat);
-	printf("INIT\n");
 	rotatey((wn->player->rawx) * M_PI / 180, mat);
 	printmatrice(mat);
-	printf("RotX\n");
 	rotatex((wn->player->rawy * 360 / YSCREEN) * M_PI / 180, mat);
 	printmatrice(mat);
-	printf("RotY\n");
 	trans(wn, mat);
 	printmatrice(mat);
-	printf("Trans\n");
 	while (curr != NULL)
 	{
 		ver = malloc(sizeof(t_vec) * wn->poly->nb_ver);
-		printf("Malloc\n");
 		matrice(curr, mat, ver);
-		printf("Matrice\n");
 		drawpoly(wn, curr, ver);
-		printf("Draw\n");
 		free(ver);
-		printf("Free\n");
 		curr = curr->next;
-		printf("Next\n");
 	}
-	printf("Poly end\n");
 }

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 10:15:13 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/18 10:56:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/19 16:40:13 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ void		init_poly(t_win **wn)
 	init_ver(&((*wn)->poly->ver_list[1]), 20, 20, 0);
 	init_ver(&((*wn)->poly->ver_list[2]), 20, 60, 0);
 	init_ver(&((*wn)->poly->ver_list[3]), 0, 40, 0);
-	printf("VER X= %f\n", (*wn)->poly->ver_list[3].x);
-	printf("VER Y= %f\n", (*wn)->poly->ver_list[3].y);
-	printf("VER Z= %f\n", (*wn)->poly->ver_list[3].z);
 	(*wn)->poly->indices = malloc(sizeof(int) * 6);
 	(*wn)->poly->indices[0] = 0;
 	(*wn)->poly->indices[1] = 1;
