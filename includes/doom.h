@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/11 16:48:12 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/18 10:32:47 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 # include <pthread.h>
 # include "libft.h"
 # include "game.h"
+# include "rasterisation.h"
 # include "skybox.h"
 # include "SDL.h"
 # include "SDL_ttf.h"
-# define XSCREEN 1500
-# define YSCREEN 1200
+# define XSCREEN 1920
+# define YSCREEN 1080
 # define CONSOLE_MAX_LINE_NB 10
 # define ARIEL_FONT_SIZE 35
 
@@ -170,6 +171,7 @@ typedef struct		s_win
 	t_cloudy		*cloud;
 	t_menu			*menu;
 	t_mut			*mutex;
+	t_poly			*poly;
 	int 			xscreen;
 	int 			yscreen;
 	int 			full_screen;
@@ -181,10 +183,15 @@ typedef struct		s_win
 /**
  ** GAME
  **/
+void				maindrawpoly(t_win *wn);
 void				main_cloud(t_win *wn);
 void				init_cloud(t_cloudy *cloud);
 void				display_skybox(t_win *wn);
 void				display_crosshair(t_win *wn);
+void				trans(t_win *wn, double **mat);
+void				rotatex(double ang, double **mat);
+void				rotatey(double ang, double **mat);
+void				rotatez(double ang, double **mat);
 
 /**
  ** EDIT
@@ -214,6 +221,7 @@ void				showload(t_win **wn, int load);
 int					init(t_win **wn, int argc, char **argv);
 void				initwn(t_win **wn);
 void				initsdl(t_win **wn);
+void				init_poly(t_win **wn);
 void				init_input(t_win **wn);
 void				initskybox(t_win **wn);
 void				initplayer(t_win **wn);
