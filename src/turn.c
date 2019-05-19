@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/15 11:29:07 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/18 10:36:28 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	turn(t_win *wn)
 	mainintro(wn, "main", "intro", 1);
 	while (TRUE)
 	{
+		time = SDL_GetTicks();
 		printf("Debut Turn\n");
 		setkeyboard(wn->old, wn->state);
 		printf("Set Keyboard\n");
@@ -54,8 +55,6 @@ void	turn(t_win *wn)
 		printf("Get Keyboard\n");
 		wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
 		printf("Get Mouse\n");
-		time = SDL_GetTicks();
-		printf("Ticks v1\n");
 		SDL_ShowCursor(wn->interface != GAME ? SDL_ENABLE : SDL_DISABLE);
 		SDL_CaptureMouse(wn->interface == GAME ? 1 : 0);
 		printf("Caught input\n");
@@ -76,11 +75,10 @@ void	turn(t_win *wn)
 			&& wn->state[SDL_SCANCODE_F5] ? wn->debug *= -1 : 0;
 		wn->debug == 1 ? mainconsole(wn) : 0;
 		printf("Console\n");
-		SDL_RenderPresent(wn->rend);
-		printf("Draw\n");
 		difftime = SDL_GetTicks();
 		(difftime - time) <  1000 / 60
 			? SDL_Delay((1000 / 60) - (difftime - time)) : 0;
+		SDL_RenderPresent(wn->rend);
 		printf("End Turn\n");
 	}
 }

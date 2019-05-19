@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:26:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/12 15:18:09 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/17 17:49:35 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ void			initplayer(t_win **wn)
 	(*wn)->player->entity = NULL;
 	(*wn)->player->rawx = 0;
 	(*wn)->player->rawy = 0;
+	(*wn)->player->x = 0;
+	(*wn)->player->y = 0;
 	(*wn)->player->sensi = 1;
 }

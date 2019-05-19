@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 18:08:00 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/25 11:14:55 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/17 14:24:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			rotatepxl(t_tga *tga)
 	if ((done = (unsigned char *)malloc(sizeof(unsigned char)
 					* tga->w * tga->h * 4)) == NULL)
 		return ;
-	while (i <= (tga->w * tga->h * 4))
+	while (i < (tga->w * tga->h * 4))
 	{
 		done[((tga->w * tga->h * 4) - (i + 0))- 1] = tga->data[i];
 		done[((tga->w * tga->h * 4) - (i + 3)) - 1] = tga->data[i + 1];
