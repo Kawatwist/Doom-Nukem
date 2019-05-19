@@ -194,6 +194,10 @@ void				inputeditor(t_win *wn);
 void				printeditor(t_win *wn);
 
 void				mainconsole(t_win *wn);
+void				inputconsole(t_win *wn);
+void				print_text_with_ariel_font(t_win *wn, char *s, SDL_Color color, SDL_Rect position);
+void				print_command(t_win *wn, char *s, int posi_x, int posi_y);
+
 
 /**
  ** INIT

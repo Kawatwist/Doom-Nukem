@@ -67,6 +67,8 @@ SRC				= main.c										\
 				  init_input.c 									\
 				  player.c 										\
 				  console.c 									\
+				  console_input_and_read.c 						\
+				  print_ariel_text.c 							\
 				  menu_show.c 									\
 				  load_fonts.c 									\
 				  tool.c 									\
