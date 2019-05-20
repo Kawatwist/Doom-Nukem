@@ -14,7 +14,7 @@
 
 static void stock_in_history(t_win *wn, char *command)
 {
-	if (wn->console->index <= CONSOLE_MAX_LINE_NB)
+	if (wn->console->index < CONSOLE_MAX_LINE_NB)
 	{
 		wn->console->history[wn->console->index] = ft_strdup(command);
 		wn->console->index++;
@@ -26,20 +26,23 @@ static void stock_in_history(t_win *wn, char *command)
 		wn->console->history[wn->console->index % CONSOLE_MAX_LINE_NB] = ft_strdup(command);
 		wn->console->index++;
 	}
-
 }
 
-static void	readcommand(t_win *wn, char *command)
+static char	*readcommand(t_win *wn, char *command)
 {
-	ft_strcmp(command, "kill") == 0 ? stop_exec("KILL !\n", wn) : 0;
-	ft_strcmp(command, "slow") == 0 ? wn->debugcine *= -1 : 0;
-	ft_strcmp(command, "fs") == 0 ? wn->full_screen *= -1 : 0;
-	ft_strncmp(command, "value", 5) == 0
-		&& ft_strlen(command) > 5
-		? wn->debugconsole = ft_atoi(&(command[5])) : 0;
-	ft_strncmp(command, "sky", 3) == 0
-		&& ft_strlen(command) > 3
-		? wn->sky = ft_atoi(&(command[3])) : 0;
+	if(ft_strcmp(command, "kill") == 0)
+		stop_exec("KILL !\n", wn);
+	else if (ft_strcmp(command, "slow") == 0)
+		wn->debugcine *= -1;
+	else if(ft_strcmp(command, "fs") == 0)
+		wn->full_screen *= -1;
+	else if(ft_strncmp(command, "value", 5) == 0 && ft_strlen(command) > 5)
+		wn->debugconsole = ft_atoi(&(command[5]));
+	else if (ft_strncmp(command, "sky", 3) == 0 && ft_strlen(command) > 3)
+		wn->sky = ft_atoi(&(command[3]));
+	else
+		command = ft_strjoinfree(command, ft_strdup(" (Invalid command)"), 3);
+	return (command);
 }
 
 static char	printable_key_check(int i)
@@ -102,8 +105,8 @@ void	inputconsole(t_win *wn)
 		 wn->debug *= -1;
 	if (key_pressed(wn, SDL_SCANCODE_RETURN) && command != NULL)
 	{
+		command = readcommand(wn, command);
 		stock_in_history(wn, command);
-		readcommand(wn, command);
 		free(command);
 		command = NULL;
 	}
