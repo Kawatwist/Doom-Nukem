@@ -41,7 +41,7 @@ static char	*readcommand(t_win *wn, char *command)
 	else if (ft_strncmp(command, "sky", 3) == 0 && ft_strlen(command) > 3)
 		wn->sky = ft_atoi(&(command[3]));
 	else
-		command = ft_strjoinfree(command, ft_strdup(" (Invalid command)"), 3);
+		command = ft_strjoinfree(command, ft_strdup(" *Invalid command"), 3);
 	return (command);
 }
 
@@ -91,7 +91,6 @@ static char *printable_input(t_win *wn, char *command)
 	return (command);
 }
 
-
 void	inputconsole(t_win *wn)
 {
 	static char		*command = NULL;
@@ -99,6 +98,12 @@ void	inputconsole(t_win *wn)
 	command = printable_input(wn, command);
 	if ((key_pressed(wn, SDL_SCANCODE_BACKSPACE)) && command != NULL && ft_strlen(command))
 		command[ft_strlen(command) - 1] = 0;
+	if (key_pressed(wn, SDL_SCANCODE_UP) && wn->console->index > 0)
+	{
+		command = ft_strdup(wn->console->history[wn->console->index - 1]);
+		if (ft_strchrlen(command, '*') != -1)
+			command[ft_strchrlen(command, '*') - 1] = 0;
+	}
 	if ((command != NULL) && ft_strlen(command))
 		print_command(wn, command, 35, wn->yscreen - ARIEL_FONT_SIZE);
 	if (key_pressed(wn, SDL_SCANCODE_ESCAPE))
