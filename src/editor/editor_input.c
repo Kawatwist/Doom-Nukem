@@ -68,10 +68,10 @@ static void	resetmap(t_win *wn)
 void		inputeditor(t_win *wn)
 {
 	wn->state[SDL_SCANCODE_ESCAPE] ? wn->interface = MENU : 0;
-	wn->state[SDL_SCANCODE_LEFT] ? (wn->map->x > 0 ? wn->map->x -= (6.5 - wn->map->size) : 0) : 0;
-	wn->state[SDL_SCANCODE_RIGHT] ? ((wn->map->x + wn->map->w) < 1200 ? wn->map->x += (6.5 - wn->map->size) : 0) : 0;
-	wn->state[SDL_SCANCODE_UP] ? (wn->map->y > 0 ? wn->map->y -= (6.5 - wn->map->size) : 0) : 0;
-	wn->state[SDL_SCANCODE_DOWN] ? ((wn->map->y + wn->map->h) < 1200 ? wn->map->y += (6.5 - wn->map->size) : 0) : 0;
+	wn->state[SDL_SCANCODE_LEFT] ? wn->map->x -= (6.5 - wn->map->size) : 0;
+	wn->state[SDL_SCANCODE_RIGHT] ? wn->map->x += (6.5 - wn->map->size) : 0;
+	wn->state[SDL_SCANCODE_UP] ? wn->map->y -= (6.5 - wn->map->size) : 0;
+	wn->state[SDL_SCANCODE_DOWN] ? wn->map->y += (6.5 - wn->map->size) : 0;
 	wn->state[SDL_SCANCODE_KP_PLUS] && wn->map->size < 6
 		&& !wn->old[SDL_SCANCODE_KP_PLUS] ? wn->map->size *= 1.2 : 0;
 	wn->state[SDL_SCANCODE_KP_PLUS]
@@ -82,8 +82,8 @@ void		inputeditor(t_win *wn)
 		&& wn->map->size <= 0.5 ? wn->map->size = 0.5 : 0;
 	wn->state[SDL_SCANCODE_R] ? resetmap(wn) : 0;
 	wn->state[SDL_SCANCODE_1] && !wn->old[SDL_SCANCODE_1] ? wn->editext.on = -wn->editext.on : 0;
-	wn->map->h = 600 * wn->map->size;
-	wn->map->w = 600 * wn->map->size;
+	wn->map->h = wn->editext.map_h * wn->map->size;
+	wn->map->w = wn->editext.map_w * wn->map->size;
 	keyboardtool(wn);
 	mousedraw(wn);
 }

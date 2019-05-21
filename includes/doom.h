@@ -134,9 +134,9 @@ typedef struct		s_mut
 typedef struct 		s_color
 {
 	SDL_Color		noir;
-	SDL_Color 		rouge;
-	SDL_Color		vert;
-	SDL_Color		bleu;
+	SDL_Color 		violetfonce;
+	SDL_Color		violet;
+	SDL_Color		violetrose;
 }					t_color;
 
 typedef struct 		s_written
@@ -147,6 +147,8 @@ typedef struct 		s_written
 	SDL_Texture 	*texture_z;
 	SDL_Rect 		src;
 	int 			on;
+	int 			map_h;
+	int 			map_w;
 }					t_written;
 
 typedef struct 		s_console

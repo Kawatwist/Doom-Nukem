@@ -14,7 +14,6 @@
 
 void		edit(t_win *wn)
 {
-	load_color(wn);
 	if (wn->oldinterface != wn->interface)
 	{
 		mainintro(wn, "editor", "intro", 60);

@@ -103,9 +103,9 @@ SDL_Color making_color(unsigned char r, unsigned char g, unsigned char b, unsign
 void	load_color(t_win *wn)
 {
 	wn->color.noir = making_color(0, 0, 0, 0);
-	wn->color.rouge = making_color(255, 0, 0, 0);
-	wn->color.vert = making_color(6, 141, 33, 0);
-	wn->color.bleu = making_color(0, 0, 255, 0);
+	wn->color.violetfonce = making_color(117, 10, 238, 0);
+	wn->color.violet = making_color(142, 10, 238, 0);
+	wn->color.violetrose = making_color(180, 10, 238, 0);
 }
 
 void create_text_texture(t_win *wn, SDL_Texture *texture, int x, SDL_Color color)
@@ -121,10 +121,13 @@ void create_text_texture(t_win *wn, SDL_Texture *texture, int x, SDL_Color color
 
 void		init_edit(t_win **wn)
 {
+	load_color(*wn);
 	(*wn)->editext.texture_x = NULL;
 	(*wn)->editext.texture_y = NULL;
 	(*wn)->editext.texture_z = NULL;
 	(*wn)->editext.on = 1;
+	(*wn)->editext.map_w = 600;
+	(*wn)->editext.map_h = 600;
 }
 
 void		print_x_y_z(t_win *wn)
@@ -132,19 +135,17 @@ void		print_x_y_z(t_win *wn)
 	int x;
 	int y;
 
-	x = wn->input->x - wn->map->x;
-	y = wn->input->y - wn->map->y;
-	x = (x * 600) / wn->map->w;
-	y = (y * 600) / wn->map->h;
-	if (x >= 0 && x <= wn->map->w && y <= wn->map->h && y >= 0)
+	x = ((wn->input->x - wn->map->x) * wn->editext.map_w) / wn->map->w;
+	y = ((wn->input->y - wn->map->y) * wn->editext.map_h) / wn->map->h;
+	if (x >= 0 && x <= wn->editext.map_w && y <= wn->editext.map_h && y >= 0)
 	{
 		wn->editext.src.x = wn->input->x + 10;
 		wn->editext.src.y = wn->input->y + 1;
-		create_text_texture(wn, wn->editext.texture_x, x, wn->color.rouge);
+		create_text_texture(wn, wn->editext.texture_x, x, wn->color.violetfonce);
 		wn->editext.src.y = wn->input->y + wn->editext.src.h;
-		create_text_texture(wn, wn->editext.texture_y, y, wn->color.bleu);
+		create_text_texture(wn, wn->editext.texture_y, y, wn->color.violet);
 		wn->editext.src.y += wn->editext.src.h;
-		create_text_texture(wn, wn->editext.texture_z, 200, wn->color.vert);
+		create_text_texture(wn, wn->editext.texture_z, 200, wn->color.violetrose);
 	}
 }
 
