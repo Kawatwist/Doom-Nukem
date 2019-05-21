@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/17 15:15:50 by lomasse          ###   ########.fr        #
+#    Updated: 2019/05/20 15:39:02 by llejeune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -154,7 +154,7 @@ image: libraries/lib/libSDL2_mixer.dylib
 libraries/lib/libSDL2_mixer.dylib: libraries/lib/libSDL2_ttf.dylib
 	@echo "${cyanfonce}Installing SDL2_mixer ...${neutre}\c"
 	@mkdir -p libraries
-	@curl -s https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -o libraries/SDL2_mixer-2.0.4.tar.gz >>/tmp/doom_log 2>&1
+	@curl -s https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -o libraries/SDL2_mixer-2.0.4.tar.gz >>/tmp/doom_lib_log 2>&1
 	@tar -xf ./libraries/SDL2_mixer-2.0.4.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
 	@cd libraries/SDL2_mixer-2.0.4 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/SDL2_mixer-2.0.4 >>/tmp/doom_lib_log 2>&1
@@ -164,7 +164,7 @@ libraries/lib/libSDL2_mixer.dylib: libraries/lib/libSDL2_ttf.dylib
 libraries/lib/libSDL2_ttf.dylib: libraries/lib/libfreetype.dylib
 	@echo "${cyanfonce}Installing SDL2_ttf ...${neutre}\c"
 	@mkdir -p libraries
-	@curl -s https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -o libraries/SDL2_ttf-2.0.15.tar.gz >>/tmp/doom_log 2>&1
+	@curl -s https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -o libraries/SDL2_ttf-2.0.15.tar.gz >>/tmp/doom_lib_log 2>&1
 	@tar -xf ./libraries/SDL2_ttf-2.0.15.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
 	@cd libraries/SDL2_ttf-2.0.15 ; FT2_CONFIG=$(shell pwd)/libraries/bin/freetype-config ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log
 	@make -C ./libraries/SDL2_ttf-2.0.15 >>/tmp/doom_lib_log 2>&1
@@ -174,7 +174,7 @@ libraries/lib/libSDL2_ttf.dylib: libraries/lib/libfreetype.dylib
 libraries/lib/libfreetype.dylib: libraries/lib/libSDL2.dylib
 	@echo "${cyanfonce}Installing freetype2 ...${neutre}\c"
 	@mkdir -p libraries
-	@curl -s https://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz -Lo libraries/freetype-2.4.11.tar.gz >>/tmp/doom_log 2>&1
+	@curl -s https://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz -Lo libraries/freetype-2.4.11.tar.gz >>/tmp/doom_lib_log 2>&1
 	@tar -xf ./libraries/freetype-2.4.11.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
 	@cd libraries/freetype-2.4.11 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log
 	@make -C ./libraries/freetype-2.4.11 >>/tmp/doom_lib_log 2>&1
