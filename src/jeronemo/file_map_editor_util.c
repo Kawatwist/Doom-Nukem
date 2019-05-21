@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/21 10:11:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/21 10:37:27 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_save_map(t_mywin *s_win)
 
 		str_src = ft_itoa(0);                    // 0
 		str_dst = ft_strjoin(str_dst, str_src);
-		str_dst = ft_strjoin(str_dst, "; ");
+		str_dst = ft_strjoin(str_dst, ";");
 
 		str_src = ft_itoa(s_win->lst_wall->x_a);  //x a
 		str_dst = ft_strjoin(str_dst, str_src);
@@ -92,7 +92,7 @@ void	ft_save_map(t_mywin *s_win)
 
 		str_src = ft_itoa(s_win->lst_wall->height);  //height
 		str_dst = ft_strjoin(str_dst, str_src);
-		str_dst = ft_strjoin(str_dst, "; ");
+		str_dst = ft_strjoin(str_dst, ";");
 
 		str_src = ft_itoa(s_win->lst_wall->x_b);  //x b
 		str_dst = ft_strjoin(str_dst, str_src);
@@ -104,7 +104,7 @@ void	ft_save_map(t_mywin *s_win)
 
 		str_src = ft_itoa(s_win->lst_wall->height);  //height
 		str_dst = ft_strjoin(str_dst, str_src);
-		str_dst = ft_strjoin(str_dst, "; ");
+		str_dst = ft_strjoin(str_dst, ";");
 
 
 		str_src = ft_itoa(s_win->lst_wall->x_b);  //x b
