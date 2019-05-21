@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:46:33 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/21 17:50:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:53:34 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ t_mypoint	ft_get_normal(t_mywall *s_wall, t_mywin *s_win)
 	normal.y = normalise.x;
 	return (normal);
 }
-
-
 
 void	ft_display_triangle(t_mywin *s_win)
 {
