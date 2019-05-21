@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/21 10:50:40 by lomasse          ###   ########.fr        #
+#    Updated: 2019/05/21 14:45:56 by jleblond         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -32,6 +32,7 @@ OBJ_PATH		= OBJ
 SRC				= main.c										\
 				  turn.c 										\
 				  inputturn.c									\
+				  window.c										\
 				  init.c										\
 				  poly.c										\
 				  drawpoly.c									\
@@ -54,7 +55,6 @@ SRC				= main.c										\
 				  mainoption.c									\
 				  optioninput.c									\
 				  showoption.c									\
-				  window.c										\
 				  data.c										\
 				  filldata.c									\
 				  createpxl.c									\
