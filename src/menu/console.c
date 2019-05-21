@@ -33,16 +33,12 @@ static void	showconsole(t_win *wn)
 	}
 }
 
-
-
-
 static void		print_one_line(t_win *wn, char *s, int posi_x, int posi_y)
 {
 	SDL_Color		color;
 	int				w;
 	int				h;
 	SDL_Rect		position;
-
 
 	color.r = 150;
 	color.g = 150;
