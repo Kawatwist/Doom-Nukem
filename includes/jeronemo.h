@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/17 11:34:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/21 16:06:33 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,12 @@ typedef struct			s_mycurrent_wall
 	t_mypoint			seconde_point;
 }						t_mycurrent_wall;
 
+typedef enum		e_window
+{
+	J_EDITOR,
+	J_BINARY_TREE,
+}					t_window;
+
 typedef struct				s_mywin
 {
 	SDL_Window				*window[3];
@@ -159,12 +165,9 @@ typedef struct				s_mywin
 	t_mygrid				*s_localisation_grid;
 	t_mywall				*lst_wall;
 	t_mycurrent_wall		current_wall;
+	t_window				current_window;
 }							t_mywin;
 
-typedef enum		e_window
-{
-	J_EDITOR,
-}					t_window;
 
 void			ft_draw_line(t_mywin *s_win, t_myputtheline *s_line);
 void			ft_draw_square(t_mywin *s_win, t_mysquare *s_square);
@@ -195,6 +198,8 @@ void			ft_display_save_button(t_mywin *s_win);
 void			ft_display_title(t_mywin *s_win);
 void			ft_display_grid(t_mywin *s_win);
 void			ft_display_delete_button(t_mywin *s_win);
+
+
 
 
 #endif

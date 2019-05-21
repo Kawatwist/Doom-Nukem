@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/15 07:36:49 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/21 12:51:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,5 +250,6 @@ void	ft_jeronemo(t_win *wn);
 void	ft_launch_map_editor(t_mywin *s_win, t_win *wn);
 void	ft_update_show_cross(t_mywin *s_win, t_win *wn);
 void	ft_init_show_cross(t_mywin *s_win);
+void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
 
 #endif

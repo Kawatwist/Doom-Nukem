@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/21 10:37:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/21 13:31:20 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square)
 	int i;
 	int j;
 
-	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], s_square->color.rrr, s_square->color.ggg, s_square->color.bbb, 255);
+	SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], s_square->color.rrr, s_square->color.ggg, s_square->color.bbb, 255);
 	j = 0;
 	while ((j + s_square->y) < (s_square->y + s_square->height))
 	{
 		i = 0;
 		while ((i + s_square->x) < (s_square->x + s_square->width))
 		{
-			SDL_RenderDrawPoint(s_win->renderer[J_EDITOR], (i + s_square->x), (s_square->y + j));
+			SDL_RenderDrawPoint(s_win->renderer[s_win->current_window], (i + s_square->x), (s_square->y + j));
 			i++;
 		}
 		j++;
@@ -106,7 +106,6 @@ void	ft_save_map(t_mywin *s_win)
 		str_dst = ft_strjoin(str_dst, str_src);
 		str_dst = ft_strjoin(str_dst, ";");
 
-
 		str_src = ft_itoa(s_win->lst_wall->x_b);  //x b
 		str_dst = ft_strjoin(str_dst, str_src);
 		str_dst = ft_strjoin(str_dst, str_pause);
@@ -114,7 +113,6 @@ void	ft_save_map(t_mywin *s_win)
 		str_src = ft_itoa(s_win->lst_wall->y_b);  //y b
 		str_dst = ft_strjoin(str_dst, str_src);
 		str_dst = ft_strjoin(str_dst, str_pause);
-
 
 		str_src = ft_itoa(0);                     //0
 		str_dst = ft_strjoin(str_dst, str_src);
@@ -390,7 +388,9 @@ void	ft_jeronemo(t_win *wn)
 	t_mywin	s_win;
 
 	printf("hello chef inca\n");
-	ft_launch_map_editor(&s_win, wn);
-	ft_quit("je quite\n", &s_win);
+	//ft_launch_map_editor(&s_win, wn);
+	//ft_quit("je quite\n", &s_win);
+	ft_launch_bsp_tree(&s_win, wn);
+	exit(0);
 }
 
