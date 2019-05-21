@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/17 10:53:57 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/21 10:11:21 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,33 +63,62 @@ void	ft_save_map(t_mywin *s_win)
 
 	remove("./src/jeronemo/file_wall");
 	fd = open("./src/jeronemo/file_wall", O_CREAT | O_RDWR, 0777);
-	str_pause = ft_strdup(", ");
+	str_pause = ft_strdup(" ");
 	str_dst = ft_strdup("");
 	keep = s_win->lst_wall;
 	while (s_win->lst_wall)
 	{
-		str_src = ft_itoa(s_win->lst_wall->x_a);
+		str_dst = ft_strjoin(str_dst, "polygon:");
+
+		str_src = ft_itoa(s_win->lst_wall->x_a);   //x a
 		str_dst = ft_strjoin(str_dst, str_src);
 		str_dst = ft_strjoin(str_dst, str_pause);
 
-		str_src = ft_itoa(s_win->lst_wall->y_a);
+		str_src = ft_itoa(s_win->lst_wall->y_a);  //y a
 		str_dst = ft_strjoin(str_dst, str_src);
 		str_dst = ft_strjoin(str_dst, str_pause);
 
-		str_src = ft_itoa(s_win->lst_wall->x_b);
+		str_src = ft_itoa(0);                    // 0
+		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, "; ");
+
+		str_src = ft_itoa(s_win->lst_wall->x_a);  //x a
 		str_dst = ft_strjoin(str_dst, str_src);
 		str_dst = ft_strjoin(str_dst, str_pause);
 
-		str_src = ft_itoa(s_win->lst_wall->y_b);
+		str_src = ft_itoa(s_win->lst_wall->y_a);  //y a
 		str_dst = ft_strjoin(str_dst, str_src);
 		str_dst = ft_strjoin(str_dst, str_pause);
 
-		str_src = ft_itoa(s_win->lst_wall->height);
+		str_src = ft_itoa(s_win->lst_wall->height);  //height
+		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, "; ");
+
+		str_src = ft_itoa(s_win->lst_wall->x_b);  //x b
 		str_dst = ft_strjoin(str_dst, str_src);
 		str_dst = ft_strjoin(str_dst, str_pause);
 
-		str_src = ft_itoa(s_win->lst_wall->texture);
+		str_src = ft_itoa(s_win->lst_wall->y_b);  //y b
 		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, str_pause);
+
+		str_src = ft_itoa(s_win->lst_wall->height);  //height
+		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, "; ");
+
+
+		str_src = ft_itoa(s_win->lst_wall->x_b);  //x b
+		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, str_pause);
+
+		str_src = ft_itoa(s_win->lst_wall->y_b);  //y b
+		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, str_pause);
+
+
+		str_src = ft_itoa(0);                     //0
+		str_dst = ft_strjoin(str_dst, str_src);
+		str_dst = ft_strjoin(str_dst, ":AA");
 		str_dst = ft_strjoin(str_dst, "\n");
 
 		s_win->lst_wall = s_win->lst_wall->next;
@@ -265,12 +294,18 @@ t_mywall	*ft_read_map(void)
 	while(get_next_line(fd, &line))
 	{
 		j = 0;
-		s_wall.x_a = ft_get_next_value(line, &j);
-		s_wall.y_a = ft_get_next_value(line, &j);
-		s_wall.x_b = ft_get_next_value(line, &j);
-		s_wall.y_b = ft_get_next_value(line, &j);
-		s_wall.height = ft_get_next_value(line, &j);
-		s_wall.texture = ft_get_next_value(line, &j);
+		s_wall.x_a = ft_get_next_value(line, &j);  //x a
+		s_wall.y_a = ft_get_next_value(line, &j);  //y a
+		ft_get_next_value(line, &j);              //0
+
+		ft_get_next_value(line, &j);              //x a
+		ft_get_next_value(line, &j);              //y a
+		s_wall.height = ft_get_next_value(line, &j); //height
+
+		s_wall.x_b = ft_get_next_value(line, &j);  //x b
+		s_wall.y_b = ft_get_next_value(line, &j);  //y b
+		ft_get_next_value(line, &j); //height
+		s_wall.texture = -1;
 		wall = ft_create_wall_node(s_wall);
 		ft_add_wall_node(&lst_wall, wall);
 	}
