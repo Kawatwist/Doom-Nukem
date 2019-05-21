@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:26:36 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/17 14:26:21 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/21 12:11:20 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_tga		*load_tga(const char *path)
 		return (free_tga(tga));
 	if (getfile(tga, path) == 1)
 	{
-		ft_putstr("Invalid file or path\n");
+		ft_putstr("Invalid file or path\t");
 		return (free_tga(tga));
 	}
 	if (tga->compress > 8)
