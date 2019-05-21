@@ -124,6 +124,7 @@ void		init_edit(t_win **wn)
 	(*wn)->editext.texture_x = NULL;
 	(*wn)->editext.texture_y = NULL;
 	(*wn)->editext.texture_z = NULL;
+	(*wn)->editext.on = 1;
 }
 
 void		print_x_y_z(t_win *wn)
@@ -154,5 +155,5 @@ void		printeditor(t_win *wn)
 	bg = findpostxt(wn, "editor", "intro", "119");
 	bg != NULL && bg->txt != NULL ? SDL_RenderCopy(wn->rend, bg->txt, NULL, NULL) : 0;
 	showmap(wn);
-	print_x_y_z(wn);
+	wn->editext.on == 1 ? print_x_y_z(wn) : 0;
 }

@@ -146,6 +146,7 @@ typedef struct 		s_written
 	SDL_Texture 	*texture_y;
 	SDL_Texture 	*texture_z;
 	SDL_Rect 		src;
+	int 			on;
 }					t_written;
 
 typedef struct 		s_console

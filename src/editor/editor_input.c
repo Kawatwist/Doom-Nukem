@@ -77,10 +77,11 @@ void		inputeditor(t_win *wn)
 	wn->state[SDL_SCANCODE_KP_PLUS]
 		&& wn->map->size >= 6 ? wn->map->size = 6 : 0;
 	wn->state[SDL_SCANCODE_KP_MINUS] && wn->map->size > 0.5
-		&& !wn->old[SDL_SCANCODE_KP_MINUS] ? wn->map->size *= 0.9 : 0;
+		&& !wn->old[SDL_SCANCODE_KP_MINUS] ? wn->map->size *= 0.8 : 0;
 	wn->state[SDL_SCANCODE_KP_MINUS]
 		&& wn->map->size <= 0.5 ? wn->map->size = 0.5 : 0;
 	wn->state[SDL_SCANCODE_R] ? resetmap(wn) : 0;
+	wn->state[SDL_SCANCODE_1] && !wn->old[SDL_SCANCODE_1] ? wn->editext.on = -wn->editext.on : 0;
 	wn->map->h = 600 * wn->map->size;
 	wn->map->w = 600 * wn->map->size;
 	keyboardtool(wn);
