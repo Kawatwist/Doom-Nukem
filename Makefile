@@ -6,12 +6,12 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/11 13:29:00 by lomasse          ###   ########.fr        #
+#    Updated: 2019/05/20 15:39:02 by llejeune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
 violetfonce=\033[0;35m
-violetclair=\033[1;35m 
+violetclair=\033[1;35m
 neutre=\033[0m
 cyanfonce=\033[0;36m
 cyanclair=\033[1;36m
@@ -32,6 +32,9 @@ OBJ_PATH		= OBJ
 SRC				= main.c										\
 				  turn.c 										\
 				  init.c										\
+				  poly.c										\
+				  drawpoly.c									\
+				  matrice.c										\
 				  parse.c										\
 				  initwn.c										\
 				  nothread.c									\
@@ -67,7 +70,11 @@ SRC				= main.c										\
 				  init_input.c 									\
 				  player.c 										\
 				  console.c 									\
+				  console_input_and_read.c 						\
+				  print_ariel_text.c 							\
 				  menu_show.c 									\
+				  load_fonts.c 									\
+				  tool.c 									\
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 
@@ -78,7 +85,7 @@ LIB_PATH 		= ./libft \
 
 FRAMEWORK 		= OpenGL AppKit
 
-CC 				= gcc
+CC 				= gcc -g -std=c99
 
 vpath %.c $(foreach dir, $(SRC_PATH), $(dir):)
 
@@ -112,17 +119,17 @@ $(IMAGE): FORCE
 		echo "${vertfonce}SDL2 is installed.${neutre}"; \
 	else \
 		make image; \
-	fi 
+	fi
 
 $(LIBFTA): FORCE
-	@make -C libft #>> /tmp/doom_log 2>&1
+	@make -C libft >> /tmp/doom_log2 2>&1
 
 FORCE:
 
 clean :
 	@echo "${rouge}Cleaning the project ...${neutre}\c"
 	@make clean -C libft
-	@rm -rf $(OBJ_PATH) 
+	@rm -rf $(OBJ_PATH)
 	@echo "${rose}DONE${neutre}"
 
 fclean : clean
@@ -174,7 +181,8 @@ libraries/lib/libfreetype.dylib: libraries/lib/libSDL2.dylib
 	@make -C ./libraries/freetype-2.4.11 install >>/tmp/doom_lib_log 2>&1
 	@echo "${cyanclair}DONE${neutre}"
 
-libraries/lib/libSDL2.dylib: 
+
+libraries/lib/libSDL2.dylib:
 	@echo "${cyanfonce}Installing SDL2 ...${neutre}\c"
 	@mkdir -p libraries
 	@curl -s https://www.libsdl.org/release/SDL2-2.0.8.tar.gz -o libraries/SDL2-2.0.8.tar.gz >>/tmp/doom_lib_log 2>&1

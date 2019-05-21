@@ -110,7 +110,8 @@ void	load_color(t_win *wn)
 
 void create_text_texture(t_win *wn, SDL_Texture *texture, int x, SDL_Color color)
 {
-	wn->editext.surface = TTF_RenderText_Solid(wn->editext.police, ft_itoa(x), color);
+	texture != NULL ? SDL_DestroyTexture(texture) : 0;
+	wn->editext.surface = TTF_RenderText_Solid(wn->fonts->arial, ft_itoa(x), color);
 	texture = SDL_CreateTextureFromSurface(wn->rend, wn->editext.surface);
 	SDL_QueryTexture(texture, NULL, NULL, &wn->editext.src.w, &wn->editext.src.h);
 	SDL_FreeSurface(wn->editext.surface);
@@ -118,30 +119,31 @@ void create_text_texture(t_win *wn, SDL_Texture *texture, int x, SDL_Color color
 		stop_exec("rendercopy failed\n", wn);
 }
 
+void		init_edit(t_win **wn)
+{
+	(*wn)->editext.texture_x = NULL;
+	(*wn)->editext.texture_y = NULL;
+	(*wn)->editext.texture_z = NULL;
+}
+
 void		print_x_y_z(t_win *wn)
 {
-	SDL_Texture *texture_x;
-	SDL_Texture *texture_y;
-	SDL_Texture *texture_z;
 	int x;
 	int y;
 
-	texture_x = NULL;
-	texture_y = NULL;
-	texture_z = NULL;
-	x = wn->input->x + wn->editext.countx;
-	y = wn->input->y + wn->editext.county;
+	x = wn->input->x - wn->map->x;
+	y = wn->input->y - wn->map->y;
 	x = (x * 600) / wn->map->w;
 	y = (y * 600) / wn->map->h;
 	if (x >= 0 && x <= wn->map->w && y <= wn->map->h && y >= 0)
 	{
 		wn->editext.src.x = wn->input->x + 10;
 		wn->editext.src.y = wn->input->y + 1;
-		create_text_texture(wn, texture_x, x, wn->color.rouge);
+		create_text_texture(wn, wn->editext.texture_x, x, wn->color.rouge);
 		wn->editext.src.y = wn->input->y + wn->editext.src.h;
-		create_text_texture(wn, texture_y, y, wn->color.bleu);
+		create_text_texture(wn, wn->editext.texture_y, y, wn->color.bleu);
 		wn->editext.src.y += wn->editext.src.h;
-		create_text_texture(wn, texture_z, 200, wn->color.vert);
+		create_text_texture(wn, wn->editext.texture_z, 200, wn->color.vert);
 	}
 }
 

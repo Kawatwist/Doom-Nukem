@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/13 17:00:25 by llejeune         ###   ########.fr       */
+/*   Updated: 2019/05/19 17:07:59 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ void	turn(t_win *wn)
 	mainintro(wn, "main", "intro", 1);
 	while (TRUE)
 	{
+		time = SDL_GetTicks();
 		setkeyboard(wn->old, wn->state);
-		wn->input->oldmouse = wn->input->mouse;
+		printf("PollEvent Avant\n");
 		SDL_PumpEvents();
+		printf("Poll Event Apres\n");
+		wn->input->oldmouse = wn->input->mouse;
 		wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
 		wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
-		time = SDL_GetTicks();
 		SDL_ShowCursor(wn->interface != GAME ? SDL_ENABLE : SDL_DISABLE);
 		SDL_CaptureMouse(wn->interface == GAME ? 1 : 0);
 		!wn->old[SDL_SCANCODE_F] && wn->state[SDL_SCANCODE_F] ? wn->full_screen = -wn->full_screen : 0;
@@ -60,12 +62,13 @@ void	turn(t_win *wn)
 		wn->interface == GAME ? game(wn) : 0 ;
 		wn->interface == EDITEUR ? edit(wn) : 0;
 		wn->interface == OPTION ? option(wn) : 0 ;
-		!wn->old[SDL_SCANCODE_F5]
-			&& wn->state[SDL_SCANCODE_F5] ? wn->debug *= -1 : 0;
+		!wn->old[SDL_SCANCODE_F5] && wn->state[SDL_SCANCODE_F5] ? wn->debug *= -1 : 0;
 		wn->debug == 1 ? mainconsole(wn) : 0;
-		SDL_RenderPresent(wn->rend);
 		difftime = SDL_GetTicks();
 		(difftime - time) <  1000 / 60
 			? SDL_Delay((1000 / 60) - (difftime - time)) : 0;
+		printf("Render Present Avant\n");
+		SDL_RenderPresent(wn->rend);
+		printf("Render Present Apres\n");
 	}
 }
