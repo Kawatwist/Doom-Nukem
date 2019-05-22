@@ -115,6 +115,8 @@ $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
 	@echo "${rose}DONE${neutre}"
 
 $(IMAGE): FORCE
+	@touch /tmp/doom_log2
+	@chmod 777 /tmp/doom_log2
 	@if [ -d "./libraries" ]; then \
 		echo "${vertfonce}SDL2 is installed.${neutre}"; \
 	else \
