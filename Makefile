@@ -115,8 +115,6 @@ $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
 	@echo "${rose}DONE${neutre}"
 
 $(IMAGE): FORCE
-	@touch /tmp/doom_log2
-	@chmod 777 /tmp/doom_log2
 	@if [ -d "./libraries" ]; then \
 		echo "${vertfonce}SDL2 is installed.${neutre}"; \
 	else \
@@ -124,6 +122,10 @@ $(IMAGE): FORCE
 	fi
 
 $(LIBFTA): FORCE
+	@if [ -f "/tmp/doom_log2" ]; then \
+		touch /tmp/doom_log2; \
+		chmod 777 /tmp/doom_log2; \
+	fi
 	@make -C libft >> /tmp/doom_log2 2>&1
 
 FORCE:
@@ -137,6 +139,7 @@ clean :
 fclean : clean
 	@echo "${rouge}Fcleaning the project ...${neutre}\c"
 	@make fclean -C libft
+	@rm /tmp/doom_log2
 	@rm -rf $(NAME)
 	@echo "${rose}DONE${neutre}"
 
