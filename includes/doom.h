@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/18 10:32:47 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/21 17:32:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@
 # define YSCREEN 1080
 # define CONSOLE_MAX_LINE_NB 10
 # define ARIEL_FONT_SIZE 35
+# define U_MAX		4294967295
+# define LQ			1 << 0
+# define FS			1 << 1
+# define CINE		1 << 2
+# define CONSOLE	1 << 3
+# define SKY        1 << 16
+# define DIFFICULTY 1 << 18
 
 typedef enum		e_bool
 {
@@ -144,13 +151,16 @@ typedef struct  	s_fonts
 
 typedef struct		s_win
 {
-	char			sky;
-	char			difficulty;
-	char			quality;
-	char			debug;
+	Uint32			flag;
+	char			sky;		//flag => 2
+	char			difficulty; //flag => 2
+	char			quality;	//flag => 1
+	char			debug;		//flag => 1
+	int 			full_screen;	//flag => 1
+	int				debugconsole;	//flag => ?
+	char			debugcine;	//flag => 1
 	char			interface;
 	char			oldinterface;
-	char			debugcine;
 	t_console		*console;
 	t_fonts			*fonts;  //structure poour stocker tous les polices de caracteres
 	char			*load;
@@ -174,10 +184,6 @@ typedef struct		s_win
 	t_poly			*poly;
 	int 			xscreen;
 	int 			yscreen;
-	int 			full_screen;
-
-	int				debugconsole;
-
 }					t_win;
 
 /**
@@ -263,12 +269,14 @@ void				showmenu(t_win *wn);
 /**
  ** MAIN
  **/
+void				main_input(t_win *wn);
 void				turn(t_win *wn);
 void				game(t_win *wn);
 void				gameinput(t_win *wn);
 void				setkeyboard(Uint8 *new, Uint8 *current);
 void				stop_exec(char *msg, t_win *wn);
 void				full_screen(t_win *wn);
+int					set_bit(Uint32 var, Uint32 mask);
 int					key_pressed(t_win *wn, int key_value);
 
 

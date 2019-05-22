@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_input.c                                       :+:      :+:    :+:   */
+/*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 16:57:49 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/21 10:50:46 by lomasse          ###   ########.fr       */
+/*   Created: 2019/05/21 10:19:56 by lomasse           #+#    #+#             */
+/*   Updated: 2019/05/21 10:58:28 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void	init_input(t_win **wn)
+void	full_screen(t_win *wn)
 {
-	if (!((*wn)->input = malloc(sizeof(t_input))))
-		stop_exec("malloc inputfailed\n", *wn);
-	if (!((*wn)->old = malloc(sizeof(Uint8*) * 284)))
-		stop_exec("Malloc old input failed\n", *wn);
-	SDL_PumpEvents();
-	(*wn)->state = (Uint8*)SDL_GetKeyboardState(NULL);
-	(*wn)->input->mouse = SDL_GetMouseState(&(*wn)->input->x, &(*wn)->input->y);
+	if (wn->full_screen == -1)
+	{
+		SDL_SetWindowFullscreen(wn->window, SDL_WINDOW_FULLSCREEN);
+		SDL_GetWindowSize(wn->window, &wn->xscreen, &wn->yscreen);
+	}
+	else if (wn->full_screen == 1)
+	{
+		wn->xscreen = XSCREEN;
+		wn->yscreen = YSCREEN;
+		SDL_SetWindowSize(wn->window, wn->xscreen, wn->yscreen);
+		SDL_SetWindowFullscreen(wn->window, 0);
+		SDL_RestoreWindow(wn->window);
+	}
 }
