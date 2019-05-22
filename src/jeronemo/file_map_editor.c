@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/17 13:06:55 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/22 06:49:30 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,6 +312,9 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 {
 	int		quit;
 
+
+	s_win->current_window = J_EDITOR;
+
 	ft_init_show_cross(s_win);
 	s_win->lst_wall = ft_read_map();
 
@@ -337,12 +340,10 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 				+ s_win->s_localisation_grid->x;
 			s_line.un.b = (s_win->current_wall.first_point.y * s_win->s_localisation_grid->step)
 				+ s_win->s_localisation_grid->y;
-
 			t_mypoint	point;
 			point = ft_return_cross_coordonate_grid(s_win, wn);
 			s_line.deux.a = (point.x * 30) + s_win->s_localisation_grid->x;
 			s_line.deux.b = (point.y * 30) + s_win->s_localisation_grid->y;
-
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
     		SDL_RenderClear(s_win->renderer[J_EDITOR]);
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);

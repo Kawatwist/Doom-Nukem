@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:46:33 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/21 17:53:34 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/22 09:56:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,50 +38,50 @@ t_mypoint	ft_get_segment_middle(t_mywall *s_wall, t_mywin *s_win)
 	return (point);
 }
 
-t_mypoint	ft_get_vector(t_mywall *s_wall, t_mywin *s_win)
+t_mypointf	ft_get_vector(t_mywall *s_wall, t_mywin *s_win)
 {
-	t_mypoint	point;
-	t_mypoint	point_a;
-	t_mypoint	point_b;
+	t_mypointf	point;
+	t_mypointf	point_a;
+	t_mypointf	point_b;
 
 	point_a.x  = (s_wall->x_a * (s_win->s_localisation_grid->step)) + s_win->s_localisation_grid->x;
 	point_a.y  = (s_wall->y_a * (s_win->s_localisation_grid->step)) + s_win->s_localisation_grid->y;
 	point_b.x  = (s_wall->x_b * (s_win->s_localisation_grid->step)) + s_win->s_localisation_grid->x;
 	point_b.y  = (s_wall->y_b * (s_win->s_localisation_grid->step)) + s_win->s_localisation_grid->y;
 	point.x = point_b.x - point_a.x;
-	point.y = point_b.y - point_b.y;
+	point.y = point_b.y - point_a.y;
 	return (point);
 }
 
-int		ft_get_norme(t_mywall *s_wall, t_mywin *s_win)
+double		ft_get_norme(t_mywall *s_wall, t_mywin *s_win)
 {
-	int			norme;
-	t_mypoint	vecteur;
+	double			norme;
+	t_mypointf	vecteur;
 
-	vecteur = ft_get_vector(s_win->lst_wall, s_win);
+	vecteur = ft_get_vector(s_wall, s_win);
 	norme = sqrt( (vecteur.x * vecteur.x) + (vecteur.y * vecteur.y));
 	return (norme);
 }
 
-t_mypoint	ft_get_normalise(t_mywall *s_wall, t_mywin *s_win)
+t_mypointf	ft_get_normalise(t_mywall *s_wall, t_mywin *s_win)
 {
-	t_mypoint	normalise;
-	t_mypoint	vector;
-	int			norme;
+	t_mypointf	normalise;
+	t_mypointf	vector;
+	double			norme;
 
-	norme = ft_get_norme(s_win->lst_wall, s_win);
-	vector = ft_get_vector(s_win->lst_wall, s_win);
+	norme = ft_get_norme(s_wall, s_win);
+	vector = ft_get_vector(s_wall, s_win);
 	normalise.x = vector.x / norme;
 	normalise.y = vector.y / norme;
 	return (normalise);
 }
 
-t_mypoint	ft_get_normal(t_mywall *s_wall, t_mywin *s_win)
+t_mypointf	ft_get_normal(t_mywall *s_wall, t_mywin *s_win)
 {
-	t_mypoint	normal;
-	t_mypoint	normalise;
+	t_mypointf	normal;
+	t_mypointf	normalise;
 
-	normalise = ft_get_normalise(s_win->lst_wall, s_win);
+	normalise = ft_get_normalise(s_wall, s_win);
 	normal.x = -normalise.y;
 	normal.y = normalise.x;
 	return (normal);
@@ -91,26 +91,60 @@ void	ft_display_triangle(t_mywin *s_win)
 {
 	t_mywall			*keep;
 	t_mypoint			middle;
-	t_mypoint			vector;
-	t_mycross			s_cross;
+	t_mypointf			vector;
 	t_mycolor			s_color;
 	int					norme;
-	t_mypoint			normalise;
+	t_mypointf			normalise;
+	t_mypointf			normal;
+	t_myputtheline		s_line;
 
 	keep = s_win->lst_wall;
 	while (s_win->lst_wall)
 	{
+		printf("\n\n");
 		middle = ft_get_segment_middle(s_win->lst_wall, s_win);
+		printf("middle %d %d\n", middle.x, middle.y);
 		vector = ft_get_vector(s_win->lst_wall, s_win);
+		printf("vecteur %f %f\n", vector.x, vector.y);
 		norme = ft_get_norme(s_win->lst_wall, s_win);
+		printf("norme %d\n", norme);
 		normalise = ft_get_normalise(s_win->lst_wall, s_win);
-		//t_mycross	ft_setcross(int x, int y, int size, int thickness, t_mycolor color)
+		printf("normalise %f %f\n", normalise.x, normalise.y);
+		normal = ft_get_normal(s_win->lst_wall, s_win);
+		printf("normal %f %f\n", normal.x, normal.y);
 		s_color = ft_setcolor(RED);
-		s_cross = ft_setcross(.x , middle.y , 6, 2, s_color);
-		ft_draw_cross(s_win, &s_cross);
+		s_line.un.a = middle.x;
+		s_line.un.b = middle.y;
+		s_line.deux.a = (normal.x * 15) + middle.x;
+		s_line.deux.b = (normal.y * 15) + middle.y;
+		SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], 255, 255, 255, 255);
+		ft_draw_line(s_win, &s_line);
 		s_win->lst_wall = s_win->lst_wall->next;
 	}
 	s_win->lst_wall = keep;
+}
+
+int		ft_is_front(t_mywall spliter, t_mywall s_wall)
+{
+
+
+}
+
+void	ft_get_lst_front_wall(t_mywall spliter, t_mywall lst_wall)
+{
+	t_mywall	*lst_wall_front;
+	t_mywall	s_wall;
+	t_mywall	*keep;
+
+	lst_wall_front = NULL;
+	keep = s_win->lst_wall;
+	while (s_win->lst_wall)
+	{
+
+
+		s_win->lst_wall = s_win->lst_wall->next;
+	}
+	return (lst_wall_front);
 }
 
 void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn)
@@ -121,10 +155,10 @@ void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn)
 
 	//read du fichier
 	//affichage du fichier dans une fenetre
-		//-->chaque segment avec une lettre
-		//-->et une fleche de direction
+	//-->chaque segment avec une lettre
+	//-->et une fleche de direction
 	//on clique sur deux points
-		//affichage de l'arbre binaire
+	//affichage de l'arbre binaire
 	ft_launch_window_bsp(s_win);
 	s_win->lst_wall = ft_read_map();
 	ft_display_grid(s_win);

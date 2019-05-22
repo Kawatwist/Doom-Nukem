@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/21 16:06:33 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/22 09:04:42 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ typedef struct		s_mypoint
 	int				y;
 	int				set;
 }					t_mypoint;
+
+
+typedef struct		s_mypointf
+{
+	double				x;
+	double				y;
+}					t_mypointf;
 
 typedef struct		s_mycolor
 {
@@ -151,6 +158,15 @@ typedef enum		e_window
 	J_EDITOR,
 	J_BINARY_TREE,
 }					t_window;
+
+typedef struct				s_mynode
+{
+	t_mywall				*wall;
+	struct s_mynode				*front;
+	struct s_mynode				*back;
+	int						is_leaf;
+	int						is_solid;
+}							t_mynode;
 
 typedef struct				s_mywin
 {
