@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/21 15:08:02 by lomasse          ###   ########.fr        #
+#    Updated: 2019/05/22 14:57:24 by jmarin-h         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -76,7 +76,8 @@ SRC				= main.c										\
 				  print_ariel_text.c 							\
 				  menu_show.c 									\
 				  load_fonts.c 									\
-				  tool.c 									\
+				  tool.c 										\
+				  draw_line.c									
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 

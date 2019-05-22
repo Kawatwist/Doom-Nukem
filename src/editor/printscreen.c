@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 11:07:03 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/12 13:01:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/22 16:58:27 by jmarin-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ static void	showelem(t_win *wn)
 		while (point != NULL && point->next != NULL)
 		{
 			SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
-			SDL_RenderDrawLine(wn->rend, point->x, point->y, point->next->x, point->next->y);
+		//	SDL_RenderDrawLine(wn->rend, point->x, point->y, point->next->x, point->next->y);
+			draw_line(wn->rend, point->x, point->y, point->next->x, point->next->y);
 			SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 0);
-			SDL_RenderDrawLine(wn->rend, point->x, point->y + 1, point->next->x, point->next->y + 1);
+		//	SDL_RenderDrawLine(wn->rend, point->x, point->y + 1, point->next->x, point->next->y + 1);
+			draw_line(wn->rend, point->x, point->y + 1, point->next->x, point->next->y + 1);
 			point = point->next;
 		}
 		curr = curr->next;
@@ -47,15 +49,16 @@ static void	showline2(t_win *wn)
 				50 + (wn->map->size * 20 / 6), 0);
 		while (j <= wn->map->y + wn->map->h)
 		{
-			SDL_RenderDrawLine(wn->rend, wn->map->x, j,
-					wn->map->w + wn->map->x, j);
+//			SDL_RenderDrawLine(wn->rend, wn->map->x, j, wn->map->w + wn->map->x, j);
+			draw_line(wn->rend, wn->map->x, j, wn->map->w + wn->map->x, j);
+			
 			j += wn->map->h / 40;
 		}
 		j = wn->map->y;
 		while (i <= wn->map->x + wn->map->w)
 		{
-			SDL_RenderDrawLine(wn->rend, i, wn->map->y, i,
-					wn->map->h + wn->map->y);
+		//	SDL_RenderDrawLine(wn->rend, i, wn->map->y, i, wn->map->h + wn->map->y);
+			draw_line(wn->rend, i, wn->map->y, i, wn->map->h + wn->map->y);
 			i += wn->map->w / 40;
 		}
 	}
@@ -72,13 +75,15 @@ static void	showline(t_win *wn)
 	SDL_SetRenderDrawColor(wn->rend, 150, 100, 100, 0);
 	while (j <= wn->map->y + wn->map->h + 1)
 	{
-		SDL_RenderDrawLine(wn->rend, wn->map->x, j, wn->map->w + wn->map->x, j);
+	//	SDL_RenderDrawLine(wn->rend, wn->map->x, j, wn->map->w + wn->map->x, j);
+		draw_line(wn->rend, wn->map->x, j, wn->map->w + wn->map->x, j);
 		j += wn->map->h / 10;
 	}
 	j = wn->map->y;
 	while (i <= wn->map->x + wn->map->w + 1)
 	{
-		SDL_RenderDrawLine(wn->rend, i, wn->map->y, i, wn->map->h + wn->map->y);
+	//	SDL_RenderDrawLine(wn->rend, i, wn->map->y, i, wn->map->h + wn->map->y);
+ 		draw_line(wn->rend, i, wn->map->y, i, wn->map->h + wn->map->y);
 		i += wn->map->w / 10;
 	}
 }

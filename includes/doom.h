@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/21 17:32:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/22 15:42:28 by jmarin-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,11 +210,11 @@ void				mainconsole(t_win *wn);
 void				inputconsole(t_win *wn);
 void				print_text_with_ariel_font(t_win *wn, char *s, SDL_Color color, SDL_Rect position);
 void				print_command(t_win *wn, char *s, int posi_x, int posi_y);
+void				draw_line(SDL_Renderer *renderer, float x1, float y1, float x2, float y2);
 
-
-/**
+/*
  ** INIT
- **/
+ */
 
 void				initttf(t_win **wn);
 t_text				*findpostxt(t_win *wn, char *type,
