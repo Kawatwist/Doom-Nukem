@@ -226,6 +226,7 @@ SDL_Color			making_color(unsigned char r, unsigned char g, unsigned char b, unsi
 void				print_x_y_z(t_win *wn);
 void 				create_text_texture(t_win *wn, SDL_Texture *texture, int x, SDL_Color color);
 void				init_edit(t_win **wn);
+void 				which_cursor(t_win *wn);
 
 void				mainconsole(t_win *wn);
 void				inputconsole(t_win *wn);

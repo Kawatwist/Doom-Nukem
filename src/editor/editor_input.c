@@ -56,12 +56,23 @@ static void	keyboardtool(t_win *wn)
 	(void)wn;
 }
 
+void		which_cursor(t_win *wn)
+{
+	if (wn->input->x < (wn->xscreen / 7 * 6) && wn->input->y < (wn->yscreen / 7 * 6))
+	{
+		SDL_ShowCursor(SDL_DISABLE);
+		SDL_SetRenderDrawColor(wn->rend, 238, 10, 214, 0);
+		SDL_RenderDrawLine(wn->rend, wn->input->x, 0, wn->input->x, wn->yscreen);
+		SDL_RenderDrawLine(wn->rend, 0, wn->input->y, wn->xscreen, wn->input->y);
+	}
+}
+
 static void	resetmap(t_win *wn)
 {
 	wn->map->x = 0.1;
 	wn->map->y = 0.1;
-	wn->map->h = 600;
-	wn->map->w = 600;
+	wn->map->h = wn->editext.map_h;
+	wn->map->w = wn->editext.map_w;
 	wn->map->size = 1;
 }
 

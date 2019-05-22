@@ -103,9 +103,9 @@ SDL_Color making_color(unsigned char r, unsigned char g, unsigned char b, unsign
 void	load_color(t_win *wn)
 {
 	wn->color.noir = making_color(0, 0, 0, 0);
-	wn->color.violetfonce = making_color(117, 10, 238, 0);
-	wn->color.violet = making_color(142, 10, 238, 0);
-	wn->color.violetrose = making_color(180, 10, 238, 0);
+	wn->color.violetfonce = making_color(188, 7, 237, 0);
+	wn->color.violet = making_color(199, 62, 236, 0);
+	wn->color.violetrose = making_color(212, 115, 238, 0);
 }
 
 void create_text_texture(t_win *wn, SDL_Texture *texture, int x, SDL_Color color)
@@ -151,10 +151,17 @@ void		print_x_y_z(t_win *wn)
 
 void		printeditor(t_win *wn)
 {
-	t_text	*bg;
+	SDL_Surface 	*surface;
+	SDL_Texture 	*texture;
 
-	bg = findpostxt(wn, "editor", "intro", "119");
-	bg != NULL && bg->txt != NULL ? SDL_RenderCopy(wn->rend, bg->txt, NULL, NULL) : 0;
+	surface = SDL_CreateRGBSurface(0, wn->xscreen, wn->yscreen, 32, 0, 0, 0, 0);
+	surface == NULL ? stop_exec("surface failed\n", wn) : 0;
+	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 66, 66, 66));
+	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
+	SDL_FreeSurface(surface);
+	if (SDL_RenderCopy(wn->rend, texture, NULL, NULL) < 0)
+		stop_exec("rendercopy failed\n", wn);
 	showmap(wn);
+	which_cursor(wn);
 	wn->editext.on == 1 ? print_x_y_z(wn) : 0;
 }
