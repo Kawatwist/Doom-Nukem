@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 16:39:46 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/21 14:46:48 by jleblond         ###   ########.fr       */
+/*   Updated: 2019/05/22 11:44:49 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 void	menuinput(t_win *wn)
 {
-	wn->state[SDL_SCANCODE_UP] == 1
-		&& wn->menu->choice > 0
-		&& !wn->old[SDL_SCANCODE_UP] ? wn->menu->choice -= 1 : 0;
-	wn->state[SDL_SCANCODE_DOWN] == 1
-		&& wn->menu->choice < 3
-		&& !wn->old[SDL_SCANCODE_DOWN] ? wn->menu->choice += 1 : 0;
-	if (wn->state[SDL_SCANCODE_RETURN] == 1
-			&& !wn->old[SDL_SCANCODE_RETURN] && !(wn->flag & CONSOLE))
+	!(wn->flag & CONSOLE) && wn->menu->choice > 0
+		&& key_pressed(wn, SDL_SCANCODE_UP) ? wn->menu->choice -= 1 : 0;
+	!(wn->flag & CONSOLE) && wn->menu->choice < 3
+		&& key_pressed(wn, SDL_SCANCODE_DOWN) ? wn->menu->choice += 1 : 0;
+	if (key_pressed(wn, SDL_SCANCODE_RETURN) && !(wn->flag & CONSOLE))
 	{
 		wn->oldinterface = wn->interface;
 		wn->menu->choice == 0 ? wn->interface = GAME : 0;

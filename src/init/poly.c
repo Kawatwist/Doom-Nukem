@@ -6,17 +6,35 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 10:15:13 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/21 16:28:51 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/22 16:58:35 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-static void	init_ver(t_vec	*vec, float x, float y, float z)
+void		init_ver(t_vec	*vec, float x, float y, float z)
 {
 	vec->x = x;
 	vec->y = y;
 	vec->z = z;
+}
+
+void		init_rast(t_win **wn)
+{
+	int i;
+
+	i = 0;
+	((*wn)->rast = malloc(sizeof(t_rast))) == NULL ? stop_exec("malloc struct rast failed\n", *wn) : 0;
+	((*wn)->rast->mat = (double **)malloc(sizeof(double *) * 4)) == NULL ? stop_exec("malloc rast->mat failed\n", *wn) : 0;
+	while (i < 4)	
+		((*wn)->rast->mat[i++] = (double *)malloc(sizeof(double) * 4)) == NULL ? stop_exec("malloc rast->mat[] failed\n", *wn) : 0;
+	((*wn)->rast->f = malloc(sizeof(t_vec))) == NULL ? stop_exec("malloc rast->f failed\n", *wn) : 0;
+	((*wn)->rast->s = malloc(sizeof(t_vec))) == NULL ? stop_exec("malloc rast->s failed\n", *wn) : 0;
+	((*wn)->rast->u = malloc(sizeof(t_vec))) == NULL ? stop_exec("malloc rast->u failed\n", *wn) : 0;
+	initmatrice((*wn)->rast->mat);	
+	init_ver((*wn)->rast->f, 0, 0, 0);
+	init_ver((*wn)->rast->s, 0, 0, 0);
+	init_ver((*wn)->rast->u, 0, 0, 0);
 }
 
 void		init_poly(t_win **wn)
@@ -37,4 +55,5 @@ void		init_poly(t_win **wn)
 	(*wn)->poly->nb_indices = 6;
 	(*wn)->poly->nb_ver = 6;
 	(*wn)->poly->next = NULL;
+	(*wn)->poly->ver_tmp = NULL;
 }

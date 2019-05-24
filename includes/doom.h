@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/21 17:32:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/22 17:01:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define CONSOLE	1 << 3
 # define SKY        1 << 16
 # define DIFFICULTY 1 << 18
+# define SKY2		1 << 20
 
 typedef enum		e_bool
 {
@@ -154,11 +155,6 @@ typedef struct		s_win
 	Uint32			flag;
 	char			sky;		//flag => 2
 	char			difficulty; //flag => 2
-	char			quality;	//flag => 1
-	char			debug;		//flag => 1
-	int 			full_screen;	//flag => 1
-	int				debugconsole;	//flag => ?
-	char			debugcine;	//flag => 1
 	char			interface;
 	char			oldinterface;
 	t_console		*console;
@@ -182,6 +178,7 @@ typedef struct		s_win
 	t_menu			*menu;
 	t_mut			*mutex;
 	t_poly			*poly;
+	t_rast			*rast;
 	int 			xscreen;
 	int 			yscreen;
 }					t_win;
@@ -198,7 +195,9 @@ void				trans(t_win *wn, double **mat);
 void				rotatex(double ang, double **mat);
 void				rotatey(double ang, double **mat);
 void				rotatez(double ang, double **mat);
-
+void				initmatrice(double **matrice);
+void				calc_fsu(t_win *wn, t_vec *ver, t_poly *curr);
+void				world2view(t_win *wn, t_vec *ver, t_vec *f, t_vec *s, t_vec *u);
 /**
  ** EDIT
  **/
@@ -217,6 +216,7 @@ void				print_command(t_win *wn, char *s, int posi_x, int posi_y);
  **/
 
 void				initttf(t_win **wn);
+void				init_ver(t_vec *vec, float x, float y, float z);
 t_text				*findpostxt(t_win *wn, char *type,
 						char *subtype, char *name);
 t_text				*findpos(t_win *wn, char *type,
@@ -228,6 +228,7 @@ int					init(t_win **wn, int argc, char **argv);
 void				initwn(t_win **wn);
 void				initsdl(t_win **wn);
 void				init_poly(t_win **wn);
+void				init_rast(t_win **wn);
 void				init_input(t_win **wn);
 void				initskybox(t_win **wn);
 void				initplayer(t_win **wn);
@@ -276,7 +277,7 @@ void				gameinput(t_win *wn);
 void				setkeyboard(Uint8 *new, Uint8 *current);
 void				stop_exec(char *msg, t_win *wn);
 void				full_screen(t_win *wn);
-int					set_bit(Uint32 var, Uint32 mask);
+Uint32				set_bit(Uint32 var, Uint32 mask);
 int					key_pressed(t_win *wn, int key_value);
 
 

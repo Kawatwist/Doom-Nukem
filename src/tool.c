@@ -6,13 +6,13 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:49 by jleblond          #+#    #+#             */
-/*   Updated: 2019/05/21 12:58:24 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/22 11:27:59 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-int	set_bit(Uint32 var, Uint32 mask)
+Uint32	set_bit(Uint32 var, Uint32 mask)
 {
 	var = ((var & mask) ? (var & (U_MAX - mask)) : (var | mask));
 	return (var);

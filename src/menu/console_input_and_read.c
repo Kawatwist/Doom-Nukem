@@ -6,7 +6,7 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:00:23 by jleblond          #+#    #+#             */
-/*   Updated: 2019/05/19 18:00:29 by jleblond         ###   ########.fr       */
+/*   Updated: 2019/05/22 11:55:54 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,14 @@ static char	*readcommand(t_win *wn, char *command)
 	if(ft_strcmp(command, "kill") == 0)
 		stop_exec("KILL !\n", wn);
 	else if (ft_strcmp(command, "slow") == 0)
-		wn->debugcine *= -1;
+		wn->flag = set_bit(wn->flag, CINE);
 	else if(ft_strcmp(command, "fs") == 0)
-		wn->full_screen *= -1;
-	else if(ft_strncmp(command, "value", 5) == 0 && ft_strlen(command) > 5)
-		wn->debugconsole = ft_atoi(&(command[5]));
+	{
+		wn->flag = set_bit(wn->flag, FS);
+		full_screen(wn);
+	}
+	else if(ft_strncmp(command, "sky2", 5) == 0 && ft_strlen(command) > 5)
+		wn->flag = set_bit(wn->flag, SKY2);
 	else if (ft_strncmp(command, "sky", 3) == 0 && ft_strlen(command) > 3)
 		wn->sky = ft_atoi(&(command[3]));
 	else
@@ -107,7 +110,7 @@ void	inputconsole(t_win *wn)
 	if ((command != NULL) && ft_strlen(command))
 		print_command(wn, command, 35, wn->yscreen - ARIEL_FONT_SIZE);
 	if (key_pressed(wn, SDL_SCANCODE_ESCAPE))
-		 wn->debug *= -1;
+		 wn->flag = set_bit(wn->flag, CONSOLE);
 	if (key_pressed(wn, SDL_SCANCODE_RETURN) && command != NULL)
 	{
 		command = readcommand(wn, command);

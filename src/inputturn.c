@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 10:24:41 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/21 14:46:30 by jleblond         ###   ########.fr       */
+/*   Updated: 2019/05/22 11:39:56 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void	keyinput(t_win *wn)
 {
-	if (key_pressed(wn, SDL_SCANCODE_F) && !wn->debug)
+	if (key_pressed(wn, SDL_SCANCODE_F) && !(wn->flag & CONSOLE))
 	{
 		wn->flag = set_bit(wn->flag, FS);
 		full_screen(wn);
 	}
-	key_pressed(wn, SDL_SCANCODE_ESCAPE) && wn->interface == MENU && wn->debug
-		? stop_exec("Escape\n", wn) : 0;
+	key_pressed(wn, SDL_SCANCODE_ESCAPE) && wn->interface == MENU
+		&& !(wn->flag & CONSOLE) ? stop_exec("Escape\n", wn) : 0;
 	key_pressed(wn, SDL_SCANCODE_F5) ? wn->flag = set_bit(wn->flag, CONSOLE) : 0;
 }
 

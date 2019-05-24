@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 11:59:53 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/21 16:33:16 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/22 14:07:07 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ void	gameinput(t_win *wn)
 		? wn->player->rawy = YSCREEN : 0;
 	wn->player->rawx < 0 ? wn->player->rawx += 360 : 0;
 	wn->player->rawy < 0 ? wn->player->rawy = 0 : 0;
-	!wn->old[SDL_SCANCODE_ESCAPE] && wn->state[SDL_SCANCODE_ESCAPE] && wn->debug == -1 ? wn->interface = MENU : 0;
+	!wn->old[SDL_SCANCODE_ESCAPE] && wn->state[SDL_SCANCODE_ESCAPE] && !(wn->flag & CONSOLE) ? wn->interface = MENU : 0;
 	wn->state[SDL_SCANCODE_KP_PLUS] ? wn->player->sensi += 0.1 : 0;
 	wn->state[SDL_SCANCODE_KP_MINUS] ? wn->player->sensi -= 0.1 : 0;
 	wn->state[SDL_SCANCODE_A] ? wn->player->x += 1 : 0;
 	wn->state[SDL_SCANCODE_W] ? wn->player->y += 1 : 0;
 	wn->state[SDL_SCANCODE_D] ? wn->player->x -= 1 : 0;
 	wn->state[SDL_SCANCODE_S] ? wn->player->y -= 1 : 0;
+	wn->state[SDL_SCANCODE_SPACE] ? wn->player->z += 1 : 0;
+	wn->state[SDL_SCANCODE_LSHIFT] ? wn->player->z -= 1 : 0;
 }
