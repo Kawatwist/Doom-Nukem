@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/19 16:38:05 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/24 13:46:01 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,6 @@ void		loadminimenu(t_win **wn)
 	load_texture(*wn, "game", "intro", "119");
 }
 /*
-static void		initthread(t_thread	thread[1], t_win **wn, int value)
-{
-	thread[0].wn = *wn;
-	thread[0].value = value;
-	((thread[0].file = malloc(sizeof(t_load))) == NULL) ? stop_exec("Malloc Failed\n", *wn): 0;
-	thread[0]->file->next = NULL;
-	thread[0]->file->txt = NULL;
-	thread[0]->file->tga = NULL;
-}
 
 static void		loadmenu(t_win **wn)
 {

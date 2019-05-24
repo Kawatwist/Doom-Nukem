@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 17:01:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/24 15:31:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct		s_thread
 {
 	pthread_t		thd;
 	t_load			*file;
+	char			*path;
 	struct s_win	*wn;
 	int				value;
 }					t_thread;
@@ -134,7 +135,7 @@ typedef	struct		s_input
 typedef struct		s_mut
 {
 	int				load;
-	void			*next;
+	t_load			*next;
 	pthread_cond_t	condition;
 	pthread_mutex_t	mutex;
 }					t_mut;
@@ -155,11 +156,11 @@ typedef struct		s_win
 	Uint32			flag;
 	char			sky;		//flag => 2
 	char			difficulty; //flag => 2
-	char			interface;
-	char			oldinterface;
+	char			interface;				// 4BIT ?
+	char			oldinterface;			// 4BIT ?
 	t_console		*console;
-	t_fonts			*fonts;  //structure poour stocker tous les polices de caracteres
-	char			*load;
+	t_fonts			*fonts;  	//structure poour stocker tous les polices de caracteres
+	char			*load;		//Path pour load txt
 	int				turn;
 	Uint8			*state;
 	Uint8			*old;
