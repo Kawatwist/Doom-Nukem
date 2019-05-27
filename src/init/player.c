@@ -40,5 +40,7 @@ void			initplayer(t_win **wn)
 	(*wn)->player->x = 0;
 	(*wn)->player->y = 0;
 	(*wn)->player->z = 0;
+	(*wn)->player->near = 0;
+	(*wn)->player->far = 0;
 	(*wn)->player->sensi = 1;
 }

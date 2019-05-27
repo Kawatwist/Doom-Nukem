@@ -22,8 +22,11 @@
 # include "skybox.h"
 # include "SDL.h"
 # include "SDL_ttf.h"
-# define XSCREEN 1920
-# define YSCREEN 1080
+# define XSCREEN 1280
+# define YSCREEN 720
+#define  SCALEX	1.2 
+#define  SCALEY 1.2
+#define  SCALEZ 1.2
 # define CONSOLE_MAX_LINE_NB 10
 # define ARIEL_FONT_SIZE 35
 # define U_MAX		4294967295

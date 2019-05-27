@@ -22,9 +22,9 @@ static void		calc_f(t_win *wn)
 static void		calc_s(t_win *wn, t_vec *f)
 {
 	// FAUX
-	wn->rast->s->x = (f->x * 1) + (f->x * 0) + (f->x * 0);
-	wn->rast->s->y = (f->y * 1) + (f->y * 0) + (f->y * 0);
-	wn->rast->s->z = (f->z * 1) + (f->z * 0) + (f->z * 0);
+	wn->rast->s->x = (f->x * 0) + (f->x * 1) + (f->x * 0);
+	wn->rast->s->y = (f->y * 0) + (f->y * 1) + (f->y * 0);
+	wn->rast->s->z = (f->z * 0) + (f->z * 1) + (f->z * 0);
 }
 
 static void		calc_u(t_win *wn, t_vec *s, t_vec *f)

@@ -47,11 +47,25 @@ static void		matrice(t_poly *curr, double **mat, t_vec *ver)
 	i = 0;
 	while (i < curr->nb_ver)
 	{
-		ver[i].x = (curr->ver_tmp[curr->indices[i]].x * mat[0][0]) + (curr->ver_tmp[curr->indices[i]].y * mat[0][1]) + (curr->ver_tmp[curr->indices[i]].z * mat[0][2]) + mat[0][3];
+		ver[i].x = (curr->ver_tmp[curr->indices[i]].x * mat[0][0]) + (curr->ver_tmp[curr->indices[i]].y * mat[0][1]) + (curr->ver_tmp[curr->indices[i]].z * mat[0][2])  + mat[0][3];
 		ver[i].y = (curr->ver_tmp[curr->indices[i]].y * mat[1][0]) + (curr->ver_tmp[curr->indices[i]].y * mat[1][1]) + (curr->ver_tmp[curr->indices[i]].z * mat[1][2]) + mat[1][3];
-		ver[i].z = (curr->ver_tmp[curr->indices[i]].z * mat[2][0]) + (curr->ver_tmp[curr->indices[i]].y * mat[2][1]) + (curr->ver_tmp[curr->indices[i]].z * mat[2][2]);
+		ver[i].z = (curr->ver_tmp[curr->indices[i]].z * mat[2][0]) + (curr->ver_tmp[curr->indices[i]].y * mat[2][1]) + (curr->ver_tmp[curr->indices[i]].z * mat[2][2]) + mat[2][3];
+		get_near_n_far(ver[i].z);
 		i++;
 	}
+}
+
+static void		get_near_n_far(double z)
+{
+	if (z > wn->player->far && (wn->player->far == wn->player->near))
+	{	
+		wn->player->far = z;
+		wn->player->near = z;
+	}
+	else if (z > wn->player->far)
+		wn->player->far = z;
+	else if (z < wn->player->near)
+		wn->player->near = z;
 }
 
 static void		drawtriangle(t_win *wn, t_vec *v1, t_vec *v2, t_vec *v3)
@@ -102,9 +116,9 @@ void			maindrawpoly(t_win *wn)
 	{
 		(curr->ver_tmp = malloc(sizeof(t_vec) * curr->nb_ver)) == NULL ? stop_exec("Ver not malloc\n", wn) : 0;
 		vercpy(curr->ver_list, curr->ver_tmp, curr->nb_ver);
-		rotatez(wn->player->rawx, wn->rast->mat);
+		rotatez(wn->player->rawz, wn->rast->mat);
 		rotatey(wn->player->rawy, wn->rast->mat);
-		rotatex(wn->player->rawz, wn->rast->mat);
+		rotatex(wn->player->rawx, wn->rast->mat);
 		trans(wn, wn->rast->mat);
 		matrice(curr, wn->rast->mat, curr->ver_tmp);
 	//	calc_fsu(wn, curr->ver_tmp, curr); // FAUX

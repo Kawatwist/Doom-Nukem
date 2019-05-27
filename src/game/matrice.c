@@ -12,10 +12,29 @@
 
 #include "doom.h"
 
+void	projection(t_win *wn)
+{
+	mat[0][0] = atan(wn->player->rawx / 2);
+	mat[1][1] = atan(wn->player->rawy / 2);
+	mat[2][2] = 
+		-((wn->player->far + wn->player->near) / (wn->player->far - wn->player->near));
+	mat[2][3] =
+		-((2 * wn->player->near * wn->player->far) / (wn->player->far - wn->player->near));
+	mat[2][0] = -1;
+}
+
+void	scale(double **mat)
+{
+	mat[0][0] = SCALEX; //scale = distance entre player et objet
+	mat[1][1] = SCALEY;
+	mat[2][2] = SCALEZ;
+}
+
 void	trans(t_win *wn, double **mat)
 {
-	mat[0][3] = wn->player->rawx * XSCREEN / 360;
-	mat[1][3] = wn->player->rawy;
+	mat[0][3] = wn->player->x;
+	mat[1][3] = wn->player->y;
+	mat[2][3] = wn->player->z;
 }
 
 void	rotatez(double ang, double **mat)

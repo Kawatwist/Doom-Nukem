@@ -23,5 +23,5 @@ void	game(t_win *wn)
 	display_skybox(wn);
 //	main_cloud(wn);
 	maindrawpoly(wn);
-	display_crosshair(wn);
+//	display_crosshair(wn);
 }

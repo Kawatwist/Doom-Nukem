@@ -49,6 +49,8 @@ typedef struct		s_joueur
 	double			x;
 	double			y;
 	double			z;
+	double			near;
+	double			far;
 	float			sensi;
 }					t_joueur;
 #endif
