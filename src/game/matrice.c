@@ -14,8 +14,8 @@
 
 void	projection(t_win *wn)
 {
-	mat[0][0] = atan(wn->player->rawx / 2);
-	mat[1][1] = atan(wn->player->rawy / 2);
+	mat[0][0] = atan(60 / 2);
+	mat[1][1] = atan(60 / 2);
 	mat[2][2] = 
 		-((wn->player->far + wn->player->near) / (wn->player->far - wn->player->near));
 	mat[2][3] =
