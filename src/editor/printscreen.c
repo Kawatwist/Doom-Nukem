@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 11:07:03 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/12 13:01:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/24 13:48:54 by llejeune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,33 @@ void		init_edit(t_win **wn)
 	(*wn)->editext.texture_x = NULL;
 	(*wn)->editext.texture_y = NULL;
 	(*wn)->editext.texture_z = NULL;
+	(*wn)->edit_image.texture_tools = NULL;
 	(*wn)->editext.on = 1;
 	(*wn)->editext.map_w = 600;
 	(*wn)->editext.map_h = 600;
+	(*wn)->load = ft_strdup("./texture/editor/texture_bas_editor.tga");
+	load_texture(*wn, "editor", "affichage", "tools") == 1 ? stop_exec("load texture tools failed\n", *wn) : 0;
+	free((*wn)->load);
+	(*wn)->load = ft_strdup("./texture/editor/texture_edit.tga");
+	load_texture(*wn, "editor", "affichage", "history");
+	free((*wn)->load);
+	(*wn)->load = ft_strdup("./texture/editor/background_map.tga");
+	load_texture(*wn, "editor", "affichage", "background_map");
+	free((*wn)->load);
+	(*wn)->load = ft_strdup("./texture/editor/params_edit.tga");
+	load_texture(*wn, "editor", "affichage", "params");
+	free((*wn)->load);
+	(*wn)->load = ft_strdup("./texture/editor/blocs_edit.tga");
+	load_texture(*wn, "editor", "affichage", "blocs");
+	free((*wn)->load);
+	(*wn)->load = ft_strdup("./texture/editor/texts_edit.tga");
+	load_texture(*wn, "editor", "affichage", "texts");
+	free((*wn)->load);
+	(*wn)->load = ft_strdup("./texture/editor/fleche.tga");
+	load_texture(*wn, "editor", "affichage", "fleche");
+	free((*wn)->load);
+	(*wn)->edit_image.bgh = 1;
+	(*wn)->edit_image.in = 1;
 }
 
 void		print_x_y_z(t_win *wn)
@@ -149,19 +173,118 @@ void		print_x_y_z(t_win *wn)
 	}
 }
 
-void		printeditor(t_win *wn)
+void 		print_background_editor(t_win *wn)
 {
 	SDL_Surface 	*surface;
 	SDL_Texture 	*texture;
 
 	surface = SDL_CreateRGBSurface(0, wn->xscreen, wn->yscreen, 32, 0, 0, 0, 0);
-	surface == NULL ? stop_exec("surface failed\n", wn) : 0;
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 66, 66, 66));
 	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
 	SDL_FreeSurface(surface);
 	if (SDL_RenderCopy(wn->rend, texture, NULL, NULL) < 0)
 		stop_exec("rendercopy failed\n", wn);
+}
+
+void		change_bloc(t_win *wn)
+{
+	if (wn->input->x >= (5.5 * wn->xscreen / 7) && wn->input->x <= (5.75 * wn->xscreen / 7) && wn->input->y >= 0 && wn->input->y <= (0.25 * wn->yscreen / 7))
+		wn->edit_image.bgh = 1;
+	else if (wn->input->x >= (5.5 * wn->xscreen / 7) && wn->input->x <= (5.75 * wn->xscreen / 7) && wn->input->y > 0.25 && wn->input->y <= (0.5 * wn->yscreen / 7))
+		wn->edit_image.bgh = 0;
+	if (wn->input->x >= (6.75 * wn->xscreen / 7) && wn->input->x < wn->xscreen && wn->input->y >= (3 * wn->yscreen / 7) && wn->input->y < (3.25 * wn->yscreen / 7) && wn->edit_image.in == 1)
+		wn->edit_image.in = 0;
+	else if (wn->input->x >= (6.75 * wn->xscreen / 7) && wn->input->x < wn->xscreen && wn->input->y >= (5.75 * wn->yscreen / 7) && wn->input->y < (6 * wn->yscreen / 7) && wn->edit_image.in == 0)
+		wn->edit_image.in = 1;
+}
+
+void 		print_arrow(t_win *wn)
+{
+	SDL_Rect 	dst;
+
+	dst.x = 6.75 * wn->xscreen / 7;
+	dst.w = 0.25 * wn->xscreen / 7;
+	dst.h = 0.25 * wn->yscreen / 7;
+	if (wn->edit_image.in == 1)
+		dst.y = 3 * wn->yscreen / 7;
+	else
+		dst.y = 5.75 * wn->yscreen / 7; 
+	wn->edit_image.fleche = findtexture(wn, "editor", "affichage", "fleche");
+	(wn->edit_image.fleche == NULL) ? stop_exec("fleche failed in print_arrow\n", wn) : 0;
+	if (SDL_RenderCopy(wn->rend, wn->edit_image.fleche, NULL, &dst) < 0)
+		stop_exec("rendercopy failed in print_arrow\n", wn);
+}
+
+void 		print_tbp_editor(t_win *wn)
+{
+	SDL_Rect 	src;
+	SDL_Rect 	dst;
+	
+	wn->edit_image.texture_tbp = findtexture(wn, "editor", "affichage", "params");
+	(wn->edit_image.texture_tbp == NULL) ? stop_exec("texture params failed in print_tbp\n", wn) : 0;
+	SDL_QueryTexture(wn->edit_image.texture_tbp, NULL, NULL, &src.w, &src.h);
+	if (wn->edit_image.in == 1)
+	{
+		src.x = 0;
+		src.y = 0;
+		dst.x = 5.5 * wn->xscreen / 7;
+		dst.y = 3 * wn->yscreen / 7;
+		dst.w = 1.5 * wn->xscreen / 7;
+		dst.h = 3 * wn->yscreen / 7;
+	}
+	else 
+	{
+		src.x = 0;
+		src.y = 0;
+		src.h = 0.25 * src.h / 7;
+		dst.x = 5.5 * wn->xscreen / 7;
+		dst.y = 5.75 * wn->yscreen / 7;
+		dst.w = 1.5 * wn->xscreen / 7;
+		dst.h = 0.25 * wn->yscreen / 7;
+	}
+	if (SDL_RenderCopy(wn->rend, wn->edit_image.texture_tbp, &src, &dst) < 0)
+		stop_exec("render copy failed in print_tbp\n", wn);
+	print_arrow(wn);
+}
+
+void 		print_bgh_editor(t_win *wn)
+{
+	SDL_Rect 		dst;
+
+	dst.x = 5.5 * wn->xscreen / 7;
+	dst.y = 0;
+	dst.w = 1.5 * wn->xscreen / 7;
+	dst.h = 3 * wn->yscreen / 7;
+	if (wn->edit_image.bgh == 1)
+		wn->edit_image.texture_bgh = findtexture(wn, "editor", "affichage", "history");
+	else if (wn->edit_image.bgh == 0)
+		wn->edit_image.texture_bgh = findtexture(wn, "editor", "affichage", "background_map");
+	(wn->edit_image.texture_bgh == NULL) ? stop_exec("texture bgh failed in print_bgh\n", wn) : 0;
+	if (SDL_RenderCopy(wn->rend, wn->edit_image.texture_bgh, NULL, &dst) < 0)
+		stop_exec("rendercopy failed in print_history\n", wn);
+}
+
+void		print_tools_editor(t_win *wn)
+{
+	SDL_Rect 		dst;
+
+	dst.x = 0;
+	dst.y = wn->yscreen / 7 * 6;
+	dst.w = wn->xscreen;
+	dst.h = wn ->yscreen / 7;
+	wn->edit_image.texture_tools = findtexture(wn, "editor", "affichage", "tools");
+	(wn->edit_image.texture_tools == NULL) ? stop_exec("texture print_tools_editor failed\n", wn) : 0;
+	if (SDL_RenderCopy(wn->rend, wn->edit_image.texture_tools, NULL, &dst) < 0)
+		stop_exec("rendercopy failed in print_tools_editor\n", wn);
+}	
+
+void		printeditor(t_win *wn)
+{
+	print_background_editor(wn);
 	showmap(wn);
 	which_cursor(wn);
+	print_tools_editor(wn);
+	print_bgh_editor(wn);
+	print_tbp_editor(wn);
 	wn->editext.on == 1 ? print_x_y_z(wn) : 0;
 }

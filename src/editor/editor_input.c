@@ -51,22 +51,6 @@ static void	mousedraw(t_win *wn)
 	}
 }
 
-static void	keyboardtool(t_win *wn)
-{
-	(void)wn;
-}
-
-void		which_cursor(t_win *wn)
-{
-	if (wn->input->x < (wn->xscreen / 7 * 6) && wn->input->y < (wn->yscreen / 7 * 6))
-	{
-		SDL_ShowCursor(SDL_DISABLE);
-		SDL_SetRenderDrawColor(wn->rend, 238, 10, 214, 0);
-		SDL_RenderDrawLine(wn->rend, wn->input->x, 0, wn->input->x, wn->yscreen);
-		SDL_RenderDrawLine(wn->rend, 0, wn->input->y, wn->xscreen, wn->input->y);
-	}
-}
-
 static void	resetmap(t_win *wn)
 {
 	wn->map->x = 0.1;
@@ -76,7 +60,7 @@ static void	resetmap(t_win *wn)
 	wn->map->size = 1;
 }
 
-void		inputeditor(t_win *wn)
+static void	keyboardtool(t_win *wn)
 {
 	wn->state[SDL_SCANCODE_ESCAPE] ? wn->interface = MENU : 0;
 	wn->state[SDL_SCANCODE_LEFT] ? wn->map->x -= (6.5 - wn->map->size) : 0;
@@ -95,6 +79,39 @@ void		inputeditor(t_win *wn)
 	wn->state[SDL_SCANCODE_1] && !wn->old[SDL_SCANCODE_1] ? wn->editext.on = -wn->editext.on : 0;
 	wn->map->h = wn->editext.map_h * wn->map->size;
 	wn->map->w = wn->editext.map_w * wn->map->size;
+}
+
+void		which_cursor(t_win *wn)
+{
+	if (wn->input->x < (wn->xscreen / 7 * 5.5) && wn->input->y < (wn->yscreen / 7 * 6))
+	{
+		SDL_ShowCursor(SDL_DISABLE);
+		wn->editext.on = 1;
+		SDL_SetRenderDrawColor(wn->rend, 238, 10, 214, 0);
+		SDL_RenderDrawLine(wn->rend, wn->input->x, 0, wn->input->x, wn->yscreen);
+		SDL_RenderDrawLine(wn->rend, 0, wn->input->y, wn->xscreen, wn->input->y);
+	}
+	else
+	{
+		if (wn->input->y > (3 * wn->yscreen / 7) && wn->input->y < (5.75 * wn->yscreen / 7))
+		{
+			if (wn->edit_image.in == 0)
+			{
+				SDL_ShowCursor(SDL_DISABLE);
+				wn->editext.on = 1;
+				SDL_SetRenderDrawColor(wn->rend, 238, 10, 214, 0);
+				SDL_RenderDrawLine(wn->rend, wn->input->x, 0, wn->input->x, wn->yscreen);
+				SDL_RenderDrawLine(wn->rend, 0, wn->input->y, wn->xscreen, wn->input->y);
+			}
+		}
+		else
+			wn->editext.on = 0;
+	}
+}
+
+void		inputeditor(t_win *wn)
+{
+	(!(wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT)) && (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT))) ? change_bloc(wn) : 0;
 	keyboardtool(wn);
 	mousedraw(wn);
 }

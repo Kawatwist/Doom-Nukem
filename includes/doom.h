@@ -139,6 +139,17 @@ typedef struct 		s_color
 	SDL_Color		violetrose;
 }					t_color;
 
+typedef struct 		s_texture_editor
+{
+	SDL_Texture 	*texture_tools;
+	int 			bgh;
+	SDL_Texture 	*texture_bgh;
+	int 			in;
+	int 			tbp;
+	SDL_Texture 	*texture_tbp;
+	SDL_Texture 	*fleche;
+}					t_edit;
+
 typedef struct 		s_written
 {
 	SDL_Surface 	*surface;
@@ -199,7 +210,7 @@ typedef struct		s_win
 	t_color			color;
 	int				debugconsole;
 	t_written 		editext;
-
+	t_edit 			edit_image;
 }					t_win;
 
 /**
@@ -227,6 +238,11 @@ void				print_x_y_z(t_win *wn);
 void 				create_text_texture(t_win *wn, SDL_Texture *texture, int x, SDL_Color color);
 void				init_edit(t_win **wn);
 void 				which_cursor(t_win *wn);
+void 				print_background_editor(t_win *wn);
+void 				print_tools_editor(t_win *wn);
+void				print_bgh_editor(t_win *wn);
+void 				change_bloc(t_win *wn);
+void 				print_arrow_in(t_win *wn);
 
 void				mainconsole(t_win *wn);
 void				inputconsole(t_win *wn);
