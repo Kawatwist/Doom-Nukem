@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/24 15:31:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/27 20:14:13 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,6 @@ typedef struct		s_text
 typedef struct		s_load
 {
 	char			*path;
-	char			*type;
-	char			*subtype;
-	char			*name;
 	void			*tga;
 	t_text			*txt;
 	struct s_load	*next;
@@ -134,8 +131,8 @@ typedef	struct		s_input
 
 typedef struct		s_mut
 {
-	int				load;
-	t_load			*next;
+	int				loaded;
+	t_load			*load;
 	pthread_cond_t	condition;
 	pthread_mutex_t	mutex;
 }					t_mut;
@@ -246,8 +243,14 @@ int					initmutex(t_win **wn);
 void				*loadingthread(void *param);
 void				loadnothread(t_win **wn);
 void				load_fonts(t_win *wn);
-
-
+int					add_tga(t_win *wn, void *tga, char *name);
+void				main_load_thread(t_win **wn);
+void				*sort_thread(void *param);
+void				*show_thread(void *param);
+void				*menu_thread(void *param);
+void				*game_thread(void *param);
+void				*editor_thread(void *param);
+void				*option_thread(void *param);
 
 /**
  ** OPTION

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 11:10:40 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/24 15:38:17 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/27 19:39:31 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,34 @@ static int	tga_to_txt(t_tga *tga, t_win *wn, t_text *txt)
 	}
 	SDL_FreeSurface(tga->surface);
 	return(0);
+}
+
+int			add_tga(t_win *wn, void *tga, char *path)
+{
+	char	*type;
+	char	*subtype;
+	char	*name;
+	t_text	*pos;
+
+	tga = (t_tga *)tga;
+	if (!ft_strncmp("option\0", &path[16], ft_strchrlen(&path[16], '/')))
+		type = ft_strdup("option\0");
+	else if (!ft_strncmp("editor\0", &path[16], ft_strchrlen(&path[16], '/')))
+		type = ft_strdup("editor\0");
+	else if (!ft_strncmp("game\0", &path[16], ft_strchrlen(&path[16], '/')))
+		type = ft_strdup("game\0");
+	else
+		type = ft_strdup("menu\0");
+	subtype = ft_strdup("intro\0");
+	name = ft_strndup(&path[26 + (!ft_strcmp("option", type) ? 2 : 0)], 3);
+	printf("~~~~~~~~> %s ======== %s\n", type, name);
+	pos = findpos(wn, type, subtype, name);
+	tga_to_txt(tga, wn, pos);
+	free_tga(tga);
+	free(type);
+	free(subtype);
+	free(name);
+	return (0);
 }
 
 int			load_texture(t_win *wn, char *type, char *subtype, char *name) // wn->load (variable path)

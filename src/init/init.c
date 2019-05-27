@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 15:01:21 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/27 19:57:30 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int				init(t_win **wn, int argc, char **argv)
 	load_fonts(*wn);
 	parsearg(argc, argv, wn) == 0 ? stop_exec("Parsing error\n", *wn) : 0;
 	showload(wn, 30);
-	!((*wn)->flag & LQ) ? loadnothread(wn) : loadminimenu(wn);
+	initmutex(wn);
+	main_load_thread(wn);
+	//!((*wn)->flag & LQ) ? loadnothread(wn) : loadminimenu(wn);
 	(*wn)->load = ft_strdup("./texture/game/hand.tga");
 	load_texture(*wn, "game", "hand", "none");
 	initplayer(wn);

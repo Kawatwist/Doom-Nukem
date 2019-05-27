@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:39:51 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/24 14:00:25 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/27 20:14:07 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void		*sort_thread(void *param)
 	thd = (t_thread *)param;
 	while (TRUE)
 	{
+		// AJOUTE LES TGA
+		//ATT TOUT LES THREADS
+		break;
 	}
+	return (NULL);
 }
 
 void		*show_thread(void *param)
@@ -33,5 +37,8 @@ void		*show_thread(void *param)
 	thd = (t_thread *)param;
 	while (TRUE)
 	{
+		break;
 	}
+	pthread_kill(thd->thd, 0);
+	return (NULL);
 }
