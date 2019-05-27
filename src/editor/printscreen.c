@@ -152,6 +152,7 @@ void		init_edit(t_win **wn)
 	free((*wn)->load);
 	(*wn)->edit_image.bgh = 1;
 	(*wn)->edit_image.in = 1;
+	(*wn)->edit_image.tbp = 2;
 }
 
 void		print_x_y_z(t_win *wn)
@@ -196,6 +197,12 @@ void		change_bloc(t_win *wn)
 		wn->edit_image.in = 0;
 	else if (wn->input->x >= (6.75 * wn->xscreen / 7) && wn->input->x < wn->xscreen && wn->input->y >= (5.75 * wn->yscreen / 7) && wn->input->y < (6 * wn->yscreen / 7) && wn->edit_image.in == 0)
 		wn->edit_image.in = 1;
+	if (wn->input->x >= (5.5 * wn->xscreen / 7) && wn->input->x < (5.75 * wn->xscreen / 7) && wn->input->y >= (3 * wn->yscreen / 7) && wn->input->y < (3.25 * wn->yscreen / 7) && wn->edit_image.in == 1)
+		wn->edit_image.tbp = 0;
+	if (wn->input->x >= (5.75 * wn->xscreen / 7) && wn->input->x < (6 * wn->xscreen / 7) && wn->input->y >= (3 * wn->yscreen / 7) && wn->input->y < (3.25 * wn->yscreen / 7) && wn->edit_image.in == 1)
+		wn->edit_image.tbp = 1;
+	if (wn->input->x >= (6 * wn->xscreen / 7) && wn->input->x < (6.25 * wn->xscreen / 7) && wn->input->y >= (3 * wn->yscreen / 7) && wn->input->y < (3.25 * wn->yscreen / 7) && wn->edit_image.in == 1)
+		wn->edit_image.tbp = 2;
 }
 
 void 		print_arrow(t_win *wn)
@@ -219,8 +226,10 @@ void 		print_tbp_editor(t_win *wn)
 {
 	SDL_Rect 	src;
 	SDL_Rect 	dst;
-	
-	wn->edit_image.texture_tbp = findtexture(wn, "editor", "affichage", "params");
+
+	wn->edit_image.tbp == 0 ? wn->edit_image.texture_tbp = findtexture(wn, "editor", "affichage", "texts") : 0;
+	wn->edit_image.tbp == 1 ? wn->edit_image.texture_tbp = findtexture(wn, "editor", "affichage", "blocs") : 0;
+	wn->edit_image.tbp == 2 ? wn->edit_image.texture_tbp = findtexture(wn, "editor", "affichage", "params") : 0;
 	(wn->edit_image.texture_tbp == NULL) ? stop_exec("texture params failed in print_tbp\n", wn) : 0;
 	SDL_QueryTexture(wn->edit_image.texture_tbp, NULL, NULL, &src.w, &src.h);
 	if (wn->edit_image.in == 1)
