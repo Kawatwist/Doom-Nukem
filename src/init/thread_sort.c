@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:39:51 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/27 20:14:07 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/28 18:46:16 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,18 @@ void		*sort_thread(void *param)
 	while (TRUE)
 	{
 		// AJOUTE LES TGA
-		//ATT TOUT LES THREADS
-		break;
+		pthread_mutex_lock(&((*wn)->mutex->mutex));
+		pthread_cond_wait(&((*wn)->mutex->condition), &((*wn)->mutex->mutex));
+		printf("Value = %d\n", (*wn)->mutex->alive & 0xFF);
+		if (!((*wn)->mutex->alive & 0xFF))
+		{
+			pthread_mutex_unlock(&((*wn)->mutex->mutex));
+			pthread_cond_signal(&((*wn)->mutex->condition));
+			break;
+		}
+		pthread_mutex_unlock(&((*wn)->mutex->mutex));
+		pthread_cond_signal(&((*wn)->mutex->condition));
+		SDL_Delay(30);
 	}
 	return (NULL);
 }

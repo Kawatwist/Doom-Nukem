@@ -6,12 +6,23 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:36:58 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/27 20:07:33 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/28 16:10:43 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 #include "tga_reader.h"
+
+static void	set_terminated(t_win **wn, int value)
+{
+	pthread_mutex_lock(&((*wn)->mutex->mutex));
+	pthread_cond_wait(&((*wn)->mutex->condition), &((*wn)->mutex->mutex));
+	printf("BEFORE => %d\n", (*wn)->mutex->alive);
+	(*wn)->mutex->alive = ((*wn)->mutex->alive & (0xFF - (1 << value)));
+	printf("AFTER => %d\n", (*wn)->mutex->alive);
+	pthread_mutex_unlock(&((*wn)->mutex->mutex));
+	pthread_cond_signal(&((*wn)->mutex->condition));
+}
 
 void		*option_thread(void *param)
 {
@@ -31,10 +42,8 @@ void		*option_thread(void *param)
 			pthread_mutex_lock(&((*wn)->mutex->mutex));
 			pthread_cond_wait(&((*wn)->mutex->condition), &((*wn)->mutex->mutex));
 			load = (*wn)->mutex->load;
-			printf("APPLY\n");
 			while (load != NULL && load->next != NULL)
 				load = load->next;
-			printf("FIND\n");
 			if (load == NULL)
 				load = malloc(sizeof(t_load));
 			else
@@ -42,17 +51,17 @@ void		*option_thread(void *param)
 				load->next = malloc(sizeof(t_load));
 				load = load->next;
 			}
-			printf("MALLOCED\n");
 			load->path = ft_strdup(thd->path);
 			load->tga = ret;
 			load->txt = NULL;
 			load->next = NULL;
-			printf("DONE\n");
 			pthread_mutex_unlock(&((*wn)->mutex->mutex));
 			pthread_cond_signal(&((*wn)->mutex->condition));
 			thd->path = changename(thd->path, 27);
+			printf("PATH option ~===> %s\n", thd->path);
 		}
 	}
+	set_terminated(wn, 0);
 	pthread_kill(thd->thd, 0);
 	return (NULL);
 }
@@ -91,8 +100,10 @@ void		*editor_thread(void *param)
 			pthread_mutex_unlock(&((*wn)->mutex->mutex));
 			pthread_cond_signal(&((*wn)->mutex->condition));
 			thd->path = changename(thd->path, 25);
+			printf("PATH editor ~===> %s\n", thd->path);
 		}
 	}
+	set_terminated(wn, 1);
 	pthread_kill(thd->thd, 0);
 	return (NULL);
 }
@@ -131,8 +142,10 @@ void		*game_thread(void *param)
 			pthread_mutex_unlock(&((*wn)->mutex->mutex));
 			pthread_cond_signal(&((*wn)->mutex->condition));
 			thd->path = changename(thd->path, 25);
+			printf("PATH game ~===> %s\n", thd->path);
 		}
 	}
+	set_terminated(wn, 2);
 	pthread_kill(thd->thd, 0);
 	return (NULL);
 }
@@ -171,8 +184,10 @@ void		*menu_thread(void *param)
 			pthread_mutex_unlock(&((*wn)->mutex->mutex));
 			pthread_cond_signal(&((*wn)->mutex->condition));
 			thd->path = changename(thd->path, 25);
+			printf("PATH menu ~===> %s\n", thd->path);
 		}
 	}
+	set_terminated(wn, 3);
 	pthread_kill(thd->thd, 0);
 	return (NULL);
 }

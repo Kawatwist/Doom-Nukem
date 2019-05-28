@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/27 20:14:13 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/28 17:23:06 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,8 @@ typedef struct		s_load
 
 typedef struct		s_thread
 {
-	pthread_t		thd;
-	t_load			*file;
 	char			*path;
+	pthread_t		thd;
 	struct s_win	*wn;
 	int				value;
 }					t_thread;
@@ -132,6 +131,7 @@ typedef	struct		s_input
 typedef struct		s_mut
 {
 	int				loaded;
+	int				alive;
 	t_load			*load;
 	pthread_cond_t	condition;
 	pthread_mutex_t	mutex;
