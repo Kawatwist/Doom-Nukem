@@ -243,6 +243,7 @@ void 				print_tools_editor(t_win *wn);
 void				print_bgh_editor(t_win *wn);
 void 				change_bloc(t_win *wn);
 void 				print_arrow_in(t_win *wn);
+void 				stop_editor(t_win *wn);
 
 void				mainconsole(t_win *wn);
 void				inputconsole(t_win *wn);

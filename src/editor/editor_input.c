@@ -62,7 +62,8 @@ static void	resetmap(t_win *wn)
 
 static void	keyboardtool(t_win *wn)
 {
-	wn->state[SDL_SCANCODE_ESCAPE] ? wn->interface = MENU : 0;
+	if (wn->state[SDL_SCANCODE_ESCAPE])
+		wn->interface = MENU;
 	wn->state[SDL_SCANCODE_LEFT] ? wn->map->x -= (6.5 - wn->map->size) : 0;
 	wn->state[SDL_SCANCODE_RIGHT] ? wn->map->x += (6.5 - wn->map->size) : 0;
 	wn->state[SDL_SCANCODE_UP] ? wn->map->y -= (6.5 - wn->map->size) : 0;

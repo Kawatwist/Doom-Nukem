@@ -287,6 +287,18 @@ void		print_tools_editor(t_win *wn)
 		stop_exec("rendercopy failed in print_tools_editor\n", wn);
 }	
 
+void		stop_editor(t_win *wn)
+{
+	(wn->editext.texture_x != NULL) ? SDL_DestroyTexture(wn->editext.texture_x) : 0;
+	(wn->editext.texture_y != NULL) ? SDL_DestroyTexture(wn->editext.texture_y) : 0;
+	(wn->editext.texture_z != NULL) ? SDL_DestroyTexture(wn->editext.texture_z) : 0;
+	(wn->edit_image.texture_tools != NULL) ? SDL_DestroyTexture(wn->edit_image.texture_tools) : 0;
+	(wn->edit_image.texture_bgh != NULL) ? SDL_DestroyTexture(wn->edit_image.texture_bgh) : 0;
+	(wn->edit_image.texture_tbp != NULL) ? SDL_DestroyTexture(wn->edit_image.texture_tbp) : 0;
+	(wn->edit_image.fleche != NULL) ? SDL_DestroyTexture(wn->edit_image.fleche) : 0;
+	wn->fonts->arial != NULL ? TTF_CloseFont(wn->fonts->arial) : 0;	
+}
+
 void		printeditor(t_win *wn)
 {
 	print_background_editor(wn);

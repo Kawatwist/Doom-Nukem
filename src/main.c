@@ -17,8 +17,8 @@ void	stop_exec(char *msg, t_win *wn)
 	int			fd;
 
 	ft_putstr(msg);
+	stop_editor(wn);
 	wn->fonts->ariel != NULL ? TTF_CloseFont(wn->fonts->ariel) : 0;
-	wn->fonts->arial != NULL ? TTF_CloseFont(wn->fonts->arial) : 0;
 	SDL_Quit();
 	TTF_Quit();
 	if (!access("/tmp/doom_log", F_OK))
