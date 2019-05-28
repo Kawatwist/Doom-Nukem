@@ -6,13 +6,13 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:18:57 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/27 20:14:09 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/28 14:39:59 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-static void		start_thread_sort(t_thread *thread, char value)
+static void		start_thread_sort(t_thread *thread)
 {
 	pthread_create(&thread->thd, NULL, show_thread, (void *)(thread));
 }
@@ -65,7 +65,7 @@ void		main_load_thread(t_win **wn)
 		if (i < 5)
 			start_thread_load((t_thread*)&(thread[i]), i);
 		else
-			start_thread_sort((t_thread*)&(thread[i]), i);
+			start_thread_sort((t_thread*)&(thread[i]));
 	}
 	sort_thread(wn);
 	printf("WAITING\n");
