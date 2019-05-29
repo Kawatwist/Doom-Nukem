@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 13:30:09 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/27 19:56:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/29 03:01:16 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ int			initmutex(t_win **wn)
 	((*wn)->mutex = (t_mut *)malloc(sizeof(t_mut))) == NULL ? stop_exec("Malloc mutex failed\n", *wn) : 0;
 	(*wn)->mutex->condition = condition2;
 	(*wn)->mutex->mutex = mutex2;
-	(*wn)->mutex->load = 0;
+	(*wn)->mutex->loaded = 0;
+	(*wn)->mutex->load = malloc(sizeof(t_load));
+	(*wn)->mutex->load->next = NULL;
+	(*wn)->mutex->load->txt = NULL;
+	(*wn)->mutex->alive = 15;
+	(*wn)->mutex->load->tga = NULL;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/24 12:47:20 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/29 02:52:22 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void			turn(t_win *wn)
 	Uint32	time;
 
 	mainintro(wn, "main", "intro", 1);
+	showlinkedlist(&wn, "menu", "intro");
 	while (TRUE)
 	{
 		time = SDL_GetTicks();

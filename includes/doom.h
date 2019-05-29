@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/28 17:23:06 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/29 02:48:10 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct		s_text
 typedef struct		s_load
 {
 	char			*path;
+	char			done;
 	void			*tga;
 	t_text			*txt;
 	struct s_load	*next;
@@ -245,7 +246,7 @@ void				loadnothread(t_win **wn);
 void				load_fonts(t_win *wn);
 int					add_tga(t_win *wn, void *tga, char *name);
 void				main_load_thread(t_win **wn);
-void				*sort_thread(void *param);
+void				*sort_thread(t_win **wn);
 void				*show_thread(void *param);
 void				*menu_thread(void *param);
 void				*game_thread(void *param);

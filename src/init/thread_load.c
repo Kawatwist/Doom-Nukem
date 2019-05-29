@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:36:58 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/28 16:10:43 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/29 03:07:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void		*option_thread(void *param)
 			}
 			load->path = ft_strdup(thd->path);
 			load->tga = ret;
+			load->done = 0;
 			load->txt = NULL;
 			load->next = NULL;
 			pthread_mutex_unlock(&((*wn)->mutex->mutex));
@@ -95,6 +96,7 @@ void		*editor_thread(void *param)
 			}
 			load->path = ft_strdup(thd->path);
 			load->tga = ret;
+			load->done = 0;
 			load->txt = NULL;
 			load->next = NULL;
 			pthread_mutex_unlock(&((*wn)->mutex->mutex));
@@ -137,6 +139,7 @@ void		*game_thread(void *param)
 			}
 			load->path = ft_strdup(thd->path);
 			load->tga = ret;
+			load->done = 0;
 			load->txt = NULL;
 			load->next = NULL;
 			pthread_mutex_unlock(&((*wn)->mutex->mutex));
@@ -179,6 +182,7 @@ void		*menu_thread(void *param)
 			}
 			load->path = ft_strdup(thd->path);
 			load->tga = ret;
+			load->done = 0;
 			load->txt = NULL;
 			load->next = NULL;
 			pthread_mutex_unlock(&((*wn)->mutex->mutex));
