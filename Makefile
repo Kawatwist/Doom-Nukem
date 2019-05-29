@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/27 16:53:03 by lomasse          ###   ########.fr        #
+#    Updated: 2019/05/29 03:40:42 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -106,7 +106,7 @@ LIBFTA			= ./libft \
 
 IMAGE 			= ./libraries \
 
-DEBUG			= -g -fsanitize=address
+DEBUG			= #-g -fsanitize=address
 
 all: $(NAME)
 
