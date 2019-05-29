@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 17:01:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/29 19:57:50 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef enum		e_interface
 	MENU,
 	GAME,
 	MGAME,
+	NGAME,
 	LGAME,
 	RGAME,
 	EDITEUR,
@@ -186,6 +187,16 @@ typedef struct		s_win
 /**
  ** GAME
  **/
+
+void				ingame(t_win *wn);
+void				game_interface(t_win *wn);
+void				newgame(t_win *wn);
+void				new_game_input(t_win *wn);
+void				loadgame(t_win *wn);
+void				load_game_input(t_win *wn);
+void				menugame(t_win *wn);
+void				menu_game_input(t_win *wn);
+void				game_interface(t_win *wn);
 void				maindrawpoly(t_win *wn);
 void				main_cloud(t_win *wn);
 void				init_cloud(t_cloudy *cloud);
