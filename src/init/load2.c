@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 11:10:40 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/29 02:56:16 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/29 14:58:38 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ int			add_tga(t_win *wn, void *tga, char *path)
 		type = ft_strdup("menu\0");
 	subtype = ft_strdup("intro\0");
 	name = ft_strndup(&path[26 + (!ft_strcmp("option", type) ? 2 : 0)], 3);
-	printf("~~~~~~~~> %s ======== %s\n", type, name);
 	pos = findpos(wn, type, subtype, name);
 	tga_to_txt(tga, wn, pos);
 	free_tga(tga);

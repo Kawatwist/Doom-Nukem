@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:39:51 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/29 03:06:24 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/29 14:58:16 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,13 @@ void		*sort_thread(t_win **wn)
 
 	while (TRUE)
 	{
-		// AJOUTE LES TGA
 		pthread_mutex_lock(&((*wn)->mutex->mutex));
 		pthread_cond_wait(&((*wn)->mutex->condition), &((*wn)->mutex->mutex));
-		printf("Value = %d\n", (*wn)->mutex->alive & 0xFF);
 		cur = (*wn)->mutex->load;
-		printf("COucou les zouzou\n");
 		while (cur->next != NULL && cur->done)
-		{
-			printf("Vrouum vroumm\n");
 			cur = cur->next;
-		}
 		while (!cur->done)
 		{
-			printf("Vouvou\n");
 			add_tga(*wn, cur->tga, cur->path);
 			cur->done = 1;
 			if (cur->next != NULL)

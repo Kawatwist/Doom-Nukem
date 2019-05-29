@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:36:58 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/29 03:07:55 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/29 14:57:24 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ static void	set_terminated(t_win **wn, int value)
 {
 	pthread_mutex_lock(&((*wn)->mutex->mutex));
 	pthread_cond_wait(&((*wn)->mutex->condition), &((*wn)->mutex->mutex));
-	printf("BEFORE => %d\n", (*wn)->mutex->alive);
 	(*wn)->mutex->alive = ((*wn)->mutex->alive & (0xFF - (1 << value)));
-	printf("AFTER => %d\n", (*wn)->mutex->alive);
 	pthread_mutex_unlock(&((*wn)->mutex->mutex));
 	pthread_cond_signal(&((*wn)->mutex->condition));
 }
@@ -59,7 +57,6 @@ void		*option_thread(void *param)
 			pthread_mutex_unlock(&((*wn)->mutex->mutex));
 			pthread_cond_signal(&((*wn)->mutex->condition));
 			thd->path = changename(thd->path, 27);
-			printf("PATH option ~===> %s\n", thd->path);
 		}
 	}
 	set_terminated(wn, 0);
@@ -102,7 +99,6 @@ void		*editor_thread(void *param)
 			pthread_mutex_unlock(&((*wn)->mutex->mutex));
 			pthread_cond_signal(&((*wn)->mutex->condition));
 			thd->path = changename(thd->path, 25);
-			printf("PATH editor ~===> %s\n", thd->path);
 		}
 	}
 	set_terminated(wn, 1);
@@ -145,7 +141,6 @@ void		*game_thread(void *param)
 			pthread_mutex_unlock(&((*wn)->mutex->mutex));
 			pthread_cond_signal(&((*wn)->mutex->condition));
 			thd->path = changename(thd->path, 25);
-			printf("PATH game ~===> %s\n", thd->path);
 		}
 	}
 	set_terminated(wn, 2);
@@ -188,7 +183,6 @@ void		*menu_thread(void *param)
 			pthread_mutex_unlock(&((*wn)->mutex->mutex));
 			pthread_cond_signal(&((*wn)->mutex->condition));
 			thd->path = changename(thd->path, 25);
-			printf("PATH menu ~===> %s\n", thd->path);
 		}
 	}
 	set_terminated(wn, 3);

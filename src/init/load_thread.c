@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:18:57 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/29 03:09:06 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/29 14:56:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void		init_thread(t_thread *thread, t_win **wn, char value)
 {
 	thread->wn = *wn;
 	thread->value = value;
-	printf("INIT %d DONE\n", value);
 }
 
 void		main_load_thread(t_win **wn)
@@ -65,6 +64,5 @@ void		main_load_thread(t_win **wn)
 			start_thread_sort((t_thread*)&(thread[i]));
 	}
 	sort_thread(wn);
-	printf("WAITING\n");
 	pthread_join((thread[5].thd), NULL);
 }
