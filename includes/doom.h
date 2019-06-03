@@ -162,6 +162,19 @@ typedef struct 		s_written
 	int 			map_w;
 }					t_written;
 
+typedef struct 		s_bresenham 
+{
+	int 			x;
+	int 			y;
+	int 			x1;
+	int 			y1;
+	int 			dx;
+	int 			dy;
+	int 			sx;
+	int 			sy;
+	int 			e;
+}					t_bres;
+
 typedef struct 		s_console
 {
 	char			**history;
@@ -211,6 +224,7 @@ typedef struct		s_win
 	int				debugconsole;
 	t_written 		editext;
 	t_edit 			edit_image;
+	t_bres 			bres;
 }					t_win;
 
 /**
@@ -244,6 +258,12 @@ void				print_bgh_editor(t_win *wn);
 void 				change_bloc(t_win *wn);
 void 				print_arrow_in(t_win *wn);
 void 				stop_editor(t_win *wn);
+void				init_bres(t_win *wn, t_point *alst, t_point *next);
+void				bres_x(t_win *wn);
+void 				bres_y(t_win *wn);
+void				bresenham(t_win *wn, t_point *alst, t_point *next);
+t_point 			create_t_point(int x, int y);
+void 				showmap(t_win *wn);
 
 void				mainconsole(t_win *wn);
 void				inputconsole(t_win *wn);

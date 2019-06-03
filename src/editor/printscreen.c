@@ -16,6 +16,8 @@ static void	showelem(t_win *wn)
 {
 	t_elem		*curr;
 	t_point		*point;
+	t_point 	start;
+	t_point 	end;
 
 	curr = wn->elem;
 	while (curr != NULL)
@@ -24,9 +26,13 @@ static void	showelem(t_win *wn)
 		while (point != NULL && point->next != NULL)
 		{
 			SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
-			SDL_RenderDrawLine(wn->rend, point->x, point->y, point->next->x, point->next->y);
+			start = create_t_point(point->x, point->y);
+			end = create_t_point(point->next->x, point->next->y);
+			bresenham(wn, &start, &end);
 			SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 0);
-			SDL_RenderDrawLine(wn->rend, point->x, point->y + 1, point->next->x, point->next->y + 1);
+			start = create_t_point(point->x, point->y + 1);
+			end = create_t_point(point->next->x, point->next->y + 1);
+			bresenham(wn, &start, &end);
 			point = point->next;
 		}
 		curr = curr->next;
@@ -37,6 +43,8 @@ static void	showline2(t_win *wn)
 {
 	float		i;
 	float		j;
+	t_point start;
+	t_point end;
 
 	j = wn->map->y;
 	i = wn->map->x;
@@ -47,15 +55,17 @@ static void	showline2(t_win *wn)
 				50 + (wn->map->size * 20 / 6), 0);
 		while (j <= wn->map->y + wn->map->h)
 		{
-			SDL_RenderDrawLine(wn->rend, wn->map->x, j,
-					wn->map->w + wn->map->x, j);
+			start = create_t_point(wn->map->x, j);
+			end = create_t_point(wn->map->w + wn->map->x, j);
+			bresenham(wn, &start, &end);
 			j += wn->map->h / 40;
 		}
 		j = wn->map->y;
 		while (i <= wn->map->x + wn->map->w)
 		{
-			SDL_RenderDrawLine(wn->rend, i, wn->map->y, i,
-					wn->map->h + wn->map->y);
+			start = create_t_point(i, wn->map->y);
+			end = create_t_point(i, wn->map->h + wn->map->y);
+			bresenham(wn, &start, &end);
 			i += wn->map->w / 40;
 		}
 	}
@@ -65,6 +75,8 @@ static void	showline(t_win *wn)
 {
 	float		i;
 	float		j;
+	t_point start;
+	t_point end;
 
 	j = wn->map->y;
 	i = wn->map->x;
@@ -72,18 +84,24 @@ static void	showline(t_win *wn)
 	SDL_SetRenderDrawColor(wn->rend, 150, 100, 100, 0);
 	while (j <= wn->map->y + wn->map->h + 1)
 	{
-		SDL_RenderDrawLine(wn->rend, wn->map->x, j, wn->map->w + wn->map->x, j);
+		start = create_t_point(wn->map->x, j);
+		end = create_t_point(wn->map->w + wn->map->x, j);
+		// SDL_RenderDrawLine(wn->rend, wn->map->x, j, wn->map->w + wn->map->x, j);
+		bresenham(wn, &start, &end);
 		j += wn->map->h / 10;
 	}
 	j = wn->map->y;
 	while (i <= wn->map->x + wn->map->w + 1)
 	{
-		SDL_RenderDrawLine(wn->rend, i, wn->map->y, i, wn->map->h + wn->map->y);
+		start = create_t_point(i, wn->map->y);
+		end = create_t_point(i, wn->map->h + wn->map->y);
+		// SDL_RenderDrawLine(wn->rend, i, wn->map->y, i, wn->map->h + wn->map->y);
+		bresenham(wn, &start, &end);
 		i += wn->map->w / 10;
 	}
 }
 
-static void	showmap(t_win *wn)
+void		showmap(t_win *wn)
 {
 	showline(wn);
 	showelem(wn);
