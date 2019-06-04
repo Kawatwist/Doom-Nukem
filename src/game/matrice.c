@@ -12,15 +12,22 @@
 
 #include "doom.h"
 
-void	projection(t_win *wn)
+void 	projection(t_win *wn)
 {
-	mat[0][0] = atan(60 / 2);
-	mat[1][1] = atan(60 / 2);
-	mat[2][2] = 
+	int i;
+
+	i = -1;
+	wn->rast->mat_proj = malloc(sizeof(double *) * 4);
+	while (++i < 4)
+		wn->rast->mat_proj = malloc(sizeof(double) * 4);
+
+	wn->rast->mat_proj[0][0] = atan(60 / 2);
+	wn->rast->mat_proj[1][1] = atan(60 / 2);
+	wn->rast->mat_proj[2][2] = 
 		-((wn->player->far + wn->player->near) / (wn->player->far - wn->player->near));
-	mat[2][3] =
+	wn->rast->mat_proj[2][3] =
 		-((2 * wn->player->near * wn->player->far) / (wn->player->far - wn->player->near));
-	mat[2][0] = -1;
+	wn->rast->mat_proj[2][0] = -1;
 }
 
 void	scale(double **mat)

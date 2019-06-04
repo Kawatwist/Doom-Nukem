@@ -40,22 +40,39 @@ void			initmatrice(double **matrice)
 	matrice[3][3] = 1.0;
 }
 
-static void		matrice(t_poly *curr, double **mat, t_vec *ver)
+static void		matrice(t_win *wn, t_poly *curr, double **mat, t_vec *ver)
 {
 	int		i;
 
 	i = 0;
 	while (i < curr->nb_ver)
-	{
+	{	
 		ver[i].x = (curr->ver_tmp[curr->indices[i]].x * mat[0][0]) + (curr->ver_tmp[curr->indices[i]].y * mat[0][1]) + (curr->ver_tmp[curr->indices[i]].z * mat[0][2])  + mat[0][3];
 		ver[i].y = (curr->ver_tmp[curr->indices[i]].y * mat[1][0]) + (curr->ver_tmp[curr->indices[i]].y * mat[1][1]) + (curr->ver_tmp[curr->indices[i]].z * mat[1][2]) + mat[1][3];
-		ver[i].z = (curr->ver_tmp[curr->indices[i]].z * mat[2][0]) + (curr->ver_tmp[curr->indices[i]].y * mat[2][1]) + (curr->ver_tmp[curr->indices[i]].z * mat[2][2]) + mat[2][3];
-		get_near_n_far(ver[i].z);
+		ver[i].z = (curr->ver_tmp[curr->indices[i]].z * mat[2][0]) + (curr->ver_tmp[curr->indices[i]].y * mat[2][1]) + (curr->ver_tmp[curr->indices[i]].z * mat[2][2]) + mat[2][3];	
+		get_near_n_far(wn, ver[i].z);
 		i++;
 	}
 }
 
-static void		get_near_n_far(double z)
+/*static void	proj(t_win *wn, t_poly *curr, t_vec *ver,  double **mat)
+{
+	int i;
+
+	i = 0;
+	projection(wn);
+	mat = mult_matrice(mat, wn->rast->mat_proj);
+	while (i < curr->nb_ver)
+	{
+		ver[i].x = (curr->ver_tmp[curr->indices[i]].x * mat[0][0]) + (curr->ver_tmp[curr->indices[i]].y * mat[0][1]) + (curr->ver_tmp[curr->indices[i]].z * mat[0][2]);
+		ver[i].y = (curr->ver_tmp[curr->indices[i]].y * mat[1][0]) + (curr->ver_tmp[curr->indices[i]].y * mat[1][1]) + (curr->ver_tmp[curr->indices[i]].z * mat[1][2]);
+		ver[i].z = (curr->ver_tmp[curr->indices[i]].z * mat[2][0]) + (curr->ver_tmp[curr->indices[i]].y * mat[2][1]) + (curr->ver_tmp[curr->indices[i]].z * mat[2][2]);
+		i++;
+	}	
+}*/
+
+
+void		get_near_n_far(t_win *wn, double z)
 {
 	if (z > wn->player->far && (wn->player->far == wn->player->near))
 	{	
@@ -120,8 +137,9 @@ void			maindrawpoly(t_win *wn)
 		rotatey(wn->player->rawy, wn->rast->mat);
 		rotatex(wn->player->rawx, wn->rast->mat);
 		trans(wn, wn->rast->mat);
-		matrice(curr, wn->rast->mat, curr->ver_tmp);
+		matrice(wn, curr, wn->rast->mat, curr->ver_tmp);
 	//	calc_fsu(wn, curr->ver_tmp, curr); // FAUX
+	//	proj(wn, curr, curr->ver_tmp, wn->rast->mat);	
 		drawpoly(wn, curr, curr->ver_tmp);
 		free(curr->ver_tmp);
 		curr = curr->next;
