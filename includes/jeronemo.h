@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/22 09:04:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:59:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,5 +217,7 @@ void			ft_display_delete_button(t_mywin *s_win);
 
 
 
+void		ft_launch_window(t_mywin *s_win);
+void		ft_launch_rasterization(void);
 
 #endif

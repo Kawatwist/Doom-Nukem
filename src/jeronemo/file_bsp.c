@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:46:33 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/22 09:56:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:32:54 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,29 +122,6 @@ void	ft_display_triangle(t_mywin *s_win)
 		s_win->lst_wall = s_win->lst_wall->next;
 	}
 	s_win->lst_wall = keep;
-}
-
-int		ft_is_front(t_mywall spliter, t_mywall s_wall)
-{
-
-
-}
-
-void	ft_get_lst_front_wall(t_mywall spliter, t_mywall lst_wall)
-{
-	t_mywall	*lst_wall_front;
-	t_mywall	s_wall;
-	t_mywall	*keep;
-
-	lst_wall_front = NULL;
-	keep = s_win->lst_wall;
-	while (s_win->lst_wall)
-	{
-
-
-		s_win->lst_wall = s_win->lst_wall->next;
-	}
-	return (lst_wall_front);
 }
 
 void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn)

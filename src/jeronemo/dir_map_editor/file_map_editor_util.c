@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/22 06:51:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:56:52 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@ void			ft_quit(char *txt, t_mywin *s_win)
 	exit(1);
 }
 
-void		ft_launch_window(t_mywin *s_win)
-{
-	s_win->window[J_EDITOR] = NULL;
-	s_win->renderer[J_EDITOR] = NULL;
-	SDL_Init(SDL_INIT_EVERYTHING);
-	if (!(s_win->window[J_EDITOR] = SDL_CreateWindow("J map editor", 10, 10, 1920, 1080, SDL_WINDOW_SHOWN)))
-		ft_quit("Erreur alloc window\n", s_win);
-	if (!(s_win->renderer[J_EDITOR] = SDL_CreateRenderer(s_win->window[J_EDITOR],0, SDL_RENDERER_SOFTWARE)))
-		ft_quit("Erreur alloc window\n", s_win);
-}
 
 void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square)
 {
@@ -288,7 +278,7 @@ t_mywall	*ft_read_map(void)
 
 	lst_wall = NULL;
 	line = NULL;
-	fd = open("./src/jeronemo/file_wall", O_RDWR);
+	fd = open("./src/jeronemo/dir_map_file/file_wall_map_editor", O_RDWR);
 	while(get_next_line(fd, &line))
 	{
 		j = 0;
@@ -383,14 +373,4 @@ void	ft_draw_wall(t_mywin *s_win, t_mywall *s_wall)
 	ft_draw_line(s_win, &s_line);
 }
 
-void	ft_jeronemo(t_win *wn)
-{
-	t_mywin	s_win;
-
-	printf("hello chef inca\n");
-	//ft_launch_map_editor(&s_win, wn);
-	//ft_quit("je quite\n", &s_win);
-	ft_launch_bsp_tree(&s_win, wn);
-	exit(0);
-}
 

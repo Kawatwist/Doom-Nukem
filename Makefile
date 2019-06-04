@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/21 12:47:20 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/04 17:58:55 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -68,15 +68,31 @@ SRC				= main.c										\
 				  player.c 										\
 				  console.c 									\
 				  menu_show.c 									\
-				  file_map_editor.c								\
-				  file_map_editor_util.c						\
-				  fille_bresename.c								\
-				  file_map_editor_ihc.c							\
-					file_map_editor_display_right_pan.c			\
-					file_map_editor_update_show_cross.c			\
-					file_bsp.c
 
 
+#MAP EDITOR
+SRC += file_map_editor.c
+SRC += file_map_editor_util.c
+SRC += file_map_editor_ihc.c
+SRC += file_map_editor_display_right_pan.c
+SRC += file_map_editor_update_show_cross.c
+SRC += file_bsp.c
+
+#BRESENHAM
+SRC += fille_bresename.c
+
+#RASTERIZATION
+SRC += file_rasterization_main.c
+
+
+#WINDOW
+SRC += file_window.c
+
+#MAIN
+SRC += file_main.c
+
+
+######################################################################
 
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
