@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/04 18:22:29 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:27:40 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,35 +38,35 @@ void	ft_scale(int value)
 
 void	ft_rotation_x(int angle)
 {
-	printf("Rotation en x angle =%d", value);
+	printf("Rotation en x angle =%d", angle);
 	(void)angle;
 }
 
 void	ft_rotation_y(int angle)
 {
-	printf("Rotation en y angle =%d", value);
+	printf("Rotation en y angle =%d", angle);
 	(void)angle;
 }
 
 void	ft_rotation_z(int angle)
 {
-	printf("Rotation en z angle =%d", value);
+	printf("Rotation en z angle =%d", angle);
 	(void)angle;
 }
 
 void	ft_orthographic_projection(void)
 {
-	printf("Orthographic projection", value);
+	printf("Orthographic projection");
 }
 
 void	ft_perspective_projection(void)
 {
-	printf("Perspective projection", value);
+	printf("Perspective projection");
 }
 
 void	ft_apply_texture(void)
 {
-	printf("Translation value =%d", value);
+	printf("Apply texture");
 }
 
 
