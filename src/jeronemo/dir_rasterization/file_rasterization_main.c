@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/05 17:36:59 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/05 17:57:32 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,44 +418,56 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 		s_line.deux.a = result_1.x;
 		s_line.deux.b = result_1.y;
 		ft_draw_line(s_win, &s_line);
-	s_line.un.a = result_1.x;
-	s_line.un.b = result_1.y;
-	s_line.deux.a = result_4.x;
-	s_line.deux.b = result_4.y;
-	ft_draw_line(s_win, &s_line);
-	s_line.un.a = result_2.x;
-	s_line.un.b = result_2.y;
-	s_line.deux.a = result_4.x;
-	s_line.deux.b = result_4.y;
-	ft_draw_line(s_win, &s_line);
-	s_line.un.a = result_3.x;
-	s_line.un.b = result_3.y;
-	s_line.deux.a = result_4.x;
-	s_line.deux.b = result_4.y;
-	ft_draw_line(s_win, &s_line);
+		s_line.un.a = result_1.x;
+		s_line.un.b = result_1.y;
+		s_line.deux.a = result_4.x;
+		s_line.deux.b = result_4.y;
+		ft_draw_line(s_win, &s_line);
+		s_line.un.a = result_2.x;
+		s_line.un.b = result_2.y;
+		s_line.deux.a = result_4.x;
+		s_line.deux.b = result_4.y;
+		ft_draw_line(s_win, &s_line);
+		s_line.un.a = result_3.x;
+		s_line.un.b = result_3.y;
+		s_line.deux.a = result_4.x;
+		s_line.deux.b = result_4.y;
+		ft_draw_line(s_win, &s_line);
 
 
 
 
 
 
-	SDL_Rect        srcrect;
-	SDL_Rect        dstrect;
-
-    srcrect.x = 0;
-	srcrect.y = 0;
-	srcrect.w = 1632;
-	srcrect.h = 1185;
+		SDL_Rect        srcrect;
+		SDL_Rect        dstrect;
 
 
-	dstrect.x = 10;
-	dstrect.y = 10;
-	dstrect.w = 100;
-	dstrect.h = 100;
+    	srcrect.x = 0;
+		srcrect.y = 0;
+		srcrect.w = 1632;
+		srcrect.h = 1185;
 
 
-	/* ma_texture = ft_loadbmp(s_win->renderer[J_EDITOR], "texture.bmp"); */
-	SDL_RenderCopy(s_win->renderer[J_EDITOR], ma_texture, &(srcrect), &(dstrect));
+		dstrect.x = 10;
+		dstrect.y = 10;
+		dstrect.w = 100;
+		dstrect.h = 100;
+
+		float	delta_x = 0;
+
+		delta_x = result_4.x - result_3.x;
+		int i = 0;
+
+		while (i < delta_x)
+		{
+			dstrect.x = ((i * 1632) / delta_x) + result_3.x;
+			SDL_RenderCopy(s_win->renderer[J_EDITOR], ma_texture, &(srcrect), &(dstrect));
+			i++;
+		}
+
+
+
 
 		SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 		SDL_Delay(100);
