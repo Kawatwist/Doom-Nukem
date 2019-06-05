@@ -264,6 +264,9 @@ void 				bres_y(t_win *wn);
 void				bresenham(t_win *wn, t_point *alst, t_point *next);
 t_point 			create_t_point(int x, int y);
 void 				showmap(t_win *wn);
+int 				mouse_pressed(t_win *wn, Uint32 Mask);
+int           		check_point(t_win *wn, t_point *point);
+void         		mouse_input_poly(t_win *wn);
 
 void				mainconsole(t_win *wn);
 void				inputconsole(t_win *wn);

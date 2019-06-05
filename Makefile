@@ -76,6 +76,7 @@ SRC				= main.c										\
 				  load_fonts.c 									\
 				  tool.c 										\
 				  bresenham.c 									\
+				  elem.c 										\
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 

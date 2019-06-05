@@ -19,3 +19,9 @@ int	 key_pressed(t_win *wn, int key_value)
 	return (FALSE);
 }
 
+int     mouse_pressed(t_win *wn, Uint32 Mask)
+{
+    if (!(wn->input->oldmouse & SDL_BUTTON(Mask)) && (wn->input->mouse & SDL_BUTTON(Mask)))
+        return (TRUE);
+    return (FALSE);
+}

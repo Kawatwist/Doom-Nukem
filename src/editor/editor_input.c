@@ -110,10 +110,8 @@ void		which_cursor(t_win *wn)
 	}
 	else
 	{
-		if (wn->input->y > (3 * wn->yscreen / 7) && wn->input->y < (5.75 * wn->yscreen / 7))
+		if (wn->input->y > (3 * wn->yscreen / 7) && wn->input->y < (5.75 * wn->yscreen / 7) && wn->edit_image.in == 0)
 		{
-			if (wn->edit_image.in == 0)
-			{
 				SDL_ShowCursor(SDL_DISABLE);
 				wn->editext.on = 1;
 				SDL_SetRenderDrawColor(wn->rend, 238, 10, 214, 0);
@@ -123,7 +121,6 @@ void		which_cursor(t_win *wn)
 				start = create_t_point(0, wn->input->y);
 				end = create_t_point(wn->xscreen, wn->input->y);
 				bresenham(wn, &start, &end);
-			}
 		}
 		else
 			wn->editext.on = 0;
@@ -134,5 +131,6 @@ void		inputeditor(t_win *wn)
 {
 	(!(wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT)) && (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT))) ? change_bloc(wn) : 0;
 	keyboardtool(wn);
+	mouse_input_poly(wn);
 	// mousedraw(wn);
 }
