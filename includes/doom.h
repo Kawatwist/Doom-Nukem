@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/21 12:51:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/05 16:10:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include "SDL.h"
 # include <jeronemo.h>
 # include "SDL_ttf.h"
+# include <SDL2/SDL.h>
+# include "/Volumes/Storage/goinfre/jchardin/doomKawa/sdl_image/SDL2_image-2.0.3/include/SDL2/SDL_image.h"
 
 # define XSCREEN 1500
 # define YSCREEN 1200
@@ -50,6 +52,13 @@ typedef enum		e_interface
 	LOADING,
 	PAUSE,
 }					t_interface;
+
+typedef struct		s_myvec
+{
+	float			x;
+	float			y;
+	float			z;
+}					t_myvec;
 
 typedef struct		s_point
 {
@@ -248,8 +257,10 @@ void				full_screen(t_win *wn);
 
 void	ft_jeronemo(t_win *wn);
 void	ft_launch_map_editor(t_mywin *s_win, t_win *wn);
+void		ft_launch_rasterization(t_mywin *s_win, t_win *wn);
 void	ft_update_show_cross(t_mywin *s_win, t_win *wn);
 void	ft_init_show_cross(t_mywin *s_win);
 void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
+
 
 #endif

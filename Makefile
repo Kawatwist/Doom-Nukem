@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/04 17:58:55 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/05 16:01:02 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -28,6 +28,8 @@ SRC_PATH		= $(shell find src -type d)
 INC_PATH 		= $(shell find includes -type d) $(shell find libft -type d) $(shell find libraries/include -type d 2>/dev/null || true) \
 
 OBJ_PATH		= OBJ
+
+SDL_IMAGE_DOWNLOAD = https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.3.tar.gz
 
 SRC				= main.c										\
 				  turn.c 										\
@@ -104,7 +106,7 @@ LIB_PATH 		= ./libft \
 
 FRAMEWORK 		= OpenGL AppKit
 
-CC 				= gcc -g
+CC 				= gcc -g -fsanitize=address
 
 vpath %.c $(foreach dir, $(SRC_PATH), $(dir):)
 
@@ -168,7 +170,7 @@ resdl:
 	@echo "${cyanclair}DONE${neutre}"
 	@make image
 
-image: libraries/lib/libSDL2_mixer.dylib
+image: libraries/lib/libSDL2_mixer.dylib/sdl_image
 
 libraries/lib/libSDL2_mixer.dylib: libraries/lib/libSDL2_ttf.dylib
 	@echo "${cyanfonce}Installing SDL2_mixer ...${neutre}\c"
@@ -209,5 +211,28 @@ libraries/lib/libSDL2.dylib:
 	@make -C ./libraries/SDL2-2.0.8 >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/SDL2-2.0.8 install >>/tmp/doom_lib_log 2>&1
 	@echo "${cyanclair}DONE${neutre}"
+
+
+
+sdl_image:
+	if [ -d "./sdl_image/" ]; then \
+		echo "SDL (image) ==> Nothing to be done"; \
+		else \
+		mkdir sdl_image && \
+		echo "SDL (image) ==> Downloading SDL image" && \
+		cd ./sdl_image && \
+		curl -s $(SDL_IMAGE_DOWNLOAD) -O && \
+		echo "SDL (image) ==> Compilation SDL image" && \
+		tar xzf SDL2_image-2.0.3.tar.gz && \
+		cd SDL2_image-2.0.3 && \
+		./configure --prefix=$(shell pwd)/sdl_image/SDL2_image-2.0.3 --with-sdl-prefix=$(shell pwd)/libraries/  > /dev/null 2>&1 && \
+		$(MAKE)  > /dev/null 2>&1  &&  \
+		$(MAKE) install > /dev/null 2>&1  && \
+		echo "SDL (image) ==> DONE"; \
+		fi
+
+
+
+
 
 .PHONY: all clean fclean re image

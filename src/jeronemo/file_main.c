@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:55:47 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/04 17:56:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/05 09:46:52 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void	ft_jeronemo(t_win *wn)
 
 	printf("hello chef inca\n");
 	SDL_Init(SDL_INIT_EVERYTHING);
-	ft_launch_map_editor(&s_win, wn);
-	ft_launch_rasterization();
+	//ft_launch_map_editor(&s_win, wn);
+	(void)wn;
+	ft_launch_rasterization(&s_win, wn);
 	//ft_quit("je quite\n", &s_win);
 	//ft_launch_bsp_tree(&s_win, wn);
 
