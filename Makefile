@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/05 16:01:02 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/06 09:34:06 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -170,7 +170,7 @@ resdl:
 	@echo "${cyanclair}DONE${neutre}"
 	@make image
 
-image: libraries/lib/libSDL2_mixer.dylib/sdl_image
+image: libraries/lib/libSDL2_mixer.dylib
 
 libraries/lib/libSDL2_mixer.dylib: libraries/lib/libSDL2_ttf.dylib
 	@echo "${cyanfonce}Installing SDL2_mixer ...${neutre}\c"
