@@ -144,6 +144,9 @@ typedef struct 		s_texture_editor
 	SDL_Texture 	*texture_tools;
 	int 			bgh;
 	SDL_Texture 	*texture_bgh;
+	SDL_Texture 	*bg_path;
+	SDL_Rect		bg;
+	SDL_Rect 		pos_path;
 	int 			in;
 	int 			tbp;
 	SDL_Texture 	*texture_tbp;
@@ -185,6 +188,7 @@ typedef struct  	s_fonts
 {
 	TTF_Font		*ariel;
 	TTF_Font  		*arial;
+	TTF_Font 		*arial_path;
 } 					t_fonts;
 
 typedef struct		s_win
@@ -267,12 +271,18 @@ void 				showmap(t_win *wn);
 int 				mouse_pressed(t_win *wn, Uint32 Mask);
 int           		check_point(t_win *wn, t_point *point);
 void         		mouse_input_poly(t_win *wn);
+void				bg_or_h(t_win *wn);
+void 				print_bg(t_win *wn);
+void				print_path(t_win *wn, char *s, int posi_x, int posi_y);
+void				print_text_with_arial_path(t_win *wn, char *s, SDL_Color color, SDL_Rect position);
+SDL_Rect			define_rect(int x, int y, int w, int h);
 
 void				mainconsole(t_win *wn);
 void				inputconsole(t_win *wn);
 void				print_text_with_ariel_font(t_win *wn, char *s, SDL_Color color, SDL_Rect position);
 void				print_command(t_win *wn, char *s, int posi_x, int posi_y);
-
+char				printable_key_check(int i);
+char				*printable_input(t_win *wn, char *command);
 
 /**
  ** INIT

@@ -136,6 +136,17 @@ void	load_color(t_win *wn)
 	wn->color.violetrose = making_color(212, 115, 238, 0);
 }
 
+SDL_Rect	define_rect(int x, int y, int w, int h)
+{
+	SDL_Rect 	rect;
+
+	rect.x = x;
+	rect.y = y;
+	rect.w = w;
+	rect.h = h;
+	return (rect);
+}
+
 void create_text_texture(t_win *wn, SDL_Texture *texture, int x, SDL_Color color)
 {
 	texture != NULL ? SDL_DestroyTexture(texture) : 0;
@@ -282,23 +293,6 @@ void 		print_tbp_editor(t_win *wn)
 	if (SDL_RenderCopy(wn->rend, wn->edit_image.texture_tbp, &src, &dst) < 0)
 		stop_exec("render copy failed in print_tbp\n", wn);
 	print_arrow(wn);
-}
-
-void 		print_bgh_editor(t_win *wn)
-{
-	SDL_Rect 		dst;
-
-	dst.x = 5.5 * wn->xscreen / 7;
-	dst.y = 0;
-	dst.w = 1.5 * wn->xscreen / 7;
-	dst.h = 3 * wn->yscreen / 7;
-	if (wn->edit_image.bgh == 1)
-		wn->edit_image.texture_bgh = findtexture(wn, "editor", "affichage", "history");
-	else if (wn->edit_image.bgh == 0)
-		wn->edit_image.texture_bgh = findtexture(wn, "editor", "affichage", "background_map");
-	(wn->edit_image.texture_bgh == NULL) ? stop_exec("texture bgh failed in print_bgh\n", wn) : 0;
-	if (SDL_RenderCopy(wn->rend, wn->edit_image.texture_bgh, NULL, &dst) < 0)
-		stop_exec("rendercopy failed in print_history\n", wn);
 }
 
 void		print_tools_editor(t_win *wn)

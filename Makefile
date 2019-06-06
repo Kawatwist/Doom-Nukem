@@ -77,6 +77,7 @@ SRC				= main.c										\
 				  tool.c 										\
 				  bresenham.c 									\
 				  elem.c 										\
+				  bgh_display.c 								\
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 
