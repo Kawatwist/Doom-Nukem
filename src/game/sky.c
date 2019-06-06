@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:57:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/12 13:55:02 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/22 11:54:27 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		display_skybox(t_win *wn)
 
 	SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 0);
 	SDL_RenderDrawRect(wn->rend, NULL);
-	wn->debugconsole > 5 ? bg2_skybox(wn) : bg_skybox(wn);
+	wn->flag & SKY2 ? bg2_skybox(wn) : bg_skybox(wn);
 	time++;
 	if (time > (rand() % 200) + 700)
 		time = 0;

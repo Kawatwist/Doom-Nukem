@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:34:05 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/11 14:36:52 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/19 16:39:21 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void		init_cloud(t_cloudy *cloud)
 
 static void	init_cloudy(t_win **wn)
 {
-	(*wn)->cloud->id = (rand() % 4) + 1;
+	(void)wn;
+/*	(*wn)->cloud->id = (rand() % 4) + 1;
 	(*wn)->cloud->size = (rand() % 70) + 50;
 	(*wn)->cloud->speed = ((rand() % 28) >> 3) + 0.2;
 	(*wn)->cloud->ybase = (rand() % 100) + 100;
@@ -59,25 +60,28 @@ static void	init_cloudy(t_win **wn)
 	(*wn)->cloud->pos.w = (*wn)->cloud->size;
 	(*wn)->cloud->pos.h = (*wn)->cloud->size;
 	(*wn)->cloud->next = NULL;
+*/}
+
+static void	loadsky(t_win **wn, char *path, char *name)
+{
+	if	(((*wn)->load = ft_strdup(path)) == NULL)
+		return ;
+	load_texture(*wn, "game", "skybox", name);
+	if ((*wn)->load != NULL)
+		free((*wn)->load);
 }
+
 
 void		initskybox(t_win **wn)
 {
-	(*wn)->load = ft_strdup("texture/skybox/sky.tga");
-	load_texture(*wn, "game", "skybox", "sky");
-	(*wn)->load = ft_strdup("texture/skybox/sky2.tga");
-	load_texture(*wn, "game", "skybox", "sky2");
-	(*wn)->load = ft_strdup("texture/skybox/sky3.tga");
-	load_texture(*wn, "game", "skybox", "sky3");
-	(*wn)->load = ft_strdup("texture/skybox/sky4.tga");
-	load_texture(*wn, "game", "skybox", "sky4");
-	(*wn)->load = ft_strdup("texture/skybox/sky6.tga");
-	load_texture(*wn, "game", "skybox", "sky5");
-	(*wn)->load = ft_strdup("texture/skybox/cloud.tga");
-	load_texture(*wn, "game", "skybox", "cloudy");
-	(*wn)->load = ft_strdup("texture/skybox/cloud_briocher.tga");
-	load_texture(*wn, "game", "skybox", "bribri");
-	((*wn)->cloud = malloc(sizeof(t_cloudy))) == NULL
-		? stop_exec("cloud not malloc\n", *wn) : 0;
+	loadsky(wn, "texture/skybox/sky.tga\0", "sky\0");
+	loadsky(wn, "texture/skybox/sky2.tga\0", "sky2\0");
+	loadsky(wn, "texture/skybox/sky3.tga\0", "sky3\0");
+	loadsky(wn, "texture/skybox/sky4.tga\0", "sky4\0");
+	loadsky(wn, "texture/skybox/sky6.tga\0", "sky5\0");
+	loadsky(wn, "texture/skybox/cloud.tga\0", "cloudy\0");
+//	loadsky(wn, "texture/skybox/cloud_briocher.tga\0", "bribri\0");
+//	((*wn)->cloud = malloc(sizeof(t_cloudy))) == NULL
+//		? stop_exec("cloud not malloc\n", *wn) : 0;
 	init_cloudy(wn);
 }

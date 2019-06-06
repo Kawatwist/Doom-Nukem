@@ -6,21 +6,63 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/11 13:28:01 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/29 19:57:53 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void	game(t_win *wn)
+void	ingame(t_win *wn)
+{
+	gameinput(wn);
+	if (key_pressed(wn, SDL_SCANCODE_ESCAPE))
+	{
+		wn->interface = MGAME;
+		wn->menu->choice = 10;
+	}
+	display_skybox(wn);
+	main_cloud(wn);
+	maindrawpoly(wn);
+	display_crosshair(wn);
+}
+
+void	newgame(t_win *wn)
+{
+	new_game_input(wn);
+	if (key_pressed(wn, SDL_SCANCODE_ESCAPE))
+	{
+		wn->interface = MGAME;
+		wn->menu->choice = 10;
+	}
+	SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "NG"), NULL, NULL);
+}
+
+void	loadgame(t_win *wn)
+{
+	load_game_input(wn);
+	if (key_pressed(wn, SDL_SCANCODE_ESCAPE))
+	{
+		wn->interface = MGAME;
+		wn->menu->choice = 10;
+	}
+	SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "LG"), NULL, NULL);
+}
+
+void	menugame(t_win *wn)
+{
+	menu_game_input(wn);
+	SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "menu"), NULL, NULL);
+}
+
+void	game(t_win *wn)	// Common info
 {
 	if (wn->oldinterface != wn->interface)
 	{
-		mainintro(wn, "game", "intro", 60);
+		wn->oldinterface == MENU ? mainintro(wn, "game", "intro", 60) : 0;
+		wn->oldinterface == RGAME ? mainintro(wn, "game", "intro", 60) : 0;
+		wn->oldinterface == NGAME ? mainintro(wn, "game", "intro", 60) : 0;
+		wn->oldinterface == LGAME ? mainintro(wn, "game", "intro", 60) : 0;
 		wn->oldinterface = wn->interface;
 	}
-	gameinput(wn);
-	display_skybox(wn);
-	main_cloud(wn);
-	display_crosshair(wn);
+	game_interface(wn);
 }

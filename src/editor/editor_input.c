@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 19:02:08 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/11 17:11:37 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/22 11:47:25 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	resetmap(t_win *wn)
 
 void		inputeditor(t_win *wn)
 {
-	wn->state[SDL_SCANCODE_ESCAPE] ? wn->interface = MENU : 0;
+	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MENU : 0;
 	wn->state[SDL_SCANCODE_LEFT] ? (wn->map->x > 0 ? wn->map->x -= (6.5 - wn->map->size) : 0) : 0;
 	wn->state[SDL_SCANCODE_RIGHT] ? ((wn->map->x + wn->map->w) < 1200 ? wn->map->x += (6.5 - wn->map->size) : 0) : 0;
 	wn->state[SDL_SCANCODE_UP] ? (wn->map->y > 0 ? wn->map->y -= (6.5 - wn->map->size) : 0) : 0;

@@ -6,12 +6,12 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/06 09:34:06 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/06 11:07:00 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
 violetfonce=\033[0;35m
-violetclair=\033[1;35m 
+violetclair=\033[1;35m
 neutre=\033[0m
 cyanfonce=\033[0;36m
 cyanclair=\033[1;36m
@@ -33,7 +33,12 @@ SDL_IMAGE_DOWNLOAD = https://www.libsdl.org/projects/SDL_image/release/SDL2_imag
 
 SRC				= main.c										\
 				  turn.c 										\
+				  inputturn.c									\
+				  window.c										\
 				  init.c										\
+				  poly.c										\
+				  drawpoly.c									\
+				  matrice.c										\
 				  parse.c										\
 				  initwn.c										\
 				  nothread.c									\
@@ -61,7 +66,9 @@ SRC				= main.c										\
 				  intro.c										\
 				  mainintro.c 									\
 				  editor_input.c 								\
+				  menugame.c									\
 				  game_input.c 									\
+				  game_input_interface.c						\
 				  skybox.c 										\
 				  hud.c											\
 				  sky.c											\
@@ -69,7 +76,13 @@ SRC				= main.c										\
 				  init_input.c 									\
 				  player.c 										\
 				  console.c 									\
+				  console_input_and_read.c 						\
+				  print_ariel_text.c 							\
 				  menu_show.c 									\
+				  load_fonts.c 									\
+				  tool.c 									\
+				  world2view.c								\
+				  world2view_mat.c
 
 
 #MAP EDITOR
@@ -106,7 +119,7 @@ LIB_PATH 		= ./libft \
 
 FRAMEWORK 		= OpenGL AppKit
 
-CC 				= gcc -g -fsanitize=address
+CC 				= gcc -g -std=c99 -fsanitize=address
 
 vpath %.c $(foreach dir, $(SRC_PATH), $(dir):)
 
@@ -126,7 +139,7 @@ all: $(NAME)
 
 $(NAME): $(IMAGE) $(OBJ)
 	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
-	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG)
+	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG) $(DEBUG)
 	@echo "${vertclair}DONE${neutre}"
 
 $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
@@ -140,22 +153,27 @@ $(IMAGE): FORCE
 		echo "${vertfonce}SDL2 is installed.${neutre}"; \
 	else \
 		make image; \
-	fi 
+	fi
 
 $(LIBFTA): FORCE
-	@make -C libft >> /tmp/doom_log 2>&1
+	@if [ -f "/tmp/doom_log2" ]; then \
+		touch /tmp/doom_log2; \
+		chmod 777 /tmp/doom_log2; \
+	fi
+	@make -C libft >> /tmp/doom_log2 2>&1
 
 FORCE:
 
 clean :
 	@echo "${rouge}Cleaning the project ...${neutre}\c"
 	@make clean -C libft
-	@rm -rf $(OBJ_PATH) 
+	@rm -rf $(OBJ_PATH)
 	@echo "${rose}DONE${neutre}"
 
 fclean : clean
 	@echo "${rouge}Fcleaning the project ...${neutre}\c"
 	@make fclean -C libft
+	@rm /tmp/doom_log2
 	@rm -rf $(NAME)
 	@echo "${rose}DONE${neutre}"
 
@@ -175,7 +193,7 @@ image: libraries/lib/libSDL2_mixer.dylib
 libraries/lib/libSDL2_mixer.dylib: libraries/lib/libSDL2_ttf.dylib
 	@echo "${cyanfonce}Installing SDL2_mixer ...${neutre}\c"
 	@mkdir -p libraries
-	@curl -s https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -o libraries/SDL2_mixer-2.0.4.tar.gz >>/tmp/doom_log 2>&1
+	@curl -s https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz -o libraries/SDL2_mixer-2.0.4.tar.gz >>/tmp/doom_lib_log 2>&1
 	@tar -xf ./libraries/SDL2_mixer-2.0.4.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
 	@cd libraries/SDL2_mixer-2.0.4 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/SDL2_mixer-2.0.4 >>/tmp/doom_lib_log 2>&1
@@ -185,7 +203,7 @@ libraries/lib/libSDL2_mixer.dylib: libraries/lib/libSDL2_ttf.dylib
 libraries/lib/libSDL2_ttf.dylib: libraries/lib/libfreetype.dylib
 	@echo "${cyanfonce}Installing SDL2_ttf ...${neutre}\c"
 	@mkdir -p libraries
-	@curl -s https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -o libraries/SDL2_ttf-2.0.15.tar.gz >>/tmp/doom_log 2>&1
+	@curl -s https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.15.tar.gz -o libraries/SDL2_ttf-2.0.15.tar.gz >>/tmp/doom_lib_log 2>&1
 	@tar -xf ./libraries/SDL2_ttf-2.0.15.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
 	@cd libraries/SDL2_ttf-2.0.15 ; FT2_CONFIG=$(shell pwd)/libraries/bin/freetype-config ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log
 	@make -C ./libraries/SDL2_ttf-2.0.15 >>/tmp/doom_lib_log 2>&1
@@ -195,14 +213,15 @@ libraries/lib/libSDL2_ttf.dylib: libraries/lib/libfreetype.dylib
 libraries/lib/libfreetype.dylib: libraries/lib/libSDL2.dylib
 	@echo "${cyanfonce}Installing freetype2 ...${neutre}\c"
 	@mkdir -p libraries
-	@curl -s https://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz -Lo libraries/freetype-2.4.11.tar.gz >>/tmp/doom_log 2>&1
+	@curl -s https://download.savannah.gnu.org/releases/freetype/freetype-2.4.11.tar.gz -Lo libraries/freetype-2.4.11.tar.gz >>/tmp/doom_lib_log 2>&1
 	@tar -xf ./libraries/freetype-2.4.11.tar.gz -C libraries >>/tmp/doom_lib_log 2>&1
 	@cd libraries/freetype-2.4.11 ; ./configure --prefix=$(shell pwd)/libraries >>/tmp/doom_lib_log
 	@make -C ./libraries/freetype-2.4.11 >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/freetype-2.4.11 install >>/tmp/doom_lib_log 2>&1
 	@echo "${cyanclair}DONE${neutre}"
 
-libraries/lib/libSDL2.dylib: 
+
+libraries/lib/libSDL2.dylib:
 	@echo "${cyanfonce}Installing SDL2 ...${neutre}\c"
 	@mkdir -p libraries
 	@curl -s https://www.libsdl.org/release/SDL2-2.0.8.tar.gz -o libraries/SDL2-2.0.8.tar.gz >>/tmp/doom_lib_log 2>&1

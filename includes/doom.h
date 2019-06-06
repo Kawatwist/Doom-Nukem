@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/05 16:10:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/06 11:06:09 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,31 @@
 # include <pthread.h>
 # include "libft.h"
 # include "game.h"
+# include "rasterisation.h"
 # include "skybox.h"
 # include "SDL.h"
 # include <jeronemo.h>
 # include "SDL_ttf.h"
+
+
+
 # include <SDL2/SDL.h>
 # include "/Volumes/Storage/goinfre/jchardin/doomKawa/sdl_image/SDL2_image-2.0.3/include/SDL2/SDL_image.h"
 
-# define XSCREEN 1500
-# define YSCREEN 1200
+//# define XSCREEN 1500
+//# define YSCREEN 1200
+# define XSCREEN 1920
+# define YSCREEN 1080
+# define CONSOLE_MAX_LINE_NB 10
+# define ARIEL_FONT_SIZE 35
+# define U_MAX		4294967295
+# define LQ			1 << 0
+# define FS			1 << 1
+# define CINE		1 << 2
+# define CONSOLE	1 << 3
+# define SKY        1 << 16
+# define DIFFICULTY 1 << 18
+# define SKY2		1 << 20
 
 typedef enum		e_bool
 {
@@ -34,11 +50,17 @@ typedef enum		e_bool
 	TRUE = 1,
 }					t_bool;
 
+typedef enum  		e_val
+{
+	INVALID = -1,
+}					t_val;
+
 typedef enum		e_interface
 {
 	MENU,
 	GAME,
 	MGAME,
+	NGAME,
 	LGAME,
 	RGAME,
 	EDITEUR,
@@ -134,17 +156,26 @@ typedef struct		s_mut
 	pthread_mutex_t	mutex;
 }					t_mut;
 
+typedef struct 		s_console
+{
+	char			**history;
+	int				index;
+}					t_console;
+
+typedef struct  	s_fonts
+{
+	TTF_Font		*ariel;
+} 					t_fonts;
+
 typedef struct		s_win
 {
-	char			sky;
-	char			difficulty;
-	char			quality;
-	char			debug;
+	Uint32			flag;
+	char			sky;		//flag => 2
+	char			difficulty; //flag => 2
 	char			interface;
 	char			oldinterface;
-	char			debugcine;
-	char			*command;
-	char			**history;
+	t_console		*console;
+	t_fonts			*fonts;  //structure poour stocker tous les polices de caracteres
 	char			*load;
 	int				turn;
 	Uint8			*state;
@@ -163,22 +194,37 @@ typedef struct		s_win
 	t_cloudy		*cloud;
 	t_menu			*menu;
 	t_mut			*mutex;
+	t_poly			*poly;
+	t_rast			*rast;
 	int 			xscreen;
 	int 			yscreen;
-	int 			full_screen;
-
-	int				debugconsole;
-
 }					t_win;
 
 /**
  ** GAME
  **/
+
+void				ingame(t_win *wn);
+void				game_interface(t_win *wn);
+void				newgame(t_win *wn);
+void				new_game_input(t_win *wn);
+void				loadgame(t_win *wn);
+void				load_game_input(t_win *wn);
+void				menugame(t_win *wn);
+void				menu_game_input(t_win *wn);
+void				game_interface(t_win *wn);
+void				maindrawpoly(t_win *wn);
 void				main_cloud(t_win *wn);
 void				init_cloud(t_cloudy *cloud);
 void				display_skybox(t_win *wn);
 void				display_crosshair(t_win *wn);
-
+void				trans(t_win *wn, double **mat);
+void				rotatex(double ang, double **mat);
+void				rotatey(double ang, double **mat);
+void				rotatez(double ang, double **mat);
+void				initmatrice(double **matrice);
+void				calc_fsu(t_win *wn, t_vec *ver, t_poly *curr);
+void				world2view(t_win *wn, t_vec *ver, t_vec *f, t_vec *s, t_vec *u);
 /**
  ** EDIT
  **/
@@ -187,12 +233,17 @@ void				inputeditor(t_win *wn);
 void				printeditor(t_win *wn);
 
 void				mainconsole(t_win *wn);
+void				inputconsole(t_win *wn);
+void				print_text_with_ariel_font(t_win *wn, char *s, SDL_Color color, SDL_Rect position);
+void				print_command(t_win *wn, char *s, int posi_x, int posi_y);
+
 
 /**
  ** INIT
  **/
 
 void				initttf(t_win **wn);
+void				init_ver(t_vec *vec, float x, float y, float z);
 t_text				*findpostxt(t_win *wn, char *type,
 						char *subtype, char *name);
 t_text				*findpos(t_win *wn, char *type,
@@ -203,6 +254,8 @@ void				showload(t_win **wn, int load);
 int					init(t_win **wn, int argc, char **argv);
 void				initwn(t_win **wn);
 void				initsdl(t_win **wn);
+void				init_poly(t_win **wn);
+void				init_rast(t_win **wn);
 void				init_input(t_win **wn);
 void				initskybox(t_win **wn);
 void				initplayer(t_win **wn);
@@ -218,6 +271,8 @@ SDL_Texture			*findtexture(t_win *wn, char *type,
 int					initmutex(t_win **wn);
 void				*loadingthread(void *param);
 void				loadnothread(t_win **wn);
+void				load_fonts(t_win *wn);
+
 
 
 /**
@@ -242,12 +297,16 @@ void				showmenu(t_win *wn);
 /**
  ** MAIN
  **/
+void				main_input(t_win *wn);
 void				turn(t_win *wn);
 void				game(t_win *wn);
 void				gameinput(t_win *wn);
 void				setkeyboard(Uint8 *new, Uint8 *current);
 void				stop_exec(char *msg, t_win *wn);
 void				full_screen(t_win *wn);
+Uint32				set_bit(Uint32 var, Uint32 mask);
+int					key_pressed(t_win *wn, int key_value);
+
 
 
 

@@ -6,7 +6,8 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 15:27:26 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/06 11:00:55 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/06 11:04:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/05/19 16:39:45 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +18,15 @@ void	stop_exec(char *msg, t_win *wn)
 	int			fd;
 
 	ft_putstr(msg);
+	wn->fonts->ariel != NULL ? TTF_CloseFont(wn->fonts->ariel) : 0;
+	SDL_Quit();
+	TTF_Quit();
 	if (!access("/tmp/doom_log", F_OK))
 		fd = open("/tmp/doom_log", O_WRONLY | O_APPEND);
 	else
-		fd = creat("/tmp/doom_log", O_WRONLY | O_APPEND);
+		fd = creat("/tmp/doom_log2", O_WRONLY | O_APPEND);
 	if (fd != 0)
 		write(fd, msg, ft_strlen(msg));
-	(void)wn; // FREE WN
 	exit(0);
 }
 

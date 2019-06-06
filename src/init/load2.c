@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 11:10:40 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/07 14:48:26 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/21 13:58:21 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ int			load_texture(t_win *wn, char *type, char *subtype, char *name) // wn->load
 		return (1);
 	((tga = (t_tga*)malloc(sizeof(tga))) == NULL) ? stop_exec("Malloc tga failed\n", wn): 0;
 	tga = load_tga(wn->load);
-	if (tga == NULL)
+	if (tga != NULL)
 	{
+		txt = findpos(wn, type, subtype, name);
+		tga_to_txt(tga, wn, txt);
 		free_tga(tga);
-		return (1);
+		return (0);
 	}
-	txt = findpos(wn, type, subtype, name);
-	tga_to_txt(tga, wn, txt);
-	free(tga);
-	return (0);
+	free_tga(tga);
+	return (1);
 }
