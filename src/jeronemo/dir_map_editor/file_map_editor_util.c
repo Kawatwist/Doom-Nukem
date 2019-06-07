@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/04 17:56:52 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/07 14:08:38 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <doom.h>
+#include <jeronemo.h>
 
 void			ft_quit(char *txt, t_mywin *s_win)
 {

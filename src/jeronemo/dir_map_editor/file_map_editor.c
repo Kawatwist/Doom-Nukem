@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/04 17:53:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/07 14:32:21 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <doom.h>
+#include <jeronemo.h>
 
 void	ft_set_wall_height(t_mywin *s_win, int wall_height)
 {
@@ -310,6 +310,11 @@ int		ft_click_on_grid(t_mywin *s_win, t_win *wn)
 
 void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 {
+
+	printf("lancement map editor\n");
+
+
+
 	int		quit;
 
 

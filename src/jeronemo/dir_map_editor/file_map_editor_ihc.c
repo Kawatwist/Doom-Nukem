@@ -6,12 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 09:19:14 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/21 13:44:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/07 14:08:19 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <doom.h>
-#include <map_editor_right_pan.h>
+#include <jeronemo.h>
 
 
 void	ft_hightlight_red_current_wall(t_mywin *s_win)

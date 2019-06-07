@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:43:32 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/04 17:49:36 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/07 14:09:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <doom.h>
+#include <jeronemo.h>
 
 void		ft_launch_window(t_mywin *s_win)
 {

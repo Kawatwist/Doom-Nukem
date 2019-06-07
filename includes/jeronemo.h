@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/05 09:47:35 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/07 14:02:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 #ifndef JERONEMO_H
 # define JERONEMO_H
 
+# include <doom.h>
 # include <SDL_ttf.h>
+# include <stdio.h>
+# include <stdlib.h>
+
 
 
 # define WHITE 255, 255, 255
@@ -127,6 +131,24 @@ typedef struct			s_xyz_point
 	double				b;
 }						t_xyz_point;
 
+typedef struct	s_mypan
+{
+	int				marge;
+	int				marge_text;
+	int				indent_text;
+	int				width;
+	int				height;
+	int				box_width;
+	int				box_height;
+	int				i;
+	int				j;
+	t_mycolor		s_color;
+	t_mysquare		s_square;
+	t_mywrite		s_write;
+}				t_mypan;
+
+
+
 typedef struct			s_myputtheline
 {
 	int					above;
@@ -185,6 +207,34 @@ typedef struct				s_mywin
 }							t_mywin;
 
 
+
+
+/**
+ ** Map editor functions definitions
+ **/
+
+
+/**
+ ** BSP Tree generator functions definitions
+ **/
+
+/**
+ ** Graphic engine functions definitions
+ **/
+
+
+
+/**
+ ** Share !!
+ **/
+
+
+
+
+
+/**
+ ** Map editon functions definitions
+ **/
 void			ft_draw_line(t_mywin *s_win, t_myputtheline *s_line);
 void			ft_draw_square(t_mywin *s_win, t_mysquare *s_square);
 void			ft_launch_window(t_mywin *s_win);
@@ -218,5 +268,18 @@ void			ft_display_delete_button(t_mywin *s_win);
 
 
 void		ft_launch_window(t_mywin *s_win);
+
+void		ft_update_show_cross(t_mywin *s_win, t_win *wn);
+void		ft_init_show_cross(t_mywin *s_win);
+
+
+
+
+void	ft_launch_map_editor(t_mywin *s_win, t_win *wn);
+void	ft_launch_rasterization(t_mywin *s_win, t_win *wn);
+void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
+
+
+void	ft_display_right_pan(t_mywin *s_win);
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:46:33 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/04 17:32:54 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/07 15:30:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <doom.h>
+#include <jeronemo.h>
 
 void		ft_launch_window_bsp(t_mywin *s_win)
 {
@@ -126,22 +126,28 @@ void	ft_display_triangle(t_mywin *s_win)
 
 void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn)
 {
+	(void)s_win;
 	(void)wn;
-	s_win->current_window = J_BINARY_TREE;
-	printf("hello bsp tree\n");
 
-	//read du fichier
-	//affichage du fichier dans une fenetre
-	//-->chaque segment avec une lettre
-	//-->et une fleche de direction
-	//on clique sur deux points
-	//affichage de l'arbre binaire
-	ft_launch_window_bsp(s_win);
-	s_win->lst_wall = ft_read_map();
-	ft_display_grid(s_win);
-	ft_draw_map(s_win);
-	ft_display_triangle(s_win);
-	SDL_RenderPresent(s_win->renderer[J_BINARY_TREE]);
-	SDL_Delay(10000);
+
+
+
+	/* (void)wn; */
+	/* s_win->current_window = J_BINARY_TREE; */
+	/* printf("hello bsp tree\n"); */
+
+	/* //read du fichier */
+	/* //affichage du fichier dans une fenetre */
+	/* //-->chaque segment avec une lettre */
+	/* //-->et une fleche de direction */
+	/* //on clique sur deux points */
+	/* //affichage de l'arbre binaire */
+	/* ft_launch_window_bsp(s_win); */
+	/* s_win->lst_wall = ft_read_map(); */
+	/* ft_display_grid(s_win); */
+	/* ft_draw_map(s_win); */
+	/* ft_display_triangle(s_win); */
+	/* SDL_RenderPresent(s_win->renderer[J_BINARY_TREE]); */
+	/* SDL_Delay(10000); */
 }
 

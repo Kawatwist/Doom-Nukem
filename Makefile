@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/06 11:07:00 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/07 15:33:44 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -99,13 +99,22 @@ SRC += fille_bresename.c
 #RASTERIZATION
 SRC += file_rasterization_main.c
 
-
 #WINDOW
 SRC += file_window.c
 
 #MAIN
 SRC += file_main.c
 
+#BSP
+SRC += file_main_bsp.c
+SRC += file_parser_polygons.c
+SRC += file_process_polygon.c
+SRC += file_test_function.c
+SRC += file_maths.c
+SRC += file_build_bsp_tree.c
+SRC += file_select_spliter.c
+SRC += file_classify_polygon.c 
+SRC += file_affichage_bsp.c
 
 ######################################################################
 
@@ -230,8 +239,6 @@ libraries/lib/libSDL2.dylib:
 	@make -C ./libraries/SDL2-2.0.8 >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/SDL2-2.0.8 install >>/tmp/doom_lib_log 2>&1
 	@echo "${cyanclair}DONE${neutre}"
-
-
 
 sdl_image:
 	if [ -d "./sdl_image/" ]; then \

@@ -6,12 +6,12 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 15:27:26 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/06 13:53:39 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/07 14:16:11 by jchardin         ###   ########.fr       */
 /*   Updated: 2019/05/19 16:39:45 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom.h"
+#include <doom.h>
 
 void	stop_exec(char *msg, t_win *wn)
 {
@@ -36,7 +36,9 @@ int		main(int argc, char **argv)
 
 	(wn = malloc(sizeof(t_win))) == NULL ? stop_exec("Malloc failed\n", wn): 0;
 	init(&wn, argc, argv) == 0 ? stop_exec("Init failed\n", wn) : 0;
-	/* ft_jeronemo(wn); */
-	/* exit(0); */
-	turn(wn);
+	printf("le champ =%s\n", argv[1]);
+	if (ft_strcmp(argv[1], "doom_engine") == 0)
+		ft_game_engine(wn);
+	else
+		turn(wn);
 }

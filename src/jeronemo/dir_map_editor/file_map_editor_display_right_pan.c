@@ -6,12 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 10:01:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/14 15:50:18 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/07 14:08:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <doom.h>
-#include <map_editor_right_pan.h>
+#include <jeronemo.h>
 
 void	ft_display_wall_height_text(t_mywin *s_win, t_mypan *pan)
 {

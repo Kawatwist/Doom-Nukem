@@ -6,23 +6,35 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:55:47 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/05 09:46:52 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/07 14:29:42 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <doom.h>
+#include <jeronemo.h>
 
-void	ft_jeronemo(t_win *wn)
+void	ft_game_engine(t_win *wn)
 {
-	t_mywin	s_win;
+	t_mywin		s_win;
+	int			choice;
 
-	printf("hello chef inca\n");
-	SDL_Init(SDL_INIT_EVERYTHING);
-	//ft_launch_map_editor(&s_win, wn);
-	(void)wn;
-	ft_launch_rasterization(&s_win, wn);
-	//ft_quit("je quite\n", &s_win);
-	//ft_launch_bsp_tree(&s_win, wn);
-
-	exit(0);
+	choice = 0;
+	while (   !(choice >= 1 && choice <= 3)    )
+	{
+		printf("Hello chef inca\n");
+		printf("GAME ENGINE MENU\n");
+		printf("=> 1 <= Map editor\n");
+		printf("=> 2 <= BSP Generator\n");
+		printf("=> 3 <= Graphic engine\n");
+		printf("\n");
+		printf("Please make your choice\n");
+		scanf("%d", &choice);
+		printf("hello\n");
+	}
+	if (choice == 1)
+		ft_launch_map_editor(&s_win, wn);
+	else if (choice == 2)
+		ft_launch_bsp_tree(&s_win, wn);
+	else if (choice == 3)
+		ft_launch_rasterization(&s_win, wn);
+	ft_quit("je quite\n", &s_win);
 }

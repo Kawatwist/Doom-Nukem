@@ -6,12 +6,12 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 16:46:34 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/13 16:46:57 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/07 14:08:07 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include <doom.h>
+#include <jeronemo.h>
 
 void	ft_init_show_cross(t_mywin *s_win)
 {

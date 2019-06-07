@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/06 11:06:09 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/07 13:57:47 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@
 # include "rasterisation.h"
 # include "skybox.h"
 # include "SDL.h"
-# include <jeronemo.h>
 # include "SDL_ttf.h"
-
-
 
 # include <SDL2/SDL.h>
 # include "/Volumes/Storage/goinfre/jchardin/doomKawa/sdl_image/SDL2_image-2.0.3/include/SDL2/SDL_image.h"
@@ -311,15 +308,8 @@ int					key_pressed(t_win *wn, int key_value);
 
 
 /**
- ** jeronemo
+ ** jeronemo game engine
  **/
 
-void	ft_jeronemo(t_win *wn);
-void	ft_launch_map_editor(t_mywin *s_win, t_win *wn);
-void		ft_launch_rasterization(t_mywin *s_win, t_win *wn);
-void	ft_update_show_cross(t_mywin *s_win, t_win *wn);
-void	ft_init_show_cross(t_mywin *s_win);
-void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
-
-
+void	ft_game_engine(t_win *wn);
 #endif

@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/05 17:57:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/07 14:20:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <doom.h>
+#include <jeronemo.h>
 
 
 SDL_Texture		*ft_loadbmp(SDL_Renderer *tmp_renderer, char *path)
@@ -170,6 +170,8 @@ void	ft_apply_texture(void)
 
 void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 {
+	SDL_Init(SDL_INIT_EVERYTHING);
+
 	SDL_Texture  *ma_texture;
 	ma_texture = NULL;
 	float			matrix[5][5];
