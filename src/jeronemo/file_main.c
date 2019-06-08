@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:55:47 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 10:05:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/08 11:25:32 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,17 @@ void	ft_game_engine(t_win *wn)
 		printf("=> 1 <= Map editor\n");
 		printf("=> 2 <= BSP Generator\n");
 		printf("=> 3 <= Graphic engine\n");
+		printf("=> 4 <= QUIT\n");
 		printf("\n");
 		printf("Please make your choice\n");
 		scanf("%d", &choice);
-		printf("hello\n");
+		if (choice == 1)
+			ft_launch_map_editor(&s_win, wn);
+		else if (choice == 2)
+			ft_launch_bsp_tree(&s_win, wn);
+		else if (choice == 3)
+			ft_launch_rasterization(&s_win, wn);
+		else if (choice == 4)
+			ft_quit("je quite\n", &s_win);
 	}
-	if (choice == 1)
-		ft_launch_map_editor(&s_win, wn);
-	else if (choice == 2)
-		ft_launch_bsp_tree(&s_win, wn);
-	else if (choice == 3)
-		ft_launch_rasterization(&s_win, wn);
-	ft_quit("je quite\n", &s_win);
 }

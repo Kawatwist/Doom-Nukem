@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/07 14:20:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/08 11:28:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ t_myvec	ft_scale(float zoom, t_myvec vertex)
 	return (result);
 }
 
-
 float	ft_rad(float angle)
 {
 	float	result;
@@ -91,7 +90,6 @@ float	ft_rad(float angle)
 	result = angle * (M_PI / 180.0);
 	return (result);
 }
-
 
 t_myvec	ft_rotation_x(float angle, t_myvec vertex)
 {
@@ -165,11 +163,9 @@ void	ft_apply_texture(void)
 	printf("Apply texture");
 }
 
-
-
-
 void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 {
+	ft_launch_bsp_tree(s_win, wn);
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	SDL_Texture  *ma_texture;
@@ -196,7 +192,6 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	printf("result =%f =%f =%f\n", result.x, result.y, result.z);
 
 	s_win->current_window = J_EDITOR;
-
 	ft_launch_window(s_win);
 	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
     SDL_RenderClear(s_win->renderer[J_EDITOR]);
@@ -253,12 +248,8 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	s_line.deux.b = vertex_4.y;
 	ft_draw_line(s_win, &s_line);
 
-
-
-
 	SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 	/* SDL_Delay(1000 * 7); */
-
 
 	printf("rotation\n");
 	/* SDL_Delay(1000 * 7); */
@@ -284,8 +275,6 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	old = (Uint8*)malloc(sizeof(Uint8) * 300);
 
 	ma_texture = ft_loadbmp(s_win->renderer[J_EDITOR], "texture.bmp");
-
-
 
 	while (!quit)
 	{
@@ -437,10 +426,6 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 		ft_draw_line(s_win, &s_line);
 
 
-
-
-
-
 		SDL_Rect        srcrect;
 		SDL_Rect        dstrect;
 
@@ -467,9 +452,6 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 			SDL_RenderCopy(s_win->renderer[J_EDITOR], ma_texture, &(srcrect), &(dstrect));
 			i++;
 		}
-
-
-
 
 		SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 		SDL_Delay(100);

@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/07 15:33:44 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/08 11:27:19 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -144,7 +144,10 @@ IMAGE 			= ./libraries \
 
 DEBUG			= -g -fsanitize=address
 
-all: $(NAME)
+all: clear $(NAME)
+
+clear:
+	clear
 
 $(NAME): $(IMAGE) $(OBJ)
 	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
