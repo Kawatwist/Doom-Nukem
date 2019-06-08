@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:55:47 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 11:25:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/08 20:02:42 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void	ft_game_engine(t_win *wn)
 	int			choice;
 
 	choice = 0;
-	while (   !(choice >= 1 && choice <= 3)    )
+	while (1)
 	{
+		system("@cls||clear");
 		printf("Hello chef inca\n");
 		printf("GAME ENGINE MENU\n");
 		printf("=> 1 <= Map editor\n");
