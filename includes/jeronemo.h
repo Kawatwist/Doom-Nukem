@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 11:21:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/08 17:05:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct		s_mypoint
 	int				y;
 	int				set;
 }					t_mypoint;
-
 
 typedef struct		s_mypointf
 {
@@ -149,8 +148,6 @@ typedef struct	s_mypan
 	t_mywrite		s_write;
 }					t_mypan;
 
-
-
 typedef struct			s_myputtheline
 {
 	int					above;
@@ -192,9 +189,6 @@ typedef enum		e_window
 /* 	int						is_solid; */
 /* }							t_mynode; */
 
-
-
-
 typedef enum			e_myclass
 {
 	FRONT,
@@ -203,11 +197,10 @@ typedef enum			e_myclass
 	ON_PLANE,
 }						t_myclass;
 
-
-
 //indice allow you to build multiple triangles using share vectices
 typedef struct			s_mypolygon
 {
+	int					obj_indice;
 	t_myvec				*vertex_lst;             //liste des vertex
 	t_myvec				normal;                  //la normal au polygon
 	int					number_of_vertex;        //nombre de vertex
@@ -226,9 +219,6 @@ typedef struct			s_mynode
 	char				is_solid;
 }						t_mynode;
 
-
-
-
 typedef struct				s_mywin
 {
 	t_mypolygon				*polygon_lst;
@@ -246,9 +236,6 @@ typedef struct				s_mywin
 	t_window				current_window;
 }							t_mywin;
 
-
-
-
 /**
  ** Map editor functions definitions
  **/
@@ -262,15 +249,9 @@ typedef struct				s_mywin
  ** Graphic engine functions definitions
  **/
 
-
-
 /**
  ** Share !!
  **/
-
-
-
-
 
 /**
  ** Map editon functions definitions
