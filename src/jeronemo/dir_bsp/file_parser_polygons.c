@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 10:33:56 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/08 12:00:52 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_myvec			*ft_get_and_create_vertex_node(char *line, int *j)
 	t_myvec		*s_vertex;
 
 	s_vertex = (t_myvec*)malloc(sizeof(t_myvec));
-		k = 0;
+	k = 0;
 	while(ft_isdigit(line[*j]) || line[*j] == '-' || line[*j] == '.' )
 	{
 		nbr[k] = line[*j];
@@ -31,9 +31,9 @@ t_myvec			*ft_get_and_create_vertex_node(char *line, int *j)
 	s_vertex->x = ft_atoi_comma(nbr);
 	//printf(" =%f\n", ft_atoi_comma(nbr));
 
-		k = 0;
-		while (line[*j] == ' ')
-			*j = *j + 1;
+	k = 0;
+	while (line[*j] == ' ')
+		*j = *j + 1;
 	while(ft_isdigit(line[*j]) || line[*j] == '-' || line[*j] == '.' )
 	{
 		nbr[k] = line[*j];
@@ -44,9 +44,9 @@ t_myvec			*ft_get_and_create_vertex_node(char *line, int *j)
 	s_vertex->y = ft_atoi_comma(nbr);
 	//printf(" =%f\n", ft_atoi_comma(nbr));
 
-		k = 0;
-		while (line[*j] == ' ')
-			*j = *j + 1;
+	k = 0;
+	while (line[*j] == ' ')
+		*j = *j + 1;
 	while(ft_isdigit(line[*j]) || line[*j] == '-' || line[*j] == '.' )
 	{
 		nbr[k] = line[*j];
@@ -110,37 +110,80 @@ void	ft_add_polygon(t_mypolygon **polygon_lst, t_mypolygon *polygon_node)
 	}
 }
 
+
+
+int				ft_get_the_vertex_number()
+{
+
+
+
+}
+
 t_mypolygon		*ft_read_the_polygon_file(void)
 {
 	int				fd;
+	int				fd_seconde;
 	char			*line;
 	t_myvec			*vertex_node;
 	t_myvec			*vertex_lst;
 	t_mypolygon		*polygon_node;
 	t_mypolygon		*polygon_lst;
 	int				j;
+	int				obj_vertex_number;
+	int				obj_vertex_indice;
 
 	line = NULL;
 	polygon_lst = NULL;
-	fd = open("src/jeronemo/dir_bsp/file_wall_bsp", O_RDWR);
+
+	//lets go folk for an obj parser
+
+	fd = open("src/jeronemo/dir_bsp/two_square.obj", O_RDWR);
 	while(get_next_line(fd, &line))
 	{
-		vertex_lst = NULL;
-		j = 0;
-		ft_go_to_first_vertex(line, &j);
-		//printf("the first =%c\n", line[j]);
-		while(line[j] != ':' && line[j] != '\0')
+		//si la ligne commence par f
+		//on creer un nouveau polygon
+		if (line[0] == 'f')
 		{
-			vertex_node = ft_get_and_create_vertex_node(line, &j);
-			ft_add_vertex(&vertex_lst, vertex_node);
-			if (line[j] != ':')
+			//tant qu'il y a des vertex on les ajoute
+			while (line[j] != '\0')
 			{
-				while(line[j] == ' ' || line[j] == ';')
-					j++;
+				obj_vertex_number = ft_get_the_vertex_number();
+				fd_seconde = open("src/jeronemo/dir_bsp/two_square.obj", O_RDWR);
+				obj_vertex_indice = 0;
+				while(get_next_line(fd_seconde, &line_vertex))
+				{
+					if (line[0] == 'v')
+						obj_vertex_indice++;
+					if (obj_vertex_indice == obj_vertex_number)
+						//add vertex a la liste
+				}
+				//close
 			}
+			polygon_node = ft_create_polygon_node(vertex_lst);
+			ft_add_polygon(&polygon_lst, polygon_node);
 		}
-		polygon_node = ft_create_polygon_node(vertex_lst);
-		ft_add_polygon(&polygon_lst, polygon_node);
+		//close
 	}
+
+	/* fd = open("src/jeronemo/dir_bsp/file_wall_bsp", O_RDWR); */
+	/* while(get_next_line(fd, &line)) */
+	/* { */
+	/* 	vertex_lst = NULL; */
+	/* 	j = 0; */
+	/* 	ft_go_to_first_vertex(line, &j); */
+	/* 	//printf("the first =%c\n", line[j]); */
+	/* 	while(line[j] != ':' && line[j] != '\0') */
+	/* 	{ */
+	/* 		vertex_node = ft_get_and_create_vertex_node(line, &j); */
+	/* 		ft_add_vertex(&vertex_lst, vertex_node); */
+	/* 		if (line[j] != ':') */
+	/* 		{ */
+	/* 			while(line[j] == ' ' || line[j] == ';') */
+	/* 				j++; */
+	/* 		} */
+	/* 	} */
+	/* 	polygon_node = ft_create_polygon_node(vertex_lst); */
+	/* 	ft_add_polygon(&polygon_lst, polygon_node); */
+	/* } */
 	return (polygon_lst);
 }
