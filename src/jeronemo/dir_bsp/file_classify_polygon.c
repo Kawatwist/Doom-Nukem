@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 11:37:38 by jchardin          #+#    #+#             */
-/*   Updated: 2019/05/30 11:38:34 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/08 10:29:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file_bsp.h"
+#include <jeronemo.h> 
 
 int			ft_classify_point(t_myvec point, t_mypolygon *plane)
 {

@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 17:50:04 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/02 11:20:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/08 10:29:08 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file_bsp.h"
+#include <jeronemo.h> 
 
 t_myvec		ft_calculate_polygon_normal(t_mypolygon *polygon_node)
 {

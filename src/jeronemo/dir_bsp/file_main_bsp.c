@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 13:34:03 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/07 15:34:29 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/08 10:27:44 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file_bsp.h"
+#include <jeronemo.h> 
 
 int			main_function(void)
 {
@@ -23,12 +23,6 @@ int			main_function(void)
 	ft_process_polygon(s_win.polygon_lst);
 	ft_build_bsp_tree((&s_node), s_win.polygon_lst);
 	ft_afficher_le_bsp(&s_node);
-
-
 	//ft_display_polygon();
-
-
-
-
 	return (1);
 }

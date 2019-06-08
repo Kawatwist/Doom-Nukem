@@ -6,13 +6,13 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:46:33 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/07 15:30:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/08 10:27:12 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <jeronemo.h>
 
-void		ft_launch_window_bsp(t_mywin *s_win)
+void 		ft_launch_window_bsp(t_mywin *s_win)
 {
 	s_win->window[J_BINARY_TREE] = NULL;
 	s_win->renderer[J_BINARY_TREE] = NULL;
@@ -126,10 +126,18 @@ void	ft_display_triangle(t_mywin *s_win)
 
 void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn)
 {
-	(void)s_win;
+	printf("BSP tree launcher\n");
 	(void)wn;
 
+	t_mynode	s_node;
 
+	printf("hello chef Inca\n");
+	s_win->polygon_lst = ft_read_the_polygon_file();
+	ft_display_the_polygon_list(s_win->polygon_lst);
+	ft_process_polygon(s_win->polygon_lst);
+	ft_build_bsp_tree((&s_node), s_win->polygon_lst);
+	ft_afficher_le_bsp(&s_node);
+	//ft_display_polygon();
 
 
 	/* (void)wn; */

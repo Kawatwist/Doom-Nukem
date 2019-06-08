@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/06 10:46:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/08 10:33:56 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file_bsp.h"
+#include <jeronemo.h> 
 
 t_myvec			*ft_get_and_create_vertex_node(char *line, int *j)
 {
@@ -28,8 +28,8 @@ t_myvec			*ft_get_and_create_vertex_node(char *line, int *j)
 	}
 	nbr[k] = '\0';
 	//printf("le nombre =%s\n", nbr);
-	s_vertex->x = ft_atoi(nbr);
-	//printf(" =%f\n", ft_atoi(nbr));
+	s_vertex->x = ft_atoi_comma(nbr);
+	//printf(" =%f\n", ft_atoi_comma(nbr));
 
 		k = 0;
 		while (line[*j] == ' ')
@@ -41,8 +41,8 @@ t_myvec			*ft_get_and_create_vertex_node(char *line, int *j)
 		k++;
 	}
 	nbr[k] = '\0';
-	s_vertex->y = ft_atoi(nbr);
-	//printf(" =%f\n", ft_atoi(nbr));
+	s_vertex->y = ft_atoi_comma(nbr);
+	//printf(" =%f\n", ft_atoi_comma(nbr));
 
 		k = 0;
 		while (line[*j] == ' ')
@@ -54,8 +54,8 @@ t_myvec			*ft_get_and_create_vertex_node(char *line, int *j)
 		k++;
 	}
 	nbr[k] = '\0';
-	s_vertex->z = ft_atoi(nbr);
-	//printf(" =%f\n", ft_atoi(nbr));
+	s_vertex->z = ft_atoi_comma(nbr);
+	//printf(" =%f\n", ft_atoi_comma(nbr));
 	//printf("\n\n");
 	return (s_vertex);
 }
@@ -122,7 +122,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 	line = NULL;
 	polygon_lst = NULL;
-	fd = open("./file_wall_bsp", O_RDWR);
+	fd = open("src/jeronemo/dir_bsp/file_wall_bsp", O_RDWR);
 	while(get_next_line(fd, &line))
 	{
 		vertex_lst = NULL;

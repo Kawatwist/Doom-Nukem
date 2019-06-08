@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 18:02:54 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/03 16:09:22 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/08 10:28:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file_bsp.h"
+#include <jeronemo.h> 
 
 
 void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
