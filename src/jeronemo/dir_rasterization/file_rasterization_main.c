@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 11:28:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/09 11:01:15 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,6 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	ma_texture = NULL;
 	float			matrix[5][5];
 	t_myvec			vec;
-	t_myvec			result;
 
 	vec.x = 1;
 	vec.y = 2;
@@ -188,8 +187,8 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	matrix[3][2] = 32;
 	matrix[3][3] = 33;
 
-	result = ft_matrix_multiply(matrix, vec);
-	printf("result =%f =%f =%f\n", result.x, result.y, result.z);
+	/* result = ft_matrix_multiply(matrix, vec); */
+	/* printf("result =%f =%f =%f\n", result.x, result.y, result.z); */
 
 	s_win->current_window = J_EDITOR;
 	ft_launch_window(s_win);
@@ -342,119 +341,91 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
     	SDL_RenderClear(s_win->renderer[J_EDITOR]);
 		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 
-
 		t_myvec				result_1;
 		t_myvec				result_2;
-		t_myvec				result_3;
-		t_myvec				result_4;
+
+		//test sur le .obj
+		t_mypolygon		*polygon;
+		t_mypolygon		*keep;
+		t_myvec			*keep_vec;
+
+		polygon = s_win->polygon_lst;
+		keep = polygon;
+		while (polygon != NULL)
+		{
+			keep_vec = polygon->vertex_lst;
+			while (polygon->vertex_lst->next != NULL)
+			{
+				result_1.x = polygon->vertex_lst->x;
+				result_1.y = polygon->vertex_lst->y;
+				result_2.x = polygon->vertex_lst->next->x;
+				result_2.y = polygon->vertex_lst->next->y;
+
+				/* result_1 = ft_rotation_x(angle_x, result_1); */
+				/* result_2 = ft_rotation_x(angle_x, result_2); */
+				/* result_1 = ft_rotation_y(angle_y, result_1); */
+				/* result_2 = ft_rotation_y(angle_y, result_2); */
+				/* result_1 = ft_rotation_z(angle_z, result_1); */
+				/* result_2 = ft_rotation_z(angle_z, result_2); */
+				result_1 = ft_translation_x(translation_x, result_1);
+				result_2 = ft_translation_x(translation_x, result_2);
+				result_1 = ft_translation_y(translation_y, result_1);
+				result_2 = ft_translation_y(translation_y, result_2);
+				/* result_1 = ft_translation_z(translation_z, result_1); */
+				/* result_2 = ft_translation_z(translation_z, result_2); */
+				result_1 = ft_scale(zoom, result_1);
+				result_2 = ft_scale(zoom, result_2);
+				s_line.un.a = result_1.x;// * 100;
+				s_line.un.b = result_1.y;// * 100;
+				s_line.deux.a = result_2.x;// * 100;
+				s_line.deux.b = result_2.y;// * 100;
 
 
-		result_1 = vertex_1;
-		result_2 = vertex_2;
-		result_3 = vertex_3;
-		result_4 = vertex_4;
-
-		result_1 = ft_rotation_x(angle_x, result_1);
-		result_2 = ft_rotation_x(angle_x, result_2);
-		result_3 = ft_rotation_x(angle_x, result_3);
-		result_4 = ft_rotation_x(angle_x, result_4);
-
-		result_1 = ft_rotation_y(angle_y, result_1);
-		result_2 = ft_rotation_y(angle_y, result_2);
-		result_3 = ft_rotation_y(angle_y, result_3);
-		result_4 = ft_rotation_y(angle_y, result_4);
-
-		result_1 = ft_rotation_z(angle_z, result_1);
-		result_2 = ft_rotation_z(angle_z, result_2);
-		result_3 = ft_rotation_z(angle_z, result_3);
-		result_4 = ft_rotation_z(angle_z, result_4);
-
-		result_1 = ft_translation_x(translation_x, result_1);
-		result_2 = ft_translation_x(translation_x, result_2);
-		result_3 = ft_translation_x(translation_x, result_3);
-		result_4 = ft_translation_x(translation_x, result_4);
-
-		result_1 = ft_translation_y(translation_y, result_1);
-		result_2 = ft_translation_y(translation_y, result_2);
-		result_3 = ft_translation_y(translation_y, result_3);
-		result_4 = ft_translation_y(translation_y, result_4);
-
-		result_1 = ft_translation_z(translation_z, result_1);
-		result_2 = ft_translation_z(translation_z, result_2);
-		result_3 = ft_translation_z(translation_z, result_3);
-		result_4 = ft_translation_z(translation_z, result_4);
-
-		result_1 = ft_scale(zoom, result_1);
-		result_2 = ft_scale(zoom, result_2);
-		result_3 = ft_scale(zoom, result_3);
-		result_4 = ft_scale(zoom, result_4);
+	/* printf(" x1 =%f  y1 =%f          x2=%f  y2=%f  \n", */
+														/* result_1.x, */
+														/* result_1.y, */
+														/* result_2.x, */
+														/* result_2.y); */
 
 
+				ft_draw_line(s_win, &s_line);
+				polygon->vertex_lst = polygon->vertex_lst->next;
+			}
+			polygon->vertex_lst = keep_vec;
+			polygon = polygon->next;
+		}
+		polygon = keep;
 
 		//applique texture
 
 
-		s_line.un.a = result_1.x;
-		s_line.un.b = result_1.y;
-		s_line.deux.a = result_2.x;
-		s_line.deux.b = result_2.y;
-		ft_draw_line(s_win, &s_line);
-		s_line.un.a = result_2.x;
-		s_line.un.b = result_2.y;
-		s_line.deux.a = result_3.x;
-		s_line.deux.b = result_3.y;
-		ft_draw_line(s_win, &s_line);
-		s_line.un.a = result_3.x;
-		s_line.un.b = result_3.y;
-		s_line.deux.a = result_1.x;
-		s_line.deux.b = result_1.y;
-		ft_draw_line(s_win, &s_line);
-		s_line.un.a = result_1.x;
-		s_line.un.b = result_1.y;
-		s_line.deux.a = result_4.x;
-		s_line.deux.b = result_4.y;
-		ft_draw_line(s_win, &s_line);
-		s_line.un.a = result_2.x;
-		s_line.un.b = result_2.y;
-		s_line.deux.a = result_4.x;
-		s_line.deux.b = result_4.y;
-		ft_draw_line(s_win, &s_line);
-		s_line.un.a = result_3.x;
-		s_line.un.b = result_3.y;
-		s_line.deux.a = result_4.x;
-		s_line.deux.b = result_4.y;
-		ft_draw_line(s_win, &s_line);
+
+		/* SDL_Rect        srcrect; */
+		/* SDL_Rect        dstrect; */
 
 
-		SDL_Rect        srcrect;
-		SDL_Rect        dstrect;
-
-
-    	srcrect.x = 0;
-		srcrect.y = 0;
-		srcrect.w = 1632;
-		srcrect.h = 1185;
-
-
-		dstrect.x = 10;
-		dstrect.y = 10;
-		dstrect.w = 100;
-		dstrect.h = 100;
-
-		float	delta_x = 0;
-
-		delta_x = result_4.x - result_3.x;
-		int i = 0;
-
-		while (i < delta_x)
-		{
-			dstrect.x = ((i * 1632) / delta_x) + result_3.x;
-			SDL_RenderCopy(s_win->renderer[J_EDITOR], ma_texture, &(srcrect), &(dstrect));
-			i++;
-		}
-
+    	/* srcrect.x = 0; */
+		/* srcrect.y = 0; */
+		/* srcrect.w = 1632; */
+		/* srcrect.h = 1185; */
+		/* dstrect.x = 10; */
+		/* dstrect.y = 10; */
+		/* dstrect.w = 100; */
+		/* dstrect.h = 100; */
+		/* float	delta_x = 0; */
+		/* delta_x = result_4.x - result_3.x; */
+		/* int i = 0; */
+		/* while (i < delta_x) */
+		/* { */
+		/* 	dstrect.x = ((i * 1632) / delta_x) + result_3.x; */
+		/* 	SDL_RenderCopy(s_win->renderer[J_EDITOR], ma_texture, &(srcrect), &(dstrect)); */
+		/* 	i++; */
+		/* } */
 		SDL_RenderPresent(s_win->renderer[J_EDITOR]);
-		SDL_Delay(100);
+
+
+
+		SDL_Delay(10);
 		setkeyboard(old, wn->state);
 	}
 
