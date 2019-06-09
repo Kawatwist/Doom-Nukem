@@ -24,7 +24,7 @@
 # include "SDL_ttf.h"
 
 # include <SDL2/SDL.h>
-# include "/Volumes/Storage/goinfre/jchardin/doomKawa/sdl_image/SDL2_image-2.0.3/include/SDL2/SDL_image.h"
+# include <SDL_image.h>
 
 //# define XSCREEN 1500
 //# define YSCREEN 1200
