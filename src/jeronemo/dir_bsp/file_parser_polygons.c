@@ -6,59 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 19:55:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/09 13:25:24 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <jeronemo.h> 
-
-/* t_myvec			*ft_get_and_create_vertex_node(char *line, int *j) */
-/* { */
-/* 	int			k; */
-/* 	char		nbr[1000]; */
-/* 	t_myvec		*s_vertex; */
-
-/* 	s_vertex = (t_myvec*)malloc(sizeof(t_myvec)); */
-/* 	k = 0; */
-/* 	while(ft_isdigit(line[*j]) || line[*j] == '-' || line[*j] == '.' ) */
-/* 	{ */
-/* 		nbr[k] = line[*j]; */
-/* 		*j = *j + 1; */
-/* 		k++; */
-/* 	} */
-/* 	nbr[k] = '\0'; */
-/* 	//printf("le nombre =%s\n", nbr); */
-/* 	s_vertex->x = ft_atoi_comma(nbr); */
-/* 	//printf(" =%f\n", ft_atoi_comma(nbr)); */
-
-/* 	k = 0; */
-/* 	while (line[*j] == ' ') */
-/* 		*j = *j + 1; */
-/* 	while(ft_isdigit(line[*j]) || line[*j] == '-' || line[*j] == '.' ) */
-/* 	{ */
-/* 		nbr[k] = line[*j]; */
-/* 		*j = *j + 1; */
-/* 		k++; */
-/* 	} */
-/* 	nbr[k] = '\0'; */
-/* 	s_vertex->y = ft_atoi_comma(nbr); */
-/* 	//printf(" =%f\n", ft_atoi_comma(nbr)); */
-
-/* 	k = 0; */
-/* 	while (line[*j] == ' ') */
-/* 		*j = *j + 1; */
-/* 	while(ft_isdigit(line[*j]) || line[*j] == '-' || line[*j] == '.' ) */
-/* 	{ */
-/* 		nbr[k] = line[*j]; */
-/* 		*j = *j + 1; */
-/* 		k++; */
-/* 	} */
-/* 	nbr[k] = '\0'; */
-/* 	s_vertex->z = ft_atoi_comma(nbr); */
-/* 	//printf(" =%f\n", ft_atoi_comma(nbr)); */
-/* 	//printf("\n\n"); */
-/* 	return (s_vertex); */
-/* } */
 
 void			ft_add_vertex(t_myvec **vertex_lst, t_myvec *vertex_node)
 {
@@ -98,6 +50,9 @@ t_mypolygon	*ft_create_polygon_node(t_myvec *vertex_lst)
 
 void	ft_add_polygon(t_mypolygon **polygon_lst, t_mypolygon *polygon_node)
 {
+	t_mypolygon		*keep;
+
+	keep = *polygon_lst;
 	if (*polygon_lst == NULL)
 	{
 		polygon_node->next = NULL;
@@ -105,8 +60,14 @@ void	ft_add_polygon(t_mypolygon **polygon_lst, t_mypolygon *polygon_node)
 	}
 	else
 	{
-		polygon_node->next = *polygon_lst;
-		*polygon_lst = polygon_node;
+		while ((*polygon_lst)->next != NULL)
+			*polygon_lst = (*polygon_lst)->next;
+		polygon_node->next = NULL;
+		(*polygon_lst)->next = polygon_node;
+		*polygon_lst = keep;
+
+		/* polygon_node->next = *polygon_lst; */
+		/* *polygon_lst = polygon_node; */
 	}
 }
 
@@ -181,6 +142,27 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	int i = -1;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	t_mypolygon	*keep;
 	t_myvec		*keep_vec;
 
@@ -218,7 +200,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	close(fd);
 
 
-
+	int vertex_add = 0;
 
 	t_myvec		vertex;
 	keep = polygon_lst;
@@ -230,27 +212,34 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 		{
 			fd = open("src/jeronemo/dir_bsp/two_square.obj", O_RDWR);
 			current_vertex = 0;
-			while(get_next_line(fd, &line) && polygon_lst->vertex_lst != NULL)
+			vertex_add = 0;
+			while(get_next_line(fd, &line) && polygon_lst->vertex_lst != NULL && vertex_add == 0)
 			{
+				printf("==%s\n", line);
 				if (line[0] == 'v' && line [1] == ' ')
 					current_vertex++;
+				printf("=current vertex =%d\n", current_vertex);
 				if (current_vertex == polygon_lst->vertex_lst->obj_indice)
 				{
-					/* printf("ZZZZ Le polygone n =%d\n", polygon_lst->obj_indice); */
-					/* printf("AAAAA la ligne =%s\n", line); */
-					/* printf("On ajoute le vecteur d'indice =%d\n", polygon_lst->vertex_lst->obj_indice); */
+					printf("A Le polygone n =%d\n", polygon_lst->obj_indice);
+					printf("B la ligne =%s\n", line);
+					printf("On ajoute le vecteur d'indice =%d\n", polygon_lst->vertex_lst->obj_indice);
 					vertex = ft_get_vertex(line);
-					/* printf("vertex node x=%f\n", vertex.x); */
-					/* printf("vertex node y=%f\n", vertex.y); */
-					/* printf("vertex node z=%f\n", vertex.z); */
+					printf("vertex node x=%f\n", vertex.x);
+					printf("vertex node y=%f\n", vertex.y);
+					printf("vertex node z=%f\n", vertex.z);
 					polygon_lst->vertex_lst->x =  vertex.x;
 					polygon_lst->vertex_lst->y =  vertex.y;
 					polygon_lst->vertex_lst->z =  vertex.z;
-					//printf("ladreese next =%p\n", polygon_lst->vertex_lst->next);
+					printf("ladreese next =%p\n", polygon_lst->vertex_lst->next);
 					polygon_lst->vertex_lst = polygon_lst->vertex_lst->next;
+					printf("\n\n\n");
+					vertex_add = 1;
 				}
 			}
+			printf("je close\n");
 			close (fd);
+
 		}
 		polygon_lst->vertex_lst = keep_vec;
 		polygon_lst = polygon_lst->next;

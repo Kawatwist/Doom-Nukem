@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/09 11:01:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/09 11:49:07 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,7 +379,6 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 				s_line.un.b = result_1.y;// * 100;
 				s_line.deux.a = result_2.x;// * 100;
 				s_line.deux.b = result_2.y;// * 100;
-
 
 	/* printf(" x1 =%f  y1 =%f          x2=%f  y2=%f  \n", */
 														/* result_1.x, */
