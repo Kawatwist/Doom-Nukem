@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h> 
+# include "file_bsp.h"
 
 
 void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
@@ -37,7 +37,7 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	current_node->splitter = ft_select_the_best_poly_splitter(polygon_lst);
 
 
-	printf("======> On choisit le spliter ayant %d vertex\n", current_node->splitter->number_of_vertex);
+	printf("======> On choisit le spliter ayant %d vertex, avec id %d\n", current_node->splitter->number_of_vertex, current_node->splitter->id);
 	keep = polygon_lst;
 	while (polygon_lst != NULL)
 	{
@@ -49,7 +49,7 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 				t_mypolygon		*poly_copy;
 				poly_copy = (t_mypolygon*)malloc(sizeof(t_mypolygon));
 				*poly_copy = *polygon_lst;
-				printf("Le polygon %d est front\n", polygon_lst->number_of_vertex);
+				  printf("Le polygon %d avec id %d est front\n", polygon_lst->number_of_vertex, polygon_lst->id);
 				ft_add_polygon(&front_lst, poly_copy);
 				//on add a la list front
 			}

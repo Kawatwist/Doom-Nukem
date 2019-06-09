@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h> 
+# include "file_bsp.h"
 
 //The wall with the lowest score in the list wins and becomes the splitter for that node.Here's the formula
 //score=abs(frontfaces-backfaces)+(splits*8)
@@ -32,8 +32,7 @@ t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst)
 	printf("\n\n==>Select the best splitter<==\n");
 	while (polygon_node != NULL)//boucle des spliter
 	{
-		printf ("On test le polygone splitter qui contient %d vertices\n", polygon_node->number_of_vertex);
-
+		printf ("On test le polygone splitter qui contient %d vertices, avec id %d\n", polygon_node->number_of_vertex, polygon_node->id);
 		current_score = 0;
 		front = 0;
 		back = 0;
@@ -45,7 +44,7 @@ t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst)
 				polygon_lst = polygon_lst->next;
 			if (polygon_lst == NULL)
 				break;
-			printf("\tOn test le polygone ayant %d vertices ", polygon_lst->number_of_vertex);
+			printf("\tOn test le polygone ayant %d vertices, avec id %d ", polygon_lst->number_of_vertex, polygon_lst->id);
 			result = ft_classify_polygon(polygon_node, polygon_lst);
 
 			if (result == FRONT)
@@ -55,7 +54,7 @@ t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst)
 			if (result == SPANNING)
 			printf(" qui est SPANNING\n");
 
-			
+
 			if (result == FRONT || result == ON_PLANE)
 				front++;
 			else if (result == BACK)

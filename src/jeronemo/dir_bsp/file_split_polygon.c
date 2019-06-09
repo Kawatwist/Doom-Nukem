@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h> 
+# include "file_bsp.h"
 
 
 int			ft_get_intersect(t_myvec *line_start,
