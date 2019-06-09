@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/09 11:49:07 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/09 15:55:44 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,8 +361,8 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 				result_2.x = polygon->vertex_lst->next->x;
 				result_2.y = polygon->vertex_lst->next->y;
 
-				/* result_1 = ft_rotation_x(angle_x, result_1); */
-				/* result_2 = ft_rotation_x(angle_x, result_2); */
+				result_1 = ft_rotation_x(angle_x, result_1);
+				result_2 = ft_rotation_x(angle_x, result_2);
 				/* result_1 = ft_rotation_y(angle_y, result_1); */
 				/* result_2 = ft_rotation_y(angle_y, result_2); */
 				/* result_1 = ft_rotation_z(angle_z, result_1); */
@@ -371,8 +371,8 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 				result_2 = ft_translation_x(translation_x, result_2);
 				result_1 = ft_translation_y(translation_y, result_1);
 				result_2 = ft_translation_y(translation_y, result_2);
-				/* result_1 = ft_translation_z(translation_z, result_1); */
-				/* result_2 = ft_translation_z(translation_z, result_2); */
+				result_1 = ft_translation_z(translation_z, result_1);
+				result_2 = ft_translation_z(translation_z, result_2);
 				result_1 = ft_scale(zoom, result_1);
 				result_2 = ft_scale(zoom, result_2);
 				s_line.un.a = result_1.x;// * 100;
