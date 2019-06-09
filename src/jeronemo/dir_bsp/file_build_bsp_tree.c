@@ -27,7 +27,7 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	printf("== La liste des poly :\n");
 	while (polygon_lst != NULL)
 	{
-		printf("==vertex =%d\n", polygon_lst->number_of_vertex);
+		printf("==id =%d\n", polygon_lst->id);
 		polygon_lst = polygon_lst->next;
 	}
 	polygon_lst = keep;
@@ -37,8 +37,8 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	current_node->splitter = ft_select_the_best_poly_splitter(polygon_lst);
 
 
-	printf("======> On choisit le spliter ayant %d vertex, avec id %d\n", current_node->splitter->number_of_vertex, current_node->splitter->id);
-	keep = polygon_lst;
+	printf("======> On choisit le spliter ayant id %d\n", current_node->splitter->id);
+	keep = polygon_lst;  //not sure if this line is useful???
 	while (polygon_lst != NULL)
 	{
 		if (polygon_lst != current_node->splitter)
@@ -49,7 +49,7 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 				t_mypolygon		*poly_copy;
 				poly_copy = (t_mypolygon*)malloc(sizeof(t_mypolygon));
 				*poly_copy = *polygon_lst;
-				  printf("Le polygon %d avec id %d est front\n", polygon_lst->number_of_vertex, polygon_lst->id);
+				printf("Le polygon id %d est front\n", polygon_lst->id);
 				ft_add_polygon(&front_lst, poly_copy);
 				//on add a la list front
 			}
@@ -58,13 +58,13 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 				t_mypolygon		*poly_copy;
 				poly_copy = (t_mypolygon*)malloc(sizeof(t_mypolygon));
 				*poly_copy = *polygon_lst;
-				printf("Le polygon %d est back\n", polygon_lst->number_of_vertex);
+				printf("Le polygon id %d est back\n", polygon_lst->id);
 				ft_add_polygon(&back_lst, poly_copy);
 				//on add a la list back
 			}
 		}
 		polygon_lst = polygon_lst->next;
-		printf("ladreese du next %p\n", polygon_lst);
+		// printf("ladreese du next %p\n", polygon_lst);
 	}
 	polygon_lst = keep;
 
@@ -73,7 +73,7 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	printf("A== La liste des poly :\n");
 	while (polygon_lst != NULL)
 	{
-		printf("==vertex =%d\n", polygon_lst->number_of_vertex);
+		printf("==id =%d\n", polygon_lst->id);
 		polygon_lst = polygon_lst->next;
 	}
 	polygon_lst = keep;
@@ -83,7 +83,7 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	printf("== La liste front :\n");
 	while (front_lst != NULL)
 	{
-		printf("==vertex =%d\n", front_lst->number_of_vertex);
+		printf("==id =%d\n", front_lst->id);
 		front_lst = front_lst->next;
 	}
 	front_lst = keep;
@@ -93,7 +93,7 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	printf("== La liste back :\n");
 	while (back_lst != NULL)
 	{
-		printf("==vertex =%d\n", back_lst->number_of_vertex);
+		printf("==id =%d\n", back_lst->id);
 		back_lst = back_lst->next;
 	}
 	back_lst = keep;
