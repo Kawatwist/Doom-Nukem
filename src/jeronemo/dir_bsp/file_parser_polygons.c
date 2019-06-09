@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/09 13:25:24 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/09 15:28:44 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h> 
+#include <jeronemo.h>
 
 void			ft_add_vertex(t_myvec **vertex_lst, t_myvec *vertex_node)
 {
@@ -128,6 +128,45 @@ int		ft_get_the_vertex_number(char *line, int *j)
 	return (line[*j] - '0');
 }
 
+
+typedef struct		s_myfichier
+{
+	char				*line;
+	struct s_myfichier	*next;
+}					t_myfichier;
+
+
+t_myfichier		*ft_create_line_node(char *line)
+{
+	t_myfichier		*fichier_node;
+
+	fichier_node = (t_myfichier*)malloc(sizeof(t_myfichier));
+	line = (char*)malloc(sizeof(ft_strlen(line)));
+	fichier_node->line = line;
+	return (fichier_node);
+}
+
+
+void			ft_add_line_node(t_myfichier **fichier_lst, t_myfichier *fichier_node)
+{
+	t_myfichier		*keep;
+
+	keep = *fichier_lst;
+	if (*fichier_lst == NULL)
+	{
+		fichier_node->next = NULL;
+		*fichier_lst = fichier_node;
+	}
+	else
+	{
+		while ((*fichier_lst)->next != NULL)
+			*fichier_lst = (*fichier_lst)->next;
+		fichier_node->next = NULL;
+		(*fichier_lst)->next = fichier_node;
+		*fichier_lst = keep;
+	}
+}
+
 t_mypolygon		*ft_read_the_polygon_file(void)
 {
 	int				fd;
@@ -143,24 +182,31 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 
 
+	t_myfichier		*fichier_lst;
+	t_myfichier		*fichier_node;
+
+	fichier_lst = NULL;
+
+	fd = open("src/jeronemo/dir_bsp/two_square.obj", O_RDWR);
+	while(get_next_line(fd, &line))
+	{
+		fichier_node = ft_create_line_node(line);
+		ft_add_line_node(&fichier_lst, fichier_node);
+	}
+
+	t_myfichier	*keep_fichier;
+
+	while (fichier_lst != NULL)
+	{
+
+		printf("=%s\n", fichier_lst->line);
+		fichier_lst = fichier_lst->next;
+	}
+	keep_fichier = fichier_lst;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	exit(0);
 
 
 	t_mypolygon	*keep;
