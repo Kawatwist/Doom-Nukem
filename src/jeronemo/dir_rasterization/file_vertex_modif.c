@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 12:43:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/10 20:35:49 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 {
-	t_myputtheline		s_line;
+	t_myputtheline		s_line;;
 
 	change->result_1 = ft_rotation_x(change->angle_x, change->result_1);
 	change->result_2 = ft_rotation_x(change->angle_x, change->result_2);
@@ -30,10 +30,23 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 	change->result_2 = ft_translation_z(change->translation_z, change->result_2);
 	change->result_1 = ft_scale(change->zoom, change->result_1);
 	change->result_2 = ft_scale(change->zoom, change->result_2);
-	s_line.un.a = change->result_1.x;
-	s_line.un.b = change->result_1.y;
-	s_line.deux.a = change->result_2.x;
-	s_line.deux.b = change->result_2.y;
+
+	if (change->projection == 1)
+	{
+		s_line.un.a = change->result_1.x;
+		s_line.un.b = change->result_1.y;
+		s_line.deux.a = change->result_2.x;
+		s_line.deux.b = change->result_2.y;
+	}
+	else if (change->projection == 0)
+	{
+		change->result_1 = ft_perspective_projection(change->result_1);
+		change->result_2 = ft_perspective_projection(change->result_2);
+		s_line.un.a = change->result_1.x;
+		s_line.un.b = change->result_1.y;
+		s_line.deux.a = change->result_2.x;
+		s_line.deux.b = change->result_2.y;
+	}
 	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 	ft_draw_line(s_win, &s_line);
 }
@@ -124,6 +137,62 @@ t_myvec	ft_matrix_multiply(float matrix[5][5], t_myvec vertex)
 	result.x = (matrix[1][1] * vertex.x) + (matrix[1][2] * vertex.y) + (matrix[1][3] * vertex.z);
 	result.y = (matrix[2][1] * vertex.x) + (matrix[2][2] * vertex.y) + (matrix[2][3] * vertex.z);
 	result.z = (matrix[3][1] * vertex.x) + (matrix[3][2] * vertex.y) + (matrix[3][3] * vertex.z);
+	return (result);
+}
+
+
+t_myvec	ft_matrix_multiply_four(float matrix[5][5], t_myvec vertex)
+{
+	t_myvec		result;
+	float		x;
+	float		y;
+	float		z;
+	float		zz;
+
+	x = (matrix[1][1] * vertex.x) + (matrix[2][1] * vertex.y) + (matrix[3][1] * vertex.z) + (matrix[4][1] * 1);
+	y = (matrix[1][2] * vertex.x) + (matrix[2][2] * vertex.y) + (matrix[3][2] * vertex.z) + (matrix[4][2] * 1);
+	z = (matrix[1][3] * vertex.x) + (matrix[2][3] * vertex.y) + (matrix[3][3] * vertex.z) + (matrix[4][3] * 1);
+	zz= (matrix[1][4] * vertex.x) + (matrix[2][4] * vertex.y) + (matrix[3][4] * vertex.z) + (matrix[4][4] * 1);
+	result.x = x / zz;
+	result.y = y / zz;
+	result.z = z / zz;
+	return (result);
+}
+
+t_myvec	ft_perspective_projection(t_myvec vertex)
+{
+	float		matrix[5][5];
+	t_myvec		result;
+
+	float	height;
+	float	width;
+	float	teta;
+	float	z_far;
+	float	z_near;
+
+	height = YSCREEN;
+	width = XSCREEN;
+	teta = 90.0;
+	z_far = 1000.0;
+	z_near = 0.1;
+
+	matrix[1][1] = (height / width) * (1 / (tan(ft_rad(teta) / 2)));
+	matrix[1][2] = 0;
+	matrix[1][3] = 0;
+	matrix[1][4] = 0;
+	matrix[2][1] = 0;
+	matrix[2][2] = 1 / tan(ft_rad(teta) / 2);
+	matrix[2][3] = 0;
+	matrix[2][4] = 0;
+	matrix[3][1] = 0;
+	matrix[3][2] = 0;
+	matrix[3][3] = z_far / (z_far - z_near);
+	matrix[3][4] = 1;
+	matrix[4][1] = 0;
+	matrix[4][2] = 0;
+	matrix[4][3] = (-z_far * z_near)  / (z_far - z_near)  ;
+	matrix[4][4] = 0;
+	result = ft_matrix_multiply_four(matrix, vertex);
 	return (result);
 }
 

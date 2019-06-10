@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 15:04:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/10 20:03:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,18 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 
 	if (wn->state[SDL_SCANCODE_ESCAPE])
 		change->quit = TRUE;
+
+
+
+	if (wn->state[SDL_SCANCODE_P] == 1 && old[SDL_SCANCODE_P] == 0)
+	{
+		if (change->projection == 1)
+			change->projection = 0;
+		else
+			change->projection = 1;
+		change->modif = 1;
+		printf("rotation sur x\n");
+	}
 	if (wn->state[SDL_SCANCODE_T] == 1 && old[SDL_SCANCODE_T] == 0)
 	{
 		if (change->triangle == 1)
@@ -110,6 +122,7 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 	change->modif = 0;
 	change->triangle = 0;
 	change->old = (Uint8*)malloc(sizeof(Uint8) * 300);
+	change->projection = 1;
 }
 
 float		ft_get_the_indice_vertex_x(int indice, t_myvec *vertex_lst)

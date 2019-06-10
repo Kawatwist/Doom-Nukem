@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 12:37:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/10 20:05:02 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_mychange
 	t_myvec		result_2;
 	int			quit;
 	Uint8		*old;
+	int			projection;
 }				t_mychange;
 
 typedef struct		s_mypointf
@@ -384,4 +385,5 @@ float	ft_rad(float angle);
 
 void	ft_draw_change(t_mywin *s_win, t_mychange *change);
 
+t_myvec	ft_perspective_projection(t_myvec vertex);
 #endif
