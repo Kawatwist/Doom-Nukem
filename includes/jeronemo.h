@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 12:10:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:37:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ typedef struct				s_mywin
 
 
 
-typedef struct			s_mykeep;
+typedef struct			s_mykeep
 {
 	t_mypolygon			*polygon;
 	t_myvec				*vec;
@@ -382,5 +382,6 @@ t_myvec	ft_translation_z(float value, t_myvec vertex);
 t_myvec	ft_scale(float zoom, t_myvec vertex);
 float	ft_rad(float angle);
 
+void	ft_draw_change(t_mywin *s_win, t_mychange *change);
 
 #endif
