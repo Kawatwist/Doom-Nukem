@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 11:24:57 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/10 11:32:30 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,6 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 					{
 						printf("triangle\n");
 					}
-
 					ft_apply_change(s_win, change, result_1,  result_2  );
 					polygon->vertex_lst = polygon->vertex_lst->next;
 				}
