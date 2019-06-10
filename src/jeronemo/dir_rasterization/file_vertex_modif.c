@@ -6,13 +6,13 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 11:27:56 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:18:34 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <jeronemo.h>
 
-void	ft_apply_change(t_mywin *s_win, t_mychange change, t_myvec result_1, t_myvec result_2)
+void	ft_draw_change(t_mywin *s_win, t_mychange change, t_myvec result_1, t_myvec result_2)
 {
 	t_myputtheline		s_line;
 
@@ -77,7 +77,6 @@ t_myvec	ft_translation_z(float value, t_myvec vertex)
 	result.y = vertex.y;
 	result.z = vertex.z + value;
 	return (result);
-
 }
 
 t_myvec	ft_scale(float zoom, t_myvec vertex)

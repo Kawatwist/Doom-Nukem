@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 11:24:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:10:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ typedef struct s_mychange
 	float		translation_y;
 	float		translation_z;
 	float		zoom;
+	int			modif;
+	int			triangle;
+	t_myvec		result_1;
+	t_myvec		result_2;
+	int			quit;
+	Uint8		*old;
 }				t_mychange;
 
 typedef struct		s_mypointf
@@ -246,6 +252,17 @@ typedef struct				s_mywin
 	t_mycurrent_wall		current_wall;
 	t_window				current_window;
 }							t_mywin;
+
+
+
+
+typedef struct			s_mykeep;
+{
+	t_mypolygon			*polygon;
+	t_myvec				*vec;
+}						t_mykeep;
+
+
 
 
 void	ft_apply_change(t_mywin *s_win, t_mychange change, t_myvec result_1, t_myvec result_2);

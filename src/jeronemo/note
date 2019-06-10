@@ -1,4 +1,5 @@
 
+	ma_texture = NULL;
 	//clear la fenetre
 	//afficher un polynome
 	//en blanc la forme general
