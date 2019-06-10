@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/08 17:20:23 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/10 11:28:30 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -98,6 +98,7 @@ SRC += fille_bresename.c
 
 #RASTERIZATION
 SRC += file_rasterization_main.c
+SRC += file_vertex_modif.c
 
 #WINDOW
 SRC += file_window.c

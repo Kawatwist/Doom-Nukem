@@ -6,20 +6,36 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 10:57:24 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/10 11:27:56 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <jeronemo.h>
 
-t_myvec	ft_rotation_y(float angle, t_myvec vertex);
-t_myvec	ft_rotation_z(float angle, t_myvec vertex);
-t_myvec	ft_matrix_multiply(float matrix[5][5], t_myvec vertex);
-float	ft_rad(float angle)
-t_myvec	ft_translation_x(float value, t_myvec vertex)
-t_myvec	ft_translation_y(float value, t_myvec vertex)
-t_myvec	ft_translation_z(float value, t_myvec vertex)
-t_myvec	ft_scale(float zoom, t_myvec vertex)
+void	ft_apply_change(t_mywin *s_win, t_mychange change, t_myvec result_1, t_myvec result_2)
+{
+	t_myputtheline		s_line;
+
+	result_1 = ft_rotation_x(change.angle_x, result_1);
+	result_2 = ft_rotation_x(change.angle_x, result_2);
+	result_1 = ft_rotation_y(change.angle_y, result_1);
+	result_2 = ft_rotation_y(change.angle_y, result_2);
+	result_1 = ft_rotation_z(change.angle_z, result_1);
+	result_2 = ft_rotation_z(change.angle_z, result_2);
+	result_1 = ft_translation_x(change.translation_x, result_1);
+	result_2 = ft_translation_x(change.translation_x, result_2);
+	result_1 = ft_translation_y(change.translation_y, result_1);
+	result_2 = ft_translation_y(change.translation_y, result_2);
+	result_1 = ft_translation_z(change.translation_z, result_1);
+	result_2 = ft_translation_z(change.translation_z, result_2);
+	result_1 = ft_scale(change.zoom, result_1);
+	result_2 = ft_scale(change.zoom, result_2);
+	s_line.un.a = result_1.x;
+	s_line.un.b = result_1.y;
+	s_line.deux.a = result_2.x;
+	s_line.deux.b = result_2.y;
+	ft_draw_line(s_win, &s_line);
+}
 
 
 float	ft_rad(float angle)
@@ -149,3 +165,4 @@ t_myvec	ft_rotation_y(float angle, t_myvec vertex)
 	result = ft_matrix_multiply(matrix, vertex);
 	return (result);
 }
+

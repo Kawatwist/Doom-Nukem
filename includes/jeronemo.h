@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 17:05:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/10 11:24:51 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,17 @@ typedef struct		s_mypoint
 	int				y;
 	int				set;
 }					t_mypoint;
+
+typedef struct s_mychange
+{
+	float		angle_x;
+	float		angle_y;
+	float		angle_z;
+	float		translation_x;
+	float		translation_y;
+	float		translation_z;
+	float		zoom;
+}				t_mychange;
 
 typedef struct		s_mypointf
 {
@@ -236,6 +247,8 @@ typedef struct				s_mywin
 	t_window				current_window;
 }							t_mywin;
 
+
+void	ft_apply_change(t_mywin *s_win, t_mychange change, t_myvec result_1, t_myvec result_2);
 /**
  ** Map editor functions definitions
  **/
@@ -342,9 +355,15 @@ void			ft_afficher_le_bsp(t_mynode *s_node);
 
 
 
-
-
-
+t_myvec	ft_rotation_x(float angle, t_myvec vertex);
+t_myvec	ft_rotation_y(float angle, t_myvec vertex);
+t_myvec	ft_rotation_z(float angle, t_myvec vertex);
+t_myvec	ft_matrix_multiply(float matrix[5][5], t_myvec vertex);
+t_myvec	ft_translation_x(float value, t_myvec vertex);
+t_myvec	ft_translation_y(float value, t_myvec vertex);
+t_myvec	ft_translation_z(float value, t_myvec vertex);
+t_myvec	ft_scale(float zoom, t_myvec vertex);
+float	ft_rad(float angle);
 
 
 #endif
