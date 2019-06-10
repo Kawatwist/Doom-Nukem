@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 12:40:05 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:43:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 	s_line.un.b = change->result_1.y;
 	s_line.deux.a = change->result_2.x;
 	s_line.deux.b = change->result_2.y;
+	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 	ft_draw_line(s_win, &s_line);
 }
 

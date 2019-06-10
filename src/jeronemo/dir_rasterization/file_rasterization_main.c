@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 12:39:29 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/10 15:04:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 
 	if (wn->state[SDL_SCANCODE_ESCAPE])
 		change->quit = TRUE;
+	if (wn->state[SDL_SCANCODE_T] == 1 && old[SDL_SCANCODE_T] == 0)
+	{
+		if (change->triangle == 1)
+			change->triangle = 0;
+		else
+			change->triangle = 1;
+		change->modif = 1;
+		printf("rotation sur x\n");
+	}
 	if (wn->state[SDL_SCANCODE_J] == 1 && old[SDL_SCANCODE_J] == 0)
 	{
 		change->angle_x += 1;
@@ -103,6 +112,50 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 	change->old = (Uint8*)malloc(sizeof(Uint8) * 300);
 }
 
+float		ft_get_the_indice_vertex_x(int indice, t_myvec *vertex_lst)
+{
+	int		i;
+	float	x;
+
+	i = 0;
+	while (i < indice)
+	{
+		vertex_lst = vertex_lst->next;
+		i++;
+	}
+	x = vertex_lst->x;
+	return (x);
+}
+
+float		ft_get_the_indice_vertex_y(int indice, t_myvec *vertex_lst)
+{
+	int		i;
+	float	y;
+
+	i = 0;
+	while (i < indice)
+	{
+		vertex_lst = vertex_lst->next;
+		i++;
+	}
+	y = vertex_lst->y;
+	return (y);
+}
+
+float		ft_get_the_indice_vertex_z(int indice, t_myvec *vertex_lst)
+{
+	int		i;
+	float	z;
+
+	i = 0;
+	while (i < indice)
+	{
+		vertex_lst = vertex_lst->next;
+		i++;
+	}
+	z = vertex_lst->z;
+	return (z);
+}
 void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 {
 	t_mypolygon *polygon;
@@ -110,15 +163,14 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 	change->modif = 0;
 	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
     SDL_RenderClear(s_win->renderer[J_EDITOR]);
-	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 	polygon = s_win->polygon_lst;
 	keep->polygon = polygon;
 	while (polygon != NULL)
 	{
-		keep->vec = polygon->vertex_lst;
-		while (polygon->vertex_lst->next != NULL)
+		if (change->triangle == 0)
 		{
-			if (change->triangle == 0)
+			keep->vec = polygon->vertex_lst;
+			while (polygon->vertex_lst->next != NULL)
 			{
 				change->result_1.x = polygon->vertex_lst->x;
 				change->result_1.y = polygon->vertex_lst->y;
@@ -126,15 +178,26 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 				change->result_2.x = polygon->vertex_lst->next->x;
 				change->result_2.y = polygon->vertex_lst->next->y;
 				change->result_2.z = polygon->vertex_lst->next->z;
+				ft_draw_change(s_win, change);
+				polygon->vertex_lst = polygon->vertex_lst->next;
 			}
-			else
-			{
-				printf("triangle\n");
-			}
-			ft_draw_change(s_win, change);
-			polygon->vertex_lst = polygon->vertex_lst->next;
+			polygon->vertex_lst = keep->vec;
 		}
-		polygon->vertex_lst = keep->vec;
+		else if (change->triangle == 1)
+		{
+			int i = 0;
+			while (i < polygon->number_of_indices - 1)
+			{
+				change->result_1.x = ft_get_the_indice_vertex_x(polygon->indices[i] ,polygon->vertex_lst);
+				change->result_1.y = ft_get_the_indice_vertex_y(polygon->indices[i], polygon->vertex_lst);
+				change->result_1.z = ft_get_the_indice_vertex_z(polygon->indices[i], polygon->vertex_lst);
+				change->result_2.x = ft_get_the_indice_vertex_x(polygon->indices[i + 1], polygon->vertex_lst);
+				change->result_2.y = ft_get_the_indice_vertex_y(polygon->indices[i + 1], polygon->vertex_lst);
+				change->result_2.z = ft_get_the_indice_vertex_z(polygon->indices[i + 1], polygon->vertex_lst);
+				ft_draw_change(s_win, change);
+				i++;
+			}
+		}
 		polygon = polygon->next;
 	}
 	polygon = keep->polygon;
