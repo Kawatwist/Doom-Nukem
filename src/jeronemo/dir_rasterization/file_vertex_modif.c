@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 20:35:49 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/11 09:21:32 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,11 @@ t_myvec	ft_matrix_multiply_four(float matrix[5][5], t_myvec vertex)
 	y = (matrix[1][2] * vertex.x) + (matrix[2][2] * vertex.y) + (matrix[3][2] * vertex.z) + (matrix[4][2] * 1);
 	z = (matrix[1][3] * vertex.x) + (matrix[2][3] * vertex.y) + (matrix[3][3] * vertex.z) + (matrix[4][3] * 1);
 	zz= (matrix[1][4] * vertex.x) + (matrix[2][4] * vertex.y) + (matrix[3][4] * vertex.z) + (matrix[4][4] * 1);
+	if (zz != 0)
+		;
+	else
+		zz = 1;
+
 	result.x = x / zz;
 	result.y = y / zz;
 	result.z = z / zz;
@@ -176,23 +181,30 @@ t_myvec	ft_perspective_projection(t_myvec vertex)
 	z_far = 1000.0;
 	z_near = 0.1;
 
-	matrix[1][1] = (height / width) * (1 / (tan(ft_rad(teta) / 2)));
-	matrix[1][2] = 0;
-	matrix[1][3] = 0;
-	matrix[1][4] = 0;
-	matrix[2][1] = 0;
-	matrix[2][2] = 1 / tan(ft_rad(teta) / 2);
-	matrix[2][3] = 0;
-	matrix[2][4] = 0;
-	matrix[3][1] = 0;
-	matrix[3][2] = 0;
+	matrix[1][1] = (height / width) * (1.0 / (tan(ft_rad(teta) / 2.0)));
+	matrix[1][2] = 0.0;
+	matrix[1][3] = 0.0;
+	matrix[1][4] = 0.0;
+	matrix[2][1] = 0.0;
+	matrix[2][2] = 1.0/ tan(ft_rad(teta) / 2.0);
+	matrix[2][3] = 0.0;
+	matrix[2][4] = 0.0;
+	matrix[3][1] = 0.0;
+	matrix[3][2] = 0.0;
 	matrix[3][3] = z_far / (z_far - z_near);
-	matrix[3][4] = 1;
-	matrix[4][1] = 0;
-	matrix[4][2] = 0;
+	matrix[3][4] = 1.0;
+	matrix[4][1] = 0.0;
+	matrix[4][2] = 0.0;
 	matrix[4][3] = (-z_far * z_near)  / (z_far - z_near)  ;
-	matrix[4][4] = 0;
+	matrix[4][4] = 0.0;
 	result = ft_matrix_multiply_four(matrix, vertex);
+
+	//scale
+	result.x += 1.0;
+	result.y += 1.0;
+
+	result.x *= 0.5 * XSCREEN;
+	result.y *= 0.5 * YSCREEN;
 	return (result);
 }
 
