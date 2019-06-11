@@ -6,7 +6,7 @@
 /*   By: jsauron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:19:49 by jsauron           #+#    #+#             */
-/*   Updated: 2019/06/11 16:56:06 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/11 17:08:43 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	init_rast(t_win **wn)
 
 	i = 0;
 	((*wn)->rast = malloc(sizeof(t_rast))) == NULL ? stop_exec("malloc struct rast failed\n", *wn) : 0;
-	malloc_mat(wn, (*wn)->rast->mat_1);
-	malloc_mat(wn, (*wn)->rast->mat_2);
-	malloc_mat(wn, (*wn)->rast->mat_3);
+	malloc_mat(wn, &((*wn)->rast->mat_1));
+	malloc_mat(wn, &((*wn)->rast->mat_2));
+	malloc_mat(wn, &((*wn)->rast->mat_3));
 	((*wn)->rast->f = malloc(sizeof(t_vec))) == NULL ? stop_exec("malloc rast->f failed\n", *wn) : 0;
 	((*wn)->rast->s = malloc(sizeof(t_vec))) == NULL ? stop_exec("malloc rast->s failed\n", *wn) : 0;
 	((*wn)->rast->u = malloc(sizeof(t_vec))) == NULL ? stop_exec("malloc rast->u failed\n", *wn) : 0;

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/11 16:04:07 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/11 17:08:09 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,7 @@ void				v2p_matrice(t_win *wn);
 void				v2p_matrice_calcul(t_win *wn, t_poly *curr, t_vec *ver,  double **mat);
 t_vec				ft_calculate_normal_of_points(t_vec vertex1, t_vec vertex2, t_vec vertex3);
 t_vec				ft_cross_product(t_vec v1, t_vec v2);
-void				malloc_mat(t_win **wn, double **matrice);
+void				malloc_mat(t_win **wn, double ***matrice);
 void				vercpy(t_vec *src, t_vec *dst, int len);
 void				each_triangle(t_poly *curr);
 /**
