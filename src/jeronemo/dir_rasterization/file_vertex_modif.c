@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/11 09:21:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/11 10:35:14 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,25 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 	change->result_2 = ft_rotation_y(change->angle_y, change->result_2);
 	change->result_1 = ft_rotation_z(change->angle_z, change->result_1);
 	change->result_2 = ft_rotation_z(change->angle_z, change->result_2);
+	change->result_1 = ft_scale(change->zoom, change->result_1);
+	change->result_2 = ft_scale(change->zoom, change->result_2);
 	change->result_1 = ft_translation_x(change->translation_x, change->result_1);
 	change->result_2 = ft_translation_x(change->translation_x, change->result_2);
 	change->result_1 = ft_translation_y(change->translation_y, change->result_1);
 	change->result_2 = ft_translation_y(change->translation_y, change->result_2);
 	change->result_1 = ft_translation_z(change->translation_z, change->result_1);
 	change->result_2 = ft_translation_z(change->translation_z, change->result_2);
-	change->result_1 = ft_scale(change->zoom, change->result_1);
-	change->result_2 = ft_scale(change->zoom, change->result_2);
 
+	/* int normal = 1; */
+	/* if (normal < 0) */
+	/* 	break; */
 	if (change->projection == 1)
 	{
-		s_line.un.a = change->result_1.x;
-		s_line.un.b = change->result_1.y;
-		s_line.deux.a = change->result_2.x;
-		s_line.deux.b = change->result_2.y;
+			s_line.un.a = change->result_1.x;
+			s_line.un.b = change->result_1.y;
+			s_line.deux.a = change->result_2.x;
+			s_line.deux.b = change->result_2.y;
+			ft_draw_line(s_win, &s_line);
 	}
 	else if (change->projection == 0)
 	{
@@ -46,9 +50,9 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 		s_line.un.b = change->result_1.y;
 		s_line.deux.a = change->result_2.x;
 		s_line.deux.b = change->result_2.y;
+		ft_draw_line(s_win, &s_line);
 	}
 	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
-	ft_draw_line(s_win, &s_line);
 }
 
 float	ft_rad(float angle)
@@ -203,8 +207,8 @@ t_myvec	ft_perspective_projection(t_myvec vertex)
 	result.x += 1.0;
 	result.y += 1.0;
 
-	result.x *= 0.5 * XSCREEN;
-	result.y *= 0.5 * YSCREEN;
+	result.x *= 0.5 * (float)XSCREEN;
+	result.y *= 0.5 * (float)YSCREEN;
 	return (result);
 }
 
