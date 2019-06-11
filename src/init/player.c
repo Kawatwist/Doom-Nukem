@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:26:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 12:32:14 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/11 11:25:48 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ void			initplayer(t_win **wn)
 	(*wn)->player->y = 0;
 	(*wn)->player->z = 0;
 	(*wn)->player->near = 0;
-	(*wn)->player->far = 0;
+	(*wn)->player->far = 1000;
 	(*wn)->player->sensi = 1;
 }

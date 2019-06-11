@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 15:10:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 17:01:46 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/11 12:47:20 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ void 	projection(t_win *wn)
 	int i;
 
 	i = -1;
-	wn->rast->mat_proj = malloc(sizeof(double *) * 4);
+	wn->rast->mat_proj = (double **)malloc(sizeof(double *) * 4);
 	while (++i < 4)
-		wn->rast->mat_proj = malloc(sizeof(double) * 4);
-
+		wn->rast->mat_proj[i] = (double *)malloc(sizeof(double) * 4);
 	wn->rast->mat_proj[0][0] = atan(60 / 2);
 	wn->rast->mat_proj[1][1] = atan(60 / 2);
 	wn->rast->mat_proj[2][2] = 

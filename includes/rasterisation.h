@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 10:07:08 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 16:58:13 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/11 12:44:43 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ typedef struct		s_vec
 	float			x;
 	float			y;
 	float			z;
-	int				tx;
-	int				ty;
+//	int				tx;
+//	int				ty;
 }					t_vec;
 
 typedef struct		s_poly
@@ -40,6 +40,7 @@ typedef struct		s_poly
 typedef	struct		s_rast
 {
 	double			**mat;
+	double			**mat_proj;
 	t_vec			*f;
 	t_vec			*s;
 	t_vec			*u;

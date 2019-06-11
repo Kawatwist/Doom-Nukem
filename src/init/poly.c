@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 10:15:13 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 16:58:35 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/11 11:23:17 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		init_rast(t_win **wn)
 	((*wn)->rast->f = malloc(sizeof(t_vec))) == NULL ? stop_exec("malloc rast->f failed\n", *wn) : 0;
 	((*wn)->rast->s = malloc(sizeof(t_vec))) == NULL ? stop_exec("malloc rast->s failed\n", *wn) : 0;
 	((*wn)->rast->u = malloc(sizeof(t_vec))) == NULL ? stop_exec("malloc rast->u failed\n", *wn) : 0;
-	initmatrice((*wn)->rast->mat);	
+	initmatrice((*wn)->rast->mat);
 	init_ver((*wn)->rast->f, 0, 0, 0);
 	init_ver((*wn)->rast->s, 0, 0, 0);
 	init_ver((*wn)->rast->u, 0, 0, 0);

@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/22 14:24:59 by lomasse          ###   ########.fr        #
+#    Updated: 2019/06/11 11:39:26 by jsauron          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -78,7 +78,8 @@ SRC				= main.c										\
 				  load_fonts.c 									\
 				  tool.c 									\
 				  world2view.c								\
-				  world2view_mat.c
+				  world2view_mat.c							\
+				  calcul.c
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 
