@@ -12,45 +12,6 @@
 
 #include "doom.h"
 
-// static void	mousedraw(t_win *wn)
-// {
-// 	t_elem			*curr;
-// 	t_point			*point;
-
-// 	curr = wn->elem;
-// 	while (curr != NULL && curr->next != NULL)
-// 		curr = curr->next;
-// 	point = curr->point;
-// 	while (point != NULL && point->next != NULL)
-// 		point = point->next;
-// 	if (!(wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT)) && (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)))
-// 	{
-// 		if (point == curr->point)
-// 		{
-// 			point->x = wn->input->x;
-// 			point->y = wn->input->y;
-// 			(point->next = malloc(sizeof(t_point))) == NULL ? stop_exec("Point malloc failed\n", wn) : 0;
-// 			(point->next->next = NULL);
-// 		}
-// 		else if (point->x != wn->input->x || point->y != wn->input->y)
-// 		{
-// 			(point->next = malloc(sizeof(t_point))) == NULL ? stop_exec("Point malloc failed\n", wn) : 0;
-// 			point = point->next;
-// 			point->x = wn->input->x;
-// 			point->y = wn->input->y;
-// 			point->next = NULL;
-// 		}
-// 	}
-// 	if (!(wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_RIGHT)) && (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_RIGHT)))
-// 	{
-// 		(curr->next = malloc(sizeof(t_elem))) == NULL ? stop_exec("Malloc elem failed\n", wn) : 0;
-// 		(curr->next->point = malloc(sizeof(t_point))) == NULL ? stop_exec("Malloc point failed\n", wn) : 0;
-// 		curr->next->next = NULL;
-// 		curr->next->point->next = NULL;
-// 		curr = curr->next;
-// 	}
-// }
-
 static void	resetmap(t_win *wn)
 {
 	wn->map->x = 0.1;
@@ -82,55 +43,9 @@ static void	keyboardtool(t_win *wn)
 	wn->map->w = wn->editext.map_w * wn->map->size;
 }
 
-t_point		create_t_point(int x, int y)
-{
-	t_point new;
-
-	new.x = x;
-	new.y = y;
-	return (new);
-}
-
-void		which_cursor(t_win *wn)
-{
-	t_point start;
-	t_point end;
-
-	if (wn->input->x < (wn->xscreen / 7 * 5.5) && wn->input->y < (wn->yscreen / 7 * 6))
-	{
-		SDL_ShowCursor(SDL_DISABLE);
-		wn->editext.on = 1;
-		SDL_SetRenderDrawColor(wn->rend, 238, 10, 214, 0);
-		start = create_t_point(wn->input->x, 0);
-		end = create_t_point(wn->input->x, wn->yscreen);
-		bresenham(wn, &start, &end);
-		start = create_t_point(0, wn->input->y);
-		end = create_t_point(wn->xscreen, wn->input->y);
-		bresenham(wn, &start, &end);
-	}
-	else
-	{
-		if (wn->input->y > (3 * wn->yscreen / 7) && wn->input->y < (5.75 * wn->yscreen / 7) && wn->edit_image.in == 0)
-		{
-				SDL_ShowCursor(SDL_DISABLE);
-				wn->editext.on = 1;
-				SDL_SetRenderDrawColor(wn->rend, 238, 10, 214, 0);
-				start = create_t_point(wn->input->x, 0);
-				end = create_t_point(wn->input->x, wn->yscreen);
-				bresenham(wn, &start, &end);
-				start = create_t_point(0, wn->input->y);
-				end = create_t_point(wn->xscreen, wn->input->y);
-				bresenham(wn, &start, &end);
-		}
-		else
-			wn->editext.on = 0;
-	}
-}
-
 void		inputeditor(t_win *wn)
 {
 	(!(wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT)) && (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT))) ? change_bloc(wn) : 0;
 	keyboardtool(wn);
 	mouse_input_poly(wn);
-	// mousedraw(wn);
 }

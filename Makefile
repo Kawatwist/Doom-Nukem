@@ -78,6 +78,9 @@ SRC				= main.c										\
 				  bresenham.c 									\
 				  elem.c 										\
 				  bgh_display.c 								\
+				  tools_editor.c 								\
+				  init_edit.c 									\
+				  mouse_editor.c 								\
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 
