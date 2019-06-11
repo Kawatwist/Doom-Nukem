@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/11 17:16:30 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/11 17:34:08 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,16 +212,21 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 		else if (change->triangle == 1)
 		{
 			int i = 0;
-			while (i < polygon->number_of_indices - 1)
+			while (i < polygon->number_of_indices - 2)
 			{
+				printf("=le i=%d\n", i);
+				printf("=le stop=%d\n", polygon->number_of_indices);
 				change->result_1.x = ft_get_the_indice_vertex_x(polygon->indices[i] ,polygon->vertex_lst);
 				change->result_1.y = ft_get_the_indice_vertex_y(polygon->indices[i], polygon->vertex_lst);
 				change->result_1.z = ft_get_the_indice_vertex_z(polygon->indices[i], polygon->vertex_lst);
 				change->result_2.x = ft_get_the_indice_vertex_x(polygon->indices[i + 1], polygon->vertex_lst);
 				change->result_2.y = ft_get_the_indice_vertex_y(polygon->indices[i + 1], polygon->vertex_lst);
 				change->result_2.z = ft_get_the_indice_vertex_z(polygon->indices[i + 1], polygon->vertex_lst);
+				change->result_3.x = ft_get_the_indice_vertex_x(polygon->indices[i + 2], polygon->vertex_lst);
+				change->result_3.y = ft_get_the_indice_vertex_y(polygon->indices[i + 2], polygon->vertex_lst);
+				change->result_3.z = ft_get_the_indice_vertex_z(polygon->indices[i + 2], polygon->vertex_lst);
 				ft_draw_change(s_win, change);
-				i++;
+				i = i + 3;
 			}
 		}
 		polygon = polygon->next;
