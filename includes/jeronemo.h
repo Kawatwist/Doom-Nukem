@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 20:05:02 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:43:11 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_mychange
 	int			triangle;
 	t_myvec		result_1;
 	t_myvec		result_2;
+	t_myvec		result_3;
 	int			quit;
 	Uint8		*old;
 	int			projection;
