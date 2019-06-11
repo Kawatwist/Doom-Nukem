@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/11 09:59:46 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:24:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		printf("rotation sur x\n");
 	}
-	if (wn->state[SDL_SCANCODE_J] == 1 && old[SDL_SCANCODE_J] == 0)
+	if (wn->state[SDL_SCANCODE_J] == 1 )
 	{
 		change->angle_x += 1;
 		change->modif = 1;
 		printf("rotation sur x\n");
 	}
-	if (wn->state[SDL_SCANCODE_K] == 1 && old[SDL_SCANCODE_K] == 0)
+	if (wn->state[SDL_SCANCODE_K] == 1 )
 	{
 		printf("rotation sur y\n");
 		change->angle_y += 1;
 		change->modif = 1;
 	}
-	if (wn->state[SDL_SCANCODE_L] == 1 && old[SDL_SCANCODE_L] == 0)
+	if (wn->state[SDL_SCANCODE_L] == 1 )
 	{
 		printf("rotation sur z\n");
 		change->angle_z += 1;
