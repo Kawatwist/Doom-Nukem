@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/11 13:24:37 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/11 17:16:30 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		else
 			change->projection = 1;
 		change->modif = 1;
-		printf("rotation sur x\n");
+		/* printf("rotation sur x\n"); */
 	}
 	if (wn->state[SDL_SCANCODE_T] == 1 && old[SDL_SCANCODE_T] == 0)
 	{
@@ -34,71 +34,71 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		else
 			change->triangle = 1;
 		change->modif = 1;
-		printf("rotation sur x\n");
+		/* printf("rotation sur x\n"); */
 	}
 	if (wn->state[SDL_SCANCODE_J] == 1 )
 	{
 		change->angle_x += 1;
 		change->modif = 1;
-		printf("rotation sur x\n");
+		/* printf("rotation sur x\n"); */
 	}
 	if (wn->state[SDL_SCANCODE_K] == 1 )
 	{
-		printf("rotation sur y\n");
+		/* printf("rotation sur y\n"); */
 		change->angle_y += 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_L] == 1 )
 	{
-		printf("rotation sur z\n");
+		/* printf("rotation sur z\n"); */
 		change->angle_z += 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_U] == 1 && old[SDL_SCANCODE_U] == 0)
 	{
-		printf("zoom\n");
+		/* printf("zoom\n"); */
 		change->zoom += 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_I] == 1 && old[SDL_SCANCODE_I] == 0)
 	{
-		printf("zoom\n");
+		/* printf("zoom\n"); */
 		change->zoom -= 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_W] == 1 && old[SDL_SCANCODE_W] == 0)
 	{
-		printf("Translation UP\n");
+		/* printf("Translation UP\n"); */
 		change->translation_y -= 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_S] == 1 && old[SDL_SCANCODE_S] == 0)
 	{
-		printf("Translation DOWN\n");
+		/* printf("Translation DOWN\n"); */
 		change->translation_y += 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0)
 	{
-		printf("Translation LEFT\n");
+		/* printf("Translation LEFT\n"); */
 		change->translation_x -= 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_D] == 1 && old[SDL_SCANCODE_D] == 0)
 	{
-		printf("Translation RIGHT\n");
+		/* printf("Translation RIGHT\n"); */
 		change->translation_x += 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_Z] == 1 && old[SDL_SCANCODE_Z] == 0)
 	{
-		printf("Translation Z\n");
+		/* printf("Translation Z\n"); */
 		change->translation_z += 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_X] == 1 && old[SDL_SCANCODE_X] == 0)
 	{
-		printf("Translation X\n");
+		/* printf("Translation X\n"); */
 		change->translation_z -= 5;
 		change->modif = 1;
 	}
@@ -174,15 +174,22 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 	change->modif = 0;
 	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
     SDL_RenderClear(s_win->renderer[J_EDITOR]);
+
 	polygon = s_win->polygon_lst;
 	keep->polygon = polygon;
+	printf("\n\n\n\n\nAPLY\n");
 	while (polygon != NULL)
 	{
+		printf("\nNEW POLYGON\n");
 		if (change->triangle == 0)
 		{
 			keep->vec = polygon->vertex_lst;
+			int i =0;
+			/* printf("le AAAA = %d\n", polygon->number_of_vertex); */
 			while (polygon->vertex_lst->next != NULL)
 			{
+				/* printf("le numero = %d\n", i); */
+				i++;
 				change->result_1.x = polygon->vertex_lst->x;
 				change->result_1.y = polygon->vertex_lst->y;
 				change->result_1.z = polygon->vertex_lst->z;
@@ -192,7 +199,15 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 				ft_draw_change(s_win, change);
 				polygon->vertex_lst = polygon->vertex_lst->next;
 			}
+			//bouclage dernier et premier
+			change->result_1.x = polygon->vertex_lst->x;
+			change->result_1.y = polygon->vertex_lst->y;
+			change->result_1.z = polygon->vertex_lst->z;
 			polygon->vertex_lst = keep->vec;
+			change->result_2.x = polygon->vertex_lst->x;
+			change->result_2.y = polygon->vertex_lst->y;
+			change->result_2.z = polygon->vertex_lst->z;
+			ft_draw_change(s_win, change);
 		}
 		else if (change->triangle == 1)
 		{

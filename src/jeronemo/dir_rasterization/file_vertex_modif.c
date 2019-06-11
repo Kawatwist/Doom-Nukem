@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/11 13:20:30 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:55:05 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 	camera.x = 0;
 	camera.y = 0;
 	camera.z = -1;
-	normal = ft_cross_product(change->result_2, change->result_1);
+	normal = ft_cross_product(change->result_1, change->result_2);
 
 	float l = sqrtf(normal.x * normal.x + normal.y * normal.y + normal.z*normal.z);
 	normal.x /= l;
@@ -46,7 +46,7 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 	normal.z /= l;
 	if (	(normal.x * (change->result_1.x - camera.x) +
 			 normal.y * (change->result_1.y - camera.y) +
-			 normal.z * (change->result_1.z - camera.z)) < 0.0  )
+			 normal.z * (change->result_1.z - camera.z)) < 0.0 || 1  )
 	{
 		if (change->projection == 1)
 		{
@@ -64,6 +64,7 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 			s_line.un.b = change->result_1.y;
 			s_line.deux.a = change->result_2.x;
 			s_line.deux.b = change->result_2.y;
+			printf("je draw \n");
 			ft_draw_line(s_win, &s_line);
 		}
 		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
@@ -82,7 +83,7 @@ t_myvec	ft_translation_x(float value, t_myvec vertex)
 {
 	t_myvec		result;
 
-	printf("translation x\n");
+	/* printf("translation x\n"); */
 	result.x = vertex.x + value;
 	result.y = vertex.y;
 	result.z = vertex.z;
@@ -93,7 +94,7 @@ t_myvec	ft_translation_y(float value, t_myvec vertex)
 {
 	t_myvec		result;
 
-	printf("translation y\n");
+	/* printf("translation y\n"); */
 	result.x = vertex.x;
 	result.y = vertex.y + value;
 	result.z = vertex.z;
@@ -104,7 +105,7 @@ t_myvec	ft_translation_z(float value, t_myvec vertex)
 {
 	t_myvec		result;
 
-	printf("translation z\n");
+	/* printf("translation z\n"); */
 	result.x = vertex.x;
 	result.y = vertex.y;
 	result.z = vertex.z + value;
@@ -131,7 +132,7 @@ t_myvec	ft_scale(float zoom, t_myvec vertex)
 
 t_myvec	ft_rotation_x(float angle, t_myvec vertex)
 {
-	printf("rotation x\n");
+	/* printf("rotation x\n"); */
 	float		matrix[5][5];
 	t_myvec		result;
 
