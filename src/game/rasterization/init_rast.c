@@ -1,43 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   poly.c                                             :+:      :+:    :+:   */
+/*   init_rast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jsauron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/15 10:15:13 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/11 11:23:17 by jsauron          ###   ########.fr       */
+/*   Created: 2019/06/11 16:19:49 by jsauron           #+#    #+#             */
+/*   Updated: 2019/06/11 16:56:06 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void		init_ver(t_vec	*vec, float x, float y, float z)
+void	initmatrice(double **matrice)
+{
+	matrice[0][0] = 1.0;
+	matrice[0][1] = 0.0;
+	matrice[0][2] = 0.0;
+	matrice[0][3] = 0.0;
+	matrice[1][0] = 0.0;
+	matrice[1][1] = 1.0;
+	matrice[1][2] = 0.0;
+	matrice[1][3] = 0.0;
+	matrice[2][0] = 0.0;
+	matrice[2][1] = 0.0;
+	matrice[2][2] = 1.0;
+	matrice[2][3] = 0.0;
+	matrice[3][0] = 0.0;
+	matrice[3][1] = 0.0;
+	matrice[3][2] = 0.0;
+	matrice[3][3] = 1.0;
+}
+
+void	init_ver(t_vec*vec, float x, float y, float z)
 {
 	vec->x = x;
 	vec->y = y;
 	vec->z = z;
 }
 
-void		init_rast(t_win **wn)
+void	init_rast(t_win **wn)
 {
 	int i;
 
 	i = 0;
 	((*wn)->rast = malloc(sizeof(t_rast))) == NULL ? stop_exec("malloc struct rast failed\n", *wn) : 0;
-	((*wn)->rast->mat = (double **)malloc(sizeof(double *) * 4)) == NULL ? stop_exec("malloc rast->mat failed\n", *wn) : 0;
-	while (i < 4)	
-		((*wn)->rast->mat[i++] = (double *)malloc(sizeof(double) * 4)) == NULL ? stop_exec("malloc rast->mat[] failed\n", *wn) : 0;
+	malloc_mat(wn, (*wn)->rast->mat_1);
+	malloc_mat(wn, (*wn)->rast->mat_2);
+	malloc_mat(wn, (*wn)->rast->mat_3);
 	((*wn)->rast->f = malloc(sizeof(t_vec))) == NULL ? stop_exec("malloc rast->f failed\n", *wn) : 0;
 	((*wn)->rast->s = malloc(sizeof(t_vec))) == NULL ? stop_exec("malloc rast->s failed\n", *wn) : 0;
 	((*wn)->rast->u = malloc(sizeof(t_vec))) == NULL ? stop_exec("malloc rast->u failed\n", *wn) : 0;
-	initmatrice((*wn)->rast->mat);
+	initmatrice((*wn)->rast->mat_1);
 	init_ver((*wn)->rast->f, 0, 0, 0);
 	init_ver((*wn)->rast->s, 0, 0, 0);
 	init_ver((*wn)->rast->u, 0, 0, 0);
 }
 
-void		init_poly(t_win **wn)
+void	init_poly(t_win **wn)
 {
 	(*wn)->poly = malloc(sizeof(t_poly));
 	(*wn)->poly->ver_list = (t_vec *)malloc(sizeof(t_vec) * 4);
@@ -57,3 +77,4 @@ void		init_poly(t_win **wn)
 	(*wn)->poly->next = NULL;
 	(*wn)->poly->ver_tmp = NULL;
 }
+

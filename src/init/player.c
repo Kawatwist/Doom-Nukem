@@ -6,14 +6,14 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:26:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/11 11:25:48 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/11 16:30:27 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
 static void		initweapon(t_win **wn)
-{
+{		
 	t_weapon *weapon;
 
 	weapon = (*wn)->player->weapon;
@@ -26,7 +26,7 @@ static void		initweapon(t_win **wn)
 	weapon->next = (*wn)->player->weapon;
 }
 
-void			initplayer(t_win **wn)
+void	initplayer(t_win **wn)
 {
 	((*wn)->player = (t_joueur *)malloc(sizeof(t_joueur))) == NULL
 		? stop_exec("Malloc joueur failed\n", *wn) : 0;

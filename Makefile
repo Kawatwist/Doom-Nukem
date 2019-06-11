@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/11 11:39:26 by jsauron          ###   ########.fr        #
+#    Updated: 2019/06/11 16:41:13 by jsauron          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -34,9 +34,7 @@ SRC				= main.c										\
 				  inputturn.c									\
 				  window.c										\
 				  init.c										\
-				  poly.c										\
 				  drawpoly.c									\
-				  matrice.c										\
 				  parse.c										\
 				  initwn.c										\
 				  nothread.c									\
@@ -76,10 +74,13 @@ SRC				= main.c										\
 				  print_ariel_text.c 							\
 				  menu_show.c 									\
 				  load_fonts.c 									\
-				  tool.c 									\
-				  world2view.c								\
-				  world2view_mat.c							\
-				  calcul.c
+				  tool.c 										\
+				  1_model_2_world.c								\
+				  2_world_2_view.c								\
+				  3_view_2_proj.c								\
+				  tools_rast.c									\
+				 init_rast.c									\
+				calcul.c
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 

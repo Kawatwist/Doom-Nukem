@@ -1,33 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrice.c                                          :+:      :+:    :+:   */
+/*   1_model_2_world.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jsauron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/17 15:10:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/11 12:47:20 by jsauron          ###   ########.fr       */
+/*   Created: 2019/06/11 14:54:04 by jsauron           #+#    #+#             */
+/*   Updated: 2019/06/11 15:36:25 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
-
-void 	projection(t_win *wn)
-{
-	int i;
-
-	i = -1;
-	wn->rast->mat_proj = (double **)malloc(sizeof(double *) * 4);
-	while (++i < 4)
-		wn->rast->mat_proj[i] = (double *)malloc(sizeof(double) * 4);
-	wn->rast->mat_proj[0][0] = atan(60 / 2);
-	wn->rast->mat_proj[1][1] = atan(60 / 2);
-	wn->rast->mat_proj[2][2] = 
-		-((wn->player->far + wn->player->near) / (wn->player->far - wn->player->near));
-	wn->rast->mat_proj[2][3] =
-		-((2 * wn->player->near * wn->player->far) / (wn->player->far - wn->player->near));
-	wn->rast->mat_proj[2][0] = -1;
-}
 
 void	scale(double **mat)
 {
@@ -64,8 +47,32 @@ void	rotatey(double ang, double **mat)
 void	rotatex(double ang, double **mat)
 {
 	ang *= M_PI / 180;
-	mat[1][1] += cos(ang);
+	mat	[1][1] += cos(ang);
 	mat[1][2] += -sin(ang);
 	mat[2][1] += sin(ang);
 	mat[2][2] += cos(ang);
+}
+
+void	m2w_matrice(t_win *wn, t_poly *curr, double **mat, t_vec *ver)
+{
+	int		i;
+
+	(void)wn;
+	i = 0;
+	while (i < curr->nb_ver)
+	{
+		ver[i].x = (curr->ver_tmp[curr->indices[i]].x * mat[0][0])
+			+ (curr->ver_tmp[curr->indices[i]].y * mat[0][1])
+			+ (curr->ver_tmp[curr->indices[i]].z * mat[0][2])
+			+ mat[0][3];
+		ver[i].y = (curr->ver_tmp[curr->indices[i]].y * mat[1][0])
+			+ (curr->ver_tmp[curr->indices[i]].y * mat[1][1])
+			+ (curr->ver_tmp[curr->indices[i]].z * mat[1][2])
+			+ mat[1][3];
+		ver[i].z = (curr->ver_tmp[curr->indices[i]].z * mat[2][0])
+			+ (curr->ver_tmp[curr->indices[i]].y * mat[2][1])
+			+ (curr->ver_tmp[curr->indices[i]].z * mat[2][2])
+			+ mat[2][3];
+		i++;
+	}
 }

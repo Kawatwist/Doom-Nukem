@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/11 13:50:14 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/11 16:04:07 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,13 +199,18 @@ void				rotatex(double ang, double **mat);
 void				rotatey(double ang, double **mat);
 void				rotatez(double ang, double **mat);
 void				initmatrice(double **matrice);
-void				calc_fsu(t_win *wn, t_vec *ver, t_poly *curr);
-void				world2view(t_win *wn, t_vec *ver, t_vec *f, t_vec *s, t_vec *u);
-void				proj(t_win *wn, t_poly *curr, t_vec *ver,  double **mat);
 double				**mult_matrice(double **mat1,  double **mat2);
 void				projection(t_win	*wn);
-t_vec        ft_calculate_normal_of_points(t_vec vertex1, t_vec vertex2, t_vec vertex3);
-t_vec        ft_cross_product(t_vec v1, t_vec v2);
+void				m2w_matrice(t_win *wn, t_poly *curr, double **mat, t_vec *ver);
+void				w2v_matrice(t_win *wn, t_vec *ver, t_poly *curr);
+void				w2v_matrice_calcul(t_win *wn, t_vec *ver, t_vec *f, t_vec *s, t_vec *u);
+void				v2p_matrice(t_win *wn);
+void				v2p_matrice_calcul(t_win *wn, t_poly *curr, t_vec *ver,  double **mat);
+t_vec				ft_calculate_normal_of_points(t_vec vertex1, t_vec vertex2, t_vec vertex3);
+t_vec				ft_cross_product(t_vec v1, t_vec v2);
+void				malloc_mat(t_win **wn, double **matrice);
+void				vercpy(t_vec *src, t_vec *dst, int len);
+void				each_triangle(t_poly *curr);
 /**
  ** EDIT
  **/
