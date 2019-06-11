@@ -139,6 +139,11 @@ typedef struct 		s_color
 	SDL_Color		violetrose;
 }					t_color;
 
+typedef struct 		s_loadbgmap
+{
+	int 			size;
+} 					t_bg_map;
+
 typedef struct 		s_texture_editor
 {
 	SDL_Texture 	*texture_tools;
@@ -229,6 +234,8 @@ typedef struct		s_win
 	t_written 		editext;
 	t_edit 			edit_image;
 	t_bres 			bres;
+	t_bg_map 		bg_map;
+
 }					t_win;
 
 /**

@@ -25,7 +25,6 @@ static void	showelem(t_win *wn)
 		point = curr->point;
 		while (point != NULL && point->next != NULL)
 		{
-			printf("next x = %d, y = %d\n", point->next->x, point->next->y);
 			SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
 			// start = create_t_point(point->x, point->y);
 			// if (point->next != NULL)
@@ -192,6 +191,7 @@ void		init_edit(t_win **wn)
 	(*wn)->edit_image.bgh = 1;
 	(*wn)->edit_image.in = 1;
 	(*wn)->edit_image.tbp = 2;
+	(*wn)->bg_map.size = 0;
 }
 
 void		print_x_y_z(t_win *wn)

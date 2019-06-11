@@ -32,26 +32,30 @@ void	print_bgh_editor(t_win *wn)
 
 void		print_path(t_win *wn, char *s, int posi_x, int posi_y)
 {
-	SDL_Color		color;
 	int				w;
 	int				h;
-	static int 		x = 0;
+	int 			x;
 	SDL_Rect		position;
 
-	color = wn->color.noir;
+	x = 0;
 	TTF_SizeText(wn->fonts->arial_path, s, &w, &h);
 	position.x = posi_x;
 	position.y = posi_y - 5;
-	position.w = w;
  	position.h = h;
  	SDL_QueryTexture(wn->edit_image.bg_path, NULL, NULL, &w, &h);
- 	wn->edit_image.pos_path = define_rect(0 + x, 0, w - x, h);
-	print_text_with_arial_path(wn, s, color, position);
-	if ((w - x) > wn->edit_image.bg.w) //revoir pos_path, c'est les positions de la texture a copier sur le rend, pas les positions ou copier sur le rend /!\ //
-	{
-		w = w - x;
-		x++;
+	x = w - wn->edit_image.bg.w - 5;
+ 	if (w < (wn->edit_image.bg.w - 5))
+ 	{
+ 		position.w = w;
+ 		wn->edit_image.pos_path = define_rect(0, 0, w, h);
+		print_text_with_arial_path(wn, s, wn->color.noir, position);
 	}
+	else
+	{
+		position.w = wn->edit_image.bg.w - 5;
+		wn->edit_image.pos_path = define_rect(x, 0, w, h);
+		print_text_with_arial_path(wn, s, wn->color.noir, position);
+	}	
 }
 
 void	bg_or_h(t_win *wn)
