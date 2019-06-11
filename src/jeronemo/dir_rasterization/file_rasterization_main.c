@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/11 17:34:08 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/11 17:44:05 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,12 +129,15 @@ float		ft_get_the_indice_vertex_x(int indice, t_myvec *vertex_lst)
 	float	x;
 
 	i = 0;
+	t_myvec		*keep;
+	keep = vertex_lst;
 	while (i < indice)
 	{
 		vertex_lst = vertex_lst->next;
 		i++;
 	}
 	x = vertex_lst->x;
+	vertex_lst = keep;
 	return (x);
 }
 
@@ -144,12 +147,15 @@ float		ft_get_the_indice_vertex_y(int indice, t_myvec *vertex_lst)
 	float	y;
 
 	i = 0;
+	t_myvec		*keep;
+	keep = vertex_lst;
 	while (i < indice)
 	{
 		vertex_lst = vertex_lst->next;
 		i++;
 	}
 	y = vertex_lst->y;
+	vertex_lst = keep;
 	return (y);
 }
 
@@ -159,12 +165,15 @@ float		ft_get_the_indice_vertex_z(int indice, t_myvec *vertex_lst)
 	float	z;
 
 	i = 0;
+	t_myvec		*keep;
+	keep = vertex_lst;
 	while (i < indice)
 	{
 		vertex_lst = vertex_lst->next;
 		i++;
 	}
 	z = vertex_lst->z;
+	vertex_lst = keep;
 	return (z);
 }
 void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
@@ -214,14 +223,16 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 			int i = 0;
 			while (i < polygon->number_of_indices - 2)
 			{
-				printf("=le i=%d\n", i);
-				printf("=le stop=%d\n", polygon->number_of_indices);
 				change->result_1.x = ft_get_the_indice_vertex_x(polygon->indices[i] ,polygon->vertex_lst);
 				change->result_1.y = ft_get_the_indice_vertex_y(polygon->indices[i], polygon->vertex_lst);
 				change->result_1.z = ft_get_the_indice_vertex_z(polygon->indices[i], polygon->vertex_lst);
+
+
 				change->result_2.x = ft_get_the_indice_vertex_x(polygon->indices[i + 1], polygon->vertex_lst);
 				change->result_2.y = ft_get_the_indice_vertex_y(polygon->indices[i + 1], polygon->vertex_lst);
 				change->result_2.z = ft_get_the_indice_vertex_z(polygon->indices[i + 1], polygon->vertex_lst);
+
+
 				change->result_3.x = ft_get_the_indice_vertex_x(polygon->indices[i + 2], polygon->vertex_lst);
 				change->result_3.y = ft_get_the_indice_vertex_y(polygon->indices[i + 2], polygon->vertex_lst);
 				change->result_3.z = ft_get_the_indice_vertex_z(polygon->indices[i + 2], polygon->vertex_lst);
