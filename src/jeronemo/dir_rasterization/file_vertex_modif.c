@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/11 17:40:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/11 18:03:07 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 
 	change->result_1 = ft_rotation_x(change->angle_x, change->result_1);
 	change->result_2 = ft_rotation_x(change->angle_x, change->result_2);
-		if (change->triangle == 1)
-			change->result_3 = ft_rotation_x(change->angle_x, change->result_3);
+	if (change->triangle == 1)
+		change->result_3 = ft_rotation_x(change->angle_x, change->result_3);
 
 	change->result_1 = ft_rotation_y(change->angle_y, change->result_1);
 	change->result_2 = ft_rotation_y(change->angle_y, change->result_2);
@@ -49,6 +49,7 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 		printf("AAAAAAAAAAAAAAAAA\n");
 	}
 
+
 	change->result_1 = ft_translation_z(change->translation_z, change->result_1);
 	change->result_2 = ft_translation_z(change->translation_z, change->result_2);
 	if (change->triangle == 1)
@@ -63,18 +64,6 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 	camera.z = 0;
 
 
-	normal = ft_cross_product(change->result_2, change->result_1);
-
-
-	float l = sqrtf(normal.x * normal.x + normal.y * normal.y + normal.z*normal.z);
-	normal.x /= l;
-	normal.y /= l;
-	normal.z /= l;
-
-
-	if (	(normal.x * (change->result_1.x - camera.x) +
-			 	normal.y * (change->result_1.y - camera.y) +
-			 	normal.z * (change->result_1.z - camera.z)) < 0.0 || 1  )
 	{
 		if (change->projection == 1)
 		{
@@ -86,37 +75,46 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 		}
 		else if (change->projection == 0)
 		{
+
+
 			change->result_1 = ft_perspective_projection(change->result_1);
 			change->result_2 = ft_perspective_projection(change->result_2);
 			if (change->triangle == 1)
 				change->result_3 = ft_perspective_projection(change->result_3);
 
 
-			s_line.un.a = change->result_1.x;
-			s_line.un.b = change->result_1.y;
-			s_line.deux.a = change->result_2.x;
-			s_line.deux.b = change->result_2.y;
-			ft_draw_line(s_win, &s_line);
-
-
 			if (change->triangle == 1)
 			{
-				s_line.un.a = change->result_2.x;
-				s_line.un.b = change->result_2.y;
-				s_line.deux.a = change->result_3.x;
-				s_line.deux.b = change->result_3.y;
-				ft_draw_line(s_win, &s_line);
+				normal = ft_calculate_normal_of_points(change->result_1, change->result_2, change->result_3);
 
+				float l = sqrtf(normal.x * normal.x + normal.y * normal.y + normal.z*normal.z);
+				normal.x /= l;
+				normal.y /= l;
+				normal.z /= l;
+				if (	(normal.x * (change->result_1.x - camera.x) +
+			 				normal.y * (change->result_1.y - camera.y) +
+			 				normal.z * (change->result_1.z - camera.z)) < 0.0  )
+				{
+					s_line.un.a = change->result_1.x;
+					s_line.un.b = change->result_1.y;
+					s_line.deux.a = change->result_2.x;
+					s_line.deux.b = change->result_2.y;
+					ft_draw_line(s_win, &s_line);
 
-				s_line.un.a = change->result_3.x;
-				s_line.un.b = change->result_3.y;
-				s_line.deux.a = change->result_1.x;
-				s_line.deux.b = change->result_1.y;
-				ft_draw_line(s_win, &s_line);
+					s_line.un.a = change->result_2.x;
+					s_line.un.b = change->result_2.y;
+					s_line.deux.a = change->result_3.x;
+					s_line.deux.b = change->result_3.y;
+					ft_draw_line(s_win, &s_line);
+
+					s_line.un.a = change->result_3.x;
+					s_line.un.b = change->result_3.y;
+					s_line.deux.a = change->result_1.x;
+					s_line.deux.b = change->result_1.y;
+					ft_draw_line(s_win, &s_line);
+				}
 			}
-
 		}
-		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 	}
 }
 

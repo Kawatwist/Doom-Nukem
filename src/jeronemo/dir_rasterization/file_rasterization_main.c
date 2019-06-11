@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/11 17:44:05 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/11 17:55:36 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 				change->result_2.x = polygon->vertex_lst->next->x;
 				change->result_2.y = polygon->vertex_lst->next->y;
 				change->result_2.z = polygon->vertex_lst->next->z;
+				SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 				ft_draw_change(s_win, change);
 				polygon->vertex_lst = polygon->vertex_lst->next;
 			}
@@ -216,6 +217,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 			change->result_2.x = polygon->vertex_lst->x;
 			change->result_2.y = polygon->vertex_lst->y;
 			change->result_2.z = polygon->vertex_lst->z;
+			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 			ft_draw_change(s_win, change);
 		}
 		else if (change->triangle == 1)
@@ -236,6 +238,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 				change->result_3.x = ft_get_the_indice_vertex_x(polygon->indices[i + 2], polygon->vertex_lst);
 				change->result_3.y = ft_get_the_indice_vertex_y(polygon->indices[i + 2], polygon->vertex_lst);
 				change->result_3.z = ft_get_the_indice_vertex_z(polygon->indices[i + 2], polygon->vertex_lst);
+				SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 				ft_draw_change(s_win, change);
 				i = i + 3;
 			}
