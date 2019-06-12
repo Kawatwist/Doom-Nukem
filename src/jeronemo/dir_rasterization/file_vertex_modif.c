@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 11:30:37 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:37:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,18 @@ int		ft_calcul_culing(t_mychange *change)
 	if ((normal.x * (change->result_1.x - camera.x) +
 		normal.y * (change->result_1.y - camera.y) +
 		normal.z * (change->result_1.z - camera.z)) < 0.0)
-		return (1);
-	else
 		return (0);
+	else
+		return (1);
 }
 
 void	ft_draw_mesh(t_mywin *s_win, t_mychange *change)
 {
 	t_myputtheline		s_line;;
+	t_mycolor			color;
+
+	color = ft_setcolor(RED);
+	SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg, color.bbb, 255);
 
 	if (change->display->culling_face == 1)
 	{
@@ -114,10 +118,14 @@ void	ft_draw_mesh(t_mywin *s_win, t_mychange *change)
 void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 {
 	t_myputtheline		s_line;;
+	t_mycolor			color;
+
+	color = ft_setcolor(BLUE);
+	SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg, color.bbb, 255);
 
 	if (change->display->culling_face == 1)
 	{
-		if (ft_calcul_culing(change) > 0)
+		if (ft_calcul_culing(change))
 		{
 			s_line.un.a = change->result_1.x;
 			s_line.un.b = change->result_1.y;
