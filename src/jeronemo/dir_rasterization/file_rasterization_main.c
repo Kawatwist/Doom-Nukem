@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 11:31:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/12 11:49:02 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,10 +322,17 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	{
 		SDL_PollEvent(&(wn->ev));
 		wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
+		wn->input->oldmouse = wn->input->mouse;
+		wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
 		ft_keyboard_event_check(wn , change.old, &change);
+		ft_mouse_event_check(wn, &change);
 		if (change.modif == 1)
 			ft_apply_modif(s_win, &change, &keep);
 		SDL_Delay(10);
 		setkeyboard(change.old, wn->state);
 	}
 }
+
+
+
+
