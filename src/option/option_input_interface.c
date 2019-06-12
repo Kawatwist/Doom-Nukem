@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 18:28:10 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/29 18:48:54 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/12 12:41:44 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	menu_option_input(t_win *wn)
 		wn->menu->choice == 31 ? wn->interface = GOPTION : 0;
 		wn->menu->choice == 32 ? wn->interface = COPTION : 0;
 		wn->menu->choice == 33 ? wn->interface = MENU : 0;
-		wn->menu->choice = 0;
+		wn->interface == MENU ? wn->menu->choice = 0: 0;
 	}
 }
 

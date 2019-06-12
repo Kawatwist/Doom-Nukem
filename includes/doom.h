@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/30 16:21:31 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/12 12:44:30 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef enum		e_interface
 	MOPTION,
 	COPTION,
 	GOPTION,
-	KEYOPTION,
+	KOPTION,
 	LOADING,
 	PAUSE,
 }					t_interface;
@@ -262,6 +262,11 @@ void				load_fonts(t_win *wn);
 /**
  ** OPTION
  **/
+void				keyboardoption(t_win *wn);
+void				graphismeoption(t_win *wn);
+void				controloption(t_win *wn);
+void				menuoption(t_win *wn);
+void				menu_option_input(t_win *wn);
 void				option(t_win *wn);
 void				optioninput(t_win *wn);
 void				showoption(t_win *wn);

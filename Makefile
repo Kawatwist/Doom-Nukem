@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/05/29 19:48:47 by lomasse          ###   ########.fr        #
+#    Updated: 2019/06/12 12:40:42 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -53,6 +53,7 @@ SRC				= main.c										\
 				  mainedit.c									\
 				  printscreen.c 								\
 				  mainoption.c									\
+				  option_input_interface.c						\
 				  optioninput.c									\
 				  showoption.c									\
 				  data.c										\
