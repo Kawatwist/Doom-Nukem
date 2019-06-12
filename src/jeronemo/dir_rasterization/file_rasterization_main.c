@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/11 17:55:36 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/12 11:16:14 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,69 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 
 	if (wn->state[SDL_SCANCODE_P] == 1 && old[SDL_SCANCODE_P] == 0)
 	{
-		if (change->projection == 1)
-			change->projection = 0;
+		if (change->display->projection == orthographique)
+			change->display->projection = perspective;
 		else
-			change->projection = 1;
+			change->display->projection = orthographique;
 		change->modif = 1;
-		/* printf("rotation sur x\n"); */
+		/* printf("switch perspective\n"); */
 	}
 	if (wn->state[SDL_SCANCODE_T] == 1 && old[SDL_SCANCODE_T] == 0)
 	{
-		if (change->triangle == 1)
-			change->triangle = 0;
+		if (change->display->triangle == 1)
+			change->display->triangle = 0;
 		else
-			change->triangle = 1;
+			change->display->triangle = 1;
 		change->modif = 1;
-		/* printf("rotation sur x\n"); */
+		/* printf("switch affichage triangle\n"); */
 	}
+
+
+	if (wn->state[SDL_SCANCODE_M] == 1 && old[SDL_SCANCODE_M] == 0)
+	{
+		if (change->display->mesh == 1)
+			change->display->mesh = 0;
+		else
+			change->display->mesh = 1;
+		change->modif = 1;
+		/* printf("switch affichage mesh\n"); */
+	}
+
+
+	if (wn->state[SDL_SCANCODE_C] == 1 && old[SDL_SCANCODE_C] == 0)
+	{
+		if (change->display->culling_face == 1)
+			change->display->culling_face = 0;
+		else
+			change->display->culling_face = 1;
+		change->modif = 1;
+		/* printf("switch culling\n"); */
+	}
+
+
+
+	if (wn->state[SDL_SCANCODE_N] == 1 && old[SDL_SCANCODE_N] == 0)
+	{
+		if (change->display->mesh_normal == 1)
+			change->display->mesh_normal = 0;
+		else
+			change->display->mesh_normal = 1;
+		change->modif = 1;
+		/* printf("switch mesh normal\n"); */
+	}
+
+
+	if (wn->state[SDL_SCANCODE_B] == 1 && old[SDL_SCANCODE_B] == 0)
+	{
+		if (change->display->triangle_normal == 1)
+			change->display->triangle_normal = 0;
+		else
+			change->display->triangle_normal = 1;
+		change->modif = 1;
+		/* printf("switch triangle normal\n"); */
+	}
+
+
 	if (wn->state[SDL_SCANCODE_J] == 1 )
 	{
 		change->angle_x += 1;
@@ -109,7 +156,11 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 	keep->polygon = NULL;
 	keep->vec = NULL;
 
+	change->display = (t_mydisplay*)malloc(sizeof(t_mydisplay));
+	change->old = (Uint8*)malloc(sizeof(Uint8) * 300);
+
 	change->quit = FALSE;
+
 	change->angle_x = 0;
 	change->angle_y = 0;
 	change->angle_z = 0;
@@ -117,10 +168,16 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 	change->translation_x = 0;
 	change->translation_y = 0;
 	change->translation_z = 0;
-	change->modif = 0;
-	change->triangle = 0;
-	change->old = (Uint8*)malloc(sizeof(Uint8) * 300);
-	change->projection = 1;
+
+	change->modif = 1;
+
+	change->display->triangle = 0;
+	change->display->mesh = 1;
+
+	change->display->projection = orthographique;
+	change->display->culling_face = 0;
+	change->display->mesh_normal = 0;
+	change->display->triangle_normal = 0;
 }
 
 float		ft_get_the_indice_vertex_x(int indice, t_myvec *vertex_lst)
@@ -190,7 +247,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 	while (polygon != NULL)
 	{
 		printf("\nNEW POLYGON\n");
-		if (change->triangle == 0)
+		if (change->display->triangle == 0)
 		{
 			keep->vec = polygon->vertex_lst;
 			int i =0;
@@ -220,7 +277,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 			ft_draw_change(s_win, change);
 		}
-		else if (change->triangle == 1)
+		else if (change->display->triangle == 1)
 		{
 			int i = 0;
 			while (i < polygon->number_of_indices - 2)

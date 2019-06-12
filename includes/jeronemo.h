@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/11 17:43:37 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/12 11:05:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,42 @@ typedef struct		s_mypoint
 	int				set;
 }					t_mypoint;
 
-typedef struct s_mychange
+typedef enum		s_myprojection
 {
-	float		angle_x;
-	float		angle_y;
-	float		angle_z;
-	float		translation_x;
-	float		translation_y;
-	float		translation_z;
-	float		zoom;
-	int			modif;
-	int			triangle;
-	t_myvec		result_1;
-	t_myvec		result_2;
-	t_myvec		result_3;
-	int			quit;
-	Uint8		*old;
-	int			projection;
-}				t_mychange;
+	orthographique,
+	perspective,
+}					t_myprojection;
+
+
+typedef struct	s_mydisplay
+{
+	char		projection;
+	char		culling_face;
+
+	char		triangle;
+	char		triangle_normal;
+
+	char		mesh;
+	char		mesh_normal;
+}				t_mydisplay;
+
+typedef struct		s_mychange
+{
+	float			angle_x;
+	float			angle_y;
+	float			angle_z;
+	float			translation_x;
+	float			translation_y;
+	float			translation_z;
+	float			zoom;
+	t_myvec			result_1;
+	t_myvec			result_2;
+	t_myvec			result_3;
+	char			quit;
+	char			modif;
+	Uint8			*old;
+	t_mydisplay		*display;
+}					t_mychange;
 
 typedef struct		s_mypointf
 {
