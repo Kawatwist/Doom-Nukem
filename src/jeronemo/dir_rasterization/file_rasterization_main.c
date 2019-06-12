@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 12:56:11 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:59:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,7 +327,6 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 		polygon = polygon->next;
 	}
 	polygon = keep->polygon;
-	SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 }
 
 void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
@@ -351,13 +350,13 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 		ft_keyboard_event_check(wn , change.old, &change);
 		ft_mouse_event_check(wn, &change);
 		if (change.modif == 1)
+		{
 			ft_apply_modif(s_win, &change, &keep);
-
-
-		if (change.display->panel == 1)
-			ft_display_panel();
-
-
+			if (change.display->panel == 1)
+				ft_display_panel(s_win);
+			change.modif = 0;
+			SDL_RenderPresent(s_win->renderer[J_EDITOR]);
+		}
 
 
 

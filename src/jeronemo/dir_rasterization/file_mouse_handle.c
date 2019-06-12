@@ -6,14 +6,14 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 11:47:41 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 12:59:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:03:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <jeronemo.h>
 
 
-void	ft_display_panel()
+void	ft_display_panel(t_mywin *s_win)
 {
 	int		nbr_menu;
 	char	**menu_name;
@@ -30,11 +30,35 @@ void	ft_display_panel()
 	menu_name[6] = ft_strdup("Display mesh normal");
 	menu_name[7] = ft_strdup("Color");
 
+	t_mycolor	s_color;
+	t_mysquare	s_square;
+	t_mywrite	s_write;
+	t_mysquare	*menu_panel;
 
+	menu_panel = malloc(sizeof(t_mysquare));
 	i = 0;
-	while (i < nbr_menu)
+	while (i < nbr_menu - 1)
 	{
 
+		s_color 			= ft_setcolor(WHITE);
+		menu_panel->x		= XSCREEN - 400;
+		menu_panel->y		= 30 + (i * 70);
+		menu_panel->width	= 50;
+		menu_panel->height	= 50;
+		s_square = ft_setsquare(
+				menu_panel->x,
+ 				menu_panel->y,
+				menu_panel->width,
+				menu_panel->height,
+				s_color);
+		ft_draw_square(s_win, &s_square);
+		s_color = ft_setcolor(WHITE);
+//int x, int y, t_mycolor color, int size, char *str
+		s_write = ft_setwrite(
+				XSCREEN - 300,
+ 				30 + (i * 70),
+				s_color, 20, menu_name[i]);
+		ft_write(s_win, &s_write);
 		i++;
 	}
 
