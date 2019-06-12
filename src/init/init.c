@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/30 15:16:06 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/12 16:56:09 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ int				init(t_win **wn, int argc, char **argv)
 	load_texture(*wn, "game", "menu", "LG");
 	(*wn)->load = ft_strdup("./texture/Menu_game_NG.tga");
 	load_texture(*wn, "game", "menu", "NG");
+	(*wn)->load = ft_strdup("./texture/Menu_game_Multi.tga");
+	load_texture(*wn, "game", "menu", "Multi");
+	(*wn)->load = ft_strdup("./texture/Menu_Host.tga");
+	load_texture(*wn, "game", "menu", "Host");
+	(*wn)->load = ft_strdup("./texture/Menu_Host2.tga");
+	load_texture(*wn, "game", "menu", "Host2");
+	(*wn)->load = ft_strdup("./texture/Menu_Client.tga");
+	load_texture(*wn, "game", "menu", "Client");
+	(*wn)->load = ft_strdup("./texture/Menu_Client2.tga");
+	load_texture(*wn, "game", "menu", "Client2");
 	initplayer(wn);
 	initskybox(wn);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/12 12:44:30 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/12 16:39:29 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 # include <stdlib.h>
 # include <math.h>
 # include <pthread.h>
+# include <sys/socket.h>
 # include "libft.h"
 # include "game.h"
 # include "rasterisation.h"
 # include "skybox.h"
 # include "SDL.h"
 # include "SDL_ttf.h"
-# define XSCREEN 1920
+# define XSCREEN 120
 # define YSCREEN 1080
 # define CONSOLE_MAX_LINE_NB 10
 # define ARIEL_FONT_SIZE 35
@@ -64,6 +65,9 @@ typedef enum		e_interface
 	KOPTION,
 	LOADING,
 	PAUSE,
+	MULTI,
+	CLIENT,
+	HOST,
 }					t_interface;
 
 typedef struct		s_point
@@ -182,6 +186,8 @@ typedef struct		s_win
 	t_rast			*rast;
 	int 			xscreen;
 	int 			yscreen;
+	void			*serv;
+	void			*client;
 }					t_win;
 
 /**
@@ -209,6 +215,15 @@ void				rotatez(double ang, double **mat);
 void				initmatrice(double **matrice);
 void				calc_fsu(t_win *wn, t_vec *ver, t_poly *curr);
 void				world2view(t_win *wn, t_vec *ver, t_vec *f, t_vec *s, t_vec *u);
+
+/**
+ ** MULTI
+ **/
+
+void				mainhost(t_win *wn);
+void				mainclient(t_win *wn);
+void				mainmulti(t_win *wn);
+
 /**
  ** EDIT
  **/
@@ -286,6 +301,8 @@ void				showmenu(t_win *wn);
 /**
  ** MAIN
  **/
+
+char				*text_box(t_win *wn, char *line);
 void				main_input(t_win *wn);
 void				turn(t_win *wn);
 void				game(t_win *wn);

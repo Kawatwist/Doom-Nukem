@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/12 12:40:42 by lomasse          ###   ########.fr        #
+#    Updated: 2019/06/12 14:37:57 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -31,6 +31,7 @@ OBJ_PATH		= OBJ
 
 SRC				= main.c										\
 				  turn.c 										\
+				  text.c										\
 				  inputturn.c									\
 				  window.c										\
 				  init.c										\
@@ -47,6 +48,9 @@ SRC				= main.c										\
 				  load2.c										\
 				  load_intro.c									\
 				  texture.c										\
+				  mainmulti.c									\
+				  mainhost.c									\
+				  mainclient.c									\
 				  maingame.c 									\
 				  mainmenu.c									\
 				  menuinput.c									\
