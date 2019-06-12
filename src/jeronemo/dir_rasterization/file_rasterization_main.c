@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 14:21:28 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:41:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,8 +357,6 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 			change.modif = 0;
 			SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 		}
-
-
 
 		SDL_Delay(10);
 		setkeyboard(change.old, wn->state);
