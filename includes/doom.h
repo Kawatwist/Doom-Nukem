@@ -137,12 +137,12 @@ typedef struct 		s_color
 	SDL_Color 		violetfonce;
 	SDL_Color		violet;
 	SDL_Color		violetrose;
+	SDL_Color 		red;
 }					t_color;
 
-typedef struct 		s_loadbgmap
-{
-	int 			size;
-} 					t_bg_map;
+// typedef struct 		s_loadbgmap
+// {
+// } 					t_bg_map;
 
 typedef struct 		s_texture_editor
 {
@@ -234,7 +234,7 @@ typedef struct		s_win
 	t_written 		editext;
 	t_edit 			edit_image;
 	t_bres 			bres;
-	t_bg_map 		bg_map;
+	// t_bg_map 		bg_map;
 
 }					t_win;
 
@@ -283,6 +283,11 @@ void 				print_bg(t_win *wn);
 void				print_path(t_win *wn, char *s, int posi_x, int posi_y);
 void				print_text_with_arial_path(t_win *wn, char *s, SDL_Color color, SDL_Rect position);
 SDL_Rect			define_rect(int x, int y, int w, int h);
+int 				is_between(double x, double min, double max);
+void				print_text_with_arial_font(t_win *wn, char *s, SDL_Color color, SDL_Rect position);
+void				print_text_with_arial_path_full(t_win *wn, char *s, SDL_Color color, SDL_Rect position);
+void 				message_bg_editor(t_win *wn, char *message);
+void 				load_background(t_win *wn, char *path);
 
 void				mainconsole(t_win *wn);
 void				inputconsole(t_win *wn);

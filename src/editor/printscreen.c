@@ -16,8 +16,6 @@ static void	showelem(t_win *wn)
 {
 	t_elem		*curr;
 	t_point		*point;
-	// t_point 	start;
-	// t_point 	end;
 
 	curr = wn->elem;
 	while (curr != NULL)
@@ -26,24 +24,8 @@ static void	showelem(t_win *wn)
 		while (point != NULL && point->next != NULL)
 		{
 			SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
-			// start = create_t_point(point->x, point->y);
-			// if (point->next != NULL)
-				SDL_RenderDrawLine(wn->rend, point->x, point->y, point->next->x, point->next->y);
-			// 	end = create_t_point(point->next->x, point->next->y);
-			// else
-				// SDL_RenderDrawLine(wn->rend, point->x, point->y, wn->input->x, wn->input->y);
-			// 	end = create_t_point(point->x + 10, point->y + 10);
-			// bresenham(wn, &start, &end);
-			// SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 0);
-			// start = create_t_point(point->x, point->y + 1);
-			// if (point->next != NULL)
-				// SDL_RenderDrawLine(wn->rend, point->x, point->y, point->next->x, point->next->y + 1);
-			// 	end = create_t_point(point->next->x + 1, point->next->y + 2);
-			// else
-				// SDL_RenderDrawLine(wn->rend, point->x, point->y, wn->input->x, wn->input->y + 1);
-			// 	end = create_t_point(point->x + 10, point->y + 11);
-			// // end = create_t_point(point->next->x, point->next->y + 1);
-			// bresenham(wn, &start, &end);
+			SDL_RenderDrawLine(wn->rend, point->x, point->y,
+				point->next->x, point->next->y);
 			point = point->next;
 		}
 		curr = curr->next;
@@ -54,8 +36,8 @@ static void	showline2(t_win *wn)
 {
 	float		i;
 	float		j;
-	t_point start;
-	t_point end;
+	t_point		start;
+	t_point		end;
 
 	j = wn->map->y;
 	i = wn->map->x;
@@ -86,8 +68,8 @@ static void	showline(t_win *wn)
 {
 	float		i;
 	float		j;
-	t_point start;
-	t_point end;
+	t_point		start;
+	t_point		end;
 
 	j = wn->map->y;
 	i = wn->map->x;
@@ -116,10 +98,10 @@ void		showmap(t_win *wn)
 	showelem(wn);
 }
 
-void 		print_background_editor(t_win *wn)
+void		print_background_editor(t_win *wn)
 {
-	SDL_Surface 	*surface;
-	SDL_Texture 	*texture;
+	SDL_Surface		*surface;
+	SDL_Texture		*texture;
 
 	surface = SDL_CreateRGBSurface(0, wn->xscreen, wn->yscreen, 32, 0, 0, 0, 0);
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 66, 66, 66));
@@ -129,21 +111,40 @@ void 		print_background_editor(t_win *wn)
 		stop_exec("rendercopy failed\n", wn);
 }
 
+int 		is_between(double x, double min, double max)
+{
+	if (x >= min && x < max)
+		return (0);
+	return (1);
+}
+
 void		change_bloc(t_win *wn)
 {
-	if (wn->input->x >= (5.5 * wn->xscreen / 7) && wn->input->x <= (5.75 * wn->xscreen / 7) && wn->input->y >= 0 && wn->input->y <= (0.25 * wn->yscreen / 7))
+	int x;
+	int y;
+
+	x = wn->input->x;
+	y = wn->input->y;
+	if (is_between(x, 5.5 * wn->xscreen / 7, 5.75 * wn->xscreen / 7) == 0
+		&& is_between(y, 0, 0.25 * wn->yscreen / 7) == 0)
 		wn->edit_image.bgh = 1;
-	else if (wn->input->x >= (5.5 * wn->xscreen / 7) && wn->input->x <= (5.75 * wn->xscreen / 7) && wn->input->y > 0.25 && wn->input->y <= (0.5 * wn->yscreen / 7))
+	else if (is_between(x, 5.5 * wn->xscreen / 7, 5.75 * wn->xscreen / 7) == 0
+		&& is_between(y, 0.25, 0.5 * wn->yscreen / 7) == 0)
 		wn->edit_image.bgh = 0;
-	if (wn->input->x >= (6.75 * wn->xscreen / 7) && wn->input->x < wn->xscreen && wn->input->y >= (3 * wn->yscreen / 7) && wn->input->y < (3.25 * wn->yscreen / 7) && wn->edit_image.in == 1)
+	if (is_between(x, 6.75 * wn->xscreen / 7, wn->xscreen) == 0 && is_between(y, 3 *
+		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
 		wn->edit_image.in = 0;
-	else if (wn->input->x >= (6.75 * wn->xscreen / 7) && wn->input->x < wn->xscreen && wn->input->y >= (5.75 * wn->yscreen / 7) && wn->input->y < (6 * wn->yscreen / 7) && wn->edit_image.in == 0)
+	else if (is_between(x, 6.75 * wn->xscreen / 7, wn->xscreen) == 0 && is_between(y, 5.75 *
+		wn->yscreen / 7, 6 * wn->yscreen / 7) == 0 && wn->edit_image.in == 0)
 		wn->edit_image.in = 1;
-	if (wn->input->x >= (5.5 * wn->xscreen / 7) && wn->input->x < (5.75 * wn->xscreen / 7) && wn->input->y >= (3 * wn->yscreen / 7) && wn->input->y < (3.25 * wn->yscreen / 7) && wn->edit_image.in == 1)
+	if (is_between(x, 5.5 * wn->xscreen / 7, 5.75 * wn->xscreen / 7) == 0 && is_between(y, 3 *
+		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
 		wn->edit_image.tbp = 0;
-	if (wn->input->x >= (5.75 * wn->xscreen / 7) && wn->input->x < (6 * wn->xscreen / 7) && wn->input->y >= (3 * wn->yscreen / 7) && wn->input->y < (3.25 * wn->yscreen / 7) && wn->edit_image.in == 1)
+	if (is_between(x, 5.75 * wn->xscreen / 7, 6 * wn->xscreen / 7) == 0 && is_between(y, 3 *
+		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
 		wn->edit_image.tbp = 1;
-	if (wn->input->x >= (6 * wn->xscreen / 7) && wn->input->x < (6.25 * wn->xscreen / 7) && wn->input->y >= (3 * wn->yscreen / 7) && wn->input->y < (3.25 * wn->yscreen / 7) && wn->edit_image.in == 1)
+	if (is_between(x, 6 * wn->xscreen / 7, 6.25 * wn->xscreen / 7) == 0 && is_between(y, 3 *
+		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
 		wn->edit_image.tbp = 2;
 }
 
@@ -178,20 +179,14 @@ void 		print_tbp_editor(t_win *wn)
 	{
 		src.x = 0;
 		src.y = 0;
-		dst.x = 5.5 * wn->xscreen / 7;
-		dst.y = 3 * wn->yscreen / 7;
-		dst.w = 1.5 * wn->xscreen / 7;
-		dst.h = 3 * wn->yscreen / 7;
+		dst = define_rect(5.5 * wn->xscreen / 7, 3 * wn->yscreen / 7, 1.5 * wn->xscreen / 7, 3 * wn->yscreen / 7);
 	}
 	else 
 	{
 		src.x = 0;
 		src.y = 0;
 		src.h = 0.25 * src.h / 7;
-		dst.x = 5.5 * wn->xscreen / 7;
-		dst.y = 5.75 * wn->yscreen / 7;
-		dst.w = 1.5 * wn->xscreen / 7;
-		dst.h = 0.25 * wn->yscreen / 7;
+		dst = define_rect(5.5 * wn->xscreen / 7, 5.75 * wn->yscreen / 7, 1.5 * wn->xscreen / 7, 0.25 * wn->yscreen / 7);
 	}
 	if (SDL_RenderCopy(wn->rend, wn->edit_image.texture_tbp, &src, &dst) < 0)
 		stop_exec("render copy failed in print_tbp\n", wn);

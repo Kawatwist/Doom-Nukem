@@ -23,8 +23,7 @@ static void	resetmap(t_win *wn)
 
 static void	keyboardtool(t_win *wn)
 {
-	if (wn->state[SDL_SCANCODE_ESCAPE])
-		wn->interface = MENU;
+	(wn->state[SDL_SCANCODE_ESCAPE]) ? wn->interface = MENU : 0;
 	wn->state[SDL_SCANCODE_LEFT] ? wn->map->x -= (6.5 - wn->map->size) : 0;
 	wn->state[SDL_SCANCODE_RIGHT] ? wn->map->x += (6.5 - wn->map->size) : 0;
 	wn->state[SDL_SCANCODE_UP] ? wn->map->y -= (6.5 - wn->map->size) : 0;
@@ -38,14 +37,15 @@ static void	keyboardtool(t_win *wn)
 	wn->state[SDL_SCANCODE_KP_MINUS]
 		&& wn->map->size <= 0.5 ? wn->map->size = 0.5 : 0;
 	wn->state[SDL_SCANCODE_R] ? resetmap(wn) : 0;
-	wn->state[SDL_SCANCODE_1] && !wn->old[SDL_SCANCODE_1] ? wn->editext.on = -wn->editext.on : 0;
 	wn->map->h = wn->editext.map_h * wn->map->size;
 	wn->map->w = wn->editext.map_w * wn->map->size;
 }
 
 void		inputeditor(t_win *wn)
 {
-	(!(wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT)) && (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT))) ? change_bloc(wn) : 0;
+	if (!(wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT))
+		&& (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)))
+		change_bloc(wn);
 	keyboardtool(wn);
 	mouse_input_poly(wn);
 }

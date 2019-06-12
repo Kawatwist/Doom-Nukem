@@ -12,19 +12,19 @@
 
 #include "doom.h"
 
-void	print_bgh_editor(t_win *wn)
+void		print_bgh_editor(t_win *wn)
 {
-	SDL_Rect 		dst;
+	SDL_Rect		dst;
 
-	dst.x = 5.5 * wn->xscreen / 7;
-	dst.y = 0;
-	dst.w = 1.5 * wn->xscreen / 7;
-	dst.h = 3 * wn->yscreen / 7;
+	dst = define_rect(5.5 * wn->xscreen / 7, 0, 1.5 * wn->xscreen / 7, 3 * wn->yscreen / 7);
 	if (wn->edit_image.bgh == 1)
-		wn->edit_image.texture_bgh = findtexture(wn, "editor", "affichage", "history");
+		wn->edit_image.texture_bgh =
+			findtexture(wn, "editor", "affichage", "history");
 	else if (wn->edit_image.bgh == 0)
-		wn->edit_image.texture_bgh = findtexture(wn, "editor", "affichage", "background_map");
-	(wn->edit_image.texture_bgh == NULL) ? stop_exec("texture bgh failed in print_bgh\n", wn) : 0;
+		wn->edit_image.texture_bgh =
+			findtexture(wn, "editor", "affichage", "background_map");
+	if (wn->edit_image.texture_bgh == NULL)
+		stop_exec("texture bgh failed in print_bgh\n", wn);
 	if (SDL_RenderCopy(wn->rend, wn->edit_image.texture_bgh, NULL, &dst) < 0)
 		stop_exec("rendercopy failed in print_history\n", wn);
 	bg_or_h(wn);
@@ -34,15 +34,15 @@ void		print_path(t_win *wn, char *s, int posi_x, int posi_y)
 {
 	int				w;
 	int				h;
-	int 			x;
+	int				x;
 	SDL_Rect		position;
 
 	x = 0;
 	TTF_SizeText(wn->fonts->arial_path, s, &w, &h);
 	position.x = posi_x;
 	position.y = posi_y - 5;
- 	position.h = h;
- 	SDL_QueryTexture(wn->edit_image.bg_path, NULL, NULL, &w, &h);
+	position.h = h;
+	SDL_QueryTexture(wn->edit_image.bg_path, NULL, NULL, &w, &h);
 	x = w - wn->edit_image.bg.w - 5;
  	if (w < (wn->edit_image.bg.w - 5))
  	{
@@ -58,7 +58,25 @@ void		print_path(t_win *wn, char *s, int posi_x, int posi_y)
 	}	
 }
 
-void	bg_or_h(t_win *wn)
+static void		text_for_bg(t_win *wn)
+{
+	SDL_Rect 	position;
+	int 		w;
+	int 		h;
+
+	TTF_SizeText(wn->fonts->arial_path, "Load a background image :", &w, &h);
+	position = define_rect(wn->edit_image.bg.x, wn->edit_image.bg.y - h - 20, w, h);
+	TTF_SetFontStyle(wn->fonts->arial_path, TTF_STYLE_UNDERLINE | TTF_STYLE_BOLD);
+	print_text_with_arial_path_full(wn, "Load a background image :", wn->color.noir, position);
+	TTF_SetFontStyle(wn->fonts->arial_path, TTF_STYLE_NORMAL);
+	TTF_SizeText(wn->fonts->arial, "no special character allowed except / . ~", &w, &h);
+	position = define_rect(wn->edit_image.bg.x, wn->edit_image.bg.y - h - 2, w, h);
+	TTF_SetFontStyle(wn->fonts->arial, TTF_STYLE_ITALIC | TTF_STYLE_BOLD);
+	print_text_with_arial_font(wn, "no special character allowed except / . ~", wn->color.noir, position);
+	TTF_SetFontStyle(wn->fonts->arial, TTF_STYLE_NORMAL);
+}
+
+void		bg_or_h(t_win *wn)
 {
 	if (wn->edit_image.bgh == 0)
 		print_bg(wn);
@@ -66,21 +84,48 @@ void	bg_or_h(t_win *wn)
 	// 	print_history(wn);
 }
 
-// void 	load_background(t_win *wn, char *command)
-// {
+void 	load_background(t_win *wn, char *path)
+{
+	SDL_Texture 	*texture;
+	int 			w;
+	int 			h;
+	SDL_Rect 		dst;
 
-// }
+	texture = NULL;
+	wn->load = ft_strdup(path);
+	if (load_texture(wn, "editor", "affichage", path) == 1)
+		message_bg_editor(wn, "This path doesn't exist.");
+	else
+	{
+		SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+		dst = define_rect(0, 0, w, h);
+		texture = findtexture(wn, "editor", "affichage", path);
+		if (SDL_RenderCopy(wn->rend, texture, NULL, &dst) < 0)
+			stop_exec("render copy failed in print_tbp\n", wn);
+		message_bg_editor(wn, "Image downloaded.");
+	}
+	free(wn->load);
+}
 
-// void 	fonction_pour_message_erreur_bg(t_win *wn, char *message)
+void 	message_bg_editor(t_win *wn, char *message)
+{
+	int w;
+	int h;
+	SDL_Rect position;
 
-void 	print_bg(t_win *wn)
+	TTF_SizeText(wn->fonts->arial_path, message,&w, &h);
+	position = define_rect(wn->edit_image.bg.x, wn->edit_image.bg.y + wn->edit_image.bg.h + 10, w, h);
+	TTF_SetFontStyle(wn->fonts->arial, TTF_STYLE_ITALIC);
+	print_text_with_arial_font(wn, message, wn->color.red, position);
+	TTF_SetFontStyle(wn->fonts->arial, TTF_STYLE_NORMAL);	
+}
+
+void 		print_bg(t_win *wn)
 {
 	static char		*path = NULL;
 
-	wn->edit_image.bg.x = 5.6 * wn->xscreen / 7;
-	wn->edit_image.bg.y = 2 * wn->yscreen / 7;
-	wn->edit_image.bg.w = 1.30 * wn->xscreen / 7;
-	wn->edit_image.bg.h = 26;
+	text_for_bg(wn);
+	wn->edit_image.bg = define_rect(5.6 * wn->xscreen / 7, 1.5 * wn->yscreen / 7, 1.30 * wn->xscreen / 7, 26);
 	SDL_SetRenderDrawColor(wn->rend, 250, 250, 250, 0);
 	(SDL_RenderFillRect(wn->rend, &wn->edit_image.bg) < 0) ? stop_exec("fillrect failed in print_bg\n", wn) : 0;
 	path = printable_input(wn, path);
@@ -90,7 +135,7 @@ void 	print_bg(t_win *wn)
 		print_path(wn, path, wn->edit_image.bg.x + 5, wn->edit_image.bg.y + 5);
 	if (key_pressed(wn, SDL_SCANCODE_RETURN))
 	{
-		//charger command si lien valide sinon message d'erreur "<command> doesn't exist."
+		load_background(wn, path);//charger command si lien valide sinon message d'erreur "<command> doesn't exist."
 		free(path); // ajouter free(path) et path = NULL dans fonction chargement bg
 		path = NULL; // faire ternaire (path != NULL) ? load_bg : ft_pr_mess_err_bg
 	}
