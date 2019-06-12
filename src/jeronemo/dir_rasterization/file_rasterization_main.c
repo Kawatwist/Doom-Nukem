@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 11:49:02 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/12 12:56:11 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,22 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	if (wn->state[SDL_SCANCODE_ESCAPE])
 		change->quit = TRUE;
 
+
+
+	if (wn->state[SDL_SCANCODE_Q] == 1 && old[SDL_SCANCODE_Q] == 0)
+	{
+		if (change->display->panel == 1)
+			change->display->panel = 0;
+		else
+			change->display->panel = 1;
+		change->modif = 1;
+		/* printf("switch perspective\n"); */
+	}
+
+
+
+
+
 	if (wn->state[SDL_SCANCODE_P] == 1 && old[SDL_SCANCODE_P] == 0)
 	{
 		if (change->display->projection == orthographique)
@@ -27,6 +43,11 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("switch perspective\n"); */
 	}
+
+
+
+
+
 	if (wn->state[SDL_SCANCODE_T] == 1 && old[SDL_SCANCODE_T] == 0)
 	{
 		if (change->display->triangle == 1)
@@ -178,6 +199,9 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 	change->display->culling_face = 0;
 	change->display->mesh_normal = 0;
 	change->display->triangle_normal = 0;
+
+
+	change->display->panel = 0;
 }
 
 float		ft_get_the_indice_vertex_x(int indice, t_myvec *vertex_lst)
@@ -328,6 +352,15 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 		ft_mouse_event_check(wn, &change);
 		if (change.modif == 1)
 			ft_apply_modif(s_win, &change, &keep);
+
+
+		if (change.display->panel == 1)
+			ft_display_panel();
+
+
+
+
+
 		SDL_Delay(10);
 		setkeyboard(change.old, wn->state);
 	}

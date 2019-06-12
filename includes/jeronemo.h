@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 11:05:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/12 12:55:45 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct	s_mydisplay
 
 	char		mesh;
 	char		mesh_normal;
+
+	char		panel;
 }				t_mydisplay;
 
 typedef struct		s_mychange
@@ -405,4 +407,16 @@ float	ft_rad(float angle);
 void	ft_draw_change(t_mywin *s_win, t_mychange *change);
 
 t_myvec	ft_perspective_projection(t_myvec vertex);
+
+
+
+
+
+
+void		ft_mouse_event_check(t_win *wn, t_mychange *change);
+void	ft_display_panel();
+
+
+
+
 #endif
