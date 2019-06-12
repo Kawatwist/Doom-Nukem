@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/29 19:57:50 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/30 16:21:31 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef enum  		e_val
 typedef enum		e_interface
 {
 	MENU,
-	GAME,
 	MGAME,
 	NGAME,
 	LGAME,
@@ -59,8 +58,9 @@ typedef enum		e_interface
 	LEDITEUR,
 	NEDITEUR,
 	REDITEUR,
-	OPTION,
-	BOPTION,
+	MOPTION,
+	COPTION,
+	GOPTION,
 	KEYOPTION,
 	LOADING,
 	PAUSE,

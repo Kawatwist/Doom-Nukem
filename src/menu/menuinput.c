@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 16:39:46 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 11:44:49 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/30 16:31:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ void	menuinput(t_win *wn)
 	if (key_pressed(wn, SDL_SCANCODE_RETURN) && !(wn->flag & CONSOLE))
 	{
 		wn->oldinterface = wn->interface;
-		wn->menu->choice == 0 ? wn->interface = GAME : 0;
+		wn->menu->choice == 0 ? wn->interface = MGAME : 0;
+		wn->menu->choice == 0 ? wn->menu->choice = 10 : 0;
 		wn->menu->choice == 1 ? wn->interface = EDITEUR : 0;
-		wn->menu->choice == 2 ? wn->interface = OPTION : 0;
+		wn->menu->choice == 1 ? wn->menu->choice = 20 : 0;
+		wn->menu->choice == 2 ? wn->interface = MOPTION : 0;
+		wn->menu->choice == 2 ? wn->menu->choice = 30 : 0;
 		wn->menu->choice == 3 ? stop_exec("Merci d'avoir joué !\n", wn) : 0;
 		// Verif que le joueur veut bien quitter
 	}

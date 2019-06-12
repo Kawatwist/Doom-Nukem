@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 15:01:21 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/30 15:16:06 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ int				init(t_win **wn, int argc, char **argv)
 	!((*wn)->flag & LQ) ? loadnothread(wn) : loadminimenu(wn);
 	(*wn)->load = ft_strdup("./texture/game/hand.tga");
 	load_texture(*wn, "game", "hand", "none");
+	(*wn)->load = ft_strdup("./texture/Menu_game.tga");
+	load_texture(*wn, "game", "menu", "menu");
+	(*wn)->load = ft_strdup("./texture/Menu_game_LG.tga");
+	load_texture(*wn, "game", "menu", "LG");
+	(*wn)->load = ft_strdup("./texture/Menu_game_NG.tga");
+	load_texture(*wn, "game", "menu", "NG");
 	initplayer(wn);
 	initskybox(wn);
 	return (1);

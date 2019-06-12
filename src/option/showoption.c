@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:45:38 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 11:33:50 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/30 17:06:49 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void		showoption(t_win *wn)
 {
-	SDL_SetRenderDrawColor(wn->rend, 100, 0, 100, 0);
-	SDL_RenderClear(wn->rend);
+	(void)wn;
+//	SDL_SetRenderDrawColor(wn->rend, 100, 0, 100, 0);
+//	SDL_RenderClear(wn->rend);
 }
