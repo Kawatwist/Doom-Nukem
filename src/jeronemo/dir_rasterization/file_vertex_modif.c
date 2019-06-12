@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 14:45:02 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/12 15:26:19 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,11 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 			s_line.deux.b = change->result_1.y;
 			ft_draw_line(s_win, &s_line);
 
+			if (change->display->color == 1)
+			{
+				
 
-
+			}
 
 		}
 	}
