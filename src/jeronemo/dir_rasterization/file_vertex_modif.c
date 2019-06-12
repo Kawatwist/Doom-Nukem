@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 11:21:52 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/12 11:30:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_calcul_projection(t_mychange *change)
 int		ft_calcul_culing(t_mychange *change)
 {
 	float			l;
-		t_myvec		normal;
+	t_myvec			normal;
 	t_myvec			camera;
 
 	camera.x = 0;
@@ -92,7 +92,7 @@ void	ft_draw_mesh(t_mywin *s_win, t_mychange *change)
 
 	if (change->display->culling_face == 1)
 	{
-		if (ft_calcul_culing(change) > 0)
+		if (ft_calcul_culing(change))
 		{
 			s_line.un.a = change->result_1.x;
 			s_line.un.b = change->result_1.y;
