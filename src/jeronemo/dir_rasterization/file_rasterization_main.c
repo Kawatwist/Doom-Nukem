@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 11:02:57 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 12:59:34 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		/* printf("switch color\n"); */
 	}
 
-
 	if (wn->state[SDL_SCANCODE_G] == 1 && old[SDL_SCANCODE_G] == 0)
 	{
 		if (change->display->shade == 1)
@@ -58,9 +57,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("switch perspective\n"); */
 	}
-
-
-
 
 
 	if (wn->state[SDL_SCANCODE_T] == 1 && old[SDL_SCANCODE_T] == 0)
@@ -273,6 +269,7 @@ float		ft_get_the_indice_vertex_z(int indice, t_myvec *vertex_lst)
 	vertex_lst = keep;
 	return (z);
 }
+
 void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 {
 	t_mypolygon *polygon;
@@ -296,6 +293,9 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 			{
 				/* printf("le numero = %d\n", i); */
 				i++;
+
+
+
 				change->result_1.x = polygon->vertex_lst->x;
 				change->result_1.y = polygon->vertex_lst->y;
 				change->result_1.z = polygon->vertex_lst->z;
@@ -303,6 +303,9 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 				change->result_2.y = polygon->vertex_lst->next->y;
 				change->result_2.z = polygon->vertex_lst->next->z;
 				SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
+
+
+
 				ft_draw_change(s_win, change);
 				polygon->vertex_lst = polygon->vertex_lst->next;
 			}

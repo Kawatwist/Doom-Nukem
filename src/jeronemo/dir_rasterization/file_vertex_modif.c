@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 12:02:38 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 12:58:04 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_draw_mesh(t_mywin *s_win, t_mychange *change)
 			ft_draw_line(s_win, &s_line);
 		}
 	}
-	else 
+	else
 	{
 		s_line.un.a = change->result_1.x;
 		s_line.un.b = change->result_1.y;
@@ -117,7 +117,6 @@ void	ft_draw_mesh(t_mywin *s_win, t_mychange *change)
 
 void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 {
-	t_myputtheline		s_line;;
 	t_mycolor			color;
 
 	color = ft_setcolor(BLUE);
@@ -139,30 +138,16 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 	}
 	else
 	{
-			printf("helo\n");
-			if (change->display->color == 1)
-			{
-				printf("hola bb\n");
-				ft_order_triangle_vertice(&(change->result_1), &(change->result_2), &(change->result_3));
-				ft_fill_triangle(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
-			}
-	color = ft_setcolor(PINK);
-	SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg, color.bbb, 255);
-		s_line.un.a = change->result_1.x;
-		s_line.un.b = change->result_1.y;
-		s_line.deux.a = change->result_2.x;
-		s_line.deux.b = change->result_2.y;
-		ft_draw_line(s_win, &s_line);
-		s_line.un.a = change->result_2.x;
-		s_line.un.b = change->result_2.y;
-		s_line.deux.a = change->result_3.x;
-		s_line.deux.b = change->result_3.y;
-		ft_draw_line(s_win, &s_line);
-		s_line.un.a = change->result_3.x;
-		s_line.un.b = change->result_3.y;
-		s_line.deux.a = change->result_1.x;
-		s_line.deux.b = change->result_1.y;
-		ft_draw_line(s_win, &s_line);
+		printf("helo\n");
+		if (change->display->color == 1)
+		{
+			printf("hola bb\n");
+			ft_order_triangle_vertice(&(change->result_1), &(change->result_2), &(change->result_3));
+			ft_fill_triangle(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
+		}
+		color = ft_setcolor(PINK);
+		SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg, color.bbb, 255);
+		ft_draw_triangle_base(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
 	}
 }
 
