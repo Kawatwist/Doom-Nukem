@@ -6,12 +6,21 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/12 16:57:17 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/13 08:46:25 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 #include "server.h"
+
+static void	initserv(t_server *server)
+{
+	ft_bzero((char *)&server->serv_addr, sizeof(server->serv_addr));
+	server->port = 4242;
+	server->serv_addr.sin_family = AF_INET;
+	server->serv_addr.sin_addr.s_addr = INADDR_ANY;
+	server->serv_addr.sin_port = htons(server->port);
+}
 
 static void	listenclient(t_win *wn)
 {
@@ -21,14 +30,11 @@ static void	listenclient(t_win *wn)
 	server.sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (server.sockfd < 0)
 		return (perror("Open socket"));
-	ft_bzero((char *)&server.serv_addr, sizeof(server.serv_addr));
-	server.port = 4242;
-	server.serv_addr.sin_family = AF_INET;
-	server.serv_addr.sin_port = htons(server.port);
+	initserv(&server);
 	bind(server.sockfd, (struct sockaddr *)&server.serv_addr, sizeof(server.serv_addr));
 	listen(server.sockfd, 5);
 	server.sockfd = accept(server.sockfd, (struct sockaddr *)&server.cli_addr, (socklen_t *)&server.len);
-	if (server.sockfd < 0)
+	if (server.sockfd < 0 || server.len < 0)
 		return (perror("Open New socket"));
 	ft_bzero(buffer, 256);
 	read(server.sockfd, buffer, 6);

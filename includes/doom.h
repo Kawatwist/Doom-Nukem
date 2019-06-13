@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/12 16:39:29 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/13 08:36:38 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "skybox.h"
 # include "SDL.h"
 # include "SDL_ttf.h"
-# define XSCREEN 120
+# define XSCREEN 1920
 # define YSCREEN 1080
 # define CONSOLE_MAX_LINE_NB 10
 # define ARIEL_FONT_SIZE 35

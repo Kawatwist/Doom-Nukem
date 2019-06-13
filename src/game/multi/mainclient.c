@@ -6,12 +6,13 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/12 16:53:01 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/13 08:41:02 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 #include "client.h"
+#include <arpa/inet.h>
 
 static void	tryconnect(t_win *wn, char *ip, int port)
 {
@@ -19,6 +20,8 @@ static void	tryconnect(t_win *wn, char *ip, int port)
 	
 	client.port = port;
 	client.sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	if (client.sockfd < 0)
+		return (perror("Socket not opened :"));
 	client.server = gethostbyname(ip);
 	ft_bzero((char *)&client.serv_addr, sizeof(client.serv_addr));
 	client.serv_addr.sin_family = AF_INET;
@@ -27,10 +30,10 @@ static void	tryconnect(t_win *wn, char *ip, int port)
 	SDL_Delay(200);
 	printf("Try to connect\n");
 	if (connect(client.sockfd, (struct sockaddr *)&client.serv_addr, sizeof(client.serv_addr)) < 0)
-		return (perror("CANT CONNECT"));
-	printf("CONNECTED");
+		return (perror("Can't connect to the server : "));
+	printf("Connected");
 	SDL_Delay(200);
-	write(client.sockfd, "SALUUT", 6);
+	write(client.sockfd, "Test", 4);
 	wn->client = &client;
 }
 
@@ -38,7 +41,7 @@ static int	inputclient(t_win *wn, int	select)
 {
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MULTI : 0;
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 40 : 0;
-	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_UP) && select > 0 ? select -= 1 : 0;
+	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_UP) && select > 1 ? select -= 1 : 0;
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_DOWN) && select < 3 ? select += 1 : 0;
 	return (select);
 }
@@ -53,7 +56,7 @@ void		mainclient(t_win *wn)
 {
 	static char *ip = NULL;
 	static char *port = NULL;
-	static int	select = 0;
+	static int	select = 1;
 
 	if (select == 1)
 		ip = text_box(wn, ip);
