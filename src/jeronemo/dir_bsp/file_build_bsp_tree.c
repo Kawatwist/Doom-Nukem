@@ -12,6 +12,28 @@
 
 # include "file_bsp.h"
 
+static void			ft_copy_and_add_to_top(t_mypolygon **to_be_added, t_mypolygon *elem_to_add)
+{
+	t_mypolygon		*elem_copy;
+
+	elem_copy = (t_mypolygon*)malloc(sizeof(t_mypolygon));
+	*elem_copy = *elem_to_add;
+	ft_add_polygon(to_be_added, elem_copy);
+}
+
+static void			ft_split_then_distribute(t_mypolygon **front_lst, t_mypolygon **back_lst, t_mypolygon *splitter, t_mypolygon *polygon_lst)
+{
+	t_mypolygon		*front_split;
+	t_mypolygon		*back_split;
+
+	front_split = (t_mypolygon*)malloc(sizeof(t_mypolygon));
+	back_split = (t_mypolygon*)malloc(sizeof(t_mypolygon));
+	ft_split_polygon(polygon_lst, splitter, front_split, back_split);
+	ft_copy_and_add_to_top(front_lst, front_split);
+	ft_copy_and_add_to_top(back_lst, back_split);
+}
+
+
 
 void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 {
@@ -21,6 +43,7 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	t_mynode		*new_front;
 	t_mynode		*new_back;
 	int				result;
+
 
 	printf("\n=======================>CREATION DUN NODE\n");
 	keep = polygon_lst;
@@ -38,30 +61,25 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 
 
 	printf("======> On choisit le spliter ayant id %d\n", current_node->splitter->id);
-	keep = polygon_lst;  //not sure if this line is useful???
+	// keep = polygon_lst;  //not sure if this line is useful???
 	while (polygon_lst != NULL)
 	{
 		if (polygon_lst != current_node->splitter)
 		{
 			result = ft_classify_polygon(current_node->splitter, polygon_lst);
-			if (result == FRONT)
+			// if (result == FRONT)
+			if (result == FRONT || result == ON_PLANE)
 			{
-				t_mypolygon		*poly_copy;
-				poly_copy = (t_mypolygon*)malloc(sizeof(t_mypolygon));
-				*poly_copy = *polygon_lst;
 				printf("Le polygon id %d est front\n", polygon_lst->id);
-				ft_add_polygon(&front_lst, poly_copy);
-				//on add a la list front
+				ft_copy_and_add_to_top(&front_lst, polygon_lst);	// on add a la list front
 			}
 			else if (result == BACK)
 			{
-				t_mypolygon		*poly_copy;
-				poly_copy = (t_mypolygon*)malloc(sizeof(t_mypolygon));
-				*poly_copy = *polygon_lst;
 				printf("Le polygon id %d est back\n", polygon_lst->id);
-				ft_add_polygon(&back_lst, poly_copy);
-				//on add a la list back
+				ft_copy_and_add_to_top(&back_lst, polygon_lst); 	//on add a la list back
 			}
+			else // in this case result = SPANNING
+				ft_split_then_distribute(&front_lst, &back_lst, current_node->splitter, polygon_lst);
 		}
 		polygon_lst = polygon_lst->next;
 		// printf("ladreese du next %p\n", polygon_lst);
