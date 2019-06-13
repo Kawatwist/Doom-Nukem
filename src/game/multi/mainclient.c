@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/13 11:28:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/13 17:53:27 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,30 @@ static void ft_bcopy(const void *src, void *dst, size_t len)
 
 static void	tryconnect(t_win *wn, char *ip, int port)
 {
-	t_client	client;
+	t_client	*client;
 
-	client.username = malloc(sizeof(char) * 8);
-	getlogin_r(client.username, 8);
-	client.port = port;
-	client.sockfd = socket(AF_INET, SOCK_STREAM, 0);
-	if (client.sockfd < 0)
+	client = malloc(sizeof(t_client));
+	client->username = malloc(sizeof(char) * 8);
+	getlogin_r(client->username, 8);
+	client->username == NULL ? client->username = ft_strdup("NULL") : 0;
+	printf("%s\n", client->username);
+	client->port = port;
+	client->sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	if (client->sockfd < 0)
 		return (perror("Socket not opened :"));
-	client.server = gethostbyname(ip);
-	ft_bzero((char *)&client.serv_addr, sizeof(client.serv_addr));
-	client.serv_addr.sin_family = AF_INET;
-	ft_bcopy((void *)client.server->h_addr, (void *)&(client.serv_addr.sin_addr.s_addr), (size_t)client.server->h_length);
-	client.serv_addr.sin_port = htons(client.port);
+	client->server = gethostbyname(ip);
+	ft_bzero((char *)&client->serv_addr, sizeof(client->serv_addr));
+	client->serv_addr.sin_family = AF_INET;
+	ft_bcopy((void *)client->server->h_addr, (void *)&(client->serv_addr.sin_addr.s_addr), (size_t)client->server->h_length);
+	client->serv_addr.sin_port = htons(client->port);
 	SDL_Delay(200);
 	printf("Try to connect\n");
-	if (connect(client.sockfd, (struct sockaddr *)&client.serv_addr, sizeof(client.serv_addr)) < 0)
+	if (connect(client->sockfd, (struct sockaddr *)&client->serv_addr, sizeof(client->serv_addr)) < 0)
 		return (perror("Can't connect to the server : "));
 	printf("Connected");
 	SDL_Delay(200);
-	write(client.sockfd, client.username, ft_strlen(client.username));
-	wn->client = &client;
+	write(client->sockfd, client->username, ft_strlen(client->username));
+	wn->client = client;
 }
 
 static int	inputclient(t_win *wn, int	select)
@@ -64,6 +67,7 @@ void		mainclient(t_win *wn)
 	static char *ip = NULL;
 	static char *port = NULL;
 	static int	select = 1;
+	char		*chaine = NULL;
 
 	if (select == 1)
 		ip = text_box(wn, ip);
@@ -76,5 +80,14 @@ void		mainclient(t_win *wn)
 	{
 		printf("IP : %s\n", ip);
 		printf("PORT : %s\n", port);
+	}
+	else
+	{
+		chaine = get_msg_client(wn);
+		while (*chaine)
+		{
+			printf("%c\n", *chaine);
+			chaine++;
+		}
 	}
 }

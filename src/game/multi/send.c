@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.h                                           :+:      :+:    :+:   */
+/*   send.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/12 15:59:23 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/13 11:50:31 by lomasse          ###   ########.fr       */
+/*   Created: 2019/06/13 13:57:48 by lomasse           #+#    #+#             */
+/*   Updated: 2019/06/13 17:24:14 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERVER_H
-# define SERVER_H
+#include "doom.h"
+#include "server.h"
+#include "client.h"
 
-# include <sys/types.h>
-# include <sys/socket.h>
-# include <netinet/in.h>
-
-typedef struct s_user
+void		send_msg_from_client(t_win *wn, char *msg)
 {
-	char				*name;
-	struct sockaddr_in	cli_addr;
-}				t_user;
+	send(((t_client *)wn->client)->sockfd, msg, ft_strlen(msg), 0);
+}
 
-typedef struct	s_server
+void		send_msg_from_server(t_win *wn, char *msg)
 {
-	int			sockfd;
-	int			newsockfd;
-	int			port;
-	int			len;
-	struct sockaddr_in serv_addr;
-	t_user		user[3];
-}				t_server;
-
-#endif
+	send(((t_server *)wn->serv)->newsockfd, msg, ft_strlen(msg), 0);
+}

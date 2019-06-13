@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/13 08:58:25 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/13 17:44:30 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,34 +20,40 @@ static void	initserv(t_server *server)
 	server->serv_addr.sin_family = AF_INET;
 	server->serv_addr.sin_addr.s_addr = INADDR_ANY;
 	server->serv_addr.sin_port = htons(server->port);
+	server->user[0].name = NULL;
+	server->user[1].name = NULL;
+	server->user[2].name = NULL;
 }
 
 static void	listenclient(t_win *wn)
 {
-	t_server server;
-	char buffer[256];
+	t_server *server;
 
-	server.sockfd = socket(AF_INET, SOCK_STREAM, 0);
-	if (server.sockfd < 0)
+	server = malloc(sizeof(t_server));
+	server->sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	if (server->sockfd < 0)
 		return (perror("Open socket :"));
-	initserv(&server);
-	if (bind(server.sockfd, (struct sockaddr *)&server.serv_addr, sizeof(server.serv_addr)) < 0)
+	initserv(server);
+	if (bind(server->sockfd, (struct sockaddr *)&server->serv_addr, sizeof(server->serv_addr)) < 0)
 		return (perror("Bind failed :"));
-	listen(server.sockfd, 5);
-	server.len = sizeof(server.cli_addr);
-	server.newsockfd = accept(server.sockfd, (struct sockaddr *)&server.cli_addr, (socklen_t *)&server.len);
-	if (server.newsockfd < 0 || server.len < 0)
+	listen(server->sockfd, 5);
+	server->len = sizeof(server->user[0].cli_addr);
+	server->newsockfd = accept(server->sockfd, (struct sockaddr *)&server->user[0].cli_addr, (socklen_t *)&server->len);
+	if (server->newsockfd < 0 || server->len < 0)
 		return (perror("Open New socket :"));
-	ft_bzero(buffer, 256);
-	read(server.newsockfd, buffer, 6);
-	printf("%s\n", buffer);
-	wn->serv = &server;
+	server->user[0].name = ft_memalloc(sizeof(char) * 8);
+	read(server->newsockfd, server->user[0].name, 8);
+	printf("%s\n", server->user[0].name);
+	SDL_Delay(3000);
+	wn->serv = server;
 }
 
 static void	inputhost(t_win *wn)
 {
-	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MULTI : 0;
-	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 40 : 0;
+	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MULTI : 0;
+	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 40 : 0;
+	key_pressed(wn, SDL_SCANCODE_DELETE) ? send_msg_from_server(wn, "DELETE PRESSED\n\0") : 0;
+	key_pressed(wn, SDL_SCANCODE_RETURN) ? send_msg_from_server(wn, "ENTER PRESSED\n\0") : 0;
 }
 
 static void	showhost(t_win *wn)
@@ -63,8 +69,14 @@ static void	waiting(t_win *wn)
 
 void	mainhost(t_win *wn)
 {
+	char	*old;
+
+	old = NULL;
 	wn->serv == NULL ? waiting(wn) : 0;
 	wn->serv == NULL ? listenclient(wn) : 0;
+	wn->serv != NULL ? printf("Connected : %s\n\t %s\n\t%s\n", ((t_server *)wn->serv)->user[0].name, ((t_server *)wn->serv)->user[1].name, ((t_server *)wn->serv)->user[2].name) : 0;
+	if (!(wn->flag & CONSOLE))
+		wn->flag += CONSOLE;
 	inputhost(wn);
 	showhost(wn);
 }

@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.h                                           :+:      :+:    :+:   */
+/*   get.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/12 15:59:23 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/13 11:50:31 by lomasse          ###   ########.fr       */
+/*   Created: 2019/06/13 13:59:10 by lomasse           #+#    #+#             */
+/*   Updated: 2019/06/13 17:34:08 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERVER_H
-# define SERVER_H
+#include "doom.h"
+#include "server.h"
+#include "client.h"
 
-# include <sys/types.h>
-# include <sys/socket.h>
-# include <netinet/in.h>
-
-typedef struct s_user
+char		*get_msg_client(t_win *wn)
 {
-	char				*name;
-	struct sockaddr_in	cli_addr;
-}				t_user;
+	char	*buff;
 
-typedef struct	s_server
+	buff = malloc(sizeof(char) * 1024);
+	recv(((t_client *)wn->client)->sockfd, buff, 1024, 0);
+	return (buff);
+}
+
+char		*get_msg_server(t_win *wn)
 {
-	int			sockfd;
-	int			newsockfd;
-	int			port;
-	int			len;
-	struct sockaddr_in serv_addr;
-	t_user		user[3];
-}				t_server;
+	char	*buff;
 
-#endif
+	buff = malloc(sizeof(char) * 1024);
+	recv(((t_server *)wn->serv)->newsockfd, buff, 1024, 0);
+	return (buff);
+}

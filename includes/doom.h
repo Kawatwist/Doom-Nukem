@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/13 08:36:38 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/13 15:22:47 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,10 @@ void				world2view(t_win *wn, t_vec *ver, t_vec *f, t_vec *s, t_vec *u);
  ** MULTI
  **/
 
+void				send_msg_from_client(t_win *wn, char *msg);
+void				send_msg_from_server(t_win *wn, char *msg);
+char				*get_msg_client(t_win *wn);
+char				*get_msg_server(t_win *wn);
 void				mainhost(t_win *wn);
 void				mainclient(t_win *wn);
 void				mainmulti(t_win *wn);
