@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 12:58:04 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:08:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,10 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 	{
 		if (ft_calcul_culing(change))
 		{
-			printf("helo\n");
+			/* printf("helo\n"); */
 			if (change->display->color == 1)
 			{
-				printf("hola bb\n");
+				/* printf("hola bb\n"); */
 				ft_order_triangle_vertice(&(change->result_1), &(change->result_2), &(change->result_3));
 				ft_fill_triangle(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
 			}
@@ -138,10 +138,10 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 	}
 	else
 	{
-		printf("helo\n");
+		/* printf("helo\n"); */
 		if (change->display->color == 1)
 		{
-			printf("hola bb\n");
+			/* printf("hola bb\n"); */
 			ft_order_triangle_vertice(&(change->result_1), &(change->result_2), &(change->result_3));
 			ft_fill_triangle(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
 		}

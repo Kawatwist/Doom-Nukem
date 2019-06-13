@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 12:59:34 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:06:45 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,22 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("rotation sur x\n"); */
 	}
+	if (wn->state[SDL_SCANCODE_U] == 1 )
+	{
+		change->angle_x -= 1;
+		change->modif = 1;
+		/* printf("rotation sur x\n"); */
+	}
 	if (wn->state[SDL_SCANCODE_K] == 1 )
 	{
 		/* printf("rotation sur y\n"); */
 		change->angle_y += 1;
+		change->modif = 1;
+	}
+	if (wn->state[SDL_SCANCODE_I] == 1 )
+	{
+		/* printf("rotation sur y\n"); */
+		change->angle_y -= 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_L] == 1 )
@@ -133,18 +145,24 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->angle_z += 1;
 		change->modif = 1;
 	}
-	if (wn->state[SDL_SCANCODE_U] == 1 && old[SDL_SCANCODE_U] == 0)
+	if (wn->state[SDL_SCANCODE_O] == 1 )
 	{
-		/* printf("zoom\n"); */
-		change->zoom += 1;
+		/* printf("rotation sur z\n"); */
+		change->angle_z -= 1;
 		change->modif = 1;
 	}
-	if (wn->state[SDL_SCANCODE_I] == 1 && old[SDL_SCANCODE_I] == 0)
-	{
-		/* printf("zoom\n"); */
-		change->zoom -= 1;
-		change->modif = 1;
-	}
+	/* if (wn->state[SDL_SCANCODE_U] == 1 && old[SDL_SCANCODE_U] == 0) */
+	/* { */
+	/* 	/1* printf("zoom\n"); *1/ */
+	/* 	change->zoom += 1; */
+	/* 	change->modif = 1; */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_I] == 1 && old[SDL_SCANCODE_I] == 0) */
+	/* { */
+	/* 	/1* printf("zoom\n"); *1/ */
+	/* 	change->zoom -= 1; */
+	/* 	change->modif = 1; */
+	/* } */
 	if (wn->state[SDL_SCANCODE_W] == 1 && old[SDL_SCANCODE_W] == 0)
 	{
 		/* printf("Translation UP\n"); */
