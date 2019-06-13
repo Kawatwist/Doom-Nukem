@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 14:06:45 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:05:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,15 +305,9 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 		if (change->display->triangle == 0)
 		{
 			keep->vec = polygon->vertex_lst;
-			int i =0;
 			/* printf("le AAAA = %d\n", polygon->number_of_vertex); */
 			while (polygon->vertex_lst->next != NULL)
 			{
-				/* printf("le numero = %d\n", i); */
-				i++;
-
-
-
 				change->result_1.x = polygon->vertex_lst->x;
 				change->result_1.y = polygon->vertex_lst->y;
 				change->result_1.z = polygon->vertex_lst->z;
@@ -321,9 +315,6 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 				change->result_2.y = polygon->vertex_lst->next->y;
 				change->result_2.z = polygon->vertex_lst->next->z;
 				SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
-
-
-
 				ft_draw_change(s_win, change);
 				polygon->vertex_lst = polygon->vertex_lst->next;
 			}

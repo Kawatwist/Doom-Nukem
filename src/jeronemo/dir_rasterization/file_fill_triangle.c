@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 08:08:47 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 12:52:07 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:34:43 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,18 @@ void	ft_order_triangle_vertice(t_myvec *v1, t_myvec *v2, t_myvec *v3)
 
 void	ft_fill_bottom_flat_triangle(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win)
 {
-	float invslope1 = (v2->x - v1->x) / (v2->y - v1->y);
-	float invslope2 = (v3->x - v1->x) / (v3->y - v1->y);
-
-	float curx1 = v1->x;
-	float curx2 = v1->x;
-
+	float				invslope1;
+	float				invslope2;
+	float				curx1;
+	float				curx2;
 	t_myputtheline		s_line;;
+	int					scanline_y;
 
-	int scanline_y = v1->y;
+	invslope1 = (v2->x - v1->x) / (v2->y - v1->y);
+	invslope2 = (v3->x - v1->x) / (v3->y - v1->y);
+	curx1 = v1->x;
+	curx2 = v1->x;
+	scanline_y = v1->y;
 	while (scanline_y < v2->y - 1)
 	{
 		s_line.un.a = (int)curx1;
@@ -86,18 +89,15 @@ void	ft_fill_top_flat_triangle(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s
 		s_line.deux.a = (int)curx2;
 		s_line.deux.b = scanline_y;
 		ft_draw_line(s_win, &s_line);
-
 		curx1 -= invslope1;
 		curx2 -= invslope2;
 		scanline_y--;
 	}
-
-
 }
 
-void	ft_fill_triangle(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win)
+void	ft_fill_triangle_one_color(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win)
 {
-	t_myvec		v4;
+	t_myvec				v4;
 	t_myputtheline		s_line;;
 
 	if (v2->y == v3->y)
@@ -116,10 +116,30 @@ void	ft_fill_triangle(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win)
 		ft_fill_bottom_flat_triangle(v1, v2, &v4, s_win);
 		ft_fill_top_flat_triangle(v2, &v4, v3, s_win);
 	}
+}
 
+void	ft_fill_triangle_shade(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win, float shade)
+{
+	t_myvec				v4;
+	t_myputtheline		s_line;;
+	t_mycolor			color;
 
-
-
-
-
+	color = ft_setcolor(GREEN);
+	SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg, color.bbb, shade);
+	if (v2->y == v3->y)
+		ft_fill_bottom_flat_triangle(v1, v2, v3, s_win);
+	else if (v1->y == v2->y)
+		ft_fill_top_flat_triangle(v1, v2, v3, s_win);
+	else
+	{
+		v4.y = v2->y;
+		v4.x = v1->x + ((v2->y - v1->y) / (v3->y - v1->y)) * (v3->x - v1->x);
+		s_line.un.a = v2->x;
+		s_line.un.b = v2->y;
+		s_line.deux.a = v4.x;
+		s_line.deux.b = v4.y;
+		ft_draw_line(s_win, &s_line);
+		ft_fill_bottom_flat_triangle(v1, v2, &v4, s_win);
+		ft_fill_top_flat_triangle(v2, &v4, v3, s_win);
+	}
 }

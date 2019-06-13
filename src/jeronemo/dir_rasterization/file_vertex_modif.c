@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 14:08:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 20:23:16 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ void	ft_calcul_projection(t_mychange *change)
 }
 
 int		ft_calcul_culing(t_mychange *change)
-{
-	float			l;
+{ float			l;
 	t_myvec			normal;
 	t_myvec			camera;
 
@@ -115,6 +114,17 @@ void	ft_draw_mesh(t_mywin *s_win, t_mychange *change)
 	}
 }
 
+t_myvec		ft_normalise(t_myvec vector)
+{
+	float		l;
+
+	l = sqrtf(vector.x * vector.x + vector.y * vector.y + vector.z*vector.z);
+	vector.x /= l;
+	vector.y /= l;
+	vector.z /= l;
+	return (vector);
+}
+
 void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 {
 	t_mycolor			color;
@@ -129,9 +139,67 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 			/* printf("helo\n"); */
 			if (change->display->color == 1)
 			{
-				/* printf("hola bb\n"); */
 				ft_order_triangle_vertice(&(change->result_1), &(change->result_2), &(change->result_3));
-				ft_fill_triangle(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
+				/* printf("hola bb\n"); */
+				if (change->display->shade == 1)
+				{
+					//on fait la lumiere par triangle
+					//the easiest light to perform but doesnt exist in real world
+					t_myvec		light_direction;
+					float		shade; //variable light from 0 to 1;
+					t_myvec		triangle_normal;
+					t_myvec		triangle_normal_normalise;
+					light_direction.x = 0.0;
+					light_direction.y = 0.0;
+					light_direction.z = -1.0;
+
+
+
+
+					printf("the triangle first point x=%f\n", change->result_1.x);
+					printf("the triangle first point y=%f\n", change->result_1.y);
+					printf("the triangle first point z=%f\n", change->result_1.z);
+
+					printf("\n");
+
+
+					printf("the triangle seconde point x=%f\n", change->result_2.x);
+					printf("the triangle seconde point y=%f\n", change->result_2.y);
+					printf("the triangle seconde point z=%f\n", change->result_2.z);
+
+					printf("\n");
+
+					printf("the triangle third point x=%f\n", change->result_3.x);
+					printf("the triangle third point y=%f\n", change->result_3.y);
+					printf("the triangle third point z=%f\n", change->result_3.z);
+
+
+					printf("\n");
+					triangle_normal = ft_calculate_normal_of_points(change->result_1, change->result_2, change->result_3);
+					printf("the triangle normal x=%f\n", triangle_normal.x);
+					printf("the triangle normal y=%f\n", triangle_normal.y);
+					printf("the triangle normal z=%f\n", triangle_normal.z);
+
+					triangle_normal_normalise = ft_normalise(triangle_normal);
+					printf("the triangle normal normalise x=%f\n", triangle_normal_normalise.x);
+					printf("the triangle normal normalise y=%f\n", triangle_normal_normalise.y);
+					printf("the triangle normal normalise z=%f\n", triangle_normal_normalise.z);
+
+					light_direction = ft_normalise(light_direction);
+					printf("the light direction normalise x=%f\n", light_direction.x);
+					printf("the light direction normalise y=%f\n", light_direction.y);
+					printf("the light direction normalise z=%f\n", light_direction.z);
+
+					shade = ft_dot_product(triangle_normal_normalise, light_direction);
+					printf("the dot product result shade x=%f\n", shade);
+
+					ft_fill_triangle_shade(&(change->result_1), &(change->result_2), &(change->result_3), s_win, shade);
+					exit(0);
+				}
+				else
+				{
+					ft_fill_triangle_one_color(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
+				}
 			}
 			ft_draw_triangle_base(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
 		}
@@ -143,7 +211,7 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 		{
 			/* printf("hola bb\n"); */
 			ft_order_triangle_vertice(&(change->result_1), &(change->result_2), &(change->result_3));
-			ft_fill_triangle(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
+			ft_fill_triangle_one_color(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
 		}
 		color = ft_setcolor(PINK);
 		SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg, color.bbb, 255);

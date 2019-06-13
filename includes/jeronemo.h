@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 12:02:48 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:20:22 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -421,9 +421,10 @@ void		ft_mouse_event_check(t_win *wn, t_mychange *change);
 void	ft_display_panel();
 
 
-void	ft_fill_triangle(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
+void	ft_fill_triangle_one_color(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
 
 void	ft_order_triangle_vertice(t_myvec *v1, t_myvec *v2, t_myvec *v3);
 void	ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
 
+void	ft_fill_triangle_shade(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win, float shade);
 #endif
