@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 11:47:41 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 14:30:28 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 07:42:01 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,16 @@ void	ft_display_menu_panel_cross(t_mywin *s_win, t_mychange *change)
 				50, 10, s_color);
 		ft_draw_cross(s_win, &s_cross);
 	}
+	i++;
+	if (change->display->color == 1)
+	{
+		s_color = ft_setcolor(PINK);
+		s_cross = ft_setcross(
+				XSCREEN - 400 + 25,
+				30 + (i * 70) + 20,
+				50, 10, s_color);
+		ft_draw_cross(s_win, &s_cross);
+	}
 }
 
 
@@ -108,7 +118,7 @@ void	ft_display_panel(t_mywin *s_win, t_mychange *change)
 	menu_name[4] = ft_strdup("B ->Display triangle normal");
 	menu_name[5] = ft_strdup("M ->Display mesh");
 	menu_name[6] = ft_strdup("N ->Display mesh normal");
-	menu_name[7] = ft_strdup("Color");
+	menu_name[7] = ft_strdup("E ->Color");
 
 	t_mycolor	s_color;
 	t_mysquare	s_square;
@@ -117,7 +127,7 @@ void	ft_display_panel(t_mywin *s_win, t_mychange *change)
 
 	menu_panel = malloc(sizeof(t_mysquare));
 	i = 0;
-	while (i < nbr_menu - 1)
+	while (i < nbr_menu)
 	{
 
 		s_color 			= ft_setcolor(WHITE);
