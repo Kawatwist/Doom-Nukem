@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 07:30:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 10:11:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -421,6 +421,8 @@ void		ft_mouse_event_check(t_win *wn, t_mychange *change);
 void	ft_display_panel();
 
 
+void	ft_fill_triangle(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
 
+void	ft_order_triangle_vertice(t_myvec *v1, t_myvec *v2, t_myvec *v3);
 
 #endif

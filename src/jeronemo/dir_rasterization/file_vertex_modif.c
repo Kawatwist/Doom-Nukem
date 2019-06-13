@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 15:26:19 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 11:04:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_calcul_rotation_scale_translation(t_mychange *change)
 	change->result_2 = ft_rotation_y(change->angle_y, change->result_2);
  	if (change->display->triangle == 1)
 		change->result_3 = ft_rotation_y(change->angle_y, change->result_3);
-change->result_1 = ft_rotation_z(change->angle_z, change->result_1);
+	change->result_1 = ft_rotation_z(change->angle_z, change->result_1);
 	change->result_2 = ft_rotation_z(change->angle_z, change->result_2);
 	if (change->display->triangle == 1)
 		change->result_3 = ft_rotation_z(change->angle_z, change->result_3);
@@ -79,8 +79,8 @@ int		ft_calcul_culing(t_mychange *change)
 	normal.y /= l;
 	normal.z /= l;
 	if ((normal.x * (change->result_1.x - camera.x) +
-		normal.y * (change->result_1.y - camera.y) +
-		normal.z * (change->result_1.z - camera.z)) < 0.0)
+				normal.y * (change->result_1.y - camera.y) +
+				normal.z * (change->result_1.z - camera.z)) < 0.0)
 		return (0);
 	else
 		return (1);
@@ -127,6 +127,13 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 	{
 		if (ft_calcul_culing(change))
 		{
+			printf("helo\n");
+			if (change->display->color == 1)
+			{
+				printf("hola bb\n");
+				ft_order_triangle_vertice(&(change->result_1), &(change->result_2), &(change->result_3));
+				ft_fill_triangle(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
+			}
 			s_line.un.a = change->result_1.x;
 			s_line.un.b = change->result_1.y;
 			s_line.deux.a = change->result_2.x;
@@ -142,17 +149,19 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 			s_line.deux.a = change->result_1.x;
 			s_line.deux.b = change->result_1.y;
 			ft_draw_line(s_win, &s_line);
-
-			if (change->display->color == 1)
-			{
-				
-
-			}
-
 		}
 	}
 	else
 	{
+			printf("helo\n");
+			if (change->display->color == 1)
+			{
+				printf("hola bb\n");
+				ft_order_triangle_vertice(&(change->result_1), &(change->result_2), &(change->result_3));
+				ft_fill_triangle(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
+			}
+	color = ft_setcolor(PINK);
+	SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg, color.bbb, 255);
 		s_line.un.a = change->result_1.x;
 		s_line.un.b = change->result_1.y;
 		s_line.deux.a = change->result_2.x;
@@ -173,7 +182,6 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 
 void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 {
-
 	ft_calcul_rotation_scale_translation(change);
 	ft_calcul_projection(change);
 	if (change->display->triangle)		//afichage des triangles

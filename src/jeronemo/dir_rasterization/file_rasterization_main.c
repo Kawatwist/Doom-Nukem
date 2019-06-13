@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 07:45:01 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 11:02:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,10 +283,10 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 
 	polygon = s_win->polygon_lst;
 	keep->polygon = polygon;
-	printf("\n\n\n\n\nAPLY\n");
+	/* printf("\n\n\n\n\nAPLY\n"); */
 	while (polygon != NULL)
 	{
-		printf("\nNEW POLYGON\n");
+		/* printf("\nNEW POLYGON\n"); */
 		if (change->display->triangle == 0)
 		{
 			keep->vec = polygon->vertex_lst;
@@ -343,10 +343,30 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 	polygon = keep->polygon;
 }
 
+
+void	ft_order_triangle_vertice(t_myvec *v1, t_myvec *v2, t_myvec *v3);
+
 void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 {
 	t_mychange			change;
 	t_mykeep			keep;
+
+
+
+	/* t_myvec v1, v2, v3; */
+
+	/* v1.x = 0; */
+	/* v1.y = 5; */
+	/* v2.x = 0; */
+	/* v2.y = 10; */
+	/* v3.x = 0; */
+	/* v3.y = 1; */
+	/* printf(" =%f =%f =%f \n", v1.y, v2.y, v3.y); */
+	/* ft_order_triangle_vertice(&v1, &v2, &v3); */
+	/* ft_fill_triangle(&v1, &v2, &v3, s_win); */
+	/* printf(" =%f =%f =%f \n", v1.y, v2.y, v3.y); */
+
+
 
 	ft_init_launch_rasterization(&keep, &change);
 	ft_launch_bsp_tree(s_win, wn);
@@ -371,7 +391,7 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 			change.modif = 0;
 			SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 		}
-		SDL_Delay(10);
+		SDL_Delay(1);
 		setkeyboard(change.old, wn->state);
 	}
 }

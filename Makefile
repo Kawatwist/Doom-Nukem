@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/12 12:57:09 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/13 08:16:14 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -106,6 +106,7 @@ SRC += file_window.c
 #MAIN
 SRC += file_main.c
 SRC += file_mouse_handle.c
+SRC += file_fill_triangle.c
 
 #BSP
 SRC += file_main_bsp.c
