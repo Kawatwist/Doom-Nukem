@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 17:15:15 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 11:48:19 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/13 09:01:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	initelem(t_win **wn)
 static void	initmenu(t_win **wn)
 {
 	((*wn)->menu = malloc(sizeof(t_menu))) == NULL ? exit(0) : 0;
-	(*wn)->menu->choice = 0;
+	(*wn)->menu->choice = 40;
 }
 
 static void initconsole(t_win **wn)
@@ -91,7 +91,7 @@ static void initconsole(t_win **wn)
 void		initwn(t_win **wn)
 {
 	ft_bzero(*wn, sizeof(t_win));
-	(*wn)->interface = MENU;
+	(*wn)->interface = MULTI;
 	(*wn)->oldinterface = MENU;
 	(*wn)->xscreen = XSCREEN;
 	(*wn)->yscreen = YSCREEN;

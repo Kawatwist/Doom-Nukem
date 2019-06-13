@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/13 08:41:02 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/13 09:02:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static void	showclient(t_win *wn)
 
 void		mainclient(t_win *wn)
 {
-	static char *ip = NULL;
-	static char *port = NULL;
+	static char *ip = "10.13.9.5";
+	static char *port = "4242";
 	static int	select = 1;
 
 	if (select == 1)

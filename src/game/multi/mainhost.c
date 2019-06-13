@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/13 08:46:25 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/13 08:58:25 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,17 @@ static void	listenclient(t_win *wn)
 
 	server.sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (server.sockfd < 0)
-		return (perror("Open socket"));
+		return (perror("Open socket :"));
 	initserv(&server);
-	bind(server.sockfd, (struct sockaddr *)&server.serv_addr, sizeof(server.serv_addr));
+	if (bind(server.sockfd, (struct sockaddr *)&server.serv_addr, sizeof(server.serv_addr)) < 0)
+		return (perror("Bind failed :"));
 	listen(server.sockfd, 5);
-	server.sockfd = accept(server.sockfd, (struct sockaddr *)&server.cli_addr, (socklen_t *)&server.len);
-	if (server.sockfd < 0 || server.len < 0)
-		return (perror("Open New socket"));
+	server.len = sizeof(server.cli_addr);
+	server.newsockfd = accept(server.sockfd, (struct sockaddr *)&server.cli_addr, (socklen_t *)&server.len);
+	if (server.newsockfd < 0 || server.len < 0)
+		return (perror("Open New socket :"));
 	ft_bzero(buffer, 256);
-	read(server.sockfd, buffer, 6);
+	read(server.newsockfd, buffer, 6);
 	printf("%s\n", buffer);
 	wn->serv = &server;
 }
