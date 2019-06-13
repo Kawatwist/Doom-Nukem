@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:09:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/12 15:21:48 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/13 11:23:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 typedef struct	s_client
 {
+	char				*username;
 	int					sockfd;
 	int					port;
 	int					n;

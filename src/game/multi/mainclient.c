@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/13 09:02:55 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/13 11:28:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,17 @@
 #include "client.h"
 #include <arpa/inet.h>
 
+static void ft_bcopy(const void *src, void *dst, size_t len)
+{
+	ft_memmove(dst, src, len);
+}
+
 static void	tryconnect(t_win *wn, char *ip, int port)
 {
 	t_client	client;
-	
+
+	client.username = malloc(sizeof(char) * 8);
+	getlogin_r(client.username, 8);
 	client.port = port;
 	client.sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (client.sockfd < 0)
@@ -25,7 +32,7 @@ static void	tryconnect(t_win *wn, char *ip, int port)
 	client.server = gethostbyname(ip);
 	ft_bzero((char *)&client.serv_addr, sizeof(client.serv_addr));
 	client.serv_addr.sin_family = AF_INET;
-	ft_strncpy((char *)client.server->h_addr, (char *)&(client.serv_addr.sin_addr.s_addr), client.server->h_length);
+	ft_bcopy((void *)client.server->h_addr, (void *)&(client.serv_addr.sin_addr.s_addr), (size_t)client.server->h_length);
 	client.serv_addr.sin_port = htons(client.port);
 	SDL_Delay(200);
 	printf("Try to connect\n");
@@ -33,7 +40,7 @@ static void	tryconnect(t_win *wn, char *ip, int port)
 		return (perror("Can't connect to the server : "));
 	printf("Connected");
 	SDL_Delay(200);
-	write(client.sockfd, "Test", 4);
+	write(client.sockfd, client.username, ft_strlen(client.username));
 	wn->client = &client;
 }
 
@@ -54,8 +61,8 @@ static void	showclient(t_win *wn)
 
 void		mainclient(t_win *wn)
 {
-	static char *ip = "10.13.9.5";
-	static char *port = "4242";
+	static char *ip = NULL;
+	static char *port = NULL;
 	static int	select = 1;
 
 	if (select == 1)
