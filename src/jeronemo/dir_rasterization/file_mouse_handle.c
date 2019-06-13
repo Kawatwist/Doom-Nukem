@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 11:47:41 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 07:42:01 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 07:51:35 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,16 @@ void	ft_display_menu_panel_cross(t_mywin *s_win, t_mychange *change)
 				50, 10, s_color);
 		ft_draw_cross(s_win, &s_cross);
 	}
+	i++;
+	if (change->display->shade == 1)
+	{
+		s_color = ft_setcolor(PINK);
+		s_cross = ft_setcross(
+				XSCREEN - 400 + 25,
+				30 + (i * 70) + 20,
+				50, 10, s_color);
+		ft_draw_cross(s_win, &s_cross);
+	}
 }
 
 
@@ -109,7 +119,7 @@ void	ft_display_panel(t_mywin *s_win, t_mychange *change)
 	char	**menu_name;
 	int			i;
 
-	nbr_menu = 8;
+	nbr_menu = 9;
 	menu_name = (char**)malloc(sizeof(char*) * nbr_menu);
 	menu_name[0] = ft_strdup("P ->Perspective");
 	menu_name[1] = ft_strdup("P ->Orthographique");
@@ -119,6 +129,7 @@ void	ft_display_panel(t_mywin *s_win, t_mychange *change)
 	menu_name[5] = ft_strdup("M ->Display mesh");
 	menu_name[6] = ft_strdup("N ->Display mesh normal");
 	menu_name[7] = ft_strdup("E ->Color");
+	menu_name[8] = ft_strdup("G ->Shade");
 
 	t_mycolor	s_color;
 	t_mysquare	s_square;
@@ -150,10 +161,8 @@ void	ft_display_panel(t_mywin *s_win, t_mychange *change)
 				s_color, 20, menu_name[i]);
 		ft_write(s_win, &s_write);
 		i++;
-
-		ft_display_menu_panel_cross(s_win, change);
 	}
-
+	ft_display_menu_panel_cross(s_win, change);
 }
 
 int	ft_click_perspective()

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 07:41:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 07:45:01 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	if (wn->state[SDL_SCANCODE_ESCAPE])
 		change->quit = TRUE;
 
-
-
 	if (wn->state[SDL_SCANCODE_Q] == 1 && old[SDL_SCANCODE_Q] == 0)
 	{
 		if (change->display->panel == 1)
@@ -29,7 +27,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("switch perspective\n"); */
 	}
-
 
 	if (wn->state[SDL_SCANCODE_E] == 1 && old[SDL_SCANCODE_E] == 0)
 	{
@@ -42,6 +39,15 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	}
 
 
+	if (wn->state[SDL_SCANCODE_G] == 1 && old[SDL_SCANCODE_G] == 0)
+	{
+		if (change->display->shade == 1)
+			change->display->shade = 0;
+		else
+			change->display->shade = 1;
+		change->modif = 1;
+		/* printf("switch color\n"); */
+	}
 
 	if (wn->state[SDL_SCANCODE_P] == 1 && old[SDL_SCANCODE_P] == 0)
 	{
@@ -211,6 +217,7 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 
 	change->display->panel = 1;
 	change->display->color = 0;
+	change->display->shade = 0;
 }
 
 float		ft_get_the_indice_vertex_x(int indice, t_myvec *vertex_lst)
