@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 14:41:28 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 07:33:43 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,13 +195,12 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 	change->display->triangle = 0;
 	change->display->mesh = 1;
 
-	change->display->projection = orthographique;
+	change->display->projection = perspective;
 	change->display->culling_face = 0;
 	change->display->mesh_normal = 0;
 	change->display->triangle_normal = 0;
 
-
-	change->display->panel = 0;
+	change->display->panel = 1;
 }
 
 float		ft_get_the_indice_vertex_x(int indice, t_myvec *vertex_lst)
@@ -357,7 +356,6 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 			change.modif = 0;
 			SDL_RenderPresent(s_win->renderer[J_EDITOR]);
 		}
-
 		SDL_Delay(10);
 		setkeyboard(change.old, wn->state);
 	}

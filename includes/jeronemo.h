@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 12:55:45 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/13 07:30:27 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ typedef struct	s_mydisplay
 	char		mesh_normal;
 
 	char		panel;
+
+	char		color;
+
+	char		shade;
 }				t_mydisplay;
 
 typedef struct		s_mychange
