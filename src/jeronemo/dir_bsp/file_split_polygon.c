@@ -15,19 +15,33 @@
 
 int			ft_get_intersect(t_myvec *line_start,
 							t_myvec *line_end,
-							t_myvec *vertex,
+							t_myvec *vertex_on_plane,
 							t_myvec *normal,
-							t_myvec *intersection,
-							float *percentage)
+							t_myvec *intersection,)
 {
 	t_myvec		direction;
-	t_myvec		L1;
-	float		line_length;
-	float		dist_from_plane;
+	t_myvec		line1; //vercteur from start point to vertex on splitter plane
+	float		line_dist_to_plane; // distance vers splitter plane du point de start + celui du point end
+	float		start_dist_to_plane;
+	float		percentage;
 
-	//[...]
-
-	return (0);
+	direction.x = line_end->x - line_start->x;
+	direction.y = line_end->y - line_start->y;
+	direction.z = line_end->z - line_start->z;
+	line_dist_to_plane = ft_dot_product(direction, *normal);
+	if (ft_abs_float(line_dist_to_plane) < 0.0001) // line doesn't cross plane
+		return (FALSE);
+	line1.x = vertex_on_plane->x - line_start->x;
+	line1.y = vertex_on_plane->y - line_start->y;
+	line1.z = vertex_on_plane->z - line_start->z;
+	start_dist_to_plane = ft_dot_product(line1, *normal);
+	percentage = start_dist_to_plane / line_dist_to_plane;
+ 	if (percentage < 0.0 || percentage > 1.0)
+  		return (FALSE);
+  	intersection->x = line_start->x + direction.x * percentage;
+  	intersection->y = line_start->y + direction.y * percentage;
+  	intersection->z = line_start->z + direction.z * percentage;
+		return (TRUE);
 }
 
 

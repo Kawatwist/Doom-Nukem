@@ -68,6 +68,8 @@ float			ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec			ft_cross_product(t_myvec v1, t_myvec v2);
 t_myvec			ft_vector_from_two_points(t_myvec v2, t_myvec v1);
 int				ft_abs(int number);
+float			ft_abs_float(float number)
+
 t_myvec			ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
 
 void			ft_display_the_polygon_list(t_mypolygon *polygon_lst);

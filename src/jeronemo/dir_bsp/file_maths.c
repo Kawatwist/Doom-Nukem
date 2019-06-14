@@ -64,6 +64,13 @@ int		ft_abs(int number)
 }
 
 
+float		ft_abs_float(float number)
+{
+	if (number < 0.0)
+		number *= -1.0;
+	return (number);
+}
+
 
 
 float		ft_atoi_comma(const char *str)
