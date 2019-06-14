@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:55:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/14 15:21:42 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/14 15:24:46 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ void		add_chat(t_win *wn)
 		msg = NULL;
 		msg = (wn->serv == NULL ? get_msg_client(wn) : get_msg_server(wn));
 		msg = convmsg(msg);
+		if (ft_strncmp(msg, "/msg", 4))
+		{
+			free(msg);
+			msg = NULL;
+		}
 		if (wn->console->index < CONSOLE_MAX_LINE_NB && msg != NULL)
 		{
 			wn->console->history[wn->console->index] = ft_strdup(msg);

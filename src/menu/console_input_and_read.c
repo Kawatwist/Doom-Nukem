@@ -6,7 +6,7 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:00:23 by jleblond          #+#    #+#             */
-/*   Updated: 2019/06/14 14:07:57 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/14 15:32:06 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static char	printable_key_check(int i)
 		return ('0');
 	else if (i == SDL_SCANCODE_KP_0)
 		return ('0');
+	else if (i == SDL_SCANCODE_KP_DIVIDE)
+		return ('/');
 	else
 		return (INVALID);
 }

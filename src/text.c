@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 15:05:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/12 14:47:25 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/14 15:32:08 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ static char *special_key(t_win *wn, char *line)
 		i = ft_strlen(line);
 		if (key_pressed(wn, SDL_SCANCODE_BACKSPACE))
 			line[i - 1] = '\0';
+		if (key_pressed(wn, SDL_SCANCODE_KP_DIVIDE))
+			line = ft_strjoinfree(line, "/", 1);
+	}
+	else
+	{
+		if (key_pressed(wn, SDL_SCANCODE_KP_DIVIDE))
+			line = ft_strdup("/\0");
 	}
 	return (line);
 }
