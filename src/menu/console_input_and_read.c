@@ -6,7 +6,7 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:00:23 by jleblond          #+#    #+#             */
-/*   Updated: 2019/06/12 14:42:28 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/14 14:07:57 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void stock_in_history(t_win *wn, char *command)
 
 static char	*readcommand(t_win *wn, char *command)
 {
-	if(ft_strcmp(command, "kill") == 0)
+	wn->serv != NULL || wn->client != NULL ? chat_box(wn, command) : 0;
+	if (ft_strcmp(command, "kill") == 0)
 		stop_exec("KILL !\n", wn);
 	else if (ft_strcmp(command, "slow") == 0)
 		wn->flag = set_bit(wn->flag, CINE);

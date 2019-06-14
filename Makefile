@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/13 15:13:14 by lomasse          ###   ########.fr        #
+#    Updated: 2019/06/14 13:50:39 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -50,6 +50,7 @@ SRC				= main.c										\
 				  texture.c										\
 				  get.c											\
 				  send.c										\
+				  msn.c											\
 				  mainmulti.c									\
 				  mainhost.c									\
 				  mainclient.c									\

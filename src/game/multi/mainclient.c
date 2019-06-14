@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/13 17:53:27 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/14 15:21:48 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	tryconnect(t_win *wn, char *ip, int port)
 	client->username = malloc(sizeof(char) * 8);
 	getlogin_r(client->username, 8);
 	client->username == NULL ? client->username = ft_strdup("NULL") : 0;
-	printf("%s\n", client->username);
 	client->port = port;
 	client->sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (client->sockfd < 0)
@@ -45,6 +44,7 @@ static void	tryconnect(t_win *wn, char *ip, int port)
 	SDL_Delay(200);
 	write(client->sockfd, client->username, ft_strlen(client->username));
 	wn->client = client;
+	wn->menu->connected = 1;
 }
 
 static int	inputclient(t_win *wn, int	select)
@@ -62,6 +62,30 @@ static void	showclient(t_win *wn)
 	wn->client != NULL ? SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "Client2"), NULL, NULL) : 0;
 }
 
+static void	*msn_client(void *params)
+{
+	t_thread	*thd;
+	t_win		*wn;
+
+	thd = (t_thread *)params;
+	wn = (t_win *)thd->wn;
+	while (TRUE)
+		add_chat(wn);
+	return (NULL);
+}
+
+static void	client_threads(t_win *wn)
+{
+	t_thread	*thread;
+
+	thread = malloc(sizeof(t_thread));
+	thread->wn = wn;
+	thread->value = 666;
+	thread->file = NULL;
+	wn->menu->conv = thread;
+	pthread_create(&thread->thd, NULL, msn_client, (void *)thread);
+}
+
 void		mainclient(t_win *wn)
 {
 	static char *ip = NULL;
@@ -74,20 +98,23 @@ void		mainclient(t_win *wn)
 	else if (select == 2)
 		port = text_box(wn, port);
 	select = inputclient(wn, select);
-	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_RETURN) && select == 3 && wn->client == NULL? tryconnect(wn, ip, ft_atoi(port)) : 0;
-	showclient(wn);
+	key_pressed(wn, SDL_SCANCODE_RETURN) && select == 3 && wn->client == NULL? tryconnect(wn, ip, ft_atoi(port)) : 0;
 	if (wn->client == NULL)
 	{
 		printf("IP : %s\n", ip);
 		printf("PORT : %s\n", port);
 	}
-	else
+	else if (wn->menu->connected == 1)
 	{
+		wn->menu->connected = 2;
+		client_threads(wn);
 		chaine = get_msg_client(wn);
 		while (*chaine)
 		{
-			printf("%c\n", *chaine);
+			*chaine != -66 ? printf("%c", *chaine) : 0;
 			chaine++;
 		}
+		printf("\n");
 	}
+	showclient(wn);
 }

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 17:15:15 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/13 09:01:55 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/14 13:20:32 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static void	initmenu(t_win **wn)
 {
 	((*wn)->menu = malloc(sizeof(t_menu))) == NULL ? exit(0) : 0;
 	(*wn)->menu->choice = 40;
+	(*wn)->menu->connected  = 0;
 }
 
 static void initconsole(t_win **wn)
