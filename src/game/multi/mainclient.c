@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/14 15:21:48 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/14 16:30:10 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void		mainclient(t_win *wn)
 	static char *ip = NULL;
 	static char *port = NULL;
 	static int	select = 1;
-	char		*chaine = NULL;
 
 	if (select == 1)
 		ip = text_box(wn, ip);
@@ -99,6 +98,8 @@ void		mainclient(t_win *wn)
 		port = text_box(wn, port);
 	select = inputclient(wn, select);
 	key_pressed(wn, SDL_SCANCODE_RETURN) && select == 3 && wn->client == NULL? tryconnect(wn, ip, ft_atoi(port)) : 0;
+	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 0 : 0;
+	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MENU : 0;
 	if (wn->client == NULL)
 	{
 		printf("IP : %s\n", ip);
@@ -108,13 +109,6 @@ void		mainclient(t_win *wn)
 	{
 		wn->menu->connected = 2;
 		client_threads(wn);
-		chaine = get_msg_client(wn);
-		while (*chaine)
-		{
-			*chaine != -66 ? printf("%c", *chaine) : 0;
-			chaine++;
-		}
-		printf("\n");
 	}
 	showclient(wn);
 }

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/14 14:10:19 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/14 16:14:57 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ void				world2view(t_win *wn, t_vec *ver, t_vec *f, t_vec *s, t_vec *u);
  **/
 
 void				add_chat(t_win *wn);
-void				chat_box(t_win *wn, char *msg);
+int					chat_box(t_win *wn, char *msg);
 void				send_msg_from_client(t_win *wn, char *msg);
 void				send_msg_from_server(t_win *wn, char *msg);
 char				*get_msg_client(t_win *wn);

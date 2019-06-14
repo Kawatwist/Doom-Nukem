@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:59:23 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/13 11:50:31 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/14 16:30:41 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_user
 
 typedef struct	s_server
 {
+	char		*username;
 	int			sockfd;
 	int			newsockfd;
 	int			port;

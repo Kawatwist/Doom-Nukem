@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/14 15:14:18 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/14 16:40:04 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 static void	initserv(t_server *server)
 {
 	ft_bzero((char *)&server->serv_addr, sizeof(server->serv_addr));
+	server->username = malloc(sizeof(char) * 8);
+	getlogin_r(server->username, 8);
 	server->port = 2424;
 	server->serv_addr.sin_family = AF_INET;
 	server->serv_addr.sin_addr.s_addr = INADDR_ANY;
