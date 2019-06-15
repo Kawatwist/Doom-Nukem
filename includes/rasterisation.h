@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 10:07:08 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/11 17:23:06 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/15 15:42:17 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef	struct		s_rast
 	double			**mat_2; 
 	double			**mat_3; //old mat_proj 
 	double			**mat_final;
+	double			**mat_pos;
 	t_vec			*f;
 	t_vec			*s;
 	t_vec			*u;

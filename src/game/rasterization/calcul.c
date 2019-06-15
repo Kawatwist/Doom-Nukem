@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 19:24:28 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/11 12:45:21 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/15 17:44:48 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,17 @@ t_vec        ft_calculate_normal_of_points(t_vec vertex1, t_vec vertex2, t_vec v
 	v2.z = vertex3.z - vertex1.z;
 	result = ft_cross_product(v1, v2);
 	return (result);
+}
+
+t_vec        ft_normalise(t_vec vector)
+{
+	float        l;
+
+	l = sqrtf(vector.x * vector.x
+			+ vector.y * vector.y
+			+ vector.z*vector.z);
+	vector.x /= l;
+	vector.y /= l;
+	vector.z /= l;
+	return (vector);
 }

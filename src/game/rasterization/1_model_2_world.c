@@ -6,7 +6,7 @@
 /*   By: jsauron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:54:04 by jsauron           #+#    #+#             */
-/*   Updated: 2019/06/11 15:36:25 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/15 15:23:47 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	rotatey(double ang, double **mat)
 void	rotatex(double ang, double **mat)
 {
 	ang *= M_PI / 180;
-	mat	[1][1] += cos(ang);
+	mat[1][1] += cos(ang);
 	mat[1][2] += -sin(ang);
 	mat[2][1] += sin(ang);
 	mat[2][2] += cos(ang);

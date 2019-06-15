@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/11 17:08:09 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/15 17:45:24 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ double				**mult_matrice(double **mat1,  double **mat2);
 void				projection(t_win	*wn);
 void				m2w_matrice(t_win *wn, t_poly *curr, double **mat, t_vec *ver);
 void				w2v_matrice(t_win *wn, t_vec *ver, t_poly *curr);
-void				w2v_matrice_calcul(t_win *wn, t_vec *ver, t_vec *f, t_vec *s, t_vec *u);
+void				w2v_matrice_calcul(t_win *wn, t_vec *ver, double **mat);
 void				v2p_matrice(t_win *wn);
 void				v2p_matrice_calcul(t_win *wn, t_poly *curr, t_vec *ver,  double **mat);
 t_vec				ft_calculate_normal_of_points(t_vec vertex1, t_vec vertex2, t_vec vertex3);
@@ -211,6 +211,10 @@ t_vec				ft_cross_product(t_vec v1, t_vec v2);
 void				malloc_mat(t_win **wn, double ***matrice);
 void				vercpy(t_vec *src, t_vec *dst, int len);
 void				each_triangle(t_poly *curr);
+void				init_mat_pos(t_win *wn, double **matrice);
+void				init_mat_2(double **matrice, t_vec *f, t_vec *s, t_vec *u);
+void				printmatrice(double **matrice);
+t_vec				ft_normalise(t_vec vector);
 /**
  ** EDIT
  **/
