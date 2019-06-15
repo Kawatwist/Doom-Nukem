@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 20:23:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/15 12:12:36 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,15 @@ void	ft_calcul_rotation_scale_translation(t_mychange *change)
 		change->result_3 = ft_translation_z(change->translation_z, change->result_3);
 }
 
+t_myvec		ft_scale_screen(t_myvec result)
+{
+	result.x += 1.0;
+	result.y += 1.0;
+
+	result.x *= 0.5 * (float)XSCREEN;
+	result.y *= 0.5 * (float)YSCREEN;
+	return (result);
+}
 
 void	ft_calcul_projection(t_mychange *change)
 {
@@ -56,12 +65,81 @@ void	ft_calcul_projection(t_mychange *change)
 		;
 	else if (change->display->projection == perspective)
 	{
-		change->result_1 = ft_perspective_projection(change->result_1);
-		change->result_2 = ft_perspective_projection(change->result_2);
+		change->result_1 = ft_perspective_projection(change->result_1, change);
+		change->result_2 = ft_perspective_projection(change->result_2, change);
 		if (change->display->triangle == 1)
-			change->result_3 = ft_perspective_projection(change->result_3);
+		{
+			change->result_3 = ft_perspective_projection(change->result_3, change);
+
+			if (change->display->shade == 1)
+			{
+				t_myvec		light_direction;
+				float		shade; //variable light from 0 to 1;
+				t_myvec		triangle_normal;
+				t_myvec		triangle_normal_normalise;
+				light_direction.x = 0.5;
+				light_direction.y = 0.5;
+				light_direction.z = 1.0;
+
+				printf("\n");
+				printf("\n");
+				printf("\n");
+				printf("the triangle first point x=%f\n", change->result_1.x);
+				printf("the triangle first point y=%f\n", change->result_1.y);
+				printf("the triangle first point z=%f\n", change->result_1.z);
+
+				printf("the triangle seconde point x=%f\n", change->result_2.x);
+				printf("the triangle seconde point y=%f\n", change->result_2.y);
+				printf("the triangle seconde point z=%f\n", change->result_2.z);
+
+
+				printf("the triangle third point x=%f\n", change->result_3.x);
+				printf("the triangle third point y=%f\n", change->result_3.y);
+				printf("the triangle third point z=%f\n", change->result_3.z);
+				printf("\n");
+
+				triangle_normal = ft_calculate_normal_of_points(change->result_1, change->result_2, change->result_3);
+				printf("the triangle normal x=%f\n", triangle_normal.x);
+				printf("the triangle normal y=%f\n", triangle_normal.y);
+				printf("the triangle normal z=%f\n", triangle_normal.z);
+				triangle_normal_normalise = ft_normalise(triangle_normal);
+				printf("the triangle normal normalise x=%f\n", triangle_normal_normalise.x);
+				printf("the triangle normal normalise y=%f\n", triangle_normal_normalise.y);
+				printf("the triangle normal normalise z=%f\n", triangle_normal_normalise.z);
+				light_direction = ft_normalise(light_direction);
+				printf("the light direction normalise x=%f\n", light_direction.x);
+				printf("the light direction normalise y=%f\n", light_direction.y);
+				printf("the light direction normalise z=%f\n", light_direction.z);
+				shade = ft_dot_product(triangle_normal_normalise, light_direction);
+
+				if (shade > 0)
+				{
+					change->result_1.shade = shade * 255;
+					change->result_2.shade = shade * 255;
+					change->result_3.shade = shade * 255;
+				printf("A SHADE = %f\n", shade * 255);
+				}
+				else
+					;
+
+
+
+
+			}
+
+
+	change->result_1 = ft_scale_screen(change->result_1);
+	change->result_2 = ft_scale_screen(change->result_2);
+	change->result_3 = ft_scale_screen(change->result_3);
+		}
 	}
 }
+
+
+
+
+
+
 
 int		ft_calcul_culing(t_mychange *change)
 { float			l;
@@ -143,58 +221,57 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 				/* printf("hola bb\n"); */
 				if (change->display->shade == 1)
 				{
-					//on fait la lumiere par triangle
-					//the easiest light to perform but doesnt exist in real world
-					t_myvec		light_direction;
-					float		shade; //variable light from 0 to 1;
-					t_myvec		triangle_normal;
-					t_myvec		triangle_normal_normalise;
-					light_direction.x = 0.0;
-					light_direction.y = 0.0;
-					light_direction.z = -1.0;
+					/* //on fait la lumiere par triangle */
+					/* //the easiest light to perform but doesnt exist in real world */
+					/* t_myvec		light_direction; */
+					float		shade = 0; //variable light from 0 to 1;
+					/* t_myvec		triangle_normal; */
+					/* t_myvec		triangle_normal_normalise; */
+					/* light_direction.x = 0.0; */
+					/* light_direction.y = 0.0; */
+					/* light_direction.z = -1.0; */
 
 
+					/* printf("bb\n"); */
+					/* printf("the triangle first point x=%f\n", change->result_1.x); */
+					/* printf("the triangle first point y=%f\n", change->result_1.y); */
+					/* printf("the triangle first point z=%f\n", change->result_1.z); */
+
+					/* printf("\n"); */
 
 
-					printf("the triangle first point x=%f\n", change->result_1.x);
-					printf("the triangle first point y=%f\n", change->result_1.y);
-					printf("the triangle first point z=%f\n", change->result_1.z);
+					/* printf("the triangle seconde point x=%f\n", change->result_2.x); */
+					/* printf("the triangle seconde point y=%f\n", change->result_2.y); */
+					/* printf("the triangle seconde point z=%f\n", change->result_2.z); */
 
-					printf("\n");
+					/* printf("\n"); */
 
-
-					printf("the triangle seconde point x=%f\n", change->result_2.x);
-					printf("the triangle seconde point y=%f\n", change->result_2.y);
-					printf("the triangle seconde point z=%f\n", change->result_2.z);
-
-					printf("\n");
-
-					printf("the triangle third point x=%f\n", change->result_3.x);
-					printf("the triangle third point y=%f\n", change->result_3.y);
-					printf("the triangle third point z=%f\n", change->result_3.z);
+					/* printf("the triangle third point x=%f\n", change->result_3.x); */
+					/* printf("the triangle third point y=%f\n", change->result_3.y); */
+					/* printf("the triangle third point z=%f\n", change->result_3.z); */
 
 
-					printf("\n");
-					triangle_normal = ft_calculate_normal_of_points(change->result_1, change->result_2, change->result_3);
-					printf("the triangle normal x=%f\n", triangle_normal.x);
-					printf("the triangle normal y=%f\n", triangle_normal.y);
-					printf("the triangle normal z=%f\n", triangle_normal.z);
+					/* printf("\n"); */
+					/* triangle_normal = ft_calculate_normal_of_points(change->result_1, change->result_2, change->result_3); */
+					/* /1* printf("the triangle normal x=%f\n", triangle_normal.x); *1/ */
+					/* /1* printf("the triangle normal y=%f\n", triangle_normal.y); *1/ */
+					/* /1* printf("the triangle normal z=%f\n", triangle_normal.z); *1/ */
 
-					triangle_normal_normalise = ft_normalise(triangle_normal);
-					printf("the triangle normal normalise x=%f\n", triangle_normal_normalise.x);
-					printf("the triangle normal normalise y=%f\n", triangle_normal_normalise.y);
-					printf("the triangle normal normalise z=%f\n", triangle_normal_normalise.z);
+					/* triangle_normal_normalise = ft_normalise(triangle_normal); */
+					/* printf("the triangle normal normalise x=%f\n", triangle_normal_normalise.x); */
+					/* printf("the triangle normal normalise y=%f\n", triangle_normal_normalise.y); */
+					/* printf("the triangle normal normalise z=%f\n", triangle_normal_normalise.z); */
 
-					light_direction = ft_normalise(light_direction);
-					printf("the light direction normalise x=%f\n", light_direction.x);
-					printf("the light direction normalise y=%f\n", light_direction.y);
-					printf("the light direction normalise z=%f\n", light_direction.z);
+					/* light_direction = ft_normalise(light_direction); */
+					/* /1* printf("the light direction normalise x=%f\n", light_direction.x); *1/ */
+					/* /1* printf("the light direction normalise y=%f\n", light_direction.y); *1/ */
+					/* /1* printf("the light direction normalise z=%f\n", light_direction.z); *1/ */
 
-					shade = ft_dot_product(triangle_normal_normalise, light_direction);
-					printf("the dot product result shade x=%f\n", shade);
+					/* shade = ft_dot_product(triangle_normal_normalise, light_direction); */
+					/* printf("the dot product result shade x=%f\n\n\n\n", shade); */
 
 					ft_fill_triangle_shade(&(change->result_1), &(change->result_2), &(change->result_3), s_win, shade);
-					exit(0);
+
 				}
 				else
 				{
@@ -342,7 +419,7 @@ t_myvec	ft_matrix_multiply_four(float matrix[5][5], t_myvec vertex)
 	return (result);
 }
 
-t_myvec	ft_perspective_projection(t_myvec vertex)
+t_myvec	ft_perspective_projection(t_myvec vertex, t_mychange *change)
 {
 	float		matrix[5][5];
 	t_myvec		result;
@@ -352,6 +429,7 @@ t_myvec	ft_perspective_projection(t_myvec vertex)
 	float	teta;
 	float	z_far;
 	float	z_near;
+	(void)change;
 
 	height = YSCREEN;
 	width = XSCREEN;
@@ -377,12 +455,13 @@ t_myvec	ft_perspective_projection(t_myvec vertex)
 	matrix[4][4] = 0.0;
 	result = ft_matrix_multiply_four(matrix, vertex);
 
-	//scale
-	result.x += 1.0;
-	result.y += 1.0;
 
-	result.x *= 0.5 * (float)XSCREEN;
-	result.y *= 0.5 * (float)YSCREEN;
+
+
+
+
+
+	//scale
 	return (result);
 }
 

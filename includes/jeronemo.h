@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 19:20:22 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:43:13 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,11 +410,12 @@ float	ft_rad(float angle);
 
 void	ft_draw_change(t_mywin *s_win, t_mychange *change);
 
-t_myvec	ft_perspective_projection(t_myvec vertex);
 
 
 
+t_myvec	ft_perspective_projection(t_myvec vertex, t_mychange *change);
 
+t_myvec		ft_normalise(t_myvec vector);
 
 
 void		ft_mouse_event_check(t_win *wn, t_mychange *change);

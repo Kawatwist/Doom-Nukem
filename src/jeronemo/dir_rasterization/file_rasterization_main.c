@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 19:05:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:57:33 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,13 +338,51 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 				change->result_1.y = ft_get_the_indice_vertex_y(polygon->indices[i], polygon->vertex_lst);
 				change->result_1.z = ft_get_the_indice_vertex_z(polygon->indices[i], polygon->vertex_lst);
 
+
+
+
 				change->result_2.x = ft_get_the_indice_vertex_x(polygon->indices[i + 1], polygon->vertex_lst);
 				change->result_2.y = ft_get_the_indice_vertex_y(polygon->indices[i + 1], polygon->vertex_lst);
 				change->result_2.z = ft_get_the_indice_vertex_z(polygon->indices[i + 1], polygon->vertex_lst);
 
+
+
+
+
+
 				change->result_3.x = ft_get_the_indice_vertex_x(polygon->indices[i + 2], polygon->vertex_lst);
 				change->result_3.y = ft_get_the_indice_vertex_y(polygon->indices[i + 2], polygon->vertex_lst);
 				change->result_3.z = ft_get_the_indice_vertex_z(polygon->indices[i + 2], polygon->vertex_lst);
+
+
+				/* printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa\n"); */
+
+				/* 	printf("the triangle first point x=%f\n", change->result_1.x); */
+				/* 	printf("the triangle first point y=%f\n", change->result_1.y); */
+				/* 	printf("the triangle first point z=%f\n", change->result_1.z); */
+
+				/* 	printf("\n"); */
+
+
+				/* 	printf("the triangle seconde point x=%f\n", change->result_2.x); */
+				/* 	printf("the triangle seconde point y=%f\n", change->result_2.y); */
+				/* 	printf("the triangle seconde point z=%f\n", change->result_2.z); */
+
+				/* 	printf("\n"); */
+
+				/* 	printf("the triangle third point x=%f\n", change->result_3.x); */
+				/* 	printf("the triangle third point y=%f\n", change->result_3.y); */
+				/* 	printf("the triangle third point z=%f\n", change->result_3.z); */
+
+
+				/* 	printf("\n"); */
+
+
+
+
+
+
+
 				SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 				ft_draw_change(s_win, change);
 				i = i + 3;

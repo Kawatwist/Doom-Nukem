@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 08:08:47 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 19:34:43 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/15 12:12:42 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,16 @@ void	ft_fill_triangle_shade(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_wi
 	t_mycolor			color;
 
 	color = ft_setcolor(GREEN);
-	SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg, color.bbb, shade);
+
+
+
+
+
+	shade = 255;
+
+
+
+	SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg - v1->shade, color.bbb, shade);
 	if (v2->y == v3->y)
 		ft_fill_bottom_flat_triangle(v1, v2, v3, s_win);
 	else if (v1->y == v2->y)
