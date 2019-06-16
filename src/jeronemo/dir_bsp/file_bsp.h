@@ -42,8 +42,8 @@ typedef struct			s_mypolygon
 	int					number_of_vertex;        //nombre de vertex
 	int					number_of_indices;       //nombre d'indices
 	int					*indices;                //la listes des indices apres triangulasisation
-	struct s_mypolygon	*next;                   //le prochain noeud dans la liste
 	int					id;
+	struct s_mypolygon	*next;                   //le prochain noeud dans la liste
 }						t_mypolygon;
 
 //structure pour le bsp
@@ -68,7 +68,7 @@ float			ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec			ft_cross_product(t_myvec v1, t_myvec v2);
 t_myvec			ft_vector_from_two_points(t_myvec v2, t_myvec v1);
 int				ft_abs(int number);
-float			ft_abs_float(float number)
+float			ft_abs_float(float number);
 
 t_myvec			ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
 
@@ -92,6 +92,7 @@ void			ft_split_polygon(t_mypolygon *poly,
 
 
 void			ft_add_polygon(t_mypolygon **polygon_lst, t_mypolygon *polygon_node);
+void			ft_add_vertex(t_myvec **vertex_lst, t_myvec *vertex_node);
 void			ft_afficher_le_bsp(t_mynode *s_node);
 
 

@@ -17,7 +17,7 @@ int			ft_get_intersect(t_myvec *line_start,
 							t_myvec *line_end,
 							t_myvec *vertex_on_plane,
 							t_myvec *normal,
-							t_myvec *intersection,)
+							t_myvec *intersection)
 {
 	t_myvec		direction;
 	t_myvec		line1; //vercteur from start point to vertex on splitter plane
@@ -41,9 +41,32 @@ int			ft_get_intersect(t_myvec *line_start,
   	intersection->x = line_start->x + direction.x * percentage;
   	intersection->y = line_start->y + direction.y * percentage;
   	intersection->z = line_start->z + direction.z * percentage;
-		return (TRUE);
+	return (TRUE);
 }
 
+
+static t_myvec		*ft_get_vertex_in_list(t_myvec *lst, unsigned int node_index)
+{
+	while (lst!= NULL)
+	{
+		if (node_index == 0)
+			return (lst);
+		lst = lst->next;
+		node_index--;
+	}
+	return (NULL);
+}
+
+static t_myvec		*ft_copy_vertex_node(t_myvec *node_to_copy)
+{
+	t_myvec		*new_node;
+
+	new_node = (t_myvec *)malloc(sizeof(t_myvec));
+	new_node->x = node_to_copy->x;
+	new_node->y = node_to_copy->y;
+	new_node->z = node_to_copy->z;
+	return(new_node);
+}
 
 
 void		ft_split_polygon(t_mypolygon *poly,
@@ -51,45 +74,56 @@ void		ft_split_polygon(t_mypolygon *poly,
 							t_mypolygon *front_split,
 							t_mypolygon *back_split)
 {
-	t_myvec		front_list[20];
-	t_myvec		back_list[20];
-	t_myvec		*first_vertex;
+	// t_myvec		front_list[20];
+	// t_myvec		back_list[20];
+	t_myvec		*front_vertexlist;
+	t_myvec		*back_vertexlist;
+
 	t_myvec		plane_normal;
 	t_myvec		intersect_point;
 	t_myvec		*point_on_plane;
-	t_myvec		point_a;
-	t_myvec		point_b;
+	t_myvec		*point_a;
+	t_myvec		*point_b;
+	t_myvec		*new_node;
 	int			front_counter = 0;
 	int			back_counter = 0;
-	int			i;
-	int			current_vertex;
+	unsigned int			i;
+	unsigned int			current_vertex;
 	float		percent;
+	int			result;
 
+	ft_display_the_polygon_list(poly);
+	point_on_plane = plane->vertex_lst;  //un point faisant partis du polygon splitter
 
-	point_on_plane = plane->vertex_lst;  //un point fesant partis du polygon splitter
-	first_vertex = poly->vertex_lst;
-
-	int result;
-	result = ft_classify_point(*first_vertex, plane);
+	new_node = ft_copy_vertex_node(poly->vertex_lst);
+	result = ft_classify_point(*(poly->vertex_lst), plane);
 	if (result == FRONT)
 	{
-		front_list[front_counter] = *first_vertex;
+		printf("first vertex is on the front\n");
+		ft_add_vertex(&(front_split->vertex_lst), new_node);
 		front_counter++;
 	}
 	else if (result == BACK)
 	{
-		back_list[back_counter] = *first_vertex;
+		printf("first vertex is on the back\n");
+		ft_add_vertex(&(back_split->vertex_lst), new_node);
 		back_counter++;
 	}
 	else if (result == ON_PLANE)
 	{
-		front_list[front_counter] = *first_vertex;
+		printf("first vertex is on plane\n");
+		ft_add_vertex(&(front_split->vertex_lst), new_node);
+		ft_add_vertex(&(back_split->vertex_lst), new_node);
 		front_counter++;
-		back_list[back_counter] = *first_vertex;
 		back_counter++;
 	}
+
 	////////////////////////////////////
 	i = 1;
+	point_a = NULL;
+	point_b = NULL;
+	printf("number_of_vertex:%d\n", poly->number_of_vertex);
+
 	while (i < poly->number_of_vertex + 1)
 	{
 		////on boucle le dernier point avec le premier
@@ -98,38 +132,56 @@ void		ft_split_polygon(t_mypolygon *poly,
 		else
 			current_vertex = i;
 
-		point_a = poly->vertex_list[i - 1];  ///////a changer
-		point_b = poly->vertex_list[current_vertex]; ///// a changer
-
-		result = ft_classify_point(point_b, plane);
-
+		point_a = ft_get_vertex_in_list(poly->vertex_lst, i - 1);
+		point_b = ft_get_vertex_in_list(poly->vertex_lst, current_vertex);
+		if (point_b == NULL || point_a == NULL)
+		{
+			printf("ft_get_vertex_in_list: error in vertex list\n");
+			exit(0) ;
+		}
+		result = ft_classify_point(*point_b, plane);
+		new_node = ft_copy_vertex_node(point_b);
 		if (result == ON_PLANE) //// on ajoute au deux list
 		{
-			front_list[front_counter] = *first_vertex;
+			ft_add_vertex(&(front_split->vertex_lst), new_node);
+			ft_add_vertex(&(back_split->vertex_lst), new_node);
 			front_counter++;
-			back_list[back_counter] = *first_vertex;
 			back_counter++;
 		}
 		else
 		{
-			if (ft_get_intersect())
+			// printf("/n/nthis vertex is not on the splitter, intersect point test\n");
+			// printf("point A: x =%f\t", point_a->x);
+			// printf("y =%f\t", point_a->y);
+			// printf("z =%f\n", point_a->z);
+			// printf("point B: x =%f\t", point_b->x);
+			// printf("y =%f\t", point_b->y);
+			// printf("z =%f\n", point_b->z);
+			if (ft_get_intersect(point_a, point_b, point_on_plane, &(plane->normal), &intersect_point) == TRUE)
 			{
-				/////si il y intersection if a edge get intersect
+				new_node = ft_copy_vertex_node(&intersect_point);
+				ft_add_vertex(&(front_split->vertex_lst), new_node);
+				ft_add_vertex(&(back_split->vertex_lst), new_node);
+				front_counter++;
+				back_counter++;
+				printf("intersect_point:  ");
+				printf("x =%f\t", new_node->x);
+				printf("y =%f\t", new_node->y);
+				printf("z =%f\n", new_node->z);
 			}
-			else
+			if (result == FRONT && current_vertex != 0)
 			{
-				///// si il il n'y a pas d'intersection
-				if (result == FRONT && current_vertex != 0)
-				{
-					front_list[front_counter] = poly->vertex_list[current_vertex]; ///// a changer
-					front_counter++;
-				}
-				if (result == BACK && curent_vertex != 0)
-				{
-					back_list[front_counter] = poly->vertex_list[current_vertex]; ///// a changer
-					back_counter++;
-				}
+				// front_list[front_counter] = poly->vertex_lst[current_vertex]; ///// a changer
+				new_node = ft_copy_vertex_node(point_b);
+				ft_add_vertex(&(front_split->vertex_lst), new_node);
+				front_counter++;
 			}
+			else if (result == BACK && current_vertex != 0)
+			{
+				ft_add_vertex(&(back_split->vertex_lst), new_node);
+				back_counter++;
+			}
+
 		}
 		i++;
 	}
@@ -139,6 +191,12 @@ void		ft_split_polygon(t_mypolygon *poly,
 	//nombre de vertex
 	//nombre d'indices
 	//tableau d'indices
+	front_split->normal = poly->normal;
+	front_split->number_of_vertex = front_counter;
+	front_split->id = (poly->id) * 100 + 1;
+	back_split->normal = poly->normal;
+	back_split->number_of_vertex = back_counter;
+	back_split->id = (poly->id) * 100 + 2;
 }
 
 

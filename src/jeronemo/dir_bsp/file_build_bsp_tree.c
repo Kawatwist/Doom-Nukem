@@ -79,7 +79,10 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 				ft_copy_and_add_to_top(&back_lst, polygon_lst); 	//on add a la list back
 			}
 			else // in this case result = SPANNING
+			{
+				printf("\n===========Le polygon id %d will be splitted by polygon id %d------\n\n", polygon_lst->id,  current_node->splitter->id);
 				ft_split_then_distribute(&front_lst, &back_lst, current_node->splitter, polygon_lst);
+			}
 		}
 		polygon_lst = polygon_lst->next;
 		// printf("ladreese du next %p\n", polygon_lst);

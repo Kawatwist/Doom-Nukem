@@ -94,7 +94,7 @@ void		ft_process_polygon(t_mypolygon *polygon_lst)
 	i = 0;
 	while (polygon_lst != NULL)
 	{
-		printf("\npolygone n=%d\n", i);
+		printf("\npolygone id=%d\n", polygon_lst->id);
 		polygon_lst->normal = ft_calculate_polygon_normal(polygon_lst);
 		printf("the normal result =%f =%f =%f\n",	polygon_lst->normal.x, polygon_lst->normal.y, polygon_lst->normal.z);
 		polygon_lst->number_of_vertex = ft_calculate_number_of_vertex(polygon_lst);

@@ -73,6 +73,6 @@ t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst)
 		polygon_node = polygon_node->next;
 	}
 	polygon_lst = keep;
-	printf("\n On choist le poly ayant id %d vertex\n", poly_spliter->id);
+	printf("\n On choist le poly ayant id %d\n", poly_spliter->id);
 	return (poly_spliter);
 }
