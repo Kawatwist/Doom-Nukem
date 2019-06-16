@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/15 11:43:13 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/16 13:48:58 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,12 @@ typedef struct	s_mydisplay
 {
 	char		projection;
 	char		culling_face;
-
 	char		triangle;
 	char		triangle_normal;
-
 	char		mesh;
 	char		mesh_normal;
-
 	char		panel;
-
 	char		color;
-
 	char		shade;
 }				t_mydisplay;
 
@@ -80,6 +75,9 @@ typedef struct		s_mychange
 	t_myvec			result_3;
 	char			quit;
 	char			modif;
+	t_myvec			*v_camera;
+	t_myvec			*v_up;
+	t_myvec			*v_target;
 	Uint8			*old;
 	t_mydisplay		*display;
 }					t_mychange;

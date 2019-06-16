@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/15 12:12:36 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/16 14:17:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,10 +298,39 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 
 void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 {
-	ft_calcul_rotation_scale_translation(change);
-	ft_calcul_projection(change);
-	if (change->display->triangle)		//afichage des triangles
-		ft_draw_triangle(s_win, change);
+	//init mat_rot_z  and   mat_rot_x
+	change->mat_rot_z = ft_make_rotation_z(float theta);
+	change->mat_rot_x = ft_make_rotation_x(float theta);
+
+
+	//init v_up  DONE
+	change->v_up.x = 0;
+	change->v_up.y = 1;
+	change->v_up.z = 0;
+
+	//init v_target  DONE
+	change->v_target.x = 0;
+	change->v_target.y = 0;
+	change->v_target.z = 1;
+
+
+
+	change->mat_camera_rot = ;
+
+	
+
+
+
+
+
+
+
+
+
+	/* ft_calcul_rotation_scale_translation(change); */
+	/* ft_calcul_projection(change); */
+	/* if (change->display->triangle)		//afichage des triangles */
+	/* 	ft_draw_triangle(s_win, change); */
 	if (change->display->mesh)			//afichage des mesh
 		ft_draw_mesh(s_win, change);
 }
@@ -454,12 +483,6 @@ t_myvec	ft_perspective_projection(t_myvec vertex, t_mychange *change)
 	matrix[4][3] = (-z_far * z_near)  / (z_far - z_near)  ;
 	matrix[4][4] = 0.0;
 	result = ft_matrix_multiply_four(matrix, vertex);
-
-
-
-
-
-
 
 	//scale
 	return (result);
