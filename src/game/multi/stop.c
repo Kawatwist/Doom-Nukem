@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get.c                                              :+:      :+:    :+:   */
+/*   stop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/13 13:59:10 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/16 13:13:08 by lomasse          ###   ########.fr       */
+/*   Created: 2019/06/15 13:22:42 by lomasse           #+#    #+#             */
+/*   Updated: 2019/06/16 13:11:24 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 #include "server.h"
 #include "client.h"
 
-char		*get_msg_client(t_win *wn)
+void	stop_com(t_win *wn, int user)
 {
-	char	*buff;
+	int		i;
 
-	buff = malloc(sizeof(char) * 1024);
-	recv(((t_client *)wn->client)->sockfd, buff, 1024, 0);
-	return (buff);
-}
-
-char		*get_msg_server(t_win *wn, int user)
-{
-	char	*buff;
-
-	buff = malloc(sizeof(char) * 1024);
-	recv(((t_server *)wn->serv)->user[user].socket, buff, 1024, 0);
-	return (buff);
+	i = 1;
+	if (wn->serv && wn->serv != NULL)
+	{
+		setsockopt(((t_server *)wn->serv)->user[user].socket, SOL_SOCKET, SO_REUSEADDR, &i, sizeof(int));
+		shutdown(((t_server *)wn->serv)->user[user].socket, 2);
+	}
+	if (wn->serv && wn->client != NULL)
+	{
+		setsockopt(((t_client *)wn->client)->sockfd, SOL_SOCKET, SO_REUSEADDR, &i, sizeof(int));
+		shutdown(((t_client *)wn->client)->sockfd, 2);
+	}
 }

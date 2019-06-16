@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/14 16:30:10 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/16 16:11:51 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,24 @@ static void ft_bcopy(const void *src, void *dst, size_t len)
 	ft_memmove(dst, src, len);
 }
 
+static int	checkstr(char *ip, int port)
+{
+	if (ip == NULL || port == 0)
+		return (1);
+	while (ip++ && *ip)
+		if ((*ip != '.' && *ip < '0') || *ip > '9')
+			return (1);
+	if (port < 1000)
+		return (1);
+	return (0);
+}
+
 static void	tryconnect(t_win *wn, char *ip, int port)
 {
 	t_client	*client;
 
+	if (checkstr(ip, port))
+		return ;
 	client = malloc(sizeof(t_client));
 	client->username = malloc(sizeof(char) * 8);
 	getlogin_r(client->username, 8);
@@ -36,12 +50,8 @@ static void	tryconnect(t_win *wn, char *ip, int port)
 	client->serv_addr.sin_family = AF_INET;
 	ft_bcopy((void *)client->server->h_addr, (void *)&(client->serv_addr.sin_addr.s_addr), (size_t)client->server->h_length);
 	client->serv_addr.sin_port = htons(client->port);
-	SDL_Delay(200);
-	printf("Try to connect\n");
 	if (connect(client->sockfd, (struct sockaddr *)&client->serv_addr, sizeof(client->serv_addr)) < 0)
 		return (perror("Can't connect to the server : "));
-	printf("Connected");
-	SDL_Delay(200);
 	write(client->sockfd, client->username, ft_strlen(client->username));
 	wn->client = client;
 	wn->menu->connected = 1;
@@ -56,10 +66,12 @@ static int	inputclient(t_win *wn, int	select)
 	return (select);
 }
 
-static void	showclient(t_win *wn)
+static void	showclient(t_win *wn, char *ip, char *port)
 {
 	wn->client == NULL ? SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "Client"), NULL, NULL) : 0;
 	wn->client != NULL ? SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "Client2"), NULL, NULL) : 0;
+	ip != NULL && ft_strlen(ip) && wn->client == NULL ? print_one_line(wn, ip, (wn->xscreen >> 1) - ((ft_strlen(ip) >> 1) * 10), wn->yscreen / 2) : 0;
+	port != NULL && ft_strlen(port) && wn->client == NULL ? print_one_line(wn, port, (wn->xscreen >> 1) - ((ft_strlen(port) >> 1) * 10), (wn->yscreen / 3) << 1) : 0;
 }
 
 static void	*msn_client(void *params)
@@ -70,7 +82,7 @@ static void	*msn_client(void *params)
 	thd = (t_thread *)params;
 	wn = (t_win *)thd->wn;
 	while (TRUE)
-		add_chat(wn);
+		add_chat(wn, 0);
 	return (NULL);
 }
 
@@ -82,7 +94,7 @@ static void	client_threads(t_win *wn)
 	thread->wn = wn;
 	thread->value = 666;
 	thread->file = NULL;
-	wn->menu->conv = thread;
+	wn->menu->conv[0] = thread;
 	pthread_create(&thread->thd, NULL, msn_client, (void *)thread);
 }
 
@@ -97,18 +109,18 @@ void		mainclient(t_win *wn)
 	else if (select == 2)
 		port = text_box(wn, port);
 	select = inputclient(wn, select);
-	key_pressed(wn, SDL_SCANCODE_RETURN) && select == 3 && wn->client == NULL? tryconnect(wn, ip, ft_atoi(port)) : 0;
+	key_pressed(wn, SDL_SCANCODE_RETURN) && select == 3 && wn->client == NULL && port != NULL && ip != NULL ? tryconnect(wn, ip, ft_atoi(port)) : 0;
 	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 0 : 0;
 	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MENU : 0;
 	if (wn->client == NULL)
 	{
-		printf("IP : %s\n", ip);
-		printf("PORT : %s\n", port);
+		//printf("IP : %s\n", ip);
+	//	printf("PORT : %s\n", port);
 	}
 	else if (wn->menu->connected == 1)
 	{
 		wn->menu->connected = 2;
 		client_threads(wn);
 	}
-	showclient(wn);
+	showclient(wn, ip ,port);
 }

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 15:27:26 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/19 16:39:45 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/16 13:12:27 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	stop_exec(char *msg, t_win *wn)
 		fd = creat("/tmp/doom_log2", O_WRONLY | O_APPEND);
 	if (fd != 0)
 		write(fd, msg, ft_strlen(msg));
+	int	i = -1;
+	while (++i < 3)
+		stop_com(wn, i);
 	exit(0);
 }
 

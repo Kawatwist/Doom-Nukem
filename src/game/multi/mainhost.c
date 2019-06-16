@@ -6,65 +6,99 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/14 16:40:04 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/16 19:01:18 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 #include "server.h"
 
-static void	initserv(t_server *server)
+static t_server	*initserv(t_server *server)
 {
-	ft_bzero((char *)&server->serv_addr, sizeof(server->serv_addr));
-	server->username = malloc(sizeof(char) * 8);
-	getlogin_r(server->username, 8);
-	server->port = 2424;
-	server->serv_addr.sin_family = AF_INET;
-	server->serv_addr.sin_addr.s_addr = INADDR_ANY;
-	server->serv_addr.sin_port = htons(server->port);
-	server->user[0].name = NULL;
-	server->user[1].name = NULL;
-	server->user[2].name = NULL;
-}
-
-static void	listenclient(t_win *wn)
-{
-	t_server *server;
-
 	server = malloc(sizeof(t_server));
 	server->sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (server->sockfd < 0)
-		return (perror("Open socket :"));
-	initserv(server);
+		return (NULL);
+	ft_bzero((char *)&server->serv_addr, sizeof(server->serv_addr));
+	server->username = malloc(sizeof(char) * 8);
+	getlogin_r(server->username, 8);
+	server->port = 4242;
+	server->serv_addr.sin_family = AF_INET;
+	server->serv_addr.sin_addr.s_addr = INADDR_ANY;
+	server->serv_addr.sin_port = htons(server->port);
 	if (bind(server->sockfd, (struct sockaddr *)&server->serv_addr, sizeof(server->serv_addr)) < 0)
-		return (perror("Bind failed :"));
+		return (NULL);
+	server->user[0].name = NULL;
+	server->user[1].name = NULL;
+	server->user[2].name = NULL;
+	return (server);
+}
+
+static void	listenclient(t_win *wn, int	user)
+{
+	t_server *server;
+
+	server = (t_server *)wn->serv;
 	listen(server->sockfd, 5);
-	server->len = sizeof(server->user[0].cli_addr);
-	server->newsockfd = accept(server->sockfd, (struct sockaddr *)&server->user[0].cli_addr, (socklen_t *)&server->len);
-	if (server->newsockfd < 0 || server->len < 0)
+	server->len = sizeof(server->user[user].cli_addr);
+	server->user[user].socket = accept(server->sockfd, (struct sockaddr *)&server->user[user].cli_addr, (socklen_t *)&server->len);
+	if (server->user[user].socket < 0 || server->len < 0)
 		return (perror("Open New socket :"));
-	server->user[0].name = ft_memalloc(sizeof(char) * 8);
-	read(server->newsockfd, server->user[0].name, 8);
-	printf("%s\n", server->user[0].name);
-	wn->serv = server;
+	server->user[user].name = ft_memalloc(sizeof(char) * 8);
+	read(server->user[user].socket, server->user[user].name, 8);
 }
 
 static void	inputhost(t_win *wn)
 {
 	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MULTI : 0;
-	key_pressed(wn, SDL_SCANCODE_ESCAPE) && wn->menu->connected == 0 ? pthread_kill((pthread_t)wn->menu->conv, 1) : 0;
+	if ((wn->menu->ask & 0x03) == 1 || (wn->menu->ask & 0x03) == 2)
+	{
+		key_pressed(wn, SDL_SCANCODE_ESCAPE) ? pthread_kill((pthread_t)wn->menu->conv[0], 1) : 0;
+		key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->ask = wn->menu->ask & (U_MAX - 0x03) : 0;
+	}
+	if ((wn->menu->ask & 0x0C) >> 2 == 1 || (wn->menu->ask & 0x0C) >> 2 == 2)
+	{
+		key_pressed(wn, SDL_SCANCODE_ESCAPE) ? pthread_kill((pthread_t)wn->menu->conv[1], 1) : 0;
+		key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->ask = wn->menu->ask & (U_MAX - 0x0C) : 0;
+	}
+	if ((wn->menu->ask & 0x30) >> 4 == 1 || (wn->menu->ask & 0x30) >> 4  == 2)
+	{
+		key_pressed(wn, SDL_SCANCODE_ESCAPE) ? pthread_kill((pthread_t)wn->menu->conv[2], 1) : 0;
+		key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->ask = wn->menu->ask & (U_MAX - 0x30) : 0;
+	}
 	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 40 : 0;
+	if ((wn->menu->ask & 0x03) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(wn->xscreen >> 1, wn->yscreen >> 2, 50, 50)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+		wn->menu->ask += 1;
+	if ((wn->menu->ask & 0x0C) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(wn->xscreen >> 1, wn->yscreen >> 1, 50, 50)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+		wn->menu->ask += (1 << 2);
+	if ((wn->menu->ask & 0x30) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(wn->xscreen >> 1, (wn->yscreen >> 2) + (wn->yscreen >> 1), 50, 50)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+		wn->menu->ask += (1 << 4);
 }
 
 static void	showhost(t_win *wn)
 {
-	SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "Host2"), NULL, NULL);
-}
-
-static void	waiting(t_win *wn)
-{
 	SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "Host"), NULL, NULL);
-	SDL_RenderPresent(wn->rend);
+	if ((wn->menu->ask & 0x03) == 3)
+		print_one_line(wn, ((t_server *)wn->serv)->user[0].name, (wn->xscreen >> 1), (wn->yscreen >> 1) - (wn->yscreen >> 4));
+	else if ((wn->menu->ask & 0x03) == 1 || (wn->menu->ask & 0x03) == 2)
+		print_one_line(wn, "Waiting", (wn->xscreen >> 1), (wn->yscreen >> 2));
+	else
+		print_one_line(wn, "Free slot", (wn->xscreen >> 1), (wn->yscreen >> 2));
+	if (((wn->menu->ask & 0x0C) >> 2) == 3)
+		print_one_line(wn, ((t_server *)wn->serv)->user[1].name, wn->xscreen >> 1, (wn->yscreen >> 1) + (wn->yscreen >> 4));
+	else if (((wn->menu->ask & 0x0C) >> 2) == 1 || ((wn->menu->ask & 0x0C) >> 2) == 2)
+		print_one_line(wn, "Waiting...", wn->xscreen >> 1, (wn->yscreen >> 1));
+	else
+		print_one_line(wn, "Free slot", (wn->xscreen >> 1), (wn->yscreen >> 1));
+	if (((wn->menu->ask & 0x30) >> 4) == 3)
+		print_one_line(wn, ((t_server *)wn->serv)->user[2].name, wn->xscreen >> 1, (wn->yscreen >> 1) + ((wn->yscreen >> 3)));
+	else if (((wn->menu->ask & 0x30) >> 4) == 1 || ((wn->menu->ask & 0x30) >> 4) == 2)
+		print_one_line(wn, "Waiting...", wn->xscreen >> 1, (wn->yscreen >> 1) + (wn->yscreen >> 2));
+	else
+		print_one_line(wn, "Free slot", (wn->xscreen >> 1), (wn->yscreen >> 1) + (wn->yscreen >> 2));
+	SDL_RenderDrawRect(wn->rend, create_rect(wn->xscreen >> 1, wn->yscreen >> 2, 50, 50));
+	SDL_RenderDrawRect(wn->rend, create_rect(wn->xscreen >> 1, wn->yscreen >> 1, 50, 50));
+	SDL_RenderDrawRect(wn->rend, create_rect(wn->xscreen >> 1, (wn->yscreen >> 2) + (wn->yscreen >> 1), 50, 50));
 }
 
 static void	*find_connection(void *params)
@@ -74,34 +108,46 @@ static void	*find_connection(void *params)
 
 	thd = (t_thread *)params;
 	wn = (t_win *)thd->wn;
-	listenclient(wn);
-	add_chat(wn);
+	listenclient(wn, thd->value);
+	if (thd->value == 0)
+		wn->menu->ask += 1;
+	else if (thd->value == 1)
+		wn->menu->ask += (1 << 2);
+	else
+		wn->menu->ask += (1 << 4);
+	add_chat(wn, thd->value);
 	return (NULL);
 }
 
-static void host_threads(t_win *wn)
+static void host_threads(t_win *wn, int user)
 {
 	t_thread	*thread;
 
+	if (user == 0)
+		wn->menu->ask += 1;
+	else if (user == 1)
+		wn->menu->ask += (1 << 2);
+	else
+		wn->menu->ask += (1 << 4);
 	thread = malloc(sizeof(t_thread));
 	thread->wn = wn;
-	thread->value = 666;
+	thread->value = user;
 	thread->file = NULL;
-	wn->menu->conv = thread;
+	wn->menu->conv[user] = thread;
 	pthread_create(&thread->thd, NULL, find_connection, (void *)thread);
-	wn->menu->connected = 1;
 }
 
 void	mainhost(t_win *wn)
 {
-	char		*old;
-
-	wn->serv == NULL && wn->menu->connected == 0 ? host_threads(wn) : 0;
-	old = NULL;
-	wn->serv == NULL && wn->menu->connected == 0 ? waiting(wn) : 0;
-	wn->serv != NULL && wn->menu->connected != 0 ? printf("Connected : %s\n\t %s\n\t%s\n", ((t_server *)wn->serv)->user[0].name, ((t_server *)wn->serv)->user[1].name, ((t_server *)wn->serv)->user[2].name) : 0;
-	if (!(wn->flag & CONSOLE))
-		wn->flag += CONSOLE;
+	wn->serv == NULL ? wn->serv = (t_server *)initserv((t_server *)wn->serv) : 0;
+	if (wn->serv != NULL)
+	{
+		(wn->menu->ask & 0x03) == 1 ? host_threads(wn, 0) : 0;
+		((wn->menu->ask & 0x0C) >> 2) == 1 ? host_threads(wn, 1) : 0;
+		((wn->menu->ask & 0x30) >> 4) == 1 ? host_threads(wn, 2) : 0;
+		if (!(wn->flag & CONSOLE))
+			wn->flag += CONSOLE;
+	}
 	inputhost(wn);
 	showhost(wn);
 }

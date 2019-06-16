@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/14 16:14:57 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/16 16:53:59 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,10 @@ typedef struct		s_thread
 
 typedef struct		s_menu
 {
+	int				ask;
 	int				choice;
 	int				connected;
-	void			*conv;
+	void			*conv[3];
 }					t_menu;
 
 typedef	struct		s_input
@@ -222,12 +223,13 @@ void				world2view(t_win *wn, t_vec *ver, t_vec *f, t_vec *s, t_vec *u);
  ** MULTI
  **/
 
-void				add_chat(t_win *wn);
+void				stop_com(t_win *wn, int user);
+void				add_chat(t_win *wn, int user);
 int					chat_box(t_win *wn, char *msg);
 void				send_msg_from_client(t_win *wn, char *msg);
-void				send_msg_from_server(t_win *wn, char *msg);
+void				send_msg_from_server(t_win *wn, char *msg, int user);
 char				*get_msg_client(t_win *wn);
-char				*get_msg_server(t_win *wn);
+char				*get_msg_server(t_win *wn, int user);
 void				mainhost(t_win *wn);
 void				mainclient(t_win *wn);
 void				mainmulti(t_win *wn);
@@ -239,11 +241,14 @@ void				edit(t_win *wn);
 void				inputeditor(t_win *wn);
 void				printeditor(t_win *wn);
 
+/**
+ ** MENU
+ **/
+void				print_one_line(t_win *wn, char *s, int	posy_x, int posi_y);
 void				mainconsole(t_win *wn);
 void				inputconsole(t_win *wn);
 void				print_text_with_ariel_font(t_win *wn, char *s, SDL_Color color, SDL_Rect position);
 void				print_command(t_win *wn, char *s, int posi_x, int posi_y);
-
 
 /**
  ** INIT
@@ -318,7 +323,10 @@ void				gameinput(t_win *wn);
 void				setkeyboard(Uint8 *new, Uint8 *current);
 void				stop_exec(char *msg, t_win *wn);
 void				full_screen(t_win *wn);
+SDL_Rect			*create_rect(int x, int y, int w, int h);
+int					hitbox(int x, int y, SDL_Rect *pos);
 Uint32				set_bit(Uint32 var, Uint32 mask);
+int					mouse_pressed(t_win *wn, Uint32 mask);
 int					key_pressed(t_win *wn, int key_value);
 
 

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 13:19:22 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/12 15:36:13 by jleblond         ###   ########.fr       */
+/*   Updated: 2019/06/15 14:09:35 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	showconsole(t_win *wn)
 	}
 }
 
-static void		print_one_line(t_win *wn, char *s, int posi_x, int posi_y)
+void		print_one_line(t_win *wn, char *s, int posi_x, int posi_y)
 {
 	SDL_Color		color;
 	int				w;

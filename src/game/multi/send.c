@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 13:57:48 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/15 11:25:19 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/16 13:14:25 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,12 @@ void		send_msg_from_client(t_win *wn, char *msg)
 	send(((t_client *)wn->client)->sockfd, add_user(msg, ((t_client *)wn->client)->username), ft_strlen(msg) + ft_strlen(((t_client *)wn->client)->username) + 3, 0);
 }
 
-void		send_msg_from_server(t_win *wn, char *msg)
+void		send_msg_from_server(t_win *wn, char *msg, int	user)
 {
 	if (((t_server *)wn->serv)->username == NULL)
 	{
 		((t_server *)wn->serv)->username = malloc(sizeof(char) * 8);
 		getlogin_r(((t_server *)wn->serv)->username, 8);
 	}
-	printf("%s\n", ((t_server *)wn->serv)->username);
-	send(((t_server *)wn->serv)->newsockfd, add_user(msg, ((t_server *)wn->serv)->username), ft_strlen(msg) + ft_strlen(((t_server *)wn->serv)->username) + 3, 0);
+	send(((t_server *)wn->serv)->user[user].socket, add_user(msg, ((t_server *)wn->serv)->username), ft_strlen(msg) + ft_strlen(((t_server *)wn->serv)->username) + 3, 0);
 }

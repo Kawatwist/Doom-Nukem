@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:55:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/15 11:41:01 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/16 19:05:10 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	*convmsg(char *msg)
 	return (ret);
 }
 
-void		add_chat(t_win *wn)
+void		add_chat(t_win *wn, int user)
 {
 	char *msg;
 	int	len;
@@ -62,7 +62,7 @@ void		add_chat(t_win *wn)
 	{
 		msg = NULL;
 		len = 0;
-		msg = (wn->serv == NULL ? get_msg_client(wn) : get_msg_server(wn));
+		msg = (wn->serv == NULL ? get_msg_client(wn) : get_msg_server(wn, user));
 		msg = convmsg(msg);
 		len = ft_strlen(msg) - ft_strlen(ft_strchr(msg, ']')) + 2;
 		if (ft_strncmp(&msg[len], "/msg", 3))
@@ -76,6 +76,7 @@ void		add_chat(t_win *wn)
 		{
 			wn->console->history[wn->console->index] = ft_strdup(msg);
 			wn->console->index++;
+			free(msg);
 		}
 		else if (msg != NULL)
 		{
@@ -83,6 +84,7 @@ void		add_chat(t_win *wn)
 			wn->console->history[wn->console->index % CONSOLE_MAX_LINE_NB] = NULL;
 			wn->console->history[wn->console->index % CONSOLE_MAX_LINE_NB] = ft_strdup(msg);
 			wn->console->index++;
+			free(msg);
 		}
 	}
 }
@@ -91,7 +93,14 @@ int			chat_box(t_win *wn, char *msg)
 {
 	if (ft_strlen(msg) <= 4)
 		return (0);
-	wn->serv == NULL && key_pressed(wn, SDL_SCANCODE_RETURN) ? send_msg_from_client(wn, msg) : send_msg_from_server(wn, msg);
+	if (key_pressed(wn, SDL_SCANCODE_RETURN) && wn->serv == NULL)
+		send_msg_from_client(wn, msg);
+	else
+	{
+		send_msg_from_server(wn, msg, 0);
+		send_msg_from_server(wn, msg, 1);
+		send_msg_from_server(wn, msg, 2);
+	}
 	if (ft_strncmp(msg, "/msg", 4))
 		return (0);
 	return (1);
