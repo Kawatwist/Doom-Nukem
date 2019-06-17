@@ -34,16 +34,23 @@ int			main(int argc, char** argv)
 	t_mywin		s_win;
 	t_mynode	s_node;
 
+
+printf("AAAAAAAAAAAAAAAAAAAAAAA l'adresse du first =%p\n", &s_node);
 	if (argc != 2)
 	{
 		printf("usage : ./a.out file name\n");
 		return (-1);
 	}
 	printf("hello chef Inca\n");
+	ft_bzero(&s_node, sizeof(s_node));
 	s_win.polygon_lst = ft_read_the_polygon_file(argv[1]);
 	ft_display_the_polygon_list(s_win.polygon_lst);
 	ft_process_polygon(s_win.polygon_lst);
 	ft_build_bsp_tree((&s_node), s_win.polygon_lst);
+	printf("AAAAAAAAAAAAAAAAAAAAAAAl'adresse du first =%p\n", &s_node);
+	printf("first node isleaf%d|\n", s_node.is_leaf);
+	printf("BBBBBBBBBBBBB second node isleaf%d|\n", s_node.front->is_leaf);
+	printf("BBBBBBBBBBBBB thired node isleaf%d|\n", s_node.front->front->is_leaf);
 	ft_afficher_le_bsp(&s_node);
 
 

@@ -53,7 +53,7 @@ typedef struct			s_mynode
 	struct s_mynode		*front;
 	struct s_mynode		*back;
 	char				is_leaf;
-	char				is_solid;
+	char 				is_solid;
 }						t_mynode;
 
 //structure principale

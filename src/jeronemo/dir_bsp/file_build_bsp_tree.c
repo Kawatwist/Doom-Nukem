@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 18:02:54 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 10:28:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 09:49:19 by jleblond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,24 @@ static void			ft_split_then_distribute(t_mypolygon **front_lst, t_mypolygon **ba
 	t_mypolygon		*front_split;
 	t_mypolygon		*back_split;
 
+	// printf("beforeeeee front --------------------------------------------------------------------:\n");
+	// ft_display_the_polygon_list(*front_lst);
+	// printf("display finished\n");
+	// printf("beforeeeee back --------------------------------------------------------------------:\n");
+	ft_display_the_polygon_list(*back_lst);
+	printf("display finished\n");
 	front_split = (t_mypolygon*)malloc(sizeof(t_mypolygon));
+	ft_bzero(front_split, sizeof(t_mypolygon));
 	back_split = (t_mypolygon*)malloc(sizeof(t_mypolygon));
+	ft_bzero(back_split, sizeof(t_mypolygon));
 	ft_split_polygon(polygon_lst, splitter, front_split, back_split);
 	ft_copy_and_add_to_top(front_lst, front_split);
 	ft_copy_and_add_to_top(back_lst, back_split);
+// 	printf("after   added splied --------------------------------------------------------------------:\n");
+
+// 	ft_display_the_polygon_list(*front_lst);
+// 	printf("beforeeeee back --------------------------------------------------------------------:\n");
+// 	ft_display_the_polygon_list(*back_lst);
 }
 
 
@@ -59,7 +72,6 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	front_lst = NULL;
 	current_node->splitter = ft_select_the_best_poly_splitter(polygon_lst);
 
-
 	printf("======> On choisit le spliter ayant id %d\n", current_node->splitter->id);
 	// keep = polygon_lst;  //not sure if this line is useful???
 	while (polygon_lst != NULL)
@@ -78,14 +90,15 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 				printf("Le polygon id %d est back\n", polygon_lst->id);
 				ft_copy_and_add_to_top(&back_lst, polygon_lst); 	//on add a la list back
 			}
-			else // in this case result = SPANNING
+			else if (result == SPANNING)
 			{
 				printf("\n===========Le polygon id %d will be splitted by polygon id %d------\n\n", polygon_lst->id,  current_node->splitter->id);
 				ft_split_then_distribute(&front_lst, &back_lst, current_node->splitter, polygon_lst);
+				printf("added splied --------------------------------------------------------------------:\n");
+				ft_display_the_polygon_list(front_lst);
 			}
 		}
 		polygon_lst = polygon_lst->next;
-		// printf("ladreese du next %p\n", polygon_lst);
 	}
 	polygon_lst = keep;
 
@@ -124,6 +137,7 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 
 	///////////gestion du fils front
 	new_front = (t_mynode*)malloc(sizeof(t_mynode));
+	ft_bzero(new_node, sizeof(t_mynode));
 	if (front_lst == NULL)
 	{
 		new_front->is_leaf = TRUE;
