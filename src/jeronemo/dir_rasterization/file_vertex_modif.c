@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/16 14:17:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 13:06:04 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,17 +313,18 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 	change->v_target.y = 0;
 	change->v_target.z = 1;
 
+	//init v_look_dir
+	change->v_look_dir.x = 0;
+	change->v_look_dir.y = 0;
+	change->v_look_dir.z = 1;
 
 
-	change->mat_camera_rot = ;
+	//CALUCLATE v_target
+	change->v_target = ft_vector_add(v_camera, v_look_dir);
 
-	
+	change->mat_camera = ft_matrix_point_at(v_camera, v_target, v_up);
 
-
-
-
-
-
+	change->mat_view = ft_matrix_quick_inverse(mat_camera);
 
 
 
