@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 13:05:44 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 13:52:44 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,18 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	{
 		/* printf("Translation UP\n"); */
 		change->v_camera.y += 5;
+		change->modif = 1;
+	}
+	if (wn->state[SDL_SCANCODE_LEFT] == 1 && old[SDL_SCANCODE_LEFT] == 0)
+	{
+		/* printf("Translation UP\n"); */
+		change->v_camera.x -= 5;
+		change->modif = 1;
+	}
+	if (wn->state[SDL_SCANCODE_RIGHT] == 1 && old[SDL_SCANCODE_RIGHT] == 0)
+	{
+		/* printf("Translation UP\n"); */
+		change->v_camera.x += 5;
 		change->modif = 1;
 	}
 

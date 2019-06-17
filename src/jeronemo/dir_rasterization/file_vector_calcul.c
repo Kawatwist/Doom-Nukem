@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 13:17:24 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 11:21:07 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 13:19:55 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,16 +108,26 @@ float	ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up)
 	new_right = ft_cross_product(new_up, new_forward);
 
 	//CONSTRUCT DIMENSIONING AND TRANSLATION MATRIX
-	matrix[0][0] = new_right.x;			matrix[0][1] = new_right.x	;		matrix[0][2] = ;
-	matrix[1][0] = new_up.x;			matrix[1][1] = new_up.y		;		matrix[1][2] = ;
-	matrix[2][0] = new_forward.x;		matrix[2][1] = new_forward.y;		matrix[2][2] = ;
-	matrix[3][0] = v_pos.x		;		matrix[3][1] = v_pos.y		;		matrix[3][2] = ;
-	return (matrix);
+	matrix[0][0] = new_right.x;		matrix[0][1] = new_right.y;		matrix[0][2] = new_right.x;		matrix[0][3] = 0.0;
+	matrix[1][0] = new_up.x;		matrix[1][1] = new_up.y;		matrix[1][2] = new_up.z;		matrix[1][3] = 0.0;
+	matrix[2][0] = new_forward.x;	matrix[2][1] = new_forward.y;	matrix[2][2] = new_forward.z;   matrix[2][3] = 0.0;
+	matrix[3][0] = v_pos.x;			matrix[3][1] = v_pos.y;			matrix[3][2] = v_pos.z;			matrix[3][3] = 1.1;
+    return (matrix);
 }
 
-ft_invert_matrix_point_at()
+float  *ft_matrix_quick_inverse(float mu)
 {
+	flaot matrix[5][5];
 
+	matrix[0][0] = mu[0][0];matrix[0][1] = mu[1][0];matrix[0][2] = mu[2][0];matrix[0][3] = 0.0f;
+	matrix[1][0] = mu[0][1];matrix[1][1] = mu[1][1];matrix[1][2] = mu[2][1];matrix[1][3] = 0.0f;
+	matrix[2][0] = mu[0][2];matrix[2][1] = mu[1][2];matrix[2][2] = mu[2][2];matrix[2][3] = 0.0f;
+
+	matrix[3][0] = -(mu[3][0] * matrix[0][0] + mu[3][1] * matrix[1][0] + mu[3][2] * matrix[2][0]);
+	matrix[3][1] = -(mu[3][0] * matrix[0][1] + mu[3][1] * matrix[1][1] + mu[3][2] * matrix[2][1]);
+	matrix[3][2] = -(mu[3][0] * matrix[0][2] + mu[3][1] * matrix[1][2] + mu[3][2] * matrix[2][2]);
+	matrix[3][3] = 1.0f;
+	return (matrix);
 }
 
 float	*ft_make_identity(void)  //DONE
