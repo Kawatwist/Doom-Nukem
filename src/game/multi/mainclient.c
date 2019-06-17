@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/16 16:11:51 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/17 15:54:59 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,16 @@ static void	tryconnect(t_win *wn, char *ip, int port)
 	wn->menu->connected = 1;
 }
 
-static int	inputclient(t_win *wn, int	select)
+static int	inputclient(t_win *wn, int	select, char *ip, char *port)
 {
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MULTI : 0;
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 40 : 0;
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_UP) && select > 1 ? select -= 1 : 0;
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_DOWN) && select < 3 ? select += 1 : 0;
+//	key_pressed(wn, SDL_SCANCODE_RETURN) && select == 3 && wn->client == NULL && port != NULL && ip != NULL ? tryconnect(wn, ip, ft_atoi(port)) : 0;
+	key_pressed(wn, SDL_SCANCODE_RETURN) && select == 3 && wn->client == NULL && port != NULL && ip != NULL ? wn->menu->connected = 1 : 0;
+//	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 0 : 0;
+//	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MENU : 0;
 	return (select);
 }
 
@@ -70,29 +74,34 @@ static void	showclient(t_win *wn, char *ip, char *port)
 {
 	wn->client == NULL ? SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "Client"), NULL, NULL) : 0;
 	wn->client != NULL ? SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "Client2"), NULL, NULL) : 0;
-	ip != NULL && ft_strlen(ip) && wn->client == NULL ? print_one_line(wn, ip, (wn->xscreen >> 1) - ((ft_strlen(ip) >> 1) * 10), wn->yscreen / 2) : 0;
+	ip != NULL && ft_strlen(ip) && wn->client == NULL ? print_one_line(wn, ip, (wn->xscreen >> 1) - ((ft_strlen(ip) >> 1) * 10), wn->yscreen >> 1) : 0;
 	port != NULL && ft_strlen(port) && wn->client == NULL ? print_one_line(wn, port, (wn->xscreen >> 1) - ((ft_strlen(port) >> 1) * 10), (wn->yscreen / 3) << 1) : 0;
-}
 
 static void	*msn_client(void *params)
 {
 	t_thread	*thd;
 	t_win		*wn;
+	char		*ip;
+	int			port;
 
 	thd = (t_thread *)params;
 	wn = (t_win *)thd->wn;
+	ip = thd->str;
+	port = thd->value;
+	tryconnect(wn, ip, port);
 	while (TRUE)
 		add_chat(wn, 0);
 	return (NULL);
 }
 
-static void	client_threads(t_win *wn)
+static void	client_threads(t_win *wn, char *ip, int port)
 {
 	t_thread	*thread;
 
 	thread = malloc(sizeof(t_thread));
 	thread->wn = wn;
-	thread->value = 666;
+	thread->str = ip;
+	thread->value = port;
 	thread->file = NULL;
 	wn->menu->conv[0] = thread;
 	pthread_create(&thread->thd, NULL, msn_client, (void *)thread);
@@ -103,24 +112,26 @@ void		mainclient(t_win *wn)
 	static char *ip = NULL;
 	static char *port = NULL;
 	static int	select = 1;
+	static Uint32		time = 0;
+	static Uint32		difftime = 0;
 
+	if (wn->menu->connected == 1)
+	{
+		time = SDL_GetTicks();
+		client_threads(wn, ip, ft_atoi(port));
+		wn->menu->connected = 2;
+	}
 	if (select == 1)
 		ip = text_box(wn, ip);
 	else if (select == 2)
 		port = text_box(wn, port);
-	select = inputclient(wn, select);
-	key_pressed(wn, SDL_SCANCODE_RETURN) && select == 3 && wn->client == NULL && port != NULL && ip != NULL ? tryconnect(wn, ip, ft_atoi(port)) : 0;
-	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 0 : 0;
-	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MENU : 0;
-	if (wn->client == NULL)
-	{
-		//printf("IP : %s\n", ip);
-	//	printf("PORT : %s\n", port);
-	}
-	else if (wn->menu->connected == 1)
-	{
-		wn->menu->connected = 2;
-		client_threads(wn);
-	}
+	select = inputclient(wn, select, ip, port);
 	showclient(wn, ip ,port);
+	difftime = SDL_GetTicks();
+	if (difftime - time > TIMEOUT && wn->menu->connected == 2)
+	{
+		pthread_kill((pthread_t)wn->menu->conv[0], 1);
+		print_one_line(wn, "Timeout", (wn->xscreen >> 1) - ((ft_strlen(ip) >> 1) * 10), (wn->yscreen >> 2) * 3);
+		wn->menu->connected = 0;
+	}
 }

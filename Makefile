@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/15 13:25:12 by lomasse          ###   ########.fr        #
+#    Updated: 2019/06/17 13:02:38 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -120,7 +120,7 @@ all: $(NAME)
 
 $(NAME): $(IMAGE) $(OBJ)
 	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
-	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG) $(DEBUG)
+	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG)
 	@echo "${vertclair}DONE${neutre}"
 
 $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)

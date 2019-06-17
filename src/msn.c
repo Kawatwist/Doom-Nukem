@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:55:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/16 19:05:10 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/17 16:00:59 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void		add_chat(t_win *wn, int user)
 		msg = NULL;
 		len = 0;
 		msg = (wn->serv == NULL ? get_msg_client(wn) : get_msg_server(wn, user));
+		msg != NULL ? printf("%s\n", msg) : 0;
 		msg = convmsg(msg);
 		len = ft_strlen(msg) - ft_strlen(ft_strchr(msg, ']')) + 2;
 		if (ft_strncmp(&msg[len], "/msg", 3))
@@ -76,7 +77,6 @@ void		add_chat(t_win *wn, int user)
 		{
 			wn->console->history[wn->console->index] = ft_strdup(msg);
 			wn->console->index++;
-			free(msg);
 		}
 		else if (msg != NULL)
 		{
@@ -84,8 +84,8 @@ void		add_chat(t_win *wn, int user)
 			wn->console->history[wn->console->index % CONSOLE_MAX_LINE_NB] = NULL;
 			wn->console->history[wn->console->index % CONSOLE_MAX_LINE_NB] = ft_strdup(msg);
 			wn->console->index++;
-			free(msg);
 		}
+		msg != NULL ? free(msg) : 0;
 	}
 }
 
@@ -97,9 +97,9 @@ int			chat_box(t_win *wn, char *msg)
 		send_msg_from_client(wn, msg);
 	else
 	{
-		send_msg_from_server(wn, msg, 0);
-		send_msg_from_server(wn, msg, 1);
-		send_msg_from_server(wn, msg, 2);
+		(wn->menu->ask & 0x03) == 3 ? send_msg_from_server(wn, msg, 0) : 0;
+		((wn->menu->ask & 0x0C) >> 2) == 3 ? send_msg_from_server(wn, msg, 1) : 0;
+		((wn->menu->ask & 0x30) >> 4) == 3 ? send_msg_from_server(wn, msg, 2) : 0;
 	}
 	if (ft_strncmp(msg, "/msg", 4))
 		return (0);

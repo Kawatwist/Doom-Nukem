@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/16 16:53:59 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/17 13:29:27 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "SDL_ttf.h"
 # define XSCREEN 1920
 # define YSCREEN 1080
+# define TIMEOUT 5000
 # define CONSOLE_MAX_LINE_NB 10
 # define ARIEL_FONT_SIZE 35
 # define U_MAX		4294967295
@@ -121,6 +122,7 @@ typedef struct		s_thread
 	t_load			*file;
 	struct s_win	*wn;
 	int				value;
+	char			*str;
 }					t_thread;
 
 typedef struct		s_menu
