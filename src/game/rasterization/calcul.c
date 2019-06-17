@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 19:24:28 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/15 17:44:48 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/17 14:43:05 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,27 @@ t_vec        ft_normalise(t_vec vector)
 	vector.y /= l;
 	vector.z /= l;
 	return (vector);
+}
+
+t_vec		mult_vec_mat(t_vec *vec, double **mat)
+{
+	t_vec	res;
+
+	res.x = mat[0][0] * vec->x + mat[1][0] * vec->y + mat[2][0] * vec->z + mat[3][0];
+	res.y = mat[0][1] * vec->x + mat[1][1] * vec->y + mat[2][1] * vec->z + mat[3][1];
+	res.z = mat[0][2] * vec->x + mat[1][2] * vec->y + mat[2][2] * vec->z + mat[3][2];
+
+	return (res);
+}
+
+float		ft_dot_product(t_vec v1, t_vec v2)
+{
+	float	result;
+	result = (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+	 return (result);
+}
+
+double		degres_to_radius(double ang)
+{
+	return (ang *= M_PI / 180);
 }

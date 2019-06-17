@@ -6,7 +6,7 @@
 /*   By: jsauron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:13:10 by jsauron           #+#    #+#             */
-/*   Updated: 2019/06/15 18:12:45 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/17 12:51:08 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ void	v2p_matrice(t_win *wn)
 	int i;
 
 	i = -1;
-	initmatrice(wn->rast->mat_3);
-	wn->rast->mat_3[0][0] = atan(60 / 2);
-	wn->rast->mat_3[1][1] = atan(60 / 2);
-	wn->rast->mat_3[2][2] =
+	initmatrice(wn->rast->proj);
+	wn->rast->proj[0][0] = atan(60 / 2);
+	wn->rast->proj[1][1] = atan(60 / 2);
+	wn->rast->proj[2][2] =
 		-((wn->player->far + wn->player->near)
 				/ (wn->player->far - wn->player->near));
-	wn->rast->mat_3[2][3] =
+	wn->rast->proj[2][3] =
 		-((2 * wn->player->near * wn->player->far)
 				/ (wn->player->far - wn->player->near));
-	wn->rast->mat_3[2][0] = -1;
+	wn->rast->proj[2][0] = -1;
 }
 
 void	v2p_matrice_calcul(t_win *wn, t_poly *curr, t_vec *ver,  double **mat)

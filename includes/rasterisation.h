@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 10:07:08 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/15 15:42:17 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/17 12:47:29 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ typedef struct		s_poly
 
 typedef	struct		s_rast
 {
-	double			**mat_1; //old mat
-	double			**mat_2; 
-	double			**mat_3; //old mat_proj 
+	double			**model; //old mat
+	double			**view; 
+	double			**proj; //old mat_proj 
 	double			**mat_final;
 	double			**mat_pos;
 	t_vec			*f;

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:23:08 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 12:31:02 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/17 12:48:17 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ typedef struct		s_joueur
 	double			x;
 	double			y;
 	double			z;
-	double			near;
-	double			far;
+	float			near;
+	float			far;
+	float			up;
 	float			sensi;
 }					t_joueur;
 #endif

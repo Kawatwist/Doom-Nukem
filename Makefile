@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/11 16:41:13 by jsauron          ###   ########.fr        #
+#    Updated: 2019/06/17 13:27:07 by jsauron          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -75,9 +75,9 @@ SRC				= main.c										\
 				  menu_show.c 									\
 				  load_fonts.c 									\
 				  tool.c 										\
-				  1_model_2_world.c								\
-				  2_world_2_view.c								\
-				  3_view_2_proj.c								\
+				  1_model.c										\
+				  2_view.c										\
+				  3_projection.c										\
 				  tools_rast.c									\
 				 init_rast.c									\
 				calcul.c

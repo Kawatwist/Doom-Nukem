@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 11:59:53 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 14:07:07 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/17 13:58:17 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ void	setkeyboard(Uint8 *new, Uint8 *current)
 
 void	gameinput(t_win *wn)
 {
-	(wn->player->rawx += (wn->input->x - (wn->xscreen / 2))) > 360
+	(wn->player->rawx += (wn->input->x - (wn->xscreen / 2 ))) >  360
 		? wn->player->rawx -= 360 : 0;
-	(wn->player->rawy += (wn->input->y - (wn->yscreen / 2))) > YSCREEN
+	(wn->player->rawy += (wn->input->y - (wn->yscreen / 2))) > YSCREEN 
 		? wn->player->rawy = YSCREEN : 0;
+//	wn->player->rawx += wn->input->x / XSCREEN;
+//	wn->player->rawy += wn->input->y/ YSCREEN;
 	wn->player->rawx < 0 ? wn->player->rawx += 360 : 0;
 	wn->player->rawy < 0 ? wn->player->rawy = 0 : 0;
 	!wn->old[SDL_SCANCODE_ESCAPE] && wn->state[SDL_SCANCODE_ESCAPE] && !(wn->flag & CONSOLE) ? wn->interface = MENU : 0;

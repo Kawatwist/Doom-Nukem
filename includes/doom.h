@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/15 17:45:24 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/17 16:56:18 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 # include "SDL_ttf.h"
 # define XSCREEN 1920
 # define YSCREEN 1080
-#define  SCALEX	1.2 
-#define  SCALEY 1.2
-#define  SCALEZ 1.2
+#define  SCALEX	10 
+#define  SCALEY 10
+#define  SCALEZ 10
 # define CONSOLE_MAX_LINE_NB 10
 # define ARIEL_FONT_SIZE 35
 # define U_MAX		4294967295
@@ -212,9 +212,16 @@ void				malloc_mat(t_win **wn, double ***matrice);
 void				vercpy(t_vec *src, t_vec *dst, int len);
 void				each_triangle(t_poly *curr);
 void				init_mat_pos(t_win *wn, double **matrice);
-void				init_mat_2(double **matrice, t_vec *f, t_vec *s, t_vec *u);
+void				init_mat_view(double **matrice, t_vec *f, t_vec *s, t_vec *u, t_vec pos);
 void				printmatrice(double **matrice);
 t_vec				ft_normalise(t_vec vector);
+void				scale(double **matrice);
+t_vec				mult_vec_mat(t_vec *vec, double **mat);
+double				degres_to_radius(double ang);
+t_vec				initvec(float x, float y, float z);
+t_vec				inverse_vec(t_vec vec);
+t_vec				init_vec_pos(t_win *wn);
+float				ft_dot_product(t_vec v1, t_vec v2);
 /**
  ** EDIT
  **/

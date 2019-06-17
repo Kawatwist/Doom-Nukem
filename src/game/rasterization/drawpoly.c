@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 11:32:23 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/15 16:53:59 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/17 16:59:39 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,16 @@ void			maindrawpoly(t_win *wn)
 		vercpy(curr->ver_list, curr->ver_tmp, curr->nb_ver);
 		curr->normal = malloc(sizeof(t_vec) * (curr->nb_ver / 3));
 		each_triangle(curr);
-		rotatez(wn->player->rawz, wn->rast->mat_1);
-		rotatey(wn->player->rawy, wn->rast->mat_1);
-		rotatex(wn->player->rawx, wn->rast->mat_1);
-		trans(wn, wn->rast->mat_1);
-		m2w_matrice(wn, curr, wn->rast->mat_1, curr->ver_tmp);
+		rotatez(wn->player->rawz, wn->rast->model);
+		rotatey(wn->player->rawy, wn->rast->model);
+		rotatex(wn->player->rawx, wn->rast->model);
+		trans(wn, wn->rast->model);
+		m2w_matrice(wn, curr, wn->rast->model, curr->ver_tmp);
 		w2v_matrice(wn, curr->ver_tmp, curr); 
-		v2p_matrice_calcul(wn, curr, curr->ver_tmp, wn->rast->mat_3);
+	//	v2p_matrice_calcul(wn, curr, curr->ver_tmp, wn->rast->proj);
 		drawpoly(wn, curr, curr->ver_tmp);
 		free(curr->ver_tmp);
 		curr = curr->next;
 	}
-	initmatrice(wn->rast->mat_1);
+	initmatrice(wn->rast->model);
 }
