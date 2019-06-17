@@ -47,11 +47,13 @@ printf("AAAAAAAAAAAAAAAAAAAAAAA l'adresse du first =%p\n", &s_node);
 	ft_display_the_polygon_list(s_win.polygon_lst);
 	ft_process_polygon(s_win.polygon_lst);
 	ft_build_bsp_tree((&s_node), s_win.polygon_lst);
-	printf("AAAAAAAAAAAAAAAAAAAAAAAl'adresse du first =%p\n", &s_node);
-	printf("first node isleaf%d|\n", s_node.is_leaf);
-	printf("BBBBBBBBBBBBB second node isleaf%d|\n", s_node.front->is_leaf);
-	printf("BBBBBBBBBBBBB thired node isleaf%d|\n", s_node.front->front->is_leaf);
-	ft_afficher_le_bsp(&s_node);
+	printf("AAAAAAAAAAAAAAAAAAAAAAAl\n");
+	ft_display_the_polygon_list(s_node.back->back->splitter);
+	// printf("AAAAAAAAAAAAAAAAAAAAAAAl'adresse du first =%p\n", &s_node);
+	// printf("first node isleaf%d|\n", s_node.is_leaf);
+	// printf("BBBBBBBBBBBBB second node isleaf%d|\n", s_node.front->is_leaf);
+	// printf("BBBBBBBBBBBBB thired node isleaf%d|\n", s_node.front->front->is_leaf);
+	// ft_afficher_le_bsp(&s_node);
 
 
 	//ft_display_polygon();
