@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 16:24:08 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:32:43 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct		s_mychange
 	float			**mat_world;
 	float			**mat_camera;
 	float			**mat_view;
+	float			**mat_camera_rot;
 
 	Uint8			*old;
 	t_mydisplay		*display;
@@ -441,4 +442,6 @@ float	**ft_make_rotation_z(float theta); //DONE
 float	**ft_matrix_multiply_matrix(float **m1, float **m2);  //surement DONE
 float	**ft_make_matrix_5_5(void);
 float  **ft_matrix_quick_inverse(float **mu);
+float	**ft_make_translation(float x, float y, float z);
+t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i);
 #endif

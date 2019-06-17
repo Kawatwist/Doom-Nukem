@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 16:33:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:55:22 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 
 	if (wn->state[SDL_SCANCODE_ESCAPE])
 		change->quit = TRUE;
-
 	if (wn->state[SDL_SCANCODE_Q] == 1 && old[SDL_SCANCODE_Q] == 0)
 	{
 		if (change->display->panel == 1)
@@ -27,7 +26,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("switch perspective\n"); */
 	}
-
 	if (wn->state[SDL_SCANCODE_E] == 1 && old[SDL_SCANCODE_E] == 0)
 	{
 		if (change->display->color == 1)
@@ -37,7 +35,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("switch color\n"); */
 	}
-
 	if (wn->state[SDL_SCANCODE_G] == 1 && old[SDL_SCANCODE_G] == 0)
 	{
 		if (change->display->shade == 1)
@@ -47,7 +44,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("switch color\n"); */
 	}
-
 	if (wn->state[SDL_SCANCODE_P] == 1 && old[SDL_SCANCODE_P] == 0)
 	{
 		if (change->display->projection == orthographique)
@@ -57,8 +53,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("switch perspective\n"); */
 	}
-
-
 	if (wn->state[SDL_SCANCODE_T] == 1 && old[SDL_SCANCODE_T] == 0)
 	{
 		if (change->display->triangle == 1)
@@ -68,8 +62,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("switch affichage triangle\n"); */
 	}
-
-
 	if (wn->state[SDL_SCANCODE_M] == 1 && old[SDL_SCANCODE_M] == 0)
 	{
 		if (change->display->mesh == 1)
@@ -79,8 +71,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("switch affichage mesh\n"); */
 	}
-
-
 	if (wn->state[SDL_SCANCODE_C] == 1 && old[SDL_SCANCODE_C] == 0)
 	{
 		if (change->display->culling_face == 1)
@@ -90,9 +80,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("switch culling\n"); */
 	}
-
-
-
 	if (wn->state[SDL_SCANCODE_N] == 1 && old[SDL_SCANCODE_N] == 0)
 	{
 		if (change->display->mesh_normal == 1)
@@ -102,8 +89,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("switch mesh normal\n"); */
 	}
-
-
 	if (wn->state[SDL_SCANCODE_B] == 1 && old[SDL_SCANCODE_B] == 0)
 	{
 		if (change->display->triangle_normal == 1)
@@ -113,8 +98,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->modif = 1;
 		/* printf("switch triangle normal\n"); */
 	}
-
-
 	if (wn->state[SDL_SCANCODE_J] == 1 )
 	{
 		change->angle_x += 1;
@@ -163,7 +146,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	/* 	change->zoom -= 1; */
 	/* 	change->modif = 1; */
 	/* } */
-
 	if (wn->state[SDL_SCANCODE_UP] == 1 && old[SDL_SCANCODE_UP] == 0)
 	{
 		printf("Fleche Bas => on decrement camera y\n");
@@ -188,8 +170,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->v_camera.x += 5;
 		change->modif = 1;
 	}
-
-
 	if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0)
 	{
 		printf("A => on decremente le theta\n");
@@ -202,9 +182,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->translation_x += 5;
 		change->modif = 1;
 	}
-
-
-
 	if (wn->state[SDL_SCANCODE_W] == 1 && old[SDL_SCANCODE_W] == 0)
 	{
 		/* printf("Translation UP\n"); */
@@ -279,6 +256,7 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 	change->v_camera.x = 0;
 	change->v_camera.y = 0;
 	change->v_camera.z = 0;
+	change->mat_trans = ft_make_matrix_5_5();
 
 
 }
@@ -388,15 +366,9 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 				change->result_1.z = ft_get_the_indice_vertex_z(polygon->indices[i], polygon->vertex_lst);
 
 
-
-
 				change->result_2.x = ft_get_the_indice_vertex_x(polygon->indices[i + 1], polygon->vertex_lst);
 				change->result_2.y = ft_get_the_indice_vertex_y(polygon->indices[i + 1], polygon->vertex_lst);
 				change->result_2.z = ft_get_the_indice_vertex_z(polygon->indices[i + 1], polygon->vertex_lst);
-
-
-
-
 
 
 				change->result_3.x = ft_get_the_indice_vertex_x(polygon->indices[i + 2], polygon->vertex_lst);
@@ -425,12 +397,6 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 
 
 				/* 	printf("\n"); */
-
-
-
-
-
-
 
 				SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 				ft_draw_change(s_win, change);

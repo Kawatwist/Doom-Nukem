@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 13:17:24 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 16:27:56 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:34:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,17 @@ float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up)
     return (matrix);
 }
 
+t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i)
+{
+	t_myvec v;
+	v.x = i.x * m[0][0] + i.y * m[1][0] + i.z * m[2][0] + i.w * m[3][0];
+	v.y = i.x * m[0][1] + i.y * m[1][1] + i.z * m[2][1] + i.w * m[3][1];
+	v.z = i.x * m[0][2] + i.y * m[1][2] + i.z * m[2][2] + i.w * m[3][2];
+	v.w = i.x * m[0][3] + i.y * m[1][3] + i.z * m[2][3] + i.w * m[3][3];
+	return v;
+}
+
+
 float  **ft_matrix_quick_inverse(float **mu)
 {
 	float **matrix;
@@ -153,6 +164,30 @@ float	**ft_make_identity(void)  //DONE
 	mat_identity[3][2] = 0.0;
 	mat_identity[3][3] = 1.0;
 	return (mat_identity);
+}
+
+float	**ft_make_translation(float x, float y, float z)
+{
+	float	**mat_translation;
+	mat_translation = ft_make_matrix_5_5();
+
+	mat_translation[0][0] = 1.0;
+	mat_translation[0][1] = 0.0;
+	mat_translation[0][2] = 0.0;
+	mat_translation[0][3] = 0.0;
+	mat_translation[1][0] = 0.0;
+	mat_translation[1][1] = 1.0;
+	mat_translation[1][2] = 0.0;
+	mat_translation[1][3] = 0.0;
+	mat_translation[2][0] = 0.0;
+	mat_translation[2][1] = 0.0;
+	mat_translation[2][2] = 1.0;
+	mat_translation[2][3] = 0.0;
+	mat_translation[3][0] = x;
+	mat_translation[3][1] = y;
+	mat_translation[3][2] = z;
+	mat_translation[3][3] = 1.0;
+	return (mat_translation);
 }
 
 float	**ft_make_rotation_x(float theta)  //DONE

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/15 11:31:14 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:34:34 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct		s_myvec
 	float			x;
 	float			y;
 	float			z;
+	float			w;
 	int				obj_indice;
 	float			shade;
 	struct s_myvec	*next;

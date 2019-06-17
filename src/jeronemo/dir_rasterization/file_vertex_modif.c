@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 16:37:44 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 18:53:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,7 @@ void	ft_calcul_projection(t_mychange *change)
 				/* } */
 				/* else */
 				/* 	; */
-
-
-
-
 		}
-
-
 		change->result_1 = ft_scale_screen(change->result_1);
 		change->result_2 = ft_scale_screen(change->result_2);
 		change->result_3 = ft_scale_screen(change->result_3);
@@ -231,23 +225,25 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 					/* light_direction.z = -1.0; */
 
 
-					/* printf("bb\n"); */
-					/* printf("the triangle first point x=%f\n", change->result_1.x); */
-					/* printf("the triangle first point y=%f\n", change->result_1.y); */
-					/* printf("the triangle first point z=%f\n", change->result_1.z); */
+					printf("bb\n");
+					printf("the triangle first point x=%f\n", change->result_1.x);
+					printf("the triangle first point y=%f\n", change->result_1.y);
+					printf("the triangle first point z=%f\n", change->result_1.z);
 
-					/* printf("\n"); */
+					printf("\n");
 
 
-					/* printf("the triangle seconde point x=%f\n", change->result_2.x); */
-					/* printf("the triangle seconde point y=%f\n", change->result_2.y); */
-					/* printf("the triangle seconde point z=%f\n", change->result_2.z); */
+					printf("the triangle seconde point x=%f\n", change->result_2.x);
+					printf("the triangle seconde point y=%f\n", change->result_2.y);
+					printf("the triangle seconde point z=%f\n", change->result_2.z);
 
-					/* printf("\n"); */
+					printf("\n");
 
-					/* printf("the triangle third point x=%f\n", change->result_3.x); */
-					/* printf("the triangle third point y=%f\n", change->result_3.y); */
-					/* printf("the triangle third point z=%f\n", change->result_3.z); */
+					printf("the triangle third point x=%f\n", change->result_3.x);
+					printf("the triangle third point y=%f\n", change->result_3.y);
+					printf("the triangle third point z=%f\n", change->result_3.z);
+
+					exit(0);
 
 
 					/* printf("\n"); */
@@ -327,40 +323,45 @@ float	**ft_make_matrix_5_5(void)
 
 void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 {
-	//init v_up  DONE
-	change->v_up.x = 0;
-	change->v_up.y = 1;
-	change->v_up.z = 0;
-	//init v_look_dir
-	change->v_look_dir.x = 0;
-	change->v_look_dir.y = 0;
-	change->v_look_dir.z = 1;
-	//init v_camera
-
-	//CALUCLATE v_target
-	change->v_target = ft_vector_add(change->v_camera, change->v_look_dir);
-	//CALCULATE mat_camera
-	change->mat_camera = ft_matrix_point_at(change->v_camera, change->v_target, change->v_up);
-
 	//INIT mat_rot_z  and   mat_rot_x  and mat_trans
-	change->mat_rot_z = ft_make_rotation_z(change->theta);
+	change->mat_rot_z = ft_make_rotation_z(change->theta * 0.5);
 	change->mat_rot_x = ft_make_rotation_x(change->theta);
-	change->mat_trans = ft_make_matrix_5_5();
-	/* change->mat_trans = ft_make_translation(0.0, 0.0, 5.0); */
+	change->mat_trans = ft_make_translation(0.0, 0.0, 10.0);
+
 	//CALCULATE mat_world
 	change->mat_world = ft_make_identity();
 	change->mat_world = ft_matrix_multiply_matrix(change->mat_rot_z, change->mat_rot_x);
 	change->mat_world = ft_matrix_multiply_matrix(change->mat_world, change->mat_trans);
 
+	//init v_up  DONE
+	change->v_up.x = 0;
+	change->v_up.y = 1;
+	change->v_up.z = 0;
+	//init v_target
+	change->v_target.x = 0;
+	change->v_target.y = 0;
+	change->v_target.z = 1;
+
+	float	f_y_aw = 0.0;
+	change->mat_camera_rot = ft_make_matrix_5_5();
+	change->mat_camera_rot = ft_make_rotation_y(f_y_aw);
+	change->v_look_dir = ft_matrix_multiply_vector(change->mat_camera_rot, change->v_target);
+	//CALUCLATE v_target
+	change->v_target = ft_vector_add(change->v_camera, change->v_look_dir);
+
+	//CALCULATE mat_camera
+	change->mat_camera = ft_matrix_point_at(change->v_camera, change->v_target, change->v_up);
+
 	//CALCULATE mat_view (inverse de la matrice mat camera)
 	change->mat_view = ft_matrix_quick_inverse(change->mat_camera);
 
+	/* change->result_1 = ft_matrix_multiply_vector(change->mat_world, change->result_1); */
+	/* change->result_2 = ft_matrix_multiply_vector(change->mat_world, change->result_2); */
+	/* change->result_3 = ft_matrix_multiply_vector(change->mat_world, change->result_3); */
 
-
-
-
-
-
+	/* change->result_1 = ft_matrix_multiply_vector(change->mat_view, change->result_1); */
+	/* change->result_2 = ft_matrix_multiply_vector(change->mat_view, change->result_2); */
+	/* change->result_3 = ft_matrix_multiply_vector(change->mat_view, change->result_3); */
 
 	/* ft_calcul_rotation_scale_translation(change); */
 	change->result_1 = ft_perspective_projection(change->result_1, change);
