@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 13:17:24 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 13:19:55 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 16:27:56 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,21 @@ t_myvec		ft_vector_multiply(t_myvec m, float k)
 	return (result);
 }
 
-float	*ft_make_projection(void)   //DONE
+float	**ft_make_projection(void)   //DONE
 {
-	float		mat_projection[5][5];
-	t_myvec		result;
-
+	float		**mat_projection;
 	float	height;
 	float	width;
 	float	teta;
 	float	z_far;
 	float	z_near;
-	(void)change;
 
+	mat_projection = ft_make_matrix_5_5();
 	height = YSCREEN;
 	width = XSCREEN;
 	teta = 90.0;
 	z_far = 1000.0;
 	z_near = 0.1;
-
 	mat_projection[1][1] = (height / width) * (1.0 / (tan(ft_rad(teta) / 2.0)));
 	mat_projection[1][2] = 0.0;
 	mat_projection[1][3] = 0.0;
@@ -79,22 +76,25 @@ float	*ft_make_projection(void)   //DONE
 	return(mat_projection);
 }
 
-float	*ft_matrix_multiply_matrix(float *m1, float *m2)  //surement DONE
+float	**ft_matrix_multiply_matrix(float **m1, float **m2)  //surement DONE
 {
-	float	mat_multiply[5][5];
+	float	**mat_multiply;
+
+	mat_multiply = ft_make_matrix_5_5();
 	for (int c = 0; c < 4; c++)
 		for (int r = 0; r < 4; r++)
 			mat_multiply[r][c] = m1[r][0] * m2[0][c] + m1[r][1] * m2[1][c] + m1[r][2] * m2[2][c] + m1[r][3] * m2[3][c];
 	return (mat_multiply);
 }
 
-float	ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up)
+float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up)
 {
 	t_myvec		new_forward;
 	t_myvec		new_up;
 	t_myvec		new_right;
-	float		matrix[5][5];
+	float		**matrix;
 
+	matrix = ft_make_matrix_5_5();
 	//CALCULATE NEW FORWARD VECTOR
 	new_forward = ft_vector_sub(v_target, v_pos);
 	new_forward = ft_normalise(new_forward);
@@ -115,10 +115,11 @@ float	ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up)
     return (matrix);
 }
 
-float  *ft_matrix_quick_inverse(float mu)
+float  **ft_matrix_quick_inverse(float **mu)
 {
-	flaot matrix[5][5];
+	float **matrix;
 
+	matrix = ft_make_matrix_5_5();
 	matrix[0][0] = mu[0][0];matrix[0][1] = mu[1][0];matrix[0][2] = mu[2][0];matrix[0][3] = 0.0f;
 	matrix[1][0] = mu[0][1];matrix[1][1] = mu[1][1];matrix[1][2] = mu[2][1];matrix[1][3] = 0.0f;
 	matrix[2][0] = mu[0][2];matrix[2][1] = mu[1][2];matrix[2][2] = mu[2][2];matrix[2][3] = 0.0f;
@@ -130,10 +131,11 @@ float  *ft_matrix_quick_inverse(float mu)
 	return (matrix);
 }
 
-float	*ft_make_identity(void)  //DONE
+float	**ft_make_identity(void)  //DONE
 {
-	float	mat_identity[5][5];
+	float	**mat_identity;
 
+	mat_identity = ft_make_matrix_5_5();
 	mat_identity[0][0] = 1.0;
 	mat_identity[0][1] = 0.0;
 	mat_identity[0][2] = 0.0;
@@ -153,11 +155,10 @@ float	*ft_make_identity(void)  //DONE
 	return (mat_identity);
 }
 
-float	*ft_make_rotation_x(float theta)  //DONE
+float	**ft_make_rotation_x(float theta)  //DONE
 {
-	float	mat_rotation[5][5];
-
-	mat_rotation[0][0] = 1.0;
+	float	**mat_rotation;
+	mat_rotation = ft_make_matrix_5_5();
 	mat_rotation[0][1] = 0.0;
 	mat_rotation[0][2] = 0.0;
 	mat_rotation[0][3] = 0.0;
@@ -173,13 +174,14 @@ float	*ft_make_rotation_x(float theta)  //DONE
 	mat_rotation[3][1] = 0.0;
 	mat_rotation[3][2] = 0.0;
 	mat_rotation[3][3] = 1.0;
-	return (mat_ratation);
+	return (mat_rotation);
 }
 
-float	*ft_make_rotation_y(float theta)  //DONE
+float	**ft_make_rotation_y(float theta)  //DONE
 {
-	float	mat_rotation[5][5];
+	float	**mat_rotation;
 
+	mat_rotation = ft_make_matrix_5_5();
 	mat_rotation[0][0] = cosf(ft_rad(theta));
 	mat_rotation[0][1] = 0.0;
 	mat_rotation[0][2] = sinf(ft_rad(theta));
@@ -196,13 +198,14 @@ float	*ft_make_rotation_y(float theta)  //DONE
 	mat_rotation[3][1] = 0.0;
 	mat_rotation[3][2] = 0.0;
 	mat_rotation[3][3] = 1.0;
-	return (mat_ratation);
+	return (mat_rotation);
 }
 
-float	*ft_make_rotation_z(float theta) //DONE
+float	**ft_make_rotation_z(float theta) //DONE
 {
-	float	mat_rotation[5][5];
+	float	**mat_rotation;
 
+	mat_rotation = ft_make_matrix_5_5();
 	mat_rotation[0][0] = cosf(ft_rad(theta));
 	mat_rotation[0][1] = sinf(ft_rad(theta));
 	mat_rotation[0][2] = 0.0;
@@ -219,5 +222,7 @@ float	*ft_make_rotation_z(float theta) //DONE
 	mat_rotation[3][1] = 0.0;
 	mat_rotation[3][2] = 0.0;
 	mat_rotation[3][3] = 1.0;
-	return (mat_ratation);
+	return (mat_rotation);
 }
+
+

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/16 13:48:58 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 16:24:08 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,21 @@ typedef struct		s_mychange
 	t_myvec			result_3;
 	char			quit;
 	char			modif;
-	t_myvec			*v_camera;
-	t_myvec			*v_up;
-	t_myvec			*v_target;
+
+	t_myvec			v_camera;
+	t_myvec			v_up;
+	t_myvec			v_target;
+	t_myvec			v_look_dir;
+	float			theta;
+
+	float			**mat_trans;
+	float			**mat_rot_x;
+	float			**mat_rot_y;
+	float			**mat_rot_z;
+	float			**mat_world;
+	float			**mat_camera;
+	float			**mat_view;
+
 	Uint8			*old;
 	t_mydisplay		*display;
 }					t_mychange;
@@ -405,25 +417,28 @@ t_myvec	ft_translation_y(float value, t_myvec vertex);
 t_myvec	ft_translation_z(float value, t_myvec vertex);
 t_myvec	ft_scale(float zoom, t_myvec vertex);
 float	ft_rad(float angle);
-
 void	ft_draw_change(t_mywin *s_win, t_mychange *change);
-
-
-
-
 t_myvec	ft_perspective_projection(t_myvec vertex, t_mychange *change);
-
 t_myvec		ft_normalise(t_myvec vector);
-
-
 void		ft_mouse_event_check(t_win *wn, t_mychange *change);
 void	ft_display_panel();
-
-
 void	ft_fill_triangle_one_color(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
-
 void	ft_order_triangle_vertice(t_myvec *v1, t_myvec *v2, t_myvec *v3);
 void	ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
-
 void	ft_fill_triangle_shade(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win, float shade);
+
+
+t_myvec		ft_vector_add(t_myvec v1, t_myvec v2); //DONE
+t_myvec		ft_vector_sub(t_myvec v1, t_myvec v2); //DONE
+t_myvec		ft_vector_multiply(t_myvec m, float k);
+float	**ft_make_projection(void);   //DONE
+float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up);
+float	**ft_make_identity(void);  //DONE
+float	**ft_make_rotation_x(float theta);  //DONE
+float	**ft_make_rotation_y(float theta);  //DONE
+float	**ft_make_rotation_z(float theta); //DONE
+
+float	**ft_matrix_multiply_matrix(float **m1, float **m2);  //surement DONE
+float	**ft_make_matrix_5_5(void);
+float  **ft_matrix_quick_inverse(float **mu);
 #endif

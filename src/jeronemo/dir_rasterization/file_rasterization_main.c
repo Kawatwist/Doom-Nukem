@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 13:52:44 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 16:33:20 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,30 +166,42 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 
 	if (wn->state[SDL_SCANCODE_UP] == 1 && old[SDL_SCANCODE_UP] == 0)
 	{
-		/* printf("Translation UP\n"); */
+		printf("Fleche Bas => on decrement camera y\n");
 		change->v_camera.y -= 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_DOWN] == 1 && old[SDL_SCANCODE_DOWN] == 0)
 	{
-		/* printf("Translation UP\n"); */
+		printf("Fleche Haut => on increment camera y\n");
 		change->v_camera.y += 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_LEFT] == 1 && old[SDL_SCANCODE_LEFT] == 0)
 	{
-		/* printf("Translation UP\n"); */
+		printf("Fleche Gauche => on decrement camera x\n");
 		change->v_camera.x -= 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_RIGHT] == 1 && old[SDL_SCANCODE_RIGHT] == 0)
 	{
-		/* printf("Translation UP\n"); */
+		printf("Fleche Droite => on increment camera x\n");
 		change->v_camera.x += 5;
 		change->modif = 1;
 	}
 
 
+	if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0)
+	{
+		printf("A => on decremente le theta\n");
+		change->theta -= 5;
+		change->modif = 1;
+	}
+	if (wn->state[SDL_SCANCODE_D] == 1 && old[SDL_SCANCODE_D] == 0)
+	{
+		printf("D => on decrement le theta\n");
+		change->translation_x += 5;
+		change->modif = 1;
+	}
 
 
 
@@ -205,18 +217,18 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 		change->translation_y += 5;
 		change->modif = 1;
 	}
-	if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0)
-	{
-		/* printf("Translation LEFT\n"); */
-		change->translation_x -= 5;
-		change->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_D] == 1 && old[SDL_SCANCODE_D] == 0)
-	{
-		/* printf("Translation RIGHT\n"); */
-		change->translation_x += 5;
-		change->modif = 1;
-	}
+	/* if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0) */
+	/* { */
+	/* 	/1* printf("Translation LEFT\n"); *1/ */
+	/* 	change->translation_x -= 5; */
+	/* 	change->modif = 1; */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_D] == 1 && old[SDL_SCANCODE_D] == 0) */
+	/* { */
+	/* 	/1* printf("Translation RIGHT\n"); *1/ */
+	/* 	change->translation_x += 5; */
+	/* 	change->modif = 1; */
+	/* } */
 	if (wn->state[SDL_SCANCODE_Z] == 1 && old[SDL_SCANCODE_Z] == 0)
 	{
 		/* printf("Translation Z\n"); */
@@ -262,6 +274,13 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 	change->display->panel = 1;
 	change->display->color = 0;
 	change->display->shade = 0;
+
+
+	change->v_camera.x = 0;
+	change->v_camera.y = 0;
+	change->v_camera.z = 0;
+
+
 }
 
 float		ft_get_the_indice_vertex_x(int indice, t_myvec *vertex_lst)

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 14:10:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/17 16:37:44 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void	ft_calcul_projection(t_mychange *change)
 		;
 	else if (change->display->projection == perspective)
 	{
-		change->result_1 = ft_perspective_projection(change->result_1, change);
-		change->result_2 = ft_perspective_projection(change->result_2, change);
+		/* change->result_1 = ft_perspective_projection(change->result_1, change); */
+		/* change->result_2 = ft_perspective_projection(change->result_2, change); */
 		if (change->display->triangle == 1)
 		{
-			change->result_3 = ft_perspective_projection(change->result_3, change);
+			/* change->result_3 = ft_perspective_projection(change->result_3, change); */
 
 			if (change->display->shade == 1)
 			{
@@ -112,27 +112,26 @@ void	ft_calcul_projection(t_mychange *change)
 				printf("the light direction normalise z=%f\n", light_direction.z);
 				shade = ft_dot_product(triangle_normal_normalise, light_direction);
 
-				if (shade > 0)
-				{
-					change->result_1.shade = shade * 255;
-					change->result_2.shade = shade * 255;
-					change->result_3.shade = shade * 255;
-				printf("A SHADE = %f\n", shade * 255);
-				}
-				else
-					;
+
+				/* 	change->result_1.shade = shade * 255; */
+				/* 	change->result_2.shade = shade * 255; */
+				/* 	change->result_3.shade = shade * 255; */
+				/* printf("A SHADE = %f\n", shade * 255); */
+				/* } */
+				/* else */
+				/* 	; */
 
 
 
 
-			}
-
-
-	change->result_1 = ft_scale_screen(change->result_1);
-	change->result_2 = ft_scale_screen(change->result_2);
-	change->result_3 = ft_scale_screen(change->result_3);
 		}
+
+
+		change->result_1 = ft_scale_screen(change->result_1);
+		change->result_2 = ft_scale_screen(change->result_2);
+		change->result_3 = ft_scale_screen(change->result_3);
 	}
+}
 }
 
 
@@ -296,47 +295,81 @@ void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
 	}
 }
 
+
+
+float	**ft_make_matrix_5_5(void)
+{
+	float	**matrix;
+	int		i;
+	int		j;
+
+	i = 0;
+	matrix = (float**)malloc(sizeof(float*) * 5);
+	while(i < 5)
+	{
+		matrix[i] = (float*)malloc(sizeof(float) * 5);
+		i++;
+	}
+	i = 0;
+	j = 0;
+	while (i < 5)
+	{
+		j = 0;
+		while (j < 5)
+		{
+			matrix[i][j] = 0.0;
+			j++;
+		}
+		i++;
+	}
+	return (matrix);
+}
+
 void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 {
-	//init mat_rot_z  and   mat_rot_x
-	change->mat_rot_z = ft_make_rotation_z(float theta);
-	change->mat_rot_x = ft_make_rotation_x(float theta);
-
-
 	//init v_up  DONE
 	change->v_up.x = 0;
 	change->v_up.y = 1;
 	change->v_up.z = 0;
-
-	//init v_target  DONE
-	change->v_target.x = 0;
-	change->v_target.y = 0;
-	change->v_target.z = 1;
-
 	//init v_look_dir
 	change->v_look_dir.x = 0;
 	change->v_look_dir.y = 0;
 	change->v_look_dir.z = 1;
-
+	//init v_camera
 
 	//CALUCLATE v_target
-	change->v_target = ft_vector_add(v_camera, v_look_dir);
-
-
+	change->v_target = ft_vector_add(change->v_camera, change->v_look_dir);
 	//CALCULATE mat_camera
-	change->mat_camera = ft_matrix_point_at(v_camera, v_target, v_up);
+	change->mat_camera = ft_matrix_point_at(change->v_camera, change->v_target, change->v_up);
+
+	//INIT mat_rot_z  and   mat_rot_x  and mat_trans
+	change->mat_rot_z = ft_make_rotation_z(change->theta);
+	change->mat_rot_x = ft_make_rotation_x(change->theta);
+	change->mat_trans = ft_make_matrix_5_5();
+	/* change->mat_trans = ft_make_translation(0.0, 0.0, 5.0); */
+	//CALCULATE mat_world
+	change->mat_world = ft_make_identity();
+	change->mat_world = ft_matrix_multiply_matrix(change->mat_rot_z, change->mat_rot_x);
+	change->mat_world = ft_matrix_multiply_matrix(change->mat_world, change->mat_trans);
 
 	//CALCULATE mat_view (inverse de la matrice mat camera)
-	change->mat_view = ft_matrix_quick_inverse(mat_camera);
+	change->mat_view = ft_matrix_quick_inverse(change->mat_camera);
+
+
+
 
 
 
 
 
 	/* ft_calcul_rotation_scale_translation(change); */
-	/* ft_calcul_projection(change); */
-	/* if (change->display->triangle)		//afichage des triangles */
-	/* 	ft_draw_triangle(s_win, change); */
+	change->result_1 = ft_perspective_projection(change->result_1, change);
+	change->result_2 = ft_perspective_projection(change->result_2, change);
+	change->result_3 = ft_perspective_projection(change->result_3, change);
+	ft_calcul_projection(change);
+
+	if (change->display->triangle)		//afichage des triangles
+		ft_draw_triangle(s_win, change);
 	if (change->display->mesh)			//afichage des mesh
 		ft_draw_mesh(s_win, change);
 }
