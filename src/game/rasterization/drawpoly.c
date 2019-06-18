@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 11:32:23 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/17 16:59:39 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/18 11:14:12 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,20 @@ void			maindrawpoly(t_win *wn)
 	{
 		(curr->ver_tmp = malloc(sizeof(t_vec) * curr->nb_ver)) == NULL ? stop_exec("Ver not malloc\n", wn) : 0;
 		vercpy(curr->ver_list, curr->ver_tmp, curr->nb_ver);
-		curr->normal = malloc(sizeof(t_vec) * (curr->nb_ver / 3));
-		each_triangle(curr);
-		rotatez(wn->player->rawz, wn->rast->model);
-		rotatey(wn->player->rawy, wn->rast->model);
-		rotatex(wn->player->rawx, wn->rast->model);
-		trans(wn, wn->rast->model);
+		//curr->normal = malloc(sizeof(t_vec) * (curr->nb_ver / 3));
+		//each_triangle(curr);
 		m2w_matrice(wn, curr, wn->rast->model, curr->ver_tmp);
-		w2v_matrice(wn, curr->ver_tmp, curr); 
-	//	v2p_matrice_calcul(wn, curr, curr->ver_tmp, wn->rast->proj);
+		w2v_matrice(wn, curr->ver_tmp, curr);
+		*curr->ver_tmp = mult_vec_mat(curr->ver_tmp, wn->rast->view);
+		v2p_matrice(wn);
+		*curr->ver_tmp = mult_vec_mat(curr->ver_tmp, wn->rast->proj);
 		drawpoly(wn, curr, curr->ver_tmp);
 		free(curr->ver_tmp);
 		curr = curr->next;
 	}
 	initmatrice(wn->rast->model);
+	rotatez(wn->player->rawz, wn->rast->model);
+	rotatey(wn->player->rawy, wn->rast->model);
+	rotatex(wn->player->rawx, wn->rast->model);
+	trans(wn, wn->rast->model);
 }

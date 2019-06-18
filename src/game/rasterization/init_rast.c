@@ -6,7 +6,7 @@
 /*   By: jsauron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:19:49 by jsauron           #+#    #+#             */
-/*   Updated: 2019/06/17 16:57:13 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/18 11:02:43 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	init_rast(t_win **wn)
 	init_ver((*wn)->rast->f, 0, 0, 0);
 	init_ver((*wn)->rast->s, 0, 0, 0);
 	init_ver((*wn)->rast->u, 0, 0, 0);
+	(*wn)->rast->fov = 60; //degres
 }
 
 void	init_poly(t_win **wn)

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 10:07:08 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/17 12:47:29 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/18 11:01:21 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ typedef	struct		s_rast
 	t_vec			*f;
 	t_vec			*s;
 	t_vec			*u;
+	double			fov;
 }					t_rast;
 #endif
