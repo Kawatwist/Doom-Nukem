@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 18:55:22 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/18 13:51:02 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,6 +317,35 @@ float		ft_get_the_indice_vertex_z(int indice, t_myvec *vertex_lst)
 
 void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 {
+
+	/* int			nbr_of_triangle; */
+	/* int			i; */
+	/* t_myvec		*triangle; */
+
+	/* triangle_points = (t_myvec*)malloc(sizeof(t_myvec) * 3); */
+	/* i = 0; */
+	/* while (i < nbr_of_triangle) */
+	/* { */
+	/* 	triangle_vertice = triangle_array[i]; */
+	/* 	printf("Les coordonnes des triangles :\n"); */
+	/* 	int j = -1; */
+	/* 	while (++j < 3) */
+	/* 		printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle_vertice[j].x, triangle_vertice[j].y, triangle_vertice[j].z); */
+	/* 	} */
+
+
+	/* 	i++; */
+	/* } */
+
+	/* exit(0); */
+
+
+
+
+
+
+
+
 	t_mypolygon *polygon;
 
 	change->modif = 0;
@@ -332,7 +361,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 		if (change->display->triangle == 0)
 		{
 			keep->vec = polygon->vertex_lst;
-			/* printf("le AAAA = %d\n", polygon->number_of_vertex); */
+ 			/* printf("le AAAA = %d\n", polygon->number_of_vertex); */
 			while (polygon->vertex_lst->next != NULL)
 			{
 				change->result_1.x = polygon->vertex_lst->x;
@@ -365,11 +394,9 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
 				change->result_1.y = ft_get_the_indice_vertex_y(polygon->indices[i], polygon->vertex_lst);
 				change->result_1.z = ft_get_the_indice_vertex_z(polygon->indices[i], polygon->vertex_lst);
 
-
 				change->result_2.x = ft_get_the_indice_vertex_x(polygon->indices[i + 1], polygon->vertex_lst);
 				change->result_2.y = ft_get_the_indice_vertex_y(polygon->indices[i + 1], polygon->vertex_lst);
 				change->result_2.z = ft_get_the_indice_vertex_z(polygon->indices[i + 1], polygon->vertex_lst);
-
 
 				change->result_3.x = ft_get_the_indice_vertex_x(polygon->indices[i + 2], polygon->vertex_lst);
 				change->result_3.y = ft_get_the_indice_vertex_y(polygon->indices[i + 2], polygon->vertex_lst);
@@ -417,29 +444,26 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	t_mykeep			keep;
 
 
-
-	/* t_myvec v1, v2, v3; */
-
-	/* v1.x = 0; */
-	/* v1.y = 5; */
-	/* v2.x = 0; */
-	/* v2.y = 10; */
-	/* v3.x = 0; */
-	/* v3.y = 1; */
-	/* printf(" =%f =%f =%f \n", v1.y, v2.y, v3.y); */
-	/* ft_order_triangle_vertice(&v1, &v2, &v3); */
-	/* ft_fill_triangle(&v1, &v2, &v3, s_win); */
-	/* printf(" =%f =%f =%f \n", v1.y, v2.y, v3.y); */
-
-
-
-	ft_init_launch_rasterization(&keep, &change);
-	ft_launch_bsp_tree(s_win, wn);
 	SDL_Init(SDL_INIT_EVERYTHING);
 	s_win->current_window = J_EDITOR;
 	ft_launch_window(s_win);
 	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
     SDL_RenderClear(s_win->renderer[J_EDITOR]);
+
+
+	ft_init_launch_rasterization(&keep, &change);
+	ft_launch_bsp_tree(s_win, wn);
+
+
+	t_mytriangle	*triangle_array;
+	triangle_array = ft_get_triangles_array(s_win);
+	ft_display_triangle_array(s_win);
+	exit(0);
+
+
+
+
+
 	while (!change.quit)
 	{
 		SDL_PollEvent(&(wn->ev));

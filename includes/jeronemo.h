@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 18:32:43 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/18 13:19:11 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ typedef enum		s_myprojection
 	perspective,
 }					t_myprojection;
 
+typedef struct	s_mytriangle
+{
+	t_myvec		triangle_vertice[3];
+}				t_mytriangle;
 
 typedef struct	s_mydisplay
 {
@@ -444,4 +448,17 @@ float	**ft_make_matrix_5_5(void);
 float  **ft_matrix_quick_inverse(float **mu);
 float	**ft_make_translation(float x, float y, float z);
 t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i);
+
+
+
+
+
+
+
+
+void	ft_get_polynome_lst(t_mywin *s_win);
+
+t_mytriangle	*ft_get_triangles_array(t_mywin *s_win);
+
+
 #endif
