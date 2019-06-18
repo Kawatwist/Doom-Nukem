@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 13:17:24 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 18:34:37 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/18 17:27:38 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up)
 t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i)
 {
 	t_myvec v;
+
 	v.x = i.x * m[0][0] + i.y * m[1][0] + i.z * m[2][0] + i.w * m[3][0];
 	v.y = i.x * m[0][1] + i.y * m[1][1] + i.z * m[2][1] + i.w * m[3][1];
 	v.z = i.x * m[0][2] + i.y * m[1][2] + i.z * m[2][2] + i.w * m[3][2];
@@ -194,6 +195,7 @@ float	**ft_make_rotation_x(float theta)  //DONE
 {
 	float	**mat_rotation;
 	mat_rotation = ft_make_matrix_5_5();
+	mat_rotation[0][0] = 1.0;
 	mat_rotation[0][1] = 0.0;
 	mat_rotation[0][2] = 0.0;
 	mat_rotation[0][3] = 0.0;
@@ -260,4 +262,39 @@ float	**ft_make_rotation_z(float theta) //DONE
 	return (mat_rotation);
 }
 
+float	**ft_make_perspectiv(void)
+{
+	float		**matrix;
 
+	float	height;
+	float	width;
+	float	teta;
+	float	z_far;
+	float	z_near;
+
+	matrix = ft_make_matrix_5_5();
+
+	height = YSCREEN;
+	width = XSCREEN;
+	teta = 90.0;
+	z_far = 1000.0;
+	z_near = 0.1;
+
+	matrix[0][0] = (height / width) * (1.0 / (tan(ft_rad(teta) / 2.0)));
+	matrix[0][1] = 0.0;
+	matrix[0][2] = 0.0;
+	matrix[0][3] = 0.0;
+	matrix[1][0] = 0.0;
+	matrix[1][1] = 1.0/ tan(ft_rad(teta) / 2.0);
+	matrix[1][2] = 0.0;
+	matrix[1][3] = 0.0;
+	matrix[2][0] = 0.0;
+	matrix[2][1] = 0.0;
+	matrix[2][2] = z_far / (z_far - z_near);
+	matrix[2][3] = 1.0;
+	matrix[3][0] = 0.0;
+	matrix[3][1] = 0.0;
+	matrix[3][2] = (-z_far * z_near)  / (z_far - z_near)  ;
+	matrix[3][3] = 0.0;
+	return (matrix);
+}

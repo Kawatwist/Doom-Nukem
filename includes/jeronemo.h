@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/18 13:19:11 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/18 18:20:16 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef enum		s_myprojection
 
 typedef struct	s_mytriangle
 {
-	t_myvec		triangle_vertice[3];
+	t_myvec		vertice[3];
 }				t_mytriangle;
 
 typedef struct	s_mydisplay
@@ -85,6 +85,9 @@ typedef struct		s_mychange
 	t_myvec			v_target;
 	t_myvec			v_look_dir;
 	float			theta;
+	float			theta_x;
+	float			theta_y;
+	float			theta_z;
 
 	float			**mat_trans;
 	float			**mat_rot_x;
@@ -94,6 +97,7 @@ typedef struct		s_mychange
 	float			**mat_camera;
 	float			**mat_view;
 	float			**mat_camera_rot;
+	float			**mat_perspectiv;
 
 	Uint8			*old;
 	t_mydisplay		*display;
@@ -306,7 +310,6 @@ typedef struct			s_mykeep
 
 
 
-void	ft_apply_change(t_mywin *s_win, t_mychange change, t_myvec result_1, t_myvec result_2);
 /**
  ** Map editor functions definitions
  **/
@@ -423,7 +426,6 @@ t_myvec	ft_translation_z(float value, t_myvec vertex);
 t_myvec	ft_scale(float zoom, t_myvec vertex);
 float	ft_rad(float angle);
 void	ft_draw_change(t_mywin *s_win, t_mychange *change);
-t_myvec	ft_perspective_projection(t_myvec vertex, t_mychange *change);
 t_myvec		ft_normalise(t_myvec vector);
 void		ft_mouse_event_check(t_win *wn, t_mychange *change);
 void	ft_display_panel();
@@ -451,14 +453,29 @@ t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i);
 
 
 
+t_myvec	ft_perspective_projection(t_myvec vertex);
+
+void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytriangle *triangle);
 
 
-
+int				ft_get_nbr_of_triangle(t_mywin *s_win);
 
 
 void	ft_get_polynome_lst(t_mywin *s_win);
 
 t_mytriangle	*ft_get_triangles_array(t_mywin *s_win);
+void	ft_display_triangle_array(t_mywin *s_win, t_mytriangle *triangle);
+
+
+float		ft_get_the_indice_vertex_x(int indice, t_myvec *vertex_lst);
+float		ft_get_the_indice_vertex_y(int indice, t_myvec *vertex_lst);
+float		ft_get_the_indice_vertex_z(int indice, t_myvec *vertex_lst);
+float	**ft_make_perspectiv(void);
+t_myvec		ft_scale_screen(t_myvec result);
+
+
+
+
 
 
 #endif

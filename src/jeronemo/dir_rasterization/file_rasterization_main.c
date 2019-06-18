@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/18 13:51:02 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/18 18:22:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	if (wn->state[SDL_SCANCODE_J] == 1 )
 	{
 		change->angle_x += 1;
+		change->theta_x += 1;
 		change->modif = 1;
 		/* printf("rotation sur x\n"); */
 	}
@@ -114,6 +115,7 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	{
 		/* printf("rotation sur y\n"); */
 		change->angle_y += 1;
+		change->theta_y += 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_I] == 1 )
@@ -126,6 +128,7 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	{
 		/* printf("rotation sur z\n"); */
 		change->angle_z += 1;
+		change->theta_z += 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_O] == 1 )
@@ -155,7 +158,7 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	if (wn->state[SDL_SCANCODE_DOWN] == 1 && old[SDL_SCANCODE_DOWN] == 0)
 	{
 		printf("Fleche Haut => on increment camera y\n");
-		change->v_camera.y += 5;
+		/* change->v_camera.y += 5; */
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_LEFT] == 1 && old[SDL_SCANCODE_LEFT] == 0)
@@ -173,25 +176,25 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0)
 	{
 		printf("A => on decremente le theta\n");
-		change->theta -= 5;
+		change->translation_x -= 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_D] == 1 && old[SDL_SCANCODE_D] == 0)
 	{
 		printf("D => on decrement le theta\n");
-		change->translation_x += 5;
+		change->translation_x += 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_W] == 1 && old[SDL_SCANCODE_W] == 0)
 	{
 		/* printf("Translation UP\n"); */
-		change->translation_y -= 5;
+		change->translation_y -= 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_S] == 1 && old[SDL_SCANCODE_S] == 0)
 	{
 		/* printf("Translation DOWN\n"); */
-		change->translation_y += 5;
+		change->translation_y += 1;
 		change->modif = 1;
 	}
 	/* if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0) */
@@ -256,6 +259,13 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 	change->v_camera.x = 0;
 	change->v_camera.y = 0;
 	change->v_camera.z = 0;
+
+	change->theta_x = 0;
+	change->theta_y = 0;
+	change->theta_z = 0;
+
+
+
 	change->mat_trans = ft_make_matrix_5_5();
 
 
@@ -315,33 +325,102 @@ float		ft_get_the_indice_vertex_z(int indice, t_myvec *vertex_lst)
 	return (z);
 }
 
-void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep)
+void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytriangle *triangle_array)
 {
+	printf("helloa\n");
+	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
+    SDL_RenderClear(s_win->renderer[J_EDITOR]);
 
-	/* int			nbr_of_triangle; */
-	/* int			i; */
-	/* t_myvec		*triangle; */
+	int					nbr_triangle;
+	t_mytriangle		triangle;
+	int					j;
+	int					i;
 
-	/* triangle_points = (t_myvec*)malloc(sizeof(t_myvec) * 3); */
-	/* i = 0; */
-	/* while (i < nbr_of_triangle) */
-	/* { */
-	/* 	triangle_vertice = triangle_array[i]; */
-	/* 	printf("Les coordonnes des triangles :\n"); */
-	/* 	int j = -1; */
-	/* 	while (++j < 3) */
-	/* 		printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle_vertice[j].x, triangle_vertice[j].y, triangle_vertice[j].z); */
-	/* 	} */
+	change->mat_rot_x = ft_make_rotation_x(change->theta_x);
+	change->mat_rot_y = ft_make_rotation_y(change->theta_y);
+	change->mat_rot_z = ft_make_rotation_z(change->theta_z);
+	change->mat_trans = ft_make_translation(change->translation_x, change->translation_y, change->translation_z);
+	change->mat_perspectiv = ft_make_perspectiv();
+
+	nbr_triangle = ft_get_nbr_of_triangle(s_win);
+	i = 0;
+	while (i < nbr_triangle)
+	{
+		triangle = triangle_array[i];
+		printf("\n\n\n########################################################################\n");
+		printf("\nLE TRIANGLE DE BASE\n");
+		j = -1;
+		while (++j < 3)
+			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
+
+		printf("\nON APLLIQUE LES ROTATION et TRANSATION\n");
+		j = -1;
+		while (++j < 3)
+		{
+			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_rot_x, triangle.vertice[j]);  
+			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_rot_y, triangle.vertice[j]);  
+			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_rot_z, triangle.vertice[j]);  
+			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_trans, triangle.vertice[j]);  
+			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
+		}
+
+		printf("\nON APLLIQUE la PERSPECTIV\n");
+		/* j = -1; */
+		/* while (++j < 3) */
+		/* { */
+		/* 	triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_perspectiv, triangle.vertice[j]); */  
+		/* 	printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z); */
+		/* } */
+
+		j = -1;
+		while (++j < 3)
+		{
+			triangle.vertice[j] = ft_perspective_projection(triangle.vertice[j]);
+			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
+		}
 
 
-	/* 	i++; */
-	/* } */
 
+
+
+
+
+
+
+
+
+
+		printf("\nON APLLIQUE la SCALE SCREEN\n");
+		j = -1;
+		while (++j < 3)
+		{
+			triangle.vertice[j] = ft_scale_screen(triangle.vertice[j]);  
+			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
+		}
+
+
+		/* printf("\nON trie\n"); */
+		/* ft_order_triangle_vertice(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2])); */
+		/* j = -1; */
+		/* while (++j < 3) */
+		/* { */
+		/* 	printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z); */
+		/* } */
+
+		printf("\nON affiche\n");
+		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 0, 0, 255);
+		ft_draw_triangle_base(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win);
+		j = -1;
+		while (++j < 3)
+		{
+			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
+		}
+
+		/* exit(0); */
+		i++;
+	}
 	/* exit(0); */
-
-
-
-
+	return;
 
 
 
@@ -450,19 +529,12 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
     SDL_RenderClear(s_win->renderer[J_EDITOR]);
 
-
 	ft_init_launch_rasterization(&keep, &change);
 	ft_launch_bsp_tree(s_win, wn);
 
-
 	t_mytriangle	*triangle_array;
 	triangle_array = ft_get_triangles_array(s_win);
-	ft_display_triangle_array(s_win);
-	exit(0);
-
-
-
-
+	ft_display_triangle_array(s_win, triangle_array);
 
 	while (!change.quit)
 	{
@@ -474,7 +546,7 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 		ft_mouse_event_check(wn, &change);
 		if (change.modif == 1)
 		{
-			ft_apply_modif(s_win, &change, &keep);
+			ft_apply_modif(s_win, &change, &keep, triangle_array);
 			if (change.display->panel == 1)
 				ft_display_panel(s_win, &change);
 			change.modif = 0;

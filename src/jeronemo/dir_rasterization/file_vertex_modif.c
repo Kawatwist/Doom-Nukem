@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/17 18:53:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/18 18:21:21 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -364,9 +364,9 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 	/* change->result_3 = ft_matrix_multiply_vector(change->mat_view, change->result_3); */
 
 	/* ft_calcul_rotation_scale_translation(change); */
-	change->result_1 = ft_perspective_projection(change->result_1, change);
-	change->result_2 = ft_perspective_projection(change->result_2, change);
-	change->result_3 = ft_perspective_projection(change->result_3, change);
+	change->result_1 = ft_perspective_projection(change->result_1);
+	change->result_2 = ft_perspective_projection(change->result_2);
+	change->result_3 = ft_perspective_projection(change->result_3);
 	ft_calcul_projection(change);
 
 	if (change->display->triangle)		//afichage des triangles
@@ -488,7 +488,7 @@ t_myvec	ft_matrix_multiply_four(float matrix[5][5], t_myvec vertex)
 	return (result);
 }
 
-t_myvec	ft_perspective_projection(t_myvec vertex, t_mychange *change)
+t_myvec	ft_perspective_projection(t_myvec vertex)
 {
 	float		matrix[5][5];
 	t_myvec		result;
@@ -498,7 +498,6 @@ t_myvec	ft_perspective_projection(t_myvec vertex, t_mychange *change)
 	float	teta;
 	float	z_far;
 	float	z_near;
-	(void)change;
 
 	height = YSCREEN;
 	width = XSCREEN;
