@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/18 18:22:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/18 18:36:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,7 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 	change->zoom = 1;
 	change->translation_x = 0;
 	change->translation_y = 0;
-	change->translation_z = 0;
+	change->translation_z = -10;
 
 	change->modif = 1;
 
@@ -342,6 +342,13 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	change->mat_trans = ft_make_translation(change->translation_x, change->translation_y, change->translation_z);
 	change->mat_perspectiv = ft_make_perspectiv();
 
+
+
+
+
+
+
+
 	nbr_triangle = ft_get_nbr_of_triangle(s_win);
 	i = 0;
 	while (i < nbr_triangle)
@@ -371,24 +378,12 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 		/* 	triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_perspectiv, triangle.vertice[j]); */  
 		/* 	printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z); */
 		/* } */
-
 		j = -1;
 		while (++j < 3)
 		{
 			triangle.vertice[j] = ft_perspective_projection(triangle.vertice[j]);
 			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
 		}
-
-
-
-
-
-
-
-
-
-
-
 
 		printf("\nON APLLIQUE la SCALE SCREEN\n");
 		j = -1;
