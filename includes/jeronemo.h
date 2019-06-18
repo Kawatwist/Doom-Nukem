@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/18 18:20:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/18 19:05:47 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct		s_mychange
 	t_myvec			v_up;
 	t_myvec			v_target;
 	t_myvec			v_look_dir;
+	t_myvec			v_forward;
 	float			theta;
 	float			theta_x;
 	float			theta_y;

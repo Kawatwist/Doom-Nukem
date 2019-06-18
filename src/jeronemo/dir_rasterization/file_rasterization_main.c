@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/18 18:36:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/18 20:03:55 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,150 +15,24 @@
 void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 {
 
+
+	/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
+
+
 	if (wn->state[SDL_SCANCODE_ESCAPE])
 		change->quit = TRUE;
-	if (wn->state[SDL_SCANCODE_Q] == 1 && old[SDL_SCANCODE_Q] == 0)
-	{
-		if (change->display->panel == 1)
-			change->display->panel = 0;
-		else
-			change->display->panel = 1;
-		change->modif = 1;
-		/* printf("switch perspective\n"); */
-	}
-	if (wn->state[SDL_SCANCODE_E] == 1 && old[SDL_SCANCODE_E] == 0)
-	{
-		if (change->display->color == 1)
-			change->display->color = 0;
-		else
-			change->display->color = 1;
-		change->modif = 1;
-		/* printf("switch color\n"); */
-	}
-	if (wn->state[SDL_SCANCODE_G] == 1 && old[SDL_SCANCODE_G] == 0)
-	{
-		if (change->display->shade == 1)
-			change->display->shade = 0;
-		else
-			change->display->shade = 1;
-		change->modif = 1;
-		/* printf("switch color\n"); */
-	}
-	if (wn->state[SDL_SCANCODE_P] == 1 && old[SDL_SCANCODE_P] == 0)
-	{
-		if (change->display->projection == orthographique)
-			change->display->projection = perspective;
-		else
-			change->display->projection = orthographique;
-		change->modif = 1;
-		/* printf("switch perspective\n"); */
-	}
-	if (wn->state[SDL_SCANCODE_T] == 1 && old[SDL_SCANCODE_T] == 0)
-	{
-		if (change->display->triangle == 1)
-			change->display->triangle = 0;
-		else
-			change->display->triangle = 1;
-		change->modif = 1;
-		/* printf("switch affichage triangle\n"); */
-	}
-	if (wn->state[SDL_SCANCODE_M] == 1 && old[SDL_SCANCODE_M] == 0)
-	{
-		if (change->display->mesh == 1)
-			change->display->mesh = 0;
-		else
-			change->display->mesh = 1;
-		change->modif = 1;
-		/* printf("switch affichage mesh\n"); */
-	}
-	if (wn->state[SDL_SCANCODE_C] == 1 && old[SDL_SCANCODE_C] == 0)
-	{
-		if (change->display->culling_face == 1)
-			change->display->culling_face = 0;
-		else
-			change->display->culling_face = 1;
-		change->modif = 1;
-		/* printf("switch culling\n"); */
-	}
-	if (wn->state[SDL_SCANCODE_N] == 1 && old[SDL_SCANCODE_N] == 0)
-	{
-		if (change->display->mesh_normal == 1)
-			change->display->mesh_normal = 0;
-		else
-			change->display->mesh_normal = 1;
-		change->modif = 1;
-		/* printf("switch mesh normal\n"); */
-	}
-	if (wn->state[SDL_SCANCODE_B] == 1 && old[SDL_SCANCODE_B] == 0)
-	{
-		if (change->display->triangle_normal == 1)
-			change->display->triangle_normal = 0;
-		else
-			change->display->triangle_normal = 1;
-		change->modif = 1;
-		/* printf("switch triangle normal\n"); */
-	}
-	if (wn->state[SDL_SCANCODE_J] == 1 )
-	{
-		change->angle_x += 1;
-		change->theta_x += 1;
-		change->modif = 1;
-		/* printf("rotation sur x\n"); */
-	}
-	if (wn->state[SDL_SCANCODE_U] == 1 )
-	{
-		change->angle_x -= 1;
-		change->modif = 1;
-		/* printf("rotation sur x\n"); */
-	}
-	if (wn->state[SDL_SCANCODE_K] == 1 )
-	{
-		/* printf("rotation sur y\n"); */
-		change->angle_y += 1;
-		change->theta_y += 1;
-		change->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_I] == 1 )
-	{
-		/* printf("rotation sur y\n"); */
-		change->angle_y -= 1;
-		change->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_L] == 1 )
-	{
-		/* printf("rotation sur z\n"); */
-		change->angle_z += 1;
-		change->theta_z += 1;
-		change->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_O] == 1 )
-	{
-		/* printf("rotation sur z\n"); */
-		change->angle_z -= 1;
-		change->modif = 1;
-	}
-	/* if (wn->state[SDL_SCANCODE_U] == 1 && old[SDL_SCANCODE_U] == 0) */
-	/* { */
-	/* 	/1* printf("zoom\n"); *1/ */
-	/* 	change->zoom += 1; */
-	/* 	change->modif = 1; */
-	/* } */
-	/* if (wn->state[SDL_SCANCODE_I] == 1 && old[SDL_SCANCODE_I] == 0) */
-	/* { */
-	/* 	/1* printf("zoom\n"); *1/ */
-	/* 	change->zoom -= 1; */
-	/* 	change->modif = 1; */
-	/* } */
+
+
 	if (wn->state[SDL_SCANCODE_UP] == 1 && old[SDL_SCANCODE_UP] == 0)
 	{
-		printf("Fleche Bas => on decrement camera y\n");
+		printf("Fleche Haut => on decrement camera y\n");
 		change->v_camera.y -= 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_DOWN] == 1 && old[SDL_SCANCODE_DOWN] == 0)
 	{
 		printf("Fleche Haut => on increment camera y\n");
-		/* change->v_camera.y += 5; */
+		change->v_camera.y += 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_LEFT] == 1 && old[SDL_SCANCODE_LEFT] == 0)
@@ -176,51 +50,246 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0)
 	{
 		printf("A => on decremente le theta\n");
-		change->translation_x -= 1;
+		change->theta -= 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_D] == 1 && old[SDL_SCANCODE_D] == 0)
 	{
-		printf("D => on decrement le theta\n");
-		change->translation_x += 1;
+		printf("D => on increment le theta\n");
+		change->theta += 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_W] == 1 && old[SDL_SCANCODE_W] == 0)
 	{
-		/* printf("Translation UP\n"); */
-		change->translation_y -= 1;
+	change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0);
+
+		printf("On incremente du vecteur forward\n");
+		change->v_camera = ft_vector_add(change->v_camera, change->v_forward);
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_S] == 1 && old[SDL_SCANCODE_S] == 0)
 	{
-		/* printf("Translation DOWN\n"); */
-		change->translation_y += 1;
+	change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0);
+
+		printf("On decremente du vecteur forward\n");
+		change->v_camera = ft_vector_sub(change->v_forward, change->v_camera);
 		change->modif = 1;
 	}
+
+
+
+//####################################
+	//perspective set
+
+
+
+	/* if (wn->state[SDL_SCANCODE_Q] == 1 && old[SDL_SCANCODE_Q] == 0) */
+	/* { */
+	/* 	if (change->display->panel == 1) */
+	/* 		change->display->panel = 0; */
+	/* 	else */
+	/* 		change->display->panel = 1; */
+	/* 	change->modif = 1; */
+	/* 	/1* printf("switch perspective\n"); *1/ */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_E] == 1 && old[SDL_SCANCODE_E] == 0) */
+	/* { */
+	/* 	if (change->display->color == 1) */
+	/* 		change->display->color = 0; */
+	/* 	else */
+	/* 		change->display->color = 1; */
+	/* 	change->modif = 1; */
+	/* 	/1* printf("switch color\n"); *1/ */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_G] == 1 && old[SDL_SCANCODE_G] == 0) */
+	/* { */
+	/* 	if (change->display->shade == 1) */
+	/* 		change->display->shade = 0; */
+	/* 	else */
+	/* 		change->display->shade = 1; */
+	/* 	change->modif = 1; */
+	/* 	/1* printf("switch color\n"); *1/ */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_P] == 1 && old[SDL_SCANCODE_P] == 0) */
+	/* { */
+	/* 	if (change->display->projection == orthographique) */
+	/* 		change->display->projection = perspective; */
+	/* 	else */
+	/* 		change->display->projection = orthographique; */
+	/* 	change->modif = 1; */
+	/* 	/1* printf("switch perspective\n"); *1/ */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_T] == 1 && old[SDL_SCANCODE_T] == 0) */
+	/* { */
+	/* 	if (change->display->triangle == 1) */
+	/* 		change->display->triangle = 0; */
+	/* 	else */
+	/* 		change->display->triangle = 1; */
+	/* 	change->modif = 1; */
+	/* 	/1* printf("switch affichage triangle\n"); *1/ */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_M] == 1 && old[SDL_SCANCODE_M] == 0) */
+	/* { */
+	/* 	if (change->display->mesh == 1) */
+	/* 		change->display->mesh = 0; */
+	/* 	else */
+	/* 		change->display->mesh = 1; */
+	/* 	change->modif = 1; */
+	/* 	/1* printf("switch affichage mesh\n"); *1/ */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_C] == 1 && old[SDL_SCANCODE_C] == 0) */
+	/* { */
+	/* 	if (change->display->culling_face == 1) */
+	/* 		change->display->culling_face = 0; */
+	/* 	else */
+	/* 		change->display->culling_face = 1; */
+	/* 	change->modif = 1; */
+	/* 	/1* printf("switch culling\n"); *1/ */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_N] == 1 && old[SDL_SCANCODE_N] == 0) */
+	/* { */
+	/* 	if (change->display->mesh_normal == 1) */
+	/* 		change->display->mesh_normal = 0; */
+	/* 	else */
+	/* 		change->display->mesh_normal = 1; */
+	/* 	change->modif = 1; */
+	/* 	/1* printf("switch mesh normal\n"); *1/ */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_B] == 1 && old[SDL_SCANCODE_B] == 0) */
+	/* { */
+	/* 	if (change->display->triangle_normal == 1) */
+	/* 		change->display->triangle_normal = 0; */
+	/* 	else */
+	/* 		change->display->triangle_normal = 1; */
+	/* 	change->modif = 1; */
+	/* 	/1* printf("switch triangle normal\n"); *1/ */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_J] == 1 ) */
+	/* { */
+	/* 	change->angle_x += 1; */
+	/* 	change->theta_x += 1; */
+	/* 	change->modif = 1; */
+	/* 	/1* printf("rotation sur x\n"); *1/ */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_U] == 1 ) */
+	/* { */
+	/* 	change->angle_x -= 1; */
+	/* 	change->modif = 1; */
+	/* 	/1* printf("rotation sur x\n"); *1/ */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_K] == 1 ) */
+	/* { */
+	/* 	/1* printf("rotation sur y\n"); *1/ */
+	/* 	change->angle_y += 1; */
+	/* 	change->theta_y += 1; */
+	/* 	change->modif = 1; */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_I] == 1 ) */
+	/* { */
+	/* 	/1* printf("rotation sur y\n"); *1/ */
+	/* 	change->angle_y -= 1; */
+	/* 	change->modif = 1; */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_L] == 1 ) */
+	/* { */
+	/* 	/1* printf("rotation sur z\n"); *1/ */
+	/* 	change->angle_z += 1; */
+	/* 	change->theta_z += 1; */
+	/* 	change->modif = 1; */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_O] == 1 ) */
+	/* { */
+	/* 	/1* printf("rotation sur z\n"); *1/ */
+	/* 	change->angle_z -= 1; */
+	/* 	change->modif = 1; */
+	/* } */
+	/* /1* if (wn->state[SDL_SCANCODE_U] == 1 && old[SDL_SCANCODE_U] == 0) *1/ */
+	/* /1* { *1/ */
+	/* /1* 	/2* printf("zoom\n"); *2/ *1/ */
+	/* /1* 	change->zoom += 1; *1/ */
+	/* /1* 	change->modif = 1; *1/ */
+	/* /1* } *1/ */
+	/* /1* if (wn->state[SDL_SCANCODE_I] == 1 && old[SDL_SCANCODE_I] == 0) *1/ */
+	/* /1* { *1/ */
+	/* /1* 	/2* printf("zoom\n"); *2/ *1/ */
+	/* /1* 	change->zoom -= 1; *1/ */
+	/* /1* 	change->modif = 1; *1/ */
+	/* /1* } *1/ */
+	/* if (wn->state[SDL_SCANCODE_UP] == 1 && old[SDL_SCANCODE_UP] == 0) */
+	/* { */
+	/* 	printf("Fleche Bas => on decrement camera y\n"); */
+	/* 	change->v_camera.y -= 5; */
+	/* 	change->modif = 1; */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_DOWN] == 1 && old[SDL_SCANCODE_DOWN] == 0) */
+	/* { */
+	/* 	printf("Fleche Haut => on increment camera y\n"); */
+	/* 	/1* change->v_camera.y += 5; *1/ */
+	/* 	change->modif = 1; */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_LEFT] == 1 && old[SDL_SCANCODE_LEFT] == 0) */
+	/* { */
+	/* 	printf("Fleche Gauche => on decrement camera x\n"); */
+	/* 	change->v_camera.x -= 5; */
+	/* 	change->modif = 1; */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_RIGHT] == 1 && old[SDL_SCANCODE_RIGHT] == 0) */
+	/* { */
+	/* 	printf("Fleche Droite => on increment camera x\n"); */
+	/* 	change->v_camera.x += 5; */
+	/* 	change->modif = 1; */
+	/* } */
 	/* if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0) */
 	/* { */
-	/* 	/1* printf("Translation LEFT\n"); *1/ */
-	/* 	change->translation_x -= 5; */
+	/* 	printf("A => on decremente le theta\n"); */
+	/* 	change->translation_x -= 1; */
 	/* 	change->modif = 1; */
 	/* } */
 	/* if (wn->state[SDL_SCANCODE_D] == 1 && old[SDL_SCANCODE_D] == 0) */
 	/* { */
-	/* 	/1* printf("Translation RIGHT\n"); *1/ */
-	/* 	change->translation_x += 5; */
+	/* 	printf("D => on decrement le theta\n"); */
+	/* 	change->translation_x += 1; */
 	/* 	change->modif = 1; */
 	/* } */
-	if (wn->state[SDL_SCANCODE_Z] == 1 && old[SDL_SCANCODE_Z] == 0)
-	{
-		/* printf("Translation Z\n"); */
-		change->translation_z += 5;
-		change->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_X] == 1 && old[SDL_SCANCODE_X] == 0)
-	{
-		/* printf("Translation X\n"); */
-		change->translation_z -= 5;
-		change->modif = 1;
-	}
+	/* if (wn->state[SDL_SCANCODE_W] == 1 && old[SDL_SCANCODE_W] == 0) */
+	/* { */
+	/* 	/1* printf("Translation UP\n"); *1/ */
+	/* 	change->translation_y -= 1; */
+	/* 	change->modif = 1; */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_S] == 1 && old[SDL_SCANCODE_S] == 0) */
+	/* { */
+	/* 	/1* printf("Translation DOWN\n"); *1/ */
+	/* 	change->translation_y += 1; */
+	/* 	change->modif = 1; */
+	/* } */
+	/* /1* if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0) *1/ */
+	/* /1* { *1/ */
+	/* /1* 	/2* printf("Translation LEFT\n"); *2/ *1/ */
+	/* /1* 	change->translation_x -= 5; *1/ */
+	/* /1* 	change->modif = 1; *1/ */
+	/* /1* } *1/ */
+	/* /1* if (wn->state[SDL_SCANCODE_D] == 1 && old[SDL_SCANCODE_D] == 0) *1/ */
+	/* /1* { *1/ */
+	/* /1* 	/2* printf("Translation RIGHT\n"); *2/ *1/ */
+	/* /1* 	change->translation_x += 5; *1/ */
+	/* /1* 	change->modif = 1; *1/ */
+	/* /1* } *1/ */
+	/* if (wn->state[SDL_SCANCODE_Z] == 1 && old[SDL_SCANCODE_Z] == 0) */
+	/* { */
+	/* 	/1* printf("Translation Z\n"); *1/ */
+	/* 	change->translation_z += 5; */
+	/* 	change->modif = 1; */
+	/* } */
+	/* if (wn->state[SDL_SCANCODE_X] == 1 && old[SDL_SCANCODE_X] == 0) */
+	/* { */
+	/* 	/1* printf("Translation X\n"); *1/ */
+	/* 	change->translation_z -= 5; */
+	/* 	change->modif = 1; */
+	/* } */
+
+
+
 }
 
 void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
@@ -255,6 +324,9 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 	change->display->color = 0;
 	change->display->shade = 0;
 
+	change->v_look_dir.x = 0;
+	change->v_look_dir.y = 0;
+	change->v_look_dir.z = 0;
 
 	change->v_camera.x = 0;
 	change->v_camera.y = 0;
@@ -336,6 +408,8 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	int					j;
 	int					i;
 
+	change->theta_y = 90.0;
+
 	change->mat_rot_x = ft_make_rotation_x(change->theta_x);
 	change->mat_rot_y = ft_make_rotation_y(change->theta_y);
 	change->mat_rot_z = ft_make_rotation_z(change->theta_z);
@@ -343,9 +417,30 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	change->mat_perspectiv = ft_make_perspectiv();
 
 
+	//########Make mat view
+	change->v_up.x = 0.0;
+	change->v_up.y = 1.0;
+	change->v_up.z = 0.0;
 
 
+	change->v_target.x = 0.0;
+	change->v_target.y = 0.0;
+	change->v_target.z = 1.0;
 
+	change->mat_camera_rot = ft_make_rotation_y(change->theta);
+	change->v_look_dir = ft_matrix_multiply_vector(change->mat_camera_rot, change->v_target);
+
+	printf("le vecteur look dir x=%f, y=%f, z=%f\n", change->v_look_dir.x, change->v_look_dir.y, change->v_look_dir.z);
+
+	printf("le vecteur camera x=%f, y=%f, z=%f\n", change->v_camera.x, change->v_camera.y, change->v_camera.z);
+
+	change->v_target = ft_vector_add(change->v_camera, change->v_look_dir);
+
+	printf("le vecteur v_target x=%f, y=%f, z=%f\n", change->v_target.x, change->v_target.y, change->v_target.z);
+	/* return; */
+
+	change->mat_camera = ft_matrix_point_at(change->v_camera, change->v_target, change->v_up);
+	change->mat_view = ft_matrix_quick_inverse(change->mat_camera);
 
 
 
@@ -371,11 +466,23 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
 		}
 
+
+
+
+		printf("\nOn applique mat view\n");
+
+		j = -1;
+		while (++j < 3)
+		{
+			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_view, triangle.vertice[j]);  
+			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
+		}
+
+
 		printf("\nON APLLIQUE la PERSPECTIV\n");
 		/* j = -1; */
 		/* while (++j < 3) */
 		/* { */
-		/* 	triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_perspectiv, triangle.vertice[j]); */  
 		/* 	printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z); */
 		/* } */
 		j = -1;
@@ -412,6 +519,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 		}
 
 		/* exit(0); */
+		/* return; */
 		i++;
 	}
 	/* exit(0); */
