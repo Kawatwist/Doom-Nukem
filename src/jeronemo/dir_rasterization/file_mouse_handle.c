@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 11:47:41 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/13 08:07:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:47:22 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,49 @@ void	ft_display_menu_panel_cross(t_mywin *s_win, t_mychange *change)
 
 void	ft_display_panel(t_mywin *s_win, t_mychange *change)
 {
+	t_mycolor	s_color;
+	t_mysquare	s_square;
+	t_mywrite	s_write;
+	t_mysquare	*menu_panel;
+
 	int		nbr_menu;
 	char	**menu_name;
 	int			i;
+	int			nbr_left_menu;
+
+
+	char	**left_menu;
+	nbr_left_menu = 2;
+	left_menu = (char**)malloc(sizeof(char*) * nbr_left_menu);
+
+	left_menu[0] = ft_strdup("Le vecteur camera :");
+	left_menu[0] = ft_strjoin(left_menu[0], "     x=");
+	left_menu[0] = ft_strjoin(left_menu[0], ft_itoa_comma(change->v_camera.x));
+	left_menu[0] = ft_strjoin(left_menu[0], "     y=");
+	left_menu[0] = ft_strjoin(left_menu[0], ft_itoa_comma(change->v_camera.y));
+	left_menu[0] = ft_strjoin(left_menu[0], "     z=");
+	left_menu[0] = ft_strjoin(left_menu[0], ft_itoa_comma(change->v_camera.z));
+
+
+	s_color 			= ft_setcolor(WHITE);
+	s_write = ft_setwrite(
+			10,
+ 			30,
+			s_color, 25, left_menu[0]);
+	ft_write(s_win, &s_write);
+
+
+	left_menu[1] = ft_strdup("Le theta camera = ");
+	left_menu[1] = ft_strjoin(left_menu[1], ft_itoa_comma(change->theta));
+
+	s_color = ft_setcolor(WHITE);
+	s_write = ft_setwrite(
+			10,
+ 			30 * 2,
+			s_color, 25, left_menu[1]);
+	ft_write(s_win, &s_write);
+
+
 
 	nbr_menu = 9;
 	menu_name = (char**)malloc(sizeof(char*) * nbr_menu);
@@ -131,10 +171,6 @@ void	ft_display_panel(t_mywin *s_win, t_mychange *change)
 	menu_name[7] = ft_strdup("E ->Color");
 	menu_name[8] = ft_strdup("G ->Shade");
 
-	t_mycolor	s_color;
-	t_mysquare	s_square;
-	t_mywrite	s_write;
-	t_mysquare	*menu_panel;
 
 	menu_panel = malloc(sizeof(t_mysquare));
 	i = 0;

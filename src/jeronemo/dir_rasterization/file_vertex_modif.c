@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/18 18:21:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:01:11 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -506,20 +506,36 @@ t_myvec	ft_perspective_projection(t_myvec vertex)
 	z_near = 0.1;
 
 	matrix[1][1] = (height / width) * (1.0 / (tan(ft_rad(teta) / 2.0)));
+
+
+	/* matrix[1][1] = 1.0 / tan(ft_rad(teta / 2.0) ); */
+
+
 	matrix[1][2] = 0.0;
 	matrix[1][3] = 0.0;
 	matrix[1][4] = 0.0;
 	matrix[2][1] = 0.0;
 	matrix[2][2] = 1.0/ tan(ft_rad(teta) / 2.0);
+
+
+	/* matrix[2][2] = 1.0/ tan(ft_rad(teta / 2.0)); */
+
+
 	matrix[2][3] = 0.0;
 	matrix[2][4] = 0.0;
 	matrix[3][1] = 0.0;
 	matrix[3][2] = 0.0;
 	matrix[3][3] = z_far / (z_far - z_near);
+
+
+
+	/* matrix[3][3] = -z_far / (z_far - z_near); */
 	matrix[3][4] = 1.0;
+	/* matrix[3][4] = -1.0; */
 	matrix[4][1] = 0.0;
 	matrix[4][2] = 0.0;
 	matrix[4][3] = (-z_far * z_near)  / (z_far - z_near)  ;
+	/* matrix[4][3] = (-2 * z_far * z_near)  / (z_far - z_near)  ; */
 	matrix[4][4] = 0.0;
 	result = ft_matrix_multiply_four(matrix, vertex);
 

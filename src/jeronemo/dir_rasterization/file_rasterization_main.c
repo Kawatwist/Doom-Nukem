@@ -6,16 +6,83 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/18 20:20:24 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:48:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <jeronemo.h>
 
+
+//ps n'essayer pas de comprendre
+char	*ft_itoa_comma(float nbr)
+{
+	char	str[14] = {'0','1','2','3','4','5','6','7','8','9'};
+	char	*string;
+	int 	size;
+	float	temp;
+	char	*string2;
+	float	temp2;
+
+
+	size = 0;
+
+	if (nbr == 0)
+		return ("0");
+	if (nbr < 0)
+		nbr *= -1;
+	temp = nbr;
+
+	temp = (int)temp;
+	while ((int)(temp) > 0)
+	{
+		temp /= 10;
+		size++;
+	}
+	string = (char*)malloc(sizeof(char) * (size + 1));
+	temp = (int)nbr;
+	string[size] = '\0';
+	size--;
+	while ((int)temp > 1)
+	{
+		string[size] = str[ (int)(temp)% 10      ];
+		temp = (temp / 10);
+		size--;
+	}
+	temp = nbr;
+	temp = temp - (int)temp;
+
+	while ((temp - (int)temp) > 0)
+	{
+		temp *= 10;
+	}
+	temp2 = temp;
+	size = 0;
+	while ((int)(temp2) > 0)
+	{
+		temp2 /= 10;
+		size++;
+	}
+	string2 = (char*)malloc(sizeof(char) * size + 1);
+	string2[size] = '\0';
+	size--;
+	temp2 = nbr - (int)nbr;
+	while ((temp2 - (int)temp2) > 0)
+	{
+		temp2 *= 10;
+	}
+	while ((int)temp2 > 1)
+	{
+		string2[size] = str[ (int)(temp2)%10 ];
+		temp2 = (temp2 / 10);
+		size--;
+	}
+	string = ft_strjoin(string, ",");
+	string = ft_strjoin(string, string2);
+	return (string);
+}
+
 void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 {
-
-
 	/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
 
 
@@ -38,13 +105,13 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	if (wn->state[SDL_SCANCODE_LEFT] == 1 && old[SDL_SCANCODE_LEFT] == 0)
 	{
 		printf("Fleche Gauche => on decrement camera x\n");
-		change->v_camera.x -= 5;
+		change->v_camera.x -= 2;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_RIGHT] == 1 && old[SDL_SCANCODE_RIGHT] == 0)
 	{
 		printf("Fleche Droite => on increment camera x\n");
-		change->v_camera.x += 5;
+		change->v_camera.x += 2;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0)
@@ -61,7 +128,7 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	}
 	if (wn->state[SDL_SCANCODE_W] == 1 && old[SDL_SCANCODE_W] == 0)
 	{
-	change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0);
+		change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0);
 
 		printf("On incremente du vecteur forward\n");
 		change->v_camera = ft_vector_add(change->v_camera, change->v_forward);
@@ -69,7 +136,7 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	}
 	if (wn->state[SDL_SCANCODE_S] == 1 && old[SDL_SCANCODE_S] == 0)
 	{
-	change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0);
+		change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0);
 
 		printf("On decremente du vecteur forward\n");
 		change->v_camera = ft_vector_sub(change->v_forward, change->v_camera);
@@ -78,7 +145,7 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 
 
 
-//####################################
+	//####################################
 	//perspective set
 
 
@@ -431,8 +498,9 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	change->v_look_dir = ft_matrix_multiply_vector(change->mat_camera_rot, change->v_target);
 
 	printf("le vecteur look dir x=%f, y=%f, z=%f\n", change->v_look_dir.x, change->v_look_dir.y, change->v_look_dir.z);
-
 	printf("le vecteur camera x=%f, y=%f, z=%f\n", change->v_camera.x, change->v_camera.y, change->v_camera.z);
+
+
 
 	change->v_target = ft_vector_add(change->v_camera, change->v_look_dir);
 
@@ -441,8 +509,6 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 
 	change->mat_camera = ft_matrix_point_at(change->v_camera, change->v_target, change->v_up);
 	change->mat_view = ft_matrix_quick_inverse(change->mat_camera);
-
-
 
 	nbr_triangle = ft_get_nbr_of_triangle(s_win);
 	i = 0;
@@ -459,22 +525,18 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 		j = -1;
 		while (++j < 3)
 		{
-			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_rot_x, triangle.vertice[j]);  
-			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_rot_y, triangle.vertice[j]);  
-			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_rot_z, triangle.vertice[j]);  
-			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_trans, triangle.vertice[j]);  
+			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_rot_x, triangle.vertice[j]);
+			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_rot_y, triangle.vertice[j]);
+			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_rot_z, triangle.vertice[j]);
+			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_trans, triangle.vertice[j]);
 			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
 		}
 
-
-
-
 		printf("\nOn applique mat view\n");
-
 		j = -1;
 		while (++j < 3)
 		{
-			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_view, triangle.vertice[j]);  
+			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_view, triangle.vertice[j]);
 			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
 		}
 
@@ -496,7 +558,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 		j = -1;
 		while (++j < 3)
 		{
-			triangle.vertice[j] = ft_scale_screen(triangle.vertice[j]);  
+			triangle.vertice[j] = ft_scale_screen(triangle.vertice[j]);
 			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
 		}
 

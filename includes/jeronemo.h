@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/18 19:05:47 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/19 13:00:10 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -476,6 +476,7 @@ t_myvec		ft_scale_screen(t_myvec result);
 
 
 
+char	*ft_itoa_comma(float nbr);
 
 
 
