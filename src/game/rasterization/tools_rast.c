@@ -6,20 +6,21 @@
 /*   By: jsauron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:44:56 by jsauron           #+#    #+#             */
-/*   Updated: 2019/06/19 16:26:14 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/19 17:44:42 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-void	malloc_mat(t_win **wn, double ***matrice)
+void	malloc_mat(t_win *wn, double **matrice)
 {
 	int		i;
 
 	i = 0;
-	((*matrice) = (double **)malloc(sizeof(double *) * 4)) == NULL ? stop_exec("malloc_matrice failed\n", *wn) : 0;
+	(matrice = malloc(sizeof(double *) * 4)) == NULL ? stop_exec("malloc_matrice failed\n", wn) : 0;
 	while (i < 4)
-		(((*matrice)[i++]) = (double *)malloc(sizeof(double) * 4)) == NULL ? stop_exec("malloc_matrice[] failed\n", *wn) : 0;
+		(matrice[i++] = malloc(sizeof(double) * 4)) == NULL ? stop_exec("malloc_matrice[] failed\n", wn) : 0;
+	initmatrice(matrice);
 }
 
 t_vec	*ver_copy(t_win *wn, t_vec *src, int len)
