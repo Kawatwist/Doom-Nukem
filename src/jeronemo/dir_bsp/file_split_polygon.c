@@ -6,12 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:20:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 10:29:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:16:19 by jleblond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "file_bsp.h"
-
 
 int			ft_get_intersect(t_myvec *line_start,
 							t_myvec *line_end,
@@ -72,30 +71,30 @@ void		ft_split_polygon(t_mypolygon *poly,
 							t_mypolygon *front_split,
 							t_mypolygon *back_split)
 {
-	t_myvec		*front_vertexlist;
-	t_myvec		*back_vertexlist;
-	t_myvec		plane_normal;
-	t_myvec		intersect_point;
-	t_myvec		*point_on_plane;
-	t_myvec		*point_a;
-	t_myvec		*point_b;
-	t_myvec		*tmp_vertex;
-	int			front_counter = 0;
-	int			back_counter = 0;
+	t_myvec					*front_vertexlist;
+	t_myvec					*back_vertexlist;
+	t_myvec					plane_normal;
+	t_myvec					intersect_point;
+	t_myvec					*point_on_plane;
+	t_myvec					*point_a;
+	t_myvec					*point_b;
+	t_myvec					*tmp_vertex;
+	int						front_counter = 0;
+	int						back_counter = 0;
 	unsigned int			i;
 	unsigned int			current_vertex;
-	float		percent;
-	int			result;
+	float					percent;
+	int						result;
 
-	printf("polygon to be splitted\n");
-	ft_display_the_polygon_list(poly);
+	// printf("polygon to be splitted\n");
+	// ft_display_the_polygon_list(poly);
 	point_on_plane = plane->vertex_lst;  //un point faisant partis du polygon splitter
-
 	tmp_vertex = ft_copy_vertex_node(poly->vertex_lst);
 	result = ft_classify_point(*(poly->vertex_lst), plane);
 	if (result == FRONT)
 	{
 		printf("first vertex is on the front\n");
+
 		ft_add_vertex(&(front_split->vertex_lst), tmp_vertex);
 		front_counter++;
 	}

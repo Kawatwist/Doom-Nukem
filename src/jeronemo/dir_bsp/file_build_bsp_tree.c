@@ -12,26 +12,11 @@
 
 # include "file_bsp.h"
 
-static void			ft_copy_and_add_to_top(t_mypolygon **to_be_added, t_mypolygon *elem_to_add)
-{
-	t_mypolygon		*elem_copy;
-
-	elem_copy = (t_mypolygon*)malloc(sizeof(t_mypolygon));
-	*elem_copy = *elem_to_add;
-	ft_add_polygon(to_be_added, elem_copy);
-}
-
 static void			ft_split_then_distribute(t_mypolygon **front_lst, t_mypolygon **back_lst, t_mypolygon *splitter, t_mypolygon *polygon_lst)
 {
 	t_mypolygon		*front_split;
 	t_mypolygon		*back_split;
 
-	// printf("beforeeeee front --------------------------------------------------------------------:\n");
-	// ft_display_the_polygon_list(*front_lst);
-	// printf("display finished\n");
-	// printf("beforeeeee back --------------------------------------------------------------------:\n");
-	ft_display_the_polygon_list(*back_lst);
-	printf("display finished\n");
 	front_split = (t_mypolygon*)malloc(sizeof(t_mypolygon));
 	ft_bzero(front_split, sizeof(t_mypolygon));
 	back_split = (t_mypolygon*)malloc(sizeof(t_mypolygon));
@@ -39,11 +24,6 @@ static void			ft_split_then_distribute(t_mypolygon **front_lst, t_mypolygon **ba
 	ft_split_polygon(polygon_lst, splitter, front_split, back_split);
 	ft_add_polygon(front_lst, front_split);
 	ft_add_polygon(back_lst, back_split);
-// 	printf("after   added splied --------------------------------------------------------------------:\n");
-
-// 	ft_display_the_polygon_list(*front_lst);
-// 	printf("beforeeeee back --------------------------------------------------------------------:\n");
-// 	ft_display_the_polygon_list(*back_lst);
 }
 
 
@@ -51,11 +31,11 @@ static void			ft_split_then_distribute(t_mypolygon **front_lst, t_mypolygon **ba
 void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 {
 	t_mypolygon		*poly_test;
-	t_mypolygon		*keep;
+	t_mypolygon		*next_poly_keeper;
 	t_mypolygon		*back_lst;
 	t_mypolygon		*front_lst;
-	t_mynode		*new_front;
-	t_mynode		*new_back;
+	// t_mynode		*new_front;
+	t_mynode		*new_node;
 	int				result;
 
 /////////////////////affichage///////////////////
@@ -67,7 +47,8 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 		printf("==id =%d\n", poly_test->id);
 		poly_test = poly_test->next;
 	}
-/////////////////////////
+/////////////////////affichage///////////////////
+
 
 	poly_test = polygon_lst;
 	back_lst = NULL;
@@ -76,7 +57,7 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	printf("======> On choisit le spliter ayant id %d\n", current_node->splitter->id);
 	while (poly_test != NULL)
 	{
-		keep
+		next_poly_keeper = poly_test->next;
 		if (poly_test != current_node->splitter)
 		{
 			result = ft_classify_polygon(current_node->splitter, poly_test);
@@ -85,104 +66,77 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 				printf("Le polygon id %d est front\n", poly_test->id);
 				poly_test->next = front_lst;
 				front_lst = poly_test;
-				// if (front_lst == NULL)
-				// {
 
-				// 	front_lst = poly_test;
-				// 	front_lst->next = NULL;
-				// }
-				// else
-				// {
-				// 	poly_test->next = front_lst;
-				// 	front_lst = poly_test;
-				// }
 			}
 			else if (result == BACK)
 			{
 				printf("Le polygon id %d est back\n", poly_test->id);
-				ft_copy_and_add_to_top(&back_lst, poly_test);
-			// 	if (back_lst == NULL)
-			// 		back_lst = poly_test;
-			// 	else
-			// 	{
-			// 		poly_test->next = back_lst;
-			// 		back_lst = poly_test;
-			// 	}
+				poly_test->next = back_lst;
+				back_lst = poly_test;
 			}
 			else if (result == SPANNING)
 			{
 				printf("\n===========Le polygon id %d will be splitted by polygon id %d------\n\n", poly_test->id,  current_node->splitter->id);
 				ft_split_then_distribute(&front_lst, &back_lst, current_node->splitter, poly_test);
+				// free(poly_test->vertex_lst);             //the polygon splited is of no use any more, so free this polygon
+				// poly_test->vertex_lst = NULL;
 				free(poly_test);
 				poly_test = NULL;
-				break;
 			}
 		}
-		poly_test = poly_test->next;
+		poly_test = next_poly_keeper;
 	}
 
 
-	// keep = polygon_lst;
-	// printf("A== La liste des poly :\n");
-	// while (polygon_lst != NULL)
-	// {
-	// 	printf("==id =%d\n", polygon_lst->id);
-	// 	polygon_lst = polygon_lst->next;
-	// }
-	// polygon_lst = keep;
 
-
-	// keep = front_lst;
-	// printf("== La liste front :\n");
-	// while (front_lst != NULL)
-	// {
-	// 	printf("==id =%d\n", front_lst->id);
-	// 	front_lst = front_lst->next;
-	// }
-	// front_lst = keep;
-
-
-	// keep = back_lst;
-	// printf("== La liste back :\n");
-	// while (back_lst != NULL)
-	// {
-	// 	printf("==id =%d\n", back_lst->id);
-	// 	back_lst = back_lst->next;
-	// }
-	// back_lst = keep;
-
+	////////////affichage////////////////////
+	t_mypolygon *keep = front_lst;
+	printf("== La liste front :\n");
+	while (keep != NULL)
+	{
+		printf("==id =%d\n", keep->id);
+		keep = keep->next;
+	}
+	keep = back_lst;
+	printf("== La liste back :\n");
+	while (keep != NULL)
+	{
+		printf("==id =%d\n", keep->id);
+		keep = keep->next;
+	}
+	////////////affichage////////////////////
 
 
 
 	///////////gestion du fils front
-	new_front = (t_mynode*)malloc(sizeof(t_mynode));
-	ft_bzero(new_front, sizeof(t_mynode));
+	new_node = (t_mynode*)malloc(sizeof(t_mynode));
+	ft_bzero(new_node, sizeof(t_mynode));
 	if (front_lst == NULL)
 	{
-		new_front->is_leaf = TRUE;
-		new_front->is_solid = FALSE;
-		current_node->front = new_front;
+		new_node->is_leaf = TRUE;
+		new_node->is_solid = FALSE;
+		current_node->front = new_node;
 	}
 	else if (front_lst != NULL)
 	{
-		new_front->is_leaf = FALSE;
-		current_node->front = new_front;
-		ft_build_bsp_tree(new_front, front_lst);
+		new_node->is_leaf = FALSE;
+		current_node->front = new_node;
+		ft_build_bsp_tree(new_node, front_lst);
 	}
 	///////////gestion du fils back
-	new_back = (t_mynode*)malloc(sizeof(t_mynode));
-	ft_bzero(new_back, sizeof(t_mynode));
+	new_node = (t_mynode*)malloc(sizeof(t_mynode));
+	ft_bzero(new_node, sizeof(t_mynode));
 	if (back_lst == NULL)
 	{
-		new_back->is_leaf = TRUE;
-		new_back->is_solid = TRUE;
-		current_node->back = new_back;
+		new_node->is_leaf = TRUE;
+		new_node->is_solid = TRUE;
+		current_node->back = new_node;
 	}
 	else if (back_lst != NULL)
 	{
-		new_back->is_leaf = FALSE;
-		current_node->back = new_back;
-		ft_build_bsp_tree(new_back, back_lst);
+		new_node->is_leaf = FALSE;
+		current_node->back = new_node;
+		ft_build_bsp_tree(new_node, back_lst);
 	}
 }
 
