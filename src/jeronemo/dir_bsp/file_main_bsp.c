@@ -34,8 +34,6 @@ int			main(int argc, char** argv)
 	t_mywin		s_win;
 	t_mynode	s_node;
 
-
-printf("AAAAAAAAAAAAAAAAAAAAAAA l'adresse du first =%p\n", &s_node);
 	if (argc != 2)
 	{
 		printf("usage : ./a.out file name\n");

@@ -46,27 +46,11 @@ static void			ft_split_then_distribute(t_mypolygon **front_lst, t_mypolygon **ba
 // 	ft_display_the_polygon_list(*back_lst);
 }
 
-// static	void		ft_delete_head_poly(t_mypolygon **polygon_lst)
-// {
-// 	t_mypolygon *tmp;
-
-// 	if ((*polygon_lst)->next == NULL)
-// 	{
-// 		free(*polygon_lst);
-// 		*polygon_lst = NULL;
-// 	}
-// 	else
-// 	{
-// 		tmp = *polygon_lst;
-// 		*polygon_lst = (*polygon_lst)->next;
-// 		free(tmp);
-// 		tmp = NULL;
-// 	}
-// }
 
 
 void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 {
+	t_mypolygon		*poly_test;
 	t_mypolygon		*keep;
 	t_mypolygon		*back_lst;
 	t_mypolygon		*front_lst;
@@ -74,52 +58,68 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	t_mynode		*new_back;
 	int				result;
 
-
+/////////////////////affichage///////////////////
 	printf("\n=======================>CREATION DUN NODE\n");
-	keep = polygon_lst;
+	poly_test = polygon_lst;
 	printf("== La liste des poly :\n");
-	while (polygon_lst != NULL)
+	while (poly_test != NULL)
 	{
-		printf("==id =%d\n", polygon_lst->id);
-		polygon_lst = polygon_lst->next;
+		printf("==id =%d\n", poly_test->id);
+		poly_test = poly_test->next;
 	}
-	polygon_lst = keep;
+/////////////////////////
 
+	poly_test = polygon_lst;
 	back_lst = NULL;
 	front_lst = NULL;
-	current_node->splitter = ft_select_the_best_poly_splitter(polygon_lst);
-
+	current_node->splitter = ft_select_the_best_poly_splitter(poly_test);
 	printf("======> On choisit le spliter ayant id %d\n", current_node->splitter->id);
-	// keep = polygon_lst;  //not sure if this line is useful???
-	while (polygon_lst != NULL)
+	while (poly_test != NULL)
 	{
-		if (polygon_lst != current_node->splitter)
+		keep
+		if (poly_test != current_node->splitter)
 		{
-			result = ft_classify_polygon(current_node->splitter, polygon_lst);
-			// if (result == FRONT)
+			result = ft_classify_polygon(current_node->splitter, poly_test);
 			if (result == FRONT || result == ON_PLANE)
 			{
-				printf("Le polygon id %d est front\n", polygon_lst->id);
-				ft_copy_and_add_to_top(&front_lst, polygon_lst);	// on add a la list front
+				printf("Le polygon id %d est front\n", poly_test->id);
+				poly_test->next = front_lst;
+				front_lst = poly_test;
+				// if (front_lst == NULL)
+				// {
+
+				// 	front_lst = poly_test;
+				// 	front_lst->next = NULL;
+				// }
+				// else
+				// {
+				// 	poly_test->next = front_lst;
+				// 	front_lst = poly_test;
+				// }
 			}
 			else if (result == BACK)
 			{
-				printf("Le polygon id %d est back\n", polygon_lst->id);
-
-				ft_copy_and_add_to_top(&back_lst, polygon_lst); 	//on add a la list back
+				printf("Le polygon id %d est back\n", poly_test->id);
+				ft_copy_and_add_to_top(&back_lst, poly_test);
+			// 	if (back_lst == NULL)
+			// 		back_lst = poly_test;
+			// 	else
+			// 	{
+			// 		poly_test->next = back_lst;
+			// 		back_lst = poly_test;
+			// 	}
 			}
 			else if (result == SPANNING)
 			{
-				printf("\n===========Le polygon id %d will be splitted by polygon id %d------\n\n", polygon_lst->id,  current_node->splitter->id);
-				ft_split_then_distribute(&front_lst, &back_lst, current_node->splitter, polygon_lst);
-				free(polygon_lst);
-				polygon_lst = NULL;
+				printf("\n===========Le polygon id %d will be splitted by polygon id %d------\n\n", poly_test->id,  current_node->splitter->id);
+				ft_split_then_distribute(&front_lst, &back_lst, current_node->splitter, poly_test);
+				free(poly_test);
+				poly_test = NULL;
 				break;
 			}
 		}
-		polygon_lst = polygon_lst->next;
+		poly_test = poly_test->next;
 	}
-	polygon_lst = keep;
 
 
 	// keep = polygon_lst;
