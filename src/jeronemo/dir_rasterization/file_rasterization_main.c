@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/19 15:48:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/19 16:02:43 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,15 +150,15 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 
 
 
-	/* if (wn->state[SDL_SCANCODE_Q] == 1 && old[SDL_SCANCODE_Q] == 0) */
-	/* { */
-	/* 	if (change->display->panel == 1) */
-	/* 		change->display->panel = 0; */
-	/* 	else */
-	/* 		change->display->panel = 1; */
-	/* 	change->modif = 1; */
-	/* 	/1* printf("switch perspective\n"); *1/ */
-	/* } */
+	if (wn->state[SDL_SCANCODE_Q] == 1 && old[SDL_SCANCODE_Q] == 0)
+	{
+		if (change->display->panel == 1)
+			change->display->panel = 0;
+		else
+			change->display->panel = 1;
+		change->modif = 1;
+		/* printf("switch perspective\n"); */
+	}
 	/* if (wn->state[SDL_SCANCODE_E] == 1 && old[SDL_SCANCODE_E] == 0) */
 	/* { */
 	/* 	if (change->display->color == 1) */
@@ -475,7 +475,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	int					j;
 	int					i;
 
-	change->theta_y = 90.0;
+	change->theta_y = 0.0;
 
 	change->mat_rot_x = ft_make_rotation_x(change->theta_x);
 	change->mat_rot_y = ft_make_rotation_y(change->theta_y);
@@ -483,24 +483,20 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	change->mat_trans = ft_make_translation(change->translation_x, change->translation_y, change->translation_z);
 	change->mat_perspectiv = ft_make_perspectiv();
 
-
 	//########Make mat view
 	change->v_up.x = 0.0;
 	change->v_up.y = 1.0;
 	change->v_up.z = 0.0;
 
-
 	change->v_target.x = 0.0;
 	change->v_target.y = 0.0;
-	change->v_target.z = 1.0;
+	change->v_target.z = -1.0;
 
 	change->mat_camera_rot = ft_make_rotation_y(change->theta);
 	change->v_look_dir = ft_matrix_multiply_vector(change->mat_camera_rot, change->v_target);
 
 	printf("le vecteur look dir x=%f, y=%f, z=%f\n", change->v_look_dir.x, change->v_look_dir.y, change->v_look_dir.z);
 	printf("le vecteur camera x=%f, y=%f, z=%f\n", change->v_camera.x, change->v_camera.y, change->v_camera.z);
-
-
 
 	change->v_target = ft_vector_add(change->v_camera, change->v_look_dir);
 
