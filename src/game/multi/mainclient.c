@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/17 15:54:59 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/19 16:21:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ static int	inputclient(t_win *wn, int	select, char *ip, char *port)
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 40 : 0;
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_UP) && select > 1 ? select -= 1 : 0;
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_DOWN) && select < 3 ? select += 1 : 0;
-//	key_pressed(wn, SDL_SCANCODE_RETURN) && select == 3 && wn->client == NULL && port != NULL && ip != NULL ? tryconnect(wn, ip, ft_atoi(port)) : 0;
 	key_pressed(wn, SDL_SCANCODE_RETURN) && select == 3 && wn->client == NULL && port != NULL && ip != NULL ? wn->menu->connected = 1 : 0;
-//	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 0 : 0;
-//	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MENU : 0;
 	return (select);
 }
 
@@ -76,6 +73,7 @@ static void	showclient(t_win *wn, char *ip, char *port)
 	wn->client != NULL ? SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "Client2"), NULL, NULL) : 0;
 	ip != NULL && ft_strlen(ip) && wn->client == NULL ? print_one_line(wn, ip, (wn->xscreen >> 1) - ((ft_strlen(ip) >> 1) * 10), wn->yscreen >> 1) : 0;
 	port != NULL && ft_strlen(port) && wn->client == NULL ? print_one_line(wn, port, (wn->xscreen >> 1) - ((ft_strlen(port) >> 1) * 10), (wn->yscreen / 3) << 1) : 0;
+}
 
 static void	*msn_client(void *params)
 {
@@ -89,6 +87,9 @@ static void	*msn_client(void *params)
 	ip = thd->str;
 	port = thd->value;
 	tryconnect(wn, ip, port);
+	if (wn->client == NULL || ((t_client *)wn->client)->sockfd < 0)
+		return (NULL);
+	wn->menu->connected = 3;
 	while (TRUE)
 		add_chat(wn, 0);
 	return (NULL);

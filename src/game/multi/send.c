@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 13:57:48 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/17 15:55:00 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/19 16:48:01 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,25 @@ static char	*add_user(char *msg, char *user)
 
 void		send_msg_from_client(t_win *wn, char *msg)
 {
+	printf("(CLIENT)JE VAIS ENVOYER SE MESSAGE : %s\n", msg);
 	if (((t_client *)wn->client)->username == NULL)
 		getlogin_r(((t_client *)wn->client)->username, 8);
-	send(((t_client *)wn->client)->sockfd, add_user(msg, ((t_client *)wn->client)->username), ft_strlen(msg) + ft_strlen(((t_client *)wn->client)->username) + 3, 0);
+	msg = add_user(msg, ((t_client *)wn->client)->username);
+	send(((t_client *)wn->client)->sockfd, msg, ft_strlen(msg), 0);
+	printf("Message envoyer !\n");
 }
 
 void		send_msg_from_server(t_win *wn, char *msg, int	user)
 {
+	printf("(SERVER)JE VAIS ENVOYER SE MESSAGE : %s\n", msg);
 	if (((t_server *)wn->serv)->username == NULL)
 	{
+		printf("C'est quoi mon login ?\n");
 		((t_server *)wn->serv)->username = malloc(sizeof(char) * 8);
 		getlogin_r(((t_server *)wn->serv)->username, 8);
 	}
-	send(((t_server *)wn->serv)->user[user].socket, add_user(msg, ((t_server *)wn->serv)->username), ft_strlen(msg) + ft_strlen(((t_server *)wn->serv)->username) + 3, 0);
+	printf("J'envoie !\n");
+	msg = add_user(msg, ((t_server *)wn->serv)->username);
+	send(((t_server *)wn->serv)->user[user].socket, msg, ft_strlen(msg), 0);
+	printf("Message envoyer !\n");
 }

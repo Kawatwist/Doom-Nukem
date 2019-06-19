@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:55:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/17 16:00:59 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/19 17:26:10 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ static char	*convmsg(char *msg)
 	i = -1;
 	nb = 0;
 	while (msg[++i])
-		msg[i] != -66 ? nb++ : 0;
+		msg[i] <= 127 && msg[i] >= 0 ? nb++ : 0;
 	ret = malloc(sizeof(char) * nb + 1);
 	i = -1;
 	nb = 0;
 	while (msg[++i])
 	{
-		if (msg[i] != -66)
+		if (msg[i] <= 127 && msg[i] >= 0)
 		{
 			ret[nb] = msg[i];
 			nb++;
@@ -63,11 +63,13 @@ void		add_chat(t_win *wn, int user)
 		msg = NULL;
 		len = 0;
 		msg = (wn->serv == NULL ? get_msg_client(wn) : get_msg_server(wn, user));
-		msg != NULL ? printf("%s\n", msg) : 0;
 		msg = convmsg(msg);
+		msg != NULL && wn->serv != NULL ? printf("(SERVER)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
+		msg != NULL && wn->client != NULL ? printf("(CLIENT)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
 		len = ft_strlen(msg) - ft_strlen(ft_strchr(msg, ']')) + 2;
 		if (ft_strncmp(&msg[len], "/msg", 3))
 		{
+			printf("MESSAGE INVALIDE : %s\n", msg);
 			free(msg);
 			msg = NULL;
 		}
@@ -93,10 +95,13 @@ int			chat_box(t_win *wn, char *msg)
 {
 	if (ft_strlen(msg) <= 4)
 		return (0);
-	if (key_pressed(wn, SDL_SCANCODE_RETURN) && wn->serv == NULL)
+	if (key_pressed(wn, SDL_SCANCODE_RETURN) && wn->client != NULL)
 		send_msg_from_client(wn, msg);
-	else
+	else if (key_pressed(wn, SDL_SCANCODE_RETURN) && wn->serv != NULL)
 	{
+		printf("(user 0) : wn->menu->ask == |%d|\n", wn->menu->ask & 0x03);
+		printf("(user 1) : wn->menu->ask == |%d|\n", (wn->menu->ask & 0x0C) >> 2);
+		printf("(user 2) : wn->menu->ask == |%d|\n", (wn->menu->ask & 0x30) >> 4);
 		(wn->menu->ask & 0x03) == 3 ? send_msg_from_server(wn, msg, 0) : 0;
 		((wn->menu->ask & 0x0C) >> 2) == 3 ? send_msg_from_server(wn, msg, 1) : 0;
 		((wn->menu->ask & 0x30) >> 4) == 3 ? send_msg_from_server(wn, msg, 2) : 0;
