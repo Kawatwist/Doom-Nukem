@@ -78,10 +78,10 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 			{
 				printf("\n===========Le polygon id %d will be splitted by polygon id %d------\n\n", poly_test->id,  current_node->splitter->id);
 				ft_split_then_distribute(&front_lst, &back_lst, current_node->splitter, poly_test);
-				// free(poly_test->vertex_lst);             //the polygon splited is of no use any more, so free this polygon
-				// poly_test->vertex_lst = NULL;
 				free(poly_test);
 				poly_test = NULL;
+				 //the polygon splited is of no use any more, so free this polygon.
+				//And the vertex_list of the polygon is relocated in ft_split_polygon(), so no need to free
 			}
 		}
 		poly_test = next_poly_keeper;

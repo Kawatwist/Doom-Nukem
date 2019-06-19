@@ -71,8 +71,6 @@ void		ft_split_polygon(t_mypolygon *poly,
 							t_mypolygon *front_split,
 							t_mypolygon *back_split)
 {
-	t_myvec					*front_vertexlist;
-	t_myvec					*back_vertexlist;
 	t_myvec					plane_normal;
 	t_myvec					intersect_point;
 	t_myvec					*point_on_plane;
@@ -82,74 +80,64 @@ void		ft_split_polygon(t_mypolygon *poly,
 	int						front_counter = 0;
 	int						back_counter = 0;
 	unsigned int			i;
-	unsigned int			current_vertex;
 	float					percent;
 	int						result;
+	t_myvec					*next_vertex_keeper;
+	t_myvec 				*first_vertex_keeper;
 
-	// printf("polygon to be splitted\n");
-	// ft_display_the_polygon_list(poly);
+
 	point_on_plane = plane->vertex_lst;  //un point faisant partis du polygon splitter
-	tmp_vertex = ft_copy_vertex_node(poly->vertex_lst);
-	result = ft_classify_point(*(poly->vertex_lst), plane);
+	first_vertex_keeper = poly->vertex_lst;
+	point_a = poly->vertex_lst;
+	point_b = point_a->next;
+
+//////////////////add the first vertex in lst
+
+	result = ft_classify_point(*point_a, plane);
 	if (result == FRONT)
 	{
-		printf("first vertex is on the front\n");
-
-		ft_add_vertex(&(front_split->vertex_lst), tmp_vertex);
+		printf("vertex 0 is on the front\n");
+		ft_add_vertex(&(front_split->vertex_lst), point_a);
 		front_counter++;
 	}
 	else if (result == BACK)
 	{
-		printf("first vertex is on the back\n");
-		ft_add_vertex(&(back_split->vertex_lst), tmp_vertex);
+		printf("vertex 0 is on the back\n");
+		ft_add_vertex(&(back_split->vertex_lst), point_a);
 		back_counter++;
 	}
 	else if (result == ON_PLANE)
 	{
-		printf("first vertex is on plane\n");
-		ft_add_vertex(&(front_split->vertex_lst), tmp_vertex);
-		ft_add_vertex(&(back_split->vertex_lst), tmp_vertex);
+		printf("vertex 0 is on plane\n");
+		ft_add_vertex(&(front_split->vertex_lst), point_a);
+		ft_add_vertex(&(back_split->vertex_lst), point_a);
 		front_counter++;
 		back_counter++;
 	}
+
+
+
 	////////////////////////////////////
-	i = 1;
-	point_a = NULL;
-	point_b = NULL;
+	i = 0;
 	printf("number_of_vertex:%d\n", poly->number_of_vertex);
-
-	while (i < poly->number_of_vertex + 1)
+	while (i < poly->number_of_vertex)
 	{
-		////on boucle le dernier point avec le premier
-		if (i == poly->number_of_vertex)
-			current_vertex = 0;
-		else
-			current_vertex = i;
-
-		point_a = ft_get_vertex_in_list(poly->vertex_lst, i - 1);
-		point_b = ft_get_vertex_in_list(poly->vertex_lst, current_vertex);
-		if (point_b == NULL || point_a == NULL)
-		{
-			printf("ft_get_vertex_in_list: error in vertex list\n");
-			exit(0) ;
-		}
+		next_vertex_keeper = point_b->next;
 		result = ft_classify_point(*point_b, plane);
-		tmp_vertex = ft_copy_vertex_node(point_b);
-		if (result == ON_PLANE) //// on ajoute au deux list
+		if (result == ON_PLANE && next_vertex_keeper != NULL) //// on ajoute au deux list
 		{
 			printf("vertex is on plane\n");
-			ft_add_vertex(&(front_split->vertex_lst), tmp_vertex);
-			ft_add_vertex(&(back_split->vertex_lst), tmp_vertex);
+			ft_add_vertex(&(front_split->vertex_lst), point_b);
+			ft_add_vertex(&(back_split->vertex_lst), point_b);
 			front_counter++;
 			back_counter++;
 		}
 		else
 		{
-			printf("/n/nthis vertex is not on the splitter, intersect point test\n");
+			printf("\nvertex number %d vertex is not on the splitter, intersect point test:\n", i + 1);
 			if (ft_get_intersect(point_a, point_b, point_on_plane, &(plane->normal), &intersect_point) == TRUE)
 			{
 				printf("intersection test == TREUE\n");
-
 				tmp_vertex = ft_copy_vertex_node(&intersect_point);
 				ft_add_vertex(&(front_split->vertex_lst), tmp_vertex);
 				tmp_vertex = ft_copy_vertex_node(&intersect_point);   //?????
@@ -161,21 +149,22 @@ void		ft_split_polygon(t_mypolygon *poly,
 				printf("y =%f\t", tmp_vertex->y);
 				printf("z =%f\n", tmp_vertex->z);
 			}
-			tmp_vertex = ft_copy_vertex_node(point_b);
-			if (result == FRONT && current_vertex != 0)
+			if (result == FRONT && next_vertex_keeper != NULL)
 			{
-				ft_add_vertex(&(front_split->vertex_lst), tmp_vertex);
+				ft_add_vertex(&(front_split->vertex_lst), point_b);
 				front_counter++;
 			}
-			else if (result == BACK && current_vertex != 0)
+			else if (result == BACK && next_vertex_keeper != NULL)
 			{
-				ft_add_vertex(&(back_split->vertex_lst), tmp_vertex);
+				ft_add_vertex(&(back_split->vertex_lst), point_b);
 				back_counter++;
 			}
-			printf("current vertex id :%d| front_counter:%d| back_counter:%d | \n", current_vertex, front_counter, back_counter);
-
-
 		}
+		point_a = point_b;
+		if (next_vertex_keeper == NULL)
+			point_b = first_vertex_keeper;
+		else
+			point_b = next_vertex_keeper;
 		i++;
 	}
 
