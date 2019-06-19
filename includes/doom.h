@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/17 16:56:18 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/19 16:26:12 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,31 +189,31 @@ typedef struct		s_win
 /**
  ** GAME
  **/
+
+
 void				maindrawpoly(t_win *wn);
 void				main_cloud(t_win *wn);
 void				init_cloud(t_cloudy *cloud);
 void				display_skybox(t_win *wn);
 void				display_crosshair(t_win *wn);
 void				trans(t_win *wn, double **mat);
-void				rotatex(double ang, double **mat);
-void				rotatey(double ang, double **mat);
-void				rotatez(double ang, double **mat);
+void				rot_x(double ang, double **mat);
+void				rot_y(double ang, double **mat);
+void				rot_z(double ang, double **mat);
 void				initmatrice(double **matrice);
 double				**mult_matrice(double **mat1,  double **mat2);
 void				projection(t_win	*wn);
-void				m2w_matrice(t_win *wn, t_poly *curr, double **mat, t_vec *ver);
-void				w2v_matrice(t_win *wn, t_vec *ver, t_poly *curr);
-void				w2v_matrice_calcul(t_win *wn, t_vec *ver, double **mat);
-void				v2p_matrice(t_win *wn);
-void				v2p_matrice_calcul(t_win *wn, t_poly *curr, t_vec *ver,  double **mat);
+void				matrice_model(t_win *wn, double **mat);
+void				matrice_view(t_win *wn, t_vec *ver, t_poly *curr);
+void				matrice_projection(t_win *wn);
 t_vec				ft_calculate_normal_of_points(t_vec vertex1, t_vec vertex2, t_vec vertex3);
 t_vec				ft_cross_product(t_vec v1, t_vec v2);
 void				malloc_mat(t_win **wn, double ***matrice);
-void				vercpy(t_vec *src, t_vec *dst, int len);
+t_vec				*ver_copy(t_win *wn, t_vec *src, int len);
 void				each_triangle(t_poly *curr);
 void				init_mat_pos(t_win *wn, double **matrice);
 void				init_mat_view(double **matrice, t_vec *f, t_vec *s, t_vec *u, t_vec pos);
-void				printmatrice(double **matrice);
+void				print_matrice(double **matrice);
 t_vec				ft_normalise(t_vec vector);
 void				scale(double **matrice);
 t_vec				mult_vec_mat(t_vec *vec, double **mat);
@@ -222,6 +222,10 @@ t_vec				initvec(float x, float y, float z);
 t_vec				inverse_vec(t_vec vec);
 t_vec				init_vec_pos(t_win *wn);
 float				ft_dot_product(t_vec v1, t_vec v2);
+t_vec				*mat_final_to_vec(t_poly *curr, double **mat, t_vec *ver);
+void				rasterization(t_win *wn, t_poly *curr);
+void				print_triangle(t_vec *v1, t_vec *v2, t_vec *v3);
+t_vec				*get_vec_from_matrice(t_win *wn, t_poly *curr, t_vec *ver, double **mat);
 /**
  ** EDIT
  **/

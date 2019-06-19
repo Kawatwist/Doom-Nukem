@@ -6,7 +6,7 @@
 /*   By: jsauron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:04:13 by jsauron           #+#    #+#             */
-/*   Updated: 2019/06/17 16:58:55 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/06/19 16:27:08 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,19 @@ void		data_fsu(t_win *wn)
 	wn->rast->u = &x;
 }
 
-void	w2v_matrice(t_win *wn, t_vec *ver, t_poly *curr)
+void	matrice_view(t_win *wn, t_vec *ver, t_poly *curr)
 {
 	int		i;
 
-	i = 0;
 	(void)ver;
+	i = 0;
 	while (i++ < curr->nb_indices)
 	{
 		data_fsu(wn);
 		init_mat_view(wn->rast->view, wn->rast->f,  wn->rast->s, wn->rast->u, init_vec_pos(wn));
-	printf("x = %f\n", ver[curr->indices[i]].x);
-	printf("y = %f\n", ver[curr->indices[i]].y);
-	printf("z = %f\n", ver[curr->indices[i]].z);
-		printmatrice(wn->rast->view);
+	//	printf("x = %f\n", ver[curr->indices[i]].x);
+	//	printf("y = %f\n", ver[curr->indices[i]].y);
+	//	printf("z = %f\n", ver[curr->indices[i]].z);
 	}
 }
 

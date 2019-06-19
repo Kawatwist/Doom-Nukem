@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/17 13:27:07 by jsauron          ###   ########.fr        #
+#    Updated: 2019/06/19 15:47:34 by jsauron          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -75,12 +75,13 @@ SRC				= main.c										\
 				  menu_show.c 									\
 				  load_fonts.c 									\
 				  tool.c 										\
-				  1_model.c										\
-				  2_view.c										\
-				  3_projection.c										\
+				  matrice_model.c										\
+				  matrice_view.c										\
+				  matrice_projection.c										\
 				  tools_rast.c									\
 				 init_rast.c									\
-				calcul.c
+				 calcul.c \
+				 rasterization.c
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 
