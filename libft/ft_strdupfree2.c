@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdupfree.c                                    :+:      :+:    :+:   */
+/*   ft_strdupfree2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 10:15:03 by lomasse           #+#    #+#             */
-/*   Updated: 2019/03/06 10:15:05 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/20 12:39:30 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strdupfree(char **str, char c)
+char		*ft_strdupfree2(char *str, char c)
 {
 	char *new;
 
-	new = ft_strdup(ft_strchr(*str, c) + 1);
+	new = ft_strdup(ft_strchr(str, c) + 1);
 	if (new)
-		free(*str);
+		free(str);
 	return (new);
 }

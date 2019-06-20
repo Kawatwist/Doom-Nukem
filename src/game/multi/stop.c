@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 13:22:42 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/16 13:11:24 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/20 16:45:26 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	stop_com(t_win *wn, int user)
 	{
 		setsockopt(((t_server *)wn->serv)->user[user].socket, SOL_SOCKET, SO_REUSEADDR, &i, sizeof(int));
 		shutdown(((t_server *)wn->serv)->user[user].socket, 2);
+		wn->menu->ask = wn->menu->ask & (U_MAX - (3 << (user * 2)));
 	}
 	if (wn->serv && wn->client != NULL)
 	{

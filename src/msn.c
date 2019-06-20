@@ -6,24 +6,19 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:55:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/19 17:26:10 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/20 16:42:11 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+#include "client.h"
+#include "server.h"
 
 static char *removemsg(char *msg)
 {
-	int		len;
-	int		len2;
-	char	*ret;
+	char *ret;
 
-	len = ft_strlen(msg);
-	len2 = len - ft_strlen(ft_strchr(msg, ']')) + 1;
-	ret = malloc(sizeof(char) * len - 3);
-	ft_memcpy(ret, msg, len2);
-	ft_memcpy(&ret[len2], &msg[len2 + 5], len - (len2 + 4));
-	ret[len - 4] = '\0';
+	ret = ft_strjoin(&msg[4], "\0");
 	free(msg);
 	return(ret);
 }
@@ -36,14 +31,14 @@ static char	*convmsg(char *msg)
 
 	i = -1;
 	nb = 0;
-	while (msg[++i])
-		msg[i] <= 127 && msg[i] >= 0 ? nb++ : 0;
+	while (msg[++i] != 0)
+		msg[i] <= 126 && msg[i] >= 20 ? nb++ : 0;
 	ret = malloc(sizeof(char) * nb + 1);
 	i = -1;
 	nb = 0;
-	while (msg[++i])
+	while (msg[++i] != 0)
 	{
-		if (msg[i] <= 127 && msg[i] >= 0)
+		if (msg[i] <= 126 && msg[i] >= 20)
 		{
 			ret[nb] = msg[i];
 			nb++;
@@ -55,26 +50,33 @@ static char	*convmsg(char *msg)
 
 void		add_chat(t_win *wn, int user)
 {
-	char *msg;
-	int	len;
+	char	*msg;
+	char	dc;
 	
+	dc = 0;
 	while (TRUE)
 	{
 		msg = NULL;
-		len = 0;
 		msg = (wn->serv == NULL ? get_msg_client(wn) : get_msg_server(wn, user));
 		msg = convmsg(msg);
 		msg != NULL && wn->serv != NULL ? printf("(SERVER)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
 		msg != NULL && wn->client != NULL ? printf("(CLIENT)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
-		len = ft_strlen(msg) - ft_strlen(ft_strchr(msg, ']')) + 2;
-		if (ft_strncmp(&msg[len], "/msg", 3))
+		printf("Connected\n");
+		if (ft_strncmp(msg, "/msg", 3))
 		{
 			printf("MESSAGE INVALIDE : %s\n", msg);
 			free(msg);
 			msg = NULL;
+			dc++;
 		}
 		else
 			msg = removemsg(msg);
+		if (dc > 2)
+		{
+			stop_com(wn, user);
+			break;
+		}
+		printf("MSG : %s\n", msg);
 		if (wn->console->index < CONSOLE_MAX_LINE_NB && msg != NULL)
 		{
 			wn->console->history[wn->console->index] = ft_strdup(msg);
@@ -89,6 +91,7 @@ void		add_chat(t_win *wn, int user)
 		}
 		msg != NULL ? free(msg) : 0;
 	}
+	stop_com(wn, user);
 }
 
 int			chat_box(t_win *wn, char *msg)

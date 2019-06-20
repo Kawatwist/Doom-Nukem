@@ -6,14 +6,14 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 13:57:48 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/19 16:48:01 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/20 13:32:42 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 #include "server.h"
 #include "client.h"
-
+/*
 static char	*add_user(char *msg, char *user)
 {
 	int		i;
@@ -26,6 +26,18 @@ static char	*add_user(char *msg, char *user)
 	ret[i + 1] = ']';
 	ret[i + 2] = ' ';
 	ret = ft_strjoinfree(ret, msg, 1);
+	return (ret);
+}
+*/
+
+static char	*add_user(char *msg, char *user)
+{
+	char *ret;
+
+	ret = ft_strjoin("/msg ", user);
+	ret = ft_strjoinfree(ret, ": ", 1);
+	ret = ft_strjoinfree(ret, &msg[4], 1);
+	ret = ft_strjoinfree(ret, "\0", 1);
 	return (ret);
 }
 
