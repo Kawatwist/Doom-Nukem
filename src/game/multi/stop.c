@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 13:22:42 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/20 16:45:26 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/20 16:55:06 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ void	stop_com(t_win *wn, int user)
 	{
 		setsockopt(((t_client *)wn->client)->sockfd, SOL_SOCKET, SO_REUSEADDR, &i, sizeof(int));
 		shutdown(((t_client *)wn->client)->sockfd, 2);
+		wn->menu->connected = 0;
 	}
+	pthread_kill((pthread_t)wn->menu->conv[0], 1);
 }

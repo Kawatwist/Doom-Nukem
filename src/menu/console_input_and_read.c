@@ -6,7 +6,7 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:00:23 by jleblond          #+#    #+#             */
-/*   Updated: 2019/06/19 15:53:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/20 16:48:54 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static char	*readcommand(t_win *wn, char *command)
 {
 	if ((wn->serv != NULL || wn->client != NULL) && chat_box(wn, command))
 		return (command);
+	else if (wn->serv != NULL && !ft_strncmp(command, "/disconnect", 11))
+		stop_com(wn, ft_atoi(command));
 	else if (ft_strcmp(command, "kill") == 0)
 		stop_exec("KILL !\n", wn);
 	else if (ft_strcmp(command, "slow") == 0)

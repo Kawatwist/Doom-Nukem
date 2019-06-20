@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/19 16:21:55 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/20 16:56:27 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ static void	*msn_client(void *params)
 	if (wn->client == NULL || ((t_client *)wn->client)->sockfd < 0)
 		return (NULL);
 	wn->menu->connected = 3;
-	while (TRUE)
-		add_chat(wn, 0);
+	add_chat(wn, 0);
 	return (NULL);
 }
 

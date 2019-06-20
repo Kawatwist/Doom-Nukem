@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:55:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/20 16:42:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/20 16:51:11 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void		add_chat(t_win *wn, int user)
 		}
 		else
 			msg = removemsg(msg);
+		printf("==> %d\n", dc);
 		if (dc > 2)
 		{
 			stop_com(wn, user);
