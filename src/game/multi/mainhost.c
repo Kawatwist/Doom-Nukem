@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/19 16:24:28 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/22 13:54:21 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,33 @@ static t_server	*initserv(t_server *server)
 	return (server);
 }
 
+static void	freeserv(t_win *wn, t_server *server)
+{
+	int		freeserv;
+
+	printf("YO\n");
+	freeserv = 0;
+	if (server)
+	{
+		if (((wn->menu->ask & 0x03) < 3) && ((wn->menu->ask & 0x0C) >> 2) < 3 && ((wn->menu->ask & 0x30) >> 4) < 3)
+			freeserv = 1;
+		printf("YO\n");
+		server->user[0].name != NULL && (wn->menu->ask & 0x03) < 3 ? free(server->user[0].name) : 0;
+		printf("YO\n");
+		server->user[1].name != NULL && ((wn->menu->ask & 0x0C) >> 2) < 3 ? free(server->user[1].name) : 0;
+		printf("YO\n");
+		server->user[2].name != NULL && ((wn->menu->ask & 0x30) >> 4) < 3 ? free(server->user[2].name) : 0;
+		printf("YO\n");
+		if (freeserv)
+		{
+			free(server->username);
+			free(server);
+			wn->serv = NULL;
+			printf("FREED\n");
+		}
+	}
+}
+
 static void	listenclient(t_win *wn, int	user)
 {
 	t_server *server;
@@ -51,6 +78,7 @@ static void	listenclient(t_win *wn, int	user)
 static void	inputhost(t_win *wn)
 {
 	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MULTI : 0;
+	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? freeserv(wn, (t_server *)wn->serv) : 0;
 	if ((wn->menu->ask & 0x03) == 1 || (wn->menu->ask & 0x03) == 2)
 	{
 		key_pressed(wn, SDL_SCANCODE_ESCAPE) ? pthread_kill((pthread_t)wn->menu->conv[0], 1) : 0;
@@ -67,11 +95,11 @@ static void	inputhost(t_win *wn)
 		key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->ask = wn->menu->ask & (U_MAX - 0x30) : 0;
 	}
 	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 40 : 0;
-	if ((wn->menu->ask & 0x03) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(wn->xscreen >> 1, wn->yscreen >> 2, 50, 50)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+	if ((wn->menu->ask & 0x03) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(wn->xscreen / 1.4, wn->yscreen >> 1, 50, 50)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
 		wn->menu->ask += 1;
-	if ((wn->menu->ask & 0x0C) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(wn->xscreen >> 1, wn->yscreen >> 1, 50, 50)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+	if ((wn->menu->ask & 0x0C) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(wn->xscreen / 1.4, wn->yscreen / 1.6, 50, 50)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
 		wn->menu->ask += (1 << 2);
-	if ((wn->menu->ask & 0x30) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(wn->xscreen >> 1, (wn->yscreen >> 2) + (wn->yscreen >> 1), 50, 50)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+	if ((wn->menu->ask & 0x30) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(wn->xscreen / 1.4, wn->yscreen / 1.4, 50, 50)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
 		wn->menu->ask += (1 << 4);
 }
 
@@ -96,9 +124,9 @@ static void	showhost(t_win *wn)
 		print_one_line(wn, "Waiting...", wn->xscreen >> 1, (wn->yscreen >> 1) + (wn->yscreen >> 2));
 	else
 		print_one_line(wn, "Free slot", (wn->xscreen >> 1), (wn->yscreen >> 1) + (wn->yscreen >> 2));
-	SDL_RenderDrawRect(wn->rend, create_rect(wn->xscreen >> 1, wn->yscreen >> 2, 50, 50));
-	SDL_RenderDrawRect(wn->rend, create_rect(wn->xscreen >> 1, wn->yscreen >> 1, 50, 50));
-	SDL_RenderDrawRect(wn->rend, create_rect(wn->xscreen >> 1, (wn->yscreen >> 2) + (wn->yscreen >> 1), 50, 50));
+	SDL_RenderFillRect(wn->rend, create_rect(wn->xscreen / 1.4, wn->yscreen >> 1, 50, 50));
+	SDL_RenderFillRect(wn->rend, create_rect(wn->xscreen / 1.4, wn->yscreen / 1.6, 50, 50));
+	SDL_RenderFillRect(wn->rend, create_rect(wn->xscreen / 1.4, wn->yscreen / 1.4, 50, 50));
 }
 
 static void	*find_connection(void *params)
