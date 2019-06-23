@@ -33,7 +33,10 @@ void	ft_game_engine(t_win *wn)
 		if (choice == 1)
 			ft_launch_map_editor(&s_win, wn);
 		else if (choice == 2)
+		{
 			ft_launch_bsp_tree(&s_win, wn);
+			break;
+		}
 		else if (choice == 3)
 			ft_launch_rasterization(&s_win, wn);
 		else if (choice == 4)

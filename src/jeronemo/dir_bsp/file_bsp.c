@@ -150,9 +150,9 @@ void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn)
 	s_win->polygon_lst = ft_read_the_polygon_file();
 	ft_display_the_polygon_list(s_win->polygon_lst);
 	ft_process_polygon(s_win->polygon_lst);
-	// ft_build_bsp_tree((&s_node), s_win->polygon_lst);
-	// ft_afficher_le_bsp(&s_node);
-	// ft_affichier_bsp_id(&s_node);
+	ft_build_bsp_tree((&s_node), s_win->polygon_lst);
+	ft_afficher_le_bsp(&s_node);
+	ft_affichier_bsp_id(&s_node);
 	//ft_display_polygon();
 
 

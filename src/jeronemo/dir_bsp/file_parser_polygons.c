@@ -292,7 +292,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	while (fichier_lst != NULL)
 	{
 
-		printf("=%s\n", fichier_lst->line);
+		// printf("=%s\n", fichier_lst->line);
 		fichier_lst = fichier_lst->next;
 	}
 	fichier_lst = keep_fichier;
@@ -305,7 +305,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	/* printf("===> L'ecture des indices\n"); */
 	polygon_obj_indice = 0;
 
-
+	int		id_counter = 0;
 
 	keep_fichier = fichier_lst;
 	while(fichier_lst != NULL)
@@ -313,9 +313,9 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 		if (fichier_lst->line[0] == 'f' && fichier_lst->line[1] == ' ')
 		{
 			i++;
-			printf("Polynome n=%d\n", i);
+			// printf("Polynome n=%d\n", i);
 			j = 1;
-			printf("les indices =");
+			// printf("les indices =");
 			while (fichier_lst->line[j] != '\0')
 			{
 				j++;
@@ -330,7 +330,9 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 			/* printf("\n"); */
 			polygon_node = ft_create_polygon_node(vertex_lst);
 			polygon_node->obj_indice = polygon_obj_indice;
-			printf("On a ajouter le polygone =%d\n\n", polygon_node->obj_indice);
+			polygon_node->id = id_counter;
+			id_counter++;
+			// printf("On a ajouter le polygone =%d\n\n", polygon_node->obj_indice);
 			polygon_obj_indice++;
 			ft_add_polygon(&polygon_lst, polygon_node);
 			vertex_lst = NULL;

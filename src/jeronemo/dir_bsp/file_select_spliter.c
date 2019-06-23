@@ -46,14 +46,14 @@ t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst)
 				break;
 			printf("\tOn test le polygone ayant id %d ", polygon_lst->id);
 			result = ft_classify_polygon(polygon_node, polygon_lst);
-
 			if (result == FRONT)
-			printf(" qui est FRONT\n");
+				printf(" qui est FRONT\n");
 			if (result == BACK)
-			printf(" qui est BACK\n");
+				printf(" qui est BACK\n");
 			if (result == SPANNING)
-			printf(" qui est SPANNING\n");
-
+				printf(" qui est SPANNING\n");
+			if (result == ON_PLANE)
+				printf(" qui est ON_PLANE\n");
 
 			if (result == FRONT || result == ON_PLANE)
 				front++;
