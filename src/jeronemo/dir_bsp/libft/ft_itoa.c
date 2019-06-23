@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.co>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 16:36:34 by jchardin          #+#    #+#             */
-/*   Updated: 2018/12/03 18:30:37 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/19 13:00:47 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,3 +81,26 @@ char		*ft_itoa(int n)
 	ft_itoa_third(&nb, &i, str, &nega);
 	return (str);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

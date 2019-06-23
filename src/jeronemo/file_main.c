@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:55:47 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 20:02:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/15 11:03:31 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_game_engine(t_win *wn)
 	int			choice;
 
 	choice = 0;
-	while (1)
+	 while (1)
 	{
 		system("@cls||clear");
 		printf("Hello chef inca\n");

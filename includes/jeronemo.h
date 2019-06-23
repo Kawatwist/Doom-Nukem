@@ -42,6 +42,69 @@ typedef struct		s_mypoint
 	int				set;
 }					t_mypoint;
 
+typedef enum		s_myprojection
+{
+	orthographique,
+	perspective,
+}					t_myprojection;
+
+typedef struct	s_mytriangle
+{
+	t_myvec		vertice[3];
+}				t_mytriangle;
+
+typedef struct	s_mydisplay
+{
+	char		projection;
+	char		culling_face;
+	char		triangle;
+	char		triangle_normal;
+	char		mesh;
+	char		mesh_normal;
+	char		panel;
+	char		color;
+	char		shade;
+}				t_mydisplay;
+
+typedef struct		s_mychange
+{
+	float			angle_x;
+	float			angle_y;
+	float			angle_z;
+	float			translation_x;
+	float			translation_y;
+	float			translation_z;
+	float			zoom;
+	t_myvec			result_1;
+	t_myvec			result_2;
+	t_myvec			result_3;
+	char			quit;
+	char			modif;
+
+	t_myvec			v_camera;
+	t_myvec			v_up;
+	t_myvec			v_target;
+	t_myvec			v_look_dir;
+	t_myvec			v_forward;
+	float			theta;
+	float			theta_x;
+	float			theta_y;
+	float			theta_z;
+
+	float			**mat_trans;
+	float			**mat_rot_x;
+	float			**mat_rot_y;
+	float			**mat_rot_z;
+	float			**mat_world;
+	float			**mat_camera;
+	float			**mat_view;
+	float			**mat_camera_rot;
+	float			**mat_perspectiv;
+
+	Uint8			*old;
+	t_mydisplay		*display;
+}					t_mychange;
+
 typedef struct		s_mypointf
 {
 	double				x;
@@ -238,6 +301,18 @@ typedef struct				s_mywin
 	t_window				current_window;
 }							t_mywin;
 
+
+
+
+typedef struct			s_mykeep
+{
+	t_mypolygon			*polygon;
+	t_myvec				*vec;
+}						t_mykeep;
+
+
+
+
 /**
  ** Map editor functions definitions
  **/
@@ -346,8 +421,66 @@ void			ft_afficher_le_bsp(t_mynode *s_node);
 
 
 
+t_myvec	ft_rotation_x(float angle, t_myvec vertex);
+t_myvec	ft_rotation_y(float angle, t_myvec vertex);
+t_myvec	ft_rotation_z(float angle, t_myvec vertex);
+t_myvec	ft_matrix_multiply(float matrix[5][5], t_myvec vertex);
+t_myvec	ft_translation_x(float value, t_myvec vertex);
+t_myvec	ft_translation_y(float value, t_myvec vertex);
+t_myvec	ft_translation_z(float value, t_myvec vertex);
+t_myvec	ft_scale(float zoom, t_myvec vertex);
+float	ft_rad(float angle);
+void	ft_draw_change(t_mywin *s_win, t_mychange *change);
+t_myvec		ft_normalise(t_myvec vector);
+void		ft_mouse_event_check(t_win *wn, t_mychange *change);
+void	ft_display_panel();
+void	ft_fill_triangle_one_color(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
+void	ft_order_triangle_vertice(t_myvec *v1, t_myvec *v2, t_myvec *v3);
+void	ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
+void	ft_fill_triangle_shade(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win, float shade);
 
 
+t_myvec		ft_vector_add(t_myvec v1, t_myvec v2); //DONE
+t_myvec		ft_vector_sub(t_myvec v1, t_myvec v2); //DONE
+t_myvec		ft_vector_multiply(t_myvec m, float k);
+float	**ft_make_projection(void);   //DONE
+float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up);
+float	**ft_make_identity(void);  //DONE
+float	**ft_make_rotation_x(float theta);  //DONE
+float	**ft_make_rotation_y(float theta);  //DONE
+float	**ft_make_rotation_z(float theta); //DONE
+
+float	**ft_matrix_multiply_matrix(float **m1, float **m2);  //surement DONE
+float	**ft_make_matrix_5_5(void);
+float  **ft_matrix_quick_inverse(float **mu);
+float	**ft_make_translation(float x, float y, float z);
+t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i);
+
+
+
+t_myvec	ft_perspective_projection(t_myvec vertex);
+
+void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytriangle *triangle);
+
+
+int				ft_get_nbr_of_triangle(t_mywin *s_win);
+
+
+void	ft_get_polynome_lst(t_mywin *s_win);
+
+t_mytriangle	*ft_get_triangles_array(t_mywin *s_win);
+void	ft_display_triangle_array(t_mywin *s_win, t_mytriangle *triangle);
+
+
+float		ft_get_the_indice_vertex_x(int indice, t_myvec *vertex_lst);
+float		ft_get_the_indice_vertex_y(int indice, t_myvec *vertex_lst);
+float		ft_get_the_indice_vertex_z(int indice, t_myvec *vertex_lst);
+float	**ft_make_perspectiv(void);
+t_myvec		ft_scale_screen(t_myvec result);
+
+
+
+char	*ft_itoa_comma(float nbr);
 
 
 

@@ -1,0 +1,40 @@
+
+	ma_texture = NULL;
+	//clear la fenetre
+	//afficher un polynome
+	//en blanc la forme general
+	//en rouge les triangle a l'interrieur
+
+	/* ma_texture = ft_loadbmp(s_win->renderer[J_EDITOR], "texture.bmp"); */
+			//applique texture
+			/* SDL_Rect        srcrect; */
+			/* SDL_Rect        dstrect; */
+    		/* srcrect.x = 0; */
+			/* srcrect.y = 0; */
+			/* srcrect.w = 1632; */
+			/* srcrect.h = 1185; */
+			/* dstrect.x = 10; */
+			/* dstrect.y = 10; */
+			/* dstrect.w = 100; */
+			/* dstrect.h = 100; */
+			/* float	delta_x = 0; */
+			/* delta_x = result_4.x - result_3.x; */
+			/* int i = 0; */
+			/* while (i < delta_x) */
+			/* { */
+			/* 	dstrect.x = ((i * 1632) / delta_x) + result_3.x; */
+			/* 	SDL_RenderCopy(s_win->renderer[J_EDITOR], ma_texture, &(srcrect), &(dstrect)); */
+			/* 	i++; */
+			/* } */
+
+/* SDL_Texture		*ft_loadbmp(SDL_Renderer *tmp_renderer, char *path) */
+/* { */
+/* 	SDL_Texture			*txt; */
+/* 	SDL_Surface			*tmp; */
+
+/* 	tmp = SDL_LoadBMP(path); */
+/* 	txt = SDL_CreateTextureFromSurface(tmp_renderer, tmp); */
+/* 	if (tmp != NULL) */
+/* 		SDL_FreeSurface(tmp); */
+/* 	return (txt); */
+/* } */

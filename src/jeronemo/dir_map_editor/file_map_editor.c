@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/07 14:32:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:43:20 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,6 +341,7 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 			//dessiner la ligne en continue
 			t_myputtheline		s_line;
 
+	s_win->current_window = J_EDITOR;
 			s_line.un.a = (s_win->current_wall.first_point.x * s_win->s_localisation_grid->step)
 				+ s_win->s_localisation_grid->x;
 			s_line.un.b = (s_win->current_wall.first_point.y * s_win->s_localisation_grid->step)

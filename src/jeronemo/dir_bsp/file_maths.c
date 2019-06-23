@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 14:37:01 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 10:29:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/11 12:32:35 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ float		ft_abs_float(float number)
 		number *= -1.0;
 	return (number);
 }
-
-
 
 float		ft_atoi_comma(const char *str)
 {
