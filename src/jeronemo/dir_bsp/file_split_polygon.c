@@ -112,9 +112,15 @@ void		ft_split_polygon(t_mypolygon *poly,
 	point_b = point_a->next;
 	ft_put_first_vertex_in_lst(front_split, back_split, poly, plane);
 	i = 0;
-	printf("number_of_vertex:%d\n", poly->number_of_vertex);
 	while (i < poly->number_of_vertex)
 	{
+		printf("number_of_vertex:%d\n", poly->number_of_vertex);
+		printf("point_a:%f,", point_a->x);
+		printf("%f,", point_a->y);
+		printf("%f\n", point_a->z);
+		printf("point_b%f ", point_b->x);
+		printf("point_b%f ", point_b->y);
+		printf("point_b%f\n", point_b->z);
 		next_vertex_keeper = point_b->next;
 		result = ft_classify_point(*point_b, plane);
 		if (result == ON_PLANE && next_vertex_keeper != NULL) //// on ajoute au deux list
