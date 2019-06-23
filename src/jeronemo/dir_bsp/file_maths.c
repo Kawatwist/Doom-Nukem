@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h> 
+# include "file_bsp.h"
 
 float		ft_dot_product(t_myvec v1, t_myvec v2)
 {
@@ -63,6 +63,13 @@ int		ft_abs(int number)
 	return (number);
 }
 
+
+float		ft_abs_float(float number)
+{
+	if (number < 0.0)
+		number *= -1.0;
+	return (number);
+}
 
 
 

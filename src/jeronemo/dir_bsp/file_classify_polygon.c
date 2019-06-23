@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h> 
+# include "file_bsp.h"
 
 int			ft_classify_point(t_myvec point, t_mypolygon *plane)
 {
 	float		result;
 	t_myvec		direction;
 
-	direction = ft_vector_from_two_points(*plane->vertex_lst, point);//pas sur de l'etoile
+	direction = ft_vector_from_two_points(*(plane->vertex_lst), point);//pas sur de l'etoile
 	result = ft_dot_product(direction, plane->normal);
 	if (result < - 0.001)
 		return (FRONT);
@@ -42,7 +42,7 @@ int			ft_classify_polygon(t_mypolygon *plane, t_mypolygon *polygon_node)
 	keep = polygon_node->vertex_lst;
 	while (polygon_node->vertex_lst != NULL)
 	{
-		result = ft_classify_point(*polygon_node->vertex_lst, plane);//pas sur de l'etoile
+		result = ft_classify_point(*(polygon_node->vertex_lst), plane);//pas sur de l'etoile
 		if (result == FRONT)
 			front++;
 		else if (result == BACK)

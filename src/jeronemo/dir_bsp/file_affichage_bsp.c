@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 
 #include <math.h>
-#include <jeronemo.h> 
+# include "file_bsp.h"
 
 void		ft_browse_the_bsp(t_mynode *s_node, char **tab,int decalage_pere, int decalage, int rang, int profondeur_max)
 {
 	int middle = 26;
 	char		*value;
 
-	value = ft_itoa((int)s_node->splitter->number_of_vertex);
+	value = ft_itoa((int)s_node->splitter->id);
 	tab[rang][middle + decalage + decalage_pere] = value[0];
 	decalage_pere = decalage + decalage_pere;
 	if (s_node->front->is_leaf != TRUE)

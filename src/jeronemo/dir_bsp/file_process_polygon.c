@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h> 
+# include "file_bsp.h"
 
 t_myvec		ft_calculate_polygon_normal(t_mypolygon *polygon_node)
 {
@@ -94,9 +94,9 @@ void		ft_process_polygon(t_mypolygon *polygon_lst)
 	i = 0;
 	while (polygon_lst != NULL)
 	{
-		printf("\npolygone n=%d\n", i);
+		printf("\npolygone id=%d\n", polygon_lst->id);
 		polygon_lst->normal = ft_calculate_polygon_normal(polygon_lst);
-		printf("the normal result =%f =%f =%f\n",	polygon_lst->vertex_lst->x, polygon_lst->vertex_lst->y, polygon_lst->vertex_lst->z);
+		printf("the normal result =%f =%f =%f\n",	polygon_lst->normal.x, polygon_lst->normal.y, polygon_lst->normal.z);
 		polygon_lst->number_of_vertex = ft_calculate_number_of_vertex(polygon_lst);
 		printf("Number of vertex =%d\n", polygon_lst->number_of_vertex);
 		polygon_lst->number_of_indices = ft_calculate_number_of_indices(polygon_lst);
