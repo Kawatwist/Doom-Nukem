@@ -27,7 +27,22 @@
 // 	return (1);
 // }
 
+void		ft_affichier_bsp_id(t_mynode *s_node)
+{
+	printf("%d\n", s_node->splitter->id);
+	printf("|\n");
 
+	if (s_node->back->is_leaf != TRUE)
+	{
+		printf("back:");
+		ft_affichier_bsp_id(s_node->back);
+	}
+	if (s_node->front->is_leaf != TRUE)
+	{
+		printf("front:");
+		ft_affichier_bsp_id(s_node->front);
+	}
+}
 
 int			main(int argc, char** argv)
 {
@@ -45,14 +60,8 @@ int			main(int argc, char** argv)
 	ft_display_the_polygon_list(s_win.polygon_lst);
 	ft_process_polygon(s_win.polygon_lst);
 	ft_build_bsp_tree((&s_node), s_win.polygon_lst);
-	printf("AAAAAAAAAAAAAAAAAAAAAAAl\n");
-	ft_display_the_polygon_list(s_node.back->back->splitter);
-	// printf("AAAAAAAAAAAAAAAAAAAAAAAl'adresse du first =%p\n", &s_node);
-	// printf("first node isleaf%d|\n", s_node.is_leaf);
-	// printf("BBBBBBBBBBBBB second node isleaf%d|\n", s_node.front->is_leaf);
-	// printf("BBBBBBBBBBBBB thired node isleaf%d|\n", s_node.front->front->is_leaf);
-	// ft_afficher_le_bsp(&s_node);
-
+	ft_afficher_le_bsp(&s_node);
+	ft_affichier_bsp_id(&s_node);
 
 	//ft_display_polygon();
 

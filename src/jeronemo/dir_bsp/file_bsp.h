@@ -69,8 +69,9 @@ t_myvec			ft_cross_product(t_myvec v1, t_myvec v2);
 t_myvec			ft_vector_from_two_points(t_myvec v2, t_myvec v1);
 int				ft_abs(int number);
 float			ft_abs_float(float number);
-
+int				ft_calculate_number_of_indices(t_mypolygon *polygon_node);
 t_myvec			ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
+int				*ft_calculate_indices_tab(t_mypolygon *polygon_node);
 
 void			ft_display_the_polygon_list(t_mypolygon *polygon_lst);
 t_mypolygon		*ft_read_the_polygon_file(char *argv);
