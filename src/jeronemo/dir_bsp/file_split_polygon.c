@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "file_bsp.h"
+#include <jeronemo.h>
 
 int			ft_get_intersect(t_myvec *line_start,
 							t_myvec *line_end,
@@ -41,19 +41,6 @@ int			ft_get_intersect(t_myvec *line_start,
   	intersection->y = line_start->y + direction.y * percentage;
   	intersection->z = line_start->z + direction.z * percentage;
 	return (TRUE);
-}
-
-
-static t_myvec		*ft_get_vertex_in_list(t_myvec *lst, unsigned int node_index)
-{
-	while (lst!= NULL)
-	{
-		if (node_index == 0)
-			return (lst);
-		lst = lst->next;
-		node_index--;
-	}
-	return (NULL);
 }
 
 t_myvec		*ft_copy_vertex_node(t_myvec *node_to_copy)
@@ -108,13 +95,12 @@ void		ft_split_polygon(t_mypolygon *poly,
 							t_mypolygon *front_split,
 							t_mypolygon *back_split)
 {
-	t_myvec					plane_normal;
 	t_myvec					intersect_point;
 	t_myvec					*point_on_plane;
 	t_myvec					*point_a;
 	t_myvec					*point_b;
 	t_myvec					*tmp_vertex;
-	unsigned int			i;
+	int						i;
 	int						result;
 	t_myvec					*next_vertex_keeper;
 	t_myvec 				*first_vertex_keeper;

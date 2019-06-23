@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "file_bsp.h"
+#include <jeronemo.h>
 
 t_myvec		ft_calculate_polygon_normal(t_mypolygon *polygon_node)
 {

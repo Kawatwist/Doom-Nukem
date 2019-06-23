@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file_bsp.h"
+#include <jeronemo.h>
 
 void 		ft_launch_window_bsp(t_mywin *s_win)
 {
@@ -124,18 +124,35 @@ void	ft_display_triangle(t_mywin *s_win)
 	s_win->lst_wall = keep;
 }
 
+void		ft_affichier_bsp_id(t_mynode *s_node)
+{
+	printf("%d\n", s_node->splitter->id);
+	printf("|\n");
+
+	if (s_node->back->is_leaf != TRUE)
+	{
+		printf("back:");
+		ft_affichier_bsp_id(s_node->back);
+	}
+	if (s_node->front->is_leaf != TRUE)
+	{
+		printf("front:");
+		ft_affichier_bsp_id(s_node->front);
+	}
+}
+
 void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn)
 {
 	printf("BSP tree launcher\n");
 	(void)wn;
-
-	/* t_mynode	s_node; */
+	t_mynode	s_node;
 
 	s_win->polygon_lst = ft_read_the_polygon_file();
 	ft_display_the_polygon_list(s_win->polygon_lst);
 	ft_process_polygon(s_win->polygon_lst);
-	//ft_build_bsp_tree((&s_node), s_win->polygon_lst);
-	//ft_afficher_le_bsp(&s_node);
+	ft_build_bsp_tree((&s_node), s_win->polygon_lst);
+	ft_afficher_le_bsp(&s_node);
+	ft_affichier_bsp_id(&s_node);
 	//ft_display_polygon();
 
 

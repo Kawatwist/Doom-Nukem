@@ -6,9 +6,10 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 17:05:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/23 14:18:23 by jleblond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef JERONEMO_H
@@ -206,6 +207,7 @@ typedef struct			s_mypolygon
 	int					number_of_vertex;        //nombre de vertex
 	int					number_of_indices;       //nombre d'indices
 	int					*indices;                //la listes des indices apres triangulasisation
+	int					id;
 	struct s_mypolygon	*next;                   //le prochain noeud dans la liste
 }						t_mypolygon;
 
@@ -317,6 +319,10 @@ float			ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec			ft_cross_product(t_myvec v1, t_myvec v2);
 t_myvec			ft_vector_from_two_points(t_myvec v2, t_myvec v1);
 int				ft_abs(int number);
+float			ft_abs_float(float number);
+int				ft_calculate_number_of_indices(t_mypolygon *polygon_node);
+t_myvec			ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
+int				*ft_calculate_indices_tab(t_mypolygon *polygon_node);
 t_myvec			ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
 float			ft_atoi_comma(const char *str);
 
@@ -332,12 +338,10 @@ void			ft_split_polygon(t_mypolygon *poly,
 
 void			ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst);
 t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst);
-void			ft_split_polygon(t_mypolygon *poly,
-							t_mypolygon *plane,
-							t_mypolygon *front_split,
-							t_mypolygon *back_split);
+
 
 void			ft_add_polygon(t_mypolygon **polygon_lst, t_mypolygon *polygon_node);
+void			ft_add_vertex(t_myvec **vertex_lst, t_myvec *vertex_node);
 void			ft_afficher_le_bsp(t_mynode *s_node);
 
 

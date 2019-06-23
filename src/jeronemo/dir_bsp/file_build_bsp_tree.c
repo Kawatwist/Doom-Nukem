@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "file_bsp.h"
+#include <jeronemo.h>
 
 static void			ft_split_then_distribute(t_mypolygon **front_lst, t_mypolygon **back_lst, t_mypolygon *splitter, t_mypolygon *polygon_lst)
 {

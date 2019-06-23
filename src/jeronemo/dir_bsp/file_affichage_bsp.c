@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <math.h>
-# include "file_bsp.h"
+#include <jeronemo.h>
 
 void		ft_browse_the_bsp(t_mynode *s_node, char **tab,int decalage_pere, int decalage, int rang, int profondeur_max)
 {

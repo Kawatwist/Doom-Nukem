@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "file_bsp.h"
+#include <jeronemo.h>
 
 //The wall with the lowest score in the list wins and becomes the splitter for that node.Here's the formula
 //score=abs(frontfaces-backfaces)+(splits*8)
