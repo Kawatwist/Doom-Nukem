@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/24 21:15:09 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/24 21:19:07 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -717,7 +717,6 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 
 	printf("le vecteur look dir x=%f, y=%f, z=%f\n", change->v_look_dir.x, change->v_look_dir.y, change->v_look_dir.z);
 	printf("le vecteur camera x=%f, y=%f, z=%f\n", change->v_camera.x, change->v_camera.y, change->v_camera.z);
-
 
 
 	change->v_target = ft_vector_add(change->v_camera, change->v_look_dir);
