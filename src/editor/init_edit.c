@@ -46,6 +46,7 @@ void		init_edit(t_win **wn)
 	(*wn)->edit_image.bgh = 1;
 	(*wn)->edit_image.in = 1;
 	(*wn)->edit_image.tbp = 2;
+	(*wn)->bg_map.path = NULL;
 }
 
 void		stop_editor(t_win *wn)

@@ -200,7 +200,7 @@ void		print_tools_editor(t_win *wn)
 	dst.x = 0;
 	dst.y = wn->yscreen / 7 * 6;
 	dst.w = wn->xscreen;
-	dst.h = wn ->yscreen / 7;
+	dst.h = wn->yscreen / 7;
 	wn->edit_image.texture_tools = findtexture(wn, "editor", "affichage", "tools");
 	(wn->edit_image.texture_tools == NULL) ? stop_exec("texture print_tools_editor failed\n", wn) : 0;
 	if (SDL_RenderCopy(wn->rend, wn->edit_image.texture_tools, NULL, &dst) < 0)
@@ -212,6 +212,7 @@ void		print_tools_editor(t_win *wn)
 void		printeditor(t_win *wn)
 {
 	print_background_editor(wn);
+	(is_path_ok(wn, wn->bg_map.path) == 0 && wn->edit_image.bgh == 0) ? load_background(wn) : 0;
 	showmap(wn);
 	which_cursor(wn);
 	print_tools_editor(wn);

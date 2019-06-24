@@ -84,27 +84,39 @@ void		bg_or_h(t_win *wn)
 	// 	print_history(wn);
 }
 
-void 	load_background(t_win *wn, char *path)
+int 	is_path_ok(t_win *wn, char *path)
 {
-	SDL_Texture 	*texture;
-	int 			w;
-	int 			h;
-	SDL_Rect 		dst;
-
-	texture = NULL;
+	if (path == NULL)
+		return (1);
 	wn->load = ft_strdup(path);
 	if (load_texture(wn, "editor", "affichage", path) == 1)
 		message_bg_editor(wn, "This path doesn't exist.");
 	else
 	{
-		SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-		dst = define_rect(0, 0, w, h);
-		texture = findtexture(wn, "editor", "affichage", path);
-		if (SDL_RenderCopy(wn->rend, texture, NULL, &dst) < 0)
-			stop_exec("render copy failed in print_tbp\n", wn);
 		message_bg_editor(wn, "Image downloaded.");
+		return (0);
 	}
 	free(wn->load);
+	return (1);
+}
+
+void	load_background(t_win *wn)
+{
+	static SDL_Texture 	*texture = NULL;
+	int 			w;
+	int 			h;
+	SDL_Rect 		dst;
+
+	if (texture == NULL)
+	{
+		SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+		dst = define_rect(0, 0, w, h);
+		texture = findtexture(wn, "editor", "affichage", wn->bg_map.path);
+	}
+	if (texture == NULL)
+		return ;
+	if (SDL_RenderCopy(wn->rend, texture, NULL, (dst.x != 0) ? &dst : NULL) < 0)
+		stop_exec("render copy failed in load_bg\n", wn);
 }
 
 void 	message_bg_editor(t_win *wn, char *message)
@@ -124,6 +136,8 @@ void 		print_bg(t_win *wn)
 {
 	static char		*path = NULL;
 
+	if (path == NULL)
+		path = ft_strdup("/Users/llejeune/Doom/texture/skybox/\0");
 	text_for_bg(wn);
 	wn->edit_image.bg = define_rect(5.6 * wn->xscreen / 7, 1.5 * wn->yscreen / 7, 1.30 * wn->xscreen / 7, 26);
 	SDL_SetRenderDrawColor(wn->rend, 250, 250, 250, 0);
@@ -135,7 +149,8 @@ void 		print_bg(t_win *wn)
 		print_path(wn, path, wn->edit_image.bg.x + 5, wn->edit_image.bg.y + 5);
 	if (key_pressed(wn, SDL_SCANCODE_RETURN))
 	{
-		load_background(wn, path);//charger command si lien valide sinon message d'erreur "<command> doesn't exist."
+		wn->bg_map.path = ft_strdup(path);
+		// load_background(wn);//charger command si lien valide sinon message d'erreur "<command> doesn't exist."
 		free(path); // ajouter free(path) et path = NULL dans fonction chargement bg
 		path = NULL; // faire ternaire (path != NULL) ? load_bg : ft_pr_mess_err_bg
 	}
