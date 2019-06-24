@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/24 19:52:04 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:38:09 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -478,9 +478,16 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 
 	t_camera cam;
 
-	cam.pos.x = 0;
-	cam.pos.y = 0;
-	cam.pos.z = 0;
+	cam.pos.x = 0.0;
+	cam.pos.y = 0.0;
+	cam.pos.z = 0.0;
+
+	cam.pos.x = change->v_camera.x;
+	cam.pos.y = change->v_camera.y;
+	cam.pos.z = change->v_camera.z;
+
+	printf("=%f =%f =%f", cam.pos.x, cam.pos.y, cam.pos.z);
+
 
 	cam.pitch = 3;
 	cam.yaw = change->theta;
@@ -534,7 +541,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 
 
 
-	change->mat_trans = ft_make_translation(0, 0, -20);
+	change->mat_trans = ft_make_translation(0, 0, -15);
 	while (i < nbr_triangle)
 	{
 		triangle = triangle_array[i];
