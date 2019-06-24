@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:23:08 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 12:31:02 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/24 11:22:11 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct		s_weapon
 	struct s_weapon	*next;
 }					t_weapon;
 
+// Ajout des variables: t_inventaire *inv, unsigned int vie, unsigned int energie
 typedef struct		s_joueur
 {
 	t_weapon		*weapon;
@@ -51,4 +52,5 @@ typedef struct		s_joueur
 	double			z;
 	float			sensi;
 }					t_joueur;
+
 #endif

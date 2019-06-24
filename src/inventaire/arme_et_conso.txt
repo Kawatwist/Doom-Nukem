@@ -1,0 +1,57 @@
+Armes :
+	  CaC:
+	  - Poignard
+	  - Lance
+	  - Trident
+	  - Arc futuriste
+
+	  Dist:
+	  - Arc v1/v2
+	  - Boomerangs
+	  - Shotgun laser
+	  - Harpon
+	  - Shuriken
+
+	  Zone:
+	  - Filet
+	  - explosif
+
+Craft:
+Arc = Bois + Ficelle
+Poignard = Bois + Acier
+Boomerangs = Bois
+Lance = Bois *2 + Acier
+Shotgun = Acier * 3 + Poudre
+Harpon = Shotgun + Lance
+Trident = Lance + Acier * 2
+Filet = Ficelle * 3
+Arc Futuriste  = Arc + Acier * 2
+Explosif = Poudre * 2 + Acier
+Shuriken = Acier
+Kunai = Acier + Ficelle
+
+Amélioration (Craft):
+Arc = (v1 -> v5)
+Shotgun = (v1 - v3)
+Filet = (v1 - v5)
+Arc Futuriste = (Arc lvl) + (v1 - v3)
+
+Damage :
+Arc = 40 - 60
+Poignard = 70
+Boomerangs = 90
+Lance = 70 CaC - 90 Range
+Shotgun = 70 - 90
+Harpon = 80
+Trident = 90
+Filet = 10 + (Slow * lvl)
+Arc Futuriste  = Arc + (10 - 30)
+Explosif = 70 (Area = 3)
+Shuriken = 90
+Kunai = 50 CaC - 70 Range
+
+Consomable :
+Potion = +30%hp
+PotionV2 = +50%hp
+Batterie = +50% shield
+BatterieV2 = +100% shield
