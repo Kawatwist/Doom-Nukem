@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/19 14:01:11 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:29:02 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ t_myvec		ft_scale_screen(t_myvec result)
 	result.x += 1.0;
 	result.y += 1.0;
 
-	result.x *= 0.5 * (float)XSCREEN;
-	result.y *= 0.5 * (float)YSCREEN;
+	result.x *= 0.5 * (float)XSCREEN / 2;
+	result.y *= 0.5 * (float)YSCREEN / 2;
 	return (result);
 }
 

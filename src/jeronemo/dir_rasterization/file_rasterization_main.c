@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/19 15:48:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/24 19:52:04 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -466,14 +466,155 @@ float		ft_get_the_indice_vertex_z(int indice, t_myvec *vertex_lst)
 
 void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytriangle *triangle_array)
 {
-	printf("helloa\n");
-	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
-    SDL_RenderClear(s_win->renderer[J_EDITOR]);
 
 	int					nbr_triangle;
 	t_mytriangle		triangle;
 	int					j;
 	int					i;
+
+
+	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
+    SDL_RenderClear(s_win->renderer[J_EDITOR]);
+
+	t_camera cam;
+
+	cam.pos.x = 0;
+	cam.pos.y = 0;
+	cam.pos.z = 0;
+
+	cam.pitch = 3;
+	cam.yaw = change->theta;
+
+	t_vector3 zaxis = normalize_t_vector3(create_t_vector3(cos(degree_to_radius(cam.pitch)) * sin(degree_to_radius(cam.yaw)),
+				sin(degree_to_radius(cam.pitch)),
+				cos(degree_to_radius(cam.pitch)) * cos(degree_to_radius(cam.yaw))));
+
+
+	t_vector3 xaxis = normalize_t_vector3(create_t_vector3(sin(degree_to_radius(cam.yaw) - 3.14f / 2.0f),
+				0,
+				cos(degree_to_radius(cam.yaw) - 3.14f / 2.0f)));
+
+
+	t_vector3 yaxis = normalize_t_vector3(cross_t_vector3(xaxis, zaxis));
+
+
+	cam.forward = zaxis;
+	cam.right = xaxis;
+	cam.up = inv_t_vector3(yaxis);
+
+
+	cam.view = t_camera_compute_view(&cam);
+	cam.projection = compute_projection_matrix(&cam);
+
+	t_vector3 vertice[3];
+
+	nbr_triangle = ft_get_nbr_of_triangle(s_win);
+	i = 0;
+	printf("BOUCLE\n");
+
+
+	printf("\n\n");
+	printf("la matrice = %f ", cam.view.value[0][0]);
+	printf("la matrice = %f ", cam.view.value[1][0]);
+	printf("la matrice = %f ", cam.view.value[2][0]);
+	printf("la matrice = %f \n", cam.view.value[3][0]);
+
+	printf("la matrice = %f ", cam.view.value[0][1]);
+	printf("la matrice = %f ", cam.view.value[1][1]);
+	printf("la matrice = %f ", cam.view.value[2][1]);
+	printf("la matrice = %f \n", cam.view.value[3][1]);
+
+	printf("la matrice = %f ", cam.view.value[0][2]);
+	printf("la matrice = %f ", cam.view.value[1][2]);
+	printf("la matrice = %f ", cam.view.value[2][2]);
+	printf("la matrice = %f \n", cam.view.value[3][2]);
+	printf("\n\n");
+
+
+
+
+
+	change->mat_trans = ft_make_translation(0, 0, -20);
+	while (i < nbr_triangle)
+	{
+		triangle = triangle_array[i];
+
+
+
+
+		j = -1;
+		while (++j < 3)
+			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_trans, triangle.vertice[j]);
+
+
+
+
+
+		vertice[0].x = triangle.vertice[0].x;
+		vertice[0].y = triangle.vertice[0].y;
+		vertice[0].z = triangle.vertice[0].z;
+
+		vertice[1].x = triangle.vertice[1].x;
+		vertice[1].y = triangle.vertice[1].y;
+		vertice[1].z = triangle.vertice[1].z;
+
+		vertice[2].x = triangle.vertice[2].x;
+		vertice[2].y = triangle.vertice[2].y;
+		vertice[2].z = triangle.vertice[2].z;
+
+
+		j = -1;
+		while (++j < 3)
+			vertice[j] = mult_vector3_by_matrix(vertice[j], cam.view);
+
+		j = 1;
+		while (++j < 3)
+			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, vertice[j].x, vertice[j].y, vertice[j].z);
+
+
+
+		j = -1;
+		while (++j < 3)
+			vertice[j] = apply_t_camera(&(vertice[j]), &(cam.projection)); // applique la position de la camera
+
+
+		triangle.vertice[0].x = vertice[0].x;
+		triangle.vertice[0].y = vertice[0].y;
+		triangle.vertice[0].z = vertice[0].z;
+
+		triangle.vertice[1].x =vertice[1].x;
+		triangle.vertice[1].y =vertice[1].y;
+		triangle.vertice[1].z =vertice[1].z;
+
+		triangle.vertice[2].x = vertice[2].x;
+		triangle.vertice[2].y = vertice[2].y;
+		triangle.vertice[2].z = vertice[2].z;
+
+
+		j = -1;
+		while (++j < 3)
+			triangle.vertice[j] = ft_scale_screen(triangle.vertice[j]);
+
+		j = -1;
+		while (++j < 3)
+			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
+
+		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 0, 0, 255);
+		ft_draw_triangle_base(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win);
+
+		i++;
+	}
+	return;
+
+	//#########################################
+	printf("helloa\n");
+	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
+    SDL_RenderClear(s_win->renderer[J_EDITOR]);
+
+	/* int					nbr_triangle; */
+	/* t_mytriangle		triangle; */
+	/* int					j; */
+	/* int					i; */
 
 	change->theta_y = 90.0;
 
