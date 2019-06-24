@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/24 17:13:28 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:57:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ typedef struct		s_mychange
 	float			translation_y;
 	float			translation_z;
 	float			zoom;
+	int				avancer;
+	int				reculer;
 	t_myvec			result_1;
 	t_myvec			result_2;
 	t_myvec			result_3;

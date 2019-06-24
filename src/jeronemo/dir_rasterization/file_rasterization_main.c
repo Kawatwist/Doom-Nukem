@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/24 20:38:09 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/24 21:09:46 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,18 +128,20 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 	}
 	if (wn->state[SDL_SCANCODE_W] == 1 && old[SDL_SCANCODE_W] == 0)
 	{
-		change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0);
+		/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
 
 		printf("On incremente du vecteur forward\n");
-		change->v_camera = ft_vector_add(change->v_camera, change->v_forward);
+		/* change->v_camera = ft_vector_add(change->v_camera, change->v_forward); */
+		change->avancer = 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_S] == 1 && old[SDL_SCANCODE_S] == 0)
 	{
-		change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0);
+		/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
+		change->reculer = 1;
 
 		printf("On decremente du vecteur forward\n");
-		change->v_camera = ft_vector_sub(change->v_forward, change->v_camera);
+		/* change->v_camera = ft_vector_sub(change->v_forward, change->v_camera); */
 		change->modif = 1;
 	}
 
@@ -377,6 +379,13 @@ void	ft_init_launch_rasterization(t_mykeep *keep, t_mychange *change)
 	change->translation_y = 0;
 	change->translation_z = -10;
 
+
+
+	change->reculer = 0;
+	change->avancer = 0;
+
+
+
 	change->modif = 1;
 
 	change->display->triangle = 0;
@@ -464,6 +473,15 @@ float		ft_get_the_indice_vertex_z(int indice, t_myvec *vertex_lst)
 	return (z);
 }
 
+t_vector3	substract_vector3_to_vector3(t_vector3 a,t_vector3 b)
+{
+	t_vector3	result;
+
+	result = create_t_vector3(a.x - b.x, a.y - b.y, a.z - b.z);
+
+	return (result);
+}
+
 void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytriangle *triangle_array)
 {
 
@@ -505,12 +523,45 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	t_vector3 yaxis = normalize_t_vector3(cross_t_vector3(xaxis, zaxis));
 
 
+	//this is the look at vector   (rotation de la camera)
 	cam.forward = zaxis;
 	cam.right = xaxis;
 	cam.up = inv_t_vector3(yaxis);
 
 
+	/* if (change->avancer == 1) */
+	/* { */
+	/* 	cam.forward = normalize_t_vector3(cam.forward); */
+	/* 	cam.pos = substract_vector3_to_vector3(cam.pos, cam.forward); */
+
+	/* 	printf("AAAAAAAAAAAAAAAAAAAAAAAAAaaa\n\n\n\n"); */
+
+	/* 	change->avancer = 0; */
+	/* } */
+	/* if (change->reculer == 1) */
+	/* { */
+	/* 	printf("AAAAAAAAAAAAAAAAAAAAAAAAAaaa\n\n\n\n"); */
+
+	/* 	change->reculer = 0; */
+	/* } */
+
+
+
+
+
+
+
+	//this is the matrix view
 	cam.view = t_camera_compute_view(&cam);
+	//this is the matrix projection
+
+
+ 	cam.near = 0.1;
+	cam.far = 50.0;
+	cam.fov = 70;
+
+
+
 	cam.projection = compute_projection_matrix(&cam);
 
 	t_vector3 vertice[3];

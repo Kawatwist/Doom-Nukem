@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/24 19:11:04 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/24 21:06:13 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,9 @@ t_matrix	compute_projection_matrix(t_camera *p_cam) //calcul de la matrice de pr
 	float		r;
 	float		f;
 	float		t;
+
+
+
 
 	result = create_t_matrix_empty();
 	n = p_cam->near;
