@@ -48,19 +48,26 @@ void            mouse_input_poly(t_win *wn)
 
     curr = wn->elem;
     find_last_poly(&curr); // REACH LAST POLYGON ACTIF
-    point = curr->point;
-    find_last_point(&point); // REACH LAST POINT CREATE
-    if (mouse_pressed(wn, SDL_BUTTON_LEFT) && check_point(wn, point)) // Create a new point and fill it /!\ NEED TO BE CARE FOR THE FIRST POInt OF THE FIRST POLYGON
-        fill_point(wn, &point);
-    if (mouse_pressed(wn, SDL_BUTTON_RIGHT)) // CREATE A NEW POLY   /!\ BECARFULL IF A POLYGONE GOT LESS THAN 3 POINT HE'S INVALID
+    if (curr->point == NULL)
     {
-		if ((curr->next = malloc(sizeof(t_elem))) == NULL) // MALLOC NEW POLY
-            stop_exec("Malloc elem failed\n", wn);
-		if ((curr->next->point = malloc(sizeof(t_point))) == NULL) // MALLOC 1st POINT 
-            stop_exec("Malloc point failed\n", wn);
-        curr->next->point->x = wn->input->x;    // FILL FIRST POINT
-        curr->next->point->y = wn->input->y;
-		curr->next->next = NULL;                  // INIT NEXT POINTEUR
-		curr->next->point->next = NULL;
-	}
+        curr->point = malloc(sizeof(t_point));
+        point = curr->point;
+        (point)->x = wn->input->x;
+        (point)->y = wn->input->y;
+        (point)->next = NULL;
+    }
+    else
+    {
+        find_last_point(&point); // REACH LAST POINT CREATE
+        point = curr->point;
+        if (mouse_pressed(wn, SDL_BUTTON_LEFT) && check_point(wn, point)) // Create a new point and fill it /!\ NEED TO BE CARE FOR THE FIRST POInt OF THE FIRST POLYGON
+            fill_point(wn, &point);
+        if (mouse_pressed(wn, SDL_BUTTON_RIGHT)) // CREATE A NEW POLY   /!\ BECARFULL IF A POLYGONE GOT LESS THAN 3 POINT HE'S INVALID
+        {
+            if ((curr->next = malloc(sizeof(t_elem))) == NULL) // MALLOC NEW POLY
+                stop_exec("Malloc elem failed\n", wn);
+            curr->next->next = NULL;                  // INIT NEXT POINTEUR
+            curr->next->point = NULL;
+       }
+    }
 }

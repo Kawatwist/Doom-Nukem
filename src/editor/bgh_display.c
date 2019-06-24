@@ -16,7 +16,8 @@ void		print_bgh_editor(t_win *wn)
 {
 	SDL_Rect		dst;
 
-	dst = define_rect(5.5 * wn->xscreen / 7, 0, 1.5 * wn->xscreen / 7, 3 * wn->yscreen / 7);
+	dst = define_rect(5.5 * wn->xscreen / 7, 0,
+		1.5 * wn->xscreen / 7, 3 * wn->yscreen / 7);
 	if (wn->edit_image.bgh == 1)
 		wn->edit_image.texture_bgh =
 			findtexture(wn, "editor", "affichage", "history");
@@ -44,10 +45,10 @@ void		print_path(t_win *wn, char *s, int posi_x, int posi_y)
 	position.h = h;
 	SDL_QueryTexture(wn->edit_image.bg_path, NULL, NULL, &w, &h);
 	x = w - wn->edit_image.bg.w - 5;
- 	if (w < (wn->edit_image.bg.w - 5))
- 	{
- 		position.w = w;
- 		wn->edit_image.pos_path = define_rect(0, 0, w, h);
+	if (w < (wn->edit_image.bg.w - 5))
+	{
+		position.w = w;
+		wn->edit_image.pos_path = define_rect(0, 0, w, h);
 		print_text_with_arial_path(wn, s, wn->color.noir, position);
 	}
 	else
@@ -55,14 +56,14 @@ void		print_path(t_win *wn, char *s, int posi_x, int posi_y)
 		position.w = wn->edit_image.bg.w - 5;
 		wn->edit_image.pos_path = define_rect(x, 0, w, h);
 		print_text_with_arial_path(wn, s, wn->color.noir, position);
-	}	
+	}
 }
 
 static void		text_for_bg(t_win *wn)
 {
-	SDL_Rect 	position;
-	int 		w;
-	int 		h;
+	SDL_Rect	position;
+	int			w;
+	int			h;
 
 	TTF_SizeText(wn->fonts->arial_path, "Load a background image :", &w, &h);
 	position = define_rect(wn->edit_image.bg.x, wn->edit_image.bg.y - h - 20, w, h);
@@ -84,7 +85,7 @@ void		bg_or_h(t_win *wn)
 	// 	print_history(wn);
 }
 
-int 	is_path_ok(t_win *wn, char *path)
+int			is_path_ok(t_win *wn, char *path)
 {
 	if (path == NULL)
 		return (1);
@@ -100,12 +101,12 @@ int 	is_path_ok(t_win *wn, char *path)
 	return (1);
 }
 
-void	load_background(t_win *wn)
+void		load_background(t_win *wn)
 {
-	static SDL_Texture 	*texture = NULL;
-	int 			w;
-	int 			h;
-	SDL_Rect 		dst;
+	static			SDL_Texture 	*texture = NULL;
+	int				w;
+	int				h;
+	SDL_Rect		dst;
 
 	if (texture == NULL)
 	{
@@ -119,31 +120,35 @@ void	load_background(t_win *wn)
 		stop_exec("render copy failed in load_bg\n", wn);
 }
 
-void 	message_bg_editor(t_win *wn, char *message)
+void		message_bg_editor(t_win *wn, char *message)
 {
-	int w;
-	int h;
-	SDL_Rect position;
+	int			w;
+	int			h;
+	SDL_Rect	position;
 
-	TTF_SizeText(wn->fonts->arial_path, message,&w, &h);
-	position = define_rect(wn->edit_image.bg.x, wn->edit_image.bg.y + wn->edit_image.bg.h + 10, w, h);
+	TTF_SizeText(wn->fonts->arial_path, message, &w, &h);
+	position = define_rect(wn->edit_image.bg.x,
+		wn->edit_image.bg.y + wn->edit_image.bg.h + 10, w, h);
 	TTF_SetFontStyle(wn->fonts->arial, TTF_STYLE_ITALIC);
 	print_text_with_arial_font(wn, message, wn->color.red, position);
-	TTF_SetFontStyle(wn->fonts->arial, TTF_STYLE_NORMAL);	
+	TTF_SetFontStyle(wn->fonts->arial, TTF_STYLE_NORMAL);
 }
 
-void 		print_bg(t_win *wn)
+void		print_bg(t_win *wn)
 {
 	static char		*path = NULL;
 
 	if (path == NULL)
 		path = ft_strdup("/Users/llejeune/Doom/texture/skybox/\0");
 	text_for_bg(wn);
-	wn->edit_image.bg = define_rect(5.6 * wn->xscreen / 7, 1.5 * wn->yscreen / 7, 1.30 * wn->xscreen / 7, 26);
+	wn->edit_image.bg = define_rect(5.6 * wn->xscreen / 7,
+		1.5 * wn->yscreen / 7, 1.30 * wn->xscreen / 7, 26);
 	SDL_SetRenderDrawColor(wn->rend, 250, 250, 250, 0);
-	(SDL_RenderFillRect(wn->rend, &wn->edit_image.bg) < 0) ? stop_exec("fillrect failed in print_bg\n", wn) : 0;
+	(SDL_RenderFillRect(wn->rend, &wn->edit_image.bg) < 0) ?
+	stop_exec("fillrect failed in print_bg\n", wn) : 0;
 	path = printable_input(wn, path);
-	if ((key_pressed(wn, SDL_SCANCODE_BACKSPACE)) && path != NULL && ft_strlen(path))
+	if ((key_pressed(wn, SDL_SCANCODE_BACKSPACE)) &&
+		path != NULL && ft_strlen(path))
 		path[ft_strlen(path) - 1] = 0;
 	if ((path != NULL) && ft_strlen(path))
 		print_path(wn, path, wn->edit_image.bg.x + 5, wn->edit_image.bg.y + 5);

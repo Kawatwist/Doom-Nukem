@@ -111,7 +111,7 @@ void		print_background_editor(t_win *wn)
 		stop_exec("rendercopy failed\n", wn);
 }
 
-int 		is_between(double x, double min, double max)
+int			is_between(double x, double min, double max)
 {
 	if (x >= min && x < max)
 		return (0);
@@ -148,9 +148,9 @@ void		change_bloc(t_win *wn)
 		wn->edit_image.tbp = 2;
 }
 
-void 		print_arrow(t_win *wn)
+void		print_arrow(t_win *wn)
 {
-	SDL_Rect 	dst;
+	SDL_Rect	dst;
 
 	dst.x = 6.75 * wn->xscreen / 7;
 	dst.w = 0.25 * wn->xscreen / 7;
@@ -158,35 +158,42 @@ void 		print_arrow(t_win *wn)
 	if (wn->edit_image.in == 1)
 		dst.y = 3 * wn->yscreen / 7;
 	else
-		dst.y = 5.75 * wn->yscreen / 7; 
+		dst.y = 5.75 * wn->yscreen / 7;
 	wn->edit_image.fleche = findtexture(wn, "editor", "affichage", "fleche");
-	(wn->edit_image.fleche == NULL) ? stop_exec("fleche failed in print_arrow\n", wn) : 0;
+	(wn->edit_image.fleche == NULL) ?
+	stop_exec("fleche failed in print_arrow\n", wn) : 0;
 	if (SDL_RenderCopy(wn->rend, wn->edit_image.fleche, NULL, &dst) < 0)
 		stop_exec("rendercopy failed in print_arrow\n", wn);
 }
 
-void 		print_tbp_editor(t_win *wn)
+void		print_tbp_editor(t_win *wn)
 {
-	SDL_Rect 	src;
-	SDL_Rect 	dst;
+	SDL_Rect	src;
+	SDL_Rect	dst;
 
-	wn->edit_image.tbp == 0 ? wn->edit_image.texture_tbp = findtexture(wn, "editor", "affichage", "texts") : 0;
-	wn->edit_image.tbp == 1 ? wn->edit_image.texture_tbp = findtexture(wn, "editor", "affichage", "blocs") : 0;
-	wn->edit_image.tbp == 2 ? wn->edit_image.texture_tbp = findtexture(wn, "editor", "affichage", "params") : 0;
-	(wn->edit_image.texture_tbp == NULL) ? stop_exec("texture params failed in print_tbp\n", wn) : 0;
+	wn->edit_image.tbp == 0 ? wn->edit_image.texture_tbp =
+	findtexture(wn, "editor", "affichage", "texts") : 0;
+	wn->edit_image.tbp == 1 ? wn->edit_image.texture_tbp =
+	findtexture(wn, "editor", "affichage", "blocs") : 0;
+	wn->edit_image.tbp == 2 ? wn->edit_image.texture_tbp =
+	findtexture(wn, "editor", "affichage", "params") : 0;
+	(wn->edit_image.texture_tbp == NULL) ?
+	stop_exec("texture params failed in print_tbp\n", wn) : 0;
 	SDL_QueryTexture(wn->edit_image.texture_tbp, NULL, NULL, &src.w, &src.h);
 	if (wn->edit_image.in == 1)
 	{
 		src.x = 0;
 		src.y = 0;
-		dst = define_rect(5.5 * wn->xscreen / 7, 3 * wn->yscreen / 7, 1.5 * wn->xscreen / 7, 3 * wn->yscreen / 7);
+		dst = define_rect(5.5 * wn->xscreen / 7, 3 * wn->yscreen / 7,
+			1.5 * wn->xscreen / 7, 3 * wn->yscreen / 7);
 	}
 	else 
 	{
 		src.x = 0;
 		src.y = 0;
 		src.h = 0.25 * src.h / 7;
-		dst = define_rect(5.5 * wn->xscreen / 7, 5.75 * wn->yscreen / 7, 1.5 * wn->xscreen / 7, 0.25 * wn->yscreen / 7);
+		dst = define_rect(5.5 * wn->xscreen / 7, 5.75 * wn->yscreen / 7,
+			1.5 * wn->xscreen / 7, 0.25 * wn->yscreen / 7);
 	}
 	if (SDL_RenderCopy(wn->rend, wn->edit_image.texture_tbp, &src, &dst) < 0)
 		stop_exec("render copy failed in print_tbp\n", wn);
@@ -195,24 +202,24 @@ void 		print_tbp_editor(t_win *wn)
 
 void		print_tools_editor(t_win *wn)
 {
-	SDL_Rect 		dst;
+	SDL_Rect	dst;
 
 	dst.x = 0;
 	dst.y = wn->yscreen / 7 * 6;
 	dst.w = wn->xscreen;
 	dst.h = wn->yscreen / 7;
-	wn->edit_image.texture_tools = findtexture(wn, "editor", "affichage", "tools");
-	(wn->edit_image.texture_tools == NULL) ? stop_exec("texture print_tools_editor failed\n", wn) : 0;
+	wn->edit_image.texture_tools =
+	findtexture(wn, "editor", "affichage", "tools");
+	if (wn->edit_image.texture_tools == NULL)
+		stop_exec("texture print_tools_editor failed\n", wn);
 	if (SDL_RenderCopy(wn->rend, wn->edit_image.texture_tools, NULL, &dst) < 0)
 		stop_exec("rendercopy failed in print_tools_editor\n", wn);
-}	
-
-
+}
 
 void		printeditor(t_win *wn)
 {
 	print_background_editor(wn);
-	(is_path_ok(wn, wn->bg_map.path) == 0 && wn->edit_image.bgh == 0) ? load_background(wn) : 0;
+	// (is_path_ok(wn, wn->bg_map.path) == 0 && wn->edit_image.bgh == 0) ? load_background(wn) : 0;
 	showmap(wn);
 	which_cursor(wn);
 	print_tools_editor(wn);
