@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/19 13:00:10 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/24 17:10:45 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+
+# include <unknow_project.h>
 
 #define FALSE 0
 #define TRUE 1
@@ -241,7 +243,7 @@ typedef enum		e_window
 {
 	J_EDITOR,
 	J_BINARY_TREE,
-}					t_window;
+}					tj_window;
 
 /* typedef struct				s_mynode */
 /* { */
@@ -296,7 +298,7 @@ typedef struct				s_mywin
 	t_mygrid				*s_localisation_grid;
 	t_mywall				*lst_wall;
 	t_mycurrent_wall		current_wall;
-	t_window				current_window;
+	tj_window				current_window;
 }							t_mywin;
 
 
