@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/24 21:19:07 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/24 21:20:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -778,6 +778,12 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 			triangle.vertice[j] = ft_scale_screen(triangle.vertice[j]);
 			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
 		}
+
+
+
+
+
+
 
 
 		/* printf("\nON trie\n"); */
