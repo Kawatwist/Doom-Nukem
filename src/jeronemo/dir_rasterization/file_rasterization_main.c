@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/24 21:09:46 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/24 21:15:09 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -482,6 +482,18 @@ t_vector3	substract_vector3_to_vector3(t_vector3 a,t_vector3 b)
 	return (result);
 }
 
+
+
+t_vector3	add_vector3_to_vector3(t_vector3 a,t_vector3 b)
+{
+	t_vector3	result;
+
+	result = create_t_vector3(a.x + b.x, a.y + b.y, a.z + b.z);
+
+	return (result);
+}
+
+
 void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytriangle *triangle_array)
 {
 
@@ -529,25 +541,33 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	cam.up = inv_t_vector3(yaxis);
 
 
-	/* if (change->avancer == 1) */
-	/* { */
-	/* 	cam.forward = normalize_t_vector3(cam.forward); */
-	/* 	cam.pos = substract_vector3_to_vector3(cam.pos, cam.forward); */
+	if (change->avancer == 1)
+	{
+		cam.forward = normalize_t_vector3(cam.forward);
+		cam.pos = substract_vector3_to_vector3(cam.pos, cam.forward);
 
-	/* 	printf("AAAAAAAAAAAAAAAAAAAAAAAAAaaa\n\n\n\n"); */
-
-	/* 	change->avancer = 0; */
-	/* } */
-	/* if (change->reculer == 1) */
-	/* { */
-	/* 	printf("AAAAAAAAAAAAAAAAAAAAAAAAAaaa\n\n\n\n"); */
-
-	/* 	change->reculer = 0; */
-	/* } */
+		change->v_camera.x = cam.pos.x;
+		change->v_camera.y = cam.pos.y;
+		change->v_camera.z = cam.pos.z;
 
 
+		printf("AAAAAAAAAAAAAAAAAAAAAAAAAaaa\n\n\n\n");
 
+		change->avancer = 0;
+	}
+	if (change->reculer == 1)
+	{
 
+		cam.forward = normalize_t_vector3(cam.forward);
+		cam.pos = add_vector3_to_vector3(cam.pos, cam.forward);
+
+		change->v_camera.x = cam.pos.x;
+		change->v_camera.y = cam.pos.y;
+		change->v_camera.z = cam.pos.z;
+		printf("AAAAAAAAAAAAAAAAAAAAAAAAAaaa\n\n\n\n");
+
+		change->reculer = 0;
+	}
 
 
 
@@ -559,7 +579,6 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
  	cam.near = 0.1;
 	cam.far = 50.0;
 	cam.fov = 70;
-
 
 
 	cam.projection = compute_projection_matrix(&cam);
