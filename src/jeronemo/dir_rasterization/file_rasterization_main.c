@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:51 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/24 21:20:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/25 12:59:11 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -616,16 +616,9 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	{
 		triangle = triangle_array[i];
 
-
-
-
 		j = -1;
 		while (++j < 3)
 			triangle.vertice[j] = ft_matrix_multiply_vector(change->mat_trans, triangle.vertice[j]);
-
-
-
-
 
 		vertice[0].x = triangle.vertice[0].x;
 		vertice[0].y = triangle.vertice[0].y;
@@ -639,7 +632,6 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 		vertice[2].y = triangle.vertice[2].y;
 		vertice[2].z = triangle.vertice[2].z;
 
-
 		j = -1;
 		while (++j < 3)
 			vertice[j] = mult_vector3_by_matrix(vertice[j], cam.view);
@@ -647,6 +639,37 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 		j = 1;
 		while (++j < 3)
 			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, vertice[j].x, vertice[j].y, vertice[j].z);
+
+
+
+		int			number_of_clipped_triangle;
+		t_myvec		point;
+		t_myvec		plan;
+		t_mytriangle	clipped_triangle[1];
+
+		point.x = 0.0;
+		point.y = 0.0;
+		point.z = 0.1;
+		plan.x = 0.0;
+		plan.y = 0.0;
+		plan.z = 1.0;
+		//on clipped sur un cote le plan qui est devant la camera
+		number_of_clipped_triangle = ft_triangle_clips_again_plan(point, plan, &(clipped_triangle[0]), &(triangle[0]));
+
+		int k = 0;
+		while (k < number_of_clipped_triangle)
+		{
+
+
+			k++;
+		}
+
+
+
+
+
+
+
 
 
 
@@ -757,7 +780,6 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
 		}
 
-
 		printf("\nON APLLIQUE la PERSPECTIV\n");
 		/* j = -1; */
 		/* while (++j < 3) */
@@ -776,15 +798,8 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 		while (++j < 3)
 		{
 			triangle.vertice[j] = ft_scale_screen(triangle.vertice[j]);
-			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
+			printf("Le %d point x=%f\t\ty=%f\t\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
 		}
-
-
-
-
-
-
-
 
 		/* printf("\nON trie\n"); */
 		/* ft_order_triangle_vertice(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2])); */
@@ -809,8 +824,6 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	}
 	/* exit(0); */
 	return;
-
-
 
 
 	t_mypolygon *polygon;
@@ -847,6 +860,18 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 			change->result_1.z = polygon->vertex_lst->z;
 			polygon->vertex_lst = keep->vec;
 			change->result_2.x = polygon->vertex_lst->x;
+
+			void	ft_triangle_clips_again_plan()
+			{
+
+
+			}
+
+			void	ft_triangle_clips_again_plan()
+			{
+
+
+			}
 			change->result_2.y = polygon->vertex_lst->y;
 			change->result_2.z = polygon->vertex_lst->z;
 			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
