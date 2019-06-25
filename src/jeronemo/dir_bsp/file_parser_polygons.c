@@ -279,7 +279,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 	fichier_lst = NULL;
 
-	fd = open("src/jeronemo/dir_bsp/bsp_cube_test.obj", O_RDWR);
+	fd = open("src/jeronemo/dir_bsp/bsp_simple_test.obj", O_RDWR);
 	while(get_next_line(fd, &line))
 	{
 		fichier_node = ft_create_line_node(line);
@@ -305,7 +305,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	/* printf("===> L'ecture des indices\n"); */
 	polygon_obj_indice = 0;
 
-	int		id_counter = 0;
+	int		id_counter = 1;
 
 	keep_fichier = fichier_lst;
 	while(fichier_lst != NULL)

@@ -110,8 +110,48 @@ void		ft_split_polygon(t_mypolygon *poly,
 	first_vertex_keeper = poly->vertex_lst;
 	point_a = poly->vertex_lst;
 	point_b = point_a->next;
+	if (poly->id == 2)
+	{
+		printf("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n");
+		ft_display_the_polygon_list(poly);
+	}
 	ft_put_first_vertex_in_lst(front_split, back_split, poly, plane);
+
+
+
+	// t_myvec *first_vertex = (poly->vertex_lst);
+	// result = ft_classify_point(*first_vertex, plane);
+	// if (result == FRONT)
+	// {
+	// 	ft_add_vertex(&(front_split->vertex_lst), first_vertex);
+	// 	front_split->number_of_vertex++;
+	// }
+	// else if (result == BACK)
+	// {
+	// 	ft_add_vertex(&(back_split->vertex_lst), first_vertex);
+	// 	back_split->number_of_vertex++;
+	// }
+	// else if (result == ON_PLANE)
+	// {
+	// 	ft_add_vertex(&(front_split->vertex_lst), first_vertex);
+	// 	ft_add_vertex(&(back_split->vertex_lst), first_vertex);
+	// 	front_split->number_of_vertex++;
+	// 	back_split->number_of_vertex++;
+	// }
+
+
 	i = 0;
+	if (poly->id == 2)
+	{
+		printf("aaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
+		ft_display_the_polygon_list(poly);
+	}
+
+
+
+
+
+
 	while (i < poly->number_of_vertex)
 	{
 		printf("number_of_vertex:%d\n", poly->number_of_vertex);
@@ -138,7 +178,7 @@ void		ft_split_polygon(t_mypolygon *poly,
 			{
 				tmp_vertex = ft_copy_vertex_node(&intersect_point);
 				ft_add_vertex(&(front_split->vertex_lst), tmp_vertex);
-				tmp_vertex = ft_copy_vertex_node(&intersect_point);   //?????
+				tmp_vertex = ft_copy_vertex_node(&intersect_point);
 				ft_add_vertex(&(back_split->vertex_lst), tmp_vertex);
 				front_split->number_of_vertex++;
 				back_split->number_of_vertex++;
