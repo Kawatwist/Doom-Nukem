@@ -6,11 +6,22 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 13:17:24 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/18 17:27:38 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:43:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <jeronemo.h>
+
+t_myvec        ft_normalise(t_myvec vector)
+{
+   float        l;
+
+   l = sqrtf(vector.x * vector.x + vector.y * vector.y + vector.z*vector.z);
+   vector.x /= l;
+   vector.y /= l;
+   vector.z /= l;
+   return (vector);
+}
 
 t_myvec		ft_vector_add(t_myvec v1, t_myvec v2) //DONE
 {

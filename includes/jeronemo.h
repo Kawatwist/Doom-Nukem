@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/26 08:22:35 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:43:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -483,6 +483,7 @@ t_myvec		ft_scale_screen(t_myvec result);
 char	*ft_itoa_comma(float nbr);
 
 
-int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plan, t_mytriangle *clipped_triangle, t_mytriangle *triangle);
+int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plan, t_mytriangle *clipped_triangle, t_mytriangle *triangle, t_mywin *s_win);
+int		ft_calcul_culing(t_mychange *change, t_mytriangle *triangle);
 
 #endif

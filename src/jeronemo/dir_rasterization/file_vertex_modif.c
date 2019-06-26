@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/24 19:29:02 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:40:03 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,23 +134,24 @@ void	ft_calcul_projection(t_mychange *change)
 
 
 
-int		ft_calcul_culing(t_mychange *change)
+int		ft_calcul_culing(t_mychange *change, t_mytriangle *triangle)
 { float			l;
 	t_myvec			normal;
 	t_myvec			camera;
 
-	camera.x = 0;
-	camera.y = 0;
-	camera.z = 0;
-	normal = ft_calculate_normal_of_points(change->result_1, change->result_2, change->result_3);
+	;
+	camera.x = change->v_camera.x;
+	camera.y = change->v_camera.y;
+	camera.z = change->v_camera.z;
+	normal = ft_calculate_normal_of_points(triangle->vertice[0], triangle->vertice[1], triangle->vertice[2]);
 	//normalisation
 	l = sqrtf(normal.x * normal.x + normal.y * normal.y + normal.z*normal.z);
 	normal.x /= l;
 	normal.y /= l;
 	normal.z /= l;
-	if ((normal.x * (change->result_1.x - camera.x) +
-				normal.y * (change->result_1.y - camera.y) +
-				normal.z * (change->result_1.z - camera.z)) < 0.0)
+	if ((normal.x * (triangle->vertice[0].x - camera.x) +
+				normal.y * (triangle->vertice[0].y - camera.y) +
+				normal.z * (triangle->vertice[0].z - camera.z)) < 0.0)
 		return (0);
 	else
 		return (1);
@@ -158,7 +159,7 @@ int		ft_calcul_culing(t_mychange *change)
 
 void	ft_draw_mesh(t_mywin *s_win, t_mychange *change)
 {
-	t_myputtheline		s_line;;
+	/* t_myputtheline		s_line;; */
 	t_mycolor			color;
 
 	color = ft_setcolor(RED);
@@ -166,46 +167,7 @@ void	ft_draw_mesh(t_mywin *s_win, t_mychange *change)
 
 	if (change->display->culling_face == 1)
 	{
-		if (ft_calcul_culing(change))
-		{
-			s_line.un.a = change->result_1.x;
-			s_line.un.b = change->result_1.y;
-			s_line.deux.a = change->result_2.x;
-			s_line.deux.b = change->result_2.y;
-			ft_draw_line(s_win, &s_line);
-		}
-	}
-	else
-	{
-		s_line.un.a = change->result_1.x;
-		s_line.un.b = change->result_1.y;
-		s_line.deux.a = change->result_2.x;
-		s_line.deux.b = change->result_2.y;
-		ft_draw_line(s_win, &s_line);
-	}
-}
 
-t_myvec		ft_normalise(t_myvec vector)
-{
-	float		l;
-
-	l = sqrtf(vector.x * vector.x + vector.y * vector.y + vector.z*vector.z);
-	vector.x /= l;
-	vector.y /= l;
-	vector.z /= l;
-	return (vector);
-}
-
-void	ft_draw_triangle(t_mywin *s_win, t_mychange *change)
-{
-	t_mycolor			color;
-
-	color = ft_setcolor(BLUE);
-	SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg, color.bbb, 255);
-
-	if (change->display->culling_face == 1)
-	{
-		if (ft_calcul_culing(change))
 		{
 			/* printf("helo\n"); */
 			if (change->display->color == 1)
@@ -369,8 +331,8 @@ void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 	change->result_3 = ft_perspective_projection(change->result_3);
 	ft_calcul_projection(change);
 
-	if (change->display->triangle)		//afichage des triangles
-		ft_draw_triangle(s_win, change);
+	/* if (change->display->triangle)		//afichage des triangles */
+	/* 	ft_draw_triangle(s_win, change); */
 	if (change->display->mesh)			//afichage des mesh
 		ft_draw_mesh(s_win, change);
 }

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/26 10:14:13 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/26 12:56:47 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,61 +58,75 @@ vector intersectionPoint(vector lineVector, vector linePoint, vector planeNormal
 	return addVectors(addVectors(diff,planePoint),scaleVector(-dotProduct(diff,planeNormal)/dotProduct(lineVector,planeNormal),lineVector));
 }
 
-t_myvec	ft_vector_intersect(t_myvec plane_normal, t_myvec point_on_plane, t_myvec point1, t_myvec point2)
+t_myvec	ft_vector_intersect(t_myvec plane_n, t_myvec plane_p, t_myvec lineStart, t_myvec lineEnd)
 {
-	//return a point if the line cross the plane
-	// line intersect with plane
+//vec3d &plane_p, vec3d &plane_n, vec3d &lineStart, vec3d &lineEnd
 
-	//infinite ray = 0 -1 -1    lV     line direction
-	//passing through 0 0 10    lp      
-	//normal of plane 0 0 1     pN     
-	//passing though 0 0 5      pP
+	plane_n = ft_normalise(plane_n);
+	float plane_d = -ft_dot_product(plane_n, plane_p);
+	float ad = ft_dot_product(lineStart, plane_n);
+	float bd = ft_dot_product(lineEnd, plane_n);
+	float t = (-plane_d - ad) / (bd - ad);
+	t_myvec lineStartToEnd = ft_vector_sub(lineEnd, lineStart);
+	t_myvec lineToIntersect = ft_vector_multiply(lineStartToEnd, t);
+	return ft_vector_add(lineStart, lineToIntersect);
 
-	vector lV,lP,pN,pP,iP;
-	t_myvec		intersection_point;
 
-	t_myvec	line_direction = ft_vector_sub(point2, point1);
-	lV.x = line_direction.x;
-	lV.y = line_direction.y;
-	lV.z = line_direction.z;
 
-	lP.x = point1.x;
-	lP.y = point1.y;
-	lP.z = point1.z;
 
-	pN.x = plane_normal.x;
-	pN.y = plane_normal.y;
-	pN.z = plane_normal.z;
+	/* //return a point if the line cross the plane */
+	/* // line intersect with plane */
 
-	pP.x = point_on_plane.x;
-	pP.y = point_on_plane.y;
-	pP.z = point_on_plane.z;
+	/* //infinite ray = 0 -1 -1    lV     line direction */
+	/* //passing through 0 0 10    lp */      
+	/* //normal of plane 0 0 1     pN */     
+	/* //passing though 0 0 5      pP */
 
-	/* printf("Usage : %s <line direction, point on line, normal to plane and point on plane given as (x,y,z) tuples separated by space>"); */
-	/* else{ */
-	/* sscanf(argV[1],"(%lf,%lf,%lf)",&lV.x,&lV.y,&lV.z); */
-	/* sscanf(argV[3],"(%lf,%lf,%lf)",&pN.x,&pN.y,&pN.z); */
+	/* vector lV,lP,pN,pP,iP; */
+	/* t_myvec		intersection_point; */
 
-	if(dotProduct(lV,pN)==0)
-	{
-		printf("Line and Plane do not intersect, either parallel or line is on the plane");
-		exit(0);
-	}
-	else
-	{
-		/* sscanf(argV[2],"(%lf,%lf,%lf)",&lP.x,&lP.y,&lP.z); */
-		/* sscanf(argV[4],"(%lf,%lf,%lf)",&pP.x,&pP.y,&pP.z); */
-		iP = intersectionPoint(lV,lP,pN,pP);
-		printf("Intersection point is (%lf,%lf,%lf)",iP.x,iP.y,iP.z);
-		intersection_point.x = iP.x;
-		intersection_point.y = iP.y;
-		intersection_point.z = iP.z;
-	}
-	return (intersection_point);
+	/* t_myvec	line_direction = ft_vector_sub(point2, point1); */
+	/* lV.x = line_direction.x; */
+	/* lV.y = line_direction.y; */
+	/* lV.z = line_direction.z; */
+
+	/* lP.x = point1.x; */
+	/* lP.y = point1.y; */
+	/* lP.z = point1.z; */
+
+	/* pN.x = plane_normal.x; */
+	/* pN.y = plane_normal.y; */
+	/* pN.z = plane_normal.z; */
+
+	/* pP.x = point_on_plane.x; */
+	/* pP.y = point_on_plane.y; */
+	/* pP.z = point_on_plane.z; */
+
+	/* /1* printf("Usage : %s <line direction, point on line, normal to plane and point on plane given as (x,y,z) tuples separated by space>"); *1/ */
+	/* /1* else{ *1/ */
+	/* /1* sscanf(argV[1],"(%lf,%lf,%lf)",&lV.x,&lV.y,&lV.z); *1/ */
+	/* /1* sscanf(argV[3],"(%lf,%lf,%lf)",&pN.x,&pN.y,&pN.z); *1/ */
+
+	/* if(dotProduct(lV,pN)==0) */
+	/* { */
+	/* 	printf("Line and Plane do not intersect, either parallel or line is on the plane"); */
+	/* 	exit(0); */
+	/* } */
+	/* else */
+	/* { */
+	/* 	/1* sscanf(argV[2],"(%lf,%lf,%lf)",&lP.x,&lP.y,&lP.z); *1/ */
+	/* 	/1* sscanf(argV[4],"(%lf,%lf,%lf)",&pP.x,&pP.y,&pP.z); *1/ */
+	/* 	iP = intersectionPoint(lV,lP,pN,pP); */
+	/* 	printf("Intersection point is (%lf,%lf,%lf)",iP.x,iP.y,iP.z); */
+	/* 	intersection_point.x = iP.x; */
+	/* 	intersection_point.y = iP.y; */
+	/* 	intersection_point.z = iP.z; */
+	/* } */
+	/* return (intersection_point); */
 }
 
 
-int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle *clipped_triangle, t_mytriangle *triangle)
+int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle *clipped_triangle, t_mytriangle *triangle, t_mywin *s_win)
 {
 	(void)point;
 	(void)plane_norm;
@@ -125,8 +139,8 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 	int			distance;
 	int			result = 0;
 	int	j;
-		t_myvec plane_N;
-		t_myvec point_plane_Q;
+	t_myvec plane_N;
+	t_myvec point_plane_Q;
 	j = 0;
 	while (j < 3)
 	{
@@ -159,25 +173,26 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 	/* clipped_triangle[0] = *triangle; */
 	/* return(1); */
 
-	if (n_inside_points == 3)
+	if (n_inside_points == 0)
 	{
-		//do nothing
-		clipped_triangle[0].vertice[0] = points_inside[0];
-		clipped_triangle[0].vertice[1] = points_inside[1];
-		clipped_triangle[0].vertice[2] = points_inside[2];
-		result = 1;
-	}
-	else if (n_inside_points == 0)
-	{
-		//reject
+		printf("reject\n");
 		result = 0;
+	}
+	else if (n_inside_points == 1)
+	{
+		printf("form one triangle\n");
+		clipped_triangle[0].vertice[0] = points_inside[0];
+		clipped_triangle[0].vertice[1] = ft_vector_intersect(plane_N, point_plane_Q, points_inside[0], points_outside[0]);
+		clipped_triangle[0].vertice[2] = ft_vector_intersect(plane_N, point_plane_Q, points_inside[0], points_outside[1]);
+		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 0, 0, 255);
+		result = 1;
 	}
 	else if (n_inside_points == 2)
 	{
-		//form a quadra
+		printf("==>form a quadra\n\n");
 		clipped_triangle[0].vertice[0] = points_inside[0];
 		clipped_triangle[0].vertice[1] = points_inside[1];
-/* t_myvec	ft_vector_intersect(t_myvec plane_normal, t_myvec point_on_plane, t_myvec point1, t_myvec point2) */
+		/* t_myvec	ft_vector_intersect(t_myvec plane_normal, t_myvec point_on_plane, t_myvec point1, t_myvec point2) */
 		clipped_triangle[0].vertice[2] = ft_vector_intersect(plane_N, point_plane_Q, points_inside[0], points_outside[0]);
 
 		printf("le 1 = %f\n", points_inside[1].x);
@@ -186,15 +201,16 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 		clipped_triangle[1].vertice[0] = points_inside[1];
 		clipped_triangle[1].vertice[1] = clipped_triangle[0].vertice[2];
 		clipped_triangle[1].vertice[2] = ft_vector_intersect(plane_N,  point_plane_Q, points_inside[1], points_outside[0]);
-
+		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 255, 0, 255);
 		result = 2;
 	}
-	else if (n_inside_points == 1)
+	else if (n_inside_points == 3)
 	{
-		//form one triangle
+		printf("do nothing\n");
 		clipped_triangle[0].vertice[0] = points_inside[0];
-		clipped_triangle[0].vertice[1] = ft_vector_intersect(plane_N, point_plane_Q, points_inside[0], points_outside[0]);
-		clipped_triangle[0].vertice[2] = ft_vector_intersect(plane_N, point_plane_Q, points_inside[0], points_outside[1]);
+		clipped_triangle[0].vertice[1] = points_inside[1];
+		clipped_triangle[0].vertice[2] = points_inside[2];
+		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 255, 255);
 		result = 1;
 	}
 	return (result);

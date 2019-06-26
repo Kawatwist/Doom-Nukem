@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/17 18:34:34 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/26 11:03:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include <stdlib.h>
 # include <math.h>
 # include <pthread.h>
-# include "libft.h"
-# include "game.h"
-# include "rasterisation.h"
-# include "skybox.h"
-# include "SDL.h"
-# include "SDL_ttf.h"
+# include <libft.h>
+# include <game.h>
+# include <rasterisation.h>
+# include <skybox.h>
+# include <SDL.h>
+# include <SDL_ttf.h>
 
 # include <SDL2/SDL.h>
 # include <SDL_image.h>
