@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/24 17:53:13 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/26 08:28:05 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -102,6 +102,8 @@ SRC += file_vertex_modif.c
 SRC += file_vector_calcul.c
 SRC += file_get_triangle.c
 SRC += file_jerem.c
+SRC += file_clipping.c
+
 
 #WINDOW
 SRC += file_window.c
