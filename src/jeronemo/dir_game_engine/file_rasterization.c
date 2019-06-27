@@ -6,15 +6,25 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 14:43:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:25:52 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
+
+void		ft_update_raster(t_mywin *s_win, t_mytriangle *triangle_array)
+{
+	(void)s_win;
+	(void)triangle_array;
+	printf("update raster\n");
+}
+
+
+
+
 void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytriangle *triangle_array)
 {
-
 	int					nbr_triangle;
 	t_mytriangle		triangle;
 	int					j;

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 16:07:31 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:25:19 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,9 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 		ft_input_event_check(wn, &change);
 		if (change.modif == 1)
 		{
-			ft_apply_modif(s_win, &change, &keep, triangle_array);
-			if (change.display->panel == 1)
-				ft_display_panel(s_win, &change);
-			change.modif = 0;
+			ft_update_raster(s_win, triangle_array);
 			SDL_RenderPresent(s_win->renderer[s_win->interface]);
+			change.modif = 0;
 		}
 		SDL_Delay(1);
 		setkeyboard(change.old, wn->state);
