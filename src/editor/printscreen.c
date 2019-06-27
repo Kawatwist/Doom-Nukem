@@ -33,7 +33,6 @@ static void	showelem(t_win *wn)
 		}
 		if (curr->next == NULL && point != NULL)
 		{
-			printf("POINTX = %d\n", point->x);
 			start = create_t_point(point->x + wn->map->x, point->y + wn->map->y);
 			end = create_t_point(wn->input->x, wn->input->y);
 			bresenham(wn, &start, &end);
