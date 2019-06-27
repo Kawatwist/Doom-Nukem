@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/27 13:58:23 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/27 17:18:35 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -16,9 +16,6 @@ neutre=\033[0m
 cyanfonce=\033[0;36m
 cyanclair=\033[1;36m
 vertfonce=\033[0;32m
-vertclair=\033[1;32m
-rouge=\033[31m
-
 NAME			= doom
 
 HEADER 			= $(shell find includes -type f) $(shell find libraries/include -type f 2>/dev/null || true)
@@ -97,17 +94,20 @@ SRC += file_bsp.c
 SRC += fille_bresename.c
 
 #RASTERIZATION
-SRC += file_rasterization_main.c
-SRC += file_vertex_modif.c
-SRC += file_vector_calcul.c
-SRC += file_get_triangle.c
-SRC += file_jerem.c
-SRC += file_clipping.c
+# SRC += file_rasterization_main.c
+# SRC += file_vertex_modif.c
+# SRC += file_vector_calcul.c
+# SRC += file_get_triangle.c
+# SRC += file_jerem.c
+# SRC += file_clipping.c
 
 #GAME ENGINE
 SRC += file_game_engine.c
 SRC += file_user_input.c
 SRC += file_rasterization.c
+SRC += file_get_triangles.c
+SRC += file_itoa_coma.c
+SRC += file_matrix_tool.c
 
 #WINDOW
 SRC += file_window.c

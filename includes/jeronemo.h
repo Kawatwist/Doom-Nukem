@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 15:16:09 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:07:24 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,14 +369,8 @@ void			ft_display_title(t_mywin *s_win);
 void			ft_display_grid(t_mywin *s_win);
 void			ft_display_delete_button(t_mywin *s_win);
 
-
-
-
 void		ft_update_show_cross(t_mywin *s_win, t_win *wn);
 void		ft_init_show_cross(t_mywin *s_win);
-
-
-
 
 void	ft_launch_map_editor(t_mywin *s_win, t_win *wn);
 void	ft_launch_rasterization(t_mywin *s_win, t_win *wn);
@@ -384,11 +378,6 @@ void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
 
 
 void	ft_display_right_pan(t_mywin *s_win);
-
-
-
-
-
 
 //bsp function
 
@@ -421,8 +410,6 @@ void			ft_split_polygon(t_mypolygon *poly,
 
 void			ft_add_polygon(t_mypolygon **polygon_lst, t_mypolygon *polygon_node);
 void			ft_afficher_le_bsp(t_mynode *s_node);
-
-
 
 t_myvec	ft_rotation_x(float angle, t_myvec vertex);
 t_myvec	ft_rotation_y(float angle, t_myvec vertex);
@@ -480,7 +467,6 @@ t_myvec		ft_scale_screen(t_myvec result);
 
 
 
-char	*ft_itoa_comma(float nbr);
 
 
 int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plan, t_mytriangle *clipped_triangle, t_mytriangle *triangle, t_mywin *s_win);

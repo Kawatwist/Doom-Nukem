@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 16:25:47 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:07:10 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,3 +20,10 @@ void		ft_update_raster(t_mywin *s_win, t_mytriangle *triangle_array);
 
 //FILE USER INPUT
 void	ft_input_event_check(t_win *wn, t_mychange *change);
+
+
+//FILE GET TRINAGLES
+t_mytriangle	*ft_get_triangles_array(t_mywin *s_win);
+
+//FILE ITOA COMMA
+char	*ft_itoa_comma(float nbr);

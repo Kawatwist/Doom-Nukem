@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 14:49:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:17:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,33 +249,6 @@ void	ft_draw_mesh(t_mywin *s_win, t_mychange *change)
 
 
 
-float	**ft_make_matrix_5_5(void)
-{
-	float	**matrix;
-	int		i;
-	int		j;
-
-	i = 0;
-	matrix = (float**)malloc(sizeof(float*) * 5);
-	while(i < 5)
-	{
-		matrix[i] = (float*)malloc(sizeof(float) * 5);
-		i++;
-	}
-	i = 0;
-	j = 0;
-	while (i < 5)
-	{
-		j = 0;
-		while (j < 5)
-		{
-			matrix[i][j] = 0.0;
-			j++;
-		}
-		i++;
-	}
-	return (matrix);
-}
 
 void	ft_draw_change(t_mywin *s_win, t_mychange *change)
 {

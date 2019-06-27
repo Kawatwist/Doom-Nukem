@@ -6,12 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 16:25:52 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:20:39 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
-
 
 void		ft_update_raster(t_mywin *s_win, t_mytriangle *triangle_array)
 {
@@ -20,9 +19,7 @@ void		ft_update_raster(t_mywin *s_win, t_mytriangle *triangle_array)
 	printf("update raster\n");
 }
 
-
-
-
+/*
 void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytriangle *triangle_array)
 {
 	int					nbr_triangle;
@@ -192,7 +189,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 			int k = 0;
 			while (k < number_of_clipped_triangle)
 			{
-				/* printf("###################################################\n"); */
+				printf("###################################################\n");
 				vertice[0].x = clipped_triangle[k].vertice[0].x;
 				vertice[0].y = clipped_triangle[k].vertice[0].y;
 				vertice[0].z = clipped_triangle[k].vertice[0].z;
@@ -225,7 +222,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 					triangle.vertice[j] = ft_scale_screen(triangle.vertice[j]);
 
 				j = 1;
-				/* while (++j < 3) */
+				while (++j < 3)
 				printf("Le %d point x=%f\t\ty=%f\t\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
 
 				//####################################
@@ -265,7 +262,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 				//{
 				//on traite puis on ajoute
 				//}
-				/* SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 0, 0, 255); */
+				SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 0, 0, 255);
 				ft_draw_triangle_base(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win);
 				k++;
 			}
@@ -283,10 +280,10 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 0, 0, 255);
     SDL_RenderClear(s_win->renderer[s_win->interface]);
 
-	/* int					nbr_triangle; */
-	/* t_mytriangle		triangle; */
-	/* int					j; */
-	/* int					i; */
+	int					nbr_triangle;
+	t_mytriangle		triangle;
+	int					j;
+	int					i;
 
 	change->theta_y = 90.0;
 
@@ -317,7 +314,7 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	change->v_target = ft_vector_add(change->v_camera, change->v_look_dir);
 
 	printf("le vecteur v_target x=%f, y=%f, z=%f\n", change->v_target.x, change->v_target.y, change->v_target.z);
-	/* return; */
+	return;
 
 	change->mat_camera = ft_matrix_point_at(change->v_camera, change->v_target, change->v_up);
 	change->mat_view = ft_matrix_quick_inverse(change->mat_camera);
@@ -353,11 +350,11 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 		}
 
 		printf("\nON APLLIQUE la PERSPECTIV\n");
-		/* j = -1; */
-		/* while (++j < 3) */
-		/* { */
-		/* 	printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z); */
-		/* } */
+		j = -1;
+		while (++j < 3)
+		{
+			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
+		}
 		j = -1;
 		while (++j < 3)
 		{
@@ -373,24 +370,18 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 			printf("Le %d point x=%f\t\ty=%f\t\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
 		}
 
-		/* printf("\nON trie\n"); */
-		/* ft_order_triangle_vertice(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2])); */
-		/* j = -1; */
-		/* while (++j < 3) */
-		/* { */
-		/* 	printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z); */
-		/* } */
+		printf("\nON trie\n");
+		ft_order_triangle_vertice(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]));
+		j = -1;
+		while (++j < 3)
+		{
+			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
+		}
 
 
 
 		//#######################
 		//creation de la list de tout les triangles
-
-
-
-
-
-
 
 
 
@@ -405,11 +396,11 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle.vertice[j].x, triangle.vertice[j].y, triangle.vertice[j].z);
 		}
 
-		/* exit(0); */
-		/* return; */
+		exit(0);
+		return;
 		i++;
 	}
-	/* exit(0); */
+	exit(0);
 	return;
 
 
@@ -421,14 +412,14 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 
 	polygon = s_win->polygon_lst;
 	keep->polygon = polygon;
-	/* printf("\n\n\n\n\nAPLY\n"); */
+	printf("\n\n\n\n\nAPLY\n");
 	while (polygon != NULL)
 	{
-		/* printf("\nNEW POLYGON\n"); */
+		printf("\nNEW POLYGON\n");
 		if (change->display->triangle == 0)
 		{
 			keep->vec = polygon->vertex_lst;
- 			/* printf("le AAAA = %d\n", polygon->number_of_vertex); */
+ 			printf("le AAAA = %d\n", polygon->number_of_vertex);
 			while (polygon->vertex_lst->next != NULL)
 			{
 				change->result_1.x = polygon->vertex_lst->x;
@@ -471,27 +462,27 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 				change->result_3.z = ft_get_the_indice_vertex_z(polygon->indices[i + 2], polygon->vertex_lst);
 
 
-				/* printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa\n"); */
+				printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa\n");
 
-				/* 	printf("the triangle first point x=%f\n", change->result_1.x); */
-				/* 	printf("the triangle first point y=%f\n", change->result_1.y); */
-				/* 	printf("the triangle first point z=%f\n", change->result_1.z); */
+					printf("the triangle first point x=%f\n", change->result_1.x);
+					printf("the triangle first point y=%f\n", change->result_1.y);
+					printf("the triangle first point z=%f\n", change->result_1.z);
 
-				/* 	printf("\n"); */
-
-
-				/* 	printf("the triangle seconde point x=%f\n", change->result_2.x); */
-				/* 	printf("the triangle seconde point y=%f\n", change->result_2.y); */
-				/* 	printf("the triangle seconde point z=%f\n", change->result_2.z); */
-
-				/* 	printf("\n"); */
-
-				/* 	printf("the triangle third point x=%f\n", change->result_3.x); */
-				/* 	printf("the triangle third point y=%f\n", change->result_3.y); */
-				/* 	printf("the triangle third point z=%f\n", change->result_3.z); */
+					printf("\n");
 
 
-				/* 	printf("\n"); */
+					printf("the triangle seconde point x=%f\n", change->result_2.x);
+					printf("the triangle seconde point y=%f\n", change->result_2.y);
+					printf("the triangle seconde point z=%f\n", change->result_2.z);
+
+					printf("\n");
+
+					printf("the triangle third point x=%f\n", change->result_3.x);
+					printf("the triangle third point y=%f\n", change->result_3.y);
+					printf("the triangle third point z=%f\n", change->result_3.z);
+
+
+					printf("\n");
 
 				SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
 				ft_draw_change(s_win, change);
@@ -502,3 +493,4 @@ void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytri
 	}
 	polygon = keep->polygon;
 }
+*/
