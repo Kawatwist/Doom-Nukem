@@ -12,13 +12,13 @@
 
 #include "doom.h"
 
-static void     find_last_poly(t_elem **curr)
+void     find_last_poly(t_elem **curr)
 {
     while (*curr != NULL && (*curr)->next != NULL)
         *curr = (*curr)->next;
 }
 
-static void     find_last_point(t_point **point)
+void     find_last_point(t_point **point)
 {
     while (*point != NULL && (*point)->next != NULL)
         *point = (*point)->next;
@@ -48,7 +48,7 @@ void            mouse_input_poly(t_win *wn)
 
     curr = wn->elem;
     find_last_poly(&curr); // REACH LAST POLYGON ACTIF
-    if (curr->point == NULL)
+    if (curr->point == NULL && mouse_pressed(wn, SDL_BUTTON_LEFT))
     {
         curr->point = malloc(sizeof(t_point));
         point = curr->point;
@@ -56,12 +56,14 @@ void            mouse_input_poly(t_win *wn)
         (point)->y = wn->input->y;
         (point)->next = NULL;
     }
-    else
+    else if (mouse_pressed(wn, SDL_BUTTON_LEFT) || mouse_pressed(wn, SDL_BUTTON_RIGHT))
     {
-        find_last_point(&point); // REACH LAST POINT CREATE
-        point = curr->point;
-        if (mouse_pressed(wn, SDL_BUTTON_LEFT) && check_point(wn, point)) // Create a new point and fill it /!\ NEED TO BE CARE FOR THE FIRST POInt OF THE FIRST POLYGON
+        if (mouse_pressed(wn, SDL_BUTTON_LEFT)) // Create a new point and fill it /!\ NEED TO BE CARE FOR THE FIRST POInt OF THE FIRST POLYGON
+        {
+            point = curr->point;
+            find_last_point(&point); // REACH LAST POINT CREATE
             fill_point(wn, &point);
+        }
         if (mouse_pressed(wn, SDL_BUTTON_RIGHT)) // CREATE A NEW POLY   /!\ BECARFULL IF A POLYGONE GOT LESS THAN 3 POINT HE'S INVALID
         {
             if ((curr->next = malloc(sizeof(t_elem))) == NULL) // MALLOC NEW POLY

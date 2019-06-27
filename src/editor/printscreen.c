@@ -28,6 +28,8 @@ static void	showelem(t_win *wn)
 				point->next->x, point->next->y);
 			point = point->next;
 		}
+		if (curr->next == NULL && point != NULL)
+			SDL_RenderDrawLine(wn->rend, point->x, point->y, wn->input->x, wn->input->y);
 		curr = curr->next;
 	}
 }

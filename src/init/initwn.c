@@ -65,9 +65,8 @@ static void	initmap(t_win **wn)
 static void	initelem(t_win **wn)
 {
 	((*wn)->elem = malloc(sizeof(t_elem))) == NULL ? stop_exec("Elem malloc failed\n", *wn) : 0;
-	((*wn)->elem->point = malloc(sizeof(t_point))) == NULL ? stop_exec("point malloc failed\n", *wn) : 0;
+	(*wn)->elem->point = NULL;
 	(*wn)->elem->next = NULL;
-	(*wn)->elem->point->next = NULL;
 }
 
 static void	initmenu(t_win **wn)

@@ -290,6 +290,8 @@ void				print_text_with_arial_path_full(t_win *wn, char *s, SDL_Color color, SDL
 void 				message_bg_editor(t_win *wn, char *message);
 void 				load_background(t_win *wn);
 int 				is_path_ok(t_win *wn, char *path);
+void   				find_last_poly(t_elem **curr);
+void     			find_last_point(t_point **point);
 
 void				mainconsole(t_win *wn);
 void				inputconsole(t_win *wn);
