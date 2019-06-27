@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/26 13:40:03 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:49:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,12 +128,6 @@ void	ft_calcul_projection(t_mychange *change)
 }
 }
 
-
-
-
-
-
-
 int		ft_calcul_culing(t_mychange *change, t_mytriangle *triangle)
 { float			l;
 	t_myvec			normal;
@@ -163,7 +157,7 @@ void	ft_draw_mesh(t_mywin *s_win, t_mychange *change)
 	t_mycolor			color;
 
 	color = ft_setcolor(RED);
-	SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg, color.bbb, 255);
+	SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], color.rrr, color.ggg, color.bbb, 255);
 
 	if (change->display->culling_face == 1)
 	{
@@ -248,7 +242,7 @@ void	ft_draw_mesh(t_mywin *s_win, t_mychange *change)
 			ft_fill_triangle_one_color(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
 		}
 		color = ft_setcolor(PINK);
-		SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg, color.bbb, 255);
+		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], color.rrr, color.ggg, color.bbb, 255);
 		ft_draw_triangle_base(&(change->result_1), &(change->result_2), &(change->result_3), s_win);
 	}
 }

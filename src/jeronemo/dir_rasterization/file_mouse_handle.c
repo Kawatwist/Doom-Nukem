@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 11:47:41 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/19 15:47:22 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 13:08:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,67 +201,4 @@ void	ft_display_panel(t_mywin *s_win, t_mychange *change)
 	ft_display_menu_panel_cross(s_win, change);
 }
 
-int	ft_click_perspective()
-{
-	return (0);
-}
-int	ft_click_orthographique()
-{
-	return (0);
-}
-int	ft_click_culing_face()
-{
-	return (0);
-}
-int	ft_click_display_triangle()
-{
-	return (0);
-}
-int	ft_click_display_triangle_normal()
-{
-	return (0);
-}
-int	ft_click_display_mesh()
-{
-	return (0);
-}
-int	ft_click_display_mesh_normal()
-{
-	return (0);
-}
-int	ft_click_color()
-{
-	return (0);
-}
 
-void		ft_mouse_event_check(t_win *wn, t_mychange *change)
-{
-	(void)change;
-	if ((wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)) && ((wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT)) == 0)  )
-
-
-		if (ft_click_perspective())
-		{
-		}
-	if (ft_click_orthographique())
-	{
-	}
-	if (ft_click_culing_face())
-	{
-	}
-	if (ft_click_display_triangle())
-	{
-	}
-	if (ft_click_display_triangle_normal())
-	{
-	}
-	if (ft_click_display_mesh())
-	{
-	}
-	if (ft_click_display_mesh_normal())
-	{
-	}
-	if (ft_click_color())
-	{
-	}
-}

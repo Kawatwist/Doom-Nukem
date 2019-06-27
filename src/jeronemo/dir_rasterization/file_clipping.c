@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/26 12:56:47 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:51:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 		clipped_triangle[0].vertice[0] = points_inside[0];
 		clipped_triangle[0].vertice[1] = ft_vector_intersect(plane_N, point_plane_Q, points_inside[0], points_outside[0]);
 		clipped_triangle[0].vertice[2] = ft_vector_intersect(plane_N, point_plane_Q, points_inside[0], points_outside[1]);
-		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 0, 0, 255);
+		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
 		result = 1;
 	}
 	else if (n_inside_points == 2)
@@ -201,7 +201,7 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 		clipped_triangle[1].vertice[0] = points_inside[1];
 		clipped_triangle[1].vertice[1] = clipped_triangle[0].vertice[2];
 		clipped_triangle[1].vertice[2] = ft_vector_intersect(plane_N,  point_plane_Q, points_inside[1], points_outside[0]);
-		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 255, 0, 255);
+		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 255, 0, 255);
 		result = 2;
 	}
 	else if (n_inside_points == 3)
@@ -210,7 +210,7 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 		clipped_triangle[0].vertice[0] = points_inside[0];
 		clipped_triangle[0].vertice[1] = points_inside[1];
 		clipped_triangle[0].vertice[2] = points_inside[2];
-		SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 255, 255);
+		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 0, 255, 255);
 		result = 1;
 	}
 	return (result);

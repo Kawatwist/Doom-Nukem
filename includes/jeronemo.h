@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/26 13:43:28 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 15:16:09 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,11 +286,17 @@ typedef struct			s_mynode
 	char				is_solid;
 }						t_mynode;
 
+
+typedef struct				s_myraster
+{
+	void					*blah;
+}							t_myraster;
+
 typedef struct				s_mywin
 {
 	t_mypolygon				*polygon_lst;
-	SDL_Window				*window[3];
-	SDL_Renderer			*renderer[3];
+	SDL_Window				*window[50]; //a mallocer par le nombre d'inte
+	SDL_Renderer			*renderer[50];
 	t_mylocalisation_box	*s_localisation_box;
 	t_mysquare				*s_localisation_quit_button;
 	t_mysquare				*s_localisation_save_button;
@@ -301,8 +307,9 @@ typedef struct				s_mywin
 	t_mywall				*lst_wall;
 	t_mycurrent_wall		current_wall;
 	tj_window				current_window;
+	t_interface				interface;
+	t_myraster				raster;
 }							t_mywin;
-
 
 
 
@@ -316,17 +323,16 @@ typedef struct			s_mykeep
 
 
 /**
- ** Map editor functions definitions
+ ** DIR WINDOW
  **/
-
+void		ft_launch_window(t_mywin *s_win, t_interface interface);
+void		ft_clear_window(t_mywin *s_win);
+void		ft_draw_line(t_mywin *s_win, t_myputtheline *s_line);
 
 /**
  ** BSP Tree generator functions definitions
  **/
 
-/**
- ** Graphic engine functions definitions
- **/
 
 /**
  ** Share !!
@@ -335,9 +341,7 @@ typedef struct			s_mykeep
 /**
  ** Map editon functions definitions
  **/
-void			ft_draw_line(t_mywin *s_win, t_myputtheline *s_line);
 void			ft_draw_square(t_mywin *s_win, t_mysquare *s_square);
-void			ft_launch_window(t_mywin *s_win);
 t_mysquare		ft_setsquare(int x, int  y, int  width, int  height, t_mycolor s_color );
 t_mycolor		ft_setcolor(int rrr, int ggg, int bbb);
 void			ft_draw_cross(t_mywin *s_win, t_mycross *s_cross);
@@ -367,7 +371,6 @@ void			ft_display_delete_button(t_mywin *s_win);
 
 
 
-void		ft_launch_window(t_mywin *s_win);
 
 void		ft_update_show_cross(t_mywin *s_win, t_win *wn);
 void		ft_init_show_cross(t_mywin *s_win);
@@ -459,9 +462,6 @@ t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i);
 
 
 t_myvec	ft_perspective_projection(t_myvec vertex);
-
-void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytriangle *triangle);
-
 
 int				ft_get_nbr_of_triangle(t_mywin *s_win);
 

@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/26 08:28:05 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/27 13:58:23 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -104,6 +104,10 @@ SRC += file_get_triangle.c
 SRC += file_jerem.c
 SRC += file_clipping.c
 
+#GAME ENGINE
+SRC += file_game_engine.c
+SRC += file_user_input.c
+SRC += file_rasterization.c
 
 #WINDOW
 SRC += file_window.c

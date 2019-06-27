@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 10:35:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/07 14:09:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:40:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void			ft_case_one(t_mywin *s_win, t_myputtheline *s_line)
 	while (s_line->i <= s_line->d_x)
 	{
 		(s_line->i)++;
-		SDL_RenderDrawPoint(s_win->renderer[s_win->current_window], (int)s_line->deux.a,
+		SDL_RenderDrawPoint(s_win->renderer[s_win->interface], (int)s_line->deux.a,
 (int)s_line->deux.b);
 		s_line->deux.a += s_line->x_incr;
 	}
@@ -27,7 +27,7 @@ void			ft_case_two(t_mywin *s_win, t_myputtheline *s_line)
 {
 	while (s_line->i <= s_line->d_x)
 	{
-		SDL_RenderDrawPoint(s_win->renderer[s_win->current_window], (int)s_line->deux.a,
+		SDL_RenderDrawPoint(s_win->renderer[s_win->interface], (int)s_line->deux.a,
 (int)s_line->deux.b);
 		(s_line->i)++;
 		s_line->deux.a += s_line->x_incr;
@@ -45,7 +45,7 @@ void			ft_case_three(t_mywin *s_win, t_myputtheline *s_line)
 	while (s_line->i <= s_line->d_x)
 	{
 		(s_line->i)++;
-		SDL_RenderDrawPoint(s_win->renderer[s_win->current_window], (int)s_line->deux.a,
+		SDL_RenderDrawPoint(s_win->renderer[s_win->interface], (int)s_line->deux.a,
 (int)s_line->deux.b);
 		s_line->deux.a += s_line->x_incr;
 		s_line->deux.b += s_line->y_incr;
@@ -56,7 +56,7 @@ void			ft_case_four(t_mywin *s_win, t_myputtheline *s_line)
 {
 	while (s_line->i <= s_line->d_y)
 	{
-		SDL_RenderDrawPoint(s_win->renderer[s_win->current_window], (int)s_line->deux.a,
+		SDL_RenderDrawPoint(s_win->renderer[s_win->interface], (int)s_line->deux.a,
 (int)s_line->deux.b);
 		(s_line->i)++;
 		s_line->deux.b += s_line->y_incr;
@@ -74,7 +74,7 @@ void			ft_case_five(t_mywin *s_win, t_myputtheline *s_line)
 	while (s_line->i <= s_line->d_y)
 	{
 		(s_line->i)++;
-		SDL_RenderDrawPoint(s_win->renderer[s_win->current_window], (int)s_line->deux.a,
+		SDL_RenderDrawPoint(s_win->renderer[s_win->interface], (int)s_line->deux.a,
 (int)s_line->deux.b);
 		s_line->deux.b += s_line->y_incr;
 	}

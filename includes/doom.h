@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/26 11:03:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 13:43:36 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef enum		e_interface
 	KEYOPTION,
 	LOADING,
 	PAUSE,
+	GAME_ENGINE,
+	GAME_EDITOR,
 }					t_interface;
 
 typedef struct		s_myvec

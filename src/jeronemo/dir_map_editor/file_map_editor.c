@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 13:43:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/27 13:44:13 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,7 +326,7 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 	s_win->current_wall.first_point.set = FALSE;
 	s_win->current_wall.first_point.set = FALSE;
 
-	ft_launch_window(s_win);
+	ft_launch_window(s_win, GAME_EDITOR);
 	ft_display_ihc(s_win);
 	quit = FALSE;
 	while (!quit)
