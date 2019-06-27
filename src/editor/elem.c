@@ -28,8 +28,8 @@ static void     fill_point(t_win *wn, t_point **point) // SET VALUE OF A POINT A
 {
    	(*point)->next = malloc(sizeof(t_point));
    	(*point) = (*point)->next;
-    (*point)->x = wn->input->x;
-    (*point)->y = wn->input->y;
+    (*point)->x = wn->input->x - wn->map->x;
+    (*point)->y = wn->input->y - wn->map->y;
     (*point)->next = NULL;
 }
 
@@ -48,15 +48,15 @@ void            mouse_input_poly(t_win *wn)
 
     curr = wn->elem;
     find_last_poly(&curr); // REACH LAST POLYGON ACTIF
-    if (curr->point == NULL && mouse_pressed(wn, SDL_BUTTON_LEFT))
+    if (curr->point == NULL && mouse_pressed(wn, SDL_BUTTON_LEFT)  && (wn->input->x - wn->map->x) <= wn->map->w && (wn->input->y - wn->map->y) <= wn->map->h && (wn->input->x - wn->map->x) >= 0 && (wn->input->y - wn->map->y) >= 0)
     {
         curr->point = malloc(sizeof(t_point));
         point = curr->point;
-        (point)->x = wn->input->x;
-        (point)->y = wn->input->y;
-        (point)->next = NULL;
+        point->x = wn->input->x - wn->map->x;
+        point->y = wn->input->y - wn->map->y;
+        point->next = NULL;
     }
-    else if (mouse_pressed(wn, SDL_BUTTON_LEFT) || mouse_pressed(wn, SDL_BUTTON_RIGHT))
+    else if ((mouse_pressed(wn, SDL_BUTTON_LEFT) || mouse_pressed(wn, SDL_BUTTON_RIGHT)) && (wn->input->x - wn->map->x) <= wn->map->w && (wn->input->y - wn->map->y) <= wn->map->h && (wn->input->x - wn->map->x) >= 0 && (wn->input->y - wn->map->y) >= 0)
     {
         if (mouse_pressed(wn, SDL_BUTTON_LEFT)) // Create a new point and fill it /!\ NEED TO BE CARE FOR THE FIRST POInt OF THE FIRST POLYGON
         {

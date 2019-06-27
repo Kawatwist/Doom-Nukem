@@ -16,20 +16,28 @@ static void	showelem(t_win *wn)
 {
 	t_elem		*curr;
 	t_point		*point;
+	t_point 	start;
+	t_point 	end;
 
 	curr = wn->elem;
 	while (curr != NULL)
 	{
 		point = curr->point;
+		SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
 		while (point != NULL && point->next != NULL)
 		{
-			SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
-			SDL_RenderDrawLine(wn->rend, point->x, point->y,
-				point->next->x, point->next->y);
+			start = create_t_point(point->x + wn->map->x, point->y + wn->map->y);
+			end = create_t_point(point->next->x + wn->map->x, point->next->y + wn->map->y);
+			bresenham(wn, &start, &end);
 			point = point->next;
 		}
 		if (curr->next == NULL && point != NULL)
-			SDL_RenderDrawLine(wn->rend, point->x, point->y, wn->input->x, wn->input->y);
+		{
+			printf("POINTX = %d\n", point->x);
+			start = create_t_point(point->x + wn->map->x, point->y + wn->map->y);
+			end = create_t_point(wn->input->x, wn->input->y);
+			bresenham(wn, &start, &end);
+		}
 		curr = curr->next;
 	}
 }
