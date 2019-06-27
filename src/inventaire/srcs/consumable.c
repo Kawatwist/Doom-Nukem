@@ -6,32 +6,62 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:15:05 by naali             #+#    #+#             */
-/*   Updated: 2019/06/24 10:55:31 by naali            ###   ########.fr       */
+/*   Updated: 2019/06/26 17:09:50 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include "libft.h"
 #include "inventaire.h"
 
-static void		use_potion(t_joueur *p, t_consumable *c)
+static void		use_potion(t_joueurs *p, t_consumable *c)
 {
-	if (p->vie < 100)
+	if (p->vie < 100 && c->qty > 0)
 	{
 		c->qty -= 1;
 		p->vie += c->used;
 	}
-	if (p->vie > 100)
-		p->vie == 100;
+	if (p->vie >= 100)
+		p->vie = 100;
+	printf("Vie du joueur %s = %d, utilisation restante = %d\n", p->name, p->vie, c->qty);
 }
 
-static void		use_battery(t_joueur *p, t_consumable *c)
+static void		use_battery(t_joueurs *p, t_consumable *c)
 {
-	if (p->energie < 100)
+	if (p->energie < 100 && c->qty > 0)
 	{
 		c->qty -= 1;
 		p->energie += c->used;
 	}
-	if (p->energie > 100)
-		p->energie == 100;
+	if (p->energie >= 100)
+		p->energie = 100;
+	printf("Energie du joueur %s = %d, utilisation restante = %d\n", p->name, p->energie, c->qty);
+}
+
+
+static int		check_nodes(t_consumable **start, t_consumable *node, int qty)
+{
+	t_consumable	*tmp;
+
+	tmp = *start;
+	tmp = tmp->next;
+	while (tmp != *start)
+	{
+		if (ft_strcmp(tmp->name, node->name) == 0)
+		{
+			tmp->qty += qty;
+			destroy_conso_list(&node);
+			return (1);
+		}
+		tmp = tmp->next;
+	}
+	if (ft_strcmp(tmp->name, node->name) == 0)
+	{
+		tmp->qty += qty;
+		destroy_conso_list(&node);
+		return (1);
+	}
+	return (0);
 }
 
 t_consumable	*new_conso(char *name, unsigned int qty)
@@ -39,7 +69,7 @@ t_consumable	*new_conso(char *name, unsigned int qty)
 	t_consumable			*conso;
 	static unsigned int		id = 0;
 
-	if ((conso = (t_consumble*)malloc(sizeof(t_consumable))) == NULL)
+	if ((conso = (t_consumable*)malloc(sizeof(t_consumable))) == NULL)
 	{
 		ft_putstr("erreur de malloc dans new_conso\n");// Modifier fonction d'erreur...
 		exit(-1);
@@ -54,9 +84,9 @@ t_consumable	*new_conso(char *name, unsigned int qty)
 		conso->used = (ft_strlen(conso->name) <= 8) ? 50 : 100;
 	conso->qty = qty;
 	if (conso->type == 1)
-		conso->use = NULL;// Modifier NULL par l'addresse de la fonction d'utilisation des potions
+		conso->use = &use_potion;
 	else
-		conso->use = NULL;// Modifier NULL par l'addresse de la fonction d'utilisation des batteries
+		conso->use = &use_battery;
 	conso->next = NULL;
 	conso->previous = NULL;
 	return (conso);
@@ -68,6 +98,8 @@ void			pushback_conso(t_consumable **start, t_consumable *node)
 
 	if (start != NULL && *start != NULL)
 	{
+		if (check_nodes(start, node, node->qty) != 0)
+			return ;
 		tmp = *start;
 		tmp = tmp->previous;
 		node->previous = tmp;
@@ -83,7 +115,7 @@ void			pushback_conso(t_consumable **start, t_consumable *node)
 	}
 }
 
-void		drestroy_conso_list(t_consumable **start)
+void		destroy_conso_list(t_consumable **start)
 {
 	t_consumable	*tmp;
 
