@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 16:29:44 by naali             #+#    #+#             */
-/*   Updated: 2019/06/27 20:33:25 by naali            ###   ########.fr       */
+/*   Updated: 2019/06/28 15:23:17 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,31 @@ struct				s_weapons
 	int				munition;
 	int				max_ammo;
 	int				entityammo;// Position de l'arme
-	void			(*shoot)(t_weapons *weapon/* , t_foes ou t_player *ennemi */);// Fonction de tire
-	void			(*reload)(t_weapons *weapon, int max);// Fonction de recharge de l'arme
+	void			(*shoot)(/* t_weapons *weapon *//* , t_foes ou t_player *ennemi */);// Fonction de tire
+	void			(*reload)(/* t_weapons *weapon, int max */);// Fonction de recharge de l'arme
 	t_weapons		*previous;// Boucle
 	t_weapons		*next;// Boucle
 };
 
+/* INIT */
+void			init_names_n_dmg(char ***names, unsigned int (*dmg)[12][3]);
+void			free_tab_names(char ***n);
+
+/* SHOT & RELOAD */
+void			cac_shot();
+void			range_shot();
+void			area_shot();
+
+void			cac_reload();
+void			range_reload();
+void			area_reload();
+
+void			select_shot_reload(t_weapons *w, int type);
+
 /* ARME */
 t_weapons		*new_weapon(char *name, int type, int max_ammo);
+void			pushback_weapons(t_weapons **start, t_weapons *node);
+void			destroy_weapo_list(t_weapons **start);
+int				weapo_list_len(t_weapons **start);
 
 #endif

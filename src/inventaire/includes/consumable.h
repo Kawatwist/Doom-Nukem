@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 16:26:35 by naali             #+#    #+#             */
-/*   Updated: 2019/06/26 16:31:55 by naali            ###   ########.fr       */
+/*   Updated: 2019/06/28 15:55:08 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ struct				s_consumable
 };
 
 /* CONSOMABLE */
-t_consumable		*new_conso(char *name, unsigned int qty);
+t_consumable		*new_conso(char *name, unsigned int qty, t_consumable **start);
 void				pushback_conso(t_consumable **start, t_consumable *node);
 void				destroy_conso_list(t_consumable **start);
+int					conso_list_len(t_consumable **start);
 
 #endif
