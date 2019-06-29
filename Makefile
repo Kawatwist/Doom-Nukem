@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/29 19:55:58 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/29 20:32:22 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -109,6 +109,7 @@ SRC += file_get_triangles.c
 SRC += file_itoa_coma.c
 SRC += file_matrix_tool.c
 SRC += file_vector_tool.c
+SRC += file_fill_triangle.c
 
 #WINDOW
 SRC += file_window.c
