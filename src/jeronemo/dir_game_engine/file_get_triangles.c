@@ -6,11 +6,200 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:58:52 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 17:03:52 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 16:02:10 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <header_game_engine.h>
+
+
+
+
+t_mytriangle	*ft_get_triangle(void)
+{
+	t_mytriangle	*triangle_array;
+	triangle_array = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 12);
+	triangle_array[0].vertice[0].x = 0.0;
+	triangle_array[0].vertice[0].y = 0.0;
+	triangle_array[0].vertice[0].z = 0.0;
+
+	triangle_array[0].vertice[1].x = 0.0;
+	triangle_array[0].vertice[1].y = 1.0;
+	triangle_array[0].vertice[1].z = 0.0;
+
+	triangle_array[0].vertice[2].x = 1.0;
+	triangle_array[0].vertice[2].y = 1.0;
+	triangle_array[0].vertice[2].z = 0.0;
+
+
+
+	triangle_array[1].vertice[0].x = 0.0;
+	triangle_array[1].vertice[0].y = 0.0;
+	triangle_array[1].vertice[0].z = 0.0;
+
+	triangle_array[1].vertice[1].x = 1.0;
+	triangle_array[1].vertice[1].y = 1.0;
+	triangle_array[1].vertice[1].z = 0.0;
+
+	triangle_array[1].vertice[2].x = 1.0;
+	triangle_array[1].vertice[2].y = 0.0;
+	triangle_array[1].vertice[2].z = 0.0;
+
+
+
+
+	triangle_array[2].vertice[0].x = 1.0;
+	triangle_array[2].vertice[0].y = 0.0;
+	triangle_array[2].vertice[0].z = 0.0;
+
+	triangle_array[2].vertice[1].x = 1.0;
+	triangle_array[2].vertice[1].y = 1.0;
+	triangle_array[2].vertice[1].z = 0.0;
+
+	triangle_array[2].vertice[2].x = 1.0;
+	triangle_array[2].vertice[2].y = 1.0;
+	triangle_array[2].vertice[2].z = 1.0;
+
+
+
+	triangle_array[3].vertice[0].x = 1.0;
+	triangle_array[3].vertice[0].y = 0.0;
+	triangle_array[3].vertice[0].z = 0.0;
+
+	triangle_array[3].vertice[1].x = 1.0;
+	triangle_array[3].vertice[1].y = 1.0;
+	triangle_array[3].vertice[1].z = 1.0;
+
+	triangle_array[3].vertice[2].x = 1.0;
+	triangle_array[3].vertice[2].y = 0.0;
+	triangle_array[3].vertice[2].z = 1.0;
+
+
+
+	triangle_array[4].vertice[0].x = 1.0;
+	triangle_array[4].vertice[0].y = 0.0;
+	triangle_array[4].vertice[0].z = 1.0;
+
+	triangle_array[4].vertice[1].x = 1.0;
+	triangle_array[4].vertice[1].y = 1.0;
+	triangle_array[4].vertice[1].z = 1.0;
+
+	triangle_array[4].vertice[2].x = 0.0;
+	triangle_array[4].vertice[2].y = 1.0;
+	triangle_array[4].vertice[2].z = 1.0;
+
+
+
+	triangle_array[5].vertice[0].x = 1.0;
+	triangle_array[5].vertice[0].y = 0.0;
+	triangle_array[5].vertice[0].z = 1.0;
+
+	triangle_array[5].vertice[1].x = 0.0;
+	triangle_array[5].vertice[1].y = 1.0;
+	triangle_array[5].vertice[1].z = 1.0;
+
+	triangle_array[5].vertice[2].x = 0.0;
+	triangle_array[5].vertice[2].y = 0.0;
+	triangle_array[5].vertice[2].z = 1.0;
+
+
+
+	triangle_array[6].vertice[0].x = 0.0;
+	triangle_array[6].vertice[0].y = 0.0;
+	triangle_array[6].vertice[0].z = 1.0;
+
+	triangle_array[6].vertice[1].x = 0.0;
+	triangle_array[6].vertice[1].y = 1.0;
+	triangle_array[6].vertice[1].z = 1.0;
+
+	triangle_array[6].vertice[2].x = 0.0;
+	triangle_array[6].vertice[2].y = 1.0;
+	triangle_array[6].vertice[2].z = 0.0;
+
+
+	triangle_array[7].vertice[0].x = 0.0;
+	triangle_array[7].vertice[0].y = 0.0;
+	triangle_array[7].vertice[0].z = 1.0;
+
+	triangle_array[7].vertice[1].x = 0.0;
+	triangle_array[7].vertice[1].y = 1.0;
+	triangle_array[7].vertice[1].z = 0.0;
+
+	triangle_array[7].vertice[2].x = 1.0;
+	triangle_array[7].vertice[2].y = 0.0;
+	triangle_array[7].vertice[2].z = 1.0;
+
+
+	triangle_array[8].vertice[0].x = 0.0;
+	triangle_array[8].vertice[0].y = 1.0;
+	triangle_array[8].vertice[0].z = 0.0;
+
+	triangle_array[8].vertice[1].x = 0.0;
+	triangle_array[8].vertice[1].y = 1.0;
+	triangle_array[8].vertice[1].z = 1.0;
+
+	triangle_array[8].vertice[2].x = 1.0;
+	triangle_array[8].vertice[2].y = 1.0;
+	triangle_array[8].vertice[2].z = 1.0;
+
+
+	triangle_array[9].vertice[0].x = 0.0;
+	triangle_array[9].vertice[0].y = 1.0;
+	triangle_array[9].vertice[0].z = 0.0;
+
+	triangle_array[9].vertice[1].x = 1.0;
+	triangle_array[9].vertice[1].y = 1.0;
+	triangle_array[9].vertice[1].z = 1.0;
+
+	triangle_array[9].vertice[2].x = 1.0;
+	triangle_array[9].vertice[2].y = 1.0;
+	triangle_array[9].vertice[2].z = 0.0;
+
+
+	triangle_array[10].vertice[0].x = 1.0;
+	triangle_array[10].vertice[0].y = 0.0;
+	triangle_array[10].vertice[0].z = 1.0;
+
+	triangle_array[10].vertice[1].x = 0.0;
+	triangle_array[10].vertice[1].y = 0.0;
+	triangle_array[10].vertice[1].z = 1.0;
+
+	triangle_array[10].vertice[2].x = 0.0;
+	triangle_array[10].vertice[2].y = 0.0;
+	triangle_array[10].vertice[2].z = 0.0;
+
+
+	triangle_array[11].vertice[0].x = 1.0;
+	triangle_array[11].vertice[0].y = 0.0;
+	triangle_array[11].vertice[0].z = 1.0;
+
+	triangle_array[11].vertice[1].x = 0.0;
+	triangle_array[11].vertice[1].y = 0.0;
+	triangle_array[11].vertice[1].z = 0.0;
+
+	triangle_array[11].vertice[2].x = 1.0;
+	triangle_array[11].vertice[2].y = 0.0;
+	triangle_array[11].vertice[2].z = 0.0;
+
+	return (triangle_array);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void			ft_display_triangle_array(t_mywin *s_win, t_mytriangle *triangle)
 {

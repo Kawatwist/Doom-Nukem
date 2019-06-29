@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 17:07:24 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 14:27:10 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,10 +287,6 @@ typedef struct			s_mynode
 }						t_mynode;
 
 
-typedef struct				s_myraster
-{
-	void					*blah;
-}							t_myraster;
 
 typedef struct				s_mywin
 {
@@ -308,7 +304,6 @@ typedef struct				s_mywin
 	t_mycurrent_wall		current_wall;
 	tj_window				current_window;
 	t_interface				interface;
-	t_myraster				raster;
 }							t_mywin;
 
 

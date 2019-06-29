@@ -6,16 +6,22 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 16:59:29 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 15:08:20 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <header_game_engine.h>
 
-void	ft_init_rasterization(t_mykeep *keep, t_mychange *change, t_myraster raster)
+void	ft_init_rasterization(t_mykeep *keep, t_mychange *change, t_myraster *raster)
 {
+	raster->mat_trans = ft_make_matrix_5_5();
+	raster->mat_rot_x = ft_make_matrix_5_5();
+	raster->mat_rot_y = ft_make_matrix_5_5();
+	raster->mat_rot_z = ft_make_matrix_5_5();
+	raster->mat_proje = ft_make_matrix_5_5();
 
-	(void)raster;
+
+
 
 
 	keep->polygon = NULL;
@@ -58,21 +64,22 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 {
 	t_mychange			change;
 	t_mykeep			keep;
-	t_mytriangle		*triangle_array;
+	t_myraster			raster;
+	/* t_mytriangle		*triangle_array; */
 
 	ft_launch_bsp_tree(s_win, wn);
-	triangle_array = ft_get_triangles_array(s_win);
+	/* triangle_array = ft_get_triangles_array(s_win); */
 	SDL_Init(SDL_INIT_EVERYTHING);
 	s_win->interface = GAME_ENGINE;
 	ft_launch_window(s_win, s_win->interface);
-	ft_init_rasterization(&keep, &change, s_win->raster);
+	ft_init_rasterization(&keep, &change, &raster);
 	/*ft_display_triangle_array(s_win, triangle_array);*/
 	while (!change.quit)
 	{
 		ft_input_event_check(wn, &change);
 		if (change.modif == 1)
 		{
-			ft_update_raster(s_win, triangle_array);
+			ft_update_raster(s_win, &raster/*, triangle_array*/);
 			SDL_RenderPresent(s_win->renderer[s_win->interface]);
 			change.modif = 0;
 		}
