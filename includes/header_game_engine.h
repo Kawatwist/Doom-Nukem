@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/29 18:18:47 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 19:42:58 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_mytriangle	*ft_get_triangles_array(t_mywin *s_win);
 //FILE ITOA COMMA
 char	*ft_itoa_comma(float nbr);
 
-
 //FILE MATRIX TOOL
 t_myvec	ft_scale_screen(t_myvec result);
 float	ft_rad(float angle);
@@ -49,3 +48,6 @@ void	ft_set_raster_rot_x(float theta, t_myraster *raster);
 void	ft_set_raster_rot_y(float theta, t_myraster *raster);
 void	ft_set_raster_rot_z(float theta, t_myraster *raster);
 void	ft_set_pro(t_myraster *raster);
+
+//FILE VECTOR TOOL
+t_myvec        ft_normalise(t_myvec vector);

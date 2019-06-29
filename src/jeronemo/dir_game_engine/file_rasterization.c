@@ -6,47 +6,154 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/29 18:58:04 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 19:54:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
-int		ft_calcul_culing(t_mychange *change, t_mytriangle *triangle)
-{ float			l;
-	t_myvec			normal;
-	t_myvec			camera;
 
-	;
-	camera.x = change->v_camera.x;
-	camera.y = change->v_camera.y;
-	camera.z = change->v_camera.z;
-	camera.x = 0;
-	camera.y = 0;
-	camera.z = 0;
-	normal = ft_calculate_normal_of_points(triangle->vertice[0], triangle->vertice[1], triangle->vertice[2]);
-	//normalisation
-	l = sqrtf(normal.x * normal.x + normal.y * normal.y + normal.z*normal.z);
-	normal.x /= l;
-	normal.y /= l;
-	normal.z /= l;
-	if ((normal.x * (triangle->vertice[0].x - camera.x) +
-				normal.y * (triangle->vertice[0].y - camera.y) +
-				normal.z * (triangle->vertice[0].z - camera.z)) < 0.0)
-		return (0);
-	else
-		return (1);
+void	ft_order_triangle_vertice(t_myvec *v1, t_myvec *v2, t_myvec *v3)
+{
+	t_myvec		temp;
+	int			j;
+	int			i;
+	t_myvec		tab[3];
+
+
+	tab[0] =  *v1;
+	tab[1] =  *v2;
+	tab[2] =  *v3;
+	i = 0;
+	while (i < 3)
+	{
+		j = 0;
+		while (j < 2)
+		{
+			if (tab[j].y > tab[j + 1].y)
+			{
+				temp = tab[j];
+				tab[j] = tab[j + 1];
+				tab[j + 1] = temp;
+				i = 0;
+			}
+			j++;
+		}
+		i++;
+	}
+	*v1 = tab[0];
+	*v2 = tab[1];
+	*v3 = tab[2];
 }
 
-t_myvec        ft_normalise(t_myvec vector)
+void	ft_fill_bottom_flat_triangle(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win)
 {
-   	float        l;
+	float				invslope1;
+	float				invslope2;
+	float				curx1;
+	float				curx2;
+	t_myputtheline		s_line;;
+	int					scanline_y;
 
-   	l = sqrtf(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
-   	vector.x /= l;
-   	vector.y /= l;
-   	vector.z /= l;
-   	return (vector);
+	invslope1 = (v2->x - v1->x) / (v2->y - v1->y);
+	invslope2 = (v3->x - v1->x) / (v3->y - v1->y);
+	curx1 = v1->x;
+	curx2 = v1->x;
+	scanline_y = v1->y;
+	while (scanline_y < v2->y - 1)
+	{
+		s_line.un.a = (int)curx1;
+		s_line.un.b = scanline_y;
+		s_line.deux.a = (int)curx2;
+		s_line.deux.b = scanline_y;
+		ft_draw_line(s_win, &s_line);
+		curx1 += invslope1;
+		curx2 += invslope2;
+		scanline_y++;
+	}
+}
+
+void	ft_fill_top_flat_triangle(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win)
+{
+	float	invslope1 = (v3->x - v1->x) / (v3->y - v1->y);
+	float	invslope2 = (v3->x - v2->x) / (v3->y - v2->y);
+
+	float	curx1 = v3->x;
+	float	curx2 = v3->x;
+	t_myputtheline		s_line;;
+
+	int		scanline_y = v3->y;
+	while (scanline_y > v1->y)
+	{
+		s_line.un.a = (int)curx1;
+		s_line.un.b = scanline_y;
+		s_line.deux.a = (int)curx2;
+		s_line.deux.b = scanline_y;
+		ft_draw_line(s_win, &s_line);
+		curx1 -= invslope1;
+		curx2 -= invslope2;
+		scanline_y--;
+	}
+}
+
+void	ft_fill_triangle_one_color(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win)
+{
+	t_myvec				v4;
+	t_myputtheline		s_line;;
+
+	if (v2->y == v3->y)
+		ft_fill_bottom_flat_triangle(v1, v2, v3, s_win);
+	else if (v1->y == v2->y)
+		ft_fill_top_flat_triangle(v1, v2, v3, s_win);
+	else
+	{
+		v4.y = v2->y;
+		v4.x = v1->x + ((v2->y - v1->y) / (v3->y - v1->y)) * (v3->x - v1->x);
+		s_line.un.a = v2->x;
+		s_line.un.b = v2->y;
+		s_line.deux.a = v4.x;
+		s_line.deux.b = v4.y;
+		ft_draw_line(s_win, &s_line);
+		ft_fill_bottom_flat_triangle(v1, v2, &v4, s_win);
+		ft_fill_top_flat_triangle(v2, &v4, v3, s_win);
+	}
+}
+
+void	ft_fill_triangle_shade(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win, float shade)
+{
+	t_myvec				v4;
+	t_myputtheline		s_line;;
+	t_mycolor			color;
+
+	color = ft_setcolor(GREEN);
+
+
+	ft_order_triangle_vertice(v1, v2, v3);
+
+
+
+
+
+
+
+	shade = 255;
+	SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], color.rrr, color.ggg - v1->shade, color.bbb, shade);
+	if (v2->y == v3->y)
+		ft_fill_bottom_flat_triangle(v1, v2, v3, s_win);
+	else if (v1->y == v2->y)
+		ft_fill_top_flat_triangle(v1, v2, v3, s_win);
+	else
+	{
+		v4.y = v2->y;
+		v4.x = v1->x + ((v2->y - v1->y) / (v3->y - v1->y)) * (v3->x - v1->x);
+		s_line.un.a = v2->x;
+		s_line.un.b = v2->y;
+		s_line.deux.a = v4.x;
+		s_line.deux.b = v4.y;
+		ft_draw_line(s_win, &s_line);
+		ft_fill_bottom_flat_triangle(v1, v2, &v4, s_win);
+		ft_fill_top_flat_triangle(v2, &v4, v3, s_win);
+	}
 }
 
 void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *triangle_array*/)
@@ -72,8 +179,8 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 		i++;
 	}
 
-
 	int ftheta;
+	int shade = 1;
 	ftheta = 0;
 
 	raster->v_camera.x = 0;
@@ -120,7 +227,10 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 				triangle[i].vertice[0] = ft_scale_screen(triangle[i].vertice[0]);
 				triangle[i].vertice[1] = ft_scale_screen(triangle[i].vertice[1]);
 				triangle[i].vertice[2] = ft_scale_screen(triangle[i].vertice[2]);
-				//DRAW
+				//DRAW FILL TRIANGLE
+				SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 0, 255, 255);
+				ft_fill_triangle_shade(&(triangle[i].vertice[0]), &(triangle[i].vertice[1]), &(triangle[i].vertice[2]), s_win,  shade);
+				//DRAW MESH
 				SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
 				ft_draw_triangle_base(&(triangle[i].vertice[0]), &(triangle[i].vertice[1]), &(triangle[i].vertice[2]), s_win);
 			}

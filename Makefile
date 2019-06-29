@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/27 17:18:35 by jchardin         ###   ########.fr        #
+#    Updated: 2019/06/29 19:55:58 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -108,6 +108,7 @@ SRC += file_rasterization.c
 SRC += file_get_triangles.c
 SRC += file_itoa_coma.c
 SRC += file_matrix_tool.c
+SRC += file_vector_tool.c
 
 #WINDOW
 SRC += file_window.c
@@ -115,7 +116,6 @@ SRC += file_window.c
 #MAIN
 SRC += file_main.c
 SRC += file_mouse_handle.c
-SRC += file_fill_triangle.c
 SRC += file_draw_triangle.c
 
 #BSP
