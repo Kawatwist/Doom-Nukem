@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/29 20:33:31 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 20:36:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 	t_mytriangle	*triangle;
 	triangle = ft_get_triangle();
 
-
 	int i;
-
 	printf("Liste des triangle\n");
 	i = 0;
 	while (i < 12)
