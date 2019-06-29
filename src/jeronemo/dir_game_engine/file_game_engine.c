@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/29 15:08:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 17:21:25 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	ft_init_rasterization(t_mykeep *keep, t_mychange *change, t_myraster *raste
 	raster->mat_rot_y = ft_make_matrix_5_5();
 	raster->mat_rot_z = ft_make_matrix_5_5();
 	raster->mat_proje = ft_make_matrix_5_5();
-
-
+	ft_set_pro(raster);
 
 
 

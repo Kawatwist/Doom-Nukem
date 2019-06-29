@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/29 16:13:35 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 17:14:36 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,16 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 		i++;
 	}
 
-
 	int ftheta;
-
-
 		ftheta = 0;
 	while (1)
 	{
 			triangle = ft_get_triangle();
-			ft_set_raster_trans(0, 0, -3, raster);
+			ft_set_raster_trans(0, 0, 3, raster);
 			ft_set_raster_rot_x(ftheta, raster);
 			//ft_set_raster_rot_y(ftheta, raster);
 			ft_set_raster_rot_z(ftheta * 0.5, raster);
 			ft_clear_window(s_win);
-
 			//ROTATION Z
 			i = 0;
 			while (i < 12)
@@ -70,18 +66,21 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 			i = 0;
 			while (i < 12)
 			{
-				triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[0]);
-				triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[1]);
-				triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[2]);
+				/* triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[0]); */
+				/* triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[1]); */
+				/* triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[2]); */
+				triangle[i].vertice[0].z += 3.0;
+				triangle[i].vertice[1].z += 3.0;
+				triangle[i].vertice[2].z += 3.0;
 				i++;
 			}
-			//PROJECTION
+			/* //PROJECTION */
 			i = 0;
 			while (i < 12)
 			{
-				triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[0]);
-				triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[1]);
-				triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[2]);
+				triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle[i].vertice[0]);
+				triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, triangle[i].vertice[1]);
+				triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_proje, triangle[i].vertice[2]);
 				i++;
 			}
 			//SCALE
@@ -102,10 +101,10 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 				i++;
 			}
 			ftheta++;
-			if (ftheta == 360)
+			if (ftheta == 360 * 2)
 				ftheta = 0;
 			SDL_RenderPresent(s_win->renderer[s_win->interface]);
-			SDL_Delay(60);
+			SDL_Delay(20);
 	}
 	return;
 }
