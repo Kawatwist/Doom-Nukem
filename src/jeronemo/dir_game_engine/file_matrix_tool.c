@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/29 17:16:24 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 17:58:43 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,12 +139,7 @@ t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i)
 		v.x /= w;
 		v.y /= w;
 		v.z /= w;
-		printf("a\n");
 
-	}
-	else
-	{
-		printf("hello\n");
 	}
 	return v;
 }

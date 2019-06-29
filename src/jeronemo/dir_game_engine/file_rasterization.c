@@ -6,11 +6,48 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/29 17:14:36 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 18:58:04 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
+
+int		ft_calcul_culing(t_mychange *change, t_mytriangle *triangle)
+{ float			l;
+	t_myvec			normal;
+	t_myvec			camera;
+
+	;
+	camera.x = change->v_camera.x;
+	camera.y = change->v_camera.y;
+	camera.z = change->v_camera.z;
+	camera.x = 0;
+	camera.y = 0;
+	camera.z = 0;
+	normal = ft_calculate_normal_of_points(triangle->vertice[0], triangle->vertice[1], triangle->vertice[2]);
+	//normalisation
+	l = sqrtf(normal.x * normal.x + normal.y * normal.y + normal.z*normal.z);
+	normal.x /= l;
+	normal.y /= l;
+	normal.z /= l;
+	if ((normal.x * (triangle->vertice[0].x - camera.x) +
+				normal.y * (triangle->vertice[0].y - camera.y) +
+				normal.z * (triangle->vertice[0].z - camera.z)) < 0.0)
+		return (0);
+	else
+		return (1);
+}
+
+t_myvec        ft_normalise(t_myvec vector)
+{
+   	float        l;
+
+   	l = sqrtf(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
+   	vector.x /= l;
+   	vector.y /= l;
+   	vector.z /= l;
+   	return (vector);
+}
 
 void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *triangle_array*/)
 {
@@ -27,6 +64,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 	i = 0;
 	while (i < 12)
 	{
+		if ((i + 1) % 2)
 		printf("triangle n=%d\n", i);
 		printf("x =%f y=%f z=%f\t", triangle[i].vertice[0].x, triangle[i].vertice[0].y, triangle[i].vertice[0].z);
 		printf("x =%f y=%f z=%f\t", triangle[i].vertice[1].x, triangle[i].vertice[1].y, triangle[i].vertice[1].z);
@@ -34,77 +72,65 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 		i++;
 	}
 
+
 	int ftheta;
-		ftheta = 0;
+	ftheta = 0;
+
+	raster->v_camera.x = 0;
+	raster->v_camera.y = 0;
+	raster->v_camera.z = 0;
+	t_myvec		normal;
 	while (1)
 	{
-			triangle = ft_get_triangle();
-			ft_set_raster_trans(0, 0, 3, raster);
-			ft_set_raster_rot_x(ftheta, raster);
-			//ft_set_raster_rot_y(ftheta, raster);
-			ft_set_raster_rot_z(ftheta * 0.5, raster);
-			ft_clear_window(s_win);
+		triangle = ft_get_triangle();
+		ft_set_raster_trans(0, 0, 3, raster);
+		ft_set_raster_rot_x(ftheta, raster);
+		//ft_set_raster_rot_y(ftheta, raster);
+		ft_set_raster_rot_z(ftheta * 0.5, raster);
+		ft_clear_window(s_win);
+		i = 0;
+		while (i < 12)
+		{
 			//ROTATION Z
-			i = 0;
-			while (i < 12)
-			{
-				triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle[i].vertice[0]);
-				triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle[i].vertice[1]);
-				triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle[i].vertice[2]);
-				i++;
-			}
+			triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle[i].vertice[0]);
+			triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle[i].vertice[1]);
+			triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle[i].vertice[2]);
 			//ROTATION X
-			i = 0;
-			while (i < 12)
-			{
-				triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle[i].vertice[0]);
-				triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle[i].vertice[1]);
-				triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle[i].vertice[2]);
-				i++;
-			}
+			triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle[i].vertice[0]);
+			triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle[i].vertice[1]);
+			triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle[i].vertice[2]);
 			//TRANSLATION (offset in screen)
-			i = 0;
-			while (i < 12)
+			triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[0]);
+			triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[1]);
+			triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[2]);
+			//CULLING
+			normal = ft_calculate_normal_of_points(triangle[i].vertice[0], triangle[i].vertice[1], triangle[i].vertice[2]);
+			normal = ft_normalise(normal);
+			if (
+					(normal.x * (triangle[i].vertice[0].x - raster->v_camera.x) +
+					normal.y * (triangle[i].vertice[0].y - raster->v_camera.y) +
+					normal.z * (triangle[i].vertice[0].z - raster->v_camera.z)) < 0.0
+			   )
 			{
-				/* triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[0]); */
-				/* triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[1]); */
-				/* triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[2]); */
-				triangle[i].vertice[0].z += 3.0;
-				triangle[i].vertice[1].z += 3.0;
-				triangle[i].vertice[2].z += 3.0;
-				i++;
-			}
-			/* //PROJECTION */
-			i = 0;
-			while (i < 12)
-			{
+				//PROJECTION
 				triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle[i].vertice[0]);
 				triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, triangle[i].vertice[1]);
 				triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_proje, triangle[i].vertice[2]);
-				i++;
-			}
-			//SCALE
-			i = 0;
-			while (i < 12)
-			{
+				//SCALE
 				triangle[i].vertice[0] = ft_scale_screen(triangle[i].vertice[0]);
 				triangle[i].vertice[1] = ft_scale_screen(triangle[i].vertice[1]);
 				triangle[i].vertice[2] = ft_scale_screen(triangle[i].vertice[2]);
-				i++;
-			}
-			//DRAW
-			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
-			i = 0;
-			while (i < 12)
-			{
+				//DRAW
+				SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
 				ft_draw_triangle_base(&(triangle[i].vertice[0]), &(triangle[i].vertice[1]), &(triangle[i].vertice[2]), s_win);
-				i++;
 			}
-			ftheta++;
-			if (ftheta == 360 * 2)
-				ftheta = 0;
-			SDL_RenderPresent(s_win->renderer[s_win->interface]);
-			SDL_Delay(20);
+			i++;
+		}
+		ftheta++;
+		if (ftheta == 360 * 2)
+			ftheta = 0;
+		SDL_RenderPresent(s_win->renderer[s_win->interface]);
+		SDL_Delay(20);
 	}
 	return;
 }

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:58:52 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/29 16:02:10 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 18:57:35 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ t_mytriangle	*ft_get_triangle(void)
 	triangle_array[7].vertice[1].y = 1.0;
 	triangle_array[7].vertice[1].z = 0.0;
 
-	triangle_array[7].vertice[2].x = 1.0;
+	triangle_array[7].vertice[2].x = 0.0;
 	triangle_array[7].vertice[2].y = 0.0;
-	triangle_array[7].vertice[2].z = 1.0;
+	triangle_array[7].vertice[2].z = 0.0;
 
 
 	triangle_array[8].vertice[0].x = 0.0;

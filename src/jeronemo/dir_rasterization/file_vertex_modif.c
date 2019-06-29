@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 10:51:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 17:17:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 18:43:56 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,9 @@ int		ft_calcul_culing(t_mychange *change, t_mytriangle *triangle)
 	camera.x = change->v_camera.x;
 	camera.y = change->v_camera.y;
 	camera.z = change->v_camera.z;
+	camera.x = 0;
+	camera.y = 0;
+	camera.z = 0;
 	normal = ft_calculate_normal_of_points(triangle->vertice[0], triangle->vertice[1], triangle->vertice[2]);
 	//normalisation
 	l = sqrtf(normal.x * normal.x + normal.y * normal.y + normal.z*normal.z);

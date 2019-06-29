@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 14:37:01 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/11 12:32:35 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/29 18:30:08 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ t_myvec		ft_cross_product(t_myvec v1, t_myvec v2)
 	return (result);
 }
 
-t_myvec		ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3)
+t_myvec		ft_calculate_normal_of_points(t_myvec vertex0, t_myvec vertex1, t_myvec vertex2)
 {
 	t_myvec		result;
 	t_myvec		v1;
 	t_myvec		v2;
 
-	v1.x = vertex2.x - vertex1.x;
-	v1.y = vertex2.y - vertex1.y;
-	v1.z = vertex2.z - vertex1.z;
-	v2.x = vertex3.x - vertex1.x;
-	v2.y = vertex3.y - vertex1.y;
-	v2.z = vertex3.z - vertex1.z;
+	v1.x = vertex1.x - vertex0.x;
+	v1.y = vertex1.y - vertex0.y;
+	v1.z = vertex1.z - vertex0.z;
+	v2.x = vertex2.x - vertex0.x;
+	v2.y = vertex2.y - vertex0.y;
+	v2.z = vertex2.z - vertex0.z;
 	result = ft_cross_product(v1, v2);
 	return (result);
 }
