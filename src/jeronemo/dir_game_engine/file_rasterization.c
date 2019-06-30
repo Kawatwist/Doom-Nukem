@@ -6,91 +6,76 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 10:02:09 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 11:03:55 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
-void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *triangle_array*/)
+void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max)
 {
 	(void)s_win;
+	int			i;
+	int			ftheta;
+	float		shade;
+	t_myvec		light_direction;
+	t_mytriangle	triangle;
 	printf("update raster\n");
-
-	t_mytriangle	*triangle;
-	triangle = ft_get_triangle();
-
-	int i;
-	printf("Liste des triangle\n");
-	i = 0;
-	while (i < 12)
-	{
-		if ((i + 1) % 2)
-			printf("triangle n=%d\n", i);
-		printf("x =%f y=%f z=%f\t", triangle[i].vertice[0].x, triangle[i].vertice[0].y, triangle[i].vertice[0].z);
-		printf("x =%f y=%f z=%f\t", triangle[i].vertice[1].x, triangle[i].vertice[1].y, triangle[i].vertice[1].z);
-		printf("x =%f y=%f z=%f\n", triangle[i].vertice[2].x, triangle[i].vertice[2].y, triangle[i].vertice[2].z);
-		i++;
-	}
-
-	int ftheta;
-	float shade;
-	t_myvec	light_direction;
 	ftheta = 0;
 	light_direction.x = 0.5;
 	light_direction.y = 0.0;
 	light_direction.z = -1.0;
 	light_direction = ft_normalise(light_direction);
-
 	raster->v_camera.x = 0;
 	raster->v_camera.y = 0;
 	raster->v_camera.z = 0;
 	t_myvec		normal;
 	while (1)
 	{
-		triangle = ft_get_triangle();
-		ft_set_raster_trans(0, 0, 3, raster);
+		ft_set_raster_trans(0, 0, 20, raster);
 		ft_set_raster_rot_x(ftheta, raster);
 		//ft_set_raster_rot_y(ftheta, raster);
 		ft_set_raster_rot_z(ftheta * 0.5, raster);
 		ft_clear_window(s_win);
 		i = 0;
-		while (i < 12)
+		while (i < max)
 		{
+			triangle = triangle_array[i];
+
 			//ROTATION Z
-			triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle[i].vertice[0]);
-			triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle[i].vertice[1]);
-			triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle[i].vertice[2]);
+			triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[0]);
+			triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[1]);
+			triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[2]);
 			//ROTATION X
-			triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle[i].vertice[0]);
-			triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle[i].vertice[1]);
-			triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle[i].vertice[2]);
+			triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[0]);
+			triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[1]);
+			triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[2]);
 			//TRANSLATION (offset in screen)
-			triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[0]);
-			triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[1]);
-			triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle[i].vertice[2]);
+			triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[0]);
+			triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[1]);
+			triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[2]);
 			//CULLING
-			normal = ft_calculate_normal_of_points(triangle[i].vertice[0], triangle[i].vertice[1], triangle[i].vertice[2]);
+			normal = ft_calculate_normal_of_points(triangle.vertice[0], triangle.vertice[1], triangle.vertice[2]);
 			normal = ft_normalise(normal);
 			if (
-					(normal.x * (triangle[i].vertice[0].x - raster->v_camera.x) +
-					 normal.y * (triangle[i].vertice[0].y - raster->v_camera.y) +
-					 normal.z * (triangle[i].vertice[0].z - raster->v_camera.z)) < 0.0
+					(normal.x * (triangle.vertice[0].x - raster->v_camera.x) +
+					 normal.y * (triangle.vertice[0].y - raster->v_camera.y) +
+					 normal.z * (triangle.vertice[0].z - raster->v_camera.z)) < 0.0
 			   )
 			{
 				shade = ft_dot_product(normal, light_direction);
 				//PROJECTION
-				triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle[i].vertice[0]);
-				triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, triangle[i].vertice[1]);
-				triangle[i].vertice[2] = ft_matrix_multiply_vector(raster->mat_proje, triangle[i].vertice[2]);
+				triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[0]);
+				triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[1]);
+				triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[2]);
 				//SCALE
-				triangle[i].vertice[0] = ft_scale_screen(triangle[i].vertice[0]);
-				triangle[i].vertice[1] = ft_scale_screen(triangle[i].vertice[1]);
-				triangle[i].vertice[2] = ft_scale_screen(triangle[i].vertice[2]);
+				triangle.vertice[0] = ft_scale_screen(triangle.vertice[0]);
+				triangle.vertice[1] = ft_scale_screen(triangle.vertice[1]);
+				triangle.vertice[2] = ft_scale_screen(triangle.vertice[2]);
 				//DRAW FILL TRIANGLE
-				ft_fill_triangle_shade(&(triangle[i].vertice[0]), &(triangle[i].vertice[1]), &(triangle[i].vertice[2]), s_win, shade);
+				ft_fill_triangle_shade(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win, shade);
 				//DRAW MESH
-				SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255); ft_draw_triangle_base(&(triangle[i].vertice[0]), &(triangle[i].vertice[1]), &(triangle[i].vertice[2]), s_win);
+				SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255); ft_draw_triangle_base(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win);
 			}
 			i++;
 		}

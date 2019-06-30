@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/29 20:30:04 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 10:58:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct				s_myraster
 void	ft_launch_rasterization(t_mywin *s_win, t_win *wn);
 void	ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytriangle *triangle_array);
 void	ft_init_rasterization(t_mykeep *keep, t_mychange *change, t_myraster *raster);
-void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *triangle_array*/);
+void	ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max);
 
 //FILE USER INPUT
 void	ft_input_event_check(t_win *wn, t_mychange *change);
@@ -51,8 +51,6 @@ void	ft_set_pro(t_myraster *raster);
 
 //FILE VECTOR TOOL
 t_myvec        ft_normalise(t_myvec vector);
-
-
 
 //FILE FILL TRIANGLE
 void	ft_fill_triangle_shade(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win, float shade);
