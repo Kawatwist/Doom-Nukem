@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/29 20:36:28 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 09:56:02 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 	while (i < 12)
 	{
 		if ((i + 1) % 2)
-		printf("triangle n=%d\n", i);
+			printf("triangle n=%d\n", i);
 		printf("x =%f y=%f z=%f\t", triangle[i].vertice[0].x, triangle[i].vertice[0].y, triangle[i].vertice[0].z);
 		printf("x =%f y=%f z=%f\t", triangle[i].vertice[1].x, triangle[i].vertice[1].y, triangle[i].vertice[1].z);
 		printf("x =%f y=%f z=%f\n", triangle[i].vertice[2].x, triangle[i].vertice[2].y, triangle[i].vertice[2].z);
@@ -34,8 +34,13 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 	}
 
 	int ftheta;
-	int shade = 1;
+	float shade;
+	t_myvec	light_direction;
 	ftheta = 0;
+	light_direction.x = 0.5;
+	light_direction.y = 0.0;
+	light_direction.z = -1.0;
+	light_direction = ft_normalise(light_direction);
 
 	raster->v_camera.x = 0;
 	raster->v_camera.y = 0;
@@ -69,10 +74,13 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 			normal = ft_normalise(normal);
 			if (
 					(normal.x * (triangle[i].vertice[0].x - raster->v_camera.x) +
-					normal.y * (triangle[i].vertice[0].y - raster->v_camera.y) +
-					normal.z * (triangle[i].vertice[0].z - raster->v_camera.z)) < 0.0
+					 normal.y * (triangle[i].vertice[0].y - raster->v_camera.y) +
+					 normal.z * (triangle[i].vertice[0].z - raster->v_camera.z)) < 0.0
 			   )
 			{
+
+				light_direction = ft_normalise(light_direction);
+				shade = ft_dot_product(normal, light_direction);
 				//PROJECTION
 				triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle[i].vertice[0]);
 				triangle[i].vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, triangle[i].vertice[1]);
@@ -82,11 +90,9 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 				triangle[i].vertice[1] = ft_scale_screen(triangle[i].vertice[1]);
 				triangle[i].vertice[2] = ft_scale_screen(triangle[i].vertice[2]);
 				//DRAW FILL TRIANGLE
-				SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 0, 255, 255);
-				ft_fill_triangle_shade(&(triangle[i].vertice[0]), &(triangle[i].vertice[1]), &(triangle[i].vertice[2]), s_win,  shade);
+				ft_fill_triangle_shade(&(triangle[i].vertice[0]), &(triangle[i].vertice[1]), &(triangle[i].vertice[2]), s_win, shade);
 				//DRAW MESH
-				SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
-				ft_draw_triangle_base(&(triangle[i].vertice[0]), &(triangle[i].vertice[1]), &(triangle[i].vertice[2]), s_win);
+				SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255); ft_draw_triangle_base(&(triangle[i].vertice[0]), &(triangle[i].vertice[1]), &(triangle[i].vertice[2]), s_win);
 			}
 			i++;
 		}
