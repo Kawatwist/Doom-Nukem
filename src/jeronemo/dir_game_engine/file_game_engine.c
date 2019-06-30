@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 10:58:49 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 11:22:44 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_init_rasterization(t_mykeep *keep, t_mychange *change, t_myraster *raste
 	raster->mat_rot_z = ft_make_matrix_5_5();
 	raster->mat_proje = ft_make_matrix_5_5();
 	ft_set_pro(raster);
+	raster->ftheta = 0;
 
 
 
@@ -77,13 +78,10 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	while (!change.quit)
 	{
 		ft_input_event_check(wn, &change);
-		if (change.modif == 1)
-		{
-			ft_update_raster(s_win, &raster, triangle_array, max);
-			SDL_RenderPresent(s_win->renderer[s_win->interface]);
-			change.modif = 0;
-		}
-		SDL_Delay(1);
+		ft_clear_window(s_win);
+		ft_update_raster(s_win, &raster, triangle_array, max);
+		SDL_RenderPresent(s_win->renderer[s_win->interface]);
+		SDL_Delay(10);
 		setkeyboard(change.old, wn->state);
 	}
 }

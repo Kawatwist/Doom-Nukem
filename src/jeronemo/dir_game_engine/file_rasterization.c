@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 11:11:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 11:21:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max)
 {
-	printf("update raster\n");
-
 	int				i;
-	int				ftheta;
 	float			shade;
 	t_myvec			light_direction;
 	t_mytriangle	triangle;
-	ftheta = 0;
+
 	light_direction.x = 0.5;
 	light_direction.y = 0.0;
 	light_direction.z = -1.0;
@@ -30,59 +27,57 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	raster->v_camera.y = 0;
 	raster->v_camera.z = 0;
 	t_myvec		normal;
-	while (1)
-	{
-		ft_set_raster_trans(0, 0, 20, raster);
-		ft_set_raster_rot_x(ftheta, raster);
-		//ft_set_raster_rot_y(ftheta, raster);
-		ft_set_raster_rot_z(ftheta * 0.5, raster);
-		ft_clear_window(s_win);
-		i = 0;
-		while (i < max)
-		{
-			triangle = triangle_array[i];
+	ft_set_raster_trans(0, 0, 20, raster);
+	ft_set_raster_rot_x(raster->ftheta, raster);
+	//ft_set_raster_rot_y(raster->ftheta, raster);
+	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
+	i = 0;
 
-			//ROTATION Z
-			triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[0]);
-			triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[1]);
-			triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[2]);
-			//ROTATION X
-			triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[0]);
-			triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[1]);
-			triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[2]);
-			//TRANSLATION (offset in screen)
-			triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[0]);
-			triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[1]);
-			triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[2]);
-			//CULLING
-			normal = ft_calculate_normal_of_points(triangle.vertice[0], triangle.vertice[1], triangle.vertice[2]);
-			normal = ft_normalise(normal);
-			if (ft_dot_product(normal, ft_vector_sub(triangle.vertice[0], raster->v_camera)) < 0.0)
-			{
-				shade = ft_dot_product(normal, light_direction);
-				//PROJECTION
-				triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[0]);
-				triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[1]);
-				triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[2]);
-				//SCALE
-				triangle.vertice[0] = ft_scale_screen(triangle.vertice[0]);
-				triangle.vertice[1] = ft_scale_screen(triangle.vertice[1]);
-				triangle.vertice[2] = ft_scale_screen(triangle.vertice[2]);
-				//DRAW FILL TRIANGLE + SHADE/LIGHT
-				ft_fill_triangle_shade(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win, shade);
-				//DRAW MESH
-				SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255); ft_draw_triangle_base(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win);
-			}
-			i++;
+	////##################################################################################################
+	while (i < max)
+	{
+		triangle = triangle_array[i];
+
+		//ROTATION Z
+		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[0]);
+		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[1]);
+		triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[2]);
+		//ROTATION X
+		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[0]);
+		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[1]);
+		triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[2]);
+		//TRANSLATION (offset in screen)
+		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[0]);
+		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[1]);
+		triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[2]);
+		//CULLING
+		normal = ft_calculate_normal_of_points(triangle.vertice[0], triangle.vertice[1], triangle.vertice[2]);
+		normal = ft_normalise(normal);
+		if (ft_dot_product(normal, ft_vector_sub(triangle.vertice[0], raster->v_camera)) < 0.0)
+		{
+			shade = ft_dot_product(normal, light_direction);
+			//PROJECTION
+			triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[0]);
+			triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[1]);
+			triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[2]);
+			//SCALE
+			triangle.vertice[0] = ft_scale_screen(triangle.vertice[0]);
+			triangle.vertice[1] = ft_scale_screen(triangle.vertice[1]);
+			triangle.vertice[2] = ft_scale_screen(triangle.vertice[2]);
+			//DRAW FILL TRIANGLE + SHADE/LIGHT
+			ft_fill_triangle_shade(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win, shade);
+			//DRAW MESH
+			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
+			ft_draw_triangle_base(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win);
 		}
-		ftheta++;
-		if (ftheta == 360 * 2)
-			ftheta = 0;
-		SDL_RenderPresent(s_win->renderer[s_win->interface]);
-		SDL_Delay(20);
+		i++;
 	}
+	raster->ftheta += 1;
+	if (raster->ftheta == 360 * 2)
+		raster->ftheta = 0;
 	return;
 }
+
 /*
    void		ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytriangle *triangle_array)
    {

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 11:09:58 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 11:16:10 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct				s_myraster
 	float					**mat_rot_z;
 	float					**mat_proje;
 	t_myvec					v_camera;
+	float					ftheta;
 }							t_myraster;
 
 //FILE GAME ENGINE
