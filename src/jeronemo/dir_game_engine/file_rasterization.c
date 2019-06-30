@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 15:03:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 15:30:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	t_mytriangle	triangle;
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_node;
+	t_mytriangle	*keep;
 
 	triangle_lst = NULL;
 	light_direction.x = 0.5;
@@ -97,18 +98,25 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		i++;
 	}
 
-
-
-
+	keep = triangle_lst;
 	while (triangle_lst != NULL)
 	{
-			//DRAW FILL TRIANGLE + SHADE/LIGHT
-			ft_fill_triangle_shade((triangle_lst->vertice[0]), (triangle_lst->vertice[1]), (triangle_lst->vertice[2]), s_win, triangle_lst->shade);
-			//DRAW MESH
-			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
-			ft_draw_triangle_base(&(triangle_lst->vertice[0]), &(triangle_lst->vertice[1]), &(triangle_lst->vertice[2]), s_win);
-			triangle_lst = triangle_lst->next;
+		//DRAW FILL TRIANGLE + SHADE/LIGHT
+		ft_fill_triangle_shade((triangle_lst->vertice[0]), (triangle_lst->vertice[1]), (triangle_lst->vertice[2]), s_win, triangle_lst->shade);
+		//DRAW MESH
+		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
+		ft_draw_triangle_base(&(triangle_lst->vertice[0]), &(triangle_lst->vertice[1]), &(triangle_lst->vertice[2]), s_win);
+		triangle_lst = triangle_lst->next;
 	}
+	triangle_lst = keep;
+
+
+	/* while (triangle_lst != NULL) */
+	/* { */
+	/* 	free(triangle_lst); */
+	/* 	triangle_lst = triangle_lst->next; */
+	/* } */
+
 	raster->ftheta += 1;
 	if (raster->ftheta == 360 * 2)
 		raster->ftheta = 0;
