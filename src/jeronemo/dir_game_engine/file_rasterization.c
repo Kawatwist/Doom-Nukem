@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 11:21:28 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 11:39:01 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	//ft_set_raster_rot_y(raster->ftheta, raster);
 	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
 	i = 0;
-
 	////##################################################################################################
 	while (i < max)
 	{
@@ -64,13 +63,37 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 			triangle.vertice[0] = ft_scale_screen(triangle.vertice[0]);
 			triangle.vertice[1] = ft_scale_screen(triangle.vertice[1]);
 			triangle.vertice[2] = ft_scale_screen(triangle.vertice[2]);
+
+
+			//add triangle to the list
+
+
+		}
+		i++;
+
+
+
+		while (triangle_lst->next =! NULL)
+		{
+			//PAINTER ALGORITHM we take the z valueof the middle point of our triangle
+			//we want the mid point z value of our two triangle that we sort
+
+
+
 			//DRAW FILL TRIANGLE + SHADE/LIGHT
 			ft_fill_triangle_shade(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win, shade);
 			//DRAW MESH
 			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
 			ft_draw_triangle_base(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win);
+
+			triangle_lst = triangle->next;
 		}
-		i++;
+
+
+
+
+
+
 	}
 	raster->ftheta += 1;
 	if (raster->ftheta == 360 * 2)
