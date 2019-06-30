@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/29 20:21:34 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 14:03:43 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef enum		s_myprojection
 typedef struct	s_mytriangle
 {
 	t_myvec		vertice[3];
+	void		*next;
+	float		shade;
 }				t_mytriangle;
 
 typedef struct	s_mydisplay
