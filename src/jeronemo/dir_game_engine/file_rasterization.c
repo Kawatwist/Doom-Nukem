@@ -6,19 +6,45 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 14:30:18 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 15:03:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
+t_mytriangle	*ft_triangle_node_create(t_mytriangle tri)
+{
+	t_mytriangle	*triangle;
+
+	triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle));
+	triangle = memcpy(triangle, &tri, sizeof(t_mytriangle));
+	triangle->next = NULL;
+	return (triangle);
+}
+
+void			ft_triangle_add_node(t_mytriangle **lst, t_mytriangle *node)
+{
+	if (*lst == NULL)
+	{
+		*lst = node;
+	}
+	else
+	{
+		node->next = *lst;
+		*lst = node;
+	}
+}
+
 void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max)
 {
 	int				i;
-	float			shade;
+	/* float			shade; */
 	t_myvec			light_direction;
 	t_mytriangle	triangle;
+	t_mytriangle	*triangle_lst;
+	t_mytriangle	*triangle_node;
 
+	triangle_lst = NULL;
 	light_direction.x = 0.5;
 	light_direction.y = 0.0;
 	light_direction.z = -1.0;
@@ -55,7 +81,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		normal = ft_normalise(normal);
 		if (ft_dot_product(normal, ft_vector_sub(triangle.vertice[0], raster->v_camera)) < 0.0)
 		{
-			shade = ft_dot_product(normal, light_direction);
+			triangle.shade = ft_dot_product(normal, light_direction);
 			//PROJECTION
 			triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[0]);
 			triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[1]);
@@ -64,13 +90,24 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 			triangle.vertice[0] = ft_scale_screen(triangle.vertice[0]);
 			triangle.vertice[1] = ft_scale_screen(triangle.vertice[1]);
 			triangle.vertice[2] = ft_scale_screen(triangle.vertice[2]);
-			//DRAW FILL TRIANGLE + SHADE/LIGHT
-			ft_fill_triangle_shade(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win, shade);
-			//DRAW MESH
-			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
-			ft_draw_triangle_base(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win);
+
+			triangle_node = ft_triangle_node_create(triangle);
+			ft_triangle_add_node(&triangle_lst, triangle_node);
 		}
 		i++;
+	}
+
+
+
+
+	while (triangle_lst != NULL)
+	{
+			//DRAW FILL TRIANGLE + SHADE/LIGHT
+			ft_fill_triangle_shade((triangle_lst->vertice[0]), (triangle_lst->vertice[1]), (triangle_lst->vertice[2]), s_win, triangle_lst->shade);
+			//DRAW MESH
+			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
+			ft_draw_triangle_base(&(triangle_lst->vertice[0]), &(triangle_lst->vertice[1]), &(triangle_lst->vertice[2]), s_win);
+			triangle_lst = triangle_lst->next;
 	}
 	raster->ftheta += 1;
 	if (raster->ftheta == 360 * 2)

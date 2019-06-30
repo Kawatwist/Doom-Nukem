@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:59:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 14:30:59 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 15:00:10 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,14 @@ void	ft_fill_triangle_one_color(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *
 	}
 }
 
-void	ft_fill_triangle_shade(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win, float shade)
+void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_mywin *s_win, float shade)
 {
 	t_myvec				v4;
 	t_myputtheline		s_line;;
 	t_mycolor			color;
 
 	color = ft_setcolor(GREEN);
-	ft_order_triangle_vertice(v1, v2, v3);
+	ft_order_triangle_vertice(&v1, &v2, &v3);
 	if (shade > 0)
 	{
 		shade *= 165;
@@ -134,21 +134,21 @@ void	ft_fill_triangle_shade(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_wi
 		shade = 150;
 	}
 	SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, color.ggg - shade, 0, 255);
-	if (v2->y == v3->y)
-		ft_fill_bottom_flat_triangle(v1, v2, v3, s_win);
-	else if (v1->y == v2->y)
-		ft_fill_top_flat_triangle(v1, v2, v3, s_win);
+	if (v2.y == v3.y)
+		ft_fill_bottom_flat_triangle(&v1, &v2, &v3, s_win);
+	else if (v1.y == v2.y)
+		ft_fill_top_flat_triangle(&v1, &v2, &v3, s_win);
 	else
 	{
-		v4.y = v2->y;
-		v4.x = v1->x + ((v2->y - v1->y) / (v3->y - v1->y)) * (v3->x - v1->x);
-		s_line.un.a = v2->x;
-		s_line.un.b = v2->y;
+		v4.y = v2.y;
+		v4.x = v1.x + ((v2.y - v1.y) / (v3.y - v1.y)) * (v3.x - v1.x);
+		s_line.un.a = v2.x;
+		s_line.un.b = v2.y;
 		s_line.deux.a = v4.x;
 		s_line.deux.b = v4.y;
 		ft_draw_line(s_win, &s_line);
-		ft_fill_bottom_flat_triangle(v1, v2, &v4, s_win);
-		ft_fill_top_flat_triangle(v2, &v4, v3, s_win);
+		ft_fill_bottom_flat_triangle(&v1, &v2, &v4, s_win);
+		ft_fill_top_flat_triangle(&v2, &v4, &v3, s_win);
 	}
 }
 
