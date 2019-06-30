@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:59:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 09:55:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 11:12:11 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_order_triangle_vertice(t_myvec *v1, t_myvec *v2, t_myvec *v3)
 	int			j;
 	int			i;
 	t_myvec		tab[3];
-
 
 	tab[0] =  *v1;
 	tab[1] =  *v2;

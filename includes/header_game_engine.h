@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 10:58:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 11:09:58 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_set_pro(t_myraster *raster);
 
 //FILE VECTOR TOOL
 t_myvec        ft_normalise(t_myvec vector);
+t_myvec		ft_vector_sub(t_myvec v2, t_myvec v1);
 
 //FILE FILL TRIANGLE
 void	ft_fill_triangle_shade(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win, float shade);

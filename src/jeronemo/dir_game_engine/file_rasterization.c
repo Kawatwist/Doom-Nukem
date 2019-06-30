@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 11:03:55 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 11:11:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max)
 {
-	(void)s_win;
-	int			i;
-	int			ftheta;
-	float		shade;
-	t_myvec		light_direction;
-	t_mytriangle	triangle;
 	printf("update raster\n");
+
+	int				i;
+	int				ftheta;
+	float			shade;
+	t_myvec			light_direction;
+	t_mytriangle	triangle;
 	ftheta = 0;
 	light_direction.x = 0.5;
 	light_direction.y = 0.0;
@@ -57,11 +57,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 			//CULLING
 			normal = ft_calculate_normal_of_points(triangle.vertice[0], triangle.vertice[1], triangle.vertice[2]);
 			normal = ft_normalise(normal);
-			if (
-					(normal.x * (triangle.vertice[0].x - raster->v_camera.x) +
-					 normal.y * (triangle.vertice[0].y - raster->v_camera.y) +
-					 normal.z * (triangle.vertice[0].z - raster->v_camera.z)) < 0.0
-			   )
+			if (ft_dot_product(normal, ft_vector_sub(triangle.vertice[0], raster->v_camera)) < 0.0)
 			{
 				shade = ft_dot_product(normal, light_direction);
 				//PROJECTION
@@ -72,7 +68,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 				triangle.vertice[0] = ft_scale_screen(triangle.vertice[0]);
 				triangle.vertice[1] = ft_scale_screen(triangle.vertice[1]);
 				triangle.vertice[2] = ft_scale_screen(triangle.vertice[2]);
-				//DRAW FILL TRIANGLE
+				//DRAW FILL TRIANGLE + SHADE/LIGHT
 				ft_fill_triangle_shade(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win, shade);
 				//DRAW MESH
 				SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255); ft_draw_triangle_base(&(triangle.vertice[0]), &(triangle.vertice[1]), &(triangle.vertice[2]), s_win);
