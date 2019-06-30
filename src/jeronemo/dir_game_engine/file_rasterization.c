@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 16:54:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 16:59:19 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,26 @@ void	ft_swap(t_mytriangle *triangle_lst)
 	triangle_lst->next->vertice[2].z = swap->vertice[2].z;
 }
 
+void	ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
+{
+	float			z1;
+	float			z2;
+	t_mytriangle	*keep;
+
+	keep = triangle_lst;
+	while (triangle_lst->next != NULL)
+	{
+		z1 = (triangle_lst->vertice[0].z + triangle_lst->vertice[1].z + triangle_lst->vertice[2].z) / 3;
+		z2 = (triangle_lst->next->vertice[0].z + triangle_lst->next->vertice[1].z + triangle_lst->next->vertice[2].z) / 3;
+		if (z1 < z2)
+		{
+			ft_swap(triangle_lst);
+			triangle_lst = keep;
+		}
+		triangle_lst = triangle_lst->next;
+	}
+	triangle_lst = keep;
+}
 
 void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max)
 {
@@ -132,29 +152,13 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 			triangle.vertice[0] = ft_scale_screen(triangle.vertice[0]);
 			triangle.vertice[1] = ft_scale_screen(triangle.vertice[1]);
 			triangle.vertice[2] = ft_scale_screen(triangle.vertice[2]);
-
 			triangle_node = ft_triangle_node_create(triangle);
 			ft_triangle_add_node(&triangle_lst, triangle_node);
 		}
 		i++;
 	}
-	float		z1;
-	float		z2;
-	keep = triangle_lst;
-
-	while (triangle_lst->next != NULL)
-	{
-		z1 = (triangle_lst->vertice[0].z + triangle_lst->vertice[1].z + triangle_lst->vertice[2].z) / 3;
-		z2 = (triangle_lst->next->vertice[0].z + triangle_lst->next->vertice[1].z + triangle_lst->next->vertice[2].z) / 3;
-		if (z1 < z2)
-		{
-			ft_swap(triangle_lst);
-			triangle_lst = keep;
-		}
-		triangle_lst = triangle_lst->next;
-	}
-	triangle_lst = keep;
-
+	//ORDER TRIANGLE FROM FAR TO NEAR
+	ft_order_triangle_z_buffer(triangle_lst);
 	keep = triangle_lst;
 	while (triangle_lst != NULL)
 	{
@@ -166,7 +170,6 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		triangle_lst = triangle_lst->next;
 	}
 	triangle_lst = keep;
-
 
 	/* while (triangle_lst != NULL) */
 	/* { */
