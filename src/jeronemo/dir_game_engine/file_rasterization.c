@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 11:21:28 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 14:30:18 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	raster->v_camera.y = 0;
 	raster->v_camera.z = 0;
 	t_myvec		normal;
-	ft_set_raster_trans(0, 0, 20, raster);
+	ft_set_raster_trans(0, 0, 10, raster);
 	ft_set_raster_rot_x(raster->ftheta, raster);
 	//ft_set_raster_rot_y(raster->ftheta, raster);
 	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
