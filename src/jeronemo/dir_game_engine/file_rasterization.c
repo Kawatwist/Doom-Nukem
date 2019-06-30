@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 09:56:02 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 10:02:09 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster/*, t_mytriangle *trian
 					 normal.z * (triangle[i].vertice[0].z - raster->v_camera.z)) < 0.0
 			   )
 			{
-
-				light_direction = ft_normalise(light_direction);
 				shade = ft_dot_product(normal, light_direction);
 				//PROJECTION
 				triangle[i].vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle[i].vertice[0]);
