@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 16:59:19 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/06/30 17:39:33 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max)
 {
 	int				i;
-	/* float			shade; */
 	t_myvec			light_direction;
 	t_mytriangle	triangle;
 	t_mytriangle	*triangle_lst;
@@ -119,13 +118,12 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	ft_set_raster_rot_x(raster->ftheta, raster);
 	//ft_set_raster_rot_y(raster->ftheta, raster);
 	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
-	i = 0;
 
 	////##################################################################################################
+	i = 0;
 	while (i < max)
 	{
 		triangle = triangle_array[i];
-
 		//ROTATION Z
 		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[0]);
 		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[1]);
@@ -170,16 +168,10 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		triangle_lst = triangle_lst->next;
 	}
 	triangle_lst = keep;
-
-	/* while (triangle_lst != NULL) */
-	/* { */
-	/* 	free(triangle_lst); */
-	/* 	triangle_lst = triangle_lst->next; */
-	/* } */
-
 	raster->ftheta += 1;
 	if (raster->ftheta == 360 * 2)
 		raster->ftheta = 0;
+	//free list
 	return;
 }
 
