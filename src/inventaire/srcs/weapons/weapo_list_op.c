@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 14:24:02 by naali             #+#    #+#             */
-/*   Updated: 2019/06/28 15:23:02 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/01 08:17:26 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,19 @@ int			weapo_list_len(t_weapons **start)
 	return (i);
 }
 
-void		destroy_weapo_list(t_weapons **start)
+t_weapons	*get_weapo_by_id(t_weapons **start, unsigned int id)
 {
+	unsigned int	id_cpy;
 	t_weapons	*tmp;
-	t_weapons	*tmp_end;
 
 	if (start != NULL && *start != NULL)
 	{
-		tmp_end = (*start)->previous;
 		tmp = *start;
-		while (*start != tmp_end)
-		{
+		id_cpy = (*start)->previous->id;
+		while (tmp->id != id && tmp->id != id_cpy)
 			tmp = tmp->next;
-			free(*start);
-			*start = NULL;
-			*start = tmp;
-		}
-		if (*start != NULL)
-			free(*start);
-		*start = NULL;
+		if (tmp->id == id)
+			return (tmp);
 	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 13:47:34 by naali             #+#    #+#             */
-/*   Updated: 2019/06/28 15:54:24 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/01 07:48:57 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ int			main(void)
 	j.inv->conso->previous->use(&j, j.inv->conso->previous);
 
 	printf("NB conso = %d\n", conso_list_len(&(j.inv->conso)));
-	conso_swap_elem(&(j.inv->conso), 3, 2);
+	conso_swap_elem(&(j.inv->conso), 2, 4);
+	conso_swap_elem(&(j.inv->conso), 3, 4);
+	destroy_one_conso(&(j.inv->conso), 1);
 	printf("NB conso = %d\n", conso_list_len(&(j.inv->conso)));
 	printf("NB weapo = %d\n", weapo_list_len(&(j.inv->weapo)));
 	destroy_conso_list(&(j.inv->conso));

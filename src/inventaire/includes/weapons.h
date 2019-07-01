@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 16:29:44 by naali             #+#    #+#             */
-/*   Updated: 2019/06/28 15:23:17 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/01 08:23:32 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,9 @@ t_weapons		*new_weapon(char *name, int type, int max_ammo);
 void			pushback_weapons(t_weapons **start, t_weapons *node);
 void			destroy_weapo_list(t_weapons **start);
 int				weapo_list_len(t_weapons **start);
+void			destroy_one_weapo(t_weapons **start, unsigned int id);
+t_weapons		*get_weapo_by_id(t_weapons **start, unsigned int id);
+void			weapo_swap_elem(t_weapons **start, \
+								unsigned int id1, unsigned int id2);
 
 #endif
