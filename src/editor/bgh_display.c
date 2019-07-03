@@ -134,12 +134,25 @@ void		message_bg_editor(t_win *wn, char *message)
 	TTF_SetFontStyle(wn->fonts->arial, TTF_STYLE_NORMAL);
 }
 
+// void		manage_tilde(char *path)
+// {
+// 	char *tmp;
+// 	char *login;
+
+// 	free(path);
+// 	path = ft_strjoinfree("/Users/", getlogin_r(login, 8), 16);
+// 	tmp = ft_strdup(path);
+// 	free(path);
+// 	path = ft_strjoinfree(tmp, "/", ft_strlen(tmp) + 2);
+// }
+
 void		print_bg(t_win *wn)
 {
 	static char		*path = NULL;
 
 	if (path == NULL)
 		path = ft_strdup("/Users/llejeune/Doom/texture/skybox/\0");
+	// (path[0] == '~') ? manage_tilde(path) : 0;
 	text_for_bg(wn);
 	wn->edit_image.bg = define_rect(5.6 * wn->xscreen / 7,
 		1.5 * wn->yscreen / 7, 1.30 * wn->xscreen / 7, 26);

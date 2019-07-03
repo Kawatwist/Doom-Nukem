@@ -26,14 +26,14 @@ static void	showelem(t_win *wn)
 		SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
 		while (point != NULL && point->next != NULL)
 		{
-			start = create_t_point(point->x + wn->map->x, point->y + wn->map->y);
-			end = create_t_point(point->next->x + wn->map->x, point->next->y + wn->map->y);
+			start = create_t_point(point->x * wn->map->size + wn->map->x, point->y * wn->map->size + wn->map->y);
+			end = create_t_point(point->next->x * wn->map->size + wn->map->x, point->next->y * wn->map->size + wn->map->y);
 			bresenham(wn, &start, &end);
 			point = point->next;
 		}
 		if (curr->next == NULL && point != NULL)
 		{
-			start = create_t_point(point->x + wn->map->x, point->y + wn->map->y);
+			start = create_t_point(point->x * wn->map->size + wn->map->x, point->y * wn->map->size + wn->map->y);
 			end = create_t_point(wn->input->x, wn->input->y);
 			bresenham(wn, &start, &end);
 		}
