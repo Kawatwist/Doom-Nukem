@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/29 17:58:43 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:14:01 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	ft_set_pro(t_myraster *raster)
 	fov = 90.0;
 	z_far = 1000.0;
 	z_near = 0.1;
-	screen_ratio = height / width; 
+	screen_ratio = height / width;
 	fov_rad = 1.0 / tanf(ft_rad(fov / 2));
 
 	raster->mat_proje[0][0] = screen_ratio / fov_rad;
@@ -125,21 +125,3 @@ void	ft_set_pro(t_myraster *raster)
 	raster->mat_proje[2][3] = 1.0;
 }
 
-t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i)
-{
-	t_myvec v;
-	float w;
-
- 	v.x = i.x * m[0][0] + i.y * m[1][0] + i.z * m[2][0] + m[3][0];
-	v.y = i.x * m[0][1] + i.y * m[1][1] + i.z * m[2][1] + m[3][1];
-	v.z = i.x * m[0][2] + i.y * m[1][2] + i.z * m[2][2] + m[3][2];
-	  w = i.x * m[0][3] + i.y * m[1][3] + i.z * m[2][3] + m[3][3];
-	if (w != 0.0)
-	{
-		v.x /= w;
-		v.y /= w;
-		v.z /= w;
-
-	}
-	return v;
-}
