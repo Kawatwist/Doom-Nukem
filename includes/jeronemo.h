@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 16:23:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:22:36 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -438,7 +438,6 @@ float	**ft_matrix_multiply_matrix(float **m1, float **m2);  //surement DONE
 float	**ft_make_matrix_5_5(void);
 float  **ft_matrix_quick_inverse(float **mu);
 float	**ft_make_translation(float x, float y, float z);
-t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i);
 
 
 
