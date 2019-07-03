@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 15:03:05 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:31:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		triangle_lst = triangle_lst->next;
 	}
 	triangle_lst = keep;
-	raster->ftheta += 0;
+	raster->ftheta += 1;
 	if (raster->ftheta == 360 * 2)
 		raster->ftheta = 0;
 	//free list

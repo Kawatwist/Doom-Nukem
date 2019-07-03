@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:42:03 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 15:24:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:30:10 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ t_myvec		ft_vector_sub(t_myvec v2, t_myvec v1)
 	return (result);
 }
 
+t_myvec		ft_vector_add(t_myvec v1, t_myvec v2)
+{
+	t_myvec result;
+
+	result.x = v1.x + v2.x;
+	result.y = v1.y + v2.y;
+	result.z = v1.z + v2.z;
+	return (result);
+}
 
 t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i)
 {
@@ -63,14 +72,4 @@ t_myvec	ft_matrix_multiply_vector_general(float matrix[5][5], t_myvec v)
 	vertex.w = v.x * matrix[0][3] + v.y * matrix[1][3] + v.z * matrix[2][3] + v.w * matrix[3][3];
 	return (vertex);
 }
-
-/* mat4x4 Matrix_MakeIdentity() */
-/* { */
-/* 	mat4x4 matrix; */
-/* 	matrix.m[0][0] = 1.0f; */
-/* 	matrix.m[1][1] = 1.0f; */
-/* 	matrix.m[2][2] = 1.0f; */
-/* 	matrix.m[3][3] = 1.0f; */
-/* 	return matrix; */
-/* } */
 

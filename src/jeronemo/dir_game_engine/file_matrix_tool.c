@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 15:14:01 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:32:42 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,25 @@ void	ft_set_pro(t_myraster *raster)
 	raster->mat_proje[3][3] = 0.0;
 	raster->mat_proje[2][3] = 1.0;
 }
+
+float	**ft_matrix_multiply_matrix(float **m1, float **m2)  //surement DONE
+{
+	float	**mat_multiply;
+
+	mat_multiply = ft_make_matrix_5_5();
+	for (int c = 0; c < 4; c++)
+		for (int r = 0; r < 4; r++)
+			mat_multiply[r][c] = m1[r][0] * m2[0][c] + m1[r][1] * m2[1][c] + m1[r][2] * m2[2][c] + m1[r][3] * m2[3][c];
+	return (mat_multiply);
+}
+
+/* mat4x4 Matrix_MakeIdentity() */
+/* { */
+/* 	mat4x4 matrix; */
+/* 	matrix.m[0][0] = 1.0f; */
+/* 	matrix.m[1][1] = 1.0f; */
+/* 	matrix.m[2][2] = 1.0f; */
+/* 	matrix.m[3][3] = 1.0f; */
+/* 	return matrix; */
+/* } */
 

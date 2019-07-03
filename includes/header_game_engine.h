@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 15:23:48 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:30:01 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ void	ft_set_raster_rot_x(float theta, t_myraster *raster);
 void	ft_set_raster_rot_y(float theta, t_myraster *raster);
 void	ft_set_raster_rot_z(float theta, t_myraster *raster);
 void	ft_set_pro(t_myraster *raster);
+float	**ft_matrix_multiply_matrix(float **m1, float **m2);
 
 //FILE VECTOR TOOL
 t_myvec		ft_normalise(t_myvec vector);
 t_myvec		ft_vector_sub(t_myvec v2, t_myvec v1);
 t_myvec		ft_matrix_multiply_vector(float **m, t_myvec i);
 t_myvec		ft_matrix_multiply_vector_general(float matrix[5][5], t_myvec v);
+t_myvec		ft_vector_add(t_myvec v1, t_myvec v2);
 
 //FILE FILL TRIANGLE
 void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_mywin *s_win, float shade);
