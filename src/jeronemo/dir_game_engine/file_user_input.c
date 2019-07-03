@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 16:51:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:55:38 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,24 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 
 
 
-
-
 	if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0)
 	{
 		printf("A => on decremente le theta\n");
-		change->theta -= 1;
+		raster->theta_camera += 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_D] == 1 && old[SDL_SCANCODE_D] == 0)
 	{
 		printf("D => on increment le theta\n");
-		change->theta += 1;
+		raster->theta_camera -= 1;
 		change->modif = 1;
 	}
+
+
+
+
+
+
 	if (wn->state[SDL_SCANCODE_W] == 1 && old[SDL_SCANCODE_W] == 0)
 	{
 		/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
