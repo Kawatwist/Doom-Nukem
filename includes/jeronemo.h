@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 15:27:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:35:39 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -388,6 +388,10 @@ int				ft_abs(int number);
 t_myvec			ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
 float			ft_atoi_comma(const char *str);
 
+
+
+
+
 void			ft_display_the_polygon_list(t_mypolygon *polygon_lst);
 t_mypolygon		*ft_read_the_polygon_file(void);
 void			ft_process_polygon(t_mypolygon *polygon_lst);
@@ -416,7 +420,6 @@ t_myvec	ft_translation_x(float value, t_myvec vertex);
 t_myvec	ft_translation_y(float value, t_myvec vertex);
 t_myvec	ft_translation_z(float value, t_myvec vertex);
 t_myvec	ft_scale(float zoom, t_myvec vertex);
-float	ft_rad(float angle);
 void	ft_draw_change(t_mywin *s_win, t_mychange *change);
 t_myvec		ft_normalise(t_myvec vector);
 void		ft_mouse_event_check(t_win *wn, t_mychange *change);
@@ -427,7 +430,6 @@ void	ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win
 t_myvec		ft_vector_multiply(t_myvec m, float k);
 float	**ft_make_projection(void);   //DONE
 float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up);
-float	**ft_make_identity(void);  //DONE
 float	**ft_make_rotation_x(float theta);  //DONE
 float	**ft_make_rotation_y(float theta);  //DONE
 float	**ft_make_rotation_z(float theta); //DONE

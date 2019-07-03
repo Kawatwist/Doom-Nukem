@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 15:32:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:31:35 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,13 +136,27 @@ float	**ft_matrix_multiply_matrix(float **m1, float **m2)  //surement DONE
 	return (mat_multiply);
 }
 
-/* mat4x4 Matrix_MakeIdentity() */
-/* { */
-/* 	mat4x4 matrix; */
-/* 	matrix.m[0][0] = 1.0f; */
-/* 	matrix.m[1][1] = 1.0f; */
-/* 	matrix.m[2][2] = 1.0f; */
-/* 	matrix.m[3][3] = 1.0f; */
-/* 	return matrix; */
-/* } */
+float	**ft_make_identity(void)
+{
+	float	**mat_identity;
+
+	mat_identity = ft_make_matrix_5_5();
+	mat_identity[0][0] = 1.0;
+	mat_identity[0][1] = 0.0;
+	mat_identity[0][2] = 0.0;
+	mat_identity[0][3] = 0.0;
+	mat_identity[1][0] = 0.0;
+	mat_identity[1][1] = 1.0;
+	mat_identity[1][2] = 0.0;
+	mat_identity[1][3] = 0.0;
+	mat_identity[2][0] = 0.0;
+	mat_identity[2][1] = 0.0;
+	mat_identity[2][2] = 1.0;
+	mat_identity[2][3] = 0.0;
+	mat_identity[3][0] = 0.0;
+	mat_identity[3][1] = 0.0;
+	mat_identity[3][2] = 0.0;
+	mat_identity[3][3] = 1.0;
+	return (mat_identity);
+}
 
