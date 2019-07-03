@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 16:07:37 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:51:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 
-void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
+void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myraster *raster)
 {
 
 	/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
@@ -24,28 +24,34 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change)
 
 	if (wn->state[SDL_SCANCODE_UP] == 1 && old[SDL_SCANCODE_UP] == 0)
 	{
-		printf("Fleche Haut => on decrement camera y\n");
-		change->v_camera.y -= 5;
+		printf("Fleche Haut => on increment camera y\n");
+		raster->v_camera.y += 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_DOWN] == 1 && old[SDL_SCANCODE_DOWN] == 0)
 	{
-		printf("Fleche Haut => on increment camera y\n");
-		change->v_camera.y += 5;
+		printf("Fleche Haut => on decrement camera y\n");
+		raster->v_camera.y -= 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_LEFT] == 1 && old[SDL_SCANCODE_LEFT] == 0)
 	{
 		printf("Fleche Gauche => on decrement camera x\n");
-		change->v_camera.x -= 2;
+		raster->v_camera.x -= 2;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_RIGHT] == 1 && old[SDL_SCANCODE_RIGHT] == 0)
 	{
 		printf("Fleche Droite => on increment camera x\n");
-		change->v_camera.x += 2;
+		raster->v_camera.x += 2;
 		change->modif = 1;
 	}
+
+
+
+
+
+
 	if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0)
 	{
 		printf("A => on decremente le theta\n");
@@ -297,12 +303,12 @@ void		ft_mouse_event_check(t_win *wn, t_mychange *change)
 		;
 }
 
-void	ft_input_event_check(t_win *wn, t_mychange *change)
+void	ft_input_event_check(t_win *wn, t_mychange *change, t_myraster *raster)
 {
 	SDL_PollEvent(&(wn->ev));
 	wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
 	/* wn->input->oldmouse = wn->input->mouse; */
 	/* wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y); */
-	ft_keyboard_event_check(wn, change->old, change);
+	ft_keyboard_event_check(wn, change->old, change, raster);
 	/* ft_mouse_event_check(wn, change); */
 }

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 16:34:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:53:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct				s_myraster
 	float					**mat_proje;
 	t_myvec					v_camera;
 	float					ftheta;
+	float					theta_camera;
 }							t_myraster;
 
 //FILE GAME ENGINE
@@ -31,7 +32,7 @@ void	ft_init_rasterization(t_mykeep *keep, t_mychange *change, t_myraster *raste
 void	ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max);
 
 //FILE USER INPUT
-void	ft_input_event_check(t_win *wn, t_mychange *change);
+void	ft_input_event_check(t_win *wn, t_mychange *change, t_myraster *raster);
 
 //FILE GET TRINAGLES
 t_mytriangle	*ft_get_triangle(void);

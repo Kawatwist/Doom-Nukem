@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 16:42:02 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:52:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_init_rasterization(t_mykeep *keep, t_mychange *change, t_myraster *raste
 	raster->mat_proje = ft_make_matrix_5_5();
 	ft_set_pro(raster);
 	raster->ftheta = 0;
+	raster->theta_camera = 0;
 
 
 	raster->v_camera.x = 0;
@@ -80,7 +81,7 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	/* ft_display_triangle_array(s_win, triangle_array, max); */
 	while (!change.quit)
 	{
-		ft_input_event_check(wn, &change);
+		ft_input_event_check(wn, &change, &raster);
 		ft_clear_window(s_win);
 		ft_update_raster(s_win, &raster, triangle_array, max);
 		SDL_RenderPresent(s_win->renderer[s_win->interface]);
