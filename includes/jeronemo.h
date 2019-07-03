@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 16:35:39 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:20:30 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -427,16 +427,12 @@ void	ft_display_panel();
 void	ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
 
 
-t_myvec		ft_vector_multiply(t_myvec m, float k);
 float	**ft_make_projection(void);   //DONE
-float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up);
 float	**ft_make_rotation_x(float theta);  //DONE
-float	**ft_make_rotation_y(float theta);  //DONE
 float	**ft_make_rotation_z(float theta); //DONE
 
 float	**ft_matrix_multiply_matrix(float **m1, float **m2);  //surement DONE
 float	**ft_make_matrix_5_5(void);
-float  **ft_matrix_quick_inverse(float **mu);
 float	**ft_make_translation(float x, float y, float z);
 
 

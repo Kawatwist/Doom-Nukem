@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 16:55:38 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:25:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 	if (wn->state[SDL_SCANCODE_UP] == 1 && old[SDL_SCANCODE_UP] == 0)
 	{
 		printf("Fleche Haut => on increment camera y\n");
-		raster->v_camera.y += 5;
+		raster->v_camera.y -= 5;   // a changer apres pour que ce soit clair que le y est inverser  
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_DOWN] == 1 && old[SDL_SCANCODE_DOWN] == 0)
 	{
 		printf("Fleche Haut => on decrement camera y\n");
-		raster->v_camera.y -= 5;
+		raster->v_camera.y += 5;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_LEFT] == 1 && old[SDL_SCANCODE_LEFT] == 0)
@@ -47,9 +47,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 		change->modif = 1;
 	}
 
-
-
-
 	if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0)
 	{
 		printf("A => on decremente le theta\n");
@@ -64,10 +61,6 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 	}
 
 
-
-
-
-
 	if (wn->state[SDL_SCANCODE_W] == 1 && old[SDL_SCANCODE_W] == 0)
 	{
 		/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
@@ -75,12 +68,14 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 		printf("On incremente du vecteur forward\n");
 		/* change->v_camera = ft_vector_add(change->v_camera, change->v_forward); */
 		change->avancer = 1;
+		raster->avancer = 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_S] == 1 && old[SDL_SCANCODE_S] == 0)
 	{
 		/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
 		change->reculer = 1;
+		raster->reculer = 1;
 
 		printf("On decremente du vecteur forward\n");
 		/* change->v_camera = ft_vector_sub(change->v_forward, change->v_camera); */

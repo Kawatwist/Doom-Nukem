@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:42:03 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 15:30:10 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:20:30 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,3 +73,12 @@ t_myvec	ft_matrix_multiply_vector_general(float matrix[5][5], t_myvec v)
 	return (vertex);
 }
 
+t_myvec		ft_vector_multiply(t_myvec m, float k)
+{
+	t_myvec		result;
+
+	result.x = m.x * k;
+	result.y = m.y * k;
+	result.z = m.z * k;
+	return (result);
+}

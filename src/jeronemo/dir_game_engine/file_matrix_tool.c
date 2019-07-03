@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 16:37:25 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:28:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,3 +160,70 @@ float	**ft_make_identity(void)
 	return (mat_identity);
 }
 
+float	**ft_make_rotation_y(float theta)  //DONE
+{
+	float	**mat_rotation;
+
+	mat_rotation = ft_make_matrix_5_5();
+	mat_rotation[0][0] = cosf(ft_rad(theta));
+	mat_rotation[0][1] = 0.0;
+	mat_rotation[0][2] = sinf(ft_rad(theta));
+	mat_rotation[0][3] = 0.0;
+	mat_rotation[1][0] = 0.0;
+	mat_rotation[1][1] = 1.0;
+	mat_rotation[1][2] = 0.0;
+	mat_rotation[1][3] = 0.0;
+	mat_rotation[2][0] = -sinf(ft_rad(theta));
+	mat_rotation[2][1] = 0.0;
+	mat_rotation[2][2] = cosf(ft_rad(theta));
+	mat_rotation[2][3] = 0.0;
+	mat_rotation[3][0] = 0.0;
+	mat_rotation[3][1] = 0.0;
+	mat_rotation[3][2] = 0.0;
+	mat_rotation[3][3] = 1.0;
+	return (mat_rotation);
+}
+
+float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up)
+{
+	t_myvec		new_forward;
+	t_myvec		new_up;
+	t_myvec		new_right;
+	float		**matrix;
+
+	matrix = ft_make_matrix_5_5();
+	//CALCULATE NEW FORWARD VECTOR
+	new_forward = ft_vector_sub(v_target, v_pos);
+	new_forward = ft_normalise(new_forward);
+
+	//CALCULATE NEW UP DIRECTION
+	t_myvec  a  = ft_vector_multiply(new_forward, ft_dot_product(v_up, new_forward));
+	new_up = ft_vector_sub(v_up, a);
+	new_up = ft_normalise(new_up);
+
+	//CALCULATE DIRECTION, EASY ITS JUST A CROSS PRODUCT
+	new_right = ft_cross_product(new_up, new_forward);
+
+	//CONSTRUCT DIMENSIONING AND TRANSLATION MATRIX
+	matrix[0][0] = new_right.x;		matrix[0][1] = new_right.y;		matrix[0][2] = new_right.x;		matrix[0][3] = 0.0;
+	matrix[1][0] = new_up.x;		matrix[1][1] = new_up.y;		matrix[1][2] = new_up.z;		matrix[1][3] = 0.0;
+	matrix[2][0] = new_forward.x;	matrix[2][1] = new_forward.y;	matrix[2][2] = new_forward.z;   matrix[2][3] = 0.0;
+	matrix[3][0] = v_pos.x;			matrix[3][1] = v_pos.y;			matrix[3][2] = v_pos.z;			matrix[3][3] = 1.1;
+    return (matrix);
+}
+
+float  **ft_matrix_quick_inverse(float **mu)
+{
+	float **matrix;
+
+	matrix = ft_make_matrix_5_5();
+	matrix[0][0] = mu[0][0];matrix[0][1] = mu[1][0];matrix[0][2] = mu[2][0];matrix[0][3] = 0.0f;
+	matrix[1][0] = mu[0][1];matrix[1][1] = mu[1][1];matrix[1][2] = mu[2][1];matrix[1][3] = 0.0f;
+	matrix[2][0] = mu[0][2];matrix[2][1] = mu[1][2];matrix[2][2] = mu[2][2];matrix[2][3] = 0.0f;
+
+	matrix[3][0] = -(mu[3][0] * matrix[0][0] + mu[3][1] * matrix[1][0] + mu[3][2] * matrix[2][0]);
+	matrix[3][1] = -(mu[3][0] * matrix[0][1] + mu[3][1] * matrix[1][1] + mu[3][2] * matrix[2][1]);
+	matrix[3][2] = -(mu[3][0] * matrix[0][2] + mu[3][1] * matrix[1][2] + mu[3][2] * matrix[2][2]);
+	matrix[3][3] = 1.0f;
+	return (matrix);
+}

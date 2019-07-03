@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 16:53:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:20:05 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,16 @@ typedef struct				s_myraster
 	float					**mat_rot_z;
 	float					**mat_proje;
 	t_myvec					v_camera;
+	t_myvec					v_up;
+	t_myvec					v_target;
+	float					**mat_camera_rot;
+	float					**mat_camera_look_at;
+	float					**mat_camera_view;
+	t_myvec					v_look_dir;
 	float					ftheta;
 	float					theta_camera;
+	unsigned char			avancer;
+	unsigned char			reculer;
 }							t_myraster;
 
 //FILE GAME ENGINE
@@ -53,12 +61,17 @@ void	ft_set_pro(t_myraster *raster);
 float	**ft_matrix_multiply_matrix(float **m1, float **m2);
 float	**ft_make_identity(void);
 
+float	**ft_make_rotation_y(float theta);
+float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up);
+float	**ft_matrix_quick_inverse(float **mu);
+
 //FILE VECTOR TOOL
 t_myvec		ft_normalise(t_myvec vector);
 t_myvec		ft_vector_sub(t_myvec v2, t_myvec v1);
 t_myvec		ft_matrix_multiply_vector(float **m, t_myvec i);
 t_myvec		ft_matrix_multiply_vector_general(float matrix[5][5], t_myvec v);
 t_myvec		ft_vector_add(t_myvec v1, t_myvec v2);
+t_myvec		ft_vector_multiply(t_myvec m, float k);
 
 //FILE FILL TRIANGLE
 void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_mywin *s_win, float shade);

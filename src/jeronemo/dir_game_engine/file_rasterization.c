@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 16:40:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:54:21 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,18 +104,89 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_node;
 	t_mytriangle	*keep;
+	t_myvec			normal;
 
 	triangle_lst = NULL;
 	light_direction.x = 0.5;
 	light_direction.y = 0.0;
 	light_direction.z = -1.0;
 	light_direction = ft_normalise(light_direction);
-	t_myvec		normal;
+
+
+	//calcul de matrix world
 	ft_set_raster_trans(0, 0, 30, raster);
 	//ft_set_raster_rot_x(raster->ftheta, raster);
 	ft_set_raster_rot_x(180, raster);
 	//ft_set_raster_rot_y(raster->ftheta, raster);
 	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
+
+
+
+
+	//calucl de matrix view
+
+   	t_camera cam;
+t_vector3 vertice[3];
+
+   	cam.pos.x = raster->v_camera.x;
+   	cam.pos.y = raster->v_camera.y;
+   	cam.pos.z = raster->v_camera.z;
+   	printf("=%f =%f =%f", cam.pos.x, cam.pos.y, cam.pos.z);
+
+
+   	cam.pitch = 3;
+   	cam.yaw = raster->theta_camera;
+
+   	t_vector3 zaxis = 	normalize_t_vector3(create_t_vector3(cos(degree_to_radius(cam.pitch)) * sin(degree_to_radius(cam.yaw)),
+   						sin(degree_to_radius(cam.pitch)),
+   						cos(degree_to_radius(cam.pitch)) * cos(degree_to_radius(cam.yaw))));
+
+   	t_vector3 xaxis = 	normalize_t_vector3(create_t_vector3(sin(degree_to_radius(cam.yaw) - 3.14f / 2.0f),
+   						0,
+   						cos(degree_to_radius(cam.yaw) - 3.14f / 2.0f)));
+
+   	t_vector3 yaxis =	normalize_t_vector3(cross_t_vector3(xaxis, zaxis));
+
+	//this is the look at vector   (rotation de la camera)
+	cam.forward = zaxis;
+	cam.right = xaxis;
+	cam.up = inv_t_vector3(yaxis);
+
+	if (raster->avancer == 1)
+	{
+		cam.forward = normalize_t_vector3(cam.forward);
+		cam.pos = substract_vector3_to_vector3(cam.pos, cam.forward);
+		raster->v_camera.x = cam.pos.x;
+		raster->v_camera.y = cam.pos.y;
+		raster->v_camera.z = cam.pos.z;
+
+		raster->avancer = 0;
+	}
+	if (raster->reculer == 1)
+	{
+
+		cam.forward = normalize_t_vector3(cam.forward);
+		cam.pos = add_vector3_to_vector3(cam.pos, cam.forward);
+
+		raster->v_camera.x = cam.pos.x;
+		raster->v_camera.y = cam.pos.y;
+		raster->v_camera.z = cam.pos.z;
+
+		raster->reculer = 0;
+	}
+
+	//this is the matrix view
+	cam.view = t_camera_compute_view(&cam);
+	//this is the matrix projection
+	cam.near = 0.1;
+	cam.far = 50.0;
+	cam.fov = 70;
+
+	cam.projection = compute_projection_matrix(&cam);
+
+
+	int j = 0;
+
 
 	////##################################################################################################
 	i = 0;
@@ -134,12 +205,49 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[0]);
 		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[1]);
 		triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[2]);
+
+
 		//CULLING
 		normal = ft_calculate_normal_of_points(triangle.vertice[0], triangle.vertice[1], triangle.vertice[2]);
 		normal = ft_normalise(normal);
 		if (ft_dot_product(normal, ft_vector_sub(triangle.vertice[0], raster->v_camera)) < 0.0)
 		{
 			triangle.shade = ft_dot_product(normal, light_direction);
+
+
+		vertice[0].x = triangle.vertice[0].x;
+		vertice[0].y = triangle.vertice[0].y;
+		vertice[0].z = triangle.vertice[0].z;
+
+		vertice[1].x = triangle.vertice[1].x;
+		vertice[1].y = triangle.vertice[1].y;
+		vertice[1].z = triangle.vertice[1].z;
+
+		vertice[2].x = triangle.vertice[2].x;
+		vertice[2].y = triangle.vertice[2].y;
+		vertice[2].z = triangle.vertice[2].z;
+
+		j = -1;
+		while (++j < 3)
+			vertice[j] = mult_vector3_by_matrix(vertice[j], cam.view);
+
+
+		triangle.vertice[0].x = vertice[0].x;
+		triangle.vertice[0].y = vertice[0].y;
+		triangle.vertice[0].z = vertice[0].z;
+
+		triangle.vertice[1].x =vertice[1].x;
+		triangle.vertice[1].y =vertice[1].y;
+		triangle.vertice[1].z =vertice[1].z;
+
+		triangle.vertice[2].x = vertice[2].x;
+		triangle.vertice[2].y = vertice[2].y;
+		triangle.vertice[2].z = vertice[2].z;
+
+
+
+
+
 			//PROJECTION
 			triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[0]);
 			triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[1]);
@@ -166,7 +274,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		triangle_lst = triangle_lst->next;
 	}
 	triangle_lst = keep;
-	raster->ftheta += 1;
+	raster->ftheta += 0;
 	if (raster->ftheta == 360 * 2)
 		raster->ftheta = 0;
 	//free list
