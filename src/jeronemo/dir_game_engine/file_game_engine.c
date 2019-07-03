@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 16:47:30 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:42:02 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ void	ft_init_rasterization(t_mykeep *keep, t_mychange *change, t_myraster *raste
 	raster->ftheta = 0;
 
 
+	raster->v_camera.x = 0;
+	raster->v_camera.y = 0;
+	raster->v_camera.z = 0;
 
 	keep->polygon = NULL;
 	keep->vec = NULL;
