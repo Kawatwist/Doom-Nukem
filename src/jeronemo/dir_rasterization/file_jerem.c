@@ -6,35 +6,12 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:38:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:42:27 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
-t_myvec	mult_vector3_by_vector3(t_myvec a,t_myvec b)
-{
-	t_myvec	result;
-
-	result = ft_create_vector(a.x * b.x, a.y * b.y, a.z * b.z);
-	return (result);
-}
-
-void		t_camera_look_at(t_camera *cam) // calcul de l'angle de vue de la camera (forward, right, up)
-{
-	t_myvec zaxis = ft_normalise(ft_create_vector(cos(ft_rad(cam->pitch)) * sin(ft_rad(cam->yaw)),
-						sin(ft_rad(cam->pitch)),
-						cos(ft_rad(cam->pitch)) * cos(ft_rad(cam->yaw))));
-
-	t_myvec xaxis = ft_normalise(ft_create_vector(sin(ft_rad(cam->yaw) - 3.14f / 2.0f),
-						0,
-						cos(ft_rad(cam->yaw) - 3.14f / 2.0f)));
-	t_myvec yaxis = ft_normalise(ft_cross_product(xaxis, zaxis));
-
-	cam->forward = zaxis;
-	cam->right = xaxis;
-	cam->up = ft_vector_inverse(yaxis);
-}
 
 float	**compute_projection_matrix(t_camera *p_cam) //calcul de la matrice de projection
 {
@@ -63,7 +40,7 @@ float	**t_camera_compute_view(t_camera *cam) //calcul de la matrice de vue
 	t_myvec	inv_forward;
 
 	result = ft_make_matrix_5_5();
-	inv_forward = mult_vector3_by_vector3(cam->forward, ft_create_vector(-1, -1, -1));
+	inv_forward = ft_vector_multiply_vector(cam->forward, ft_create_vector(-1, -1, -1));
 
 	result[0][0] = cam->right.x;
 	result[1][0] = cam->right.y;

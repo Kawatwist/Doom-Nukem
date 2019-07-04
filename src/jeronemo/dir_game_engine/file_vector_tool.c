@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:42:03 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:36:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:42:34 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,13 @@ t_myvec		ft_vector_multiply(t_myvec m, float k)
 	result.x = m.x * k;
 	result.y = m.y * k;
 	result.z = m.z * k;
+	return (result);
+}
+
+t_myvec	ft_vector_multiply_vector(t_myvec a,t_myvec b)
+{
+	t_myvec	result;
+
+	result = ft_create_vector(a.x * b.x, a.y * b.y, a.z * b.z);
 	return (result);
 }
