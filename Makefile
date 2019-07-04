@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/07/04 13:46:45 by jchardin         ###   ########.fr        #
+#    Updated: 2019/07/04 13:50:12 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -93,12 +93,6 @@ SRC += file_bsp.c
 #BRESENHAM
 SRC += fille_bresename.c
 
-#RASTERIZATION
- #SRC += file_rasterization_main.c
-# SRC += file_vertex_modif.c
-# SRC += file_vector_calcul.c
-# SRC += file_get_triangle.c
- #SRC += file_jerem.c
 # SRC += file_clipping.c
 
 #GAME ENGINE

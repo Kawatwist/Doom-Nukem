@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:42:03 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:51:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ float	**ft_make_identity(void);
 float	**ft_make_rotation_y(float theta);
 float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up);
 float	**ft_matrix_quick_inverse(float **mu);
+float	**t_camera_compute_view(t_camera *cam); //calcul de la matrice de vue
+float	**compute_projection_matrix(t_camera *p_cam); //calcul de la matrice de projection
 
 //FILE VECTOR TOOL
 t_myvec		ft_normalise(t_myvec vector);
@@ -115,5 +117,3 @@ void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_mywin *s_win, 
 //vector from two point
 
 //FILE JEREM
-float		**t_camera_compute_view(t_camera *cam); //calcul de la matrice de vue
-float		**compute_projection_matrix(t_camera *p_cam); //calcul de la matrice de projection
