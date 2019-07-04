@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 15:11:18 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:24:18 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,40 @@ float	**t_camera_compute_view(t_myraster *raster) //calcul de la matrice de vue
 {
 	float	**result;
 	t_myvec	inv_forward;
+	t_myvec zaxis;
+	t_myvec xaxis;
+	t_myvec yaxis;
+
+	raster->pitch = 3;
+
+	zaxis =
+		ft_normalise(ft_create_vector(cos(ft_rad(raster->pitch)) * sin(ft_rad(raster->theta_camera)),
+					sin(ft_rad(raster->pitch)),
+					cos(ft_rad(raster->pitch)) * cos(ft_rad(raster->theta_camera))));
+	xaxis =
+		ft_normalise(ft_create_vector(sin(ft_rad(raster->theta_camera) - 3.14f / 2.0f),
+					0,
+					cos(ft_rad(raster->theta_camera) - 3.14f / 2.0f)));
+	yaxis =
+		ft_normalise(ft_cross_product(xaxis, zaxis));
+
+	//this is the look at vector   (rotation de la camera)
+	raster->forward = zaxis;
+	raster->v_right = xaxis;
+	raster->v_up = ft_vector_inverse(yaxis);
+
+	if (raster->reculer == 1)
+	{
+		raster->forward = ft_normalise(raster->forward);
+		raster->v_camera  = ft_vector_sub(raster->v_camera, raster->forward);
+		raster->reculer = 0;
+	}
+	if (raster->avancer == 1)
+	{
+		raster->forward = ft_normalise(raster->forward);
+		raster->v_camera = ft_vector_add(raster->v_camera, raster->forward);
+		raster->avancer = 0;
+	}
 
 	result = ft_make_matrix_5_5();
 	inv_forward = ft_vector_multiply_vector(raster->forward, ft_create_vector(-1, -1, -1));

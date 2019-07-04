@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 15:15:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:25:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,49 +112,14 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	light_direction.z = -1.0;
 	light_direction = ft_normalise(light_direction);
 
-	//calcul de matrix world
+	//CALCUL DE MATRIX WORLD
 	ft_set_raster_trans(0, 0, 30, raster);
 	//ft_set_raster_rot_x(raster->ftheta, raster);
 	ft_set_raster_rot_x(180, raster);
 	//ft_set_raster_rot_y(raster->ftheta, raster);
 	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
-
-	//calucl de matrix view
-
-	raster->pitch = 3;
-
-	t_myvec zaxis =
-		ft_normalise(ft_create_vector(cos(ft_rad(raster->pitch)) * sin(ft_rad(raster->theta_camera)),
-					sin(ft_rad(raster->pitch)),
-					cos(ft_rad(raster->pitch)) * cos(ft_rad(raster->theta_camera))));
-	t_myvec xaxis =
-		ft_normalise(ft_create_vector(sin(ft_rad(raster->theta_camera) - 3.14f / 2.0f),
-					0,
-					cos(ft_rad(raster->theta_camera) - 3.14f / 2.0f)));
-	t_myvec yaxis =
-		ft_normalise(ft_cross_product(xaxis, zaxis));
-
-	//this is the look at vector   (rotation de la camera)
-	raster->forward = zaxis;
-	raster->v_right = xaxis;
-	raster->v_up = ft_vector_inverse(yaxis);
-
-	if (raster->reculer == 1)
-	{
-		raster->forward = ft_normalise(raster->forward);
-		raster->v_camera  = ft_vector_sub(raster->v_camera, raster->forward);
-		raster->reculer = 0;
-	}
-	if (raster->avancer == 1)
-	{
-		raster->forward = ft_normalise(raster->forward);
-		raster->v_camera = ft_vector_add(raster->v_camera, raster->forward);
-		raster->avancer = 0;
-	}
-	//this is the matrix view
-	raster->mat_camera_view = t_camera_compute_view(raster);
-
-
+	//CALUL DE MATRIX VIEW
+	raster->mat_camera_view = t_camera_compute_view(raster); 
 	////##################################################################################################
 	i = 0;
 	while (i < max )
