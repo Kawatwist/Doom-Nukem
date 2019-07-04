@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:19:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:20:01 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,6 @@ void		t_camera_look_at(t_camera *cam) // calcul de l'angle de vue de la camera (
 	cam->right = xaxis;
 	cam->up = ft_vector_inverse(yaxis);
 }
-
-void		t_camera_change_view(t_camera *cam, float delta_pitch, float delta_yaw)
-{
-	(void)delta_pitch;
-	cam->pitch = 0;
-	cam->yaw += delta_yaw;
-	t_camera_look_at(cam);
-}
-
 
 t_myvec	apply_t_camera(t_myvec *src, float **mat) // applique la position de la camera
 {
