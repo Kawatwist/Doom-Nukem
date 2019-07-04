@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 12:00:19 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:06:31 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,15 +135,15 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	cam.yaw = raster->theta_camera;
 
 	t_myvec zaxis =
-				normalize_t_vector3(ft_create_vector(cos(ft_rad(cam.pitch)) * sin(ft_rad(cam.yaw)),
+				ft_normalise(ft_create_vector(cos(ft_rad(cam.pitch)) * sin(ft_rad(cam.yaw)),
 				sin(ft_rad(cam.pitch)),
 				cos(ft_rad(cam.pitch)) * cos(ft_rad(cam.yaw))));
 	t_myvec xaxis =
-				normalize_t_vector3(ft_create_vector(sin(ft_rad(cam.yaw) - 3.14f / 2.0f),
+				ft_normalise(ft_create_vector(sin(ft_rad(cam.yaw) - 3.14f / 2.0f),
 				0,
 				cos(ft_rad(cam.yaw) - 3.14f / 2.0f)));
 	t_myvec yaxis =
-				normalize_t_vector3(cross_t_vector3(xaxis, zaxis));
+				ft_normalise(cross_t_vector3(xaxis, zaxis));
 
 	//this is the look at vector   (rotation de la camera)
 	cam.forward = zaxis;
@@ -152,7 +152,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 
 	if (raster->reculer == 1)
 	{
-		cam.forward = normalize_t_vector3(cam.forward);
+		cam.forward = ft_normalise(cam.forward);
 		cam.pos = ft_vector_sub(cam.pos, cam.forward);
 		raster->v_camera.x = cam.pos.x;
 		raster->v_camera.y = cam.pos.y;
@@ -163,7 +163,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	if (raster->avancer == 1)
 	{
 
-		cam.forward = normalize_t_vector3(cam.forward);
+		cam.forward = ft_normalise(cam.forward);
 		cam.pos = ft_vector_add(cam.pos, cam.forward);
 
 		raster->v_camera.x = cam.pos.x;

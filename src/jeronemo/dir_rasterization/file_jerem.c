@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 12:02:03 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:05:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,28 +84,20 @@ t_myvec	inv_t_vector3(t_myvec src)
 	return (result);
 }
 
-t_myvec		normalize_t_vector3(t_myvec v) // ramene la longueur du vecteur a 1
-{
-	float		length_of_v;
-
-	length_of_v = sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
-	return (ft_create_vector(v.x / length_of_v, v.y
-							/ length_of_v, v.z / length_of_v));
-}
 
 
 
 void		t_camera_look_at(t_camera *cam) // calcul de l'angle de vue de la camera (forward, right, up)
 {
-	t_myvec zaxis = normalize_t_vector3(ft_create_vector(cos(ft_rad(cam->pitch)) * sin(ft_rad(cam->yaw)),
+	t_myvec zaxis = ft_normalise(ft_create_vector(cos(ft_rad(cam->pitch)) * sin(ft_rad(cam->yaw)),
 						sin(ft_rad(cam->pitch)),
 						cos(ft_rad(cam->pitch)) * cos(ft_rad(cam->yaw))));
 
 
-	t_myvec xaxis = normalize_t_vector3(ft_create_vector(sin(ft_rad(cam->yaw) - 3.14f / 2.0f),
+	t_myvec xaxis = ft_normalise(ft_create_vector(sin(ft_rad(cam->yaw) - 3.14f / 2.0f),
 						0,
 						cos(ft_rad(cam->yaw) - 3.14f / 2.0f)));
-	t_myvec yaxis = normalize_t_vector3(cross_t_vector3(xaxis, zaxis));
+	t_myvec yaxis = ft_normalise(cross_t_vector3(xaxis, zaxis));
 
 	cam->forward = zaxis;
 	cam->right = xaxis;

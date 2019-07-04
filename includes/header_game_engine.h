@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 12:01:59 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:05:38 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,9 +158,7 @@ t_matrix	t_camera_compute_view(t_camera *cam); //calcul de la matrice de vue
 t_matrix	compute_projection_matrix(t_camera *p_cam); //calcul de la matrice de projection
 
 
-t_myvec		create_t_vector3(float p_x, float p_y, float p_z);
 t_myvec		mult_vector3_by_matrix(t_myvec vertex, t_matrix m);
 t_myvec		inv_t_vector3(t_myvec src);
-t_myvec		normalize_t_vector3(t_myvec v); // ramene la longueur du vecteur a 1
 
 
