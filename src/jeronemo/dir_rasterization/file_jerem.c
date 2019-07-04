@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:20:01 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:20:47 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,6 @@ void		t_camera_look_at(t_camera *cam) // calcul de l'angle de vue de la camera (
 	cam->up = ft_vector_inverse(yaxis);
 }
 
-t_myvec	apply_t_camera(t_myvec *src, float **mat) // applique la position de la camera
-{
-	t_myvec	result; // x -> coord a l'ecran en x de ce point / y -> coord a l'ecran en y de ce point / z -> distance reelle entre ce point et l'oeil de la camera
-	float		delta;
-
-	result.x = src->x * mat[0][0] + src->y * mat[1][0] + src->z * mat[2][0] + mat[3][0];
-	result.y = src->x * mat[0][1] + src->y * mat[1][1] + src->z * mat[2][1] + mat[3][1];
-	result.z = src->x * mat[0][2] + src->y * mat[1][2] + src->z * mat[2][2] + mat[3][2];
-	delta = src->x * mat[0][3] + src->y * mat[1][3] + src->z * mat[2][3] + mat[3][3];
-	if (delta != 0)
-	{
-		result.x /= delta;
-		result.y /= delta;
-		result.z /= -delta;
-	}
-	return (result);
-}
-
 float	**compute_projection_matrix(t_camera *p_cam) //calcul de la matrice de projection
 {
 	float	**result;
@@ -129,15 +111,3 @@ float	**t_camera_compute_view(t_camera *cam) //calcul de la matrice de vue
 	result[3][2] = - (dot_t_vector3(inv_forward, cam->pos));
 	return (result);
 }
-
-/* void		compute_t_camera(t_camera *cam) */
-/* { */
-/* 	cam->view = t_camera_compute_view(cam); */
-/* 	cam->projection = compute_projection_matrix(cam); */
-/* } */
-
-
-
-
-
-
