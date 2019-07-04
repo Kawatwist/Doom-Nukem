@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 12:11:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:00:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ t_myvec	mult_vector3_by_vector3(t_myvec a,t_myvec b)
 	return (result);
 }
 
-t_myvec mult_vector3_by_matrix(t_myvec vertex, t_matrix m)
+t_myvec mult_vector3_by_matrix(t_myvec vertex, float **m)
 {
 	float		result[3];
 
-	result[0] = m.value[0][0] * vertex.x + m.value[1][0] * vertex.y + m.value[2][0] * vertex.z + m.value[3][0];
-	result[1] = m.value[0][1] * vertex.x + m.value[1][1] * vertex.y + m.value[2][1] * vertex.z + m.value[3][1];
-	result[2] = m.value[0][2] * vertex.x + m.value[1][2] * vertex.y + m.value[2][2] * vertex.z + m.value[3][2];
+	result[0] = m[0][0] * vertex.x + m[1][0] * vertex.y + m[2][0] * vertex.z + m[3][0];
+	result[1] = m[0][1] * vertex.x + m[1][1] * vertex.y + m[2][1] * vertex.z + m[3][1];
+	result[2] = m[0][2] * vertex.x + m[1][2] * vertex.y + m[2][2] * vertex.z + m[3][2];
 	return (ft_create_vector(result[0], result[1], result[2]));
 }
 
@@ -121,15 +121,15 @@ void			t_user_engine_handle_camera(t_user_engine *user_engine, t_camera *cam)
 	compute_t_camera(cam);
 }
 
-t_myvec	apply_t_camera(t_myvec *src, t_matrix *mat) // applique la position de la camera
+t_myvec	apply_t_camera(t_myvec *src, float **mat) // applique la position de la camera
 {
 	t_myvec	result; // x -> coord a l'ecran en x de ce point / y -> coord a l'ecran en y de ce point / z -> distance reelle entre ce point et l'oeil de la camera
 	float		delta;
 
-	result.x = src->x * mat->value[0][0] + src->y * mat->value[1][0] + src->z * mat->value[2][0] + mat->value[3][0];
-	result.y = src->x * mat->value[0][1] + src->y * mat->value[1][1] + src->z * mat->value[2][1] + mat->value[3][1];
-	result.z = src->x * mat->value[0][2] + src->y * mat->value[1][2] + src->z * mat->value[2][2] + mat->value[3][2];
-	delta = src->x * mat->value[0][3] + src->y * mat->value[1][3] + src->z * mat->value[2][3] + mat->value[3][3];
+	result.x = src->x * mat[0][0] + src->y * mat[1][0] + src->z * mat[2][0] + mat[3][0];
+	result.y = src->x * mat[0][1] + src->y * mat[1][1] + src->z * mat[2][1] + mat[3][1];
+	result.z = src->x * mat[0][2] + src->y * mat[1][2] + src->z * mat[2][2] + mat[3][2];
+	delta = src->x * mat[0][3] + src->y * mat[1][3] + src->z * mat[2][3] + mat[3][3];
 	if (delta != 0)
 	{
 		result.x /= delta;
@@ -159,49 +159,49 @@ t_matrix	create_t_matrix_empty()
 	return (result);
 }
 
-t_matrix	compute_projection_matrix(t_camera *p_cam) //calcul de la matrice de projection
+float	**compute_projection_matrix(t_camera *p_cam) //calcul de la matrice de projection
 {
-	t_matrix	result;
+	float	**result;
 	float		n;
 	float		r;
 	float		f;
 	float		t;
 
-	result = create_t_matrix_empty();
+	result = ft_make_matrix_5_5();
 	n = p_cam->near;
 	r = 1.0 / (tan(ft_rad(p_cam->fov / 2.0)));
 	f = p_cam->far;
 	t = 1.0 / (tan(ft_rad(p_cam->fov / 2.0))) / (4.0 / 3.0); // changer le (4/3) en (16/9) va changer le ratio de l'ecran, changeant l'apparence des cubes a l'ecran
-	result.value[0][0] = t;
-	result.value[1][1] = r;
-	result.value[2][2] = -(f) / (f - n);
-	result.value[2][3] = -1.0;
-	result.value[3][2] = -(2.0 * f * n) / (f - n);
+	result[0][0] = t;
+	result[1][1] = r;
+	result[2][2] = -(f) / (f - n);
+	result[2][3] = -1.0;
+	result[3][2] = -(2.0 * f * n) / (f - n);
 	return (result);
 }
 
-t_matrix	t_camera_compute_view(t_camera *cam) //calcul de la matrice de vue
+float	**t_camera_compute_view(t_camera *cam) //calcul de la matrice de vue
 {
-	t_matrix	result;
+	float	**result;
 	t_myvec	inv_forward;
 
-	result = create_t_matrix();
+	result = ft_make_matrix_5_5();
 	inv_forward = mult_vector3_by_vector3(cam->forward, ft_create_vector(-1, -1, -1));
 
-	result.value[0][0] = cam->right.x;
-	result.value[1][0] = cam->right.y;
-	result.value[2][0] = cam->right.z;
-	result.value[3][0] = - (dot_t_vector3(cam->right, cam->pos));
+	result[0][0] = cam->right.x;
+	result[1][0] = cam->right.y;
+	result[2][0] = cam->right.z;
+	result[3][0] = - (dot_t_vector3(cam->right, cam->pos));
 
-	result.value[0][1] = cam->up.x;
-	result.value[1][1] = cam->up.y;
-	result.value[2][1] = cam->up.z;
-	result.value[3][1] = - (dot_t_vector3(cam->up, cam->pos));
+	result[0][1] = cam->up.x;
+	result[1][1] = cam->up.y;
+	result[2][1] = cam->up.z;
+	result[3][1] = - (dot_t_vector3(cam->up, cam->pos));
 
-	result.value[0][2] = inv_forward.x;
-	result.value[1][2] = inv_forward.y;
-	result.value[2][2] = inv_forward.z;
-	result.value[3][2] = - (dot_t_vector3(inv_forward, cam->pos));
+	result[0][2] = inv_forward.x;
+	result[1][2] = inv_forward.y;
+	result[2][2] = inv_forward.z;
+	result[3][2] = - (dot_t_vector3(inv_forward, cam->pos));
 	return (result);
 }
 

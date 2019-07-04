@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 12:11:44 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:01:34 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ typedef struct	s_matrix
 typedef struct	s_camera
 {
 	t_matrix	model;
-	t_matrix	view;
-	t_matrix	projection;
+	float	**view;
+	float	**projection;
 
 	float		dist_max;
 
@@ -119,6 +119,7 @@ char	*ft_itoa_comma(float nbr);
 t_myvec	ft_scale_screen(t_myvec result);
 float	ft_rad(float angle);
 
+float	**ft_make_matrix_5_5(void);
 void	ft_set_raster_trans(float x, float y, float z, t_myraster *raster);
 void	ft_set_raster_rot_x(float theta, t_myraster *raster);
 void	ft_set_raster_rot_y(float theta, t_myraster *raster);
@@ -126,7 +127,6 @@ void	ft_set_raster_rot_z(float theta, t_myraster *raster);
 void	ft_set_pro(t_myraster *raster);
 float	**ft_matrix_multiply_matrix(float **m1, float **m2);
 float	**ft_make_identity(void);
-
 float	**ft_make_rotation_y(float theta);
 float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up);
 float	**ft_matrix_quick_inverse(float **mu);
@@ -155,10 +155,10 @@ void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_mywin *s_win, 
 void		t_user_engine_handle_camera(t_user_engine *user_engine, t_camera *cam);
 void		compute_t_camera(t_camera *cam);
 t_myvec		cross_t_vector3(t_myvec a, t_myvec b); //Produit vectoriel / cross product
-t_matrix	t_camera_compute_view(t_camera *cam); //calcul de la matrice de vue
-t_matrix	compute_projection_matrix(t_camera *p_cam); //calcul de la matrice de projection
+float	**t_camera_compute_view(t_camera *cam); //calcul de la matrice de vue
+float	**compute_projection_matrix(t_camera *p_cam); //calcul de la matrice de projection
 
 
-t_myvec		mult_vector3_by_matrix(t_myvec vertex, t_matrix m);
+t_myvec		mult_vector3_by_matrix(t_myvec vertex, float **m);
 
 
