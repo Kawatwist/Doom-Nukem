@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:15:36 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:19:32 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,6 @@ void		t_camera_change_view(t_camera *cam, float delta_pitch, float delta_yaw)
 	t_camera_look_at(cam);
 }
 
-void		handle_t_camera_view_by_mouse(t_camera *cam) // calcul du mouvement de l'angle de la camera a la souris
-{
-	float delta_pitch;
-	float delta_yaw;
-
-
-	delta_pitch = 0;
-	delta_yaw = 0;
-	t_camera_change_view(cam, delta_yaw, delta_pitch);
-}
-
-void			t_user_engine_handle_camera(t_camera *cam)
-{
-	handle_t_camera_view_by_mouse(cam); // calcul du mouvement de l'angle de la camera a la souris
-	compute_t_camera(cam);
-}
 
 t_myvec	apply_t_camera(t_myvec *src, float **mat) // applique la position de la camera
 {
@@ -108,7 +92,6 @@ t_myvec	apply_t_camera(t_myvec *src, float **mat) // applique la position de la 
 	}
 	return (result);
 }
-
 
 float	**compute_projection_matrix(t_camera *p_cam) //calcul de la matrice de projection
 {
@@ -156,11 +139,11 @@ float	**t_camera_compute_view(t_camera *cam) //calcul de la matrice de vue
 	return (result);
 }
 
-void		compute_t_camera(t_camera *cam)
-{
-	cam->view = t_camera_compute_view(cam);
-	cam->projection = compute_projection_matrix(cam);
-}
+/* void		compute_t_camera(t_camera *cam) */
+/* { */
+/* 	cam->view = t_camera_compute_view(cam); */
+/* 	cam->projection = compute_projection_matrix(cam); */
+/* } */
 
 
 
