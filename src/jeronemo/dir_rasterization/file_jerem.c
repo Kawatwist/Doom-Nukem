@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:06:59 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:12:13 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,12 @@ void		handle_t_camera_view_by_mouse(t_camera *cam) // calcul du mouvement de l'a
 
 void		t_engine_handle_camera(t_engine *p_engine)
 {
-	t_user_engine_handle_camera(p_engine->user_engine, p_engine->cam);
+	t_user_engine_handle_camera(p_engine->cam);
 }
 
 
-void			t_user_engine_handle_camera(t_user_engine *user_engine, t_camera *cam)
+void			t_user_engine_handle_camera(t_camera *cam)
 {
-	(void)user_engine;
 	handle_t_camera_view_by_mouse(cam); // calcul du mouvement de l'angle de la camera a la souris
 	//handle_t_camera_mouvement_by_key(cam, keyboard); // deplacement cameras
 	compute_t_camera(cam);
