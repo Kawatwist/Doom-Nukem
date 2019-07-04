@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 18:54:09 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:20:04 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,28 +122,28 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 
 
 	//calucl de matrix view
-
 	t_camera cam;
 	t_vector3 vertice[3];
 
-   	cam.pos.x = raster->v_camera.x;
-   	cam.pos.y = raster->v_camera.y;
-   	cam.pos.z = raster->v_camera.z;
-   	printf("=%f =%f =%f", cam.pos.x, cam.pos.y, cam.pos.z);
+	cam.pos.x = raster->v_camera.x;
+	cam.pos.y = raster->v_camera.y;
+	cam.pos.z = raster->v_camera.z;
+	printf("=%f =%f =%f", cam.pos.x, cam.pos.y, cam.pos.z);
 
 
-   	cam.pitch = 3;
-   	cam.yaw = raster->theta_camera;
+	cam.pitch = 3;
+	cam.yaw = raster->theta_camera;
 
-   	t_vector3 zaxis = 	normalize_t_vector3(create_t_vector3(cos(degree_to_radius(cam.pitch)) * sin(degree_to_radius(cam.yaw)),
-   				sin(degree_to_radius(cam.pitch)),
-   				cos(degree_to_radius(cam.pitch)) * cos(degree_to_radius(cam.yaw))));
-
-   	t_vector3 xaxis = 	normalize_t_vector3(create_t_vector3(sin(degree_to_radius(cam.yaw) - 3.14f / 2.0f),
-   						0,
-   				cos(degree_to_radius(cam.yaw) - 3.14f / 2.0f)));
-
-   	t_vector3 yaxis =	normalize_t_vector3(cross_t_vector3(xaxis, zaxis));
+	t_vector3 zaxis =
+				normalize_t_vector3(create_t_vector3(cos(degree_to_radius(cam.pitch)) * sin(degree_to_radius(cam.yaw)),
+				sin(degree_to_radius(cam.pitch)),
+				cos(degree_to_radius(cam.pitch)) * cos(degree_to_radius(cam.yaw))));
+	t_vector3 xaxis =
+				normalize_t_vector3(create_t_vector3(sin(degree_to_radius(cam.yaw) - 3.14f / 2.0f),
+				0,
+				cos(degree_to_radius(cam.yaw) - 3.14f / 2.0f)));
+	t_vector3 yaxis =
+				normalize_t_vector3(cross_t_vector3(xaxis, zaxis));
 
 	//this is the look at vector   (rotation de la camera)
 	cam.forward = zaxis;
@@ -678,7 +678,7 @@ while (polygon != NULL)
 	if (change->display->triangle == 0)
 	{
 		keep->vec = polygon->vertex_lst;
- 		printf("le AAAA = %d\n", polygon->number_of_vertex);
+		printf("le AAAA = %d\n", polygon->number_of_vertex);
 		while (polygon->vertex_lst->next != NULL)
 		{
 			change->result_1.x = polygon->vertex_lst->x;
