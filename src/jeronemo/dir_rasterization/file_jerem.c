@@ -6,20 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:21:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:24:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
-
-
-float			dot_t_vector3(t_myvec a, t_myvec b) //Produit scalaire / dot product
-{
-	float		result;
-
-	result = a.x * b.x + a.y * b.y + a.z * b.z;
-	return (result);
-}
 
 t_myvec	mult_vector3_by_vector3(t_myvec a,t_myvec b)
 {
@@ -44,7 +35,6 @@ void		t_camera_look_at(t_camera *cam) // calcul de l'angle de vue de la camera (
 	t_myvec zaxis = ft_normalise(ft_create_vector(cos(ft_rad(cam->pitch)) * sin(ft_rad(cam->yaw)),
 						sin(ft_rad(cam->pitch)),
 						cos(ft_rad(cam->pitch)) * cos(ft_rad(cam->yaw))));
-
 
 	t_myvec xaxis = ft_normalise(ft_create_vector(sin(ft_rad(cam->yaw) - 3.14f / 2.0f),
 						0,
@@ -88,16 +78,16 @@ float	**t_camera_compute_view(t_camera *cam) //calcul de la matrice de vue
 	result[0][0] = cam->right.x;
 	result[1][0] = cam->right.y;
 	result[2][0] = cam->right.z;
-	result[3][0] = - (dot_t_vector3(cam->right, cam->pos));
+	result[3][0] = - (ft_dot_product(cam->right, cam->pos));
 
 	result[0][1] = cam->up.x;
 	result[1][1] = cam->up.y;
 	result[2][1] = cam->up.z;
-	result[3][1] = - (dot_t_vector3(cam->up, cam->pos));
+	result[3][1] = - (ft_dot_product(cam->up, cam->pos));
 
 	result[0][2] = inv_forward.x;
 	result[1][2] = inv_forward.y;
 	result[2][2] = inv_forward.z;
-	result[3][2] = - (dot_t_vector3(inv_forward, cam->pos));
+	result[3][2] = - (ft_dot_product(inv_forward, cam->pos));
 	return (result);
 }

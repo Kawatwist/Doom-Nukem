@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:21:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:25:24 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_mywin *s_win, 
 //vector from two point
 
 //FILE JEREM
-void		compute_t_camera(t_camera *cam);
+/* void		compute_t_camera(t_camera *cam); */
 float		**t_camera_compute_view(t_camera *cam); //calcul de la matrice de vue
 float		**compute_projection_matrix(t_camera *p_cam); //calcul de la matrice de projection
 
