@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 17:20:30 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:28:38 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
-
-# include <unknow_project.h>
 
 #define FALSE 0
 #define TRUE 1

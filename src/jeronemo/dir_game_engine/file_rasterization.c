@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 11:20:04 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:47:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 
 	//calucl de matrix view
 	t_camera cam;
-	t_vector3 vertice[3];
+	t_myvec vertice[3];
 
 	cam.pos.x = raster->v_camera.x;
 	cam.pos.y = raster->v_camera.y;
@@ -134,15 +134,15 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	cam.pitch = 3;
 	cam.yaw = raster->theta_camera;
 
-	t_vector3 zaxis =
+	t_myvec zaxis =
 				normalize_t_vector3(create_t_vector3(cos(degree_to_radius(cam.pitch)) * sin(degree_to_radius(cam.yaw)),
 				sin(degree_to_radius(cam.pitch)),
 				cos(degree_to_radius(cam.pitch)) * cos(degree_to_radius(cam.yaw))));
-	t_vector3 xaxis =
+	t_myvec xaxis =
 				normalize_t_vector3(create_t_vector3(sin(degree_to_radius(cam.yaw) - 3.14f / 2.0f),
 				0,
 				cos(degree_to_radius(cam.yaw) - 3.14f / 2.0f)));
-	t_vector3 yaxis =
+	t_myvec yaxis =
 				normalize_t_vector3(cross_t_vector3(xaxis, zaxis));
 
 	//this is the look at vector   (rotation de la camera)
@@ -153,7 +153,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	if (raster->reculer == 1)
 	{
 		cam.forward = normalize_t_vector3(cam.forward);
-		cam.pos = substract_vector3_to_vector3(cam.pos, cam.forward);
+		cam.pos = ft_vector_sub(cam.pos, cam.forward);
 		raster->v_camera.x = cam.pos.x;
 		raster->v_camera.y = cam.pos.y;
 		raster->v_camera.z = cam.pos.z;
@@ -164,7 +164,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	{
 
 		cam.forward = normalize_t_vector3(cam.forward);
-		cam.pos = add_vector3_to_vector3(cam.pos, cam.forward);
+		cam.pos = ft_vector_add(cam.pos, cam.forward);
 
 		raster->v_camera.x = cam.pos.x;
 		raster->v_camera.y = cam.pos.y;
@@ -306,17 +306,17 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
    cam.pitch = 3;
    cam.yaw = change->theta;
 
-   t_vector3 zaxis = normalize_t_vector3(create_t_vector3(cos(degree_to_radius(cam.pitch)) * sin(degree_to_radius(cam.yaw)),
+   t_myvec zaxis = normalize_t_vector3(create_t_vector3(cos(degree_to_radius(cam.pitch)) * sin(degree_to_radius(cam.yaw)),
    sin(degree_to_radius(cam.pitch)),
    cos(degree_to_radius(cam.pitch)) * cos(degree_to_radius(cam.yaw))));
 
 
-   t_vector3 xaxis = normalize_t_vector3(create_t_vector3(sin(degree_to_radius(cam.yaw) - 3.14f / 2.0f),
+   t_myvec xaxis = normalize_t_vector3(create_t_vector3(sin(degree_to_radius(cam.yaw) - 3.14f / 2.0f),
    0,
    cos(degree_to_radius(cam.yaw) - 3.14f / 2.0f)));
 
 
-   t_vector3 yaxis = normalize_t_vector3(cross_t_vector3(xaxis, zaxis));
+   t_myvec yaxis = normalize_t_vector3(cross_t_vector3(xaxis, zaxis));
 
 
 //this is the look at vector   (rotation de la camera)
@@ -357,7 +357,7 @@ cam.far = 50.0;
 cam.fov = 70;
 
 cam.projection = compute_projection_matrix(&cam);
-t_vector3 vertice[3];
+t_myvec vertice[3];
 
 nbr_triangle = ft_get_nbr_of_triangle(s_win);
 i = 0;

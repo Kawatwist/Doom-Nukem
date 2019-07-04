@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 17:20:05 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:53:30 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,72 @@ typedef struct				s_myraster
 	unsigned char			avancer;
 	unsigned char			reculer;
 }							t_myraster;
+
+
+typedef struct	s_matrix
+{
+	float		value[4][4];
+}				t_matrix;
+
+typedef struct	s_camera
+{
+	t_matrix	model;
+	t_matrix	view;
+	t_matrix	projection;
+
+	float		dist_max;
+
+	t_matrix	mvp;
+	t_myvec	clipping_list[6];
+	t_myvec	clipping_list_uv[6];
+	/* t_triangle_list */
+	/* 			triangle_color_list; */
+	/* t_color_list */
+	/* 			color_list; */
+
+	/* t_triangle_list */
+	/* 			triangle_texture_list; */
+	/* t_uv_list	uv_list; */
+	/* t_color_list */
+				/* darkness_list; */
+
+	t_myvec	pos;
+	float		pitch; // l'angle pour l'axis y
+	float		yaw; // l'angle pour l'axis x
+	float		speed;
+	float		running;
+	float		slowing;
+
+	t_myvec	forward;
+	t_myvec	right;
+	t_myvec	up;
+
+	t_myvec	sun_direction;
+
+	float		fov;
+	float		near;
+	float		far;
+}				t_camera;
+
+
+typedef struct	s_user_engine
+{
+	/* t_mouse		*mouse; */
+	/* t_keyboard	*keyboard; */
+	SDL_Event	event;
+}				t_user_engine;
+
+
+typedef struct	s_engine
+{
+	int			playing;
+
+	t_camera	*cam;
+	/* t_physic_engine *physic_engine; */
+	t_user_engine *user_engine;
+}				t_engine;
+
+
 
 //FILE GAME ENGINE
 void	ft_launch_rasterization(t_mywin *s_win, t_win *wn);
@@ -81,3 +147,21 @@ void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_mywin *s_win, 
 //cross product
 //calculate normal of point
 //vector from two point
+
+
+//FILE JEREM
+void		t_user_engine_handle_camera(t_user_engine *user_engine, t_camera *cam);
+void		compute_t_camera(t_camera *cam);
+t_myvec		normalize_t_vector3(t_myvec v); // ramene la longueur du vecteur a 1
+t_myvec		cross_t_vector3(t_myvec a, t_myvec b); //Produit vectoriel / cross product
+t_myvec		inv_t_vector3(t_myvec src);
+t_myvec		create_t_vector3(float p_x, float p_y, float p_z);
+t_matrix	t_camera_compute_view(t_camera *cam); //calcul de la matrice de vue
+float		degree_to_radius(float angle);
+t_matrix	compute_projection_matrix(t_camera *p_cam); //calcul de la matrice de projection
+t_myvec mult_vector3_by_matrix(t_myvec vertex, t_matrix m);
+
+
+
+
+
