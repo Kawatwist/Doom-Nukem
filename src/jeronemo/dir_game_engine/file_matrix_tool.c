@@ -6,32 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:45:05 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:01:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <header_game_engine.h>
-
-float	**compute_projection_matrix(t_camera *p_cam) //calcul de la matrice de projection
-{
-	float	**result;
-	float		n;
-	float		r;
-	float		f;
-	float		t;
-
-	result = ft_make_matrix_5_5();
-	n = p_cam->near;
-	r = 1.0 / (tan(ft_rad(p_cam->fov / 2.0)));
-	f = p_cam->far;
-	t = 1.0 / (tan(ft_rad(p_cam->fov / 2.0))) / (4.0 / 3.0); // changer le (4/3) en (16/9) va changer le ratio de l'ecran, changeant l'apparence des cubes a l'ecran
-	result[0][0] = t;
-	result[1][1] = r;
-	result[2][2] = -(f) / (f - n);
-	result[2][3] = -1.0;
-	result[3][2] = -(2.0 * f * n) / (f - n);
-	return (result);
-}
 
 float	**t_camera_compute_view(t_camera *cam) //calcul de la matrice de vue
 {

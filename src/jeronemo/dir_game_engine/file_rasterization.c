@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:51:58 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:02:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 
 	//calucl de matrix view
 	t_camera cam;
-	t_myvec vertice[3];
 
 	cam.pos.x = raster->v_camera.x;
 	cam.pos.y = raster->v_camera.y;
@@ -135,15 +134,15 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	cam.yaw = raster->theta_camera;
 
 	t_myvec zaxis =
-				ft_normalise(ft_create_vector(cos(ft_rad(cam.pitch)) * sin(ft_rad(cam.yaw)),
-				sin(ft_rad(cam.pitch)),
-				cos(ft_rad(cam.pitch)) * cos(ft_rad(cam.yaw))));
+		ft_normalise(ft_create_vector(cos(ft_rad(cam.pitch)) * sin(ft_rad(cam.yaw)),
+					sin(ft_rad(cam.pitch)),
+					cos(ft_rad(cam.pitch)) * cos(ft_rad(cam.yaw))));
 	t_myvec xaxis =
-				ft_normalise(ft_create_vector(sin(ft_rad(cam.yaw) - 3.14f / 2.0f),
-				0,
-				cos(ft_rad(cam.yaw) - 3.14f / 2.0f)));
+		ft_normalise(ft_create_vector(sin(ft_rad(cam.yaw) - 3.14f / 2.0f),
+					0,
+					cos(ft_rad(cam.yaw) - 3.14f / 2.0f)));
 	t_myvec yaxis =
-				ft_normalise(ft_cross_product(xaxis, zaxis));
+		ft_normalise(ft_cross_product(xaxis, zaxis));
 
 	//this is the look at vector   (rotation de la camera)
 	cam.forward = zaxis;
@@ -157,33 +156,23 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		raster->v_camera.x = cam.pos.x;
 		raster->v_camera.y = cam.pos.y;
 		raster->v_camera.z = cam.pos.z;
-
 		raster->reculer = 0;
 	}
 	if (raster->avancer == 1)
 	{
-
 		cam.forward = ft_normalise(cam.forward);
 		cam.pos = ft_vector_add(cam.pos, cam.forward);
-
 		raster->v_camera.x = cam.pos.x;
 		raster->v_camera.y = cam.pos.y;
 		raster->v_camera.z = cam.pos.z;
-
 		raster->avancer = 0;
 	}
-
 	//this is the matrix view
 	cam.view = t_camera_compute_view(&cam);
 	//this is the matrix projection
 	cam.near = 0.1;
 	cam.far = 50.0;
 	cam.fov = 70;
-
-	cam.projection = compute_projection_matrix(&cam);
-
-
-	int j = 0;
 
 
 	////##################################################################################################
@@ -203,50 +192,17 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[0]);
 		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[1]);
 		triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[2]);
-
-
 		//CULLING
 		normal = ft_calculate_normal_of_points(triangle.vertice[0], triangle.vertice[1], triangle.vertice[2]);
 		normal = ft_normalise(normal);
 		if (ft_dot_product(normal, ft_vector_sub(triangle.vertice[0], raster->v_camera)) < 0.0)
 		{
+			//SHADE
 			triangle.shade = ft_dot_product(normal, light_direction);
-
-
-			vertice[0].x = triangle.vertice[0].x;
-			vertice[0].y = triangle.vertice[0].y;
-			vertice[0].z = triangle.vertice[0].z;
-
-			vertice[1].x = triangle.vertice[1].x;
-			vertice[1].y = triangle.vertice[1].y;
-			vertice[1].z = triangle.vertice[1].z;
-
-			vertice[2].x = triangle.vertice[2].x;
-			vertice[2].y = triangle.vertice[2].y;
-			vertice[2].z = triangle.vertice[2].z;
-
-			j = -1;
-			while (++j < 3)
-				vertice[j] = ft_matrix_multiply_vector_general(cam.view, vertice[j]);
-				/* vertice[j] = mult_vector3_by_matrix(vertice[j], cam.view); */
-
-
-			triangle.vertice[0].x = vertice[0].x;
-			triangle.vertice[0].y = vertice[0].y;
-			triangle.vertice[0].z = vertice[0].z;
-
-			triangle.vertice[1].x =vertice[1].x;
-			triangle.vertice[1].y =vertice[1].y;
-			triangle.vertice[1].z =vertice[1].z;
-
-			triangle.vertice[2].x = vertice[2].x;
-			triangle.vertice[2].y = vertice[2].y;
-			triangle.vertice[2].z = vertice[2].z;
-
-
-
-
-
+			//CAM VIEW
+			triangle.vertice[0] = ft_matrix_multiply_vector_general(cam.view, triangle.vertice[0]);
+			triangle.vertice[1] = ft_matrix_multiply_vector_general(cam.view, triangle.vertice[1]);
+			triangle.vertice[2] = ft_matrix_multiply_vector_general(cam.view, triangle.vertice[2]);
 			//PROJECTION
 			triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[0]);
 			triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[1]);
@@ -265,7 +221,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	keep = triangle_lst;
 	while (triangle_lst != NULL)
 	{
-		//DRAW FILL TRIANGLE + SHADE/LIGHT
+		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
 		ft_fill_triangle_shade((triangle_lst->vertice[0]), (triangle_lst->vertice[1]), (triangle_lst->vertice[2]), s_win, triangle_lst->shade);
 		//DRAW MESH
 		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
