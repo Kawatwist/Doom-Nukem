@@ -6,34 +6,12 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:00:28 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:06:59 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
-t_matrix	create_t_matrix()
-{
-	t_matrix	result;
-	int			i;
-	int			j;
-
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			if (j != i)
-				result.value[i][j] = 0.0f;
-			else
-				result.value[i][j] = 1.0f;
-			j++;
-		}
-		i++;
-	}
-	return (result);
-}
 
 float			dot_t_vector3(t_myvec a, t_myvec b) //Produit scalaire / dot product
 {
@@ -139,25 +117,6 @@ t_myvec	apply_t_camera(t_myvec *src, float **mat) // applique la position de la 
 	return (result);
 }
 
-t_matrix	create_t_matrix_empty()
-{
-	t_matrix	result;
-	int			i;
-	int			j;
-
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			result.value[i][j] = 0.0f;
-			j++;
-		}
-		i++;
-	}
-	return (result);
-}
 
 float	**compute_projection_matrix(t_camera *p_cam) //calcul de la matrice de projection
 {
