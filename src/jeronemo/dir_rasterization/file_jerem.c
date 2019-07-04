@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 11:38:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:57:03 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,6 @@ t_myvec mult_vector3_by_matrix(t_myvec vertex, t_matrix m)
 }
 
 
-float			degree_to_radius(float angle)
-{
-	return ((float)(((float)angle) * M_PI / (float)180));
-}
 
 t_myvec	inv_t_vector3(t_myvec src)
 {
@@ -111,14 +107,14 @@ t_myvec		normalize_t_vector3(t_myvec v) // ramene la longueur du vecteur a 1
 
 void		t_camera_look_at(t_camera *cam) // calcul de l'angle de vue de la camera (forward, right, up)
 {
-	t_myvec zaxis = normalize_t_vector3(create_t_vector3(cos(degree_to_radius(cam->pitch)) * sin(degree_to_radius(cam->yaw)),
-						sin(degree_to_radius(cam->pitch)),
-						cos(degree_to_radius(cam->pitch)) * cos(degree_to_radius(cam->yaw))));
+	t_myvec zaxis = normalize_t_vector3(create_t_vector3(cos(ft_rad(cam->pitch)) * sin(ft_rad(cam->yaw)),
+						sin(ft_rad(cam->pitch)),
+						cos(ft_rad(cam->pitch)) * cos(ft_rad(cam->yaw))));
 
 
-	t_myvec xaxis = normalize_t_vector3(create_t_vector3(sin(degree_to_radius(cam->yaw) - 3.14f / 2.0f),
+	t_myvec xaxis = normalize_t_vector3(create_t_vector3(sin(ft_rad(cam->yaw) - 3.14f / 2.0f),
 						0,
-						cos(degree_to_radius(cam->yaw) - 3.14f / 2.0f)));
+						cos(ft_rad(cam->yaw) - 3.14f / 2.0f)));
 	t_myvec yaxis = normalize_t_vector3(cross_t_vector3(xaxis, zaxis));
 
 	cam->forward = zaxis;
@@ -214,9 +210,9 @@ t_matrix	compute_projection_matrix(t_camera *p_cam) //calcul de la matrice de pr
 
 	result = create_t_matrix_empty();
 	n = p_cam->near;
-	r = 1.0 / (tan(degree_to_radius(p_cam->fov / 2.0)));
+	r = 1.0 / (tan(ft_rad(p_cam->fov / 2.0)));
 	f = p_cam->far;
-	t = 1.0 / (tan(degree_to_radius(p_cam->fov / 2.0))) / (4.0 / 3.0); // changer le (4/3) en (16/9) va changer le ratio de l'ecran, changeant l'apparence des cubes a l'ecran
+	t = 1.0 / (tan(ft_rad(p_cam->fov / 2.0))) / (4.0 / 3.0); // changer le (4/3) en (16/9) va changer le ratio de l'ecran, changeant l'apparence des cubes a l'ecran
 	result.value[0][0] = t;
 	result.value[1][1] = r;
 	result.value[2][2] = -(f) / (f - n);

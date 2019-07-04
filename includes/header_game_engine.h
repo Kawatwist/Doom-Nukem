@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 11:53:30 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 11:57:09 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,16 +152,15 @@ void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_mywin *s_win, 
 //FILE JEREM
 void		t_user_engine_handle_camera(t_user_engine *user_engine, t_camera *cam);
 void		compute_t_camera(t_camera *cam);
-t_myvec		normalize_t_vector3(t_myvec v); // ramene la longueur du vecteur a 1
 t_myvec		cross_t_vector3(t_myvec a, t_myvec b); //Produit vectoriel / cross product
-t_myvec		inv_t_vector3(t_myvec src);
-t_myvec		create_t_vector3(float p_x, float p_y, float p_z);
 t_matrix	t_camera_compute_view(t_camera *cam); //calcul de la matrice de vue
-float		degree_to_radius(float angle);
 t_matrix	compute_projection_matrix(t_camera *p_cam); //calcul de la matrice de projection
-t_myvec mult_vector3_by_matrix(t_myvec vertex, t_matrix m);
 
 
 
+t_myvec		create_t_vector3(float p_x, float p_y, float p_z);
+t_myvec		mult_vector3_by_matrix(t_myvec vertex, t_matrix m);
+t_myvec		inv_t_vector3(t_myvec src);
+t_myvec		normalize_t_vector3(t_myvec v); // ramene la longueur du vecteur a 1
 
 
