@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 12:09:33 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:23:21 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 				0,
 				cos(ft_rad(cam.yaw) - 3.14f / 2.0f)));
 	t_myvec yaxis =
-				ft_normalise(cross_t_vector3(xaxis, zaxis));
+				ft_normalise(ft_cross_product(xaxis, zaxis));
 
 	//this is the look at vector   (rotation de la camera)
 	cam.forward = zaxis;

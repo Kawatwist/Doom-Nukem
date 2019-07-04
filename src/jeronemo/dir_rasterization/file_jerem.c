@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:20:47 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:21:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@ float			dot_t_vector3(t_myvec a, t_myvec b) //Produit scalaire / dot product
 	float		result;
 
 	result = a.x * b.x + a.y * b.y + a.z * b.z;
-	return (result);
-}
-
-
-t_myvec		cross_t_vector3(t_myvec a, t_myvec b) //Produit vectoriel / cross product
-{
-	t_myvec	result;
-
-	result = ft_create_vector(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z,
-								a.x * b.y - a.y * b.x);
 	return (result);
 }
 
@@ -59,7 +49,7 @@ void		t_camera_look_at(t_camera *cam) // calcul de l'angle de vue de la camera (
 	t_myvec xaxis = ft_normalise(ft_create_vector(sin(ft_rad(cam->yaw) - 3.14f / 2.0f),
 						0,
 						cos(ft_rad(cam->yaw) - 3.14f / 2.0f)));
-	t_myvec yaxis = ft_normalise(cross_t_vector3(xaxis, zaxis));
+	t_myvec yaxis = ft_normalise(ft_cross_product(xaxis, zaxis));
 
 	cam->forward = zaxis;
 	cam->right = xaxis;
