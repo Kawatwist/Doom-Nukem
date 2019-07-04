@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 11:57:09 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:01:59 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ t_myvec		ft_matrix_multiply_vector(float **m, t_myvec i);
 t_myvec		ft_matrix_multiply_vector_general(float matrix[5][5], t_myvec v);
 t_myvec		ft_vector_add(t_myvec v1, t_myvec v2);
 t_myvec		ft_vector_multiply(t_myvec m, float k);
+t_myvec		ft_create_vector(float p_x, float p_y, float p_z);
 
 //FILE FILL TRIANGLE
 void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_mywin *s_win, float shade);
@@ -155,7 +156,6 @@ void		compute_t_camera(t_camera *cam);
 t_myvec		cross_t_vector3(t_myvec a, t_myvec b); //Produit vectoriel / cross product
 t_matrix	t_camera_compute_view(t_camera *cam); //calcul de la matrice de vue
 t_matrix	compute_projection_matrix(t_camera *p_cam); //calcul de la matrice de projection
-
 
 
 t_myvec		create_t_vector3(float p_x, float p_y, float p_z);

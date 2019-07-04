@@ -6,11 +6,21 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:42:03 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 11:31:05 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:02:27 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
+
+t_myvec ft_create_vector(float p_x, float p_y, float p_z)
+{
+	t_myvec result;
+
+	result.x = p_x;
+	result.y = p_y;
+	result.z = p_z;
+	return (result);
+}
 
 t_myvec        ft_normalise(t_myvec vector)
 {

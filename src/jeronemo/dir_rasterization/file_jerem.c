@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 11:57:03 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:02:03 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,12 @@ float			dot_t_vector3(t_myvec a, t_myvec b) //Produit scalaire / dot product
 	return (result);
 }
 
-t_myvec create_t_vector3(float p_x, float p_y, float p_z)
-{
-	t_myvec result;
-
-	result.x = p_x;
-	result.y = p_y;
-	result.z = p_z;
-
-	return (result);
-}
 
 t_myvec		cross_t_vector3(t_myvec a, t_myvec b) //Produit vectoriel / cross product
 {
 	t_myvec	result;
 
-	result = create_t_vector3(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z,
+	result = ft_create_vector(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z,
 								a.x * b.y - a.y * b.x);
 	return (result);
 }
@@ -67,7 +57,7 @@ t_myvec	mult_vector3_by_vector3(t_myvec a,t_myvec b)
 {
 	t_myvec	result;
 
-	result = create_t_vector3(a.x * b.x, a.y * b.y, a.z * b.z);
+	result = ft_create_vector(a.x * b.x, a.y * b.y, a.z * b.z);
 	return (result);
 }
 
@@ -78,7 +68,7 @@ t_myvec mult_vector3_by_matrix(t_myvec vertex, t_matrix m)
 	result[0] = m.value[0][0] * vertex.x + m.value[1][0] * vertex.y + m.value[2][0] * vertex.z + m.value[3][0];
 	result[1] = m.value[0][1] * vertex.x + m.value[1][1] * vertex.y + m.value[2][1] * vertex.z + m.value[3][1];
 	result[2] = m.value[0][2] * vertex.x + m.value[1][2] * vertex.y + m.value[2][2] * vertex.z + m.value[3][2];
-	return (create_t_vector3(result[0], result[1], result[2]));
+	return (ft_create_vector(result[0], result[1], result[2]));
 }
 
 
@@ -99,7 +89,7 @@ t_myvec		normalize_t_vector3(t_myvec v) // ramene la longueur du vecteur a 1
 	float		length_of_v;
 
 	length_of_v = sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
-	return (create_t_vector3(v.x / length_of_v, v.y
+	return (ft_create_vector(v.x / length_of_v, v.y
 							/ length_of_v, v.z / length_of_v));
 }
 
@@ -107,12 +97,12 @@ t_myvec		normalize_t_vector3(t_myvec v) // ramene la longueur du vecteur a 1
 
 void		t_camera_look_at(t_camera *cam) // calcul de l'angle de vue de la camera (forward, right, up)
 {
-	t_myvec zaxis = normalize_t_vector3(create_t_vector3(cos(ft_rad(cam->pitch)) * sin(ft_rad(cam->yaw)),
+	t_myvec zaxis = normalize_t_vector3(ft_create_vector(cos(ft_rad(cam->pitch)) * sin(ft_rad(cam->yaw)),
 						sin(ft_rad(cam->pitch)),
 						cos(ft_rad(cam->pitch)) * cos(ft_rad(cam->yaw))));
 
 
-	t_myvec xaxis = normalize_t_vector3(create_t_vector3(sin(ft_rad(cam->yaw) - 3.14f / 2.0f),
+	t_myvec xaxis = normalize_t_vector3(ft_create_vector(sin(ft_rad(cam->yaw) - 3.14f / 2.0f),
 						0,
 						cos(ft_rad(cam->yaw) - 3.14f / 2.0f)));
 	t_myvec yaxis = normalize_t_vector3(cross_t_vector3(xaxis, zaxis));
@@ -227,7 +217,7 @@ t_matrix	t_camera_compute_view(t_camera *cam) //calcul de la matrice de vue
 	t_myvec	inv_forward;
 
 	result = create_t_matrix();
-	inv_forward = mult_vector3_by_vector3(cam->forward, create_t_vector3(-1, -1, -1));
+	inv_forward = mult_vector3_by_vector3(cam->forward, ft_create_vector(-1, -1, -1));
 
 	result.value[0][0] = cam->right.x;
 	result.value[1][0] = cam->right.y;

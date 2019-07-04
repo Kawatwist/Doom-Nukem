@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 11:58:04 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:00:19 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,11 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	cam.yaw = raster->theta_camera;
 
 	t_myvec zaxis =
-				normalize_t_vector3(create_t_vector3(cos(ft_rad(cam.pitch)) * sin(ft_rad(cam.yaw)),
+				normalize_t_vector3(ft_create_vector(cos(ft_rad(cam.pitch)) * sin(ft_rad(cam.yaw)),
 				sin(ft_rad(cam.pitch)),
 				cos(ft_rad(cam.pitch)) * cos(ft_rad(cam.yaw))));
 	t_myvec xaxis =
-				normalize_t_vector3(create_t_vector3(sin(ft_rad(cam.yaw) - 3.14f / 2.0f),
+				normalize_t_vector3(ft_create_vector(sin(ft_rad(cam.yaw) - 3.14f / 2.0f),
 				0,
 				cos(ft_rad(cam.yaw) - 3.14f / 2.0f)));
 	t_myvec yaxis =
