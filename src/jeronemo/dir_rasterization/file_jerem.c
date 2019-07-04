@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 12:05:37 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:11:32 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,22 +71,6 @@ t_myvec mult_vector3_by_matrix(t_myvec vertex, t_matrix m)
 	return (ft_create_vector(result[0], result[1], result[2]));
 }
 
-
-
-t_myvec	inv_t_vector3(t_myvec src)
-{
-	t_myvec	result;
-
-	result.x = -1 * src.x;
-	result.y = -1 * src.y;
-	result.z = -1 * src.z;
-
-	return (result);
-}
-
-
-
-
 void		t_camera_look_at(t_camera *cam) // calcul de l'angle de vue de la camera (forward, right, up)
 {
 	t_myvec zaxis = ft_normalise(ft_create_vector(cos(ft_rad(cam->pitch)) * sin(ft_rad(cam->yaw)),
@@ -101,7 +85,7 @@ void		t_camera_look_at(t_camera *cam) // calcul de l'angle de vue de la camera (
 
 	cam->forward = zaxis;
 	cam->right = xaxis;
-	cam->up = inv_t_vector3(yaxis);
+	cam->up = ft_vector_inverse(yaxis);
 }
 
 void		t_camera_change_view(t_camera *cam, float delta_pitch, float delta_yaw)
@@ -111,7 +95,6 @@ void		t_camera_change_view(t_camera *cam, float delta_pitch, float delta_yaw)
 	cam->yaw += delta_yaw;
 	t_camera_look_at(cam);
 }
-
 
 void		handle_t_camera_view_by_mouse(t_camera *cam) // calcul du mouvement de l'angle de la camera a la souris
 {
@@ -124,7 +107,6 @@ void		handle_t_camera_view_by_mouse(t_camera *cam) // calcul du mouvement de l'a
 	t_camera_change_view(cam, delta_yaw, delta_pitch);
 }
 
-
 void		t_engine_handle_camera(t_engine *p_engine)
 {
 	t_user_engine_handle_camera(p_engine->user_engine, p_engine->cam);
@@ -133,14 +115,9 @@ void		t_engine_handle_camera(t_engine *p_engine)
 
 void			t_user_engine_handle_camera(t_user_engine *user_engine, t_camera *cam)
 {
-
 	(void)user_engine;
-
-
 	handle_t_camera_view_by_mouse(cam); // calcul du mouvement de l'angle de la camera a la souris
-
 	//handle_t_camera_mouvement_by_key(cam, keyboard); // deplacement cameras
-
 	compute_t_camera(cam);
 }
 

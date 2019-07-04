@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:42:03 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 12:02:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:10:47 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,17 @@ t_myvec ft_create_vector(float p_x, float p_y, float p_z)
 	result.x = p_x;
 	result.y = p_y;
 	result.z = p_z;
+	return (result);
+}
+
+t_myvec	ft_vector_inverse(t_myvec src)
+{
+	t_myvec	result;
+
+	result.x = -1 * src.x;
+	result.y = -1 * src.y;
+	result.z = -1 * src.z;
+
 	return (result);
 }
 

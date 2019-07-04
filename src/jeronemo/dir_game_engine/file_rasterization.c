@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 12:06:31 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 12:09:33 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	//this is the look at vector   (rotation de la camera)
 	cam.forward = zaxis;
 	cam.right = xaxis;
-	cam.up = inv_t_vector3(yaxis);
+	cam.up = ft_vector_inverse(yaxis);
 
 	if (raster->reculer == 1)
 	{
