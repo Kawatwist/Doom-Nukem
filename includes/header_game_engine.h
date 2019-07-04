@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 14:56:57 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:12:16 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,21 @@
 typedef struct				s_myraster
 {
 	float					f_theta;
+	float					ftheta;   //sup un des deux
 	float					**mat_trans;
 	float					**mat_rot_x;
 	float					**mat_rot_y;
 	float					**mat_rot_z;
 	float					**mat_proje;
 	t_myvec					v_camera;
-	t_myvec					v_up;
 	t_myvec					v_target;
+	t_myvec					v_up;
+	t_myvec					v_right;
+	t_myvec					forward;
+	t_myvec					v_look_dir;
 	float					**mat_camera_rot;
 	float					**mat_camera_look_at;
 	float					**mat_camera_view;
-	t_myvec					v_look_dir;
-	float					ftheta;
 	float					theta_camera;
 	unsigned char			avancer;
 	unsigned char			reculer;
@@ -36,29 +38,9 @@ typedef struct				s_myraster
 
 typedef struct		s_camera
 {
-	float			**view;
-	float			**projection;
 	float			pitch; // l'angle pour l'axis y
 	float			yaw; // l'angle pour l'axis x
-	t_myvec			forward;
-	t_myvec			right;
-	t_myvec			up;
-	float			fov;
-	float			near;
-	float			far;
 }					t_camera;
-
-typedef struct		s_user_engine
-{
-	SDL_Event		event;
-}					t_user_engine;
-
-typedef struct		s_engine
-{
-	/* int				playing; */
-	t_camera		*cam;
-	t_user_engine	*user_engine;
-}					t_engine;
 
 
 //FILE GAME ENGINE
@@ -92,7 +74,7 @@ float	**ft_make_identity(void);
 float	**ft_make_rotation_y(float theta);
 float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up);
 float	**ft_matrix_quick_inverse(float **mu);
-float	**t_camera_compute_view(t_camera *cam, t_myraster *raster); //calcul de la matrice de vue
+float	**t_camera_compute_view(t_myraster *raster); //calcul de la matrice de vue
 
 //FILE VECTOR TOOL
 t_myvec		ft_normalise(t_myvec vector);

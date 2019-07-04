@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 14:56:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:12:42 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,28 +139,24 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		ft_normalise(ft_cross_product(xaxis, zaxis));
 
 	//this is the look at vector   (rotation de la camera)
-	cam.forward = zaxis;
-	cam.right = xaxis;
-	cam.up = ft_vector_inverse(yaxis);
+	raster->forward = zaxis;
+	raster->v_right = xaxis;
+	raster->v_up = ft_vector_inverse(yaxis);
 
 	if (raster->reculer == 1)
 	{
-		cam.forward = ft_normalise(cam.forward);
-		raster->v_camera  = ft_vector_sub(raster->v_camera, cam.forward);
+		raster->forward = ft_normalise(raster->forward);
+		raster->v_camera  = ft_vector_sub(raster->v_camera, raster->forward);
 		raster->reculer = 0;
 	}
 	if (raster->avancer == 1)
 	{
-		cam.forward = ft_normalise(cam.forward);
-		raster->v_camera = ft_vector_add(raster->v_camera, cam.forward);
+		raster->forward = ft_normalise(raster->forward);
+		raster->v_camera = ft_vector_add(raster->v_camera, raster->forward);
 		raster->avancer = 0;
 	}
 	//this is the matrix view
-	cam.view = t_camera_compute_view(&cam, raster);
-	//this is the matrix projection
-	cam.near = 0.1;
-	cam.far = 50.0;
-	cam.fov = 70;
+	raster->mat_camera_view = t_camera_compute_view(raster);
 
 
 	////##################################################################################################
@@ -188,9 +184,9 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 			//SHADE
 			triangle.shade = ft_dot_product(normal, light_direction);
 			//CAM VIEW
-			triangle.vertice[0] = ft_matrix_multiply_vector_general(cam.view, triangle.vertice[0]);
-			triangle.vertice[1] = ft_matrix_multiply_vector_general(cam.view, triangle.vertice[1]);
-			triangle.vertice[2] = ft_matrix_multiply_vector_general(cam.view, triangle.vertice[2]);
+			triangle.vertice[0] = ft_matrix_multiply_vector_general(raster->mat_camera_view, triangle.vertice[0]);
+			triangle.vertice[1] = ft_matrix_multiply_vector_general(raster->mat_camera_view, triangle.vertice[1]);
+			triangle.vertice[2] = ft_matrix_multiply_vector_general(raster->mat_camera_view, triangle.vertice[2]);
 			//PROJECTION
 			triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[0]);
 			triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[1]);
