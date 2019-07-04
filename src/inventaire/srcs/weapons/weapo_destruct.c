@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 08:15:17 by naali             #+#    #+#             */
-/*   Updated: 2019/07/01 08:17:52 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/04 16:27:52 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void			destroy_one_weapo(t_weapons **start, unsigned int id)
 	t_weapons	*tmp;
 	t_weapons	*prev;
 
+	tmp = NULL;
 	if (start != NULL && *start != NULL)
 		tmp = get_weapo_by_id(start, id);
 	if (tmp != NULL)

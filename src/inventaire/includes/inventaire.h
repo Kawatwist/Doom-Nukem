@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 17:27:59 by naali             #+#    #+#             */
-/*   Updated: 2019/06/26 18:56:03 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/04 16:27:06 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "consumable.h"
 # include "weapons.h"
 
-typedef struct		s_joueurs		t_joueurs;
+/* typedef struct		s_joueurs		t_joueurs; */
 //typedef struct		s_weapons		t_weapons;
 //typedef struct		s_consumable	t_consumable;
 

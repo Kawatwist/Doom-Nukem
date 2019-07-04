@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 10:15:05 by naali             #+#    #+#             */
-/*   Updated: 2019/07/01 08:09:52 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/04 16:10:22 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		use_battery(t_joueurs *p, t_consumable *c)
 }
 
 
-static int		check_nodes(t_consumable **start, t_consumable *node, int qty, int *id)
+static int		check_nodes(t_consumable **start, t_consumable *node, int qty, unsigned int *id)
 {
 	t_consumable	*tmp;
 

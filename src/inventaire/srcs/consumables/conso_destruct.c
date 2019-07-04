@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 07:54:33 by naali             #+#    #+#             */
-/*   Updated: 2019/07/01 08:13:39 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/04 16:28:46 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void			destroy_one_conso(t_consumable **start, unsigned int id)
 	t_consumable	*tmp;
 	t_consumable	*prev;
 
+	tmp = NULL;
 	if (start != NULL && *start != NULL)
 		tmp = get_conso_by_id(start, id);
 	if (tmp != NULL)

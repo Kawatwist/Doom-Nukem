@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 16:29:44 by naali             #+#    #+#             */
-/*   Updated: 2019/07/01 08:23:32 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/04 16:25:43 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # include "inventaire.h"
 
-typedef struct		s_joueurs		t_joueurs;
+/* typedef struct		s_joueurs		t_joueurs; */
 typedef struct		s_weapons		t_weapons;
 
 struct				s_weapons

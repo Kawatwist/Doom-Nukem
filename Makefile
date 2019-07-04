@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/12 12:40:42 by lomasse          ###   ########.fr        #
+#    Updated: 2019/07/04 16:28:20 by naali            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -23,9 +23,9 @@ NAME			= doom
 
 HEADER 			= $(shell find includes -type f) $(shell find libraries/include -type f 2>/dev/null || true)
 
-SRC_PATH		= $(shell find src -type d)
+SRC_PATH		= $(shell find src -type d) $(shell find srcs -type d)
 
-INC_PATH 		= $(shell find includes -type d) $(shell find libft -type d) $(shell find libraries/include -type d 2>/dev/null || true) \
+INC_PATH 		= $(shell find includes -type d) $(shell find libft -type d) $(shell find libraries/include -type d 2>/dev/null || true) $(shell find src/inventaire/includes -type d) \
 
 OBJ_PATH		= OBJ
 
@@ -79,9 +79,21 @@ SRC				= main.c										\
 				  print_ariel_text.c 							\
 				  menu_show.c 									\
 				  load_fonts.c 									\
-				  tool.c 									\
-				  world2view.c								\
-				  world2view_mat.c
+				  tool.c 										\
+				  world2view.c									\
+				  world2view_mat.c								\
+				  inventaire_init_weapons.c						\
+				  weapons.c										\
+				  weapo_swap.c									\
+				  weapo_shoots.c								\
+				  weapo_select_shot_reload.c					\
+				  weapo_reload.c								\
+				  weapo_list_op.c								\
+				  weapo_destruct.c								\
+				  consumable.c									\
+				  conso_swap.c									\
+				  conso_list_op.c								\
+				  conso_destruct.c
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 
