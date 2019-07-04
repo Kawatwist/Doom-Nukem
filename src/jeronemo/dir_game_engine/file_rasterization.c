@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 14:55:45 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:56:51 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,6 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	//calucl de matrix view
 	t_camera cam;
 
-raster->v_camera.x = raster->v_camera.x;
-raster->v_camera.y = raster->v_camera.y;
-raster->v_camera.z = raster->v_camera.z;
 	printf("=%f =%f =%f", raster->v_camera.x, raster->v_camera.y, raster->v_camera.z);
 
 	cam.pitch = 3;
@@ -150,18 +147,12 @@ raster->v_camera.z = raster->v_camera.z;
 	{
 		cam.forward = ft_normalise(cam.forward);
 		raster->v_camera  = ft_vector_sub(raster->v_camera, cam.forward);
-		raster->v_camera.x = raster->v_camera.x;
-		raster->v_camera.y = raster->v_camera.y;
-		raster->v_camera.z = raster->v_camera.z;
 		raster->reculer = 0;
 	}
 	if (raster->avancer == 1)
 	{
 		cam.forward = ft_normalise(cam.forward);
 		raster->v_camera = ft_vector_add(raster->v_camera, cam.forward);
-		raster->v_camera.x = raster->v_camera.x;
-		raster->v_camera.y = raster->v_camera.y;
-		raster->v_camera.z = raster->v_camera.z;
 		raster->avancer = 0;
 	}
 	//this is the matrix view

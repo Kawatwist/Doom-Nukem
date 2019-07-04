@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 14:55:45 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:56:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct		s_camera
 {
 	float			**view;
 	float			**projection;
-	t_myvec			pos;
 	float			pitch; // l'angle pour l'axis y
 	float			yaw; // l'angle pour l'axis x
 	t_myvec			forward;
