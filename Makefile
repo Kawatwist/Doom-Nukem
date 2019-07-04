@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/06/17 13:02:38 by lomasse          ###   ########.fr        #
+#    Updated: 2019/07/04 12:05:34 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -154,7 +154,9 @@ clean :
 fclean : clean
 	@echo "${rouge}Fcleaning the project ...${neutre}\c"
 	@make fclean -C libft
-	@rm /tmp/doom_log2
+	@if [ -f "/tmp/doom_log2" ]; then \
+		rm /tmp/doom_log2; \
+	fi
 	@rm -rf $(NAME)
 	@echo "${rose}DONE${neutre}"
 
