@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 14:02:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:55:45 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	light_direction.z = -1.0;
 	light_direction = ft_normalise(light_direction);
 
-
 	//calcul de matrix world
 	ft_set_raster_trans(0, 0, 30, raster);
 	//ft_set_raster_rot_x(raster->ftheta, raster);
@@ -120,15 +119,13 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	//ft_set_raster_rot_y(raster->ftheta, raster);
 	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
 
-
 	//calucl de matrix view
 	t_camera cam;
 
-	cam.pos.x = raster->v_camera.x;
-	cam.pos.y = raster->v_camera.y;
-	cam.pos.z = raster->v_camera.z;
-	printf("=%f =%f =%f", cam.pos.x, cam.pos.y, cam.pos.z);
-
+raster->v_camera.x = raster->v_camera.x;
+raster->v_camera.y = raster->v_camera.y;
+raster->v_camera.z = raster->v_camera.z;
+	printf("=%f =%f =%f", raster->v_camera.x, raster->v_camera.y, raster->v_camera.z);
 
 	cam.pitch = 3;
 	cam.yaw = raster->theta_camera;
@@ -152,23 +149,23 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	if (raster->reculer == 1)
 	{
 		cam.forward = ft_normalise(cam.forward);
-		cam.pos = ft_vector_sub(cam.pos, cam.forward);
-		raster->v_camera.x = cam.pos.x;
-		raster->v_camera.y = cam.pos.y;
-		raster->v_camera.z = cam.pos.z;
+		raster->v_camera  = ft_vector_sub(raster->v_camera, cam.forward);
+		raster->v_camera.x = raster->v_camera.x;
+		raster->v_camera.y = raster->v_camera.y;
+		raster->v_camera.z = raster->v_camera.z;
 		raster->reculer = 0;
 	}
 	if (raster->avancer == 1)
 	{
 		cam.forward = ft_normalise(cam.forward);
-		cam.pos = ft_vector_add(cam.pos, cam.forward);
-		raster->v_camera.x = cam.pos.x;
-		raster->v_camera.y = cam.pos.y;
-		raster->v_camera.z = cam.pos.z;
+		raster->v_camera = ft_vector_add(raster->v_camera, cam.forward);
+		raster->v_camera.x = raster->v_camera.x;
+		raster->v_camera.y = raster->v_camera.y;
+		raster->v_camera.z = raster->v_camera.z;
 		raster->avancer = 0;
 	}
 	//this is the matrix view
-	cam.view = t_camera_compute_view(&cam);
+	cam.view = t_camera_compute_view(&cam, raster);
 	//this is the matrix projection
 	cam.near = 0.1;
 	cam.far = 50.0;

@@ -6,13 +6,13 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 14:01:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:54:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <header_game_engine.h>
 
-float	**t_camera_compute_view(t_camera *cam) //calcul de la matrice de vue
+float	**t_camera_compute_view(t_camera *cam, t_myraster *raster) //calcul de la matrice de vue
 {
 	float	**result;
 	t_myvec	inv_forward;
@@ -23,17 +23,17 @@ float	**t_camera_compute_view(t_camera *cam) //calcul de la matrice de vue
 	result[0][0] = cam->right.x;
 	result[1][0] = cam->right.y;
 	result[2][0] = cam->right.z;
-	result[3][0] = - (ft_dot_product(cam->right, cam->pos));
+	result[3][0] = - (ft_dot_product(cam->right, raster->v_camera));
 
 	result[0][1] = cam->up.x;
 	result[1][1] = cam->up.y;
 	result[2][1] = cam->up.z;
-	result[3][1] = - (ft_dot_product(cam->up, cam->pos));
+	result[3][1] = - (ft_dot_product(cam->up, raster->v_camera));
 
 	result[0][2] = inv_forward.x;
 	result[1][2] = inv_forward.y;
 	result[2][2] = inv_forward.z;
-	result[3][2] = - (ft_dot_product(inv_forward, cam->pos));
+	result[3][2] = - (ft_dot_product(inv_forward, raster->v_camera));
 	return (result);
 }
 

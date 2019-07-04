@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 14:02:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 14:55:45 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ float	**ft_make_identity(void);
 float	**ft_make_rotation_y(float theta);
 float	**ft_matrix_point_at(t_myvec v_pos, t_myvec v_target, t_myvec v_up);
 float	**ft_matrix_quick_inverse(float **mu);
-float	**t_camera_compute_view(t_camera *cam); //calcul de la matrice de vue
+float	**t_camera_compute_view(t_camera *cam, t_myraster *raster); //calcul de la matrice de vue
 
 //FILE VECTOR TOOL
 t_myvec		ft_normalise(t_myvec vector);
@@ -114,5 +114,3 @@ void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_mywin *s_win, 
 //cross product
 //calculate normal of point
 //vector from two point
-
-//FILE JEREM
