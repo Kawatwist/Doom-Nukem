@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:23:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:35:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,8 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 
 			j = -1;
 			while (++j < 3)
-				vertice[j] = mult_vector3_by_matrix(vertice[j], cam.view);
+				vertice[j] = ft_matrix_multiply_vector_general(cam.view, vertice[j]);
+				/* vertice[j] = mult_vector3_by_matrix(vertice[j], cam.view); */
 
 
 			triangle.vertice[0].x = vertice[0].x;

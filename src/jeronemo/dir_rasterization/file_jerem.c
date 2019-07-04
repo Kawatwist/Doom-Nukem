@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 17:52:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:24:57 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:38:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@ t_myvec	mult_vector3_by_vector3(t_myvec a,t_myvec b)
 
 	result = ft_create_vector(a.x * b.x, a.y * b.y, a.z * b.z);
 	return (result);
-}
-
-t_myvec mult_vector3_by_matrix(t_myvec vertex, float **m)
-{
-	float		result[3];
-
-	result[0] = m[0][0] * vertex.x + m[1][0] * vertex.y + m[2][0] * vertex.z + m[3][0];
-	result[1] = m[0][1] * vertex.x + m[1][1] * vertex.y + m[2][1] * vertex.z + m[3][1];
-	result[2] = m[0][2] * vertex.x + m[1][2] * vertex.y + m[2][2] * vertex.z + m[3][2];
-	return (ft_create_vector(result[0], result[1], result[2]));
 }
 
 void		t_camera_look_at(t_camera *cam) // calcul de l'angle de vue de la camera (forward, right, up)

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:25:24 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 13:38:44 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ float	**ft_matrix_quick_inverse(float **mu);
 t_myvec		ft_normalise(t_myvec vector);
 t_myvec		ft_vector_sub(t_myvec v2, t_myvec v1);
 t_myvec		ft_matrix_multiply_vector(float **m, t_myvec i);
-t_myvec		ft_matrix_multiply_vector_general(float matrix[5][5], t_myvec v);
+t_myvec		ft_matrix_multiply_vector_general(float **matrix, t_myvec v);
 t_myvec		ft_vector_add(t_myvec v1, t_myvec v2);
 t_myvec		ft_vector_multiply(t_myvec m, float k);
 t_myvec		ft_create_vector(float p_x, float p_y, float p_z);
@@ -117,7 +117,3 @@ void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_mywin *s_win, 
 /* void		compute_t_camera(t_camera *cam); */
 float		**t_camera_compute_view(t_camera *cam); //calcul de la matrice de vue
 float		**compute_projection_matrix(t_camera *p_cam); //calcul de la matrice de projection
-
-t_myvec		mult_vector3_by_matrix(t_myvec vertex, float **m);
-
-
