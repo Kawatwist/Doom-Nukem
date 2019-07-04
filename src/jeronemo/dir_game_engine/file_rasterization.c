@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 15:12:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:15:32 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,21 +120,17 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
 
 	//calucl de matrix view
-	t_camera cam;
 
-	printf("=%f =%f =%f", raster->v_camera.x, raster->v_camera.y, raster->v_camera.z);
-
-	cam.pitch = 3;
-	cam.yaw = raster->theta_camera;
+	raster->pitch = 3;
 
 	t_myvec zaxis =
-		ft_normalise(ft_create_vector(cos(ft_rad(cam.pitch)) * sin(ft_rad(cam.yaw)),
-					sin(ft_rad(cam.pitch)),
-					cos(ft_rad(cam.pitch)) * cos(ft_rad(cam.yaw))));
+		ft_normalise(ft_create_vector(cos(ft_rad(raster->pitch)) * sin(ft_rad(raster->theta_camera)),
+					sin(ft_rad(raster->pitch)),
+					cos(ft_rad(raster->pitch)) * cos(ft_rad(raster->theta_camera))));
 	t_myvec xaxis =
-		ft_normalise(ft_create_vector(sin(ft_rad(cam.yaw) - 3.14f / 2.0f),
+		ft_normalise(ft_create_vector(sin(ft_rad(raster->theta_camera) - 3.14f / 2.0f),
 					0,
-					cos(ft_rad(cam.yaw) - 3.14f / 2.0f)));
+					cos(ft_rad(raster->theta_camera) - 3.14f / 2.0f)));
 	t_myvec yaxis =
 		ft_normalise(ft_cross_product(xaxis, zaxis));
 

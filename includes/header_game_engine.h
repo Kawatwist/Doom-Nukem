@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 15:12:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:16:14 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ typedef struct				s_myraster
 {
 	float					f_theta;
 	float					ftheta;   //sup un des deux
+	float					theta_camera;
+	float					pitch; // l'angle pour l'axis y
 	float					**mat_trans;
 	float					**mat_rot_x;
 	float					**mat_rot_y;
@@ -30,18 +32,9 @@ typedef struct				s_myraster
 	float					**mat_camera_rot;
 	float					**mat_camera_look_at;
 	float					**mat_camera_view;
-	float					theta_camera;
 	unsigned char			avancer;
 	unsigned char			reculer;
 }							t_myraster;
-
-
-typedef struct		s_camera
-{
-	float			pitch; // l'angle pour l'axis y
-	float			yaw; // l'angle pour l'axis x
-}					t_camera;
-
 
 //FILE GAME ENGINE
 void	ft_launch_rasterization(t_mywin *s_win, t_win *wn);
