@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 15:25:28 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/04 16:13:52 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	light_direction.y = 0.0;
 	light_direction.z = -1.0;
 	light_direction = ft_normalise(light_direction);
-
 	//CALCUL DE MATRIX WORLD
 	ft_set_raster_trans(0, 0, 30, raster);
 	//ft_set_raster_rot_x(raster->ftheta, raster);
@@ -174,7 +173,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		triangle_lst = triangle_lst->next;
 	}
 	triangle_lst = keep;
-	raster->ftheta += 0;
+	raster->ftheta += 1;
 	if (raster->ftheta == 360 * 2)
 		raster->ftheta = 0;
 	//free list
