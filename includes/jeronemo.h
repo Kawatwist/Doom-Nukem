@@ -458,5 +458,5 @@ t_myvec		ft_scale_screen(t_myvec result);
 
 int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plan, t_mytriangle *clipped_triangle, t_mytriangle *triangle, t_mywin *s_win);
 int		ft_calcul_culing(t_mychange *change, t_mytriangle *triangle);
-
+t_mytriangle *make_triangles(t_poly *poly);
 #endif

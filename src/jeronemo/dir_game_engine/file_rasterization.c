@@ -98,14 +98,16 @@ void	ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 
 void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max)
 {
-	int				i;
+	//int				i;
 	t_myvec			light_direction;
 	t_mytriangle	triangle;
+	t_mytriangle	*triangle_p;
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_node;
 	t_mytriangle	*keep;
 	t_myvec			normal;
 
+	(void)max;
 	triangle_lst = NULL;
 	light_direction.x = 0.5;
 	light_direction.y = 0.0;
@@ -117,13 +119,15 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	ft_set_raster_rot_x(180, raster);
 	//ft_set_raster_rot_y(raster->ftheta, raster);
 	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
-	//CALUL DE MATRIX VIEW
+	//CALCUL DE MATRIX VIEW
 	raster->mat_camera_view = t_camera_compute_view(raster); 
 	////##################################################################################################
-	i = 0;
-	while (i < max )
+	//i = 0;
+	triangle_p = triangle_array;
+	while (triangle_p)
 	{
-		triangle = triangle_array[i];
+		triangle = *triangle_p;
+		//triangle = triangle_array[i];
 		//ROTATION Z
 		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[0]);
 		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[1]);
@@ -158,7 +162,8 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 			triangle_node = ft_triangle_node_create(triangle);
 			ft_triangle_add_node(&triangle_lst, triangle_node);
 		}
-		i++;
+		//i++;
+		triangle_p = triangle_p->next;
 	}
 	//ORDER TRIANGLE FROM FAR TO NEAR
 	ft_order_triangle_z_buffer(triangle_lst);

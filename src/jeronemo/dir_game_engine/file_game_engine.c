@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 # include <header_game_engine.h>
+//# include <bsp.h>
 
 void	ft_init_rasterization(t_mykeep *keep, t_mychange *change, t_myraster *raster)
 {
@@ -77,10 +78,16 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	t_mykeep			keep;
 	t_myraster			raster;
 	t_mytriangle		*triangle_array;
+	t_bsp 				*bsp;
+	t_poly 				*poly_list;
+	t_vec				pos_joueur;
 
-	ft_launch_bsp_tree(s_win, wn);
-	triangle_array = ft_get_triangles_array(s_win);
-	int max = ft_get_nbr_of_triangle(s_win);
+
+	//ft_launch_bsp_tree(s_win, wn);
+	//triangle_array = ft_get_triangles_array(s_win);
+	//int max = ft_get_nbr_of_triangle(s_win);
+
+	bsp = bsp_compile();
 	SDL_Init(SDL_INIT_EVERYTHING);
 	s_win->interface = GAME_ENGINE;
 	ft_launch_window(s_win, s_win->interface);
@@ -88,9 +95,14 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	/* ft_display_triangle_array(s_win, triangle_array, max); */
 	while (!change.quit)
 	{
+		pos_joueur.x = wn->player->x;
+		pos_joueur.y = wn->player->y;
+		pos_joueur.z = wn->player->z;
+		poly_list = render_bsp(bsp, &pos_joueur);
+		triangle_array = make_triangles(poly_list);
 		ft_input_event_check(wn, &change, &raster);
 		ft_clear_window(s_win);
-		ft_update_raster(s_win, &raster, triangle_array, max);
+		ft_update_raster(s_win, &raster, triangle_array, 0);
 		SDL_RenderPresent(s_win->renderer[s_win->interface]);
 		SDL_Delay(30);
 		setkeyboard(change.old, wn->state);

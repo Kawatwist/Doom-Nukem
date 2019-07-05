@@ -18,11 +18,11 @@
 # include <pthread.h>
 # include <libft.h>
 # include <game.h>
-# include <rasterisation.h>
+//# include <rasterisation.h>
 # include <skybox.h>
 # include <SDL.h>
 # include <SDL_ttf.h>
-
+# include <bsp.h>
 # include <SDL2/SDL.h>
 # include <SDL_image.h>
 
