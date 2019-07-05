@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/24 12:47:20 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/30 15:33:57 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		interface(t_win *wn)
 {
 	if (wn->interface == MENU)
 		menu(wn);
-	else if (wn->interface == GAME)
+	else if (wn->interface == RGAME || wn->interface == MGAME || wn->interface == LGAME || wn->interface == NGAME)
 		game(wn);
 	else if (wn->interface == EDITEUR)
 		edit(wn);

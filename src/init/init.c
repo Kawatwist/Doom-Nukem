@@ -6,7 +6,6 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/06 11:08:08 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +14,6 @@
 int				init(t_win **wn, int argc, char **argv)
 {
 	//SDL_Event	ev;
-	(void)argc;
-	(void)argv;
 
 	initwn(wn);
 	initsdl(wn);
@@ -39,6 +36,12 @@ int				init(t_win **wn, int argc, char **argv)
 
 
 
+	(*wn)->load = ft_strdup("./texture/Menu_game.tga");
+	load_texture(*wn, "game", "menu", "menu");
+	(*wn)->load = ft_strdup("./texture/Menu_game_LG.tga");
+	load_texture(*wn, "game", "menu", "LG");
+	(*wn)->load = ft_strdup("./texture/Menu_game_NG.tga");
+	load_texture(*wn, "game", "menu", "NG");
 	initplayer(wn);
 //	SDL_PollEvent(&ev);
 //	SDL_PollEvent(&ev);

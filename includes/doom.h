@@ -6,7 +6,6 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/27 13:43:36 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +54,6 @@ typedef enum  		e_val
 typedef enum		e_interface
 {
 	MENU,
-	GAME,
 	MGAME,
 	NGAME,
 	LGAME,
@@ -65,9 +63,10 @@ typedef enum		e_interface
 	LEDITEUR,
 	NEDITEUR,
 	REDITEUR,
-	OPTION,
-	BOPTION,
-	KEYOPTION,
+	MOPTION,
+	COPTION,
+	GOPTION,
+	KOPTION,
 	LOADING,
 	PAUSE,
 	GAME_ENGINE,
@@ -281,6 +280,11 @@ void				load_fonts(t_win *wn);
 /**
  ** OPTION
  **/
+void				keyboardoption(t_win *wn);
+void				graphismeoption(t_win *wn);
+void				controloption(t_win *wn);
+void				menuoption(t_win *wn);
+void				menu_option_input(t_win *wn);
 void				option(t_win *wn);
 void				optioninput(t_win *wn);
 void				showoption(t_win *wn);
