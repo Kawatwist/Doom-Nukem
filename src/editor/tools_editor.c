@@ -12,7 +12,8 @@
 
 #include <doom.h>
 
-SDL_Color 	making_color(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+SDL_Color	making_color(unsigned char r, unsigned char g, unsigned char b,
+	unsigned char a)
 {
 	SDL_Color color;
 
@@ -34,7 +35,7 @@ void		load_color(t_win *wn)
 
 SDL_Rect	define_rect(int x, int y, int w, int h)
 {
-	SDL_Rect 	rect;
+	SDL_Rect	rect;
 
 	rect.x = x;
 	rect.y = y;

@@ -12,8 +12,6 @@
 
 #include "doom.h"
 
-
-
 void		print_background_editor(t_win *wn)
 {
 	SDL_Surface		*surface;
@@ -63,10 +61,6 @@ void		change_bloc(t_win *wn)
 		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
 		wn->edit_image.tbp = 2;
 }
-
-
-
-
 
 void		printeditor(t_win *wn)
 {

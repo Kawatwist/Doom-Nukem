@@ -79,4 +79,3 @@ void		print_arrow(t_win *wn)
 	if (SDL_RenderCopy(wn->rend, wn->edit_image.fleche, NULL, &dst) < 0)
 		stop_exec("rendercopy failed in print_arrow\n", wn);
 }
-
