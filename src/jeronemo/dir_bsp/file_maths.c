@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 14:37:01 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:22:49 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:06:27 by pi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,11 @@ float		ft_atoi_comma(const char *str)
 	int			i;
 	float		nb;
 	float		nega;
-	int			point;
 	float			j;
 
 	i = 0;
 	nega = 1;
 	nb = 0;
-	point = 0;
 	while ((str[i] >= 9 && str[i] <= 13) || (str[i] == ' '))
 		i++;
 	if (str[i] == '-')

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 07:09:48 by lomasse           #+#    #+#             */
-/*   Updated: 2018/11/09 23:15:57 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/05 18:29:32 by pi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	char	*str;
 	char	*str2;
-	int		i;
 
-	i = 0;
 	str = (char *)dst;
 	str2 = (char *)src;
 	if (str > str2 && (str2 + len) > str)

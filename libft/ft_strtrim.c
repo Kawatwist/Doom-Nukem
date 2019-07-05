@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 09:08:40 by lomasse           #+#    #+#             */
-/*   Updated: 2018/11/13 14:44:12 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/05 18:31:09 by pi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 static int		ft_lenwithoutspace(char const *s)
 {
 	int		i;
-	int		j;
 	int		k;
 
-	j = 0;
 	i = 0;
 	k = ft_strlen(s);
 	while (s[i] == '\t' || s[i] == '\n' || s[i] == ' ' || s[i] == '\0')

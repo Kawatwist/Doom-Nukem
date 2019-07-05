@@ -54,7 +54,7 @@ int				init(t_win **wn, int argc, char **argv)
 //	load_texture(*wn, "main", "intro", "cursor");
 //	parsearg(argc, argv, wn) == 0 ? stop_exec("Parsing error\n", *wn) : 0;
 //	showload(wn, 30);
-//	(*wn)->quality == 0 ? loadnothread(wn) : loadminimenu(wn);
+/*	(*wn)->quality == 0 ? loadnothread(wn) :*/ loadminimenu(wn);
 //	initskybox(wn);
 	return (1);
 }

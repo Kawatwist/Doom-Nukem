@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 15:08:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:03:44 by pi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,7 +297,9 @@ void		ft_mouse_event_check(t_win *wn, t_mychange *change)
 {
 	(void)change;
 	if ((wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)) && ((wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT)) == 0)  )
+	{
 		;
+	}
 }
 
 void	ft_input_event_check(t_win *wn, t_mychange *change, t_myraster *raster)

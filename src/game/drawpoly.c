@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 11:32:23 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/24 12:48:02 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/05 18:32:27 by pi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,7 @@ static void		vercpy(t_vec *src, t_vec *dst, int len)
 void			maindrawpoly(t_win *wn)
 {
 	t_poly	*curr;
-	int		i;
 
-	i = 0;
 	curr = wn->poly;
 	SDL_SetRenderDrawColor(wn->rend, 255, 0, 0, 0);
 	while (curr != NULL)

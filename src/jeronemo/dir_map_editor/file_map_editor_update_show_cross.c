@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 16:46:34 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/07 14:08:07 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:01:29 by pi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ void	ft_update_show_cross_seconde(t_mywin *s_win, int j)
 void	ft_update_show_cross(t_mywin *s_win, t_win *wn)
 {
 			int		j;
-			int		i;
 
-			i = 4;
 			j = 0;
 			while (j <= 4)
 			{

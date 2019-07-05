@@ -25,10 +25,16 @@
 # include <SDL2/SDL.h>
 # include <SDL_image.h>
 
-//# define XSCREEN 1500
-//# define YSCREEN 1200
+
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
+
+
 # define XSCREEN 1920
 # define YSCREEN 1080
+//# define XSCREEN 1500
+//# define YSCREEN 1200
 # define CONSOLE_MAX_LINE_NB 10
 # define ARIEL_FONT_SIZE 35
 # define U_MAX		4294967295

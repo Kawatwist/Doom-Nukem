@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 18:08:00 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/17 14:24:55 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/05 18:51:51 by pi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,8 @@ void			sym_vert(t_tga *tga)
 void			rotatepxl(t_tga *tga)
 {
 	int				i;
-	int				nb;
 	unsigned char	*done;
 
-	nb = 0;
 	i = 0;
 	if ((done = (unsigned char *)malloc(sizeof(unsigned char)
 					* tga->w * tga->h * 4)) == NULL)

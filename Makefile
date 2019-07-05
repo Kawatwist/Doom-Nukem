@@ -38,12 +38,10 @@ SRC				= main.c										\
 				  parse.c										\
 				  initwn.c										\
 				  nothread.c									\
-				  thread.c										\
 				  load_menu.c									\
 				  sdl.c											\
 				  load.c										\
 				  load2.c										\
-				  load_intro.c									\
 				  texture.c										\
 				  maingame.c 									\
 				  mainmenu.c									\
@@ -80,7 +78,8 @@ SRC				= main.c										\
 				  tool.c 									\
 				  world2view.c								\
 				  world2view_mat.c
-
+				  #thread.c										\
+				  load_intro.c									
 
 #MAP EDITOR
 SRC += file_map_editor.c

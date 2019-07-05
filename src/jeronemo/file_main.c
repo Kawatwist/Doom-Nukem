@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:55:47 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/25 10:26:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:05:56 by pi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	ft_game_engine(t_win *wn)
 {
 	t_mywin		s_win;
-	int			choice;
 
-	choice = 0;
 	/* while (1) */
 	/* { */
 		system("@cls||clear");

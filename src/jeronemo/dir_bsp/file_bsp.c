@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:46:33 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/10 10:41:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:02:48 by pi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	ft_display_triangle(t_mywin *s_win)
 	t_mywall			*keep;
 	t_mypoint			middle;
 	t_mypointf			vector;
-	t_mycolor			s_color;
 	int					norme;
 	t_mypointf			normalise;
 	t_mypointf			normal;
@@ -112,7 +111,6 @@ void	ft_display_triangle(t_mywin *s_win)
 		printf("normalise %f %f\n", normalise.x, normalise.y);
 		normal = ft_get_normal(s_win->lst_wall, s_win);
 		printf("normal %f %f\n", normal.x, normal.y);
-		s_color = ft_setcolor(RED);
 		s_line.un.a = middle.x;
 		s_line.un.b = middle.y;
 		s_line.deux.a = (normal.x * 15) + middle.x;

@@ -6,7 +6,7 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:00:23 by jleblond          #+#    #+#             */
-/*   Updated: 2019/05/22 11:55:54 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/05 19:00:06 by pi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	printable_key_check(int i)
 	else if (i == SDL_SCANCODE_KP_0)
 		return ('0');
 	else
-		return (INVALID);
+		return (100);
 }
 
 static char *printable_input(t_win *wn, char *command)
@@ -79,7 +79,7 @@ static char *printable_input(t_win *wn, char *command)
 		if (key_pressed(wn, i))
 		{
 			key_val = printable_key_check(i);
-			if (key_val != INVALID)
+			if (key_val != 100)
 			{
 				str[0] = key_val;
 				str[1] = '\0';
