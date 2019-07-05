@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 15:06:35 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:47:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 	}
 	if (n_inside_points == 0)
 	{
-		printf("reject\n");
+		/* printf("reject\n"); */
 		result = 0;
 	}
 	else if (n_inside_points == 1)
@@ -74,7 +74,7 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 		clipped_triangle[0].vertice[0] = points_inside[0];
 		clipped_triangle[0].vertice[1] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
 		clipped_triangle[0].vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[1]);
-		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
+		clipped_triangle[0].ft_color = 'r';
 		result = 1;
 	}
 	else if (n_inside_points == 2)
@@ -83,19 +83,20 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 		clipped_triangle[0].vertice[0] = points_inside[0];
 		clipped_triangle[0].vertice[1] = points_inside[1];
 		clipped_triangle[0].vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
+		clipped_triangle[0].ft_color = 'g';
 
 
 		clipped_triangle[1].vertice[0] = points_inside[1];
 		clipped_triangle[1].vertice[1] = clipped_triangle[0].vertice[2];
 		clipped_triangle[1].vertice[2] = ft_vector_intersect(plane_norm,  point, points_inside[1], points_outside[0]);
-		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 255, 0, 255);
+		clipped_triangle[1].ft_color = 'g';
 		result = 2;
 	}
 	else if (n_inside_points == 3)
 	{
-		printf("do nothing BLUE\n");
+		/* printf("do nothing BLUE\n"); */
 		clipped_triangle[0] = *triangle;
-		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 0, 255, 255);
+		clipped_triangle[0].ft_color = 'b';
 		result = 1;
 	}
 	return (result);

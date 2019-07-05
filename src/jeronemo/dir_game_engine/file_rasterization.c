@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 15:13:48 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:51:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	light_direction.z = -1.0;
 	light_direction = ft_normalise(light_direction);
 	//CALCUL DE MATRIX WORLD
-	ft_set_raster_trans(0, 0, -30, raster);
+	ft_set_raster_trans(0, 0, 0, raster);
 	//ft_set_raster_rot_x(raster->ftheta, raster);
 	ft_set_raster_rot_x(180, raster);
 	//ft_set_raster_rot_y(raster->ftheta, raster);
@@ -171,7 +171,6 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 			j = 0;
 			while(j < nbr)
 			{
-				printf("j'affiche\n");
 				//PROJECTION
 				clipped_triangle[j].vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, clipped_triangle[j].vertice[0]);
 				clipped_triangle[j].vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, clipped_triangle[j].vertice[1]);
@@ -196,7 +195,18 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
 		ft_fill_triangle_shade((triangle_lst->vertice[0]), (triangle_lst->vertice[1]), (triangle_lst->vertice[2]), s_win, triangle_lst->shade);
 		//DRAW MESH
+
+
+		if (triangle_lst->ft_color == 'r')
 		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
+		else if (triangle_lst->ft_color == 'g')
+		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 255, 0, 255);
+		else if (triangle_lst->ft_color == 'b')
+		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 0, 255, 255);
+
+
+
+
 		ft_draw_triangle_base(&(triangle_lst->vertice[0]), &(triangle_lst->vertice[1]), &(triangle_lst->vertice[2]), s_win);
 		triangle_lst = triangle_lst->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 14:41:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:51:58 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	while (!change.quit)
 	{
 		ft_input_event_check(wn, &change, &raster);
-		if (change.modif == 1 || 1)
+		if (change.modif == 1)
 		{
 		ft_clear_window(s_win);
 		ft_update_raster(s_win, &raster, triangle_array, max);

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 11:28:38 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:47:20 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct	s_mytriangle
 {
 	t_myvec					vertice[3];
 	struct s_mytriangle		*next;
+	char		ft_color;
 	float		shade;
 }				t_mytriangle;
 
