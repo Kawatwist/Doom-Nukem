@@ -47,10 +47,22 @@ int             check_point(t_win *wn, t_point *point) // DODGE DOUBLE SAME POIN
     return (TRUE);
 }
 
+void            remove_poly(t_elem *curr)
+{
+    if (curr->point != NULL && curr->point->next != NULL)
+        free(curr->point->next);
+    if (curr->point != NULL)
+    {
+        free(curr->point);
+        curr->point = NULL;
+    }  
+}
+
 void            mouse_input_poly(t_win *wn)
 {
     t_elem  *curr;
     t_point *point;
+    // t_poly *tmp;
 
     curr = wn->elem;
     find_last_poly(&curr); // REACH LAST POLYGON ACTIF
@@ -74,10 +86,15 @@ void            mouse_input_poly(t_win *wn)
         curr->nb_pt = wn->varedit.nb_point;
         if (mouse_pressed(wn, SDL_BUTTON_RIGHT)) // CREATE A NEW POLY   /!\ BECARFULL IF A POLYGONE GOT LESS THAN 3 POINT HE'S INVALID
         {
-            if ((curr->next = malloc(sizeof(t_elem))) == NULL) // MALLOC NEW POLY
-                stop_exec("Malloc elem failed\n", wn);
-            curr->next->next = NULL;                  // INIT NEXT POINTEUR
-            curr->next->point = NULL;
+            if (curr->nb_pt < 3)
+               remove_poly(curr);
+            else
+            {
+                if ((curr->next = malloc(sizeof(t_elem))) == NULL) // MALLOC NEW POLY
+                    stop_exec("Malloc elem failed\n", wn);
+                curr->next->next = NULL;                  // INIT NEXT POINTEUR
+                curr->next->point = NULL;
+            }
         }
     }
 }

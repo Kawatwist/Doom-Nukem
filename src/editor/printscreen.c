@@ -46,6 +46,8 @@ static void	showelem(t_win *wn)
 			end = create_t_point(tmp->x * wn->map->size + wn->map->x, tmp->y * wn->map->size + wn->map->y);
 			bresenham(wn, &start, &end);
 		}
+		// else if (curr->nb_pt < 3 && curr->next != NULL)
+			
 		curr = curr->next;
 	}
 }
