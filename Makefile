@@ -93,7 +93,7 @@ SRC += file_bsp.c
 #BRESENHAM
 SRC += fille_bresename.c
 
-# SRC += file_clipping.c
+SRC += file_clipping.c
 
 #GAME ENGINE
 SRC += file_game_engine.c

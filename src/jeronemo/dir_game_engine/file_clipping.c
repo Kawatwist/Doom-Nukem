@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 14:51:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 09:53:35 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h>
+#include <header_game_engine.h>
 
 float	ft_distance(t_myvec plane_N, t_myvec point_plane_Q, t_myvec point_P)
 {
@@ -60,7 +60,7 @@ vector intersectionPoint(vector lineVector, vector linePoint, vector planeNormal
 
 t_myvec	ft_vector_intersect(t_myvec plane_n, t_myvec plane_p, t_myvec lineStart, t_myvec lineEnd)
 {
-//vec3d &plane_p, vec3d &plane_n, vec3d &lineStart, vec3d &lineEnd
+	//vec3d &plane_p, vec3d &plane_n, vec3d &lineStart, vec3d &lineEnd
 
 	plane_n = ft_normalise(plane_n);
 	float plane_d = -ft_dot_product(plane_n, plane_p);
@@ -70,93 +70,34 @@ t_myvec	ft_vector_intersect(t_myvec plane_n, t_myvec plane_p, t_myvec lineStart,
 	t_myvec lineStartToEnd = ft_vector_sub(lineEnd, lineStart);
 	t_myvec lineToIntersect = ft_vector_multiply(lineStartToEnd, t);
 	return ft_vector_add(lineStart, lineToIntersect);
-
-
-
-
-	/* //return a point if the line cross the plane */
-	/* // line intersect with plane */
-
-	/* //infinite ray = 0 -1 -1    lV     line direction */
-	/* //passing through 0 0 10    lp */      
-	/* //normal of plane 0 0 1     pN */     
-	/* //passing though 0 0 5      pP */
-
-	/* vector lV,lP,pN,pP,iP; */
-	/* t_myvec		intersection_point; */
-
-	/* t_myvec	line_direction = ft_vector_sub(point2, point1); */
-	/* lV.x = line_direction.x; */
-	/* lV.y = line_direction.y; */
-	/* lV.z = line_direction.z; */
-
-	/* lP.x = point1.x; */
-	/* lP.y = point1.y; */
-	/* lP.z = point1.z; */
-
-	/* pN.x = plane_normal.x; */
-	/* pN.y = plane_normal.y; */
-	/* pN.z = plane_normal.z; */
-
-	/* pP.x = point_on_plane.x; */
-	/* pP.y = point_on_plane.y; */
-	/* pP.z = point_on_plane.z; */
-
-	/* /1* printf("Usage : %s <line direction, point on line, normal to plane and point on plane given as (x,y,z) tuples separated by space>"); *1/ */
-	/* /1* else{ *1/ */
-	/* /1* sscanf(argV[1],"(%lf,%lf,%lf)",&lV.x,&lV.y,&lV.z); *1/ */
-	/* /1* sscanf(argV[3],"(%lf,%lf,%lf)",&pN.x,&pN.y,&pN.z); *1/ */
-
-	/* if(dotProduct(lV,pN)==0) */
-	/* { */
-	/* 	printf("Line and Plane do not intersect, either parallel or line is on the plane"); */
-	/* 	exit(0); */
-	/* } */
-	/* else */
-	/* { */
-	/* 	/1* sscanf(argV[2],"(%lf,%lf,%lf)",&lP.x,&lP.y,&lP.z); *1/ */
-	/* 	/1* sscanf(argV[4],"(%lf,%lf,%lf)",&pP.x,&pP.y,&pP.z); *1/ */
-	/* 	iP = intersectionPoint(lV,lP,pN,pP); */
-	/* 	printf("Intersection point is (%lf,%lf,%lf)",iP.x,iP.y,iP.z); */
-	/* 	intersection_point.x = iP.x; */
-	/* 	intersection_point.y = iP.y; */
-	/* 	intersection_point.z = iP.z; */
-	/* } */
-	/* return (intersection_point); */
 }
 
 
 int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle *clipped_triangle, t_mytriangle *triangle, t_mywin *s_win)
 {
-	(void)point;
-	(void)plane_norm;
-	//we want the distance between the plane and the point
-
 	t_myvec		points_inside[3];
 	t_myvec		points_outside[3];
 	int			n_inside_points = 0;
 	int			n_outside_points = 0;
 	int			distance;
 	int			result = 0;
-	int	j;
-	t_myvec plane_N;
-	t_myvec point_plane_Q;
+	int			j;
+	t_myvec		plane_N;
+	t_myvec		point_plane_Q;
+
 	j = 0;
 	while (j < 3)
 	{
 		distance = 0;
-		/* float	ft_distance(t_myvec plane_N, t_myvec point_plane_Q, t_myvec point_P) */
 		plane_N.x = plane_norm.x;
 		plane_N.y = plane_norm.y;
 		plane_N.z = plane_norm.z;
 		point_plane_Q.x = point.x;
 		point_plane_Q.y = point.y;
 		point_plane_Q.z = point.z;
-
 		distance = ft_distance(plane_N, point_plane_Q, triangle->vertice[j]);
 		if (distance >= 0)
 		{
-			/* printf(" n_inside_point =%d triangle->vertice[j].x =%f et le j =%d etrange =%f\n", n_inside_points, triangle->vertice[j].x, j, points_inside[n_inside_points].x); */
 			points_inside[n_inside_points] = triangle->vertice[j];
 			n_inside_points++;
 		}
@@ -167,18 +108,22 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 		}
 		j++;
 	}
-
-
-	/* printf("LES point inside =%d\n\n", n_inside_points); */
-	/* clipped_triangle[0] = *triangle; */
-	/* return(1); */
-
 	if (n_inside_points == 0)
 	{
-		printf("reject\n");
+		/* printf("reject\n"); */
 		result = 0;
 	}
-	else if (n_inside_points == 1)
+	else
+	{
+		printf("no rejected\n");
+		clipped_triangle[0] = *triangle;
+		result = 1;
+	}
+	return (result);
+
+
+
+	if (n_inside_points == 1)
 	{
 		printf("form one triangle\n");
 		clipped_triangle[0].vertice[0] = points_inside[0];
@@ -192,7 +137,6 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 		printf("==>form a quadra\n\n");
 		clipped_triangle[0].vertice[0] = points_inside[0];
 		clipped_triangle[0].vertice[1] = points_inside[1];
-		/* t_myvec	ft_vector_intersect(t_myvec plane_normal, t_myvec point_on_plane, t_myvec point1, t_myvec point2) */
 		clipped_triangle[0].vertice[2] = ft_vector_intersect(plane_N, point_plane_Q, points_inside[0], points_outside[0]);
 
 		printf("le 1 = %f\n", points_inside[1].x);
