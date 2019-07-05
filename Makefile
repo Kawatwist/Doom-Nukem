@@ -81,6 +81,8 @@ SRC				= main.c										\
 				  tools_editor.c 								\
 				  init_edit.c 									\
 				  mouse_editor.c 								\
+				  display_map.c 								\
+				  display_blocs.c 								\
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 

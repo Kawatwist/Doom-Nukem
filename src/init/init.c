@@ -17,6 +17,7 @@ int				init(t_win **wn, int argc, char **argv)
 	initwn(wn);
 	initsdl(wn);
 	init_poly(wn);
+	load_color(*wn);
 	init_edit(wn);
 	init_input(wn);
 	(*wn)->loading = initload2(wn, "./texture/loading.tga");

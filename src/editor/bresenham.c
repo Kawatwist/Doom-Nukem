@@ -24,12 +24,14 @@ void	init_bres(t_win *wn, t_point *alst, t_point *next)
 	wn->bres.sy = (wn->bres.dy >= 0) ? 1 : -1;
 	wn->bres.dx = abs(2 * wn->bres.dx);
 	wn->bres.dy = abs(2 * wn->bres.dy);
-	wn->bres.e = (wn->bres.dx > wn->bres.dy) ? wn->bres.dx / 2 : wn->bres.dy / 2;
+	wn->bres.e = (wn->bres.dx > wn->bres.dy) ?
+			wn->bres.dx / 2 : wn->bres.dy / 2;
 }
 
 void	bres_x(t_win *wn)
 {
-	if (wn->bres.x <= wn->xscreen && wn->bres.x >= 0 && wn->bres.y <= wn->yscreen && wn->bres.y >= 0)
+	if (wn->bres.x <= wn->xscreen && wn->bres.x >= 0
+		&& wn->bres.y <= wn->yscreen && wn->bres.y >= 0)
 		SDL_RenderDrawPoint(wn->rend, wn->bres.x, wn->bres.y);
 	wn->bres.e = wn->bres.e - wn->bres.dy;
 	if (wn->bres.e < 0)
@@ -42,7 +44,8 @@ void	bres_x(t_win *wn)
 
 void	bres_y(t_win *wn)
 {
-	if (wn->bres.x <= wn->xscreen && wn->bres.x >= 0 && wn->bres.y <= wn->yscreen && wn->bres.y >= 0)
+	if (wn->bres.x <= wn->xscreen && wn->bres.x >= 0
+		&& wn->bres.y <= wn->yscreen && wn->bres.y >= 0)
 		SDL_RenderDrawPoint(wn->rend, wn->bres.x, wn->bres.y);
 	wn->bres.e = wn->bres.e - wn->bres.dx;
 	if (wn->bres.e < 0)

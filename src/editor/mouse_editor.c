@@ -14,7 +14,7 @@
 
 void		create_text_texture(t_win *wn, SDL_Texture *texture, int x, SDL_Color color)
 {
-	char 	*text;
+	char	*text;
 
 	text = ft_itoa(x);
 	texture != NULL ? SDL_DestroyTexture(texture) : 0;

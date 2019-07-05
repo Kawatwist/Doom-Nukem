@@ -62,7 +62,6 @@ void            mouse_input_poly(t_win *wn)
 {
     t_elem  *curr;
     t_point *point;
-    // t_poly *tmp;
 
     curr = wn->elem;
     find_last_poly(&curr); // REACH LAST POLYGON ACTIF
