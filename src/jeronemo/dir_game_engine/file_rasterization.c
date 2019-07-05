@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 15:51:28 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:02:38 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 			//CLIP AGAINST CAMERA PLANE
 			point.x = 0.0;
 			point.y = 0.0;
-			point.z = 1.0;
+			point.z = 0.1;
 
 			plane_norm.x = 0.0;
 			plane_norm.y = 0.0;

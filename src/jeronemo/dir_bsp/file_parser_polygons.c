@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 13:02:12 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:04:29 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,9 +178,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	t_mypolygon		*polygon_lst = NULL;
 	int				j;
 	int				polygon_obj_indice;
-
 	int i = -1;
-
 
 
 	t_myfichier		*fichier_lst;
