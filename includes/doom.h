@@ -61,12 +61,14 @@ typedef struct		s_point
 {
 	int				x;
 	int				y;
+	int 			z;
 	struct s_point	*next;
 }					t_point;
 
 typedef struct		s_elem
 {
 	t_point			*point;
+	int 			nb_pt;
 	struct s_elem	*next;
 }					t_elem;
 
@@ -165,11 +167,17 @@ typedef struct 		s_written
 	SDL_Texture 	*texture_x;
 	SDL_Texture 	*texture_y;
 	SDL_Texture 	*texture_z;
+	int 			val_z;
 	SDL_Rect 		src;
 	int 			on;
 	int 			map_h;
 	int 			map_w;
 }					t_written;
+
+typedef struct 		s_var_edit
+{
+	int 			nb_point;
+}					t_var_edit;
 
 typedef struct 		s_bresenham 
 {
@@ -236,6 +244,7 @@ typedef struct		s_win
 	t_edit 			edit_image;
 	t_bres 			bres;
 	t_bg_map 		bg_map;
+	t_var_edit 		varedit;
 
 }					t_win;
 
@@ -291,7 +300,7 @@ void 				message_bg_editor(t_win *wn, char *message);
 void 				load_background(t_win *wn);
 int 				is_path_ok(t_win *wn, char *path);
 void   				find_last_poly(t_elem **curr);
-void     			find_last_point(t_point **point);
+void     			find_last_point(t_win *wn, t_point **point);
 
 void				mainconsole(t_win *wn);
 void				inputconsole(t_win *wn);

@@ -145,7 +145,9 @@ clean :
 fclean : clean
 	@echo "${rouge}Fcleaning the project ...${neutre}\c"
 	@make fclean -C libft
-	@rm /tmp/doom_log2
+	@if [ -f "/tmp/doom_log2" ]; then \
+		rm /tmp/doom_log2;
+	fi
 	@rm -rf $(NAME)
 	@echo "${rose}DONE${neutre}"
 

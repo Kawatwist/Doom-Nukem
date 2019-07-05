@@ -18,6 +18,7 @@ static void	showelem(t_win *wn)
 	t_point		*point;
 	t_point 	start;
 	t_point 	end;
+	t_point 	*tmp;
 
 	curr = wn->elem;
 	while (curr != NULL)
@@ -35,6 +36,14 @@ static void	showelem(t_win *wn)
 		{
 			start = create_t_point(point->x * wn->map->size + wn->map->x, point->y * wn->map->size + wn->map->y);
 			end = create_t_point(wn->input->x, wn->input->y);
+			bresenham(wn, &start, &end);
+		}
+		if (curr->nb_pt > 2 && curr->next != NULL)
+		{
+			start = create_t_point(curr->point->x * wn->map->size + wn->map->x, curr->point->y * wn->map->size + wn->map->y);
+			tmp = curr->point;
+			find_last_point(wn, &tmp);
+			end = create_t_point(tmp->x * wn->map->size + wn->map->x, tmp->y * wn->map->size + wn->map->y);
 			bresenham(wn, &start, &end);
 		}
 		curr = curr->next;

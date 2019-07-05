@@ -46,7 +46,7 @@ void		print_x_y_z(t_win *wn)
 		create_text_texture(wn, wn->editext.texture_y, y, wn->color.violet);
 		wn->editext.src.y += wn->editext.src.h;
 		create_text_texture(wn, wn->editext.texture_z,
-			200, wn->color.violetrose);
+			wn->editext.val_z, wn->color.violetrose);
 	}
 }
 
