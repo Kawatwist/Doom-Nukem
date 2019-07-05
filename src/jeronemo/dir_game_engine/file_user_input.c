@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 12:34:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:08:15 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 	if (wn->state[SDL_SCANCODE_UP] == 1 && old[SDL_SCANCODE_UP] == 0)
 	{
 		printf("Fleche Haut => on increment camera y\n");
-		raster->v_camera.y -= 5;   // a changer apres pour que ce soit clair que le y est inverser  
+		raster->v_camera.y -= 1;   // a changer apres pour que ce soit clair que le y est inverser  
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_DOWN] == 1 && old[SDL_SCANCODE_DOWN] == 0)
 	{
 		printf("Fleche Haut => on decrement camera y\n");
-		raster->v_camera.y += 5;
+		raster->v_camera.y += 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_LEFT] == 1 && old[SDL_SCANCODE_LEFT] == 0)
