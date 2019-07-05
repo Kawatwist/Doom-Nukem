@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/07/04 16:28:20 by naali            ###   ########.fr        #
+#    Updated: 2019/07/05 10:51:01 by naali            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -93,7 +93,8 @@ SRC				= main.c										\
 				  consumable.c									\
 				  conso_swap.c									\
 				  conso_list_op.c								\
-				  conso_destruct.c
+				  conso_destruct.c								\
+				  inventaire.c
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 

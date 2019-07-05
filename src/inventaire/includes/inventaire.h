@@ -6,13 +6,14 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 17:27:59 by naali             #+#    #+#             */
-/*   Updated: 2019/07/04 16:27:06 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/05 13:28:50 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef		INVENTAIRE_H
 # define	INVENTAIRE_H
 
+# include "doom.h"
 # include "consumable.h"
 # include "weapons.h"
 
@@ -47,5 +48,9 @@ struct				s_joueurs
 };
 
 void			inventaire_init_weapons(t_inventaire *inv);
+void			init_inventaire_texture(t_win *win);
+void			print_inventory(t_win *wn);
+void		print_text_with_ariel_font(t_win *wn, char *s, \
+									   SDL_Color color, SDL_Rect position);
 
 #endif
