@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 15:24:18 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:05:42 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ float	**t_camera_compute_view(t_myraster *raster) //calcul de la matrice de vue
 	raster->v_right = xaxis;
 	raster->v_up = ft_vector_inverse(yaxis);
 
-	if (raster->reculer == 1)
-	{
-		raster->forward = ft_normalise(raster->forward);
-		raster->v_camera  = ft_vector_sub(raster->v_camera, raster->forward);
-		raster->reculer = 0;
-	}
 	if (raster->avancer == 1)
 	{
 		raster->forward = ft_normalise(raster->forward);
-		raster->v_camera = ft_vector_add(raster->v_camera, raster->forward);
+		raster->v_camera  = ft_vector_sub(raster->v_camera, raster->forward);
 		raster->avancer = 0;
+	}
+	if (raster->reculer == 1)
+	{
+		raster->forward = ft_normalise(raster->forward);
+		raster->v_camera = ft_vector_add(raster->v_camera, raster->forward);
+		raster->reculer = 0;
 	}
 
 	result = ft_make_matrix_5_5();

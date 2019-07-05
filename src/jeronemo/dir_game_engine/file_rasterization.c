@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 10:27:49 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:56:09 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 	{
 		z1 = (triangle_lst->vertice[0].z + triangle_lst->vertice[1].z + triangle_lst->vertice[2].z) / 3;
 		z2 = (triangle_lst->next->vertice[0].z + triangle_lst->next->vertice[1].z + triangle_lst->next->vertice[2].z) / 3;
-		if (z1 < z2)
+		if (z1 < z2)  ///jai inverser
 		{
 			ft_swap(triangle_lst);
 			triangle_lst = keep;
@@ -108,9 +108,14 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	t_mytriangle	*triangle_node;
 	t_mytriangle	*keep;
 	t_myvec			normal;
+	int				j;
+	int				nbr;
+	t_myvec			point;
+	t_mytriangle	*clipped_triangle = NULL;
 
-	t_myvec point;
-	t_mytriangle *clipped_triangle = NULL;
+
+
+	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
 	t_myvec plane_norm;
 	triangle_lst = NULL;
 	light_direction.x = 0.5;
@@ -118,14 +123,13 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	light_direction.z = -1.0;
 	light_direction = ft_normalise(light_direction);
 	//CALCUL DE MATRIX WORLD
-	ft_set_raster_trans(0, 0, 0, raster);
+	ft_set_raster_trans(0, 0, -30, raster);
 	//ft_set_raster_rot_x(raster->ftheta, raster);
 	ft_set_raster_rot_x(180, raster);
 	//ft_set_raster_rot_y(raster->ftheta, raster);
 	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
 	//CALUL DE MATRIX VIEW
-	raster->mat_camera_view = t_camera_compute_view(raster); 
-	printf("l'angle camera =%f\n", raster->theta_camera);
+	raster->mat_camera_view = t_camera_compute_view(raster);
 	////##################################################################################################
 	i = 0;
 	while (i < max )
@@ -163,14 +167,11 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 			plane_norm.x = 0.0;
 			plane_norm.y = 0.0;
 			plane_norm.z = 1.0;
-
-			int	nbr;
-			clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
 			nbr = ft_triangle_clips_again_plan(point, plane_norm, clipped_triangle, &triangle, s_win);
-			/* printf("le nombre de clip triangle = %d\n", nbr); */
-			int j = 0;
+			j = 0;
 			while(j < nbr)
 			{
+				printf("j'affiche\n");
 				//PROJECTION
 				clipped_triangle[j].vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, clipped_triangle[j].vertice[0]);
 				clipped_triangle[j].vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, clipped_triangle[j].vertice[1]);
@@ -187,6 +188,8 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		i++;
 	}
 	//ORDER TRIANGLE FROM FAR TO NEAR
+	ft_order_triangle_z_buffer(triangle_lst);
+	//AFFICHAGE
 	keep = triangle_lst;
 	while (triangle_lst != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 17:09:03 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/05 14:41:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,14 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	while (!change.quit)
 	{
 		ft_input_event_check(wn, &change, &raster);
+		if (change.modif == 1 || 1)
+		{
 		ft_clear_window(s_win);
 		ft_update_raster(s_win, &raster, triangle_array, max);
 		SDL_RenderPresent(s_win->renderer[s_win->interface]);
 		SDL_Delay(30);
+		change.modif = 0;
+		}
 		setkeyboard(change.old, wn->state);
 	}
 }
