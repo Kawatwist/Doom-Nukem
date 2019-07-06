@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 16:02:38 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/06 18:52:35 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,42 @@ void			ft_triangle_add_node(t_mytriangle **lst, t_mytriangle *node)
 }
 
 
-void	ft_swap(t_mytriangle *triangle_lst)
+
+void	ft_swap(t_mytriangle *before, t_mytriangle *triangle)
 {
+	t_mytriangle	*tmp_2;
+	t_mytriangle	*tmp_3;
+	t_mytriangle	*tmp_4;
+
+
+	tmp_2 = triangle;
+	tmp_3 = triangle->next;
+	tmp_4 = NULL;
+	if (triangle->next->next != NULL)
+		tmp_4 = triangle->next->next;
+
+
+	(before != NULL) ? before->next = tmp_3 : 0;
+	triangle = tmp_3;
+	triangle->next = tmp_4;
+	(triangle->next->next != NULL) ? triangle->next->next = tmp_2 : 0;
+	
+	
+	
+/*	
 	t_mytriangle	*swap;
+	int				i;
+
+	i = 0;
 	swap = NULL;
 	swap = (t_mytriangle*)malloc(sizeof(t_mytriangle));
 	swap->shade = triangle_lst->shade;
-	swap->vertice[0].x = triangle_lst->vertice[0].x;
-	swap->vertice[0].y = triangle_lst->vertice[0].y;
-	swap->vertice[0].z = triangle_lst->vertice[0].z;
-	swap->vertice[1].x = triangle_lst->vertice[1].x;
-	swap->vertice[1].y = triangle_lst->vertice[1].y;
-	swap->vertice[1].z = triangle_lst->vertice[1].z;
-	swap->vertice[2].x = triangle_lst->vertice[2].x;
-	swap->vertice[2].y = triangle_lst->vertice[2].y;
-	swap->vertice[2].z = triangle_lst->vertice[2].z;
-
+	while (i++ < 3)
+	{
+	swap->vertice[i].x = triangle_lst->vertice[i].x;
+	swap->vertice[i].y = triangle_lst->vertice[i].y;
+	swap->vertice[i].z = triangle_lst->vertice[i].z;
+	}
 	triangle_lst->shade = triangle_lst->next->shade;
 	triangle_lst->vertice[0].x = triangle_lst->next->vertice[0].x;
 	triangle_lst->vertice[0].y = triangle_lst->next->vertice[0].y;
@@ -73,17 +93,19 @@ void	ft_swap(t_mytriangle *triangle_lst)
 	triangle_lst->next->vertice[2].x = swap->vertice[2].x;
 	triangle_lst->next->vertice[2].y = swap->vertice[2].y;
 	triangle_lst->next->vertice[2].z = swap->vertice[2].z;
-}
+*/}
 
 void	ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 {
 	float			z1;
 	float			z2;
 	t_mytriangle	*keep;
+	t_mytriangle	*before;
 
 	if (triangle_lst == NULL)
 		return;
 
+	before = NULL;
 	keep = triangle_lst;
 	while (triangle_lst->next != NULL)
 	{
@@ -91,9 +113,11 @@ void	ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 		z2 = (triangle_lst->next->vertice[0].z + triangle_lst->next->vertice[1].z + triangle_lst->next->vertice[2].z) / 3;
 		if (z1 < z2)  ///jai inverser
 		{
-			ft_swap(triangle_lst);
+			ft_swap(before, triangle_lst);
 			triangle_lst = keep;
+			before = NULL;
 		}
+		before = triangle_lst;
 		triangle_lst = triangle_lst->next;
 	}
 	triangle_lst = keep;

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 16:44:31 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/07/06 17:22:28 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 
 	if (wn->state[SDL_SCANCODE_A] == 1/* && old[SDL_SCANCODE_A] == 0*/)
 	{
-		raster->theta_camera += 1;
+		raster->translate_right = 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_D] == 1/* && old[SDL_SCANCODE_D] == 0*/)
 	{
-		raster->theta_camera -= 1;
+		raster->translate_left = 1;
 		change->modif = 1;
 	}
 
