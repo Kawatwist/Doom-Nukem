@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 16:34:21 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/07/06 16:35:53 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,9 @@ void		ft_mouse_event_check(t_win *wn, t_mychange *change, t_myraster *raster)
 //		printf("lalalala\n");
 	if (1)
 	{
-		printf("lalalala\n");
-		printf("souri x  %d\n", wn->input->x - (XSCREEN / 2) + 10);
-		printf("souri y  %d\n", -(wn->input->y - (YSCREEN / 2) ));
-		printf("tehta = %f\n", raster->theta_camera);
 		SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
 		(raster->theta_camera  += (wn->input->x - (wn->xscreen / 2) + 10) / 10);
-		(raster->pitch  += ((wn->input->y) - (wn->yscreen / 2) ) / 10);
+		(raster->pitch  += ((wn->input->y) - (wn->yscreen / 2) ) /10);
 		//	raster->theta_camera += 1;
 		//> 360
 	//				? wn->player->rawx -= 360 : 0;
