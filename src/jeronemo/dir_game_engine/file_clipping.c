@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 15:30:13 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/07/06 19:10:02 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 		}
 		j++;
 	}
+	printf(" inside = %d\n", n_inside_points);
+	printf(" outside = %d\n", n_outside_points);
 	if (n_inside_points == 0)
 	{
 		/* printf("reject\n"); */
@@ -84,7 +86,6 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 		clipped_triangle[0].vertice[1] = points_inside[1];
 		clipped_triangle[0].vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
 		clipped_triangle[0].ft_color = 'g';
-
 
 		clipped_triangle[1].vertice[0] = points_inside[1];
 		clipped_triangle[1].vertice[1] = clipped_triangle[0].vertice[2];

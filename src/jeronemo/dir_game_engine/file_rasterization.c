@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 18:52:35 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/07/06 21:01:42 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,28 @@ void			ft_triangle_add_node(t_mytriangle **lst, t_mytriangle *node)
 
 
 
-void	ft_swap(t_mytriangle *before, t_mytriangle *triangle)
+void	ft_swap(t_mytriangle *triangle_lst)
 {
-	t_mytriangle	*tmp_2;
-	t_mytriangle	*tmp_3;
-	t_mytriangle	*tmp_4;
+	/*t_mytriangle	*tmp_2;
+	  t_mytriangle	*tmp_3;
+	  t_mytriangle	*tmp_4;
 
 
-	tmp_2 = triangle;
-	tmp_3 = triangle->next;
-	tmp_4 = NULL;
-	if (triangle->next->next != NULL)
-		tmp_4 = triangle->next->next;
+	  tmp_2 = triangle;
+	  tmp_3 = triangle->next;
+	  tmp_4 = NULL;
+	  if (triangle->next->next != NULL)
+	  tmp_4 = triangle->next->next;
 
 
-	(before != NULL) ? before->next = tmp_3 : 0;
-	triangle = tmp_3;
-	triangle->next = tmp_4;
-	(triangle->next->next != NULL) ? triangle->next->next = tmp_2 : 0;
-	
-	
-	
-/*	
+	  (before != NULL) ? before->next = tmp_3 : 0;
+	  triangle = tmp_3;
+	  triangle->next = tmp_4;
+	  (triangle->next->next != NULL) ? triangle->next->next = tmp_2 : 0;
+
+
+
+*/	
 	t_mytriangle	*swap;
 	int				i;
 
@@ -68,9 +68,9 @@ void	ft_swap(t_mytriangle *before, t_mytriangle *triangle)
 	swap->shade = triangle_lst->shade;
 	while (i++ < 3)
 	{
-	swap->vertice[i].x = triangle_lst->vertice[i].x;
-	swap->vertice[i].y = triangle_lst->vertice[i].y;
-	swap->vertice[i].z = triangle_lst->vertice[i].z;
+		swap->vertice[i].x = triangle_lst->vertice[i].x;
+		swap->vertice[i].y = triangle_lst->vertice[i].y;
+		swap->vertice[i].z = triangle_lst->vertice[i].z;
 	}
 	triangle_lst->shade = triangle_lst->next->shade;
 	triangle_lst->vertice[0].x = triangle_lst->next->vertice[0].x;
@@ -93,7 +93,7 @@ void	ft_swap(t_mytriangle *before, t_mytriangle *triangle)
 	triangle_lst->next->vertice[2].x = swap->vertice[2].x;
 	triangle_lst->next->vertice[2].y = swap->vertice[2].y;
 	triangle_lst->next->vertice[2].z = swap->vertice[2].z;
-*/}
+}
 
 void	ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 {
@@ -113,7 +113,7 @@ void	ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 		z2 = (triangle_lst->next->vertice[0].z + triangle_lst->next->vertice[1].z + triangle_lst->next->vertice[2].z) / 3;
 		if (z1 < z2)  ///jai inverser
 		{
-			ft_swap(before, triangle_lst);
+			ft_swap(triangle_lst);
 			triangle_lst = keep;
 			before = NULL;
 		}
@@ -129,6 +129,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	t_myvec			light_direction;
 	t_mytriangle	triangle;
 	t_mytriangle	*triangle_lst;
+	t_mytriangle	*triangle_lst_2;
 	t_mytriangle	*triangle_node;
 	t_mytriangle	*keep;
 	t_myvec			normal;
@@ -212,29 +213,109 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	}
 	//ORDER TRIANGLE FROM FAR TO NEAR
 	ft_order_triangle_z_buffer(triangle_lst);
+
+	//Clip triangle against all four screen edges
+
+	//1er argument => PLANE
+	t_myvec p_0;
+	t_myvec p_1;
+	t_myvec p_2;
+	t_myvec p_3;
+
+	p_0.x = 0.0f;
+	p_0.y = 0.0f;
+	p_0.z = 0.0f;
+
+	p_1.x = 0.0f;
+	p_1.y = wn->yscreen - 1;
+	p_1.z = 0.0f;
+
+	p_2 = p_0;
+
+	p_3.x = wn->xscreen - 1;
+	p_3.y = 0.0f;
+	p_3.z = 0.0f;
+
+	//2eme argument => NORMAL
+	t_myvec n_0;
+	t_myvec n_1;
+	t_myvec n_2;
+	t_myvec n_3;
+
+	n_0.x = 0.0f;
+	n_0.y = 1.0f;
+	n_0.z = 0.0f;
+
+	n_1.x = 0.0f;
+	n_1.y = -1.0f;
+	n_1.z = 0.0f;
+
+	n_2.x = 1.0f;
+	n_2.y = 0.0f;
+	n_2.z = 0.0f;
+
+	n_3.x = -1.0f;
+	n_3.y = 0.0f;
+	n_3.z = 0.0f;
+
+	int		newtriangle;
+	newtriangle = 1;
+	i = 0;
+
+	t_mytriangle *head;
+
+	head = triangle_lst;
+	while(triangle_lst != NULL)
+	{
+
+		while (i < 4)
+		{
+			if (i == 0)
+				nbr = ft_triangle_clips_again_plan(p_0, n_0, triangle_lst, &triangle, s_win);
+			else if (i == 1)
+				nbr = ft_triangle_clips_again_plan(p_1, n_1, triangle_lst, &triangle, s_win);
+			else if (i == 2)
+				nbr = ft_triangle_clips_again_plan(p_2, n_2, triangle_lst , &triangle, s_win);
+			else if (i == 3)
+				nbr = ft_triangle_clips_again_plan(p_3, n_3, triangle_lst, &triangle, s_win);
+			j = 0;
+			while(j < nbr)
+			{
+				triangle_node_2 = ft_triangle_node_create(triangle[j]);
+				ft_triangle_add_node(&triangle_lst_2, triangle_node_2);
+				j++;
+			}
+			i++;
+		}
+		triangle_lst->next;
+	}
+	triangle_lst = head;
+	//Fonction de pushback des triangles 
+
+
 	//AFFICHAGE
-	keep = triangle_lst;
-	while (triangle_lst != NULL)
+	keep = triangle_lst_2;
+	while (triangle_lst_2 != NULL)
 	{
 		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
-		ft_fill_triangle_shade((triangle_lst->vertice[0]), (triangle_lst->vertice[1]), (triangle_lst->vertice[2]), s_win, triangle_lst->shade);
+		ft_fill_triangle_shade((triangle_lst_2->vertice[0]), (triangle_lst_2->vertice[1]), (triangle_lst_2->vertice[2]), s_win, triangle_lst_2->shade);
 		//DRAW MESH
 
 
-		if (triangle_lst->ft_color == 'r')
-		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
-		else if (triangle_lst->ft_color == 'g')
-		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 255, 0, 255);
-		else if (triangle_lst->ft_color == 'b')
-		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 0, 255, 255);
+		if (triangle_lst_2->ft_color == 'r')
+			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
+		else if (triangle_lst_2->ft_color == 'g')
+			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 255, 0, 255);
+		else if (triangle_lst_2->ft_color == 'b')
+			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 0, 255, 255);
 
 
 
 
-		ft_draw_triangle_base(&(triangle_lst->vertice[0]), &(triangle_lst->vertice[1]), &(triangle_lst->vertice[2]), s_win);
-		triangle_lst = triangle_lst->next;
+		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), s_win);
+		triangle_lst_2 = triangle_lst_2->next;
 	}
-	triangle_lst = keep;
+	triangle_lst_2 = keep;
 	raster->ftheta += 0;
 	if (raster->ftheta == 360 * 2)
 		raster->ftheta = 0;
