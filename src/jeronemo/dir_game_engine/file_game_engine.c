@@ -6,14 +6,15 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 16:42:30 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/07/06 16:51:58 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <header_game_engine.h>
 
-void	ft_init_rasterization(t_mykeep *keep, t_mychange *change, t_myraster *raster)
+void	ft_init_rasterization(t_win *wn, t_mykeep *keep, t_mychange *change, t_myraster *raster)
 {
+	SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
 	raster->mat_trans = ft_make_matrix_5_5();
 	raster->mat_rot_x = ft_make_matrix_5_5();
 	raster->mat_rot_y = ft_make_matrix_5_5();
@@ -84,7 +85,7 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	SDL_Init(SDL_INIT_EVERYTHING);
 	s_win->interface = GAME_ENGINE;
 	ft_launch_window(s_win, s_win->interface);
-	ft_init_rasterization(&keep, &change, &raster);
+	ft_init_rasterization(wn, &keep, &change, &raster);
 	/* ft_display_triangle_array(s_win, triangle_array, max); */
 	while (!change.quit)
 	{
