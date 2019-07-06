@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 15:47:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/06 13:46:16 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -421,7 +421,7 @@ t_myvec	ft_translation_z(float value, t_myvec vertex);
 t_myvec	ft_scale(float zoom, t_myvec vertex);
 void	ft_draw_change(t_mywin *s_win, t_mychange *change);
 t_myvec		ft_normalise(t_myvec vector);
-void		ft_mouse_event_check(t_win *wn, t_mychange *change);
+//void		ft_mouse_event_check(t_win *wn, t_mychange *change, t_myraster *raster);
 void	ft_display_panel();
 void	ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
 

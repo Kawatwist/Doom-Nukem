@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 15:43:11 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/06 13:47:12 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triang
 
 //FILE USER INPUT
 void			ft_input_event_check(t_win *wn, t_mychange *change, t_myraster *raster);
-
+void			ft_mouse_evnet_check(t_win *wn, t_mychange *change, t_myraster *raster);
 //FILE GET TRINAGLES
 t_mytriangle	*ft_get_triangle(void);
 t_mytriangle	*ft_get_triangles_array(t_mywin *s_win);

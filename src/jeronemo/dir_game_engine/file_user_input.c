@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 13:16:58 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/07/06 16:17:56 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 	if (wn->state[SDL_SCANCODE_LEFT] == 1 /*&& old[SDL_SCANCODE_LEFT] == 0*/)
 	{
 		printf("Fleche Gauche => on decrement camera x\n");
-		raster->v_camera.x -= 2;
+		raster->v_camera.x -= 1;
 		change->modif = 1;
 	}
 	if (wn->state[SDL_SCANCODE_RIGHT] == 1/* && old[SDL_SCANCODE_RIGHT] == 0*/)
 	{
 		printf("Fleche Droite => on increment camera x\n");
-		raster->v_camera.x += 2;
+		raster->v_camera.x += 1;
 		change->modif = 1;
 	}
 
@@ -61,6 +61,7 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 
 	if (wn->state[SDL_SCANCODE_W] == 1/* && old[SDL_SCANCODE_W] == 0*/)
 	{
+
 		/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
 
 		printf("On incremente du vecteur forward\n");
@@ -79,7 +80,47 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 		/* change->v_camera = ft_vector_sub(change->v_forward, change->v_camera); */
 		change->modif = 1;
 	}
+}
 
+void		ft_mouse_event_check(t_win *wn, t_mychange *change, t_myraster *raster)
+{
+	(void)raster;
+//		printf("lalalala\n");
+	if (1)
+	{
+		printf("lalalala\n");
+		printf("souri x  %d\n", wn->input->x - (XSCREEN / 2) + 10);
+		printf("tehta = %f\n", raster->theta_camera);
+		SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
+		(raster->theta_camera  += (wn->input->x - (wn->xscreen / 2) + 10) / 10);
+		//	raster->theta_camera += 1;
+		//> 360
+	//				? wn->player->rawx -= 360 : 0;
+		//	(wn->player->rawy += (wn->input->y - (wn->yscreen / 2))) > YSCREEN
+		//				? wn->player->rawy = YSCREEN : 0;
+//		raster->theta_camera += (wn->input->x - (wn->xscreen / 2)) ;
+		change->modif = 1;
+	}
+}
+
+/*static void mouseconfig(t_win *wn)
+{
+//		SDL_ShowCursor(wn->interface != RGAME ? SDL_ENABLE : SDL_DISABLE);
+//			SDL_CaptureMouse(wn->interface == RGAME ? 1 : 0);
+				wn->interface == RGAME
+							? SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) : 0;
+}*/
+
+void	ft_input_event_check(t_win *wn, t_mychange *change, t_myraster *raster)
+{
+	SDL_PollEvent(&(wn->ev));
+	wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
+	wn->input->oldmouse = wn->input->mouse; 
+	wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
+	ft_keyboard_event_check(wn, change->old, change, raster);
+	ft_mouse_event_check(wn, change, raster); 
+//	mouseconfig(wn);
+}
 
 
 	//####################################
@@ -291,21 +332,3 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 	/* 	change->translation_z -= 5; */
 	/* 	change->modif = 1; */
 	/* } */
-}
-
-void		ft_mouse_event_check(t_win *wn, t_mychange *change)
-{
-	(void)change;
-	if ((wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)) && ((wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT)) == 0)  )
-		;
-}
-
-void	ft_input_event_check(t_win *wn, t_mychange *change, t_myraster *raster)
-{
-	SDL_PollEvent(&(wn->ev));
-	wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
-	/* wn->input->oldmouse = wn->input->mouse; */
-	/* wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y); */
-	ft_keyboard_event_check(wn, change->old, change, raster);
-	/* ft_mouse_event_check(wn, change); */
-}

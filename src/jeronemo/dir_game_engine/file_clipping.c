@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 15:58:38 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:30:13 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ float	ft_distance(t_myvec plane_n, t_myvec plane_p, t_myvec p)
 	float	distance;
 
 	distance =  (plane_n.x * p.x + plane_n.y * p.y + plane_n.z * p.z - ft_dot_product(plane_n, plane_p));
-	printf("la distance =%f\n", distance);
+	//printf("la distance =%f\n", distance);
 	return (distance);
 }
 
