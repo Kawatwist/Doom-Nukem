@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 13:05:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:29:57 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ float	**t_camera_compute_view(t_myraster *raster) //calcul de la matrice de vue
 	t_myvec xaxis;
 	t_myvec yaxis;
 
-	raster->pitch = 3;
+	//raster->pitch = 3;
 
 	zaxis =
 		ft_normalise(ft_create_vector(cos(ft_rad(raster->pitch)) * sin(ft_rad(raster->theta_camera)),
