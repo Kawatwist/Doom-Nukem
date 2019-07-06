@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 16:28:53 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/07/06 16:42:30 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_init_rasterization(t_mykeep *keep, t_mychange *change, t_myraster *raste
 	raster->ftheta = 0;
 	raster->theta_camera = 0;
 	raster->pitch = 0;
+	raster->leave_mouse = 0;
 
 
 	raster->v_camera.x = 0;

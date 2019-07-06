@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 16:35:53 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/07/06 16:44:31 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,22 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 		/* change->v_camera = ft_vector_sub(change->v_forward, change->v_camera); */
 		change->modif = 1;
 	}
+	if (wn->state[SDL_SCANCODE_U] == 1 && old[SDL_SCANCODE_U] == 0)
+	{
+		if (raster->leave_mouse == 1)
+			raster->leave_mouse = 0;
+		else 
+			raster->leave_mouse = 1;
+	}
 }
 
 void		ft_mouse_event_check(t_win *wn, t_mychange *change, t_myraster *raster)
 {
 	(void)raster;
 //		printf("lalalala\n");
-	if (1)
+	if (!raster->leave_mouse)
 	{
+		SDL_ShowCursor(SDL_DISABLE);
 		SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
 		(raster->theta_camera  += (wn->input->x - (wn->xscreen / 2) + 10) / 10);
 		(raster->pitch  += ((wn->input->y) - (wn->yscreen / 2) ) /10);

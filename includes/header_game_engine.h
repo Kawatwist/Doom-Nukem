@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 13:47:12 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/07/06 16:41:56 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct				s_myraster
 	float					**mat_camera_view;
 	unsigned char			avancer;
 	unsigned char			reculer;
+	unsigned char			leave_mouse;
 }							t_myraster;
 
 //FILE GAME ENGINE
