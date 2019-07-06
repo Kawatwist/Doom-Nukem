@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 16:51:58 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/07/06 17:13:55 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	ft_init_rasterization(t_win *wn, t_mykeep *keep, t_mychange *change, t_myra
 
 	raster->avancer = 0;
 	raster->reculer = 0;
+	raster->translate_left = 0;
+	raster->translate_right = 0;
 
 
 
