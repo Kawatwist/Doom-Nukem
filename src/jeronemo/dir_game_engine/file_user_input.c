@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/05 15:08:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/06 13:16:58 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,50 +16,50 @@
 
 void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myraster *raster)
 {
-
+(void)old;
 	/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
 	if (wn->state[SDL_SCANCODE_ESCAPE])
 		change->quit = TRUE;
 
 
-	if (wn->state[SDL_SCANCODE_UP] == 1 && old[SDL_SCANCODE_UP] == 0)
+	if (wn->state[SDL_SCANCODE_UP] == 1/* && old[SDL_SCANCODE_UP] == 0*/)
 	{
 		printf("Fleche Haut => on increment camera y\n");
 		raster->v_camera.y -= 1;   // a changer apres pour que ce soit clair que le y est inverser  
 		change->modif = 1;
 	}
-	if (wn->state[SDL_SCANCODE_DOWN] == 1 && old[SDL_SCANCODE_DOWN] == 0)
+	if (wn->state[SDL_SCANCODE_DOWN] == 1 /*&& old[SDL_SCANCODE_DOWN] == 0*/)
 	{
 		printf("Fleche Haut => on decrement camera y\n");
 		raster->v_camera.y += 1;
 		change->modif = 1;
 	}
-	if (wn->state[SDL_SCANCODE_LEFT] == 1 && old[SDL_SCANCODE_LEFT] == 0)
+	if (wn->state[SDL_SCANCODE_LEFT] == 1 /*&& old[SDL_SCANCODE_LEFT] == 0*/)
 	{
 		printf("Fleche Gauche => on decrement camera x\n");
 		raster->v_camera.x -= 2;
 		change->modif = 1;
 	}
-	if (wn->state[SDL_SCANCODE_RIGHT] == 1 && old[SDL_SCANCODE_RIGHT] == 0)
+	if (wn->state[SDL_SCANCODE_RIGHT] == 1/* && old[SDL_SCANCODE_RIGHT] == 0*/)
 	{
 		printf("Fleche Droite => on increment camera x\n");
 		raster->v_camera.x += 2;
 		change->modif = 1;
 	}
 
-	if (wn->state[SDL_SCANCODE_A] == 1 && old[SDL_SCANCODE_A] == 0)
+	if (wn->state[SDL_SCANCODE_A] == 1/* && old[SDL_SCANCODE_A] == 0*/)
 	{
-		raster->theta_camera += 10;
+		raster->theta_camera += 1;
 		change->modif = 1;
 	}
-	if (wn->state[SDL_SCANCODE_D] == 1 && old[SDL_SCANCODE_D] == 0)
+	if (wn->state[SDL_SCANCODE_D] == 1/* && old[SDL_SCANCODE_D] == 0*/)
 	{
-		raster->theta_camera -= 10;
+		raster->theta_camera -= 1;
 		change->modif = 1;
 	}
 
 
-	if (wn->state[SDL_SCANCODE_W] == 1 && old[SDL_SCANCODE_W] == 0)
+	if (wn->state[SDL_SCANCODE_W] == 1/* && old[SDL_SCANCODE_W] == 0*/)
 	{
 		/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
 
@@ -69,7 +69,7 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 		raster->avancer = 1;
 		change->modif = 1;
 	}
-	if (wn->state[SDL_SCANCODE_S] == 1 && old[SDL_SCANCODE_S] == 0)
+	if (wn->state[SDL_SCANCODE_S] == 1/* && old[SDL_SCANCODE_S] == 0*/)
 	{
 		/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
 		change->reculer = 1;
