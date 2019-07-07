@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 16:24:16 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/07 16:47:59 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,15 @@ void	ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2)
 	tmp = node2->next->next;
 	if (bfr == NULL)
 	{
-		printf("JE CHANGE LA TETE DE MA CHAINE\n");
 		(*head) = node2->next;
 		(*head)->next = node2;
 		node2->next = tmp;
 	}
 	else
 	{
-		printf("JE SWITCH 2 MAILLONT => %p->%p->%p\n", bfr, bfr->next, bfr->next->next);
 		bfr->next  = node2->next;
 		bfr->next->next = node2;
 		node2->next= tmp;
-		printf("J'AI SWITCH 2 MAILLONT => %p->%p->%p\n", bfr, bfr->next, bfr->next->next);
 	}
 }
 
@@ -122,7 +119,7 @@ void	ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2)
 /* triangle_lst->next->vertice[2].y = swap->vertice[2].y; */
 /* triangle_lst->next->vertice[2].z = swap->vertice[2].z; */
 /* } */
-
+/*
 static void	nb_mailont(t_mytriangle *lst, int value)
 {
 	int 			nb = 0;
@@ -136,7 +133,7 @@ static void	nb_mailont(t_mytriangle *lst, int value)
 	}
 	printf(" JE CHECK %d-> %d\n", value, nb);
 }
-
+*/
 t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 {
 	float			z1;
@@ -153,9 +150,7 @@ t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 		z2 = (triangle_lst->next->vertice[0].z + triangle_lst->next->vertice[1].z + triangle_lst->next->vertice[2].z) / 3;
 		if (z1 < z2)  ///jai inverser
 		{
-			nb_mailont(keep, 0);
 			ft_swap_node_with_the_next(&keep, triangle_lst);
-			nb_mailont(keep, 1);
 			triangle_lst = keep;
 		}
 		else
@@ -270,21 +265,17 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	}
 	triangle_lst = keep;
 	printf("le k1= %d\n", k);*/
-	nb_mailont(triangle_lst, 3);
 	triangle_lst = ft_order_triangle_z_buffer(triangle_lst);
 /*	k = 0;
 	keep = triangle_lst;
-	nb_mailont(triangle_lst, 3)
 	while (triangle_lst != NULL)
 	{
 		k++;
 		triangle_lst = triangle_lst->next;
 	}
-	nb_mailont(triangle_lst, 4)
 	printf("le k4= %d\n", k);
 	triangle_lst = keep;
 */
-	nb_mailont(triangle_lst, 4);
 	//Clip triangle against all four screen edges
 
 	//1er argument => PLANE

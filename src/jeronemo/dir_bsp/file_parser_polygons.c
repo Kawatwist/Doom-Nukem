@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 13:30:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/07 16:43:10 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 	fichier_lst = NULL;
 
-	fd = open("src/jeronemo/dir_bsp/triangle.obj", O_RDWR);
+	fd = open("src/jeronemo/dir_bsp/Doom.obj", O_RDWR);
 	while(get_next_line(fd, &line))
 	{
 		fichier_node = ft_create_line_node(line);
