@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 17:22:28 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/07/07 16:35:53 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 
-void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myraster *raster)
+void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myraster *raster, t_mywin *s_win)
 {
 (void)old;
 	/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
@@ -83,10 +83,18 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 	if (wn->state[SDL_SCANCODE_U] == 1 && old[SDL_SCANCODE_U] == 0)
 	{
 		if (raster->leave_mouse == 1)
+		{
+			SDL_WarpMouseInWindow(wn->window, XSCREEN / 2, YSCREEN / 2);
 			raster->leave_mouse = 0;
+			wn->input->x = wn->xscreen / 2 - 10;
+			wn->input->y = wn->yscreen / 2;
+		}
 		else 
+		{
 			raster->leave_mouse = 1;
+		}
 	}
+	(void)s_win;
 }
 
 void		ft_mouse_event_check(t_win *wn, t_mychange *change, t_myraster *raster)
@@ -107,6 +115,8 @@ void		ft_mouse_event_check(t_win *wn, t_mychange *change, t_myraster *raster)
 //		raster->theta_camera += (wn->input->x - (wn->xscreen / 2)) ;
 		change->modif = 1;
 	}
+	else
+		SDL_ShowCursor(SDL_ENABLE);
 }
 
 /*static void mouseconfig(t_win *wn)
@@ -117,13 +127,13 @@ void		ft_mouse_event_check(t_win *wn, t_mychange *change, t_myraster *raster)
 							? SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) : 0;
 }*/
 
-void	ft_input_event_check(t_win *wn, t_mychange *change, t_myraster *raster)
+void	ft_input_event_check(t_win *wn, t_mychange *change, t_myraster *raster, t_mywin *s_win)
 {
 	SDL_PollEvent(&(wn->ev));
 	wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
 	wn->input->oldmouse = wn->input->mouse; 
 	wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
-	ft_keyboard_event_check(wn, change->old, change, raster);
+	ft_keyboard_event_check(wn, change->old, change, raster, s_win);
 	ft_mouse_event_check(wn, change, raster); 
 //	mouseconfig(wn);
 }
