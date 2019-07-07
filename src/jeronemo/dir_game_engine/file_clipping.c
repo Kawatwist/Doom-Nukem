@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 19:10:02 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/07/07 14:21:06 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 		}
 		j++;
 	}
-	printf(" inside = %d\n", n_inside_points);
-	printf(" outside = %d\n", n_outside_points);
+	/* printf(" inside = %d\n", n_inside_points); */
+	/* printf(" outside = %d\n", n_outside_points); */
 	if (n_inside_points == 0)
 	{
 		/* printf("reject\n"); */
@@ -72,7 +72,7 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 	}
 	else if (n_inside_points == 1)
 	{
-		printf("form one triangle ROUGE\n");
+		/* printf("form one triangle ROUGE\n"); */
 		clipped_triangle[0].vertice[0] = points_inside[0];
 		clipped_triangle[0].vertice[1] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
 		clipped_triangle[0].vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[1]);
@@ -81,7 +81,7 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 	}
 	else if (n_inside_points == 2)
 	{
-		printf("==>form a quadra GREEN\n\n");
+		/* printf("==>form a quadra GREEN\n\n"); */
 		clipped_triangle[0].vertice[0] = points_inside[0];
 		clipped_triangle[0].vertice[1] = points_inside[1];
 		clipped_triangle[0].vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);

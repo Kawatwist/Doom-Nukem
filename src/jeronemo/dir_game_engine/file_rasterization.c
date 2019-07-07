@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 14:16:28 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/07 14:25:29 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,10 @@ void	ft_swap_node_with_the_next(t_mytriangle *head, t_mytriangle *node2)
 	before_node_2 = ft_get_before(head, node2);
 	node2->next = node2->next->next;
 	if (before_node_2 != NULL)
-	{
 		before_node_2->next = node1;
-	}
 	else
-	{
 		head = node1;
-	}
 	node1->next = node2;
-	printf("swapping\n\n");
 }
 
 
@@ -230,7 +225,29 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 		i++;
 	}
 	//ORDER TRIANGLE FROM FAR TO NEAR
+
+
+	int k;
+	k = 0;
+	keep = triangle_lst;
+	while (triangle_lst != NULL)
+	{
+		k++;
+		triangle_lst = triangle_lst->next;
+
+	}
+	triangle_lst = keep;
+	printf("le k1= %d\n", k);
 	ft_order_triangle_z_buffer(triangle_lst);
+	k = 0;
+	keep = triangle_lst;
+	while (triangle_lst != NULL)
+	{
+		k++;
+		triangle_lst = triangle_lst->next;
+	}
+	printf("le k2= %d\n", k);
+	triangle_lst = keep;
 
 	//Clip triangle against all four screen edges
 
