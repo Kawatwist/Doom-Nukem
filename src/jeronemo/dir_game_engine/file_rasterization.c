@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 13:54:25 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/07 14:16:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,8 +323,6 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 255, 0, 255);
 		else if (triangle_lst_2->ft_color == 'b')
 			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 0, 255, 255);
-
-
 		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), s_win);
 		triangle_lst_2 = triangle_lst_2->next;
 	}
@@ -332,6 +330,12 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	raster->ftheta += 0;
 	if (raster->ftheta == 360 * 2)
 		raster->ftheta = 0;
-	//free list
+	t_mytriangle *current;
+	while (triangle_lst_2 != NULL)
+	{
+		current = triangle_lst_2;
+		triangle_lst_2 = triangle_lst_2->next;
+		free(current);
+	}
 	return;
 }
