@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:39:30 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/27 13:44:13 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:15:25 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,7 +326,7 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 	s_win->current_wall.first_point.set = FALSE;
 	s_win->current_wall.first_point.set = FALSE;
 
-	ft_launch_window(s_win, GAME_EDITOR);
+	ft_launch_window(s_win, GAME_EDITOR, wn);
 	ft_display_ihc(s_win);
 	quit = FALSE;
 	while (!quit)
@@ -350,9 +350,9 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 			point = ft_return_cross_coordonate_grid(s_win, wn);
 			s_line.deux.a = (point.x * 30) + s_win->s_localisation_grid->x;
 			s_line.deux.b = (point.y * 30) + s_win->s_localisation_grid->y;
-			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 0, 0, 255);
-    		SDL_RenderClear(s_win->renderer[J_EDITOR]);
-			SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 255, 255, 255, 255);
+			SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 255);
+    		SDL_RenderClear(wn->rend);
+			SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 255);
 			ft_draw_line(s_win, &s_line);
 			ft_display_title(s_win);
 			ft_display_save_button(s_win);
@@ -361,7 +361,7 @@ void	ft_launch_map_editor(t_mywin *s_win, t_win *wn)
 			ft_draw_map(s_win);
 			ft_display_right_pan(s_win);
 			ft_display_delete_button(s_win);
-			SDL_RenderPresent(s_win->renderer[J_EDITOR]);
+			SDL_RenderPresent(wn->rend);
 		}
 		if ((wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)) && ((wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT)) == 0)  )
 		{

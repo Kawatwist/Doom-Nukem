@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/12 14:00:52 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/07 17:18:37 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 void			ft_quit(char *txt, t_mywin *s_win)
 {
-	printf("%s\n", txt);
-	if (s_win->window[J_EDITOR] != NULL)
-		SDL_DestroyWindow(s_win->window[J_EDITOR]);
-	if (s_win->renderer[J_EDITOR] != NULL)
-		SDL_DestroyRenderer(s_win->renderer[J_EDITOR]);
-	SDL_Quit();
-	exit(1);
+//	printf("%s\n", txt);
+//	if (s_wn->window[J_EDITOR] != NULL)
+//		SDL_DestroyWindow(s_win->window[J_EDITOR]);
+//	if (s_win->renderer[J_EDITOR] != NULL)
+//		SDL_DestroyRenderer(s_win->renderer[J_EDITOR]);
+//	SDL_Quit();
+//	exit(1);
+(void)txt;
+(void)s_win;
 }
 
 
@@ -29,14 +31,14 @@ void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square)
 	int i;
 	int j;
 
-	SDL_SetRenderDrawColor(s_win->renderer[s_win->current_window], s_square->color.rrr, s_square->color.ggg, s_square->color.bbb, 255);
+	SDL_SetRenderDrawColor(s_win->renderer[0], s_square->color.rrr, s_square->color.ggg, s_square->color.bbb, 255);
 	j = 0;
 	while ((j + s_square->y) < (s_square->y + s_square->height))
 	{
 		i = 0;
 		while ((i + s_square->x) < (s_square->x + s_square->width))
 		{
-			SDL_RenderDrawPoint(s_win->renderer[s_win->current_window], (i + s_square->x), (s_square->y + j));
+			SDL_RenderDrawPoint(s_win->renderer[0], (i + s_square->x), (s_square->y + j));
 			i++;
 		}
 		j++;
@@ -187,7 +189,7 @@ void	ft_write(t_mywin *s_win, t_mywrite *s_write)
 	surface = TTF_RenderText_Solid(s_write->font, s_write->str, color);
 
 	SDL_Texture	*texture;
-	texture = SDL_CreateTextureFromSurface(s_win->renderer[J_EDITOR], surface);
+	texture = SDL_CreateTextureFromSurface(s_win->renderer[0], surface);
 
 	int	w;
 	int	h;
@@ -197,7 +199,7 @@ void	ft_write(t_mywin *s_win, t_mywrite *s_write)
 	rect.y = s_write->y;
 	rect.w = w;
 	rect.h = h;
-	SDL_RenderCopy(s_win->renderer[J_EDITOR], texture, NULL, &rect);
+	SDL_RenderCopy(s_win->renderer[0], texture, NULL, &rect);
 	TTF_CloseFont(s_write->font);
 	TTF_Quit();
 }
@@ -369,7 +371,7 @@ void	ft_draw_wall(t_mywin *s_win, t_mywall *s_wall)
 	s_line.un.b = s_wall->y_a;
 	s_line.deux.a = s_wall->x_b;
 	s_line.deux.b = s_wall->y_b;
-	SDL_SetRenderDrawColor(s_win->renderer[J_EDITOR], 0, 255, 0, 0);
+	SDL_SetRenderDrawColor(s_win->renderer[0], 0, 255, 0, 0);
 	ft_draw_line(s_win, &s_line);
 }
 

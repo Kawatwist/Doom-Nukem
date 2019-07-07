@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 16:35:53 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/07 17:27:32 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 (void)old;
 	/* change->v_forward = ft_vector_multiply(change->v_look_dir, 2.0); */
 	if (wn->state[SDL_SCANCODE_ESCAPE])
+	{
 		change->quit = TRUE;
-
-
+		wn->interface = MENU;
+		wn->menu->choice = 0;
+	}
 	if (wn->state[SDL_SCANCODE_UP] == 1/* && old[SDL_SCANCODE_UP] == 0*/)
 	{
 		printf("Fleche Haut => on increment camera y\n");
@@ -86,7 +88,7 @@ void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_mychange *change, t_myrast
 		{
 			SDL_WarpMouseInWindow(wn->window, XSCREEN / 2, YSCREEN / 2);
 			raster->leave_mouse = 0;
-			wn->input->x = wn->xscreen / 2 - 10;
+			wn->input->x = wn->xscreen / 2;
 			wn->input->y = wn->yscreen / 2;
 		}
 		else 
@@ -105,7 +107,7 @@ void		ft_mouse_event_check(t_win *wn, t_mychange *change, t_myraster *raster)
 	{
 		SDL_ShowCursor(SDL_DISABLE);
 		SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
-		(raster->theta_camera  += (wn->input->x - (wn->xscreen / 2) + 10) / 10);
+		(raster->theta_camera  += (wn->input->x - (wn->xscreen / 2)) / 10);
 		(raster->pitch  += ((wn->input->y) - (wn->yscreen / 2) ) /10);
 		//	raster->theta_camera += 1;
 		//> 360

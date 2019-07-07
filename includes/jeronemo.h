@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 16:23:34 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/07 17:20:49 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,8 +244,8 @@ typedef struct			s_mycurrent_wall
 
 typedef enum		e_window
 {
-	J_EDITOR,
-	J_BINARY_TREE,
+	J_EDITOR = 0,
+	J_BINARY_TREE = 0,
 }					tj_window;
 
 /* typedef struct				s_mynode */
@@ -292,8 +292,10 @@ typedef struct			s_mynode
 typedef struct				s_mywin
 {
 	t_mypolygon				*polygon_lst;
-	SDL_Window				*window[50]; //a mallocer par le nombre d'inte
-	SDL_Renderer			*renderer[50];
+//	SDL_Window				*window[50]; //a mallocer par le nombre d'inte
+//	SDL_Renderer			*renderer[50];
+	SDL_Window				**window;
+	SDL_Renderer			**renderer;
 	t_mylocalisation_box	*s_localisation_box;
 	t_mysquare				*s_localisation_quit_button;
 	t_mysquare				*s_localisation_save_button;
@@ -321,7 +323,7 @@ typedef struct			s_mykeep
 /**
  ** DIR WINDOW
  **/
-void		ft_launch_window(t_mywin *s_win, t_interface interface);
+void		ft_launch_window(t_mywin *s_win, t_interface interface, t_win *wn);
 void		ft_clear_window(t_mywin *s_win);
 void		ft_draw_line(t_mywin *s_win, t_myputtheline *s_line);
 

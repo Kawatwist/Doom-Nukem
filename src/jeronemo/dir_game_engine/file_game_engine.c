@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 16:44:07 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/07 17:25:21 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,10 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	int max = ft_get_nbr_of_triangle(s_win);
 	SDL_Init(SDL_INIT_EVERYTHING);
 	s_win->interface = GAME_ENGINE;
-	ft_launch_window(s_win, s_win->interface);
+	ft_launch_window(s_win, s_win->interface, wn);
 	ft_init_rasterization(wn, &keep, &change, &raster);
 	/* ft_display_triangle_array(s_win, triangle_array, max); */
+	s_win->interface = 0;
 	while (!change.quit)
 	{
 		ft_input_event_check(wn, &change, &raster, s_win);
