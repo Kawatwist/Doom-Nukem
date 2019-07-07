@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 14:38:11 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/07 15:57:10 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,18 @@ void			ft_triangle_add_node(t_mytriangle **lst, t_mytriangle *node)
 t_mytriangle	*ft_get_before(t_mytriangle *head, t_mytriangle *node)
 {
 	t_mytriangle	*before;
-	t_mytriangle	*keep;
 
-	keep = head;
-
-	before = NULL;
-	if (head == node)
+	before = head;
+	if (before == node)
 		return (NULL);
-
-	while(head != node)
-	{
-		before = head;
-		head = head->next;
-	}
-	head = keep;
+	while (before->next && before->next != node && before != NULL)
+		before = before->next;
 	return (before);
 }
 
 void	ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2)
 {
-	t_mytriangle	*before_node_2;
+/*	t_mytriangle	*before_node_2;
 	t_mytriangle	*node1;
 
 	node1 = node2->next;
@@ -69,6 +61,27 @@ void	ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2)
 	else
 		*head = node1;
 	node1->next = node2;
+*/
+	t_mytriangle	*bfr;
+	t_mytriangle	*tmp;
+
+	bfr = ft_get_before(*head, node2);
+	tmp = node2->next->next;
+	if (bfr == NULL)
+	{
+		printf("JE CHANGE LA TETE DE MA CHAINE\n");
+		(*head) = node2->next;
+		(*head)->next = node2;
+		node2->next = tmp;
+	}
+	else
+	{
+		printf("JE SWITCH 2 MAILLONT => %p->%p->%p\n", bfr, bfr->next, bfr->next->next);
+		bfr->next  = node2->next;
+		bfr->next->next = node2;
+		node2->next= tmp;
+		printf("J'AI SWITCH 2 MAILLONT => %p->%p->%p\n", bfr, bfr->next, bfr->next->next);
+	}
 }
 
 
@@ -110,15 +123,29 @@ void	ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2)
 /* triangle_lst->next->vertice[2].z = swap->vertice[2].z; */
 /* } */
 
-void	ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
+static void	nb_mailont(t_mytriangle *lst, int value)
+{
+	int 			nb = 0;
+	t_mytriangle 	*tmp;
+
+	tmp = lst;
+	while (tmp != NULL)
+	{
+		tmp = tmp->next;
+		nb++;
+	}
+	printf(" JE CHECK %d-> %d\n", value, nb);
+}
+
+t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 {
 	float			z1;
 	float			z2;
-	int k;
+//	int k;
 	t_mytriangle	*keep;
 
 	if (triangle_lst == NULL)
-		return;
+		return(NULL);
 	keep = triangle_lst;
 	while (triangle_lst->next != NULL)
 	{
@@ -126,53 +153,18 @@ void	ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 		z2 = (triangle_lst->next->vertice[0].z + triangle_lst->next->vertice[1].z + triangle_lst->next->vertice[2].z) / 3;
 		if (z1 < z2)  ///jai inverser
 		{
-
-
-
-
-			k= 0;
-			keep = triangle_lst;
-			while (triangle_lst != NULL)
-			{
-				k++;
-				triangle_lst = triangle_lst->next;
-			}
-			printf("le k2= %d\n", k);
-			triangle_lst = keep;
-
-
-
-
-
-
-
-
-
+			nb_mailont(keep, 0);
 			ft_swap_node_with_the_next(&keep, triangle_lst);
-
-
-			k = 0;
-			keep = triangle_lst;
-			while (triangle_lst != NULL)
-			{
-				k++;
-				triangle_lst = triangle_lst->next;
-			}
-			printf("le k3= %d\n", k);
-			triangle_lst = keep;
-
-
-
-
-
-
+			nb_mailont(keep, 1);
 			triangle_lst = keep;
 		}
-		triangle_lst = triangle_lst->next;
+		else
+			triangle_lst = triangle_lst->next;
 		if (triangle_lst == NULL)
 			break;
 	}
 	triangle_lst = keep;
+	return (keep);
 }
 
 void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
@@ -267,7 +259,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	//ORDER TRIANGLE FROM FAR TO NEAR
 
 
-	int k;
+/*	int k;
 	k = 0;
 	keep = triangle_lst;
 	while (triangle_lst != NULL)
@@ -277,18 +269,22 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 
 	}
 	triangle_lst = keep;
-	printf("le k1= %d\n", k);
-	ft_order_triangle_z_buffer(triangle_lst);
-	k = 0;
+	printf("le k1= %d\n", k);*/
+	nb_mailont(triangle_lst, 3);
+	triangle_lst = ft_order_triangle_z_buffer(triangle_lst);
+/*	k = 0;
 	keep = triangle_lst;
+	nb_mailont(triangle_lst, 3)
 	while (triangle_lst != NULL)
 	{
 		k++;
 		triangle_lst = triangle_lst->next;
 	}
+	nb_mailont(triangle_lst, 4)
 	printf("le k4= %d\n", k);
 	triangle_lst = keep;
-
+*/
+	nb_mailont(triangle_lst, 4);
 	//Clip triangle against all four screen edges
 
 	//1er argument => PLANE
