@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/06 17:12:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/07 13:16:45 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct				s_myraster
 void			ft_launch_rasterization(t_mywin *s_win, t_win *wn);
 void			ft_apply_modif(t_mywin *s_win, t_mychange *change, t_mykeep *keep, t_mytriangle *triangle_array);
 void			ft_init_rasterization(t_win *wn, t_mykeep *keep, t_mychange *change, t_myraster *raster);
-void			ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max);
+void			ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn);
 
 //FILE USER INPUT
 void			ft_input_event_check(t_win *wn, t_mychange *change, t_myraster *raster);
