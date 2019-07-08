@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 21:39:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 21:41:44 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct				s_mywin
 
 t_mycolor					ft_setcolor(int rrr, int ggg, int bbb);
 void						ft_launch_rasterization(t_mywin *s_win, t_win *wn);
-void						ft_launch_bsp_tree(t_mywin *s_win);
+void	ft_launch_bsp_tree(t_mywin *s_win, t_mypolygon *polygon_lst);
 float						ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec						ft_cross_product(t_myvec v1, t_myvec v2);
 int							ft_abs(int number);

@@ -6,20 +6,21 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:46:33 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 21:39:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 21:43:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_bsp.h>
 
 
-void	ft_launch_bsp_tree(t_mywin *s_win)
+void	ft_launch_bsp_tree(t_mywin *s_win, t_mypolygon *polygon_lst)
 {
 	printf("BSP tree launcher\n");
 
 	/* t_mynode	s_node; */
 
-	s_win->polygon_lst = ft_read_the_polygon_file();
+	polygon_lst = ft_read_the_polygon_file();
+	s_win->polygon_lst = polygon_lst;
 	ft_display_the_polygon_list(s_win->polygon_lst);
 	ft_process_polygon(s_win->polygon_lst);
 	//ft_build_bsp_tree((&s_node), s_win->polygon_lst);
