@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 12:53:59 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 13:18:46 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,44 +247,45 @@ typedef struct			s_mynode
 }						t_mynode;
 
 
-
 typedef struct				s_mywin
 {
 	t_mypolygon				*polygon_lst;
-//	SDL_Window				*window[50]; //a mallocer par le nombre d'inte
-//	SDL_Renderer			*renderer[50];
 	SDL_Window				**window;
 	SDL_Renderer			**renderer;
+	int						interface;
+	t_mygrid				*s_localisation_grid;
+	t_mywall				*lst_wall;
+	tj_window				current_window;
+
+
+
+
+
+//	SDL_Window				*window[50]; //a mallocer par le nombre d'inte
+//	SDL_Renderer			*renderer[50];
 	/* t_mylocalisation_box	*s_localisation_box; */
 	/* t_mysquare				*s_localisation_quit_button; */
 	/* t_mysquare				*s_localisation_save_button; */
 	/* t_mysquare				*s_localisation_delete_button; */
 	/* int						show_cross[5]; */
 	/* t_mysquare				***s_localisation_color_box; */
-	t_mygrid				*s_localisation_grid;
-	t_mywall				*lst_wall;
 	/* t_mycurrent_wall		current_wall; */
-	tj_window				current_window;
-	t_interface				interface;
 }							t_mywin;
 
+/* typedef struct			s_mykeep */
+/* { */
+/* 	t_mypolygon			*polygon; */
+/* 	t_myvec				*vec; */
+/* }						t_mykeep; */
 
 
-typedef struct			s_mykeep
-{
-	t_mypolygon			*polygon;
-	t_myvec				*vec;
-}						t_mykeep;
-
-
-void		ft_launch_window(t_mywin *s_win, t_interface interface, t_win *wn);
+void		ft_launch_window(t_mywin *s_win, t_win *wn);
 void		ft_clear_window(t_mywin *s_win);
 void		ft_draw_line(t_mywin *s_win, t_myputtheline *s_line);
 t_mycolor	ft_setcolor(int rrr, int ggg, int bbb);
 void		ft_quit(char *txt, t_mywin *s_win);
 void		ft_launch_rasterization(t_mywin *s_win, t_win *wn);
 void		ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
-
 float		ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec		ft_cross_product(t_myvec v1, t_myvec v2);
 t_myvec		ft_vector_from_two_points(t_myvec v2, t_myvec v1);
@@ -297,23 +298,6 @@ t_mytriangle *ft_get_triangles_array(t_mywin *s_win);
 void		ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
 
 
-void			ft_display_the_polygon_list(t_mypolygon *polygon_lst);
-t_mypolygon		*ft_read_the_polygon_file(void);
-void			ft_process_polygon(t_mypolygon *polygon_lst);
-int				ft_classify_polygon(t_mypolygon *plane, t_mypolygon *polygon_node);
-int				ft_classify_point(t_myvec point, t_mypolygon *plane);
-void			ft_split_polygon(t_mypolygon *poly,
-							t_mypolygon *plane,
-							t_mypolygon *front_split,
-							t_mypolygon *back_split);
-void			ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst);
-t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst);
-void			ft_split_polygon(t_mypolygon *poly,
-							t_mypolygon *plane,
-							t_mypolygon *front_split,
-							t_mypolygon *back_split);
-void			ft_add_polygon(t_mypolygon **polygon_lst, t_mypolygon *polygon_node);
-void			ft_afficher_le_bsp(t_mynode *s_node);
 
 /* void			ft_draw_square(t_mywin *s_win, t_mysquare *s_square); */
 /* t_mysquare	ft_setsquare(int x, int  y, int  width, int  height, t_mycolor s_color ); */

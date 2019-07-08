@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 12:29:22 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 13:16:55 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	triangle_array = ft_get_triangles_array(s_win);
 	int max = ft_get_nbr_of_triangle(s_win);
 	SDL_Init(SDL_INIT_EVERYTHING);
-	s_win->interface = GAME_ENGINE;
-	ft_launch_window(s_win, s_win->interface, wn);
+	ft_launch_window(s_win, wn);
+	s_win->interface = 0;
 	ft_init_rasterization(wn, &raster);
 	/* ft_display_triangle_array(s_win, triangle_array, max); */
-	s_win->interface = 0;
 	while (!raster.quit)
 	{
 		ft_input_event_check(wn, &raster, s_win);
@@ -60,7 +59,7 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 		{
 		ft_clear_window(s_win);
 		ft_update_raster(s_win, &raster, triangle_array, max, wn);
-		SDL_RenderPresent(s_win->renderer[s_win->interface]);
+		SDL_RenderPresent(s_win->renderer[0]);
 		SDL_Delay(30);
 		raster.modif = 0;
 		}
