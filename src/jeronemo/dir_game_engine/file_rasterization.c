@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 15:38:05 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 22:02:36 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 	return (keep);
 }
 
-void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
+void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
 {
 	int				i;
 	t_myvec			light_direction;
@@ -231,7 +231,7 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 			plane_norm.x = 0.0;
 			plane_norm.y = 0.0;
 			plane_norm.z = 1.0;
-			nbr = ft_triangle_clips_again_plan(point, plane_norm, clipped_triangle, &triangle, s_win);
+			nbr = ft_triangle_clips_again_plan(point, plane_norm, clipped_triangle, &triangle);
 			j = 0;
 			while(j < nbr)
 			{

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 14:21:06 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 22:01:16 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ float	ft_distance(t_myvec plane_n, t_myvec plane_p, t_myvec p)
 	return (distance);
 }
 
-int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle *clipped_triangle, t_mytriangle *triangle, t_mywin *s_win)
+int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle *clipped_triangle, t_mytriangle *triangle)
 {
 	t_myvec		points_inside[3];
 	t_myvec		points_outside[3];
@@ -43,7 +43,6 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 	int			result = 0;
 	int			j;
 
-	(void)s_win;
 	j = 0;
 	plane_norm = ft_normalise(plane_norm);
 	point = ft_normalise(point);
