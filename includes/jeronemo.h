@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 15:49:11 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:52:03 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ typedef struct			s_mypolygon
 typedef struct				s_mywin
 {
 	t_mypolygon				*polygon_lst;
-	/* SDL_Window				**window; */
-	/* SDL_Renderer			**renderer; */
 	int						interface;
 }							t_mywin;
 
@@ -98,7 +96,6 @@ typedef struct			s_myputtheline
 void			ft_clear_window(t_win *wn);
 void			ft_draw_line(t_win *wn, t_myputtheline *s_line);
 t_mycolor		ft_setcolor(int rrr, int ggg, int bbb);
-void			ft_quit(char *txt, t_mywin *s_win);
 void			ft_launch_rasterization(t_mywin *s_win, t_win *wn);
 void			ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
 
