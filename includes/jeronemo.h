@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 20:47:19 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 20:55:34 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,14 @@
 # define TURQUOISE 0, 255, 255
 # define WHITE 255, 255, 255
 
-
-typedef struct		s_mycolor
+typedef struct				s_mycolor
 {
-	int				rrr;
-	int				ggg;
-	int				bbb;
-}					t_mycolor;
+	int						rrr;
+	int						ggg;
+	int						bbb;
+}							t_mycolor;
 
-typedef struct	s_mytriangle
+typedef struct				s_mytriangle
 {
 	t_myvec					vertice[3];
 	struct s_mytriangle		*next;
@@ -51,33 +50,34 @@ typedef struct	s_mytriangle
 	float					shade;
 }							t_mytriangle;
 
-typedef struct			s_mypolygon
+typedef struct				s_mypolygon
 {
-	int					obj_indice;
-	t_myvec				*vertex_lst;             //liste des vertex
-	t_myvec				normal;                  //la normal au polygon
-	int					number_of_vertex;        //nombre de vertex
-	int					number_of_indices;       //nombre d'indices
-	int					*indices;                //la listes des indices apres triangulasisation
-	struct s_mypolygon	*next;                   //le prochain noeud dans la liste
-}						t_mypolygon;
+	int						obj_indice;
+	t_myvec					*vertex_lst;             //liste des vertex
+	t_myvec					normal;                  //la normal au polygon
+	int						number_of_vertex;        //nombre de vertex
+	int						number_of_indices;       //nombre d'indices
+	int						*indices;                //la listes des indices apres triangulasisation
+	struct s_mypolygon		*next;                   //le prochain noeud dans la liste
+}							t_mypolygon;
 
 typedef struct				s_mywin
 {
 	t_mypolygon				*polygon_lst;
 }							t_mywin;
 
+t_mycolor					ft_setcolor(int rrr, int ggg, int bbb);
+void						ft_launch_rasterization(t_mywin *s_win, t_win *wn);
+void						ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
+float						ft_dot_product(t_myvec v1, t_myvec v2);
+t_myvec						ft_cross_product(t_myvec v1, t_myvec v2);
+int							ft_abs(int number);
+float						ft_atoi_comma(const char *str);
 
-void			ft_clear_window(t_win *wn);
-t_mycolor		ft_setcolor(int rrr, int ggg, int bbb);
-void			ft_launch_rasterization(t_mywin *s_win, t_win *wn);
-void			ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
 
-float			ft_dot_product(t_myvec v1, t_myvec v2);
-t_myvec			ft_cross_product(t_myvec v1, t_myvec v2);
-int				ft_abs(int number);
-t_myvec			ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
-float			ft_atoi_comma(const char *str);
+//commun
+t_myvec						ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
+#endif
 
 /* typedef enum		e_window */
 /* { */
@@ -280,4 +280,3 @@ float			ft_atoi_comma(const char *str);
 /* int			ft_triangle_clips_again_plan(t_myvec point, t_myvec plan, t_mytriangle *clipped_triangle, t_mytriangle *triangle, t_mywin *s_win); */
 /* int			ft_calcul_culing(t_mychange *change, t_mytriangle *triangle); */
 
-#endif
