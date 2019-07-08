@@ -6,14 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:58:52 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 10:40:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 12:55:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <header_game_engine.h>
-
-
-
 
 t_mytriangle	*ft_get_triangle(void)
 {

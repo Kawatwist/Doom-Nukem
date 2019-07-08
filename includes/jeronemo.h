@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 12:52:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 12:53:59 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,8 +275,6 @@ typedef struct			s_mykeep
 	t_mypolygon			*polygon;
 	t_myvec				*vec;
 }						t_mykeep;
-
-
 
 
 void		ft_launch_window(t_mywin *s_win, t_interface interface, t_win *wn);
