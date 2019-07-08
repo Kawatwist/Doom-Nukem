@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 15:52:03 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:59:10 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct			s_mypolygon
 typedef struct				s_mywin
 {
 	t_mypolygon				*polygon_lst;
-	int						interface;
 }							t_mywin;
 
 typedef struct			s_xyz_point
@@ -101,12 +100,9 @@ void			ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
 
 float			ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec			ft_cross_product(t_myvec v1, t_myvec v2);
-t_myvec			ft_vector_from_two_points(t_myvec v2, t_myvec v1);
 int				ft_abs(int number);
 t_myvec			ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
 float			ft_atoi_comma(const char *str);
-
-
 
 /* typedef enum		e_window */
 /* { */

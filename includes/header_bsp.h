@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:57:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 15:04:19 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:55:22 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,3 +63,4 @@ void			ft_split_polygon(t_mypolygon *poly,
 							t_mypolygon *plane,
 							t_mypolygon *front_split,
 							t_mypolygon *back_split);
+t_myvec			ft_vector_from_two_points(t_myvec v2, t_myvec v1);
