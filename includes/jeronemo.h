@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 15:46:11 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:49:11 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,6 @@ int				ft_abs(int number);
 t_myvec			ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
 float			ft_atoi_comma(const char *str);
 
-int				ft_get_nbr_of_triangle(t_mywin *s_win);
-t_mytriangle	*ft_get_triangles_array(t_mywin *s_win);
-void			ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn);
 
 
 /* typedef enum		e_window */

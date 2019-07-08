@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 15:32:12 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:50:06 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void			ft_launch_rasterization(t_mywin *s_win, t_win *wn);
 void			ft_apply_modif(t_mywin *s_win, t_mytriangle *triangle_array);
 void			ft_init_rasterization(t_win *wn, t_myraster *raster);
 void			ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn);
+int				ft_get_nbr_of_triangle(t_mywin *s_win);
+void			ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn);
+int				ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle *clipped_triangle, t_mytriangle *triangle, t_mywin *s_win);
 
 //FILE USER INPUT
 void			ft_input_event_check(t_win *wn, t_myraster *raster, t_mywin *s_win);
@@ -87,9 +90,3 @@ t_myvec			ft_vector_multiply_vector(t_myvec a, t_myvec b);
 //FILE FILL TRIANGLE
 void			ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_win *wn, float shade);
 
-//FILE MATHS DANS BSP
-//dot product
-//cross product
-//calculate normal of point
-//vector from two point
-int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle *clipped_triangle, t_mytriangle *triangle, t_mywin *s_win);
