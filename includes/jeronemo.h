@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 14:59:37 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:06:27 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,6 @@ typedef struct		s_mywall
 	int				current_wall;
 }					t_mywall;
 
-typedef struct		s_mygrid
-{
-	int				x;
-	int				y;
-	int				height;
-	int				width;
-	int				nbr_dot_height;
-	int				nbr_dot_width;
-	int				step;
-}					t_mygrid;
 
 typedef struct			s_xyz_point
 {
@@ -108,13 +98,6 @@ typedef enum		e_window
 	J_BINARY_TREE = 0,
 }					tj_window;
 
-typedef enum			e_myclass
-{
-	FRONT,
-	BACK,
-	SPANNING,
-	ON_PLANE,
-}						t_myclass;
 
 //indice allow you to build multiple triangles using share vectices
 typedef struct			s_mypolygon
@@ -128,35 +111,12 @@ typedef struct			s_mypolygon
 	struct s_mypolygon	*next;                   //le prochain noeud dans la liste
 }						t_mypolygon;
 
-//structure pour le bsp
-typedef struct			s_mynode
-{
-	t_mypolygon			*splitter;
-	struct s_mynode		*front;
-	struct s_mynode		*back;
-	char				is_leaf;
-	char				is_solid;
-}						t_mynode;
-
-
 typedef struct				s_mywin
 {
 	t_mypolygon				*polygon_lst;
 	SDL_Window				**window;
 	SDL_Renderer			**renderer;
 	int						interface;
-	/* t_mygrid				*s_localisation_grid; */
-	/* t_mywall				*lst_wall; */
-	tj_window				current_window;
-//	SDL_Window				*window[50]; //a mallocer par le nombre d'inte
-//	SDL_Renderer			*renderer[50];
-	/* t_mylocalisation_box	*s_localisation_box; */
-	/* t_mysquare				*s_localisation_quit_button; */
-	/* t_mysquare				*s_localisation_save_button; */
-	/* t_mysquare				*s_localisation_delete_button; */
-	/* int						show_cross[5]; */
-	/* t_mysquare				***s_localisation_color_box; */
-	/* t_mycurrent_wall		current_wall; */
 }							t_mywin;
 
 void		ft_launch_window(t_mywin *s_win, t_win *wn);
@@ -295,6 +255,16 @@ void		ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_wi
 /* }						t_mykeep; */
 
 
+/* typedef struct		s_mygrid */
+/* { */
+/* 	int				x; */
+/* 	int				y; */
+/* 	int				height; */
+/* 	int				width; */
+/* 	int				nbr_dot_height; */
+/* 	int				nbr_dot_width; */
+/* 	int				step; */
+/* }					t_mygrid; */
 
 
 
