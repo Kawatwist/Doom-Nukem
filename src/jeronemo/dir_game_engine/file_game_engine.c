@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 13:16:55 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:31:51 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->translate_right = 0;
 	raster->modif = 1;
 	raster->old = (Uint8*)malloc(sizeof(Uint8) * 300);
+	raster->quit = 0;
 }
 
 
