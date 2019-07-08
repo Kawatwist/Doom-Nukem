@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 15:59:10 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 20:47:19 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <header_bresenham.h>
 
 #define FALSE 0
 #define TRUE 1
@@ -66,34 +67,8 @@ typedef struct				s_mywin
 	t_mypolygon				*polygon_lst;
 }							t_mywin;
 
-typedef struct			s_xyz_point
-{
-	double				a;
-	double				b;
-}						t_xyz_point;
-
-typedef struct			s_myputtheline
-{
-	int					above;
-	t_xyz_point			un;
-	t_xyz_point			deux;
-	int					ex;
-	int					ey;
-	int					dx;
-	int					dy;
-	int					d_x;
-	int					d_y;
-	int					i;
-	int					j;
-	int					x_incr;
-	int					y_incr;
-	float				ab;
-	float				le_z1;
-	float				le_z2;
-}						t_myputtheline;
 
 void			ft_clear_window(t_win *wn);
-void			ft_draw_line(t_win *wn, t_myputtheline *s_line);
 t_mycolor		ft_setcolor(int rrr, int ggg, int bbb);
 void			ft_launch_rasterization(t_mywin *s_win, t_win *wn);
 void			ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);

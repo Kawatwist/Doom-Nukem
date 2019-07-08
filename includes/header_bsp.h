@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:57:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 15:55:22 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 20:38:29 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ typedef enum			e_myclass
 	SPANNING,
 	ON_PLANE,
 }						t_myclass;
-
-
-
-
 
 void			ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst);
 t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst);
