@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 11:59:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 12:43:19 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ typedef struct		s_mypoint
 	int				set;
 }					t_mypoint;
 
-typedef enum		s_myprojection
-{
-	orthographique,
-	perspective,
-}					t_myprojection;
+/* typedef enum		s_myprojection */
+/* { */
+	/* orthographique, */
+	/* perspective, */
+/* }					t_myprojection; */
 
 typedef struct	s_mytriangle
 {
@@ -81,27 +81,27 @@ typedef struct		s_mycolor
 	int				bbb;
 }					t_mycolor;
 
-typedef struct		s_mylocalisation_box
-{
-	int				x;
-	int				y;
-	int				width;
-	int				height;
-}					t_mylocalisation_box;
+/* typedef struct		s_mylocalisation_box */
+/* { */
+	/* int				x; */
+	/* int				y; */
+	/* int				width; */
+	/* int				height; */
+/* }					t_mylocalisation_box; */
 
-typedef enum		e_wall_height
-{
-	down = 4,
-	middle = 2,
-	up_to_ceilling = 3,
-}					t_wall_height;
+/* typedef enum		e_wall_height */
+/* { */
+	/* down = 4, */
+	/* middle = 2, */
+	/* up_to_ceilling = 3, */
+/* }					t_wall_height; */
 
-typedef enum		e_wall_texture
-{
-	file_1 = 1,
-	file_2 = 2,
-	file_3 = 3,
-}					t_wall_texture;
+/* typedef enum		e_wall_texture */
+/* { */
+	/* file_1 = 1, */
+	/* file_2 = 2, */
+	/* file_3 = 3, */
+/* }					t_wall_texture; */
 
 typedef struct		s_mysquare
 {
@@ -133,14 +133,14 @@ typedef struct		s_mywall
 	int				current_wall;
 }					t_mywall;
 
-typedef struct		s_mycross
-{
-	int				x;
-	int				y;
-	int				size;
-	int				thickness;
-	t_mycolor		color;
-}					t_mycross;
+/* typedef struct		s_mycross */
+/* { */
+	/* int				x; */
+	/* int				y; */
+	/* int				size; */
+	/* int				thickness; */
+	/* t_mycolor		color; */
+/* }					t_mycross; */
 
 typedef struct		s_mygrid
 {
@@ -159,21 +159,21 @@ typedef struct			s_xyz_point
 	double				b;
 }						t_xyz_point;
 
-typedef struct	s_mypan
-{
-	int				marge;
-	int				marge_text;
-	int				indent_text;
-	int				width;
-	int				height;
-	int				box_width;
-	int				box_height;
-	int				i;
-	int				j;
-	t_mycolor		s_color;
-	t_mysquare		s_square;
-	t_mywrite		s_write;
-}					t_mypan;
+/* typedef struct	s_mypan */
+/* { */
+/* 	int				marge; */
+/* 	int				marge_text; */
+/* 	int				indent_text; */
+/* 	int				width; */
+/* 	int				height; */
+/* 	int				box_width; */
+/* 	int				box_height; */
+/* 	int				i; */
+/* 	int				j; */
+/* 	t_mycolor		s_color; */
+/* 	t_mysquare		s_square; */
+/* 	t_mywrite		s_write; */
+/* }					t_mypan; */
 
 typedef struct			s_myputtheline
 {
@@ -255,15 +255,15 @@ typedef struct				s_mywin
 //	SDL_Renderer			*renderer[50];
 	SDL_Window				**window;
 	SDL_Renderer			**renderer;
-	t_mylocalisation_box	*s_localisation_box;
-	t_mysquare				*s_localisation_quit_button;
-	t_mysquare				*s_localisation_save_button;
-	t_mysquare				*s_localisation_delete_button;
-	int						show_cross[5];
-	t_mysquare				***s_localisation_color_box;
+	/* t_mylocalisation_box	*s_localisation_box; */
+	/* t_mysquare				*s_localisation_quit_button; */
+	/* t_mysquare				*s_localisation_save_button; */
+	/* t_mysquare				*s_localisation_delete_button; */
+	/* int						show_cross[5]; */
+	/* t_mysquare				***s_localisation_color_box; */
 	t_mygrid				*s_localisation_grid;
 	t_mywall				*lst_wall;
-	t_mycurrent_wall		current_wall;
+	/* t_mycurrent_wall		current_wall; */
 	tj_window				current_window;
 	t_interface				interface;
 }							t_mywin;
@@ -298,44 +298,38 @@ void		ft_draw_line(t_mywin *s_win, t_myputtheline *s_line);
 /**
  ** Map editon functions definitions
  **/
-void			ft_draw_square(t_mywin *s_win, t_mysquare *s_square);
-t_mysquare		ft_setsquare(int x, int  y, int  width, int  height, t_mycolor s_color );
-t_mycolor		ft_setcolor(int rrr, int ggg, int bbb);
-void			ft_draw_cross(t_mywin *s_win, t_mycross *s_cross);
-t_mycross		ft_setcross(int x, int y, int size, int thickness, t_mycolor color);
-t_mywrite		ft_setwrite(int x, int y, t_mycolor color, int size, char *str);
-void			ft_write(t_mywin *s_win, t_mywrite *s_write);
-t_mygrid		ft_setgrid(int x, int y, int width, int height, int step);
-void			ft_draw_grid(t_mywin *s_win, t_mygrid *s_grid);
-t_mypoint		ft_setpoint(int x, int y);
-t_mywall		ft_setwall(t_mypoint a, t_mypoint b, int height, int texture);
-void			ft_draw_wall(t_mywin *s_win, t_mywall *s_wall);
-void			ft_display_ihc(t_mywin *s_win);
-t_mywall		*ft_read_map(void);
+/* void			ft_draw_square(t_mywin *s_win, t_mysquare *s_square); */
+/* t_mysquare	ft_setsquare(int x, int  y, int  width, int  height, t_mycolor s_color ); */
+t_mycolor	ft_setcolor(int rrr, int ggg, int bbb);
+/* void			ft_draw_cross(t_mywin *s_win, t_mycross *s_cross); */
+/* t_mycross	ft_setcross(int x, int y, int size, int thickness, t_mycolor color); */
+/* t_mywrite	ft_setwrite(int x, int y, t_mycolor color, int size, char *str); */
+/* void			ft_write(t_mywin *s_win, t_mywrite *s_write); */
+/* t_mygrid		ft_setgrid(int x, int y, int width, int height, int step); */
+/* void			ft_draw_grid(t_mywin *s_win, t_mygrid *s_grid); */
+/* t_mypoint	ft_setpoint(int x, int y); */
+/* t_mywall		ft_setwall(t_mypoint a, t_mypoint b, int height, int texture); */
+/* void			ft_draw_wall(t_mywin *s_win, t_mywall *s_wall); */
+/* void			ft_display_ihc(t_mywin *s_win); */
+/* t_mywall		*ft_read_map(void); */
 void			ft_quit(char *txt, t_mywin *s_win);
-void			ft_save_map(t_mywin *s_win);
-t_mywall		*ft_create_wall_node(t_mywall wall);
-void			ft_add_wall_node(t_mywall **lst_wall, t_mywall *s_wall);
-
-void			ft_display_right_pan(t_mywin *s_win);
-void			ft_display_save_button(t_mywin *s_win);
-void			ft_draw_map(t_mywin *s_win);
-void			ft_display_quit_button(t_mywin *s_win);
-void			ft_display_save_button(t_mywin *s_win);
-void			ft_display_title(t_mywin *s_win);
-void			ft_display_grid(t_mywin *s_win);
-void			ft_display_delete_button(t_mywin *s_win);
-
-void		ft_update_show_cross(t_mywin *s_win, t_win *wn);
-void		ft_init_show_cross(t_mywin *s_win);
-
-void	ft_launch_map_editor(t_mywin *s_win, t_win *wn);
-void	ft_launch_rasterization(t_mywin *s_win, t_win *wn);
-void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
-
-
-void	ft_display_right_pan(t_mywin *s_win);
-
+/* void			ft_save_map(t_mywin *s_win); */
+/* t_mywall		*ft_create_wall_node(t_mywall wall); */
+/* void			ft_add_wall_node(t_mywall **lst_wall, t_mywall *s_wall); */
+/* void			ft_display_right_pan(t_mywin *s_win); */
+/* void			ft_display_save_button(t_mywin *s_win); */
+/* void			ft_draw_map(t_mywin *s_win); */
+/* void			ft_display_quit_button(t_mywin *s_win); */
+/* void			ft_display_save_button(t_mywin *s_win); */
+/* void			ft_display_title(t_mywin *s_win); */
+/* void			ft_display_grid(t_mywin *s_win); */
+/* void			ft_display_delete_button(t_mywin *s_win); */
+/* void			ft_update_show_cross(t_mywin *s_win, t_win *wn); */
+/* void			ft_init_show_cross(t_mywin *s_win); */
+/* void			ft_launch_map_editor(t_mywin *s_win, t_win *wn); */
+void			ft_launch_rasterization(t_mywin *s_win, t_win *wn);
+void			ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
+/* void			ft_display_right_pan(t_mywin *s_win); */
 //bsp function
 
 

@@ -81,19 +81,13 @@ SRC				= main.c										\
 				  world2view.c								\
 				  world2view_mat.c
 
+#MAIN
+SRC += file_main.c
+#SRC += file_mouse_handle.c
+SRC += file_draw_triangle.c
 
-#MAP EDITOR
-#SRC += file_map_editor.c
-#SRC += file_map_editor_util.c
-#SRC += file_map_editor_ihc.c
-#SRC += file_map_editor_display_right_pan.c
-#SRC += file_map_editor_update_show_cross.c
-SRC += file_bsp.c
-
-#BRESENHAM
-SRC += fille_bresename.c
-
-SRC += file_clipping.c
+#WINDOW
+SRC += file_window.c
 
 #GAME ENGINE
 SRC += file_game_engine.c
@@ -104,16 +98,10 @@ SRC += file_itoa_coma.c
 SRC += file_matrix_tool.c
 SRC += file_vector_tool.c
 SRC += file_fill_triangle.c
-
-#WINDOW
-SRC += file_window.c
-
-#MAIN
-SRC += file_main.c
-#SRC += file_mouse_handle.c
-SRC += file_draw_triangle.c
+SRC += file_clipping.c
 
 #BSP
+SRC += file_bsp.c
 SRC += file_main_bsp.c
 SRC += file_parser_polygons.c
 SRC += file_process_polygon.c
@@ -123,6 +111,16 @@ SRC += file_build_bsp_tree.c
 SRC += file_select_spliter.c
 SRC += file_classify_polygon.c 
 SRC += file_affichage_bsp.c
+
+#MAP EDITOR
+#SRC += file_map_editor.c
+#SRC += file_map_editor_util.c
+#SRC += file_map_editor_ihc.c
+#SRC += file_map_editor_display_right_pan.c
+#SRC += file_map_editor_update_show_cross.c
+
+#BRESENHAM
+SRC += fille_bresename.c
 
 ######################################################################
 
