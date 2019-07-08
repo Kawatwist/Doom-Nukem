@@ -6,11 +6,34 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:55:47 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/25 10:26:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 12:18:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <jeronemo.h>
+
+void			ft_quit(char *txt, t_mywin *s_win)
+{
+//	printf("%s\n", txt);
+//	if (s_wn->window[J_EDITOR] != NULL)
+//		SDL_DestroyWindow(s_win->window[J_EDITOR]);
+//	if (s_win->renderer[J_EDITOR] != NULL)
+//		SDL_DestroyRenderer(s_win->renderer[J_EDITOR]);
+//	SDL_Quit();
+//	exit(1);
+(void)txt;
+(void)s_win;
+}
+
+t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
+{
+	t_mycolor	s_color;
+
+	s_color.rrr = rrr;
+	s_color.ggg = ggg;
+	s_color.bbb = bbb;
+	return (s_color);
+}
 
 void	ft_game_engine(t_win *wn)
 {

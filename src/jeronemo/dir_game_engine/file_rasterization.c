@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 16:47:59 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/08 11:53:07 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,6 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	t_mytriangle	*clipped_triangle = NULL;
 
 
-
 	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
 	t_myvec plane_norm;
 	triangle_lst = NULL;
@@ -254,28 +253,8 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	//ORDER TRIANGLE FROM FAR TO NEAR
 
 
-/*	int k;
-	k = 0;
-	keep = triangle_lst;
-	while (triangle_lst != NULL)
-	{
-		k++;
-		triangle_lst = triangle_lst->next;
-
-	}
-	triangle_lst = keep;
-	printf("le k1= %d\n", k);*/
 	triangle_lst = ft_order_triangle_z_buffer(triangle_lst);
-/*	k = 0;
-	keep = triangle_lst;
-	while (triangle_lst != NULL)
-	{
-		k++;
-		triangle_lst = triangle_lst->next;
-	}
-	printf("le k4= %d\n", k);
-	triangle_lst = keep;
-*/
+
 	//Clip triangle against all four screen edges
 
 	//1er argument => PLANE

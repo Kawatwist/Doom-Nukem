@@ -6,25 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:35:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 17:18:37 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/08 12:18:32 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <jeronemo.h>
-
-void			ft_quit(char *txt, t_mywin *s_win)
-{
-//	printf("%s\n", txt);
-//	if (s_wn->window[J_EDITOR] != NULL)
-//		SDL_DestroyWindow(s_win->window[J_EDITOR]);
-//	if (s_win->renderer[J_EDITOR] != NULL)
-//		SDL_DestroyRenderer(s_win->renderer[J_EDITOR]);
-//	SDL_Quit();
-//	exit(1);
-(void)txt;
-(void)s_win;
-}
-
 
 void	ft_draw_square(t_mywin *s_win, t_mysquare *s_square)
 {
@@ -131,15 +117,6 @@ t_mysquare	ft_setsquare(int x, int  y, int  width, int  height, t_mycolor s_colo
 	return (s_square);
 }
 
-t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
-{
-	t_mycolor	s_color;
-
-	s_color.rrr = rrr;
-	s_color.ggg = ggg;
-	s_color.bbb = bbb;
-	return (s_color);
-}
 
 void	ft_draw_cross(t_mywin *s_win, t_mycross *s_cross)
 {

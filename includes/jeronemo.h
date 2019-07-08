@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 17:20:49 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/08 11:59:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,47 +67,6 @@ typedef struct	s_mydisplay
 	char		color;
 	char		shade;
 }				t_mydisplay;
-
-typedef struct		s_mychange
-{
-	float			angle_x;
-	float			angle_y;
-	float			angle_z;
-	float			translation_x;
-	float			translation_y;
-	float			translation_z;
-	float			zoom;
-	int				avancer;
-	int				reculer;
-	t_myvec			result_1;
-	t_myvec			result_2;
-	t_myvec			result_3;
-	char			quit;
-	char			modif;
-
-	t_myvec			v_camera;
-	t_myvec			v_up;
-	t_myvec			v_target;
-	t_myvec			v_look_dir;
-	t_myvec			v_forward;
-	float			theta;
-	float			theta_x;
-	float			theta_y;
-	float			theta_z;
-
-	float			**mat_trans;
-	float			**mat_rot_x;
-	float			**mat_rot_y;
-	float			**mat_rot_z;
-	float			**mat_world;
-	float			**mat_camera;
-	float			**mat_view;
-	float			**mat_camera_rot;
-	float			**mat_perspectiv;
-
-	Uint8			*old;
-	t_mydisplay		*display;
-}					t_mychange;
 
 typedef struct		s_mypointf
 {
@@ -421,7 +380,7 @@ t_myvec	ft_translation_x(float value, t_myvec vertex);
 t_myvec	ft_translation_y(float value, t_myvec vertex);
 t_myvec	ft_translation_z(float value, t_myvec vertex);
 t_myvec	ft_scale(float zoom, t_myvec vertex);
-void	ft_draw_change(t_mywin *s_win, t_mychange *change);
+/* void	ft_draw_change(t_mywin *s_win, t_mychange *change); */
 t_myvec		ft_normalise(t_myvec vector);
 //void		ft_mouse_event_check(t_win *wn, t_mychange *change, t_myraster *raster);
 void	ft_display_panel();
@@ -460,6 +419,6 @@ t_myvec		ft_scale_screen(t_myvec result);
 
 
 int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plan, t_mytriangle *clipped_triangle, t_mytriangle *triangle, t_mywin *s_win);
-int		ft_calcul_culing(t_mychange *change, t_mytriangle *triangle);
+/* int		ft_calcul_culing(t_mychange *change, t_mytriangle *triangle); */
 
 #endif

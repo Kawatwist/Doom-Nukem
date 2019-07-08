@@ -83,11 +83,11 @@ SRC				= main.c										\
 
 
 #MAP EDITOR
-SRC += file_map_editor.c
-SRC += file_map_editor_util.c
-SRC += file_map_editor_ihc.c
-SRC += file_map_editor_display_right_pan.c
-SRC += file_map_editor_update_show_cross.c
+#SRC += file_map_editor.c
+#SRC += file_map_editor_util.c
+#SRC += file_map_editor_ihc.c
+#SRC += file_map_editor_display_right_pan.c
+#SRC += file_map_editor_update_show_cross.c
 SRC += file_bsp.c
 
 #BRESENHAM
@@ -110,7 +110,7 @@ SRC += file_window.c
 
 #MAIN
 SRC += file_main.c
-SRC += file_mouse_handle.c
+#SRC += file_mouse_handle.c
 SRC += file_draw_triangle.c
 
 #BSP
