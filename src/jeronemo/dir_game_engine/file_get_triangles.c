@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:58:52 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 22:15:44 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 22:18:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,31 +308,29 @@ t_mytriangle	ft_get_vertice_of_the_triangle(t_mypolygon *polygon, int indice)
 t_mytriangle	ft_get_the_next_triangle(int triangle_nbr, t_mypolygon *polygon_lst)
 {
 	t_mytriangle	triangle;
-	t_mypolygon		*polygon;
 	t_mypolygon		*keep;
 	int				triangle_indice_absolu;
 	int				triangle_indice_relatif;
 
-	polygon = polygon_lst;
-	keep = polygon;
+	keep = polygon_lst;
 	triangle_indice_absolu = 0;
-	while (polygon != NULL)
+	while (polygon_lst != NULL)
 	{
 		triangle_indice_relatif = 0;
-		while (triangle_indice_relatif < polygon->number_of_indices)
+		while (triangle_indice_relatif < polygon_lst->number_of_indices)
 		{
 			if ((triangle_indice_absolu / 3) == triangle_nbr)
 			{
-				triangle = ft_get_vertice_of_the_triangle(polygon, triangle_indice_relatif);
-				polygon = keep;
+				triangle = ft_get_vertice_of_the_triangle(polygon_lst, triangle_indice_relatif);
+				polygon_lst = keep;
 				return (triangle);
 			}
 			triangle_indice_relatif++;
 			triangle_indice_absolu++;
 		}
-		polygon = polygon->next;
+		polygon_lst = polygon_lst->next;
 	}
-	polygon = keep;
+	polygon_lst = keep;
 	printf("error\n");
 	triangle.vertice[0].x = 0;
 	return (triangle);
