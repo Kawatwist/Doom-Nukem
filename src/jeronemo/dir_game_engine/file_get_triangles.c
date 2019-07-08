@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:58:52 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 21:59:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 22:15:44 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,19 +219,16 @@ void			ft_display_triangle_array(t_mywin *s_win, t_mytriangle *triangle)
 int				ft_get_nbr_of_triangle(t_mypolygon *polygon_lst)
 {
 	int				nbr_indices;
-	t_mypolygon		*polygon;
 	t_mypolygon		*keep;
 
-	polygon = polygon_lst;
-	//polygon = s_win->polygon_lst;
-	keep = polygon;
+	keep = polygon_lst;
 	nbr_indices = 0;
-	while (polygon != NULL)
+	while (polygon_lst != NULL)
 	{
-		nbr_indices += polygon->number_of_indices;
-		polygon = polygon->next;
+		nbr_indices += polygon_lst->number_of_indices;
+		polygon_lst = polygon_lst->next;
 	}
-	polygon = keep;
+	polygon_lst = keep;
 	return (nbr_indices / 3);
 }
 
@@ -308,7 +305,7 @@ t_mytriangle	ft_get_vertice_of_the_triangle(t_mypolygon *polygon, int indice)
 	return (triangle);
 }
 
-t_mytriangle	ft_get_the_next_triangle(t_mywin *s_win, int triangle_nbr)
+t_mytriangle	ft_get_the_next_triangle(int triangle_nbr, t_mypolygon *polygon_lst)
 {
 	t_mytriangle	triangle;
 	t_mypolygon		*polygon;
@@ -316,7 +313,7 @@ t_mytriangle	ft_get_the_next_triangle(t_mywin *s_win, int triangle_nbr)
 	int				triangle_indice_absolu;
 	int				triangle_indice_relatif;
 
-	polygon = s_win->polygon_lst;
+	polygon = polygon_lst;
 	keep = polygon;
 	triangle_indice_absolu = 0;
 	while (polygon != NULL)
@@ -341,18 +338,21 @@ t_mytriangle	ft_get_the_next_triangle(t_mywin *s_win, int triangle_nbr)
 	return (triangle);
 }
 
-t_mytriangle	*ft_get_triangles_array(t_mywin *s_win)
+t_mytriangle	*ft_get_triangles_array(t_mywin *s_win, t_mypolygon *polygon_lst)
 {
 	t_mytriangle	*triangle_array;
 	int				nbr_triangle;
 	int				i;
+	//t_mypolygon		*polygon_lst;
 
-	nbr_triangle = ft_get_nbr_of_triangle(s_win->polygon_lst);
+	polygon_lst = s_win->polygon_lst;
+
+	nbr_triangle = ft_get_nbr_of_triangle(polygon_lst);
 	triangle_array = (t_mytriangle*)malloc(sizeof(t_mytriangle) * nbr_triangle);
 	i = -1;
 	while (++i < nbr_triangle)
 	{
-		triangle_array[i] = ft_get_the_next_triangle(s_win, i);
+		triangle_array[i] = ft_get_the_next_triangle(i, polygon_lst);
 	}
 	return (triangle_array);
 }
