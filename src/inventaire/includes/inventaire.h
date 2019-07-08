@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 17:27:59 by naali             #+#    #+#             */
-/*   Updated: 2019/07/05 13:28:50 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/08 07:56:34 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,18 @@ struct				s_joueurs
 	float			sensi;
 };
 
-void			inventaire_init_weapons(t_inventaire *inv);
-void			init_inventaire_texture(t_win *win);
-void			print_inventory(t_win *wn);
+/* INIT */
+void		inventaire_init_weapons(t_inventaire *inv);
+void		init_inventaire_texture(t_win *win);
+void		print_inventory(t_win *wn, t_joueurs *j, int selected);
 void		print_text_with_ariel_font(t_win *wn, char *s, \
-									   SDL_Color color, SDL_Rect position);
+										SDL_Color color, SDL_Rect position);
+
+/* Print ON Render */
+int			print_weapo_list(t_win *wn, t_joueurs *j, int *selected);
+void		print_conso_list(t_win *wn, t_joueurs *j, int selected, int pos);
+void		print_items_name(t_win *wn, char *name, int pos, int isselected);
+void		choose_item_color(SDL_Color *color, int isselected);
+void		print_items_qty(t_win *wn, char *qty, int pos, int isselected);// Use ft_itoa(qty)
 
 #endif

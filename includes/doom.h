@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/05 10:49:57 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/08 08:41:59 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ typedef struct		s_win
 	t_map			*map;
 	t_elem			*elem;
 	t_joueur		*player;
+	struct s_joueurs	*joueur;
 	t_cloudy		*cloud;
 	t_menu			*menu;
 	t_mut			*mutex;

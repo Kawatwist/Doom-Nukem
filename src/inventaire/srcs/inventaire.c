@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 10:37:37 by naali             #+#    #+#             */
-/*   Updated: 2019/07/08 06:31:29 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/08 08:28:02 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,11 @@ static void		ft_init_inventaire_pos(t_win *wn, SDL_Rect *src, SDL_Rect *dst)
 	src->h = 1080;
 	dst->x = 0;
 	dst->y = 0;
-	dst->w = wn->xscreen;// recuperer taille de fenetre
-	dst->h = wn->yscreen;// recuperer taille de fenetre
+	dst->w = wn->xscreen;
+	dst->h = wn->yscreen;
 }
 
-static void		ft_init_itemsname_pos(t_win *wn, SDL_Rect *dst, int pos, int size)
-{
-	dst->x = (wn->xscreen / 77);
-	dst->y = (wn->yscreen / 18) + (pos * 30);
-	dst->w = 10 * size;// recuperer taille de fenetre
-	dst->h = 25;// recuperer taille de fenetre
-}
-
-static void		choose_name_color(SDL_Color *color, int isselected)
+void			choose_item_color(SDL_Color *color, int isselected)
 {
 	if (isselected == 1)
 	{
@@ -57,29 +49,21 @@ static void		choose_name_color(SDL_Color *color, int isselected)
 	}
 }
 
-static void		print_test_names(t_win *wn, char *name, int pos, int isselected)
+void		print_inventory(t_win *wn, t_joueurs *j, int selected)
 {
-	SDL_Rect	dst;
-	SDL_Color	color;
-
-	choose_name_color(&color, isselected);
-	ft_init_itemsname_pos(wn, &dst, pos, ft_strlen(name));
-	print_text_with_ariel_font(wn, name, color, dst);
-}
-
-void		print_inventory(t_win *wn)
-{
+	int			pos;
 	SDL_Rect	src;
 	SDL_Rect	dst;
 	SDL_Texture	*txt;
 
+	pos = 0;
 	txt = findtexture(wn, "game", "inventaire", "bg");
 	ft_init_inventaire_pos(wn, &src, &dst);
-	SDL_SetTextureBlendMode(txt, (SDL_BLENDMODE_MOD));
+	SDL_SetTextureBlendMode(txt, SDL_BLENDMODE_MOD);
 	SDL_SetRenderTarget(wn->rend, txt);
 	SDL_RenderCopy(wn->rend, txt, &src, &dst);
-	/* Print inventaire ICI */
-	print_test_names(wn, "Salut", 0, 1);
-	print_test_names(wn, "Comment", 1, 0);
-	print_test_names(wn, "vas ?", 2, 0);
+	/* Print inventaire DEBUT */
+	pos = print_weapo_list(wn, j, &selected);
+	print_conso_list(wn, j, selected, pos);
+	/* Print inventaire FIN */
 }
