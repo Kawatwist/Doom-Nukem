@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:58:52 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 22:18:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 22:23:34 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,14 +336,11 @@ t_mytriangle	ft_get_the_next_triangle(int triangle_nbr, t_mypolygon *polygon_lst
 	return (triangle);
 }
 
-t_mytriangle	*ft_get_triangles_array(t_mywin *s_win, t_mypolygon *polygon_lst)
+t_mytriangle	*ft_get_triangles_array(t_mypolygon *polygon_lst)
 {
 	t_mytriangle	*triangle_array;
 	int				nbr_triangle;
 	int				i;
-	//t_mypolygon		*polygon_lst;
-
-	polygon_lst = s_win->polygon_lst;
 
 	nbr_triangle = ft_get_nbr_of_triangle(polygon_lst);
 	triangle_array = (t_mytriangle*)malloc(sizeof(t_mytriangle) * nbr_triangle);
