@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 10:37:37 by naali             #+#    #+#             */
-/*   Updated: 2019/07/08 08:28:02 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/08 10:48:02 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ void		init_inventaire_texture(t_win *wn)
 {
 	wn->load = ft_strdup("./texture/inventaire/background_copy.tga");
 	load_texture(wn, "game", "inventaire", "bg");
+/* 	wn->load = ft_strdup("./texture/inventaire/font_background.tga"); */
+/* 	load_texture(wn, "game", "inventaire", "ft_bg"); */
+/* 	wn->load = ft_strdup("./texture/inventaire/board_background.tga"); */
+/* 	load_texture(wn, "game", "inventaire", "bd_bg"); */
 }
 
 static void		ft_init_inventaire_pos(t_win *wn, SDL_Rect *src, SDL_Rect *dst)
@@ -57,11 +61,19 @@ void		print_inventory(t_win *wn, t_joueurs *j, int selected)
 	SDL_Texture	*txt;
 
 	pos = 0;
+	txt = NULL;
 	txt = findtexture(wn, "game", "inventaire", "bg");
 	ft_init_inventaire_pos(wn, &src, &dst);
 	SDL_SetTextureBlendMode(txt, SDL_BLENDMODE_MOD);
 	SDL_SetRenderTarget(wn->rend, txt);
 	SDL_RenderCopy(wn->rend, txt, &src, &dst);
+
+/* 	txt = findtexture(wn, "game", "inventaire", "bd_bg"); */
+/* 	ft_init_inventaire_pos(wn, &src, &dst); */
+/* 	SDL_SetTextureBlendMode(txt, SDL_BLENDMODE_MOD); */
+/* 	SDL_SetRenderTarget(wn->rend, txt); */
+/* 	SDL_RenderCopy(wn->rend, txt, &src, &dst); */
+
 	/* Print inventaire DEBUT */
 	pos = print_weapo_list(wn, j, &selected);
 	print_conso_list(wn, j, selected, pos);

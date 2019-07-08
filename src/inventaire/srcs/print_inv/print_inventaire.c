@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 07:32:26 by naali             #+#    #+#             */
-/*   Updated: 2019/07/08 08:21:10 by naali            ###   ########.fr       */
+/*   Updated: 2019/07/08 10:53:02 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int				print_weapo_list(t_win *wn, t_joueurs *j, int *selected)
 		print_items_name(wn, tmp->name, i, ((*selected == i) ? 1 : 0));
 		print_items_qty(wn, ft_itoa(tmp->munition), i, ((*selected == i) ? 1 : 0));
 		tmp = tmp->next;
-		*selected = (*selected == i) ? -1 : *selected;
+		if (*selected == i)
+			*selected = -1;
 		i++;
 	}
 	return (i);
