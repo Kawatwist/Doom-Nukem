@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 22:02:02 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 22:04:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void			ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn);
 int				ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle *clipped_triangle, t_mytriangle *triangle);
 
 //FILE USER INPUT
-void			ft_input_event_check(t_win *wn, t_myraster *raster, t_mywin *s_win);
+void			ft_input_event_check(t_win *wn, t_myraster *raster);
 void			ft_mouse_evnet_check(t_win *wn, t_myraster *raster);
 //FILE GET TRINAGLES
 t_mytriangle	*ft_get_triangle(void);

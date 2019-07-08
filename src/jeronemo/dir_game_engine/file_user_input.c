@@ -6,16 +6,15 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 12:11:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 22:04:15 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
-void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_myraster *raster, t_mywin *s_win)
+void	ft_keyboard_event_check(t_win *wn, Uint8 *old, t_myraster *raster)
 {
 	(void)old;
-	(void)s_win;
 	if (wn->state[SDL_SCANCODE_ESCAPE])
 	{
 		raster->quit = TRUE;
@@ -108,13 +107,13 @@ wn->interface == RGAME
 ? SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) : 0;
 }*/
 
-void	ft_input_event_check(t_win *wn, t_myraster *raster, t_mywin *s_win)
+void	ft_input_event_check(t_win *wn, t_myraster *raster)
 {
 	SDL_PollEvent(&(wn->ev));
 	wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
 	wn->input->oldmouse = wn->input->mouse;
 	wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
-	ft_keyboard_event_check(wn, raster->old, raster, s_win);
+	ft_keyboard_event_check(wn, raster->old, raster);
 	ft_mouse_event_check(wn, raster);
 	//	mouseconfig(wn);
 }
