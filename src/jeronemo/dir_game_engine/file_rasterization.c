@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 11:53:07 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:38:05 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,15 +338,15 @@ void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangl
 	while (triangle_lst_2 != NULL)
 	{
 		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
-		ft_fill_triangle_shade((triangle_lst_2->vertice[0]), (triangle_lst_2->vertice[1]), (triangle_lst_2->vertice[2]), s_win, triangle_lst_2->shade);
+		ft_fill_triangle_shade((triangle_lst_2->vertice[0]), (triangle_lst_2->vertice[1]), (triangle_lst_2->vertice[2]), wn, triangle_lst_2->shade);
 		//DRAW MESH
 		if (triangle_lst_2->ft_color == 'r')
-			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
+			SDL_SetRenderDrawColor(wn->rend, 255, 0, 0, 255);
 		else if (triangle_lst_2->ft_color == 'g')
-			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 255, 0, 255);
+			SDL_SetRenderDrawColor(wn->rend, 0, 255, 0, 255);
 		else if (triangle_lst_2->ft_color == 'b')
-			SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 0, 0, 255, 255);
-		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), s_win);
+			SDL_SetRenderDrawColor(wn->rend, 0, 0, 255, 255);
+		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
 		triangle_lst_2 = triangle_lst_2->next;
 	}
 	triangle_lst_2 = keep;

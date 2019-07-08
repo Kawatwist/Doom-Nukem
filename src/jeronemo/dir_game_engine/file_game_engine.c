@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 14:31:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:41:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	ft_launch_bsp_tree(s_win, wn);
 	triangle_array = ft_get_triangles_array(s_win);
 	int max = ft_get_nbr_of_triangle(s_win);
-	SDL_Init(SDL_INIT_EVERYTHING);
-	ft_launch_window(s_win, wn);
-	s_win->interface = 0;
+	/* SDL_Init(SDL_INIT_EVERYTHING); */
+	/* ft_launch_window(s_win, wn); */
+	/* s_win->interface = 0; */
 	ft_init_rasterization(wn, &raster);
 	/* ft_display_triangle_array(s_win, triangle_array, max); */
 	while (!raster.quit)
@@ -58,9 +58,9 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 		ft_input_event_check(wn, &raster, s_win);
 		if (raster.modif == 1)
 		{
-		ft_clear_window(s_win);
+		ft_clear_window(wn);
 		ft_update_raster(s_win, &raster, triangle_array, max, wn);
-		SDL_RenderPresent(s_win->renderer[0]);
+		SDL_RenderPresent(wn->rend);
 		SDL_Delay(30);
 		raster.modif = 0;
 		}

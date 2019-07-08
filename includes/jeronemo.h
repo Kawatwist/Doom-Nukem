@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 15:06:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:40:39 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,6 @@
 # define WHITE 255, 255, 255
 
 
-
-typedef struct	s_mytriangle
-{
-	t_myvec					vertice[3];
-	struct s_mytriangle		*next;
-	char		ft_color;
-	float		shade;
-}				t_mytriangle;
-
 typedef struct		s_mycolor
 {
 	int				rrr;
@@ -51,25 +42,38 @@ typedef struct		s_mycolor
 	int				bbb;
 }					t_mycolor;
 
-typedef struct		s_mywall
+typedef struct	s_mytriangle
 {
-	int				x_a;
-	int				y_a;
-	int				x_b;
-	int				y_b;
-	int				height;
-	int				texture;
-	void			*next;
-	int				current_wall;
-}					t_mywall;
+	t_myvec					vertice[3];
+	struct s_mytriangle		*next;
+	char					ft_color;
+	float					shade;
+}							t_mytriangle;
 
+typedef struct			s_mypolygon
+{
+	int					obj_indice;
+	t_myvec				*vertex_lst;             //liste des vertex
+	t_myvec				normal;                  //la normal au polygon
+	int					number_of_vertex;        //nombre de vertex
+	int					number_of_indices;       //nombre d'indices
+	int					*indices;                //la listes des indices apres triangulasisation
+	struct s_mypolygon	*next;                   //le prochain noeud dans la liste
+}						t_mypolygon;
+
+typedef struct				s_mywin
+{
+	t_mypolygon				*polygon_lst;
+	/* SDL_Window				**window; */
+	/* SDL_Renderer			**renderer; */
+	int						interface;
+}							t_mywin;
 
 typedef struct			s_xyz_point
 {
 	double				a;
 	double				b;
 }						t_xyz_point;
-
 
 typedef struct			s_myputtheline
 {
@@ -91,43 +95,13 @@ typedef struct			s_myputtheline
 	float				le_z2;
 }						t_myputtheline;
 
-
-typedef enum		e_window
-{
-	J_EDITOR = 0,
-	J_BINARY_TREE = 0,
-}					tj_window;
-
-
-//indice allow you to build multiple triangles using share vectices
-typedef struct			s_mypolygon
-{
-	int					obj_indice;
-	t_myvec				*vertex_lst;             //liste des vertex
-	t_myvec				normal;                  //la normal au polygon
-	int					number_of_vertex;        //nombre de vertex
-	int					number_of_indices;       //nombre d'indices
-	int					*indices;                //la listes des indices apres triangulasisation
-	struct s_mypolygon	*next;                   //le prochain noeud dans la liste
-}						t_mypolygon;
-
-typedef struct				s_mywin
-{
-	t_mypolygon				*polygon_lst;
-	SDL_Window				**window;
-	SDL_Renderer			**renderer;
-	int						interface;
-}							t_mywin;
-
-void		ft_launch_window(t_mywin *s_win, t_win *wn);
-void		ft_clear_window(t_mywin *s_win);
-void		ft_draw_line(t_mywin *s_win, t_myputtheline *s_line);
+/* void		ft_launch_window(t_mywin *s_win, t_win *wn); */
+void		ft_clear_window(t_win *wn);
+void		ft_draw_line(t_win *wn, t_myputtheline *s_line);
 t_mycolor	ft_setcolor(int rrr, int ggg, int bbb);
 void		ft_quit(char *txt, t_mywin *s_win);
 void		ft_launch_rasterization(t_mywin *s_win, t_win *wn);
 void		ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
-
-
 
 float		ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec		ft_cross_product(t_myvec v1, t_myvec v2);
@@ -138,9 +112,26 @@ float		ft_atoi_comma(const char *str);
 
 int			ft_get_nbr_of_triangle(t_mywin *s_win);
 t_mytriangle *ft_get_triangles_array(t_mywin *s_win);
-void		ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
+void		ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn);
 
 
+/* typedef enum		e_window */
+/* { */
+/* 	J_EDITOR = 0, */
+/* 	J_BINARY_TREE = 0, */
+/* }					tj_window; */
+
+/* typedef struct		s_mywall */
+/* { */
+/* 	int				x_a; */
+/* 	int				y_a; */
+/* 	int				x_b; */
+/* 	int				y_b; */
+/* 	int				height; */
+/* 	int				texture; */
+/* 	void			*next; */
+/* 	int				current_wall; */
+/* }					t_mywall; */
 
 /* typedef enum		s_myprojection */
 /* { */

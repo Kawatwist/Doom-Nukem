@@ -6,28 +6,28 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 10:35:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/07 17:09:35 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/08 15:35:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <jeronemo.h>
 
-void			ft_case_one(t_mywin *s_win, t_myputtheline *s_line)
+void			ft_case_one(t_win *wn, t_myputtheline *s_line)
 {
 	while (s_line->i <= s_line->d_x)
 	{
 		(s_line->i)++;
-		SDL_RenderDrawPoint(s_win->renderer[s_win->interface], (int)s_line->deux.a,
+		SDL_RenderDrawPoint(wn->rend, (int)s_line->deux.a,
 (int)s_line->deux.b);
 		s_line->deux.a += s_line->x_incr;
 	}
 }
 
-void			ft_case_two(t_mywin *s_win, t_myputtheline *s_line)
+void			ft_case_two(t_win *wn, t_myputtheline *s_line)
 {
 	while (s_line->i <= s_line->d_x)
 	{
-		SDL_RenderDrawPoint(s_win->renderer[s_win->interface], (int)s_line->deux.a,
+		SDL_RenderDrawPoint(wn->rend, (int)s_line->deux.a,
 (int)s_line->deux.b);
 		(s_line->i)++;
 		s_line->deux.a += s_line->x_incr;
@@ -40,23 +40,23 @@ void			ft_case_two(t_mywin *s_win, t_myputtheline *s_line)
 	}
 }
 
-void			ft_case_three(t_mywin *s_win, t_myputtheline *s_line)
+void			ft_case_three(t_win *wn, t_myputtheline *s_line)
 {
 	while (s_line->i <= s_line->d_x)
 	{
 		(s_line->i)++;
-		SDL_RenderDrawPoint(s_win->renderer[s_win->interface], (int)s_line->deux.a,
+		SDL_RenderDrawPoint(wn->rend, (int)s_line->deux.a,
 (int)s_line->deux.b);
 		s_line->deux.a += s_line->x_incr;
 		s_line->deux.b += s_line->y_incr;
 	}
 }
 
-void			ft_case_four(t_mywin *s_win, t_myputtheline *s_line)
+void			ft_case_four(t_win *wn, t_myputtheline *s_line)
 {
 	while (s_line->i <= s_line->d_y)
 	{
-		SDL_RenderDrawPoint(s_win->renderer[s_win->interface], (int)s_line->deux.a,
+		SDL_RenderDrawPoint(wn->rend, (int)s_line->deux.a,
 (int)s_line->deux.b);
 		(s_line->i)++;
 		s_line->deux.b += s_line->y_incr;
@@ -69,18 +69,18 @@ void			ft_case_four(t_mywin *s_win, t_myputtheline *s_line)
 	}
 }
 
-void			ft_case_five(t_mywin *s_win, t_myputtheline *s_line)
+void			ft_case_five(t_win *wn, t_myputtheline *s_line)
 {
 	while (s_line->i <= s_line->d_y)
 	{
 		(s_line->i)++;
-		SDL_RenderDrawPoint(s_win->renderer[s_win->interface], (int)s_line->deux.a,
+		SDL_RenderDrawPoint(wn->rend, (int)s_line->deux.a,
 (int)s_line->deux.b);
 		s_line->deux.b += s_line->y_incr;
 	}
 }
 
-void			ft_draw_line(t_mywin *s_win, t_myputtheline *s_line)
+void			ft_draw_line(t_win *wn, t_myputtheline *s_line)
 {
 	s_line->ex = abs((int)s_line->un.a - (int)s_line->deux.a);
 	s_line->ey = abs((int)s_line->un.b - (int)s_line->deux.b);
@@ -96,14 +96,14 @@ void			ft_draw_line(t_mywin *s_win, t_myputtheline *s_line)
 	if (s_line->deux.b > s_line->un.b)
 		s_line->y_incr = -1;
 	if (s_line->dy == 0)
-		ft_case_one(s_win, s_line);
+		ft_case_one(wn, s_line);
 	if (s_line->d_x > s_line->d_y)
-		ft_case_two(s_win, s_line);
+		ft_case_two(wn, s_line);
 	if (s_line->dx == s_line->dy)
-		ft_case_three(s_win, s_line);
+		ft_case_three(wn, s_line);
 	if (s_line->d_x < s_line->d_y)
-		ft_case_four(s_win, s_line);
+		ft_case_four(wn, s_line);
 	if (s_line->dx == 0)
-		ft_case_five(s_win, s_line);
+		ft_case_five(wn, s_line);
 }
 
