@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 15:41:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:42:40 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ void	ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->theta_camera = 0;
 	raster->pitch = 0;
 	raster->leave_mouse = 0;
-
 	raster->v_camera.x = 0;
 	raster->v_camera.y = 0;
 	raster->v_camera.z = 0;
-
 	raster->avancer = 0;
 	raster->reculer = 0;
 	raster->translate_left = 0;
@@ -39,7 +37,6 @@ void	ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->quit = 0;
 }
 
-
 void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 {
 	t_myraster			raster;
@@ -48,9 +45,6 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 	ft_launch_bsp_tree(s_win, wn);
 	triangle_array = ft_get_triangles_array(s_win);
 	int max = ft_get_nbr_of_triangle(s_win);
-	/* SDL_Init(SDL_INIT_EVERYTHING); */
-	/* ft_launch_window(s_win, wn); */
-	/* s_win->interface = 0; */
 	ft_init_rasterization(wn, &raster);
 	/* ft_display_triangle_array(s_win, triangle_array, max); */
 	while (!raster.quit)
@@ -58,11 +52,11 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 		ft_input_event_check(wn, &raster, s_win);
 		if (raster.modif == 1)
 		{
-		ft_clear_window(wn);
-		ft_update_raster(s_win, &raster, triangle_array, max, wn);
-		SDL_RenderPresent(wn->rend);
-		SDL_Delay(30);
-		raster.modif = 0;
+			ft_clear_window(wn);
+			ft_update_raster(s_win, &raster, triangle_array, max, wn);
+			SDL_RenderPresent(wn->rend);
+			SDL_Delay(30);
+			raster.modif = 0;
 		}
 		setkeyboard(raster.old, wn->state);
 	}
