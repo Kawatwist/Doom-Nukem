@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 21:42:47 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 21:59:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 
 	polygon_lst = NULL;
 	ft_launch_bsp_tree(s_win, polygon_lst);
+	//s_win->polygon_lst = polygon_lst;
 	triangle_array = ft_get_triangles_array(s_win);
-	int max = ft_get_nbr_of_triangle(s_win);
+	int max = ft_get_nbr_of_triangle(s_win->polygon_lst);
 	ft_init_rasterization(wn, &raster);
 	/* ft_display_triangle_array(s_win, triangle_array, max); */
 	while (!raster.quit)

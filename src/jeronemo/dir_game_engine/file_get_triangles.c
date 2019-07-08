@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:58:52 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 12:55:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 21:59:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void			ft_display_triangle_array(t_mywin *s_win, t_mytriangle *triangle)
 	int		j;
 
 	i = 0;
-	stop = ft_get_nbr_of_triangle(s_win);
+	stop = ft_get_nbr_of_triangle(s_win->polygon_lst);
 	while (i < stop)
 	{
 		j = -1;
@@ -216,13 +216,14 @@ void			ft_display_triangle_array(t_mywin *s_win, t_mytriangle *triangle)
 	}
 }
 
-int				ft_get_nbr_of_triangle(t_mywin *s_win)
+int				ft_get_nbr_of_triangle(t_mypolygon *polygon_lst)
 {
 	int				nbr_indices;
 	t_mypolygon		*polygon;
 	t_mypolygon		*keep;
 
-	polygon = s_win->polygon_lst;
+	polygon = polygon_lst;
+	//polygon = s_win->polygon_lst;
 	keep = polygon;
 	nbr_indices = 0;
 	while (polygon != NULL)
@@ -346,7 +347,7 @@ t_mytriangle	*ft_get_triangles_array(t_mywin *s_win)
 	int				nbr_triangle;
 	int				i;
 
-	nbr_triangle = ft_get_nbr_of_triangle(s_win);
+	nbr_triangle = ft_get_nbr_of_triangle(s_win->polygon_lst);
 	triangle_array = (t_mytriangle*)malloc(sizeof(t_mytriangle) * nbr_triangle);
 	i = -1;
 	while (++i < nbr_triangle)
