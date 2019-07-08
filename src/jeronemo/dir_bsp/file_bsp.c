@@ -6,17 +6,16 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:46:33 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 14:46:52 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 21:39:15 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_bsp.h>
 
 
-void	ft_launch_bsp_tree(t_mywin *s_win, t_win *wn)
+void	ft_launch_bsp_tree(t_mywin *s_win)
 {
 	printf("BSP tree launcher\n");
-	(void)wn;
 
 	/* t_mynode	s_node; */
 
