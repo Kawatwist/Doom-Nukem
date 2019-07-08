@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 13:18:46 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:43:59 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,7 @@
 # define TURQUOISE 0, 255, 255
 # define WHITE 255, 255, 255
 
-typedef struct		s_mypoint
-{
-	int				x;
-	int				y;
-	int				set;
-}					t_mypoint;
 
-/* typedef enum		s_myprojection */
-/* { */
-	/* orthographique, */
-	/* perspective, */
-/* }					t_myprojection; */
 
 typedef struct	s_mytriangle
 {
@@ -55,25 +44,6 @@ typedef struct	s_mytriangle
 	float		shade;
 }				t_mytriangle;
 
-typedef struct	s_mydisplay
-{
-	char		projection;
-	char		culling_face;
-	char		triangle;
-	char		triangle_normal;
-	char		mesh;
-	char		mesh_normal;
-	char		panel;
-	char		color;
-	char		shade;
-}				t_mydisplay;
-
-typedef struct		s_mypointf
-{
-	double				x;
-	double				y;
-}					t_mypointf;
-
 typedef struct		s_mycolor
 {
 	int				rrr;
@@ -81,45 +51,6 @@ typedef struct		s_mycolor
 	int				bbb;
 }					t_mycolor;
 
-/* typedef struct		s_mylocalisation_box */
-/* { */
-	/* int				x; */
-	/* int				y; */
-	/* int				width; */
-	/* int				height; */
-/* }					t_mylocalisation_box; */
-
-/* typedef enum		e_wall_height */
-/* { */
-	/* down = 4, */
-	/* middle = 2, */
-	/* up_to_ceilling = 3, */
-/* }					t_wall_height; */
-
-/* typedef enum		e_wall_texture */
-/* { */
-	/* file_1 = 1, */
-	/* file_2 = 2, */
-	/* file_3 = 3, */
-/* }					t_wall_texture; */
-
-typedef struct		s_mysquare
-{
-	int						x;
-	int				y;
-	int				width;
-	int				height;
-	t_mycolor		color;
-}					t_mysquare;
-
-typedef struct		s_mywrite
-{
-	t_mycolor		color;
-	TTF_Font		*font;
-	int				x;
-	int				y;
-	char			*str;
-}					t_mywrite;
 
 typedef struct		s_mywall
 {
@@ -133,14 +64,6 @@ typedef struct		s_mywall
 	int				current_wall;
 }					t_mywall;
 
-/* typedef struct		s_mycross */
-/* { */
-	/* int				x; */
-	/* int				y; */
-	/* int				size; */
-	/* int				thickness; */
-	/* t_mycolor		color; */
-/* }					t_mycross; */
 
 typedef struct		s_mygrid
 {
@@ -159,21 +82,6 @@ typedef struct			s_xyz_point
 	double				b;
 }						t_xyz_point;
 
-/* typedef struct	s_mypan */
-/* { */
-/* 	int				marge; */
-/* 	int				marge_text; */
-/* 	int				indent_text; */
-/* 	int				width; */
-/* 	int				height; */
-/* 	int				box_width; */
-/* 	int				box_height; */
-/* 	int				i; */
-/* 	int				j; */
-/* 	t_mycolor		s_color; */
-/* 	t_mysquare		s_square; */
-/* 	t_mywrite		s_write; */
-/* }					t_mypan; */
 
 typedef struct			s_myputtheline
 {
@@ -195,26 +103,12 @@ typedef struct			s_myputtheline
 	float				le_z2;
 }						t_myputtheline;
 
-typedef struct			s_mycurrent_wall
-{
-	t_mypoint			first_point;
-	t_mypoint			seconde_point;
-}						t_mycurrent_wall;
 
 typedef enum		e_window
 {
 	J_EDITOR = 0,
 	J_BINARY_TREE = 0,
 }					tj_window;
-
-/* typedef struct				s_mynode */
-/* { */
-/* 	t_mywall				*wall; */
-/* 	struct s_mynode				*front; */
-/* 	struct s_mynode				*back; */
-/* 	int						is_leaf; */
-/* 	int						is_solid; */
-/* }							t_mynode; */
 
 typedef enum			e_myclass
 {
@@ -253,14 +147,9 @@ typedef struct				s_mywin
 	SDL_Window				**window;
 	SDL_Renderer			**renderer;
 	int						interface;
-	t_mygrid				*s_localisation_grid;
+	/* t_mygrid				*s_localisation_grid; */
 	t_mywall				*lst_wall;
 	tj_window				current_window;
-
-
-
-
-
 //	SDL_Window				*window[50]; //a mallocer par le nombre d'inte
 //	SDL_Renderer			*renderer[50];
 	/* t_mylocalisation_box	*s_localisation_box; */
@@ -272,13 +161,6 @@ typedef struct				s_mywin
 	/* t_mycurrent_wall		current_wall; */
 }							t_mywin;
 
-/* typedef struct			s_mykeep */
-/* { */
-/* 	t_mypolygon			*polygon; */
-/* 	t_myvec				*vec; */
-/* }						t_mykeep; */
-
-
 void		ft_launch_window(t_mywin *s_win, t_win *wn);
 void		ft_clear_window(t_mywin *s_win);
 void		ft_draw_line(t_mywin *s_win, t_myputtheline *s_line);
@@ -286,6 +168,9 @@ t_mycolor	ft_setcolor(int rrr, int ggg, int bbb);
 void		ft_quit(char *txt, t_mywin *s_win);
 void		ft_launch_rasterization(t_mywin *s_win, t_win *wn);
 void		ft_launch_bsp_tree(t_mywin *s_win, t_win *wn);
+
+
+
 float		ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec		ft_cross_product(t_myvec v1, t_myvec v2);
 t_myvec		ft_vector_from_two_points(t_myvec v2, t_myvec v1);
@@ -296,6 +181,122 @@ float		ft_atoi_comma(const char *str);
 int			ft_get_nbr_of_triangle(t_mywin *s_win);
 t_mytriangle *ft_get_triangles_array(t_mywin *s_win);
 void		ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_mywin *s_win);
+
+
+
+/* typedef enum		s_myprojection */
+/* { */
+	/* orthographique, */
+	/* perspective, */
+/* }					t_myprojection; */
+
+
+/* typedef struct	s_mydisplay */
+/* { */
+/* 	char		projection; */
+/* 	char		culling_face; */
+/* 	char		triangle; */
+/* 	char		triangle_normal; */
+/* 	char		mesh; */
+/* 	char		mesh_normal; */
+/* 	char		panel; */
+/* 	char		color; */
+/* 	char		shade; */
+/* }				t_mydisplay; */
+
+
+/* typedef struct		s_mylocalisation_box */
+/* { */
+	/* int				x; */
+	/* int				y; */
+	/* int				width; */
+	/* int				height; */
+/* }					t_mylocalisation_box; */
+
+/* typedef enum		e_wall_height */
+/* { */
+	/* down = 4, */
+	/* middle = 2, */
+	/* up_to_ceilling = 3, */
+/* }					t_wall_height; */
+
+/* typedef enum		e_wall_texture */
+/* { */
+	/* file_1 = 1, */
+	/* file_2 = 2, */
+	/* file_3 = 3, */
+/* }					t_wall_texture; */
+
+/* typedef struct		s_mysquare */
+/* { */
+/* 	int						x; */
+/* 	int				y; */
+/* 	int				width; */
+/* 	int				height; */
+/* 	t_mycolor		color; */
+/* }					t_mysquare; */
+
+/* typedef struct		s_mywrite */
+/* { */
+/* 	t_mycolor		color; */
+/* 	TTF_Font		*font; */
+/* 	int				x; */
+/* 	int				y; */
+/* 	char			*str; */
+/* }					t_mywrite; */
+
+
+/* typedef struct		s_mycross */
+/* { */
+	/* int				x; */
+	/* int				y; */
+	/* int				size; */
+	/* int				thickness; */
+	/* t_mycolor		color; */
+/* }					t_mycross; */
+
+
+/* typedef struct	s_mypan */
+/* { */
+/* 	int				marge; */
+/* 	int				marge_text; */
+/* 	int				indent_text; */
+/* 	int				width; */
+/* 	int				height; */
+/* 	int				box_width; */
+/* 	int				box_height; */
+/* 	int				i; */
+/* 	int				j; */
+/* 	t_mycolor		s_color; */
+/* 	t_mysquare		s_square; */
+/* 	t_mywrite		s_write; */
+/* }					t_mypan; */
+
+
+/* typedef struct			s_mycurrent_wall */
+/* { */
+/* 	t_mypoint			first_point; */
+/* 	t_mypoint			seconde_point; */
+/* }						t_mycurrent_wall; */
+
+
+/* typedef struct				s_mynode */
+/* { */
+/* 	t_mywall				*wall; */
+/* 	struct s_mynode				*front; */
+/* 	struct s_mynode				*back; */
+/* 	int						is_leaf; */
+/* 	int						is_solid; */
+/* }							t_mynode; */
+
+
+/* typedef struct			s_mykeep */
+/* { */
+/* 	t_mypolygon			*polygon; */
+/* 	t_myvec				*vec; */
+/* }						t_mykeep; */
+
+
 
 
 

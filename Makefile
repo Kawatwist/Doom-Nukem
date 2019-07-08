@@ -102,7 +102,7 @@ SRC += file_clipping.c
 
 #BSP
 SRC += file_bsp.c
-SRC += file_main_bsp.c
+#SRC += file_main_bsp.c
 SRC += file_parser_polygons.c
 SRC += file_process_polygon.c
 SRC += file_test_function.c
