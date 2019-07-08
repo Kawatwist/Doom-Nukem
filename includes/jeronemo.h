@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 16:37:05 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 14:43:59 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:59:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct		s_mycolor
 	int				bbb;
 }					t_mycolor;
 
-
 typedef struct		s_mywall
 {
 	int				x_a;
@@ -63,7 +62,6 @@ typedef struct		s_mywall
 	void			*next;
 	int				current_wall;
 }					t_mywall;
-
 
 typedef struct		s_mygrid
 {
@@ -148,7 +146,7 @@ typedef struct				s_mywin
 	SDL_Renderer			**renderer;
 	int						interface;
 	/* t_mygrid				*s_localisation_grid; */
-	t_mywall				*lst_wall;
+	/* t_mywall				*lst_wall; */
 	tj_window				current_window;
 //	SDL_Window				*window[50]; //a mallocer par le nombre d'inte
 //	SDL_Renderer			*renderer[50];
