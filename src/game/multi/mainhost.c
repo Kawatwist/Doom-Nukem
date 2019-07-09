@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 13:10:05 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:56:51 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	listenclient(t_win *wn, int	user)
 
 static void	inputhost(t_win *wn)
 {
-	// key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MULTI : 0;
+	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MULTI : 0;
 	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? freeserv(wn, (t_server *)wn->serv) : 0;
 	if ((wn->menu->ask & 0x03) == 1 || (wn->menu->ask & 0x03) == 2)
 	{

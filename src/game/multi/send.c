@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 13:57:48 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 16:31:43 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 19:58:47 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,23 @@ static char	*add_user(char *msg, char *user)
 	char	*ret;
 	int		len;
 
-	len = ft_strlen(user) + (ft_strlen(msg) - 4) + 3;
+	if (user != NULL)
+		len = ft_strlen(user) + (ft_strlen(msg) - 4) + 3;
+	else
+		len = (ft_strlen(msg) - 4) + 3;
 	ret = ft_strjoin(";ill", user);						// i = index ll = len;
 	ret[1] = 1;
-	ret[2] = (len & 0xFF00) >> 8;
 	ret[3] = len & 0xFF;
+	ret[2] = (len >> 8) & 0xFF;
+	if (ret[2] == 0)
+		ret[2] = 65;
+	else if (ret[3] == 0)
+		ret[3] = 65;
+	printf("%d || %d\n", ret[2], ret[3]);
 	ret = ft_strjoinfree(ret, " : ", 1);
 	ret = ft_strjoinfree(ret, &msg[4], 1);
 	ret = ft_strjoinfree(ret, ";", 1);
+	printf("RET = %s\n", ret);
 	return (ret);
 }
 
@@ -52,7 +61,7 @@ void		send_msg_from_client(t_win *wn, char *msg)
 	if (((t_client *)wn->client)->username == NULL)
 		getlogin_r(((t_client *)wn->client)->username, 8);
 	msg = add_user(msg, ((t_client *)wn->client)->username);
-	printf("(SERVER)JE VAIS ENVOYER SE MESSAGE AVEC USER : =>|%s|<=\n", msg);
+printf("(SERVER)JE VAIS ENVOYER SE MESSAGE AVEC USER : =>|%s|<=\n", msg);
 	send(((t_client *)wn->client)->sockfd, msg, ft_strlen(msg), 0);
 	printf("Message envoyer !\n");
 }

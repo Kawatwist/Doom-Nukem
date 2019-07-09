@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 13:59:10 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 16:36:44 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 20:01:34 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,21 @@ char		*parse_packet(t_win *wn, char *msg)
 	char	*ret;
 	int		len;
 
-//	if (msg[0] != ';')
-//		return (NULL);
-	printf("%s\n", msg);
+	len = 0;
+	printf("%c=> %d\n", msg[0], msg[0]);
+	printf("%d\n", msg[1]);
+	printf("%d\n", msg[2]);
+	printf("%d\n", msg[3]);
 	if (msg[1] == 1)
 	{
-		len = msg[2] << 8;
-		len += msg[3];
-		ret = ft_strndup(msg, len);
-		free(msg);
-		if (msg[3 + len] != ';')
-			printf("Ohoh ? : %d\n", msg[3 + len]);
+		len = msg[2] != 65 ? (msg[2] << 8) : 0;
+		len += msg[3] != 65 ? (msg[3]) : 0;
+//		printf("Len du msg : %d\n", len);
+		ret = malloc(sizeof(char) * len + 1);
+		ft_memcpy(ret, &msg[4], len);
+		ret[len] = 0;
+//		if (ms[3 + len] != ';')
+//			printf("Ohoh ? : %d\n", msg[3 + len]);
 	}
 	else
 		return (NULL);
