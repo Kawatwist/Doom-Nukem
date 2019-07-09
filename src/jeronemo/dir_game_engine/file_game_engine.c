@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 11:13:09 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:37:38 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,19 @@ void	ft_launch_rasterization(t_win *wn)
 	t_myraster			raster;
 	t_mytriangle		*triangle_array;
 	t_mypolygon			*polygon_lst;
+	int					max;
 
 	polygon_lst = NULL;
-
 	polygon_lst = ft_read_the_polygon_file();
 	ft_launch_bsp_tree(polygon_lst);
-
-
 	triangle_array = ft_get_triangles_array(polygon_lst);
-	int max = ft_get_nbr_of_triangle(polygon_lst);
-
-
+	max = ft_get_nbr_of_triangle(polygon_lst);
 	ft_init_rasterization(wn, &raster);
 	/* ft_display_triangle_array(s_win, triangle_array, max); */
 	while (!raster.quit)
 	{
 		ft_input_event_check(wn, &raster);
-		if (raster.modif == 1)
+		if (raster.modif == 1 && !raster.quit)
 		{
 			ft_clear_window(wn);
 			ft_update_raster(&raster, triangle_array, max, wn);
