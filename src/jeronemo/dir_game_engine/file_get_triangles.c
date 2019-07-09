@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:58:52 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 22:23:34 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:13:14 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,23 +198,23 @@ t_mytriangle	*ft_get_triangle(void)
 
 
 
-void			ft_display_triangle_array(t_mywin *s_win, t_mytriangle *triangle)
-{
-	int		i;
-	int		stop;
-	int		j;
+/* void			ft_display_triangle_array(t_mywin *s_win, t_mytriangle *triangle) */
+/* { */
+/* 	int		i; */
+/* 	int		stop; */
+/* 	int		j; */
 
-	i = 0;
-	stop = ft_get_nbr_of_triangle(s_win->polygon_lst);
-	while (i < stop)
-	{
-		j = -1;
-		while (++j < 3)
-			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle[i].vertice[j].x, triangle[i].vertice[j].y, triangle[i].vertice[j].z);
-		printf("\n");
-		i++;
-	}
-}
+/* 	i = 0; */
+/* 	stop = ft_get_nbr_of_triangle(s_win->polygon_lst); */
+/* 	while (i < stop) */
+/* 	{ */
+/* 		j = -1; */
+/* 		while (++j < 3) */
+/* 			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle[i].vertice[j].x, triangle[i].vertice[j].y, triangle[i].vertice[j].z); */
+/* 		printf("\n"); */
+/* 		i++; */
+/* 	} */
+/* } */
 
 int				ft_get_nbr_of_triangle(t_mypolygon *polygon_lst)
 {

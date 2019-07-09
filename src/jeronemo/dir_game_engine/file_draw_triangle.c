@@ -6,11 +6,12 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 11:54:33 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 15:39:33 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:12:08 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
+#include <header_bresenham.h>
 
 void	ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn)
 {

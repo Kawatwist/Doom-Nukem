@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:57:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 20:38:29 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:09:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h>
+#include <doom.h>
 
 typedef struct		s_mypoint
 {

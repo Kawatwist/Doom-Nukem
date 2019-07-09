@@ -6,11 +6,12 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:59:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 15:37:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:13:48 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
+#include <header_bresenham.h>
 
 void	ft_order_triangle_vertice(t_myvec *v1, t_myvec *v2, t_myvec *v3)
 {

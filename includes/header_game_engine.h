@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 11:05:05 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:11:29 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <jeronemo.h>
+# include <doom.h>
 
 typedef struct				s_myraster
 {
@@ -44,7 +44,7 @@ typedef struct				s_myraster
 
 //FILE GAME ENGINE
 void			ft_launch_rasterization(t_win *wn);
-void			ft_apply_modif(t_mywin *s_win, t_mytriangle *triangle_array);
+/* void			ft_apply_modif(t_mywin *s_win, t_mytriangle *triangle_array); */
 void			ft_init_rasterization(t_win *wn, t_myraster *raster);
 void			ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn);
 //int				ft_get_nbr_of_triangle(t_mywin *s_win);
