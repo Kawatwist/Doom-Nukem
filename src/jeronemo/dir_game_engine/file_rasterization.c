@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 13:59:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:07:18 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,6 @@ t_mytriangle	*ft_get_before(t_mytriangle *head, t_mytriangle *node)
 
 void	ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2)
 {
-	/*	t_mytriangle	*before_node_2;
-		t_mytriangle	*node1;
-
-		node1 = node2->next;
-		before_node_2 = ft_get_before(*head, node2);
-		node2->next = node2->next->next;
-		if (before_node_2 != NULL)
-		before_node_2->next = node1;
-		else
-	 *head = node1;
-	 node1->next = node2;
-	 */
 	t_mytriangle	*bfr;
 	t_mytriangle	*tmp;
 
@@ -81,59 +69,6 @@ void	ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2)
 	}
 }
 
-
-/* void	ft_swap(t_mytriangle *triangle_lst) */
-/* { */
-/* 	/1* t_mytriangle	*swap; *1/ */
-/* int				i; */
-
-/* i = 0; */
-/* swap = NULL; */
-/* swap = (t_mytriangle*)malloc(sizeof(t_mytriangle)); */
-/* swap->shade = triangle_lst->shade; */
-/* while (i++ < 3) */
-/* { */
-/* 	swap->vertice[i].x = triangle_lst->vertice[i].x; */
-/* 	swap->vertice[i].y = triangle_lst->vertice[i].y; */
-/* 	swap->vertice[i].z = triangle_lst->vertice[i].z; */
-/* } */
-/* triangle_lst->shade = triangle_lst->next->shade; */
-/* triangle_lst->vertice[0].x = triangle_lst->next->vertice[0].x; */
-/* triangle_lst->vertice[0].y = triangle_lst->next->vertice[0].y; */
-/* triangle_lst->vertice[0].z = triangle_lst->next->vertice[0].z; */
-/* triangle_lst->vertice[1].x = triangle_lst->next->vertice[1].x; */
-/* triangle_lst->vertice[1].y = triangle_lst->next->vertice[1].y; */
-/* triangle_lst->vertice[1].z = triangle_lst->next->vertice[1].z; */
-/* triangle_lst->vertice[2].x = triangle_lst->next->vertice[2].x; */
-/* triangle_lst->vertice[2].y = triangle_lst->next->vertice[2].y; */
-/* triangle_lst->vertice[2].z = triangle_lst->next->vertice[2].z; */
-
-/* triangle_lst->next->shade = swap->shade; */
-/* triangle_lst->next->vertice[0].x = swap->vertice[0].x; */
-/* triangle_lst->next->vertice[0].y = swap->vertice[0].y; */
-/* triangle_lst->next->vertice[0].z = swap->vertice[0].z; */
-/* triangle_lst->next->vertice[1].x = swap->vertice[1].x; */
-/* triangle_lst->next->vertice[1].y = swap->vertice[1].y; */
-/* triangle_lst->next->vertice[1].z = swap->vertice[1].z; */
-/* triangle_lst->next->vertice[2].x = swap->vertice[2].x; */
-/* triangle_lst->next->vertice[2].y = swap->vertice[2].y; */
-/* triangle_lst->next->vertice[2].z = swap->vertice[2].z; */
-/* } */
-/*
-   static void	nb_mailont(t_mytriangle *lst, int value)
-   {
-   int 			nb = 0;
-   t_mytriangle 	*tmp;
-
-   tmp = lst;
-   while (tmp != NULL)
-   {
-   tmp = tmp->next;
-   nb++;
-   }
-   printf(" JE CHECK %d-> %d\n", value, nb);
-   }
-   */
 t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 {
 	float			z1;
@@ -186,9 +121,10 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
 	light_direction = ft_create_vector(0.5, 0.0, -1.0);
 	light_direction = ft_normalise(light_direction);
+
+
 	point = ft_create_vector(0.0, 0.0, 0.1);
 	plane_norm = ft_create_vector(0.0, 0.0, 1.0);
-
 
 
 	//CALCUL DE MATRIX WORLD
@@ -238,7 +174,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	//ORDER TRIANGLE FROM FAR TO NEAR
 	triangle_lst = ft_order_triangle_z_buffer(triangle_lst);
 
-	//Clip triangle against all four screen edges
+			//CLIP AGAINST SCREEN PLANE
 
 	//1er argument => PLANE
 	t_myvec p_0;
