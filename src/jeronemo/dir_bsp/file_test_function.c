@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 18:04:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 10:28:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 22:20:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h> 
+#include <header_bsp.h> 
 
 void			ft_display_the_polygon_list(t_mypolygon *polygon_lst)
 {

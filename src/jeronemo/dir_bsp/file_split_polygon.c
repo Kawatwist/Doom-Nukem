@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:20:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 10:29:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 12:59:24 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h> 
+#include <header_bsp.h> 
 
 
 int			ft_get_intersect(t_myvec *line_start,

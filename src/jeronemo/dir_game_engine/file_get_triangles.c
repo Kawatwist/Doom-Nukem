@@ -6,14 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:58:52 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/30 10:40:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:13:14 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <header_game_engine.h>
-
-
-
 
 t_mytriangle	*ft_get_triangle(void)
 {
@@ -201,39 +198,37 @@ t_mytriangle	*ft_get_triangle(void)
 
 
 
-void			ft_display_triangle_array(t_mywin *s_win, t_mytriangle *triangle)
-{
-	int		i;
-	int		stop;
-	int		j;
+/* void			ft_display_triangle_array(t_mywin *s_win, t_mytriangle *triangle) */
+/* { */
+/* 	int		i; */
+/* 	int		stop; */
+/* 	int		j; */
 
-	i = 0;
-	stop = ft_get_nbr_of_triangle(s_win);
-	while (i < stop)
-	{
-		j = -1;
-		while (++j < 3)
-			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle[i].vertice[j].x, triangle[i].vertice[j].y, triangle[i].vertice[j].z);
-		printf("\n");
-		i++;
-	}
-}
+/* 	i = 0; */
+/* 	stop = ft_get_nbr_of_triangle(s_win->polygon_lst); */
+/* 	while (i < stop) */
+/* 	{ */
+/* 		j = -1; */
+/* 		while (++j < 3) */
+/* 			printf("Le %d point x=%f\ty=%f\tz=%f\n", j, triangle[i].vertice[j].x, triangle[i].vertice[j].y, triangle[i].vertice[j].z); */
+/* 		printf("\n"); */
+/* 		i++; */
+/* 	} */
+/* } */
 
-int				ft_get_nbr_of_triangle(t_mywin *s_win)
+int				ft_get_nbr_of_triangle(t_mypolygon *polygon_lst)
 {
 	int				nbr_indices;
-	t_mypolygon		*polygon;
 	t_mypolygon		*keep;
 
-	polygon = s_win->polygon_lst;
-	keep = polygon;
+	keep = polygon_lst;
 	nbr_indices = 0;
-	while (polygon != NULL)
+	while (polygon_lst != NULL)
 	{
-		nbr_indices += polygon->number_of_indices;
-		polygon = polygon->next;
+		nbr_indices += polygon_lst->number_of_indices;
+		polygon_lst = polygon_lst->next;
 	}
-	polygon = keep;
+	polygon_lst = keep;
 	return (nbr_indices / 3);
 }
 
@@ -310,51 +305,49 @@ t_mytriangle	ft_get_vertice_of_the_triangle(t_mypolygon *polygon, int indice)
 	return (triangle);
 }
 
-t_mytriangle	ft_get_the_next_triangle(t_mywin *s_win, int triangle_nbr)
+t_mytriangle	ft_get_the_next_triangle(int triangle_nbr, t_mypolygon *polygon_lst)
 {
 	t_mytriangle	triangle;
-	t_mypolygon		*polygon;
 	t_mypolygon		*keep;
 	int				triangle_indice_absolu;
 	int				triangle_indice_relatif;
 
-	polygon = s_win->polygon_lst;
-	keep = polygon;
+	keep = polygon_lst;
 	triangle_indice_absolu = 0;
-	while (polygon != NULL)
+	while (polygon_lst != NULL)
 	{
 		triangle_indice_relatif = 0;
-		while (triangle_indice_relatif < polygon->number_of_indices)
+		while (triangle_indice_relatif < polygon_lst->number_of_indices)
 		{
 			if ((triangle_indice_absolu / 3) == triangle_nbr)
 			{
-				triangle = ft_get_vertice_of_the_triangle(polygon, triangle_indice_relatif);
-				polygon = keep;
+				triangle = ft_get_vertice_of_the_triangle(polygon_lst, triangle_indice_relatif);
+				polygon_lst = keep;
 				return (triangle);
 			}
 			triangle_indice_relatif++;
 			triangle_indice_absolu++;
 		}
-		polygon = polygon->next;
+		polygon_lst = polygon_lst->next;
 	}
-	polygon = keep;
+	polygon_lst = keep;
 	printf("error\n");
 	triangle.vertice[0].x = 0;
 	return (triangle);
 }
 
-t_mytriangle	*ft_get_triangles_array(t_mywin *s_win)
+t_mytriangle	*ft_get_triangles_array(t_mypolygon *polygon_lst)
 {
 	t_mytriangle	*triangle_array;
 	int				nbr_triangle;
 	int				i;
 
-	nbr_triangle = ft_get_nbr_of_triangle(s_win);
+	nbr_triangle = ft_get_nbr_of_triangle(polygon_lst);
 	triangle_array = (t_mytriangle*)malloc(sizeof(t_mytriangle) * nbr_triangle);
 	i = -1;
 	while (++i < nbr_triangle)
 	{
-		triangle_array[i] = ft_get_the_next_triangle(s_win, i);
+		triangle_array[i] = ft_get_the_next_triangle(i, polygon_lst);
 	}
 	return (triangle_array);
 }

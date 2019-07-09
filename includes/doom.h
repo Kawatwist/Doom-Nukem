@@ -42,6 +42,20 @@
 # define DIFFICULTY 1 << 18
 # define SKY2		1 << 20
 
+
+# define WHITE 255, 255, 255
+# define RED 255, 0, 0
+# define GREEN 0, 255, 0
+# define BLUE 0, 0, 255
+# define BLACK 0, 0, 0
+# define PINK 255, 0, 255
+# define YELLOW 255, 255, 0
+# define ORANGE 255, 128, 0
+# define TURQUOISE 0, 255, 255
+# define WHITE 255, 255, 255
+
+
+
 typedef enum		e_bool
 {
 	FALSE = 0,
@@ -212,6 +226,52 @@ typedef struct		s_win
 	void			*serv;
 	void			*client;
 }					t_win;
+
+
+/**
+ ** JERONEMO.H
+ **/
+
+typedef struct				s_mycolor
+{
+	int						rrr;
+	int						ggg;
+	int						bbb;
+}							t_mycolor;
+
+typedef struct				s_mytriangle
+{
+	t_myvec					vertice[3];
+	struct s_mytriangle		*next;
+	char					ft_color;
+	float					shade;
+}							t_mytriangle;
+
+typedef struct				s_mypolygon
+{
+	int						obj_indice;
+	t_myvec					*vertex_lst;             //liste des vertex
+	t_myvec					normal;                  //la normal au polygon
+	int						number_of_vertex;        //nombre de vertex
+	int						number_of_indices;       //nombre d'indices
+	int						*indices;                //la listes des indices apres triangulasisation
+	struct s_mypolygon		*next;                   //le prochain noeud dans la liste
+}							t_mypolygon;
+
+t_mycolor					ft_setcolor(int rrr, int ggg, int bbb);
+void						ft_launch_bsp_tree(t_mypolygon *polygon_lst);
+float						ft_dot_product(t_myvec v1, t_myvec v2);
+t_myvec						ft_cross_product(t_myvec v1, t_myvec v2);
+int							ft_abs(int number);
+float						ft_atoi_comma(const char *str);
+
+//commun
+t_myvec						ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
+
+
+
+
+
 
 /**
  ** GAME
