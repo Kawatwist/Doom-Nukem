@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 13:14:13 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:59:51 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,20 +175,22 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	int				j;
 	int				nbr;
 	t_myvec			point;
-	t_mytriangle	*clipped_triangle = NULL;
+	t_mytriangle	*clipped_triangle;
+	t_myvec			plane_norm;
 
 
-	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
-	t_myvec plane_norm;
+
 	triangle_lst = NULL;
 	triangle_lst_2 = NULL;
-	/* light_direction.x = 0.5; */
-	/* light_direction.y = 0.0; */
-	/* light_direction.z = -1.0; */
-
-
+	clipped_triangle = NULL;
+	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
 	light_direction = ft_create_vector(0.5, 0.0, -1.0);
 	light_direction = ft_normalise(light_direction);
+	point = ft_create_vector(0.0, 0.0, 0.1);
+	plane_norm = ft_create_vector(0.0, 0.0, 1.0);
+
+
+
 	//CALCUL DE MATRIX WORLD
 	ft_set_raster_trans(0, 0, -30, raster);
 	//ft_set_raster_rot_x(raster->ftheta, raster);
@@ -218,13 +220,6 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 			//CAM VIEW
 			triangle = ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);
 			//CLIP AGAINST CAMERA PLANE
-			point.x = 0.0;
-			point.y = 0.0;
-			point.z = 0.1;
-
-			plane_norm.x = 0.0;
-			plane_norm.y = 0.0;
-			plane_norm.z = 1.0;
 			nbr = ft_triangle_clips_again_plan(point, plane_norm, clipped_triangle, &triangle);
 			j = 0;
 			while(j < nbr)
@@ -232,9 +227,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 				//PROJECTION
 				*clipped_triangle = ft_apply_calucul(ft_matrix_multiply_vector, *clipped_triangle, raster->mat_proje);
 				//SCALE
-				clipped_triangle[j].vertice[0] = ft_scale_screen(clipped_triangle[j].vertice[0]);
-				clipped_triangle[j].vertice[1] = ft_scale_screen(clipped_triangle[j].vertice[1]);
-				clipped_triangle[j].vertice[2] = ft_scale_screen(clipped_triangle[j].vertice[2]);
+				clipped_triangle[j]= ft_scale_screen(clipped_triangle[j]);
 				triangle_node = ft_triangle_node_create(clipped_triangle[j]);
 				ft_triangle_add_node(&triangle_lst, triangle_node);
 				j++;

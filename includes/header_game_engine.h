@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 12:47:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:56:59 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ t_mytriangle	*ft_get_triangles_array(t_mypolygon *polygon_lst);
 char			*ft_itoa_comma(float nbr);
 
 //FILE MATRIX TOOL
-t_myvec			ft_scale_screen(t_myvec result);
+/* t_myvec			ft_scale_screen(t_myvec result); */
+t_mytriangle	ft_scale_screen(t_mytriangle triangle);
 float			ft_rad(float angle);
 
 float			**ft_make_matrix_5_5(void);
