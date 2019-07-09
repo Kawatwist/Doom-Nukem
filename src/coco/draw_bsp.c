@@ -102,6 +102,7 @@ t_mytriangle *make_triangles(t_poly *list)
 	t_poly *poly;
 	int i;
 
+	printf("MAKIng TRIANGLES\n");
 	res = NULL;
 	while(list != NULL)
 	{
@@ -124,6 +125,7 @@ t_mytriangle *make_triangles(t_poly *list)
 			new->next = res;
 			res = new;
 		}
+		printf("TRIANGLE\n");
 		list = list->next;
 	}
 	return (res);

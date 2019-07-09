@@ -99,10 +99,12 @@ void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
 		pos_joueur.y = wn->player->y;
 		pos_joueur.z = wn->player->z;
 		poly_list = render_bsp(bsp, &pos_joueur);
+		print_poly_list(poly_list);
 		triangle_array = make_triangles(poly_list);
 		ft_input_event_check(wn, &change, &raster);
 		ft_clear_window(s_win);
 		ft_update_raster(s_win, &raster, triangle_array, 0);
+		free(triangle_array);
 		SDL_RenderPresent(s_win->renderer[s_win->interface]);
 		SDL_Delay(30);
 		setkeyboard(change.old, wn->state);
