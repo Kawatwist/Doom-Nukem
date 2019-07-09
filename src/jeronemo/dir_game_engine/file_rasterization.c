@@ -6,96 +6,37 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 14:07:18 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:16:01 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
-t_mytriangle	*ft_triangle_node_create(t_mytriangle tri)
+void	ft_init_rasterization(t_win *wn, t_myraster *raster)
 {
-	t_mytriangle	*triangle;
-
-	triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle));
-	triangle = memcpy(triangle, &tri, sizeof(t_mytriangle));
-	triangle->next = NULL;
-	return (triangle);
+	SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
+	raster->mat_trans = ft_make_matrix_5_5();
+	raster->mat_rot_x = ft_make_matrix_5_5();
+	raster->mat_rot_y = ft_make_matrix_5_5();
+	raster->mat_rot_z = ft_make_matrix_5_5();
+	raster->mat_proje = ft_make_matrix_5_5();
+	ft_set_pro(raster);
+	raster->ftheta = 0;
+	raster->theta_camera = 0;
+	raster->pitch = 0;
+	raster->leave_mouse = 0;
+	raster->v_camera.x = 0;
+	raster->v_camera.y = 0;
+	raster->v_camera.z = 0;
+	raster->avancer = 0;
+	raster->reculer = 0;
+	raster->translate_left = 0;
+	raster->translate_right = 0;
+	raster->modif = 1;
+	raster->old = (Uint8*)malloc(sizeof(Uint8) * 300);
+	raster->quit = 0;
 }
 
-void			ft_triangle_add_node(t_mytriangle **lst, t_mytriangle *node)
-{
-	if (*lst == NULL)
-	{
-		*lst = node;
-	}
-	else
-	{
-		node->next = *lst;
-		*lst = node;
-	}
-}
-
-
-t_mytriangle	*ft_get_before(t_mytriangle *head, t_mytriangle *node)
-{
-	t_mytriangle	*before;
-
-	before = head;
-	if (before == node)
-		return (NULL);
-	while (before->next && before->next != node && before != NULL)
-		before = before->next;
-	return (before);
-}
-
-void	ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2)
-{
-	t_mytriangle	*bfr;
-	t_mytriangle	*tmp;
-
-	bfr = ft_get_before(*head, node2);
-	tmp = node2->next->next;
-	if (bfr == NULL)
-	{
-		(*head) = node2->next;
-		(*head)->next = node2;
-		node2->next = tmp;
-	}
-	else
-	{
-		bfr->next  = node2->next;
-		bfr->next->next = node2;
-		node2->next= tmp;
-	}
-}
-
-t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
-{
-	float			z1;
-	float			z2;
-	//	int k;
-	t_mytriangle	*keep;
-
-	if (triangle_lst == NULL)
-		return(NULL);
-	keep = triangle_lst;
-	while (triangle_lst->next != NULL)
-	{
-		z1 = (triangle_lst->vertice[0].z + triangle_lst->vertice[1].z + triangle_lst->vertice[2].z) / 3;
-		z2 = (triangle_lst->next->vertice[0].z + triangle_lst->next->vertice[1].z + triangle_lst->next->vertice[2].z) / 3;
-		if (z1 < z2)  ///jai inverser
-		{
-			ft_swap_node_with_the_next(&keep, triangle_lst);
-			triangle_lst = keep;
-		}
-		else
-			triangle_lst = triangle_lst->next;
-		if (triangle_lst == NULL)
-			break;
-	}
-	triangle_lst = keep;
-	return (keep);
-}
 
 void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
 {

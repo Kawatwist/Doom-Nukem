@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 13:56:59 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:13:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ t_mytriangle	*ft_get_triangles_array(t_mypolygon *polygon_lst);
 char			*ft_itoa_comma(float nbr);
 
 //FILE MATRIX TOOL
-/* t_myvec			ft_scale_screen(t_myvec result); */
 t_mytriangle	ft_scale_screen(t_mytriangle triangle);
 float			ft_rad(float angle);
 
@@ -98,5 +97,14 @@ void						ft_clear_window(t_win *wn);
 
 //file apply calcul
 t_mytriangle	ft_apply_calucul(t_myvec function(float**, t_myvec), t_mytriangle triangle, float **matrix);
+
+//FILE LST
+t_mytriangle	*ft_triangle_node_create(t_mytriangle tri);
+void			ft_triangle_add_node(t_mytriangle **lst, t_mytriangle *node);
+t_mytriangle	*ft_get_before(t_mytriangle *head, t_mytriangle *node);
+void			ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2);
+
+//file order z buffer
+t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst);
 
 
