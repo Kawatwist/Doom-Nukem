@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 17:50:04 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 22:26:02 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:22:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,27 +89,27 @@ void		ft_process_polygon(t_mypolygon *polygon_lst)
 	t_mypolygon		*keep;
 	int				i, j;
 
-	printf("\n==>Process polygone lst<==");
+	/* printf("\n==>Process polygone lst<=="); */
 	keep = polygon_lst;
 	i = 0;
 	while (polygon_lst != NULL)
 	{
-		printf("\npolygone n=%d\n", i);
+		/* printf("\npolygone n=%d\n", i); */
 		polygon_lst->normal = ft_calculate_polygon_normal(polygon_lst);
-		printf("the normal result =%f =%f =%f\n",	polygon_lst->vertex_lst->x, polygon_lst->vertex_lst->y, polygon_lst->vertex_lst->z);
+		/* printf("the normal result =%f =%f =%f\n",	polygon_lst->vertex_lst->x, polygon_lst->vertex_lst->y, polygon_lst->vertex_lst->z); */
 		polygon_lst->number_of_vertex = ft_calculate_number_of_vertex(polygon_lst);
-		printf("Number of vertex =%d\n", polygon_lst->number_of_vertex);
+		/* printf("Number of vertex =%d\n", polygon_lst->number_of_vertex); */
 		polygon_lst->number_of_indices = ft_calculate_number_of_indices(polygon_lst);
-		printf("Number of indices =%d\n", polygon_lst->number_of_indices);
+		/* printf("Number of indices =%d\n", polygon_lst->number_of_indices); */
 		polygon_lst->indices = ft_calculate_indices_tab(polygon_lst);
 		j = 0;
-		printf("Les indices : ");
+		/* printf("Les indices : "); */
 		while (j < polygon_lst->number_of_indices)
 		{
-			printf("%d  ", polygon_lst->indices[j]);
+			/* printf("%d  ", polygon_lst->indices[j]); */
 			j++;
 		}
-		printf("\n");
+		/* printf("\n"); */
 		polygon_lst = polygon_lst->next;
 		i++;
 	}
