@@ -6,14 +6,14 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:55:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 14:04:05 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:29:45 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 #include "client.h"
 #include "server.h"
-
+/*
 static char *removemsg(char *msg)
 {
 	char *ret;
@@ -46,7 +46,7 @@ static char	*convmsg(char *msg)
 	}
 	ret[nb] = '\0';
 	return (ret);
-}
+}*/
 
 void		add_chat(t_win *wn, int user)
 {
@@ -57,18 +57,20 @@ void		add_chat(t_win *wn, int user)
 	while (TRUE)
 	{
 		msg = NULL;
+		printf("J'attend un message\n");
 		msg = (wn->serv == NULL ? get_msg_client(wn) : get_msg_server(wn, user));
-		msg = convmsg(msg);
+		printf("J'ai recu un message : %s\n", msg);
+//		msg = convmsg(msg);
 		msg != NULL && wn->serv != NULL ? printf("(SERVER)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
 		msg != NULL && wn->client != NULL ? printf("(CLIENT)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
-		if (ft_strncmp(msg, "/msg", 3))
+		if (msg == NULL || ft_strncmp(msg, "/msg", 3))
 		{
 			free(msg);
 			msg = NULL;
 			dc++;
 		}
-		else
-			msg = removemsg(msg);
+//		else
+//			msg = removemsg(msg);
 		if (dc > 2)
 		{
 			stop_com(wn, user);

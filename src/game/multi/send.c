@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 13:57:48 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/20 13:32:42 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:31:43 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,17 @@ static char	*add_user(char *msg, char *user)
 
 static char	*add_user(char *msg, char *user)
 {
-	char *ret;
+	char	*ret;
+	int		len;
 
-	ret = ft_strjoin("/msg ", user);
-	ret = ft_strjoinfree(ret, ": ", 1);
+	len = ft_strlen(user) + (ft_strlen(msg) - 4) + 3;
+	ret = ft_strjoin(";ill", user);						// i = index ll = len;
+	ret[1] = 1;
+	ret[2] = (len & 0xFF00) >> 8;
+	ret[3] = len & 0xFF;
+	ret = ft_strjoinfree(ret, " : ", 1);
 	ret = ft_strjoinfree(ret, &msg[4], 1);
-	ret = ft_strjoinfree(ret, "\0", 1);
+	ret = ft_strjoinfree(ret, ";", 1);
 	return (ret);
 }
 
@@ -47,6 +52,7 @@ void		send_msg_from_client(t_win *wn, char *msg)
 	if (((t_client *)wn->client)->username == NULL)
 		getlogin_r(((t_client *)wn->client)->username, 8);
 	msg = add_user(msg, ((t_client *)wn->client)->username);
+	printf("(SERVER)JE VAIS ENVOYER SE MESSAGE AVEC USER : =>|%s|<=\n", msg);
 	send(((t_client *)wn->client)->sockfd, msg, ft_strlen(msg), 0);
 	printf("Message envoyer !\n");
 }
@@ -62,6 +68,7 @@ void		send_msg_from_server(t_win *wn, char *msg, int	user)
 	}
 	printf("J'envoie !\n");
 	msg = add_user(msg, ((t_server *)wn->serv)->username);
+	printf("(SERVER)JE VAIS ENVOYER SE MESSAGE AVEC USER : =>|%s|<=\n", msg);
 	send(((t_server *)wn->serv)->user[user].socket, msg, ft_strlen(msg), 0);
 	printf("Message envoyer !\n");
 }
