@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 13:14:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 14:53:51 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ void	ingame(t_win *wn)
 		wn->menu->choice = 10;
 	}
 	display_skybox(wn);
-	main_cloud(wn);
-	maindrawpoly(wn);
+	turn_rast(wn);
+//	main_cloud(wn);
+//	maindrawpoly(wn);
 	display_crosshair(wn);
 }
 
@@ -65,5 +66,7 @@ void	game(t_win *wn)	// Common info
 		wn->oldinterface == LGAME ? mainintro(wn, "game", "intro", 60) : 0;
 		wn->oldinterface = wn->interface;
 	}
+	SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 255);
+	SDL_RenderClear(wn->rend);
 	game_interface(wn);
 }

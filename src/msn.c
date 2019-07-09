@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:55:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/08 19:24:56 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 14:04:05 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void		add_chat(t_win *wn, int user)
 		msg = NULL;
 		msg = (wn->serv == NULL ? get_msg_client(wn) : get_msg_server(wn, user));
 		msg = convmsg(msg);
-//		msg != NULL && wn->serv != NULL ? printf("(SERVER)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
-//		msg != NULL && wn->client != NULL ? printf("(CLIENT)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
+		msg != NULL && wn->serv != NULL ? printf("(SERVER)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
+		msg != NULL && wn->client != NULL ? printf("(CLIENT)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
 		if (ft_strncmp(msg, "/msg", 3))
 		{
 			free(msg);
