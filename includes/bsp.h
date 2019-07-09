@@ -78,6 +78,7 @@ struct	s_poly //polygon
 struct s_portal
 {
 	t_vec		*ver_list;
+		t_vec			*ver_tmp; //@ LOIC TEMP TO SOLVE SHIT
 	t_vec		normal;
 	int 		nb_ver;
 	int 		nb_indices;
