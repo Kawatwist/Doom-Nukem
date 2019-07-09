@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 14:37:01 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:22:49 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:25:42 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h>
+#include <doom.h>
 
 float		ft_dot_product(t_myvec v1, t_myvec v2)
 {

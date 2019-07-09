@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 10:35:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 20:45:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:25:56 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h>
+#include <doom.h>
 #include <header_bresenham.h>
 
 void			ft_case_one(t_win *wn, t_myputtheline *s_line)
