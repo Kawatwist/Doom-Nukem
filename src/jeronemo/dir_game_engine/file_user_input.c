@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 15:06:26 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 16:49:29 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,13 @@ void		ft_mouse_event_check(t_win *wn, t_myraster *raster)
 		SDL_ShowCursor(SDL_ENABLE);
 }
 
-/*static void mouseconfig(t_win *wn)
+static void mouseconfig(t_win *wn)
   {
-//		SDL_ShowCursor(wn->interface != RGAME ? SDL_ENABLE : SDL_DISABLE);
-//			SDL_CaptureMouse(wn->interface == RGAME ? 1 : 0);
-wn->interface == RGAME
+		SDL_ShowCursor(wn->interface != RGAME ? SDL_ENABLE : SDL_DISABLE);
+			SDL_CaptureMouse(wn->interface == RGAME ? 1 : 0);
+	wn->interface == RGAME
 ? SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) : 0;
-}*/
+}
 
 void	ft_input_event_check(t_win *wn, t_myraster *raster)
 {
@@ -115,5 +115,5 @@ void	ft_input_event_check(t_win *wn, t_myraster *raster)
 //	wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
 	ft_keyboard_event_check(wn, raster->old, raster);
 	ft_mouse_event_check(wn, raster);
-	//	mouseconfig(wn);
+	mouseconfig(wn);
 }
