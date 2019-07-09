@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 14:38:00 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 15:19:19 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,29 @@ float	ft_rad(float angle)
 	return (result);
 }
 
-t_myvec		ft_scale_screen(t_myvec result)
-{
-	result.x += 1.0;
-	result.y += 1.0;
 
-	result.x *= 0.5 * (float)XSCREEN;
-	result.y *= 0.5 * (float)YSCREEN;
-	return (result);
+
+t_mytriangle	ft_scale_screen(t_mytriangle triangle)
+{
+	triangle.vertice[0].x += 1.0;
+	triangle.vertice[1].x += 1.0;
+	triangle.vertice[2].x += 1.0;
+
+	triangle.vertice[0].y += 1.0;
+	triangle.vertice[1].y += 1.0;
+	triangle.vertice[2].y += 1.0;
+
+
+	triangle.vertice[0].x *= 0.5 * (float)XSCREEN;
+	triangle.vertice[1].x *= 0.5 * (float)XSCREEN;
+	triangle.vertice[2].x *= 0.5 * (float)XSCREEN;
+
+	triangle.vertice[0].y *= 0.5 * (float)YSCREEN;
+	triangle.vertice[1].y *= 0.5 * (float)YSCREEN;
+	triangle.vertice[2].y *= 0.5 * (float)YSCREEN;
+
+
+	return (triangle);
 }
 
 float	**ft_make_matrix_5_5(void)

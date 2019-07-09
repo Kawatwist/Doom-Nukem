@@ -6,166 +6,50 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 14:50:24 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 15:19:31 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
-t_mytriangle	*ft_triangle_node_create(t_mytriangle tri)
+void	ft_init_rasterization(t_win *wn, t_myraster *raster)
 {
-	t_mytriangle	*triangle;
-
-	triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle));
-	triangle = memcpy(triangle, &tri, sizeof(t_mytriangle));
-	triangle->next = NULL;
-	return (triangle);
-}
-
-void			ft_triangle_add_node(t_mytriangle **lst, t_mytriangle *node)
-{
-	if (*lst == NULL)
-	{
-		*lst = node;
-	}
-	else
-	{
-		node->next = *lst;
-		*lst = node;
-	}
-}
-
-
-t_mytriangle	*ft_get_before(t_mytriangle *head, t_mytriangle *node)
-{
-	t_mytriangle	*before;
-
-	before = head;
-	if (before == node)
-		return (NULL);
-	while (before->next && before->next != node && before != NULL)
-		before = before->next;
-	return (before);
-}
-
-void	ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2)
-{
-	/*	t_mytriangle	*before_node_2;
-		t_mytriangle	*node1;
-
-		node1 = node2->next;
-		before_node_2 = ft_get_before(*head, node2);
-		node2->next = node2->next->next;
-		if (before_node_2 != NULL)
-		before_node_2->next = node1;
-		else
-	 *head = node1;
-	 node1->next = node2;
-	 */
-	t_mytriangle	*bfr;
-	t_mytriangle	*tmp;
-
-	bfr = ft_get_before(*head, node2);
-	tmp = node2->next->next;
-	if (bfr == NULL)
-	{
-		(*head) = node2->next;
-		(*head)->next = node2;
-		node2->next = tmp;
-	}
-	else
-	{
-		bfr->next  = node2->next;
-		bfr->next->next = node2;
-		node2->next= tmp;
-	}
-}
+	SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
+	raster->mat_trans = ft_make_matrix_5_5();
+	raster->mat_rot_x = ft_make_matrix_5_5();
+	raster->mat_rot_y = ft_make_matrix_5_5();
+	raster->mat_rot_z = ft_make_matrix_5_5();
+	raster->mat_proje = ft_make_matrix_5_5();
+	ft_set_pro(raster);
+	raster->ftheta = 0;
+	raster->theta_camera = 0;
+	raster->pitch = 0;
+	raster->leave_mouse = 0;
+	raster->v_camera.x = 0;
+	raster->v_camera.y = 0;
+	raster->v_camera.z = 0;
+	raster->avancer = 0;
+	raster->reculer = 0;
+	raster->translate_left = 0;
+	raster->translate_right = 0;
+	raster->modif = 1;
+	raster->old = (Uint8*)malloc(sizeof(Uint8) * 300);
+	raster->quit = 0;
 
 
-/* void	ft_swap(t_mytriangle *triangle_lst) */
-/* { */
-/* 	/1* t_mytriangle	*swap; *1/ */
-/* int				i; */
+	raster->light_direction = ft_create_vector(0.5, 0.0, -1.0);
+	raster->light_direction = ft_normalise(raster->light_direction);
 
-/* i = 0; */
-/* swap = NULL; */
-/* swap = (t_mytriangle*)malloc(sizeof(t_mytriangle)); */
-/* swap->shade = triangle_lst->shade; */
-/* while (i++ < 3) */
-/* { */
-/* 	swap->vertice[i].x = triangle_lst->vertice[i].x; */
-/* 	swap->vertice[i].y = triangle_lst->vertice[i].y; */
-/* 	swap->vertice[i].z = triangle_lst->vertice[i].z; */
-/* } */
-/* triangle_lst->shade = triangle_lst->next->shade; */
-/* triangle_lst->vertice[0].x = triangle_lst->next->vertice[0].x; */
-/* triangle_lst->vertice[0].y = triangle_lst->next->vertice[0].y; */
-/* triangle_lst->vertice[0].z = triangle_lst->next->vertice[0].z; */
-/* triangle_lst->vertice[1].x = triangle_lst->next->vertice[1].x; */
-/* triangle_lst->vertice[1].y = triangle_lst->next->vertice[1].y; */
-/* triangle_lst->vertice[1].z = triangle_lst->next->vertice[1].z; */
-/* triangle_lst->vertice[2].x = triangle_lst->next->vertice[2].x; */
-/* triangle_lst->vertice[2].y = triangle_lst->next->vertice[2].y; */
-/* triangle_lst->vertice[2].z = triangle_lst->next->vertice[2].z; */
+	raster->plane_camera = ft_create_vector(0.0, 0.0, 1.0);
+	raster->point_camera = ft_create_vector(0.0, 0.0, 0.1);
 
-/* triangle_lst->next->shade = swap->shade; */
-/* triangle_lst->next->vertice[0].x = swap->vertice[0].x; */
-/* triangle_lst->next->vertice[0].y = swap->vertice[0].y; */
-/* triangle_lst->next->vertice[0].z = swap->vertice[0].z; */
-/* triangle_lst->next->vertice[1].x = swap->vertice[1].x; */
-/* triangle_lst->next->vertice[1].y = swap->vertice[1].y; */
-/* triangle_lst->next->vertice[1].z = swap->vertice[1].z; */
-/* triangle_lst->next->vertice[2].x = swap->vertice[2].x; */
-/* triangle_lst->next->vertice[2].y = swap->vertice[2].y; */
-/* triangle_lst->next->vertice[2].z = swap->vertice[2].z; */
-/* } */
-/*
-   static void	nb_mailont(t_mytriangle *lst, int value)
-   {
-   int 			nb = 0;
-   t_mytriangle 	*tmp;
 
-   tmp = lst;
-   while (tmp != NULL)
-   {
-   tmp = tmp->next;
-   nb++;
-   }
-   printf(" JE CHECK %d-> %d\n", value, nb);
-   }
-   */
-t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
-{
-	float			z1;
-	float			z2;
-	//	int k;
-	t_mytriangle	*keep;
 
-	if (triangle_lst == NULL)
-		return(NULL);
-	keep = triangle_lst;
-	while (triangle_lst->next != NULL)
-	{
-		z1 = (triangle_lst->vertice[0].z + triangle_lst->vertice[1].z + triangle_lst->vertice[2].z) / 3;
-		z2 = (triangle_lst->next->vertice[0].z + triangle_lst->next->vertice[1].z + triangle_lst->next->vertice[2].z) / 3;
-		if (z1 < z2)  ///jai inverser
-		{
-			ft_swap_node_with_the_next(&keep, triangle_lst);
-			triangle_lst = keep;
-		}
-		else
-			triangle_lst = triangle_lst->next;
-		if (triangle_lst == NULL)
-			break;
-	}
-	triangle_lst = keep;
-	return (keep);
 }
 
 void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
 {
 	int				i;
-	t_myvec			light_direction;
 	t_mytriangle	triangle;
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_lst_2;
@@ -174,21 +58,17 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	t_myvec			normal;
 	int				j;
 	int				nbr;
-	t_myvec			point;
-	t_mytriangle	*clipped_triangle = NULL;
+	t_mytriangle	*clipped_triangle;
 
 
-	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
-	t_myvec plane_norm;
 	triangle_lst = NULL;
 	triangle_lst_2 = NULL;
-	/* light_direction.x = 0.5; */
-	/* light_direction.y = 0.0; */
-	/* light_direction.z = -1.0; */
+	clipped_triangle = NULL;
+	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
 
 
-	light_direction = ft_create_vector(0.5, 0.0, -1.0);
-	light_direction = ft_normalise(light_direction);
+
+
 	//CALCUL DE MATRIX WORLD
 	ft_set_raster_trans(0, 0, -30, raster);
 	//ft_set_raster_rot_x(raster->ftheta, raster);
@@ -214,27 +94,18 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 		if (ft_dot_product(normal, ft_vector_sub(triangle.vertice[0], raster->v_camera)) < 0.0)
 		{
 			//SHADE
-			triangle.shade = ft_dot_product(normal, light_direction);
+			triangle.shade = ft_dot_product(normal, raster->light_direction);
 			//CAM VIEW
 			triangle = ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);
 			//CLIP AGAINST CAMERA PLANE
-			point.x = 0.0;
-			point.y = 0.0;
-			point.z = 0.1;
-
-			plane_norm.x = 0.0;
-			plane_norm.y = 0.0;
-			plane_norm.z = 1.0;
-			nbr = ft_triangle_clips_again_plan(point, plane_norm, clipped_triangle, &triangle);
+			nbr = ft_triangle_clips_again_plan(raster->point_camera, raster->plane_camera, clipped_triangle, &triangle);
 			j = 0;
 			while(j < nbr)
 			{
 				//PROJECTION
 				*clipped_triangle = ft_apply_calucul(ft_matrix_multiply_vector, *clipped_triangle, raster->mat_proje);
 				//SCALE
-				clipped_triangle[j].vertice[0] = ft_scale_screen(clipped_triangle[j].vertice[0]);
-				clipped_triangle[j].vertice[1] = ft_scale_screen(clipped_triangle[j].vertice[1]);
-				clipped_triangle[j].vertice[2] = ft_scale_screen(clipped_triangle[j].vertice[2]);
+				clipped_triangle[j]= ft_scale_screen(clipped_triangle[j]);
 				triangle_node = ft_triangle_node_create(clipped_triangle[j]);
 				ft_triangle_add_node(&triangle_lst, triangle_node);
 				j++;
@@ -245,49 +116,8 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	//ORDER TRIANGLE FROM FAR TO NEAR
 	triangle_lst = ft_order_triangle_z_buffer(triangle_lst);
 
-	//Clip triangle against all four screen edges
+	//CLIP AGAINST SCREEN PLANE
 
-	//1er argument => PLANE
-	t_myvec p_0;
-	t_myvec p_1;
-	t_myvec p_2;
-	t_myvec p_3;
-
-	p_0.x = 0.0f;
-	p_0.y = 0.0f;
-	p_0.z = 0.0f;
-
-	p_1.x = 0.0f;
-	p_1.y = wn->yscreen - 1;
-	p_1.z = 0.0f;
-
-	p_2 = p_0;
-
-	p_3.x = wn->xscreen - 1;
-	p_3.y = 0.0f;
-	p_3.z = 0.0f;
-
-	//2eme argument => NORMAL
-	t_myvec n_0;
-	t_myvec n_1;
-	t_myvec n_2;
-	t_myvec n_3;
-
-	n_0.x = 0.0f;
-	n_0.y = 1.0f;
-	n_0.z = 0.0f;
-
-	n_1.x = 0.0f;
-	n_1.y = -1.0f;
-	n_1.z = 0.0f;
-
-	n_2.x = 1.0f;
-	n_2.y = 0.0f;
-	n_2.z = 0.0f;
-
-	n_3.x = -1.0f;
-	n_3.y = 0.0f;
-	n_3.z = 0.0f;
 
 	/* int		newtriangle; */
 	/* newtriangle = 1; */

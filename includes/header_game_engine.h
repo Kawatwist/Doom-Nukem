@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 14:36:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 15:19:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,31 @@ typedef struct				s_myraster
 	t_myvec					v_right;
 	t_myvec					forward;
 	t_myvec					v_look_dir;
+
+
+	t_myvec					light_direction;
+
+
+	t_myvec					plane_camera;
+	t_myvec					point_camera;
+
+	t_myvec					plane_left_screen;
+	t_myvec					point_left_screen;
+
+
+	t_myvec					plane_up_screen;
+	t_myvec					point_up_screen;
+
+
+	t_myvec					plane_right_screen;
+	t_myvec					point_right_screen;
+
+
+	t_myvec					plane_bottom_screen;
+	t_myvec					point_bottom_screen;
+
+
+
 	float					**mat_camera_rot;
 	float					**mat_camera_look_at;
 	float					**mat_camera_view;
@@ -63,7 +88,7 @@ t_mytriangle	*ft_get_triangles_array(t_mypolygon *polygon_lst);
 char			*ft_itoa_comma(float nbr);
 
 //FILE MATRIX TOOL
-t_myvec			ft_scale_screen(t_myvec result);
+t_mytriangle	ft_scale_screen(t_mytriangle triangle);
 float			ft_rad(float angle);
 
 float			**ft_make_matrix_5_5(void);
@@ -95,7 +120,16 @@ void			ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_win *wn, flo
 //file window
 void						ft_clear_window(t_win *wn);
 
-//file apply calcul
+//FILE APPLY CALCUL
 t_mytriangle	ft_apply_calucul(t_myvec function(float**, t_myvec), t_mytriangle triangle, float **matrix);
+
+//FILE LST
+t_mytriangle	*ft_triangle_node_create(t_mytriangle tri);
+void			ft_triangle_add_node(t_mytriangle **lst, t_mytriangle *node);
+t_mytriangle	*ft_get_before(t_mytriangle *head, t_mytriangle *node);
+void			ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2);
+
+//FILE ORDER Z BUFFER
+t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst);
 
 
