@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/05 16:11:38 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:14:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	menugame(t_win *wn)
 {
 	menu_game_input(wn);
 	SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "menu"), NULL, NULL);
+	show_game_cursor(wn);
 }
 
 void	game(t_win *wn)	// Common info

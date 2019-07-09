@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/05 08:55:45 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:13:20 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ static void		interface(t_win *wn)
 		menu(wn);
 	else if (wn->interface == RGAME || wn->interface == MGAME || wn->interface == LGAME || wn->interface == NGAME)
 		game(wn);
-	else if (wn->interface == EDITEUR)
+	else if (wn->interface == MEDITEUR || wn->interface == EDITEUR || wn->interface == LEDITEUR || wn->interface == NEDITEUR || wn->interface == REDITEUR)
 		edit(wn);
-	else
+	else if (wn->interface == MOPTION || wn->interface == KOPTION || wn->interface == COPTION || wn->interface == GOPTION)
 		option(wn);
+	else if (wn->interface == MULTI || wn->interface == HOST || wn->interface == CLIENT)
+		mainmulti(wn);
 	wn->flag & CONSOLE ? mainconsole(wn) : 0;
 }
 

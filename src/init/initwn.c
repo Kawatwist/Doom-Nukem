@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 17:15:15 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 11:48:19 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/16 13:29:51 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ static void	initelem(t_win **wn)
 static void	initmenu(t_win **wn)
 {
 	((*wn)->menu = malloc(sizeof(t_menu))) == NULL ? exit(0) : 0;
+	(*wn)->menu->ask = 0;
 	(*wn)->menu->choice = 0;
+	(*wn)->menu->connected  = 0;
 }
 
 static void initconsole(t_win **wn)
@@ -103,4 +105,6 @@ void		initwn(t_win **wn)
 	initmutex(wn);
 	(*wn)->flag = 0;
 	(*wn)->sky = 1;
+	(*wn)->serv = NULL;
+	(*wn)->client = NULL;
 }

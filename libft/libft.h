@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 02:55:41 by lomasse           #+#    #+#             */
-/*   Updated: 2019/03/20 17:34:06 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/20 12:39:57 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ unsigned char		*ft_strjoin2(unsigned char *str, unsigned char *buff, int len_tot
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strnew(size_t size);
 char				*ft_strdup(const char *s1);
+char				*ft_strdupfree2(char *s1, char c);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
 char				*ft_strcat(char *s1, const char *s2);
