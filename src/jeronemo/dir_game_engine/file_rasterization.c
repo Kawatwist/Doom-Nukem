@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 12:53:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:02:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,6 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 		triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_x);
 		//TRANSLATION (offset in screen)
 		triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_trans);
-
 		//CULLING
 		normal = ft_calculate_normal_of_points(triangle.vertice[0], triangle.vertice[1], triangle.vertice[2]);
 		normal = ft_normalise(normal);
@@ -214,9 +213,14 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 			//SHADE
 			triangle.shade = ft_dot_product(normal, light_direction);
 			//CAM VIEW
-			triangle.vertice[0] = ft_matrix_multiply_vector_general(raster->mat_camera_view, triangle.vertice[0]);
-			triangle.vertice[1] = ft_matrix_multiply_vector_general(raster->mat_camera_view, triangle.vertice[1]);
-			triangle.vertice[2] = ft_matrix_multiply_vector_general(raster->mat_camera_view, triangle.vertice[2]);
+
+		triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_camera_view);
+
+
+
+			/* triangle.vertice[0] = ft_matrix_multiply_vector_general(raster->mat_camera_view, triangle.vertice[0]); */
+			/* triangle.vertice[1] = ft_matrix_multiply_vector_general(raster->mat_camera_view, triangle.vertice[1]); */
+			/* triangle.vertice[2] = ft_matrix_multiply_vector_general(raster->mat_camera_view, triangle.vertice[2]); */
 
 			//CLIP AGAINST CAMERA PLANE
 			point.x = 0.0;

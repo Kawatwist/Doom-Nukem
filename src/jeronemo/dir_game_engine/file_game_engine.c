@@ -6,11 +6,8 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 11:38:35 by jchardin         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-# include <header_game_engine.h>
+/*   Updated: 2019/07/09 12:59:09 by jchardin         ###   ########.fr       */
+/*                                                                            */ /* ************************************************************************** */ # include <header_game_engine.h>
 t_mypolygon		*ft_read_the_polygon_file(void);
 
 void	ft_init_rasterization(t_win *wn, t_myraster *raster)
