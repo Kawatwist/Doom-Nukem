@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 22:02:36 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:53:27 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	light_direction.z = -1.0;
 	light_direction = ft_normalise(light_direction);
 	//CALCUL DE MATRIX WORLD
-	ft_set_raster_trans(0, 0, 0, raster);
+	ft_set_raster_trans(0, 0, -30, raster);
 	//ft_set_raster_rot_x(raster->ftheta, raster);
 	ft_set_raster_rot_x(180, raster);
 	//ft_set_raster_rot_y(raster->ftheta, raster);
@@ -200,17 +200,12 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	{
 		triangle = triangle_array[i];
 		//ROTATION Z
-		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[0]);
-		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[1]);
-		triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[2]);
+		triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_z);
 		//ROTATION X
-		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[0]);
-		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[1]);
-		triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[2]);
+		triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_x);
 		//TRANSLATION (offset in screen)
-		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[0]);
-		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[1]);
-		triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[2]);
+		triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_trans);
+
 		//CULLING
 		normal = ft_calculate_normal_of_points(triangle.vertice[0], triangle.vertice[1], triangle.vertice[2]);
 		normal = ft_normalise(normal);

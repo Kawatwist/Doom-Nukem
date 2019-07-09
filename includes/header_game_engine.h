@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 11:11:29 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:47:27 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,8 @@ void			ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_win *wn, flo
 
 //file window
 void						ft_clear_window(t_win *wn);
+
+//file apply calcul
+t_mytriangle	ft_apply_calucul(t_myvec function(float**, t_myvec), t_mytriangle triangle, float **matrix);
+
 

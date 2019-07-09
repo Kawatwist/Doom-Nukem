@@ -99,6 +99,7 @@ SRC += file_matrix_tool.c
 SRC += file_vector_tool.c
 SRC += file_fill_triangle.c
 SRC += file_clipping.c
+SRC += file_apply_calcul.c
 
 #BSP
 SRC += file_bsp.c
