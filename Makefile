@@ -6,6 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
+#    Updated: 2019/07/09 13:15:35 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -29,6 +30,7 @@ SDL_IMAGE_DOWNLOAD = https://www.libsdl.org/projects/SDL_image/release/SDL2_imag
 
 SRC				= main.c										\
 				  turn.c 										\
+				  text.c										\
 				  inputturn.c									\
 				  window.c										\
 				  init.c										\
@@ -45,6 +47,13 @@ SRC				= main.c										\
 				  load2.c										\
 				  load_intro.c									\
 				  texture.c										\
+				  stop.c										\
+				  get.c											\
+				  send.c										\
+				  msn.c											\
+				  mainmulti.c									\
+				  mainhost.c									\
+				  mainclient.c									\
 				  maingame.c 									\
 				  mainmenu.c									\
 				  menuinput.c									\
@@ -77,8 +86,8 @@ SRC				= main.c										\
 				  print_ariel_text.c 							\
 				  menu_show.c 									\
 				  load_fonts.c 									\
-				  tool.c 									\
-				  world2view.c								\
+				  tool.c 										\
+				  world2view.c									\
 				  world2view_mat.c
 
 
@@ -159,7 +168,7 @@ clear:
 
 $(NAME): $(IMAGE) $(OBJ)
 	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
-	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG) $(DEBUG)
+	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG)
 	@echo "${vertclair}DONE${neutre}"
 
 $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
@@ -193,7 +202,9 @@ clean :
 fclean : clean
 	@echo "${rouge}Fcleaning the project ...${neutre}\c"
 	@make fclean -C libft
-	@rm /tmp/doom_log2
+	@if [ -f "/tmp/doom_log2" ]; then \
+		rm /tmp/doom_log2; \
+	fi
 	@rm -rf $(NAME)
 	@echo "${rose}DONE${neutre}"
 

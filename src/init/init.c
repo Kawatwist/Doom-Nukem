@@ -6,6 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
+/*   Updated: 2019/07/09 13:14:04 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +43,16 @@ int				init(t_win **wn, int argc, char **argv)
 	load_texture(*wn, "game", "menu", "LG");
 	(*wn)->load = ft_strdup("./texture/Menu_game_NG.tga");
 	load_texture(*wn, "game", "menu", "NG");
+	(*wn)->load = ft_strdup("./texture/Menu_game_Multi.tga");
+	load_texture(*wn, "game", "menu", "Multi");
+	(*wn)->load = ft_strdup("./texture/HostMenu.tga");
+	load_texture(*wn, "game", "menu", "Host");
+	(*wn)->load = ft_strdup("./texture/Menu_Host2.tga");
+	load_texture(*wn, "game", "menu", "Host2");
+	(*wn)->load = ft_strdup("./texture/Menu_Client.tga");
+	load_texture(*wn, "game", "menu", "Client");
+	(*wn)->load = ft_strdup("./texture/Menu_Client2.tga");
+	load_texture(*wn, "game", "menu", "Client2");
 	initplayer(wn);
 //	SDL_PollEvent(&ev);
 //	SDL_PollEvent(&ev);
