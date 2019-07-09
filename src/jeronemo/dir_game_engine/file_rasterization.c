@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 14:24:03 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:51:08 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ void	ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->light_direction = ft_create_vector(0.5, 0.0, -1.0);
 	raster->light_direction = ft_normalise(raster->light_direction);
 
+	raster->plane_camera = ft_create_vector(0.0, 0.0, 1.0);
+	raster->point_camera = ft_create_vector(0.0, 0.0, 0.1);
+
+
 
 }
 
@@ -54,9 +58,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	t_myvec			normal;
 	int				j;
 	int				nbr;
-	t_myvec			point;
 	t_mytriangle	*clipped_triangle;
-	t_myvec			plane_norm;
 
 
 	triangle_lst = NULL;
@@ -65,8 +67,6 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
 
 
-	point = ft_create_vector(0.0, 0.0, 0.1);
-	plane_norm = ft_create_vector(0.0, 0.0, 1.0);
 
 
 	//CALCUL DE MATRIX WORLD
@@ -98,7 +98,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 			//CAM VIEW
 			triangle = ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);
 			//CLIP AGAINST CAMERA PLANE
-			nbr = ft_triangle_clips_again_plan(point, plane_norm, clipped_triangle, &triangle);
+			nbr = ft_triangle_clips_again_plan(raster->point_camera, raster->plane_camera, clipped_triangle, &triangle);
 			j = 0;
 			while(j < nbr)
 			{
@@ -116,49 +116,8 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	//ORDER TRIANGLE FROM FAR TO NEAR
 	triangle_lst = ft_order_triangle_z_buffer(triangle_lst);
 
-			//CLIP AGAINST SCREEN PLANE
+	//CLIP AGAINST SCREEN PLANE
 
-	//1er argument => PLANE
-	t_myvec p_0;
-	t_myvec p_1;
-	t_myvec p_2;
-	t_myvec p_3;
-
-	p_0.x = 0.0f;
-	p_0.y = 0.0f;
-	p_0.z = 0.0f;
-
-	p_1.x = 0.0f;
-	p_1.y = wn->yscreen - 1;
-	p_1.z = 0.0f;
-
-	p_2 = p_0;
-
-	p_3.x = wn->xscreen - 1;
-	p_3.y = 0.0f;
-	p_3.z = 0.0f;
-
-	//2eme argument => NORMAL
-	t_myvec n_0;
-	t_myvec n_1;
-	t_myvec n_2;
-	t_myvec n_3;
-
-	n_0.x = 0.0f;
-	n_0.y = 1.0f;
-	n_0.z = 0.0f;
-
-	n_1.x = 0.0f;
-	n_1.y = -1.0f;
-	n_1.z = 0.0f;
-
-	n_2.x = 1.0f;
-	n_2.y = 0.0f;
-	n_2.z = 0.0f;
-
-	n_3.x = -1.0f;
-	n_3.y = 0.0f;
-	n_3.z = 0.0f;
 
 	/* int		newtriangle; */
 	/* newtriangle = 1; */
