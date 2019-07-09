@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:00:01 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 13:14:04 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 14:59:18 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ int				init(t_win **wn, int argc, char **argv)
 //	parsearg(argc, argv, wn) == 0 ? stop_exec("Parsing error\n", *wn) : 0;
 //	showload(wn, 30);
 //	(*wn)->quality == 0 ? loadnothread(wn) : loadminimenu(wn);
-//	initskybox(wn);
+	initskybox(wn);
 	return (1);
 }

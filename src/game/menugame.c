@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 13:14:26 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 14:51:00 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,14 @@ void	show_game_cursor(t_win *wn)
 void	game_interface(t_win *wn)
 {
 	if (wn->interface == RGAME)
-		ft_game_engine(wn);
+	{
+		if (wn->rasterizer == NULL)
+		{
+			wn->rasterizer = malloc(sizeof(t_rasterizer)); // SECURE NEED;
+			ft_launch_rasterization(wn);
+		}
+		ingame(wn);
+	}
 	else if (wn->interface == NGAME)
 		newgame(wn);
 	else if (wn->interface == LGAME)

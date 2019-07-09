@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 13:15:15 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 15:16:24 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,43 @@ typedef struct  	s_fonts
 	TTF_Font		*ariel;
 } 					t_fonts;
 
+//JEROME
+
+typedef struct				s_mycolor
+{
+	int						rrr;
+	int						ggg;
+	int						bbb;
+}							t_mycolor;
+
+typedef struct				s_mytriangle
+{
+	t_myvec					vertice[3];
+	struct s_mytriangle		*next;
+	char					ft_color;
+	float					shade;
+}							t_mytriangle;
+
+typedef struct				s_mypolygon
+{
+	int						obj_indice;
+	t_myvec					*vertex_lst;             //liste des vertex
+	t_myvec					normal;                  //la normal au polygon
+	int						number_of_vertex;        //nombre de vertex
+	int						number_of_indices;       //nombre d'indices
+	int						*indices;                //la listes des indices apres triangulasisation
+	struct s_mypolygon		*next;                   //le prochain noeud dans la liste
+}							t_mypolygon;
+// FIN JEROME
+//
+typedef struct		s_rasterizer
+{
+	int				max;
+	void			*tmp;
+	t_mytriangle	*tmp2;
+	t_mypolygon		*tmp3;
+}					t_rasterizer;
+
 typedef struct		s_win
 {
 	Uint32			flag;
@@ -223,6 +260,7 @@ typedef struct		s_win
 	t_rast			*rast;
 	int 			xscreen;
 	int 			yscreen;
+	t_rasterizer	*rasterizer;
 	void			*serv;
 	void			*client;
 }					t_win;
@@ -232,31 +270,12 @@ typedef struct		s_win
  ** JERONEMO.H
  **/
 
-typedef struct				s_mycolor
-{
-	int						rrr;
-	int						ggg;
-	int						bbb;
-}							t_mycolor;
+// MODIF
+void						ft_launch_rasterization(t_win *wn);
+void						turn_rast(t_win *wn);
+//
 
-typedef struct				s_mytriangle
-{
-	t_myvec					vertice[3];
-	struct s_mytriangle		*next;
-	char					ft_color;
-	float					shade;
-}							t_mytriangle;
 
-typedef struct				s_mypolygon
-{
-	int						obj_indice;
-	t_myvec					*vertex_lst;             //liste des vertex
-	t_myvec					normal;                  //la normal au polygon
-	int						number_of_vertex;        //nombre de vertex
-	int						number_of_indices;       //nombre d'indices
-	int						*indices;                //la listes des indices apres triangulasisation
-	struct s_mypolygon		*next;                   //le prochain noeud dans la liste
-}							t_mypolygon;
 
 t_mycolor					ft_setcolor(int rrr, int ggg, int bbb);
 void						ft_launch_bsp_tree(t_mypolygon *polygon_lst);

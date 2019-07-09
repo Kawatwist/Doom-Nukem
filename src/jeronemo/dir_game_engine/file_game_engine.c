@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/09 14:16:31 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 16:03:13 by jchardin         ###   ########.fr       */
+/*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
+/*   Updated: 2019/07/09 16:36:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <header_game_engine.h>
+# include <header_game_engine.h>
 t_mypolygon		*ft_read_the_polygon_file(void);
 
 t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
@@ -28,31 +28,26 @@ void	ft_game_engine(t_win *wn)
 	ft_launch_rasterization(wn);
 }
 
+void	turn_rast(t_win *wn)
+{
+	/* ft_display_triangle_array(s_win, triangle_array, max); */
+	ft_input_event_check(wn, (t_myraster *)wn->rasterizer->tmp);
+	if (((t_myraster *)wn->rasterizer->tmp)->modif == 1 && !((t_myraster *)wn->rasterizer->tmp)->quit)
+	{
+//		ft_clear_window(wn);
+		ft_update_raster((t_myraster *)wn->rasterizer->tmp, wn->rasterizer->tmp2, wn->rasterizer->max, wn);
+		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
+	}
+}
+
 void	ft_launch_rasterization(t_win *wn)
 {
-	t_myraster			raster;
-	t_mytriangle		*triangle_array;
-	t_mypolygon			*polygon_lst;
-	int					max;
-
-	polygon_lst = NULL;
-	polygon_lst = ft_read_the_polygon_file();
-	ft_launch_bsp_tree(polygon_lst);
-	triangle_array = ft_get_triangles_array(polygon_lst);
-	max = ft_get_nbr_of_triangle(polygon_lst);
-	ft_init_rasterization(wn, &raster);
+	wn->rasterizer->tmp3 = NULL;
+	wn->rasterizer->tmp3 = ft_read_the_polygon_file();
+	ft_launch_bsp_tree(wn->rasterizer->tmp3);
+	wn->rasterizer->tmp2 = ft_get_triangles_array(wn->rasterizer->tmp3);
+	wn->rasterizer->max = ft_get_nbr_of_triangle(wn->rasterizer->tmp3);
+	wn->rasterizer->tmp = malloc(sizeof(t_myraster));
+	ft_init_rasterization(wn, (t_myraster*)(wn->rasterizer->tmp));
 	/* ft_display_triangle_array(s_win, triangle_array, max); */
-	while (!raster.quit)
-	{
-		ft_input_event_check(wn, &raster);
-		if (raster.modif == 1 && !raster.quit)
-		{
-			ft_clear_window(wn);
-			ft_update_raster(&raster, triangle_array, max, wn);
-			SDL_RenderPresent(wn->rend);
-			SDL_Delay(30);
-			raster.modif = 0;
-		}
-		setkeyboard(raster.old, wn->state);
-	}
 }

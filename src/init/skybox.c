@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:34:05 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/19 16:39:21 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 14:57:50 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	loadsky(t_win **wn, char *path, char *name)
 
 void		initskybox(t_win **wn)
 {
-	loadsky(wn, "texture/skybox/sky.tga\0", "sky\0");
+	loadsky(wn, "texture/skybox/sky.tga", "sky");
 	loadsky(wn, "texture/skybox/sky2.tga\0", "sky2\0");
 	loadsky(wn, "texture/skybox/sky3.tga\0", "sky3\0");
 	loadsky(wn, "texture/skybox/sky4.tga\0", "sky4\0");
