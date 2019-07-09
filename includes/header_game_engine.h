@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 14:27:46 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 16:28:24 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,14 @@ typedef struct				s_myraster
 	t_myvec					plane_left_screen;
 	t_myvec					point_left_screen;
 
-
 	t_myvec					plane_up_screen;
 	t_myvec					point_up_screen;
-
 
 	t_myvec					plane_right_screen;
 	t_myvec					point_right_screen;
 
-
 	t_myvec					plane_bottom_screen;
 	t_myvec					point_bottom_screen;
-
 
 
 	float					**mat_camera_rot;
@@ -75,7 +71,8 @@ void			ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int ma
 //int				ft_get_nbr_of_triangle(t_mywin *s_win);
 int				ft_get_nbr_of_triangle(t_mypolygon *polygon_lst);
 void			ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn);
-int				ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle *clipped_triangle, t_mytriangle *triangle);
+/* int				ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle *clipped_triangle, t_mytriangle *triangle); */
+t_mytriangle	*ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, int *nbr,t_mytriangle *clipped_triangle, t_mytriangle *triangle);
 
 //FILE USER INPUT
 void			ft_input_event_check(t_win *wn, t_myraster *raster);

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 14:51:08 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 16:32:09 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ void	ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->plane_camera = ft_create_vector(0.0, 0.0, 1.0);
 	raster->point_camera = ft_create_vector(0.0, 0.0, 0.1);
 
+
+	raster->point_up_screen = ft_create_vector(-1, -1, -1);
+	raster->plane_up_screen = ft_create_vector(-1, -1, -1);
 
 
 }
@@ -98,7 +101,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 			//CAM VIEW
 			triangle = ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);
 			//CLIP AGAINST CAMERA PLANE
-			nbr = ft_triangle_clips_again_plan(raster->point_camera, raster->plane_camera, clipped_triangle, &triangle);
+			clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen, raster->plane_camera, &nbr, clipped_triangle, &triangle);
 			j = 0;
 			while(j < nbr)
 			{
@@ -130,13 +133,13 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	/* 	while (i < 4) */
 	/* 	{ */
 	/* 		if (i == 0) */
-	/* 			nbr = ft_triangle_clips_again_plan(p_0, n_0, triangle_lst, clipped_triangle, s_win); */
+	/* 			nbr = ft_triangle_clips_again_plan(p_0, n_0, triangle_lst, clipped_triangle); */
 	/* 		else if (i == 1) */
-	/* 			nbr = ft_triangle_clips_again_plan(p_1, n_1, triangle_lst, clipped_triangle, s_win); */
+	/* 			nbr = ft_triangle_clips_again_plan(p_1, n_1, triangle_lst, clipped_triangle); */
 	/* 		else if (i == 2) */
-	/* 			nbr = ft_triangle_clips_again_plan(p_2, n_2, triangle_lst , clipped_triangle, s_win); */
+	/* 			nbr = ft_triangle_clips_again_plan(p_2, n_2, triangle_lst , clipped_triangle); */
 	/* 		else if (i == 3) */
-	/* 			nbr = ft_triangle_clips_again_plan(p_3, n_3, triangle_lst, clipped_triangle, s_win); */
+	/* 			nbr = ft_triangle_clips_again_plan(p_3, n_3, triangle_lst, clipped_triangle); */
 	/* 		j = 0; */
 	/* 		while(j < nbr) */
 	/* 		{ */
@@ -152,8 +155,32 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	/* //Fonction de pushback des triangles */
 
 
+	keep = triangle_lst;
+	while(triangle_lst != NULL)
+	{
+		nbr = 0;
+		clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen, raster->plane_up_screen, &nbr, clipped_triangle, triangle_lst);
+		printf("le nbr=%d\n", nbr);
+		j = 0;
+		while(j < nbr)
+		{
+			printf("j =%f\n", clipped_triangle->vertice[0].x);
+			triangle_node = ft_triangle_node_create(clipped_triangle[j]);
+			printf("le node =%f\n", triangle_node->vertice[0].x);
+			ft_triangle_add_node(&triangle_lst_2, triangle_node);
+			j++;
+		}
+		triangle_lst = triangle_lst->next;
+	}
+	triangle_lst = keep;
+
 	//AFFICHAGE
-	triangle_lst_2 = triangle_lst;
+	/* triangle_lst_2 = triangle_lst; */
+
+
+
+
+
 	keep = triangle_lst_2;
 	while (triangle_lst_2 != NULL)
 	{

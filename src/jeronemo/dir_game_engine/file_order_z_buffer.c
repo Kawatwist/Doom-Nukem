@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 14:13:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 14:15:07 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 16:32:19 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 	{
 		z1 = (triangle_lst->vertice[0].z + triangle_lst->vertice[1].z + triangle_lst->vertice[2].z) / 3;
 		z2 = (triangle_lst->next->vertice[0].z + triangle_lst->next->vertice[1].z + triangle_lst->next->vertice[2].z) / 3;
-		if (z1 < z2)  ///jai inverser
+		if (z1 > z2)  ///jai inverser
 		{
 			ft_swap_node_with_the_next(&keep, triangle_lst);
 			triangle_lst = keep;
