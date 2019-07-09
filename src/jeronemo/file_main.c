@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:55:47 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 10:13:46 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:05:38 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h>
+#include <header_game_engine.h>
 
 t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
 {
@@ -24,8 +24,6 @@ t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
 
 void	ft_game_engine(t_win *wn)
 {
-	t_mywin		s_win;
-
 	printf("Hello chef inca\n");
-	ft_launch_rasterization(&s_win, wn);
+	ft_launch_rasterization(wn);
 }

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 10:35:44 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 11:04:03 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,13 @@ void	ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->quit = 0;
 }
 
-void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
+void	ft_launch_rasterization(t_win *wn)
 {
 	t_myraster			raster;
 	t_mytriangle		*triangle_array;
 	t_mypolygon			*polygon_lst;
 
 	polygon_lst = NULL;
-	(void)s_win;
 
 	polygon_lst = ft_read_the_polygon_file();
 	ft_launch_bsp_tree(polygon_lst);
