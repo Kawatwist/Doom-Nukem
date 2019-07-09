@@ -28,16 +28,13 @@ void		print_tbp_editor(t_win *wn)
 	SDL_QueryTexture(wn->edit_image.texture_tbp, NULL, NULL, &src.w, &src.h);
 	if (wn->edit_image.in == 1)
 	{
-		src.x = 0;
-		src.y = 0;
+		src = define_rect(0, 0, src.w, src.h);
 		dst = define_rect(5.5 * wn->xscreen / 7, 3 * wn->yscreen / 7,
 			1.5 * wn->xscreen / 7, 3 * wn->yscreen / 7);
 	}
-	else 
+	else
 	{
-		src.x = 0;
-		src.y = 0;
-		src.h = 0.25 * src.h / 7;
+		src = define_rect(0, 0, src.w, 0.25 * src.h / 7);
 		dst = define_rect(5.5 * wn->xscreen / 7, 5.75 * wn->yscreen / 7,
 			1.5 * wn->xscreen / 7, 0.25 * wn->yscreen / 7);
 	}
