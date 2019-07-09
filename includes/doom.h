@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/17 13:29:27 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/08 18:03:17 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ void				loadgame(t_win *wn);
 void				load_game_input(t_win *wn);
 void				menugame(t_win *wn);
 void				menu_game_input(t_win *wn);
+void				show_game_cursor(t_win *wn);
 void				game_interface(t_win *wn);
 void				maindrawpoly(t_win *wn);
 void				main_cloud(t_win *wn);

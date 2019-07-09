@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/22 13:54:21 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 13:10:05 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,19 @@ static void	freeserv(t_win *wn, t_server *server)
 {
 	int		freeserv;
 
-	printf("YO\n");
 	freeserv = 0;
 	if (server)
 	{
 		if (((wn->menu->ask & 0x03) < 3) && ((wn->menu->ask & 0x0C) >> 2) < 3 && ((wn->menu->ask & 0x30) >> 4) < 3)
 			freeserv = 1;
-		printf("YO\n");
 		server->user[0].name != NULL && (wn->menu->ask & 0x03) < 3 ? free(server->user[0].name) : 0;
-		printf("YO\n");
 		server->user[1].name != NULL && ((wn->menu->ask & 0x0C) >> 2) < 3 ? free(server->user[1].name) : 0;
-		printf("YO\n");
 		server->user[2].name != NULL && ((wn->menu->ask & 0x30) >> 4) < 3 ? free(server->user[2].name) : 0;
-		printf("YO\n");
 		if (freeserv)
 		{
 			free(server->username);
 			free(server);
 			wn->serv = NULL;
-			printf("FREED\n");
 		}
 	}
 }
@@ -77,7 +71,7 @@ static void	listenclient(t_win *wn, int	user)
 
 static void	inputhost(t_win *wn)
 {
-	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MULTI : 0;
+	// key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MULTI : 0;
 	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? freeserv(wn, (t_server *)wn->serv) : 0;
 	if ((wn->menu->ask & 0x03) == 1 || (wn->menu->ask & 0x03) == 2)
 	{
@@ -94,12 +88,12 @@ static void	inputhost(t_win *wn)
 		key_pressed(wn, SDL_SCANCODE_ESCAPE) ? pthread_kill((pthread_t)wn->menu->conv[2], 1) : 0;
 		key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->ask = wn->menu->ask & (U_MAX - 0x30) : 0;
 	}
-	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 40 : 0;
-	if ((wn->menu->ask & 0x03) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(wn->xscreen / 1.4, wn->yscreen >> 1, 50, 50)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+	//key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 40 : 0;
+	if ((wn->menu->ask & 0x03) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(707, 338, 528, 114)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
 		wn->menu->ask += 1;
-	if ((wn->menu->ask & 0x0C) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(wn->xscreen / 1.4, wn->yscreen / 1.6, 50, 50)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+	if ((wn->menu->ask & 0x0C) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(707, 622, 528, 114)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
 		wn->menu->ask += (1 << 2);
-	if ((wn->menu->ask & 0x30) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(wn->xscreen / 1.4, wn->yscreen / 1.4, 50, 50)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+	if ((wn->menu->ask & 0x30) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(707, 853, 528, 114)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
 		wn->menu->ask += (1 << 4);
 }
 
@@ -107,26 +101,26 @@ static void	showhost(t_win *wn)
 {
 	SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "Host"), NULL, NULL);
 	if ((wn->menu->ask & 0x03) == 3)
-		print_one_line(wn, ((t_server *)wn->serv)->user[0].name, (wn->xscreen >> 1), (wn->yscreen >> 1) - (wn->yscreen >> 4));
+		print_one_line(wn, ((t_server *)wn->serv)->user[0].name, 880, 380);
 	else if ((wn->menu->ask & 0x03) == 1 || (wn->menu->ask & 0x03) == 2)
-		print_one_line(wn, "Waiting", (wn->xscreen >> 1), (wn->yscreen >> 2));
+		print_one_line(wn, "Waiting", 880, 380);
 	else
-		print_one_line(wn, "Free slot", (wn->xscreen >> 1), (wn->yscreen >> 2));
+		print_one_line(wn, "Free slot", 880, 380);
 	if (((wn->menu->ask & 0x0C) >> 2) == 3)
-		print_one_line(wn, ((t_server *)wn->serv)->user[1].name, wn->xscreen >> 1, (wn->yscreen >> 1) + (wn->yscreen >> 4));
+		print_one_line(wn, ((t_server *)wn->serv)->user[1].name, 880, 660);
 	else if (((wn->menu->ask & 0x0C) >> 2) == 1 || ((wn->menu->ask & 0x0C) >> 2) == 2)
-		print_one_line(wn, "Waiting...", wn->xscreen >> 1, (wn->yscreen >> 1));
+		print_one_line(wn, "Waiting...", 880, 660);
 	else
-		print_one_line(wn, "Free slot", (wn->xscreen >> 1), (wn->yscreen >> 1));
+		print_one_line(wn, "Free slot", 880, 660);
 	if (((wn->menu->ask & 0x30) >> 4) == 3)
-		print_one_line(wn, ((t_server *)wn->serv)->user[2].name, wn->xscreen >> 1, (wn->yscreen >> 1) + ((wn->yscreen >> 3)));
+		print_one_line(wn, ((t_server *)wn->serv)->user[2].name, 880, 890);
 	else if (((wn->menu->ask & 0x30) >> 4) == 1 || ((wn->menu->ask & 0x30) >> 4) == 2)
-		print_one_line(wn, "Waiting...", wn->xscreen >> 1, (wn->yscreen >> 1) + (wn->yscreen >> 2));
+		print_one_line(wn, "Waiting...", 880, 890);
 	else
-		print_one_line(wn, "Free slot", (wn->xscreen >> 1), (wn->yscreen >> 1) + (wn->yscreen >> 2));
-	SDL_RenderFillRect(wn->rend, create_rect(wn->xscreen / 1.4, wn->yscreen >> 1, 50, 50));
-	SDL_RenderFillRect(wn->rend, create_rect(wn->xscreen / 1.4, wn->yscreen / 1.6, 50, 50));
-	SDL_RenderFillRect(wn->rend, create_rect(wn->xscreen / 1.4, wn->yscreen / 1.4, 50, 50));
+		print_one_line(wn, "Free slot", 880, 890);
+//	SDL_RenderFillRect(wn->rend, create_rect(wn->xscreen / 1.4, wn->yscreen >> 1, 50, 50));
+//	SDL_RenderFillRect(wn->rend, create_rect(wn->xscreen / 1.4, wn->yscreen / 1.6, 50, 50));
+//	SDL_RenderFillRect(wn->rend, create_rect(wn->xscreen / 1.4, wn->yscreen / 1.4, 50, 50));
 }
 
 static void	*find_connection(void *params)

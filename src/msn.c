@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:55:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/20 16:51:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/08 19:24:56 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,21 @@ void		add_chat(t_win *wn, int user)
 		msg = NULL;
 		msg = (wn->serv == NULL ? get_msg_client(wn) : get_msg_server(wn, user));
 		msg = convmsg(msg);
-		msg != NULL && wn->serv != NULL ? printf("(SERVER)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
-		msg != NULL && wn->client != NULL ? printf("(CLIENT)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
-		printf("Connected\n");
+//		msg != NULL && wn->serv != NULL ? printf("(SERVER)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
+//		msg != NULL && wn->client != NULL ? printf("(CLIENT)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
 		if (ft_strncmp(msg, "/msg", 3))
 		{
-			printf("MESSAGE INVALIDE : %s\n", msg);
 			free(msg);
 			msg = NULL;
 			dc++;
 		}
 		else
 			msg = removemsg(msg);
-		printf("==> %d\n", dc);
 		if (dc > 2)
 		{
 			stop_com(wn, user);
 			break;
 		}
-		printf("MSG : %s\n", msg);
 		if (wn->console->index < CONSOLE_MAX_LINE_NB && msg != NULL)
 		{
 			wn->console->history[wn->console->index] = ft_strdup(msg);

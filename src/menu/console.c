@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 13:19:22 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/04 17:06:35 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/08 14:58:46 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	showconsole(t_win *wn)
 {
 	SDL_Rect	bg;
 
-	if (wn->xscreen > 300)
+	if (wn->xscreen > 300 && wn->interface != HOST)
 	{
 		bg.w = 600;
 		bg.h = ARIEL_FONT_SIZE * (CONSOLE_MAX_LINE_NB + 1);
