@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 14:22:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:27:46 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,24 @@ typedef struct				s_myraster
 
 	t_myvec					light_direction;
 
+
+	t_myvec					plane_camera;
+	t_myvec					point_camera;
+
+	t_myvec					plane_left_screen;
+	t_myvec					point_left_screen;
+
+
+	t_myvec					plane_up_screen;
+	t_myvec					point_up_screen;
+
+
+	t_myvec					plane_right_screen;
+	t_myvec					point_right_screen;
+
+
+	t_myvec					plane_bottom_screen;
+	t_myvec					point_bottom_screen;
 
 
 
