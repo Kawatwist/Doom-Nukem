@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 14:13:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:22:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ typedef struct				s_myraster
 	t_myvec					v_right;
 	t_myvec					forward;
 	t_myvec					v_look_dir;
+
+
+	t_myvec					light_direction;
+
+
+
+
 	float					**mat_camera_rot;
 	float					**mat_camera_look_at;
 	float					**mat_camera_view;
@@ -95,7 +102,7 @@ void			ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_win *wn, flo
 //file window
 void						ft_clear_window(t_win *wn);
 
-//file apply calcul
+//FILE APPLY CALCUL
 t_mytriangle	ft_apply_calucul(t_myvec function(float**, t_myvec), t_mytriangle triangle, float **matrix);
 
 //FILE LST
@@ -104,7 +111,7 @@ void			ft_triangle_add_node(t_mytriangle **lst, t_mytriangle *node);
 t_mytriangle	*ft_get_before(t_mytriangle *head, t_mytriangle *node);
 void			ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2);
 
-//file order z buffer
+//FILE ORDER Z BUFFER
 t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst);
 
 

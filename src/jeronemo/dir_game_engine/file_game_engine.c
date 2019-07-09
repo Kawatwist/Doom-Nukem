@@ -6,12 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 14:16:31 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 14:17:49 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:21:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
-
 t_mypolygon		*ft_read_the_polygon_file(void);
 
 t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)

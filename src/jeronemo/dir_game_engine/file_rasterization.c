@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 14:16:01 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:24:03 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,17 @@ void	ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->modif = 1;
 	raster->old = (Uint8*)malloc(sizeof(Uint8) * 300);
 	raster->quit = 0;
-}
 
+
+	raster->light_direction = ft_create_vector(0.5, 0.0, -1.0);
+	raster->light_direction = ft_normalise(raster->light_direction);
+
+
+}
 
 void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
 {
 	int				i;
-	t_myvec			light_direction;
 	t_mytriangle	triangle;
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_lst_2;
@@ -55,13 +59,10 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	t_myvec			plane_norm;
 
 
-
 	triangle_lst = NULL;
 	triangle_lst_2 = NULL;
 	clipped_triangle = NULL;
 	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
-	light_direction = ft_create_vector(0.5, 0.0, -1.0);
-	light_direction = ft_normalise(light_direction);
 
 
 	point = ft_create_vector(0.0, 0.0, 0.1);
@@ -93,7 +94,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 		if (ft_dot_product(normal, ft_vector_sub(triangle.vertice[0], raster->v_camera)) < 0.0)
 		{
 			//SHADE
-			triangle.shade = ft_dot_product(normal, light_direction);
+			triangle.shade = ft_dot_product(normal, raster->light_direction);
 			//CAM VIEW
 			triangle = ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);
 			//CLIP AGAINST CAMERA PLANE
