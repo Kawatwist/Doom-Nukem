@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 17:05:08 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 18:00:36 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 {
-
 	raster->triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle));
+	raster->nbr_of_triangle = wn->rasterizer->max;
 	raster->clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
-
-
 	SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
 	raster->mat_trans = ft_make_matrix_5_5();
 	raster->mat_rot_x = ft_make_matrix_5_5();
@@ -40,24 +38,17 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->modif = 1;
 	raster->old = (Uint8*)malloc(sizeof(Uint8) * 300);
 	raster->quit = 0;
-
-
 	raster->light_direction = ft_create_vector(0.5, 0.0, -1.0);
 	raster->light_direction = ft_normalise(raster->light_direction);
-
 	raster->plane_camera = ft_create_vector(0.0, 0.0, 1.0);
 	raster->point_camera = ft_create_vector(0.0, 0.0, 0.1);
-
-
 	raster->point_up_screen = ft_create_vector(-1, -1, -1);
 	raster->plane_up_screen = ft_create_vector(-1, -1, -1);
-
 	raster->i = 0;   //attention limit le nombre de triangle
-
 	return (raster);
 }
 
-t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
+void	ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *wn)
 {
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_lst_2;
@@ -66,7 +57,7 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 	triangle_lst_2 = NULL;
 	ft_calcul_world_and_view_matrix(raster);
 	raster->i = -1;
-	while (++(raster->i) < max )
+	while (++(raster->i) < raster->nbr_of_triangle)
 	{
 		*(raster->triangle) = triangle_array[raster->i];
 		ft_calcul_world_view(raster->triangle, raster);
@@ -90,5 +81,4 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 	ft_draw(triangle_lst_2, wn);
 	ft_make_the_world_spin(0, raster);
 	ft_free_lst(triangle_lst_2);
-	return (raster);
 }

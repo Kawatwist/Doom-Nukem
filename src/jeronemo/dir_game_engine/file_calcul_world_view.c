@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 17:04:56 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 17:15:54 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,12 +178,10 @@ void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)
 	ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);
 }
 
-
 void	ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster)
 {
 	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_proje);//PROJECTION
 }
-
 
 void	ft_scale_screen(t_mytriangle *triangle)
 {
@@ -205,7 +203,6 @@ void	ft_scale_screen(t_mytriangle *triangle)
 	triangle->vertice[2].y *= 0.5 * (float)YSCREEN;
 }
 
-
 void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
 	t_mytriangle	*keep;
@@ -222,7 +219,6 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	triangle_lst_2 = keep;
 }
 
-
 void	ft_make_the_world_spin(int turn, t_myraster *raster)
 {
 	if (turn == 1)
@@ -232,8 +228,3 @@ void	ft_make_the_world_spin(int turn, t_myraster *raster)
 			raster->ftheta = 0;
 	}
 }
-
-
-
-
-

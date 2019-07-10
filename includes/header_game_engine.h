@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 17:05:08 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 17:52:48 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct				s_myraster
 
 	t_mytriangle			*triangle;
 	t_mytriangle			*clipped_triangle;
+	int						nbr_of_triangle;
 
 
 
@@ -80,7 +81,8 @@ typedef struct				s_myraster
 //FILE GAME ENGINE
 void			ft_launch_rasterization(t_win *wn);
 t_myraster		*ft_init_rasterization(t_win *wn, t_myraster *raster);
-t_myraster		*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn);
+/* t_myraster		*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn); */
+void	ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *wn);
 int				ft_get_nbr_of_triangle(t_mypolygon *polygon_lst);
 void			ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn);
 t_mytriangle	*ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, int *nbr,t_mytriangle *clipped_triangle, t_mytriangle *triangle);
@@ -156,6 +158,6 @@ void			ft_clipping_camera(t_mytriangle *triangle,
 void			ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster);
 void			ft_scale_screen(t_mytriangle *triangle);
 
-void	ft_clipping_screen(void);
-void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn);
-void	ft_make_the_world_spin(int turn, t_myraster *raster);
+void			ft_clipping_screen(void);
+void			ft_draw(t_mytriangle *triangle_lst_2, t_win *wn);
+void			ft_make_the_world_spin(int turn, t_myraster *raster);
