@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 11:46:30 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:43:12 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,19 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	while (i < max )
 	{
 		triangle = triangle_array[i];
-		//ROTATION Z
-		triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_z);
-		//ROTATION X
-		triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_x);
-		//TRANSLATION (offset in screen)
-		triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_trans);
+
+		//CALCUL WORLD VIEW
+		triangle = ft_calcul_world_view(triangle, raster);
+
+
+
+
+		/* //ROTATION Z */
+		/* triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_z); */
+		/* //ROTATION X */
+		/* triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_x); */
+		/* //TRANSLATION (offset in screen) */
+		/* triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_trans); */
 		//CULLING
 		normal = ft_calculate_normal_of_points(triangle.vertice[0], triangle.vertice[1], triangle.vertice[2]);
 		normal = ft_normalise(normal);
@@ -176,10 +183,6 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 
 	//AFFICHAGE
 	/* triangle_lst_2 = triangle_lst; */
-
-
-
-
 
 	keep = triangle_lst_2;
 	while (triangle_lst_2 != NULL)

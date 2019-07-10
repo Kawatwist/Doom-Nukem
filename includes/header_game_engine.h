@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 16:37:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:45:24 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,8 @@ void			ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2);
 
 //FILE ORDER Z BUFFER
 t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst);
+
+//file calcul world view
+t_mytriangle	ft_calcul_world_view(t_mytriangle triangle, t_myraster *raster);
 
 
