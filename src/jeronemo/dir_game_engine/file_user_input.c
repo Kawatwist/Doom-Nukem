@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 11:15:07 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 11:45:18 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ void		ft_mouse_event_check(t_win *wn, t_myraster *raster)
 		//	(wn->player->rawy += (wn->input->y - (wn->yscreen / 2))) > YSCREEN
 		//				? wn->player->rawy = YSCREEN : 0;
 		//		raster->theta_camera += (wn->input->x - (wn->xscreen / 2)) ;
-		raster->modif = 1;
+
+
+		/* raster->modif = 1; */
 	}
 	else
 		SDL_ShowCursor(SDL_ENABLE);
@@ -116,4 +118,5 @@ void	ft_input_event_check(t_win *wn, t_myraster *raster)
 	ft_keyboard_event_check(wn, raster->old, raster);
 	ft_mouse_event_check(wn, raster);
 	mouseconfig(wn);
+	printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAale modif =%d \n", raster->modif);
 }

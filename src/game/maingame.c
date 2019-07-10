@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/10 11:12:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 11:38:47 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ void	game(t_win *wn)	// Common info
 		wn->oldinterface == LGAME ? mainintro(wn, "game", "intro", 60) : 0;
 		wn->oldinterface = wn->interface;
 	}
-	SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 255);
-	SDL_RenderClear(wn->rend);
+	if (wn->interface != RGAME)
+	{
+		SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 255);
+		SDL_RenderClear(wn->rend);
+	}
 	game_interface(wn);
 }
