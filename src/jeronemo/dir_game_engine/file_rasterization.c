@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 18:00:36 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 18:09:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 {
 	raster->triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle));
-	raster->nbr_of_triangle = wn->rasterizer->max;
 	raster->clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
 	SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
 	raster->mat_trans = ft_make_matrix_5_5();
@@ -28,9 +27,7 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->theta_camera = 0;
 	raster->pitch = 0;
 	raster->leave_mouse = 0;
-	raster->v_camera.x = 0;
-	raster->v_camera.y = 0;
-	raster->v_camera.z = 0;
+	raster->v_camera = ft_create_vector(0.0, 0.0, 0.0);
 	raster->avancer = 0;
 	raster->reculer = 0;
 	raster->translate_left = 0;
@@ -45,15 +42,15 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->point_up_screen = ft_create_vector(-1, -1, -1);
 	raster->plane_up_screen = ft_create_vector(-1, -1, -1);
 	raster->i = 0;   //attention limit le nombre de triangle
+	raster->nbr_of_triangle = wn->rasterizer->max; //de meme
 	return (raster);
 }
 
 void	ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *wn)
 {
-	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_lst_2;
 
-	triangle_lst = NULL;
+	raster->triangle_lst = NULL;
 	triangle_lst_2 = NULL;
 	ft_calcul_world_and_view_matrix(raster);
 	raster->i = -1;
@@ -71,13 +68,13 @@ void	ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *w
 			{
 				ft_calcul_projection_view(&(raster->clipped_triangle[raster->j]), raster);
 				ft_scale_screen(&(raster->clipped_triangle[raster->j]));
-				ft_add_triangle_to_lst(raster->clipped_triangle[raster->j], &triangle_lst);
+				ft_add_triangle_to_lst(raster->clipped_triangle[raster->j], &(raster->triangle_lst));
 			}
 		}
 	}
-	ft_order_triangle_z_buffer(&triangle_lst);
+	ft_order_triangle_z_buffer(&(raster->triangle_lst));
 	ft_clipping_screen();
-	triangle_lst_2 = triangle_lst;
+	triangle_lst_2 = raster->triangle_lst;
 	ft_draw(triangle_lst_2, wn);
 	ft_make_the_world_spin(0, raster);
 	ft_free_lst(triangle_lst_2);

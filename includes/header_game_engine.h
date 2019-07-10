@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 17:52:48 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 18:07:12 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef struct				s_myraster
 	t_mytriangle			*triangle;
 	t_mytriangle			*clipped_triangle;
 	int						nbr_of_triangle;
+
+	t_mytriangle			*triangle_lst;
 
 
 
