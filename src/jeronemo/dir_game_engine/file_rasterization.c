@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 16:25:25 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:35:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 	t_mytriangle	*triangle_lst_2;
 	t_mytriangle	*keep;
 	t_mytriangle	*clipped_triangle;
-	t_mytriangle	*triangle_node;
 
 	triangle_lst = NULL;
 	triangle_lst_2 = NULL;
@@ -87,66 +86,13 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 		}
 		i++;
 	}
-	/* triangle_lst = ft_order_triangle_z_buffer(triangle_lst);//ORDER TRIANGLE FROM FAR TO NEAR */
-	ft_order_triangle_z_buffer(&triangle_lst);//ORDER TRIANGLE FROM FAR TO NEAR
-
-	//CLIP AGAINST SCREEN PLANE
-	/* int		newtriangle; */
-	/* newtriangle = 1; */
-	/* i = 0; */
-	/* t_mytriangle *head; */
-	/* head = triangle_lst; */
-	/* while(triangle_lst != NULL) */
-	/* { */
-
-	/* 	while (i < 4) */
-	/* 	{ */
-	/* 		if (i == 0) */
-	/* 			nbr = ft_triangle_clips_again_plan(p_0, n_0, triangle_lst, clipped_triangle); */
-	/* 		else if (i == 1) */
-	/* 			nbr = ft_triangle_clips_again_plan(p_1, n_1, triangle_lst, clipped_triangle); */
-	/* 		else if (i == 2) */
-	/* 			nbr = ft_triangle_clips_again_plan(p_2, n_2, triangle_lst , clipped_triangle); */
-	/* 		else if (i == 3) */
-	/* 			nbr = ft_triangle_clips_again_plan(p_3, n_3, triangle_lst, clipped_triangle); */
-	/* 		j = 0; */
-	/* 		while(j < nbr) */
-	/* 		{ */
-	/* 			triangle_node = ft_triangle_node_create(clipped_triangle[j]); */
-	/* 			ft_triangle_add_node(&triangle_lst_2, triangle_node); */
-	/* 			j++; */
-	/* 		} */
-	/* 		i++; */
-	/* 	} */
-	/* 	triangle_lst = triangle_lst->next; */
-	/* } */
-	/* triangle_lst = head; */
-	/* //Fonction de pushback des triangles */
-
-
-	int nbr_of_clipped_triangle_created ;
-	keep = triangle_lst;
-	while(triangle_lst != NULL)
-	{
-		nbr_of_clipped_triangle_created = 0;
-		clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen, raster->plane_up_screen, &nbr_of_clipped_triangle_created, clipped_triangle, triangle_lst);
-		printf("le nbr_of_clipped_triangle_created=%d\n", nbr_of_clipped_triangle_created);
-		j = 0;
-		while(j < nbr_of_clipped_triangle_created)
-		{
-			printf("j =%f\n", clipped_triangle->vertice[0].x);
-			triangle_node = ft_triangle_node_create(clipped_triangle[j]);
-			printf("le node =%f\n", triangle_node->vertice[0].x);
-			ft_triangle_add_node(&triangle_lst_2, triangle_node);
-			j++;
-		}
-		triangle_lst = triangle_lst->next;
-	}
-	triangle_lst = keep;
-
-
+	ft_order_triangle_z_buffer(&triangle_lst);
+	ft_clipping_screen();
+	triangle_lst_2 = triangle_lst;
 	//AFFICHAGE
-	/* triangle_lst_2 = triangle_lst; */
+
+
+
 	keep = triangle_lst_2;
 	while (triangle_lst_2 != NULL)
 	{
