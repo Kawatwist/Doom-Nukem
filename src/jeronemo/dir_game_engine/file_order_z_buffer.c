@@ -6,21 +6,23 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 14:13:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 16:32:19 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:26:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
-t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
+void	ft_order_triangle_z_buffer(t_mytriangle **triangle_lst_lst)
 {
 	float			z1;
 	float			z2;
-	//	int k;
+
+
+	t_mytriangle *triangle_lst = *triangle_lst_lst;
 	t_mytriangle	*keep;
 
 	if (triangle_lst == NULL)
-		return(NULL);
+		return;
 	keep = triangle_lst;
 	while (triangle_lst->next != NULL)
 	{
@@ -36,6 +38,5 @@ t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
 		if (triangle_lst == NULL)
 			break;
 	}
-	triangle_lst = keep;
-	return (keep);
+	*triangle_lst_lst = keep;
 }

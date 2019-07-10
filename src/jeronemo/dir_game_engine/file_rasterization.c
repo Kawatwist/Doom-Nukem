@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 15:57:25 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:25:25 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 	triangle_lst_2 = NULL;
 	clipped_triangle = NULL;
 	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
-
 	ft_calcul_world_and_view_matrix(raster);
 	i = 0;
 	while (i < max )
@@ -82,13 +81,14 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 			{
 				ft_calcul_projection_view(&(clipped_triangle[j]), raster);
 				ft_scale_screen(&(clipped_triangle[j]));
-				ft_add_triangle_to_lst(clipped_triangle[j], &triangle_lst);//ADD TRIANGLE TO TRIANGLE LST
+				ft_add_triangle_to_lst(clipped_triangle[j], &triangle_lst);
 				j++;
 			}
 		}
 		i++;
 	}
-	triangle_lst = ft_order_triangle_z_buffer(triangle_lst);//ORDER TRIANGLE FROM FAR TO NEAR
+	/* triangle_lst = ft_order_triangle_z_buffer(triangle_lst);//ORDER TRIANGLE FROM FAR TO NEAR */
+	ft_order_triangle_z_buffer(&triangle_lst);//ORDER TRIANGLE FROM FAR TO NEAR
 
 	//CLIP AGAINST SCREEN PLANE
 	/* int		newtriangle; */
