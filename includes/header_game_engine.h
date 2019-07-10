@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 13:21:48 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:26:25 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,3 +138,7 @@ float			ft_calcul_shade(t_mytriangle triangle, t_myraster *raster);
 void			ft_add_triangle_to_lst(t_mytriangle clipped_triangle, t_mytriangle **triangle_lst);
 void			ft_calcul_world_and_view_matrix(t_myraster *raster);
 void			ft_free_lst(t_mytriangle *triangle_lst_2);
+t_mytriangle	*ft_clipping_camera(t_mytriangle *triangle,
+									int *nbr_of_clipped_triangle_created,
+									t_myraster *raster,
+									t_mytriangle *clipped_triangle);

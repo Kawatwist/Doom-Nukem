@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 13:34:10 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:25:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,3 +87,21 @@ void	ft_free_lst(t_mytriangle *triangle_lst_2)
 		free(current);
 	}
 }
+
+t_mytriangle	*ft_clipping_camera(t_mytriangle *triangle,
+									int *nbr_of_clipped_triangle_created,
+									t_myraster *raster,
+									t_mytriangle *clipped_triangle)
+{
+			clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen,
+															raster->plane_camera,
+															nbr_of_clipped_triangle_created,
+															clipped_triangle,
+															triangle);
+			return (clipped_triangle);
+}
+//t_mytriangle	*ft_triangle_clips_again_plan(t_myvec point,
+											/* t_myvec plane_norm, */
+											/* int *nbr, */
+											/* t_mytriangle *clipped_triangle, */
+											/* t_mytriangle *triangle) */
