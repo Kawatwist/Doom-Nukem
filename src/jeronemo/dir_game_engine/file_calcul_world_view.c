@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 14:43:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:52:31 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	ft_calcul_world_view_matrix(t_myraster *raster)
 void	ft_calcul_world_view(t_mytriangle *triangle, t_myraster *raster)
 {
 	//ROTATION Z
-	*triangle = ft_apply_calucul(ft_matrix_multiply_vector, *triangle, raster->mat_rot_z);
+	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_z);
 	//ROTATION X
-	*triangle = ft_apply_calucul(ft_matrix_multiply_vector, *triangle, raster->mat_rot_x);
+	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_x);
 	//TRANSLATION (offset in screen)
-	*triangle = ft_apply_calucul(ft_matrix_multiply_vector, *triangle, raster->mat_trans);
+	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_trans);
 }
 
 t_myvec		ft_calcul_normal_triangle_and_normalise(t_mytriangle triangle)

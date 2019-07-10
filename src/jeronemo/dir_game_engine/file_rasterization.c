@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 14:47:01 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:53:39 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 		if (ft_culling(&triangle, raster) == 1)//CULLING
 		{
 			ft_calcul_shade(&triangle, raster);//SHADE
-			triangle = ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);//CAM VIEW
+			ft_apply_calucul(ft_matrix_multiply_vector_general, &triangle, raster->mat_camera_view);//CAM VIEW
 			clipped_triangle = ft_clipping_camera(&triangle, &nbr_of_clipped_triangle_created, raster, clipped_triangle);//CLIP AGAINST CAMERA PLANE
 			j = 0;
 			while(j < nbr_of_clipped_triangle_created)
 			{
-				*clipped_triangle = ft_apply_calucul(ft_matrix_multiply_vector, *clipped_triangle, raster->mat_proje);//PROJECTION
+				ft_apply_calucul(ft_matrix_multiply_vector, clipped_triangle, raster->mat_proje);//PROJECTION
 				clipped_triangle[j]= ft_scale_screen(clipped_triangle[j]);//SCALE
 				ft_add_triangle_to_lst(clipped_triangle[j], &triangle_lst);//ADD TRIANGLE TO TRIANGLE LST
 				j++;
