@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 14:47:52 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/10 14:22:30 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		interface(t_win *wn)
 {
 	if (wn->interface == MENU)
 		menu(wn);
-	else if (wn->interface == RGAME || wn->interface == MGAME || wn->interface == LGAME || wn->interface == NGAME)
+	else if (wn->interface == RGAME || wn->interface == MGAME || wn->interface == LGAME || wn->interface == NGAME || wn->interface == DGAME)
 		game(wn);
 	else if (wn->interface == MEDITEUR || wn->interface == EDITEUR || wn->interface == LEDITEUR || wn->interface == NEDITEUR || wn->interface == REDITEUR)
 		edit(wn);
@@ -40,6 +40,6 @@ void			turn(t_win *wn)
 		interface(wn);
 		difftime = SDL_GetTicks();
 		(difftime - time) < (1000 / 60) ? SDL_Delay((1000 / 60) - (difftime - time)) : 0;
-		SDL_RenderPresent(wn->rend);
+		wn->interface != DGAME ? SDL_RenderPresent(wn->rend) : 0;
 	}
 }

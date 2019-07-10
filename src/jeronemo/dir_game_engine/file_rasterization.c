@@ -6,13 +6,13 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 11:46:30 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:10:47 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
-void	ft_init_rasterization(t_win *wn, t_myraster *raster)
+t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 {
 	SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
 	raster->mat_trans = ft_make_matrix_5_5();
@@ -47,10 +47,10 @@ void	ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->point_up_screen = ft_create_vector(-1, -1, -1);
 	raster->plane_up_screen = ft_create_vector(-1, -1, -1);
 
-
+	return (raster);
 }
 
-void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
+t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
 {
 	int				i;
 	t_mytriangle	triangle;
@@ -208,5 +208,5 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 		triangle_lst_2 = triangle_lst_2->next;
 		free(current);
 	}
-	return;
+	return (raster);
 }

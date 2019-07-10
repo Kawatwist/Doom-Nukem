@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 16:37:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:12:04 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ typedef struct				s_myraster
 //FILE GAME ENGINE
 void			ft_launch_rasterization(t_win *wn);
 /* void			ft_apply_modif(t_mywin *s_win, t_mytriangle *triangle_array); */
-void			ft_init_rasterization(t_win *wn, t_myraster *raster);
-void			ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn);
+t_myraster		*ft_init_rasterization(t_win *wn, t_myraster *raster);
+t_myraster		*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn);
 //int				ft_get_nbr_of_triangle(t_mywin *s_win);
 int				ft_get_nbr_of_triangle(t_mypolygon *polygon_lst);
 void			ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn);
@@ -75,7 +75,7 @@ void			ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn);
 t_mytriangle	*ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, int *nbr,t_mytriangle *clipped_triangle, t_mytriangle *triangle);
 
 //FILE USER INPUT
-void			ft_input_event_check(t_win *wn, t_myraster *raster);
+t_myraster		*ft_input_event_check(t_win *wn, t_myraster *raster);
 void			ft_mouse_evnet_check(t_win *wn, t_myraster *raster);
 //FILE GET TRINAGLES
 t_mytriangle	*ft_get_triangle(void);
