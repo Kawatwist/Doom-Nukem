@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 14:34:59 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:47:01 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_init_rasterization(t_win *wn, t_myraster *raster)
 void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
 {
 	int				i;
-	t_mytriangle	triangle;
+	t_mytriangle    triangle;
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_lst_2;
 	t_mytriangle	*keep;
@@ -71,9 +71,9 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	{
 		triangle = triangle_array[i];
 		ft_calcul_world_view(&triangle, raster);//CALCUL WORLD VIEW
-		if (ft_culling(triangle, raster) == 1)//CULLING
+		if (ft_culling(&triangle, raster) == 1)//CULLING
 		{
-			triangle.shade = ft_calcul_shade(triangle, raster);//SHADE
+			ft_calcul_shade(&triangle, raster);//SHADE
 			triangle = ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);//CAM VIEW
 			clipped_triangle = ft_clipping_camera(&triangle, &nbr_of_clipped_triangle_created, raster, clipped_triangle);//CLIP AGAINST CAMERA PLANE
 			j = 0;

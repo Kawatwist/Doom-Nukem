@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 14:33:54 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:43:32 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,23 @@ t_myvec		ft_calcul_normal_triangle_and_normalise(t_mytriangle triangle)
 	return (normal);
 }
 
-int		ft_culling(t_mytriangle triangle, t_myraster *raster)
+int		ft_culling(t_mytriangle *triangle, t_myraster *raster)
 {
 	t_myvec			normal;
 
-	normal = ft_calcul_normal_triangle_and_normalise(triangle);
-	if (ft_dot_product(normal, ft_vector_sub(triangle.vertice[0], raster->v_camera)) < 0.0)
+	normal = ft_calcul_normal_triangle_and_normalise(*triangle);
+	if (ft_dot_product(normal, ft_vector_sub(triangle->vertice[0], raster->v_camera)) < 0.0)
 		return (1);
 	else
 		return (0);
 }
 
-float	ft_calcul_shade(t_mytriangle triangle, t_myraster *raster)
+void	ft_calcul_shade(t_mytriangle *triangle, t_myraster *raster)
 {
 	t_myvec			normal;
 
-	normal = ft_calcul_normal_triangle_and_normalise(triangle);
-	triangle.shade = ft_dot_product(normal, raster->light_direction);
-	return (triangle.shade);
+	normal = ft_calcul_normal_triangle_and_normalise(*triangle);
+	triangle->shade = ft_dot_product(normal, raster->light_direction);
 }
 
 void	ft_add_triangle_to_lst(t_mytriangle clipped_triangle, t_mytriangle **triangle_lst)
