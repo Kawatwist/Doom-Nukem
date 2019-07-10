@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 13:14:38 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:19:01 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,8 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	triangle_lst_2 = NULL;
 	clipped_triangle = NULL;
 	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
-	//CALCUL DE MATRIX WORLD
-	ft_calcul_world_view_matrix(raster);
-	//CALUL DE MATRIX VIEW
-	raster->mat_camera_view = t_camera_compute_view(raster);
+
+	ft_calcul_world_and_view_matrix(raster);
 	i = 0;
 	while (i < max )
 	{
@@ -94,10 +92,6 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 				clipped_triangle[j]= ft_scale_screen(clipped_triangle[j]);
 				//ADD TRIANGLE TO TRIANGLE LST
 				ft_add_triangle_to_lst(clipped_triangle[j], &triangle_lst);
-
-
-
-
 				j++;
 			}
 		}

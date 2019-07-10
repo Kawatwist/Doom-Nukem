@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 13:12:14 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:18:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,12 @@ void	ft_add_triangle_to_lst(t_mytriangle clipped_triangle, t_mytriangle **triang
 
 	triangle_node = ft_triangle_node_create(clipped_triangle);
 	ft_triangle_add_node(triangle_lst, triangle_node);
+}
+
+void	ft_calcul_world_and_view_matrix(t_myraster *raster)
+{
+	//CALCUL DE MATRIX WORLD
+	ft_calcul_world_view_matrix(raster);
+	//CALUL DE MATRIX VIEW
+	raster->mat_camera_view = t_camera_compute_view(raster);
 }
