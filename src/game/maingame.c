@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 16:48:50 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/10 11:12:20 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 void	ingame(t_win *wn)
 {
 //	gameinput(wn);
-	if (key_pressed(wn, SDL_SCANCODE_ESCAPE))
-	{
-		wn->interface = MGAME;
-		wn->menu->choice = 10;
-	}
-	display_skybox(wn);
+///	if (key_pressed(wn, SDL_SCANCODE_ESCAPE))
+//	{
+//		wn->interface = MGAME;
+//		wn->menu->choice = 10;
+//	}
+//	display_skybox(wn);
 	turn_rast(wn);
 //	main_cloud(wn);
 //	maindrawpoly(wn);
-	display_crosshair(wn);
+//	display_crosshair(wn);
 }
 
 void	newgame(t_win *wn)
