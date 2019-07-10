@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 15:12:37 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:22:04 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_lst_2;
 	t_mytriangle	*keep;
-	int				nbr_of_clipped_triangle_created;
 	t_mytriangle	*clipped_triangle;
 	t_mytriangle	*triangle_node;
 
@@ -77,9 +76,9 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 		{
 			ft_calcul_shade(&triangle, raster);//SHADE
 			ft_calcul_cam_view(&triangle, raster);//CAM VIEW
-			clipped_triangle = ft_clipping_camera(&triangle, &nbr_of_clipped_triangle_created, raster, clipped_triangle);//CLIP AGAINST CAMERA PLANE
+			clipped_triangle = ft_clipping_camera(&triangle, raster, clipped_triangle);//CLIP AGAINST CAMERA PLANE
 			j = 0;
-			while(j < nbr_of_clipped_triangle_created)
+			while(j < raster->nbr_of_clipped_triangle_created)
 			{
 				ft_apply_calucul(ft_matrix_multiply_vector, clipped_triangle, raster->mat_proje);//PROJECTION
 				clipped_triangle[j]= ft_scale_screen(clipped_triangle[j]);//SCALE
@@ -125,6 +124,7 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 	/* //Fonction de pushback des triangles */
 
 
+	int nbr_of_clipped_triangle_created ;
 	keep = triangle_lst;
 	while(triangle_lst != NULL)
 	{

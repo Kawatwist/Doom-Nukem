@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 15:05:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:22:36 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ typedef struct				s_myraster
 	unsigned char			modif;
 	unsigned char			quit;
 	Uint8					*old;
+
+
+	int						nbr_of_clipped_triangle_created;
+
+
 }							t_myraster;
 
 
@@ -136,7 +141,6 @@ void			ft_add_triangle_to_lst(t_mytriangle clipped_triangle, t_mytriangle **tria
 void			ft_calcul_world_and_view_matrix(t_myraster *raster);
 void			ft_free_lst(t_mytriangle *triangle_lst_2);
 t_mytriangle	*ft_clipping_camera(t_mytriangle *triangle,
-									int *nbr_of_clipped_triangle_created,
 									t_myraster *raster,
- 									t_mytriangle *clipped_triangle);
+									t_mytriangle *clipped_triangle);
 void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster);

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 15:05:04 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:23:24 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ void	ft_free_lst(t_mytriangle *triangle_lst_2)
 }
 
 t_mytriangle	*ft_clipping_camera(t_mytriangle *triangle,
-									int *nbr_of_clipped_triangle_created,
 									t_myraster *raster,
 									t_mytriangle *clipped_triangle)
 {
+	raster->nbr_of_clipped_triangle_created = 0;
 			clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen,
 															raster->plane_camera,
-															nbr_of_clipped_triangle_created,
+															&(raster->nbr_of_clipped_triangle_created),
 															clipped_triangle,
 															triangle);
 			return (clipped_triangle);
