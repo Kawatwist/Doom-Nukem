@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 16:35:17 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:42:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 	t_mytriangle    triangle;
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_lst_2;
-	t_mytriangle	*keep;
 	t_mytriangle	*clipped_triangle;
 
 	triangle_lst = NULL;
@@ -89,33 +88,10 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 	ft_order_triangle_z_buffer(&triangle_lst);
 	ft_clipping_screen();
 	triangle_lst_2 = triangle_lst;
-	//AFFICHAGE
-
-
-
-	keep = triangle_lst_2;
-	while (triangle_lst_2 != NULL)
-	{
-		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
-		ft_fill_triangle_shade((triangle_lst_2->vertice[0]), (triangle_lst_2->vertice[1]), (triangle_lst_2->vertice[2]), wn, triangle_lst_2->shade);
-		//DRAW MESH
-		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
-		triangle_lst_2 = triangle_lst_2->next;
-	}
-	triangle_lst_2 = keep;
-
-
-
+	ft_draw(triangle_lst_2, wn);
 	raster->ftheta += 0;
 	if (raster->ftheta == 360 * 2)
 		raster->ftheta = 0;
-	t_mytriangle *current;
-	while (triangle_lst_2 != NULL)
-	{
-		current = triangle_lst_2;
-		triangle_lst_2 = triangle_lst_2->next;
-		free(current);
-	}
 	ft_free_lst(triangle_lst_2);
 	return (raster);
 }

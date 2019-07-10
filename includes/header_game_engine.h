@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 16:30:35 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:42:05 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,3 +148,4 @@ void			ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster);
 void			ft_scale_screen(t_mytriangle *triangle);
 
 void	ft_clipping_screen(void);
+void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn);

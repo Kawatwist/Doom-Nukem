@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 16:29:29 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:41:56 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,22 +88,22 @@ void	ft_free_lst(t_mytriangle *triangle_lst_2)
 
 //surement un truck a faire ici pour le passage par adresse
 void	ft_clipping_camera(t_mytriangle *triangle,
-									t_myraster *raster,
-									t_mytriangle **clipped_triangle)
+		t_myraster *raster,
+		t_mytriangle **clipped_triangle)
 {
 	raster->nbr_of_clipped_triangle_created = 0;
 	*clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen,
-															raster->plane_camera,
-															&(raster->nbr_of_clipped_triangle_created),
-															*clipped_triangle,
-															triangle);
+			raster->plane_camera,
+			&(raster->nbr_of_clipped_triangle_created),
+			*clipped_triangle,
+			triangle);
 }
 
 //t_mytriangle	*ft_triangle_clips_again_plan(t_myvec point,
-											/* t_myvec plane_norm, */
-											/* int *nbr, */
-											/* t_mytriangle *clipped_triangle, */
-											/* t_mytriangle *triangle) */
+/* t_myvec plane_norm, */
+/* int *nbr, */
+/* t_mytriangle *clipped_triangle, */
+/* t_mytriangle *triangle) */
 
 
 
@@ -171,26 +171,7 @@ void	ft_clipping_screen(void)
 	/* triangle_lst = keep; */
 
 
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)
 {
@@ -225,7 +206,21 @@ void	ft_scale_screen(t_mytriangle *triangle)
 }
 
 
+void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
+{
+	t_mytriangle	*keep;
 
+	keep = triangle_lst_2;
+	while (triangle_lst_2 != NULL)
+	{
+		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
+		ft_fill_triangle_shade((triangle_lst_2->vertice[0]), (triangle_lst_2->vertice[1]), (triangle_lst_2->vertice[2]), wn, triangle_lst_2->shade);
+		//DRAW MESH
+		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
+		triangle_lst_2 = triangle_lst_2->next;
+	}
+	triangle_lst_2 = keep;
+}
 
 
 
