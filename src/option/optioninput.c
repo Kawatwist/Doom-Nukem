@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 13:44:37 by lomasse           #+#    #+#             */
-/*   Updated: 2019/04/08 16:45:16 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/22 11:45:37 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void		optioninput(t_win *wn)
 {
-	wn->state[SDL_SCANCODE_ESCAPE] ? wn->interface = MENU : 0;
+	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE)
+		? wn->interface = MENU : 0;
 }

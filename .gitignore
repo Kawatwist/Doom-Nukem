@@ -7,7 +7,6 @@ libraries
 # Object files
 *.o
 *.ko
-*.obj
 *.elf
 
 # Linker output
@@ -56,3 +55,15 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+
+#tags code navigation
+tags
+
+#swap file
+*.swp
+
+.*
+
+*.mtl
+

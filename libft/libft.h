@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 02:55:41 by lomasse           #+#    #+#             */
-/*   Updated: 2019/03/20 17:34:06 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/10 09:40:44 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef	struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+char				*ft_memjoinfree(char *s1, char *s2, size_t len1, size_t len2);
 void				ft_bzero(void *s, size_t n);
 void				ft_strdel(char	**as);
 void				*ft_memalloc(size_t size);
@@ -40,6 +41,7 @@ void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr(char const *s);
 void				ft_putstr_fd(char const *s, int fd);
+void				ft_putstrindec(char *s, size_t len);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putendl(char const *s);
@@ -68,6 +70,7 @@ unsigned char		*ft_strjoin2(unsigned char *str, unsigned char *buff, int len_tot
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strnew(size_t size);
 char				*ft_strdup(const char *s1);
+char				*ft_strdupfree2(char *s1, char c);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
 char				*ft_strcat(char *s1, const char *s2);

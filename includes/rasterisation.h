@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 10:07:08 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/17 17:01:53 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 15:22:24 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_vec
 typedef struct		s_poly
 {
 	t_vec			*ver_list;
+	t_vec			*ver_tmp;
 	t_vec			normal;
 	int				nb_ver;
 	int				nb_indices;
@@ -36,4 +37,12 @@ typedef struct		s_poly
 	int				texture;
 }					t_poly;
 
+typedef	struct		s_rast
+{
+	double			**mat;
+	t_vec			*f;
+	t_vec			*s;
+	t_vec			*u;
+
+}					t_rast;
 #endif

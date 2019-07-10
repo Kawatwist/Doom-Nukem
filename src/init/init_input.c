@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:57:49 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/19 17:06:07 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/06 12:02:17 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,9 @@ void	init_input(t_win **wn)
 {
 	if (!((*wn)->input = malloc(sizeof(t_input))))
 		stop_exec("malloc inputfailed\n", *wn);
+	if (!((*wn)->old = malloc(sizeof(Uint8*) * 284)))
+		stop_exec("Malloc old input failed\n", *wn);
+	SDL_PumpEvents();
+	(*wn)->state = (Uint8*)SDL_GetKeyboardState(NULL);
+	(*wn)->input->mouse = SDL_GetMouseState(&(*wn)->input->x, &(*wn)->input->y);
 }

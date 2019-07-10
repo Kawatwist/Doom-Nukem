@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 20:46:22 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/13 13:40:56 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/22 11:48:47 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	showintro(t_win *wn, t_text *img)
 			img = img->next;
 			difftime = SDL_GetTicks();
 			SDL_Delay(difftime - time < 1000 / 30 ? (1000 / 30) - (difftime - time) :  0);
-			while (wn->debugcine == 1) //DEBUG
+			while (wn->flag & CINE) //DEBUG
 			{
 				setkeyboard(wn->old, wn->state);
 				SDL_PollEvent(&(wn->ev));
