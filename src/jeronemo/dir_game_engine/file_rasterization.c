@@ -6,13 +6,13 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 14:53:39 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:12:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
-void	ft_init_rasterization(t_win *wn, t_myraster *raster)
+t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 {
 	SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
 	raster->mat_trans = ft_make_matrix_5_5();
@@ -46,16 +46,18 @@ void	ft_init_rasterization(t_win *wn, t_myraster *raster)
 
 	raster->point_up_screen = ft_create_vector(-1, -1, -1);
 	raster->plane_up_screen = ft_create_vector(-1, -1, -1);
+
+	return (raster);
 }
 
-void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
+t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
 {
 	int				i;
+	int				j;
 	t_mytriangle    triangle;
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_lst_2;
 	t_mytriangle	*keep;
-	int				j;
 	int				nbr_of_clipped_triangle_created;
 	t_mytriangle	*clipped_triangle;
 	t_mytriangle	*triangle_node;
@@ -74,7 +76,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 		if (ft_culling(&triangle, raster) == 1)//CULLING
 		{
 			ft_calcul_shade(&triangle, raster);//SHADE
-			ft_apply_calucul(ft_matrix_multiply_vector_general, &triangle, raster->mat_camera_view);//CAM VIEW
+			ft_calcul_cam_view(&triangle, raster);//CAM VIEW
 			clipped_triangle = ft_clipping_camera(&triangle, &nbr_of_clipped_triangle_created, raster, clipped_triangle);//CLIP AGAINST CAMERA PLANE
 			j = 0;
 			while(j < nbr_of_clipped_triangle_created)
@@ -161,6 +163,13 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	raster->ftheta += 0;
 	if (raster->ftheta == 360 * 2)
 		raster->ftheta = 0;
+	t_mytriangle *current;
+	while (triangle_lst_2 != NULL)
+	{
+		current = triangle_lst_2;
+		triangle_lst_2 = triangle_lst_2->next;
+		free(current);
+	}
 	ft_free_lst(triangle_lst_2);
-	return;
+	return (raster);
 }

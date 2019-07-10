@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 14:52:31 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:05:04 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,3 +103,21 @@ t_mytriangle	*ft_clipping_camera(t_mytriangle *triangle,
 											/* int *nbr, */
 											/* t_mytriangle *clipped_triangle, */
 											/* t_mytriangle *triangle) */
+
+
+void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)
+{
+	ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);
+}
+
+
+
+
+
+
+
+
+
+
+
+
