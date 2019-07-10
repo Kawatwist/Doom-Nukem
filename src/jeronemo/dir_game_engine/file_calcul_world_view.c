@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 15:23:24 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:54:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,19 @@ void	ft_free_lst(t_mytriangle *triangle_lst_2)
 	}
 }
 
-t_mytriangle	*ft_clipping_camera(t_mytriangle *triangle,
+//surement un truck a faire ici pour le passage par adresse
+void	ft_clipping_camera(t_mytriangle *triangle,
 									t_myraster *raster,
-									t_mytriangle *clipped_triangle)
+									t_mytriangle **clipped_triangle)
 {
 	raster->nbr_of_clipped_triangle_created = 0;
-			clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen,
+	*clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen,
 															raster->plane_camera,
 															&(raster->nbr_of_clipped_triangle_created),
-															clipped_triangle,
+															*clipped_triangle,
 															triangle);
-			return (clipped_triangle);
 }
+
 //t_mytriangle	*ft_triangle_clips_again_plan(t_myvec point,
 											/* t_myvec plane_norm, */
 											/* int *nbr, */
@@ -111,6 +112,34 @@ void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)
 }
 
 
+void	ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster)
+{
+	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_proje);//PROJECTION
+}
+
+
+t_mytriangle	ft_scale_screen(t_mytriangle triangle)
+{
+	triangle.vertice[0].x += 1.0;
+	triangle.vertice[1].x += 1.0;
+	triangle.vertice[2].x += 1.0;
+
+	triangle.vertice[0].y += 1.0;
+	triangle.vertice[1].y += 1.0;
+	triangle.vertice[2].y += 1.0;
+
+
+	triangle.vertice[0].x *= 0.5 * (float)XSCREEN;
+	triangle.vertice[1].x *= 0.5 * (float)XSCREEN;
+	triangle.vertice[2].x *= 0.5 * (float)XSCREEN;
+
+	triangle.vertice[0].y *= 0.5 * (float)YSCREEN;
+	triangle.vertice[1].y *= 0.5 * (float)YSCREEN;
+	triangle.vertice[2].y *= 0.5 * (float)YSCREEN;
+
+
+	return (triangle);
+}
 
 
 

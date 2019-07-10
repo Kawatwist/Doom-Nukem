@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 15:22:36 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:54:16 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ t_mytriangle	*ft_get_triangles_array(t_mypolygon *polygon_lst);
 char			*ft_itoa_comma(float nbr);
 
 //FILE MATRIX TOOL
-t_mytriangle	ft_scale_screen(t_mytriangle triangle);
 float			ft_rad(float angle);
 
 float			**ft_make_matrix_5_5(void);
@@ -140,7 +139,9 @@ void			ft_calcul_shade(t_mytriangle *triangle, t_myraster *raster);
 void			ft_add_triangle_to_lst(t_mytriangle clipped_triangle, t_mytriangle **triangle_lst);
 void			ft_calcul_world_and_view_matrix(t_myraster *raster);
 void			ft_free_lst(t_mytriangle *triangle_lst_2);
-t_mytriangle	*ft_clipping_camera(t_mytriangle *triangle,
+void			ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster);
+void			ft_clipping_camera(t_mytriangle *triangle,
 									t_myraster *raster,
-									t_mytriangle *clipped_triangle);
-void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster);
+									t_mytriangle **clipped_triangle);
+void			ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster);
+t_mytriangle	ft_scale_screen(t_mytriangle triangle);
