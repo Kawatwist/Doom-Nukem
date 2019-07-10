@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 16:42:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:50:39 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,14 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->point_up_screen = ft_create_vector(-1, -1, -1);
 	raster->plane_up_screen = ft_create_vector(-1, -1, -1);
 
+	raster->i = 0;   //attention limit le nombre de triangle
+
 	return (raster);
 }
 
 t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
 {
-	int				i;
-	int				j;
+	/* int				j; */
 	t_mytriangle    triangle;
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_lst_2;
@@ -64,26 +65,24 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 	clipped_triangle = NULL;
 	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
 	ft_calcul_world_and_view_matrix(raster);
-	i = 0;
-	while (i < max )
+	raster->i = -1;
+	while (++(raster->i) < max )
 	{
-		triangle = triangle_array[i];
+		triangle = triangle_array[raster->i];
 		ft_calcul_world_view(&triangle, raster);
 		if (ft_culling(&triangle, raster) == 1)
 		{
 			ft_calcul_shade(&triangle, raster);
 			ft_calcul_cam_view(&triangle, raster);
 			ft_clipping_camera(&triangle, raster, &clipped_triangle);
-			j = 0;
-			while(j < raster->nbr_of_clipped_triangle_created)
+			raster->j = -1;
+			while(++(raster->j) < raster->nbr_of_clipped_triangle_created)
 			{
-				ft_calcul_projection_view(&(clipped_triangle[j]), raster);
-				ft_scale_screen(&(clipped_triangle[j]));
-				ft_add_triangle_to_lst(clipped_triangle[j], &triangle_lst);
-				j++;
+				ft_calcul_projection_view(&(clipped_triangle[raster->j]), raster);
+				ft_scale_screen(&(clipped_triangle[raster->j]));
+				ft_add_triangle_to_lst(clipped_triangle[raster->j], &triangle_lst);
 			}
 		}
-		i++;
 	}
 	ft_order_triangle_z_buffer(&triangle_lst);
 	ft_clipping_screen();

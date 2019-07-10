@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 16:42:05 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 16:49:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 typedef struct				s_myraster
 {
+	int						i;
+	int						j;
 	float					ftheta;
 	float					theta_camera;
 	float					pitch; // l'angle pour l'axis y
