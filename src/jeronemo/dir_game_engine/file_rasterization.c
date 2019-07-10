@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 13:10:47 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/10 14:54:02 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,75 +53,45 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn)
 {
 	int				i;
-	t_mytriangle	triangle;
+	t_mytriangle    triangle;
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_lst_2;
-	t_mytriangle	*triangle_node;
 	t_mytriangle	*keep;
-	t_myvec			normal;
 	int				j;
-	int				nbr;
+	int				nbr_of_clipped_triangle_created;
 	t_mytriangle	*clipped_triangle;
-
+	t_mytriangle	*triangle_node;
 
 	triangle_lst = NULL;
 	triangle_lst_2 = NULL;
 	clipped_triangle = NULL;
 	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
 
-
-
-
-	//CALCUL DE MATRIX WORLD
-	ft_set_raster_trans(0, 0, -30, raster);
-	//ft_set_raster_rot_x(raster->ftheta, raster);
-	ft_set_raster_rot_x(180, raster);
-	//ft_set_raster_rot_y(raster->ftheta, raster);
-	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
-	//CALUL DE MATRIX VIEW
-	raster->mat_camera_view = t_camera_compute_view(raster);
-	////##################################################################################################
+	ft_calcul_world_and_view_matrix(raster);
 	i = 0;
 	while (i < max )
 	{
 		triangle = triangle_array[i];
-		//ROTATION Z
-		triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_z);
-		//ROTATION X
-		triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_x);
-		//TRANSLATION (offset in screen)
-		triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_trans);
-		//CULLING
-		normal = ft_calculate_normal_of_points(triangle.vertice[0], triangle.vertice[1], triangle.vertice[2]);
-		normal = ft_normalise(normal);
-		if (ft_dot_product(normal, ft_vector_sub(triangle.vertice[0], raster->v_camera)) < 0.0)
+		ft_calcul_world_view(&triangle, raster);//CALCUL WORLD VIEW
+		if (ft_culling(&triangle, raster) == 1)//CULLING
 		{
-			//SHADE
-			triangle.shade = ft_dot_product(normal, raster->light_direction);
-			//CAM VIEW
-			triangle = ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);
-			//CLIP AGAINST CAMERA PLANE
-			clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen, raster->plane_camera, &nbr, clipped_triangle, &triangle);
+			ft_calcul_shade(&triangle, raster);//SHADE
+			triangle = ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);//CAM VIEW
+			clipped_triangle = ft_clipping_camera(&triangle, &nbr_of_clipped_triangle_created, raster, clipped_triangle);//CLIP AGAINST CAMERA PLANE
 			j = 0;
-			while(j < nbr)
+			while(j < nbr_of_clipped_triangle_created)
 			{
-				//PROJECTION
-				*clipped_triangle = ft_apply_calucul(ft_matrix_multiply_vector, *clipped_triangle, raster->mat_proje);
-				//SCALE
-				clipped_triangle[j]= ft_scale_screen(clipped_triangle[j]);
-				triangle_node = ft_triangle_node_create(clipped_triangle[j]);
-				ft_triangle_add_node(&triangle_lst, triangle_node);
+				*clipped_triangle = ft_apply_calucul(ft_matrix_multiply_vector, *clipped_triangle, raster->mat_proje);//PROJECTION
+				clipped_triangle[j]= ft_scale_screen(clipped_triangle[j]);//SCALE
+				ft_add_triangle_to_lst(clipped_triangle[j], &triangle_lst);//ADD TRIANGLE TO TRIANGLE LST
 				j++;
 			}
 		}
 		i++;
 	}
-	//ORDER TRIANGLE FROM FAR TO NEAR
-	triangle_lst = ft_order_triangle_z_buffer(triangle_lst);
+	triangle_lst = ft_order_triangle_z_buffer(triangle_lst);//ORDER TRIANGLE FROM FAR TO NEAR
 
 	//CLIP AGAINST SCREEN PLANE
-
-
 	/* int		newtriangle; */
 	/* newtriangle = 1; */
 	/* i = 0; */
@@ -158,11 +128,11 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 	keep = triangle_lst;
 	while(triangle_lst != NULL)
 	{
-		nbr = 0;
-		clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen, raster->plane_up_screen, &nbr, clipped_triangle, triangle_lst);
-		printf("le nbr=%d\n", nbr);
+		nbr_of_clipped_triangle_created = 0;
+		clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen, raster->plane_up_screen, &nbr_of_clipped_triangle_created, clipped_triangle, triangle_lst);
+		printf("le nbr_of_clipped_triangle_created=%d\n", nbr_of_clipped_triangle_created);
 		j = 0;
-		while(j < nbr)
+		while(j < nbr_of_clipped_triangle_created)
 		{
 			printf("j =%f\n", clipped_triangle->vertice[0].x);
 			triangle_node = ft_triangle_node_create(clipped_triangle[j]);
@@ -174,30 +144,22 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 	}
 	triangle_lst = keep;
 
+
 	//AFFICHAGE
 	/* triangle_lst_2 = triangle_lst; */
-
-
-
-
-
 	keep = triangle_lst_2;
 	while (triangle_lst_2 != NULL)
 	{
 		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
 		ft_fill_triangle_shade((triangle_lst_2->vertice[0]), (triangle_lst_2->vertice[1]), (triangle_lst_2->vertice[2]), wn, triangle_lst_2->shade);
 		//DRAW MESH
-		if (triangle_lst_2->ft_color == 'r')
-			SDL_SetRenderDrawColor(wn->rend, 255, 0, 0, 255);
-		else if (triangle_lst_2->ft_color == 'g')
-			SDL_SetRenderDrawColor(wn->rend, 0, 255, 0, 255);
-		else if (triangle_lst_2->ft_color == 'b')
-			SDL_SetRenderDrawColor(wn->rend, 0, 0, 255, 255);
-		SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 255);
 		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
 		triangle_lst_2 = triangle_lst_2->next;
 	}
 	triangle_lst_2 = keep;
+
+
+
 	raster->ftheta += 0;
 	if (raster->ftheta == 360 * 2)
 		raster->ftheta = 0;
@@ -208,5 +170,6 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 		triangle_lst_2 = triangle_lst_2->next;
 		free(current);
 	}
+	ft_free_lst(triangle_lst_2);
 	return (raster);
 }

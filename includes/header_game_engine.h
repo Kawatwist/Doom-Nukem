@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 13:12:04 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/10 14:54:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,19 @@ void			ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2);
 //FILE ORDER Z BUFFER
 t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst);
 
-
+//file calcul world view
+/* t_mytriangle	ft_calcul_world_view(t_mytriangle triangle, t_myraster *raster); */
+void			ft_calcul_world_view(t_mytriangle *triangle, t_myraster *raster);
+void			ft_calcul_world_view_matrix(t_myraster *raster);
+t_myvec			ft_calcul_normal_triangle_and_normalise(t_mytriangle triangle);
+/* int				ft_culling(t_mytriangle triangle, t_myraster *raster); */
+int				ft_culling(t_mytriangle *triangle, t_myraster *raster);
+/* float			ft_calcul_shade(t_mytriangle triangle, t_myraster *raster); */
+void			ft_calcul_shade(t_mytriangle *triangle, t_myraster *raster);
+void			ft_add_triangle_to_lst(t_mytriangle clipped_triangle, t_mytriangle **triangle_lst);
+void			ft_calcul_world_and_view_matrix(t_myraster *raster);
+void			ft_free_lst(t_mytriangle *triangle_lst_2);
+t_mytriangle	*ft_clipping_camera(t_mytriangle *triangle,
+									int *nbr_of_clipped_triangle_created,
+									t_myraster *raster,
+ 									t_mytriangle *clipped_triangle);
