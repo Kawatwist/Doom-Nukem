@@ -59,9 +59,9 @@ typedef enum		e_interface
 
 typedef struct		s_point
 {
-	int				x;
-	int				y;
-	int 			z;
+	float				x;
+	float				y;
+	float 				z;
 	struct s_point	*next;
 }					t_point;
 
@@ -301,6 +301,9 @@ void 				load_background(t_win *wn);
 int 				is_path_ok(t_win *wn, char *path);
 void   				find_last_poly(t_elem **curr);
 void     			find_last_point(t_win *wn, t_point **point);
+// t_mypolygon 		*polygon_map(t_win *wn);
+t_poly 				*poly_map(t_win *wn);
+
 
 void				mainconsole(t_win *wn);
 void				inputconsole(t_win *wn);

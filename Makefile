@@ -83,7 +83,8 @@ SRC				= main.c										\
 				  mouse_editor.c 								\
 				  display_map.c 								\
 				  display_blocs.c 								\
-
+				  edit_poly.c 									\
+				  	
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 
 LIBS 			= SDL2 SDL2_mixer SDL2_ttf freetype ft

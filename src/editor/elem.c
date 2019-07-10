@@ -102,7 +102,6 @@ void			mouse_input_poly(t_win *wn)
 			fill_point(wn, &point);
 			curr->nb_pt = wn->varedit.nb_point;
 		}
-		printf("NOMBRE POINTSSSSS = %d\n", wn->varedit.nb_point);
 		if (mouse_pressed(wn, SDL_BUTTON_RIGHT)) // CREATE A NEW POLY   /!\ BECARFULL IF A POLYGONE GOT LESS THAN 3 POINT HE'S INVALID
 		{
 			if (curr->nb_pt < 5)
