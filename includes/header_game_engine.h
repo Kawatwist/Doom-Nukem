@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 15:54:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:56:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,4 @@ void			ft_clipping_camera(t_mytriangle *triangle,
 									t_myraster *raster,
 									t_mytriangle **clipped_triangle);
 void			ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster);
-t_mytriangle	ft_scale_screen(t_mytriangle triangle);
+void			ft_scale_screen(t_mytriangle *triangle);

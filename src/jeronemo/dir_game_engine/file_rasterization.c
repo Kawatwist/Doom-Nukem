@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 15:55:08 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:57:25 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_myraster	*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, i
 			while(j < raster->nbr_of_clipped_triangle_created)
 			{
 				ft_calcul_projection_view(&(clipped_triangle[j]), raster);
-				clipped_triangle[j]= ft_scale_screen(clipped_triangle[j]);//SCALE
+				ft_scale_screen(&(clipped_triangle[j]));
 				ft_add_triangle_to_lst(clipped_triangle[j], &triangle_lst);//ADD TRIANGLE TO TRIANGLE LST
 				j++;
 			}

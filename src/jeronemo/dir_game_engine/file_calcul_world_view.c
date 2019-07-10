@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 15:54:00 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 15:56:47 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,27 +118,24 @@ void	ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster)
 }
 
 
-t_mytriangle	ft_scale_screen(t_mytriangle triangle)
+void	ft_scale_screen(t_mytriangle *triangle)
 {
-	triangle.vertice[0].x += 1.0;
-	triangle.vertice[1].x += 1.0;
-	triangle.vertice[2].x += 1.0;
+	triangle->vertice[0].x += 1.0;
+	triangle->vertice[1].x += 1.0;
+	triangle->vertice[2].x += 1.0;
 
-	triangle.vertice[0].y += 1.0;
-	triangle.vertice[1].y += 1.0;
-	triangle.vertice[2].y += 1.0;
-
-
-	triangle.vertice[0].x *= 0.5 * (float)XSCREEN;
-	triangle.vertice[1].x *= 0.5 * (float)XSCREEN;
-	triangle.vertice[2].x *= 0.5 * (float)XSCREEN;
-
-	triangle.vertice[0].y *= 0.5 * (float)YSCREEN;
-	triangle.vertice[1].y *= 0.5 * (float)YSCREEN;
-	triangle.vertice[2].y *= 0.5 * (float)YSCREEN;
+	triangle->vertice[0].y += 1.0;
+	triangle->vertice[1].y += 1.0;
+	triangle->vertice[2].y += 1.0;
 
 
-	return (triangle);
+	triangle->vertice[0].x *= 0.5 * (float)XSCREEN;
+	triangle->vertice[1].x *= 0.5 * (float)XSCREEN;
+	triangle->vertice[2].x *= 0.5 * (float)XSCREEN;
+
+	triangle->vertice[0].y *= 0.5 * (float)YSCREEN;
+	triangle->vertice[1].y *= 0.5 * (float)YSCREEN;
+	triangle->vertice[2].y *= 0.5 * (float)YSCREEN;
 }
 
 
