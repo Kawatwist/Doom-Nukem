@@ -98,7 +98,8 @@ SRC				= main.c										\
 				  display_blocs.c 								\
 				  edit_poly.c 									\
 				  world2view.c									\
-				  world2view_mat.c
+				  world2view_mat.c 								\
+				  tool2.c 										\
 
 
 #GAME ENGINE

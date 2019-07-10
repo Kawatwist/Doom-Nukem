@@ -30,7 +30,8 @@ void		load_color(t_win *wn)
 	wn->color.violetfonce = making_color(188, 7, 237, 0);
 	wn->color.violet = making_color(199, 62, 236, 0);
 	wn->color.violetrose = making_color(212, 115, 238, 0);
-	wn->color.red = making_color(255, 255, 255, 0);
+	wn->color.red = making_color(255, 0, 0, 0);
+	wn->color.blanc = making_color(255, 255, 255, 0);
 }
 
 SDL_Rect	define_rect(int x, int y, int w, int h)

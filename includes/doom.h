@@ -190,6 +190,7 @@ typedef struct 		s_color
 	SDL_Color		violet;
 	SDL_Color		violetrose;
 	SDL_Color 		red;
+	SDL_Color 		blanc;
 }					t_color;
 
 typedef struct 		s_loadbgmap
@@ -446,6 +447,8 @@ void   				find_last_poly(t_elem **curr);
 void     			find_last_point(t_win *wn, t_point **point);
 // t_mypolygon 		*polygon_map(t_win *wn);
 t_poly 				*poly_map(t_win *wn);
+int 				pop_up_message(t_win *wn, char *msg, SDL_Rect *rect);
+
 
 /**
  ** MENU
