@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 12:43:12 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:14:38 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,55 +56,31 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	t_mytriangle	triangle;
 	t_mytriangle	*triangle_lst;
 	t_mytriangle	*triangle_lst_2;
-	t_mytriangle	*triangle_node;
 	t_mytriangle	*keep;
-	t_myvec			normal;
 	int				j;
 	int				nbr;
 	t_mytriangle	*clipped_triangle;
-
+	t_mytriangle	*triangle_node;
 
 	triangle_lst = NULL;
 	triangle_lst_2 = NULL;
 	clipped_triangle = NULL;
 	clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
-
-
-
-
 	//CALCUL DE MATRIX WORLD
-	ft_set_raster_trans(0, 0, -30, raster);
-	//ft_set_raster_rot_x(raster->ftheta, raster);
-	ft_set_raster_rot_x(180, raster);
-	//ft_set_raster_rot_y(raster->ftheta, raster);
-	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
+	ft_calcul_world_view_matrix(raster);
 	//CALUL DE MATRIX VIEW
 	raster->mat_camera_view = t_camera_compute_view(raster);
-	////##################################################################################################
 	i = 0;
 	while (i < max )
 	{
 		triangle = triangle_array[i];
-
 		//CALCUL WORLD VIEW
 		triangle = ft_calcul_world_view(triangle, raster);
-
-
-
-
-		/* //ROTATION Z */
-		/* triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_z); */
-		/* //ROTATION X */
-		/* triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_x); */
-		/* //TRANSLATION (offset in screen) */
-		/* triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_trans); */
 		//CULLING
-		normal = ft_calculate_normal_of_points(triangle.vertice[0], triangle.vertice[1], triangle.vertice[2]);
-		normal = ft_normalise(normal);
-		if (ft_dot_product(normal, ft_vector_sub(triangle.vertice[0], raster->v_camera)) < 0.0)
+		if (ft_culling(triangle, raster) == 1)
 		{
 			//SHADE
-			triangle.shade = ft_dot_product(normal, raster->light_direction);
+			triangle.shade = ft_calcul_shade(triangle, raster);
 			//CAM VIEW
 			triangle = ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);
 			//CLIP AGAINST CAMERA PLANE
@@ -116,8 +92,12 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 				*clipped_triangle = ft_apply_calucul(ft_matrix_multiply_vector, *clipped_triangle, raster->mat_proje);
 				//SCALE
 				clipped_triangle[j]= ft_scale_screen(clipped_triangle[j]);
-				triangle_node = ft_triangle_node_create(clipped_triangle[j]);
-				ft_triangle_add_node(&triangle_lst, triangle_node);
+				//ADD TRIANGLE TO TRIANGLE LST
+				ft_add_triangle_to_lst(clipped_triangle[j], &triangle_lst);
+
+
+
+
 				j++;
 			}
 		}
