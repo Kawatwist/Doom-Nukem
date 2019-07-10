@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 14:30:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:34:59 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max
 	while (i < max )
 	{
 		triangle = triangle_array[i];
-		triangle = ft_calcul_world_view(triangle, raster);//CALCUL WORLD VIEW
+		ft_calcul_world_view(&triangle, raster);//CALCUL WORLD VIEW
 		if (ft_culling(triangle, raster) == 1)//CULLING
 		{
 			triangle.shade = ft_calcul_shade(triangle, raster);//SHADE

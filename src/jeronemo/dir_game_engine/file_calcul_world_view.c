@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 14:25:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:33:54 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ void	ft_calcul_world_view_matrix(t_myraster *raster)
 	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
 }
 
-t_mytriangle	ft_calcul_world_view(t_mytriangle triangle, t_myraster *raster)
+void	ft_calcul_world_view(t_mytriangle *triangle, t_myraster *raster)
 {
 	//ROTATION Z
-	triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_z);
+	*triangle = ft_apply_calucul(ft_matrix_multiply_vector, *triangle, raster->mat_rot_z);
 	//ROTATION X
-	triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_x);
+	*triangle = ft_apply_calucul(ft_matrix_multiply_vector, *triangle, raster->mat_rot_x);
 	//TRANSLATION (offset in screen)
-	triangle = ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_trans);
-	return (triangle);
+	*triangle = ft_apply_calucul(ft_matrix_multiply_vector, *triangle, raster->mat_trans);
 }
 
 t_myvec		ft_calcul_normal_triangle_and_normalise(t_mytriangle triangle)

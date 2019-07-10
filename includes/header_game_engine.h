@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 14:26:25 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 14:34:30 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ void			ft_swap_node_with_the_next(t_mytriangle **head, t_mytriangle *node2);
 t_mytriangle	*ft_order_triangle_z_buffer(t_mytriangle *triangle_lst);
 
 //file calcul world view
-t_mytriangle	ft_calcul_world_view(t_mytriangle triangle, t_myraster *raster);
+/* t_mytriangle	ft_calcul_world_view(t_mytriangle triangle, t_myraster *raster); */
+void			ft_calcul_world_view(t_mytriangle *triangle, t_myraster *raster);
 void			ft_calcul_world_view_matrix(t_myraster *raster);
 t_myvec			ft_calcul_normal_triangle_and_normalise(t_mytriangle triangle);
 int				ft_culling(t_mytriangle triangle, t_myraster *raster);
