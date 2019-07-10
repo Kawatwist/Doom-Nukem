@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 13:18:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:22:45 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,15 @@ void	ft_calcul_world_and_view_matrix(t_myraster *raster)
 	ft_calcul_world_view_matrix(raster);
 	//CALUL DE MATRIX VIEW
 	raster->mat_camera_view = t_camera_compute_view(raster);
+}
+
+void	ft_free_lst(t_mytriangle *triangle_lst_2)
+{
+	t_mytriangle *current;
+	while (triangle_lst_2 != NULL)
+	{
+		current = triangle_lst_2;
+		triangle_lst_2 = triangle_lst_2->next;
+		free(current);
+	}
 }
