@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 16:41:56 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 17:04:56 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,15 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 }
 
 
+void	ft_make_the_world_spin(int turn, t_myraster *raster)
+{
+	if (turn == 1)
+	{
+		raster->ftheta += 1;
+		if (raster->ftheta == 360 * 2)
+			raster->ftheta = 0;
+	}
+}
 
 
 
