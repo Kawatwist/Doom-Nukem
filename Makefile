@@ -16,6 +16,7 @@ neutre=\033[0m
 cyanfonce=\033[0;36m
 cyanclair=\033[1;36m
 vertfonce=\033[0;32m
+vertclair=\033[1;32m
 NAME			= doom
 
 HEADER 			= $(shell find includes -type f) $(shell find libraries/include -type f 2>/dev/null || true)

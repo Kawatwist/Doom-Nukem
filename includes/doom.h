@@ -447,7 +447,6 @@ void     			find_last_point(t_win *wn, t_point **point);
 // t_mypolygon 		*polygon_map(t_win *wn);
 t_poly 				*poly_map(t_win *wn);
 
-
 /**
  ** MENU
  **/
