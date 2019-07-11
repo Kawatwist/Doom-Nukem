@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/11 18:11:43 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/11 19:38:19 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,12 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 		}
 	}
 	ft_order_triangle_z_buffer(&(raster->triangle_lst));
+	printf("clipping screen \n");
 	ft_clipping_screen(
 			raster->triangle_lst,
 			raster,
 			&(raster->clipped_triangle));
+	printf("fin clipping screen \n");
 	raster->triangle_lst_2 = raster->triangle_lst;
 	ft_draw(raster->triangle_lst_2, wn);
 	ft_free_lst(raster->triangle_lst_2);

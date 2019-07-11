@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 14:13:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 16:36:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/11 19:20:15 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_order_triangle_z_buffer(t_mytriangle **triangle_lst_lst)
 		{
 			ft_swap_node_with_the_next(&keep, triangle_lst);
 			triangle_lst = keep;
+			printf("hello\n");
 		}
 		else
 			triangle_lst = triangle_lst->next;
