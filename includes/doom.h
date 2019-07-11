@@ -228,6 +228,10 @@ typedef struct		s_rasterizer
 	void			*tmp;
 	t_mytriangle	*tmp2;
 	t_mypolygon		*tmp3;
+
+	t_vec 			curr_pos;
+	t_poly 			*poly_list;
+	t_bsp 			*bsp;
 }					t_rasterizer;
 
 typedef struct		s_win
@@ -436,6 +440,8 @@ int					key_pressed(t_win *wn, int key_value);
 /**
  ** jeronemo game engine
  **/
+
+t_mytriangle *make_triangles(t_poly *list);
 
 void	ft_game_engine(t_win *wn);
 #endif
