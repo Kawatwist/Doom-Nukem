@@ -321,6 +321,7 @@ typedef struct		s_win
 	t_menu			*menu;
 	t_mut			*mutex;
 	t_poly			*poly;
+	t_mypolygon 	*mypoly;
 	t_rast			*rast;
 	int 			xscreen;
 	int 			yscreen;

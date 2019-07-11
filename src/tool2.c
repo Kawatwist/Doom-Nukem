@@ -12,6 +12,8 @@
 
 #include "doom.h"
 
+
+
 int 		pop_up_message(t_win *wn, char *msg, SDL_Rect *rect)
 {
 	int				w;
@@ -21,7 +23,8 @@ int 		pop_up_message(t_win *wn, char *msg, SDL_Rect *rect)
 	SDL_Texture 	*texture;
 
 	//APPARITION SOURIS
-	
+	if (hitbox(wn->input->x, wn->input->y, rect) == TRUE)
+		SDL_ShowCursor(SDL_ENABLE);
 	//BLOC QUESTION
 	surface = SDL_CreateRGBSurface(0, rect->x, rect->y, 32, 0, 0, 0, 0);
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 62, 62, 62));
@@ -43,6 +46,8 @@ int 		pop_up_message(t_win *wn, char *msg, SDL_Rect *rect)
 	if (SDL_RenderCopy(wn->rend, texture, NULL, &position) < 0)
 		stop_exec("rendercopy failed\n", wn);
 	TTF_SizeText(wn->fonts->arial_path, "YES", &w, &h);
+	if (mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE && hitbox(wn->input->x, wn->input->y, &position) == TRUE)
+		return(1);
 	position = define_rect(rect->x + position.w / 2 - w / 2, position.y + position.h / 2 - h / 2, w, h);
 	TTF_SetFontStyle(wn->fonts->arial_path, TTF_STYLE_BOLD);
 	print_text_with_arial_path_full(wn, "YES", wn->color.noir, position);
@@ -56,12 +61,11 @@ int 		pop_up_message(t_win *wn, char *msg, SDL_Rect *rect)
 	if (SDL_RenderCopy(wn->rend, texture, NULL, &position) < 0)
 		stop_exec("rendercopy failed\n", wn);
 	TTF_SizeText(wn->fonts->arial_path, "NO", &w, &h);
+	if (mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE && hitbox(wn->input->x, wn->input->y, &position) == TRUE)
+		return(2);
 	position = define_rect(rect->x + rect->w / 4 * 3 - w / 2, position.y + position.h / 2 - h / 2, w, h);
 	TTF_SetFontStyle(wn->fonts->arial_path, TTF_STYLE_BOLD);
 	print_text_with_arial_path_full(wn, "NO", wn->color.blanc, position);
 	TTF_SetFontStyle(wn->fonts->arial_path, TTF_STYLE_NORMAL);
-	// CLIQUE REPONSE
-	 if (mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE && hitbox(wn->input->x, wn->input->y, &position) == TRUE)
-		return(0);
-	return(1);
+	return (0);
 }

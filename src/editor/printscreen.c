@@ -65,11 +65,13 @@ void		change_bloc(t_win *wn)
 static void		test_pop_up(t_win *wn)
 {
 	SDL_Rect 		rect;
+	int 			n;
 	
 
 	rect = define_rect(wn->xscreen / 3, wn->yscreen / 3, 500, 300);
 	
-	pop_up_message(wn, "blablablablabla ?", &rect);
+	n = pop_up_message(wn, "blablablablabla ?", &rect);
+	printf("popup ================== %d\n", n);
 }
 
 void		printeditor(t_win *wn)
