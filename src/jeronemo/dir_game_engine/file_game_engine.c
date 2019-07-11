@@ -6,107 +6,48 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 17:09:03 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/11 11:24:21 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <header_game_engine.h>
-//# include <bsp.h>
+t_mypolygon		*ft_read_the_polygon_file(void);
 
-void	ft_init_rasterization(t_mykeep *keep, t_mychange *change, t_myraster *raster)
+t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
 {
-	raster->mat_trans = ft_make_matrix_5_5();
-	raster->mat_rot_x = ft_make_matrix_5_5();
-	raster->mat_rot_y = ft_make_matrix_5_5();
-	raster->mat_rot_z = ft_make_matrix_5_5();
-	raster->mat_proje = ft_make_matrix_5_5();
-	ft_set_pro(raster);
-	raster->ftheta = 0;
-	raster->theta_camera = 0;
+	t_mycolor	s_color;
 
-	raster->v_camera.x = 0;
-	raster->v_camera.y = 0;
-	raster->v_camera.z = 0;
-
-	raster->avancer = 0;
-	raster->reculer = 0;
-
-
-
-
-
-
-	keep->polygon = NULL;
-	keep->vec = NULL;
-	change->display = (t_mydisplay*)malloc(sizeof(t_mydisplay));
-	change->old = (Uint8*)malloc(sizeof(Uint8) * 300);
-	change->quit = FALSE;
-	change->angle_x = 0;
-	change->angle_y = 0;
-	change->angle_z = 0;
-	change->zoom = 1;
-	change->translation_x = 0;
-	change->translation_y = 0;
-	change->translation_z = -10;
-	change->reculer = 0;
-	change->avancer = 0;
-	change->modif = 1;
-	change->display->triangle = 0;
-	change->display->mesh = 1;
-	change->display->projection = perspective;
-	change->display->culling_face = 0;
-	change->display->mesh_normal = 0;
-	change->display->triangle_normal = 0;
-	change->display->panel = 1;
-	change->display->color = 0;
-	change->display->shade = 0;
-	change->v_look_dir.x = 0;
-	change->v_look_dir.y = 0;
-	change->v_look_dir.z = 0;
-	change->v_camera.x = 0;
-	change->v_camera.y = 0;
-	change->v_camera.z = 0;
-	change->theta_x = 0;
-	change->theta_y = 0;
-	change->theta_z = 0;
-	change->mat_trans = ft_make_matrix_5_5();
+	s_color.rrr = rrr;
+	s_color.ggg = ggg;
+	s_color.bbb = bbb;
+	return (s_color);
 }
 
-void	ft_launch_rasterization(t_mywin *s_win, t_win *wn)
+void	ft_game_engine(t_win *wn)
 {
-	t_mychange			change;
-	t_mykeep			keep;
-	t_myraster			raster;
-	t_mytriangle		*triangle_array;
-	t_bsp 				*bsp;
-	t_poly 				*poly_list;
-	t_vec				pos_joueur;
+	ft_launch_rasterization(wn);
+}
 
-
-	//ft_launch_bsp_tree(s_win, wn);
-	//triangle_array = ft_get_triangles_array(s_win);
-	//int max = ft_get_nbr_of_triangle(s_win);
-
-	bsp = bsp_compile();
-	SDL_Init(SDL_INIT_EVERYTHING);
-	s_win->interface = GAME_ENGINE;
-	ft_launch_window(s_win, s_win->interface);
-	ft_init_rasterization(&keep, &change, &raster);
-	/* ft_display_triangle_array(s_win, triangle_array, max); */
-	while (!change.quit)
+void	turn_rast(t_win *wn)
+{
+	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
+	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
 	{
-		pos_joueur.x = wn->player->x;
-		pos_joueur.y = wn->player->y;
-		pos_joueur.z = wn->player->z;
-		poly_list = render_bsp(bsp, &pos_joueur);
-		print_poly_list(poly_list);
-		triangle_array = make_triangles(poly_list);
-		ft_input_event_check(wn, &change, &raster);
-		ft_clear_window(s_win);
-		ft_update_raster(s_win, &raster, triangle_array, 0);
-		free(triangle_array);
-		SDL_RenderPresent(s_win->renderer[s_win->interface]);
-		SDL_Delay(30);
-		setkeyboard(change.old, wn->state);
+		ft_clear_window(wn);
+		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->tmp2, wn);
+		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
+		if (wn->interface == DGAME)
+			SDL_RenderPresent(wn->rend);
 	}
+}
+
+void	ft_launch_rasterization(t_win *wn)
+{
+	wn->rasterizer->tmp3 = NULL;
+	wn->rasterizer->tmp3 = ft_read_the_polygon_file();
+	ft_launch_bsp_tree(wn->rasterizer->tmp3);
+	wn->rasterizer->tmp2 = ft_get_triangles_array(wn->rasterizer->tmp3);
+	wn->rasterizer->max = ft_get_nbr_of_triangle(wn->rasterizer->tmp3);
+	wn->rasterizer->tmp = malloc(sizeof(t_myraster));
+	wn->rasterizer->tmp = ft_init_rasterization(wn, (t_myraster*)(wn->rasterizer->tmp));
 }

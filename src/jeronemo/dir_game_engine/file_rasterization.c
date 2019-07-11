@@ -6,181 +6,79 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 16:21:59 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/10 18:15:20 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
-t_mytriangle	*ft_triangle_node_create(t_mytriangle tri)
+t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 {
-	t_mytriangle	*triangle;
-
-	triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle));
-	triangle = memcpy(triangle, &tri, sizeof(t_mytriangle));
-	triangle->next = NULL;
-	return (triangle);
+	raster->triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle));
+	raster->clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
+	SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2);
+	raster->mat_trans = ft_make_matrix_5_5();
+	raster->mat_rot_x = ft_make_matrix_5_5();
+	raster->mat_rot_y = ft_make_matrix_5_5();
+	raster->mat_rot_z = ft_make_matrix_5_5();
+	raster->mat_proje = ft_make_matrix_5_5();
+	ft_set_pro(raster);
+	raster->ftheta = 0;
+	raster->theta_camera = 0;
+	raster->pitch = 0;
+	raster->leave_mouse = 0;
+	raster->v_camera = ft_create_vector(0.0, 0.0, 0.0);
+	raster->avancer = 0;
+	raster->reculer = 0;
+	raster->translate_left = 0;
+	raster->translate_right = 0;
+	raster->modif = 1;
+	raster->old = (Uint8*)malloc(sizeof(Uint8) * 300);
+	raster->quit = 0;
+	raster->light_direction = ft_create_vector(0.5, 0.0, -1.0);
+	raster->light_direction = ft_normalise(raster->light_direction);
+	raster->plane_camera = ft_create_vector(0.0, 0.0, 1.0);
+	raster->point_camera = ft_create_vector(0.0, 0.0, 0.1);
+	raster->point_up_screen = ft_create_vector(-1, -1, -1);
+	raster->plane_up_screen = ft_create_vector(-1, -1, -1);
+	raster->i = 0;   //attention limit le nombre de triangle
+	raster->nbr_of_triangle = wn->rasterizer->max; //de meme
+	return (raster);
 }
 
-void			ft_triangle_add_node(t_mytriangle **lst, t_mytriangle *node)
+void		ft_init_update_raster(t_myraster *raster)
 {
-	if (*lst == NULL)
-	{
-		*lst = node;
-	}
-	else
-	{
-		node->next = *lst;
-		*lst = node;
-	}
+	raster->triangle_lst = NULL;
+	raster->triangle_lst_2 = NULL;
+	ft_make_the_world_spin(0, raster);
+	ft_calcul_world_and_view_matrix(raster);
+	raster->i = -1;
 }
 
-
-void	ft_swap(t_mytriangle *triangle_lst)
+void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *wn)
 {
-	t_mytriangle	*swap;
-	swap = NULL;
-	swap = (t_mytriangle*)malloc(sizeof(t_mytriangle));
-	swap->shade = triangle_lst->shade;
-	swap->vertice[0].x = triangle_lst->vertice[0].x;
-	swap->vertice[0].y = triangle_lst->vertice[0].y;
-	swap->vertice[0].z = triangle_lst->vertice[0].z;
-	swap->vertice[1].x = triangle_lst->vertice[1].x;
-	swap->vertice[1].y = triangle_lst->vertice[1].y;
-	swap->vertice[1].z = triangle_lst->vertice[1].z;
-	swap->vertice[2].x = triangle_lst->vertice[2].x;
-	swap->vertice[2].y = triangle_lst->vertice[2].y;
-	swap->vertice[2].z = triangle_lst->vertice[2].z;
-
-	triangle_lst->shade = triangle_lst->next->shade;
-	triangle_lst->vertice[0].x = triangle_lst->next->vertice[0].x;
-	triangle_lst->vertice[0].y = triangle_lst->next->vertice[0].y;
-	triangle_lst->vertice[0].z = triangle_lst->next->vertice[0].z;
-	triangle_lst->vertice[1].x = triangle_lst->next->vertice[1].x;
-	triangle_lst->vertice[1].y = triangle_lst->next->vertice[1].y;
-	triangle_lst->vertice[1].z = triangle_lst->next->vertice[1].z;
-	triangle_lst->vertice[2].x = triangle_lst->next->vertice[2].x;
-	triangle_lst->vertice[2].y = triangle_lst->next->vertice[2].y;
-	triangle_lst->vertice[2].z = triangle_lst->next->vertice[2].z;
-
-	triangle_lst->next->shade = swap->shade;
-	triangle_lst->next->vertice[0].x = swap->vertice[0].x;
-	triangle_lst->next->vertice[0].y = swap->vertice[0].y;
-	triangle_lst->next->vertice[0].z = swap->vertice[0].z;
-	triangle_lst->next->vertice[1].x = swap->vertice[1].x;
-	triangle_lst->next->vertice[1].y = swap->vertice[1].y;
-	triangle_lst->next->vertice[1].z = swap->vertice[1].z;
-	triangle_lst->next->vertice[2].x = swap->vertice[2].x;
-	triangle_lst->next->vertice[2].y = swap->vertice[2].y;
-	triangle_lst->next->vertice[2].z = swap->vertice[2].z;
-}
-
-void	ft_order_triangle_z_buffer(t_mytriangle *triangle_lst)
-{
-	float			z1;
-	float			z2;
-	t_mytriangle	*keep;
-
-	keep = triangle_lst;
-	while (triangle_lst->next != NULL)
+	ft_init_update_raster(raster);
+	while (++(raster->i) < raster->nbr_of_triangle)
 	{
-		z1 = (triangle_lst->vertice[0].z + triangle_lst->vertice[1].z + triangle_lst->vertice[2].z) / 3;
-		z2 = (triangle_lst->next->vertice[0].z + triangle_lst->next->vertice[1].z + triangle_lst->next->vertice[2].z) / 3;
-		if (z1 < z2)
+		*(raster->triangle) = triangle_array[raster->i];
+		ft_calcul_world_view(raster->triangle, raster);
+		if (ft_culling(raster->triangle, raster) == 1)
 		{
-			ft_swap(triangle_lst);
-			triangle_lst = keep;
+			ft_calcul_shade(raster->triangle, raster);
+			ft_calcul_cam_view(raster->triangle, raster);
+			ft_clipping_camera(raster->triangle, raster, &(raster->clipped_triangle));
+			raster->j = -1;
+			while (++(raster->j) < raster->nbr_of_clipped_triangle_created)
+			{
+				ft_calcul_projection_view(&(raster->clipped_triangle[raster->j]), raster);
+				ft_scale_screen(&(raster->clipped_triangle[raster->j]));
+				ft_add_triangle_to_lst(raster->clipped_triangle[raster->j], &(raster->triangle_lst));
+			}
 		}
-		triangle_lst = triangle_lst->next;
 	}
-	triangle_lst = keep;
-}
-
-void		ft_update_raster(t_mywin *s_win, t_myraster *raster, t_mytriangle *triangle_array, int max)
-{
-	//int				i;
-	t_myvec			light_direction;
-	t_mytriangle	triangle;
-	t_mytriangle	*triangle_p;
-	t_mytriangle	*triangle_lst;
-	t_mytriangle	*triangle_node;
-	t_mytriangle	*keep;
-	t_myvec			normal;
-
-	(void)max;
-	triangle_lst = NULL;
-	light_direction.x = 0.5;
-	light_direction.y = 0.0;
-	light_direction.z = -1.0;
-	light_direction = ft_normalise(light_direction);
-	//CALCUL DE MATRIX WORLD
-	ft_set_raster_trans(0, 0, 30, raster);
-	//ft_set_raster_rot_x(raster->ftheta, raster);
-	ft_set_raster_rot_x(180, raster);
-	//ft_set_raster_rot_y(raster->ftheta, raster);
-	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
-	//CALCUL DE MATRIX VIEW
-	raster->mat_camera_view = t_camera_compute_view(raster); 
-	////##################################################################################################
-	//i = 0;
-	triangle_p = triangle_array;
-	while (triangle_p)
-	{
-		triangle = *triangle_p;
-		//triangle = triangle_array[i];
-		//ROTATION Z
-		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[0]);
-		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[1]);
-		triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_z, triangle.vertice[2]);
-		//ROTATION X
-		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[0]);
-		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[1]);
-		triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_rot_x, triangle.vertice[2]);
-		//TRANSLATION (offset in screen)
-		triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[0]);
-		triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[1]);
-		triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_trans, triangle.vertice[2]);
-		//CULLING
-		normal = ft_calculate_normal_of_points(triangle.vertice[0], triangle.vertice[1], triangle.vertice[2]);
-		normal = ft_normalise(normal);
-		if (ft_dot_product(normal, ft_vector_sub(triangle.vertice[0], raster->v_camera)) < 0.0)
-		{
-			//SHADE
-			triangle.shade = ft_dot_product(normal, light_direction);
-			//CAM VIEW
-			triangle.vertice[0] = ft_matrix_multiply_vector_general(raster->mat_camera_view, triangle.vertice[0]);
-			triangle.vertice[1] = ft_matrix_multiply_vector_general(raster->mat_camera_view, triangle.vertice[1]);
-			triangle.vertice[2] = ft_matrix_multiply_vector_general(raster->mat_camera_view, triangle.vertice[2]);
-			//PROJECTION
-			triangle.vertice[0] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[0]);
-			triangle.vertice[1] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[1]);
-			triangle.vertice[2] = ft_matrix_multiply_vector(raster->mat_proje, triangle.vertice[2]);
-			//SCALE
-			triangle.vertice[0] = ft_scale_screen(triangle.vertice[0]);
-			triangle.vertice[1] = ft_scale_screen(triangle.vertice[1]);
-			triangle.vertice[2] = ft_scale_screen(triangle.vertice[2]);
-			triangle_node = ft_triangle_node_create(triangle);
-			ft_triangle_add_node(&triangle_lst, triangle_node);
-		}
-		//i++;
-		triangle_p = triangle_p->next;
-	}
-	//ORDER TRIANGLE FROM FAR TO NEAR
-	ft_order_triangle_z_buffer(triangle_lst);
-	keep = triangle_lst;
-	while (triangle_lst != NULL)
-	{
-		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
-		ft_fill_triangle_shade((triangle_lst->vertice[0]), (triangle_lst->vertice[1]), (triangle_lst->vertice[2]), s_win, triangle_lst->shade);
-		//DRAW MESH
-		SDL_SetRenderDrawColor(s_win->renderer[s_win->interface], 255, 0, 0, 255);
-		ft_draw_triangle_base(&(triangle_lst->vertice[0]), &(triangle_lst->vertice[1]), &(triangle_lst->vertice[2]), s_win);
-		triangle_lst = triangle_lst->next;
-	}
-	triangle_lst = keep;
-	raster->ftheta += 1;
-	if (raster->ftheta == 360 * 2)
-		raster->ftheta = 0;
-	//free list
-	return;
+	ft_order_triangle_z_buffer(&(raster->triangle_lst));
+	ft_clipping_screen();
+	raster->triangle_lst_2 = raster->triangle_lst;
+	ft_draw(raster->triangle_lst_2, wn);
+	ft_free_lst(raster->triangle_lst_2);
 }
