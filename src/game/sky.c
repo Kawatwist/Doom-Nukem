@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:57:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 14:59:00 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/11 17:47:09 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	bg2_skybox(t_win *wn)
 	img = findpostxt(wn, "game", "skybox", "sky2");
 	SDL_RenderCopy(wn->rend, img->txt, &src, NULL);
 }
-
+/*
 static void	bg_skybox(t_win *wn)
 {
 	t_text		*img;
@@ -51,16 +51,26 @@ static void	bg_skybox(t_win *wn)
 	else
 		img = findpostxt(wn, "game", "skybox", "sky5");
 	SDL_RenderCopy(wn->rend, img->txt, &src, NULL);
+}*/
+
+
+static void	bg_skybox(t_win *wn)
+{
+	t_color color;
+	t_point origin;
+	
+	color.r = 255;
+	color.g = 255;
+	color.b = 255;
+	color.a = 255;
+	origin.x = 50;
+	origin.y = 50;
+	ft_memset(wn->pixels, wn->xscreen * 4 * wn->yscreen, 0);
+//	drawsquare(wn->pixels, wn->xscreen * 4, *create_rect(10, 10, 200, 200), color);
+	drawcircle(wn->pixels, wn->xscreen * 4, origin, 25);
 }
 
 void		display_skybox(t_win *wn)
 {
-	static int	time = 0;
-
-//	SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 0);
-//	SDL_RenderDrawRect(wn->rend, NULL);
 	wn->flag & SKY2 ? bg2_skybox(wn) : bg_skybox(wn);
-	time++;
-	if (time > (rand() % 200) + 700)
-		time = 0;
 }

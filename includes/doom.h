@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/10 17:53:57 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/11 16:48:03 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,14 @@ typedef struct  	s_fonts
 	TTF_Font		*ariel;
 } 					t_fonts;
 
+typedef struct		s_color
+{
+	unsigned char	r;			
+	unsigned char	g;			
+	unsigned char	b;			
+	unsigned char	a;			
+}					t_color;
+
 //JEROME
 
 typedef struct				s_mycolor
@@ -246,6 +254,9 @@ typedef struct		s_win
 	t_input			*input;
 	SDL_Event		ev;
 	SDL_Window		*window;
+	void			*pixels;		// CHANGE TO APPLY TO TEXTURE WHILE GAME
+	int				pitch;
+	SDL_Texture		*gametxt;
 	SDL_Renderer	*rend;
 	t_text			*texture;
 	SDL_Texture		*txtnotload;
@@ -291,7 +302,16 @@ t_myvec						ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_m
 
 
 
+/**
+ **	DRAWSCREEN
+ **/
 
+t_color				itocolor(int value);
+
+void				drawsquare(void **pixels, int pitch, SDL_Rect rect, t_color color);
+void				drawcircle(void **pixels, int pitch, t_point origin, int rayon);
+void				drawline(void **pixels, int pitch, t_point origin, t_point dest);
+void				drawpoint(void **pixels, int pitch, t_point position, t_color color);
 
 /**
  ** GAME
