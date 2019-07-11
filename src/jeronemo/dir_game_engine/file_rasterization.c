@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 18:15:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:46:53 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,36 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->quit = 0;
 	raster->light_direction = ft_create_vector(0.5, 0.0, -1.0);
 	raster->light_direction = ft_normalise(raster->light_direction);
+
+/* case 0:	nTrisToAdd = Triangle_ClipAgainstPlane({ 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, test, clipped[0], clipped[1]); break; */
+/* 					case 1:	nTrisToAdd = Triangle_ClipAgainstPlane({ 0.0f, (float)ScreenHeight() - 1, 0.0f }, { 0.0f, -1.0f, 0.0f }, test, clipped[0], clipped[1]); break; */
+/* 					case 2:	nTrisToAdd = Triangle_ClipAgainstPlane({ 0.0f, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f }, test, clipped[0], clipped[1]); break; */
+/* 					case 3:	nTrisToAdd = Triangle_ClipAgainstPlane({ (float)ScreenWidth() - 1, 0.0f, 0.0f }, { -1.0f, 0.0f, 0.0f }, test, clipped[0], clipped[1]); break; */
+/* 	//camera */
 	raster->plane_camera = ft_create_vector(0.0, 0.0, 1.0);
 	raster->point_camera = ft_create_vector(0.0, 0.0, 0.1);
+
+	//haut
 	raster->point_up_screen = ft_create_vector(-1, -1, -1);
 	raster->plane_up_screen = ft_create_vector(-1, -1, -1);
+
+
+	//gauche
+	raster->point_left_screen = ft_create_vector(-1, -1, -1);
+	raster->plane_left_screen = ft_create_vector(-1, -1, -1);
+
+
+	//droit
+	raster->point_right_screen = ft_create_vector(-1, -1, -1);
+	raster->plane_right_screen = ft_create_vector(-1, -1, -1);
+
+
+	//bas
+	raster->point_bottom_screen = ft_create_vector(-1, -1, -1);
+	raster->plane_bottom_screen = ft_create_vector(-1, -1, -1);
+
+
+
 	raster->i = 0;   //attention limit le nombre de triangle
 	raster->nbr_of_triangle = wn->rasterizer->max; //de meme
 	return (raster);
@@ -77,7 +103,10 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 		}
 	}
 	ft_order_triangle_z_buffer(&(raster->triangle_lst));
-	ft_clipping_screen();
+	ft_clipping_screen(
+			raster->triangle_lst,
+			raster,
+			&(raster->clipped_triangle));
 	raster->triangle_lst_2 = raster->triangle_lst;
 	ft_draw(raster->triangle_lst_2, wn);
 	ft_free_lst(raster->triangle_lst_2);

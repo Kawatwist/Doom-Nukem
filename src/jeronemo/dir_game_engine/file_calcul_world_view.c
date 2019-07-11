@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 18:16:08 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:48:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,81 +92,78 @@ void	ft_clipping_camera(t_mytriangle *triangle,
 		t_mytriangle **clipped_triangle)
 {
 	raster->nbr_of_clipped_triangle_created = 0;
-	*clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen,
-			raster->plane_camera,
-			&(raster->nbr_of_clipped_triangle_created),
+	*clipped_triangle = ft_triangle_clips_again_plan( raster->point_camera, raster->plane_camera, &(raster->nbr_of_clipped_triangle_created),
 			*clipped_triangle,
 			triangle);
+	printf("nbr_of_clipped_triangle_created =%d\n", raster->nbr_of_clipped_triangle_created);
 }
 
-//t_mytriangle	*ft_triangle_clips_again_plan(t_myvec point,
-/* t_myvec plane_norm, */
-/* int *nbr, */
-/* t_mytriangle *clipped_triangle, */
-/* t_mytriangle *triangle) */
-
-void	ft_clipping_screen(void)
+void	ft_clipping_screen(t_mytriangle *triangle_lst,
+							t_myraster *raster, 
+							t_mytriangle **clipped_triangle)
 {
-	//CLIP AGAINST SCREEN PLANE
-	/* int		newtriangle; */
-	/* newtriangle = 1; */
-	/* i = 0; */
-	/* t_mytriangle *head; */
-	/* head = triangle_lst; */
-	/* while(triangle_lst != NULL) */
-	/* { */
+	int					i;
+	int					j;
+	t_mytriangle		*head;
 
-	/* 	while (i < 4) */
-	/* 	{ */
-	/* 		if (i == 0) */
-	/* 			nbr = ft_triangle_clips_again_plan(p_0, n_0, triangle_lst, clipped_triangle); */
-	/* 		else if (i == 1) */
-	/* 			nbr = ft_triangle_clips_again_plan(p_1, n_1, triangle_lst, clipped_triangle); */
-	/* 		else if (i == 2) */
-	/* 			nbr = ft_triangle_clips_again_plan(p_2, n_2, triangle_lst , clipped_triangle); */
-	/* 		else if (i == 3) */
-	/* 			nbr = ft_triangle_clips_again_plan(p_3, n_3, triangle_lst, clipped_triangle); */
-	/* 		j = 0; */
-	/* 		while(j < nbr) */
-	/* 		{ */
-	/* 			triangle_node = ft_triangle_node_create(clipped_triangle[j]); */
-	/* 			ft_triangle_add_node(&triangle_lst_2, triangle_node); */
-	/* 			j++; */
-	/* 		} */
-	/* 		i++; */
-	/* 	} */
-	/* 	triangle_lst = triangle_lst->next; */
-	/* } */
-	/* triangle_lst = head; */
-	/* //Fonction de pushback des triangles */
-
-
-
-
-
-
-
-	/* int nbr_of_clipped_triangle_created ; */
-	/* keep = triangle_lst; */
-	/* while(triangle_lst != NULL) */
-	/* { */
-	/* 	nbr_of_clipped_triangle_created = 0; */
-	/* 	clipped_triangle = ft_triangle_clips_again_plan(raster->point_up_screen, raster->plane_up_screen, &nbr_of_clipped_triangle_created, clipped_triangle, triangle_lst); */
-	/* 	printf("le nbr_of_clipped_triangle_created=%d\n", nbr_of_clipped_triangle_created); */
-	/* 	j = 0; */
-	/* 	while(j < nbr_of_clipped_triangle_created) */
-	/* 	{ */
-	/* 		printf("j =%f\n", clipped_triangle->vertice[0].x); */
-	/* 		triangle_node = ft_triangle_node_create(clipped_triangle[j]); */
-	/* 		printf("le node =%f\n", triangle_node->vertice[0].x); */
-	/* 		ft_triangle_add_node(&triangle_lst_2, triangle_node); */
-	/* 		j++; */
-	/* 	} */
-	/* 	triangle_lst = triangle_lst->next; */
-	/* } */
-	/* triangle_lst = keep; */
-
-
+	head = raster->triangle_lst;
+	while(raster->triangle_lst != NULL)
+	{
+		i = 0;
+		while (i < 4)
+		{
+			raster->nbr_of_clipped_triangle_created = 0;
+			if (i == 0)
+			{
+				//bord gauche
+				*clipped_triangle = ft_triangle_clips_again_plan(
+									raster->point_left_screen,
+									raster->plane_left_screen,
+									&(raster->nbr_of_clipped_triangle_created),
+									*clipped_triangle,
+									triangle_lst);
+			}
+			else if (i == 1)
+			{
+				//bord du haut
+				*clipped_triangle = ft_triangle_clips_again_plan(
+									raster->point_up_screen,
+									raster->plane_up_screen,
+									&(raster->nbr_of_clipped_triangle_created),
+									*clipped_triangle,
+									triangle_lst);
+			}
+			else if (i == 2)
+			{
+				//bord de droite
+				*clipped_triangle = ft_triangle_clips_again_plan(
+									raster->point_right_screen,
+									raster->plane_right_screen,
+									&(raster->nbr_of_clipped_triangle_created),
+									*clipped_triangle,
+									triangle_lst);
+			}
+			else if (i == 3)
+			{
+				//bord du bas
+				*clipped_triangle = ft_triangle_clips_again_plan(
+									raster->point_bottom_screen,
+									raster->plane_bottom_screen,
+									&(raster->nbr_of_clipped_triangle_created),
+									*clipped_triangle,
+									triangle_lst);
+			}
+			j = 0;
+			while(j < raster->nbr_of_clipped_triangle_created)
+			{
+				ft_add_triangle_to_lst(raster->clipped_triangle[raster->j], &(raster->triangle_lst_2));
+				j++;
+			}
+			i++;
+		}
+		triangle_lst = triangle_lst->next;
+	}
+	triangle_lst = head;
 }
 
 void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)

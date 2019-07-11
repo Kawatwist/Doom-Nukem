@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 15:44:34 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:33:40 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,28 @@ t_mytriangle	*ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, in
 
 	if ((int)(point.x) == -1)
 	{
-		printf("le clipped 1 =%f\n", clipped_triangle->vertice[0].x);
-		printf("le triangle 1 =%f\n", triangle->vertice[0].x);
 		clipped_triangle = triangle;
-		printf("le clipped 2 =%f\n", clipped_triangle->vertice[0].x);
 		*nbr = 1;
 		return (clipped_triangle);
 	}
-
-	return (0);
+	else
+	{
+		if (triangle->vertice[0].z < 0
+				||triangle->vertice[1].z < 0 
+				||triangle->vertice[2].z < 0)
+		{
+			*nbr = 0;
+			printf("tout z nul\n");
+			clipped_triangle = NULL;
+		}
+		else
+		{
+			*nbr = 1;
+			printf("copied\n");
+			clipped_triangle = triangle;
+		}
+	}
+	return (clipped_triangle);
 
 
 
