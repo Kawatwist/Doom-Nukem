@@ -441,7 +441,7 @@ int					key_pressed(t_win *wn, int key_value);
  ** jeronemo game engine
  **/
 
-t_mytriangle *make_triangles(t_poly *list);
+t_mytriangle *make_triangles(t_poly *list, int *max);
 
 void	ft_game_engine(t_win *wn);
 #endif
