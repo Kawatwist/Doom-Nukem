@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/07/04 13:50:12 by jchardin         ###   ########.fr        #
+#    Updated: 2019/07/10 12:43:37 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -30,6 +30,7 @@ SDL_IMAGE_DOWNLOAD = https://www.libsdl.org/projects/SDL_image/release/SDL2_imag
 
 SRC				= main.c										\
 				  turn.c 										\
+				  text.c										\
 				  inputturn.c									\
 				  window.c										\
 				  init.c										\
@@ -46,12 +47,20 @@ SRC				= main.c										\
 				  load2.c										\
 				  load_intro.c									\
 				  texture.c										\
+				  stop.c										\
+				  get.c											\
+				  send.c										\
+				  msn.c											\
+				  mainmulti.c									\
+				  mainhost.c									\
+				  mainclient.c									\
 				  maingame.c 									\
 				  mainmenu.c									\
 				  menuinput.c									\
 				  mainedit.c									\
 				  printscreen.c 								\
 				  mainoption.c									\
+				  option_input_interface.c						\
 				  optioninput.c									\
 				  showoption.c									\
 				  data.c										\
@@ -77,23 +86,10 @@ SRC				= main.c										\
 				  print_ariel_text.c 							\
 				  menu_show.c 									\
 				  load_fonts.c 									\
-				  tool.c 									\
-				  world2view.c								\
+				  tool.c 										\
+				  world2view.c									\
 				  world2view_mat.c
 
-
-#MAP EDITOR
-SRC += file_map_editor.c
-SRC += file_map_editor_util.c
-SRC += file_map_editor_ihc.c
-SRC += file_map_editor_display_right_pan.c
-SRC += file_map_editor_update_show_cross.c
-SRC += file_bsp.c
-
-#BRESENHAM
-SRC += fille_bresename.c
-
-# SRC += file_clipping.c
 
 #GAME ENGINE
 SRC += file_game_engine.c
@@ -104,6 +100,14 @@ SRC += file_itoa_coma.c
 SRC += file_matrix_tool.c
 SRC += file_vector_tool.c
 SRC += file_fill_triangle.c
+SRC += file_clipping.c
+SRC += file_apply_calcul.c
+SRC += file_lst.c
+SRC += file_order_z_buffer.c
+SRC += file_draw_triangle.c
+SRC += file_window.c
+SRC += file_calcul_world_view.c
+
 
 #BSP_COCO
 SRC += bsp-test.c
@@ -123,16 +127,10 @@ SRC += portal_clip.c
 SRC += print_bsp.c
 SRC += pvs.c
 
-#WINDOW
-SRC += file_window.c
-
-#MAIN
-SRC += file_main.c
-SRC += file_mouse_handle.c
-SRC += file_draw_triangle.c
-
 #BSP
-SRC += file_main_bsp.c
+SRC += file_bsp.c
+#SRC += file_main_bsp.c
+#SRC += file_mouse_handle.c
 SRC += file_parser_polygons.c
 SRC += file_process_polygon.c
 SRC += file_test_function.c
@@ -141,6 +139,16 @@ SRC += file_build_bsp_tree.c
 SRC += file_select_spliter.c
 SRC += file_classify_polygon.c 
 SRC += file_affichage_bsp.c
+
+#BRESENHAM
+SRC += fille_bresename.c
+
+#MAP EDITOR
+#SRC += file_map_editor.c
+#SRC += file_map_editor_util.c
+#SRC += file_map_editor_ihc.c
+#SRC += file_map_editor_display_right_pan.c
+#SRC += file_map_editor_update_show_cross.c
 
 ######################################################################
 
@@ -177,7 +185,7 @@ clear:
 
 $(NAME): $(IMAGE) $(OBJ)
 	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
-	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG) $(DEBUG)
+	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG)
 	@echo "${vertclair}DONE${neutre}"
 
 $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
@@ -211,7 +219,9 @@ clean :
 fclean : clean
 	@echo "${rouge}Fcleaning the project ...${neutre}\c"
 	@make fclean -C libft
-	@rm /tmp/doom_log2
+	@if [ -f "/tmp/doom_log2" ]; then \
+		rm /tmp/doom_log2; \
+	fi
 	@rm -rf $(NAME)
 	@echo "${rose}DONE${neutre}"
 

@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/03 14:36:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 10:29:18 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h>
+#include <header_bsp.h>
 
 void			ft_add_vertex(t_myvec **vertex_lst, t_myvec *vertex_node)
 {
@@ -178,9 +178,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	t_mypolygon		*polygon_lst = NULL;
 	int				j;
 	int				polygon_obj_indice;
-
 	int i = -1;
-
 
 
 	t_myfichier		*fichier_lst;
@@ -188,7 +186,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 	fichier_lst = NULL;
 
-	fd = open("src/jeronemo/dir_bsp/axis.obj", O_RDWR);
+	fd = open("src/jeronemo/dir_bsp/Doom.obj", O_RDWR);
 	while(get_next_line(fd, &line))
 	{
 		fichier_node = ft_create_line_node(line);

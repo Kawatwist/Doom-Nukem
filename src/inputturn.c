@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 10:24:41 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 11:39:56 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/23 13:28:44 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static void	keyinput(t_win *wn)
 
 static void	mouseconfig(t_win *wn)
 {
-	SDL_ShowCursor(wn->interface != GAME ? SDL_ENABLE : SDL_DISABLE);
-	SDL_CaptureMouse(wn->interface == GAME ? 1 : 0);
-	wn->interface == GAME
+	SDL_ShowCursor(wn->interface != RGAME ? SDL_ENABLE : SDL_DISABLE);
+	SDL_CaptureMouse(wn->interface == RGAME ? 1 : 0);
+	wn->interface == RGAME
 		? SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) : 0;
 }
 

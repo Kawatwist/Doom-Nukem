@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/29 19:57:53 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/10 17:56:15 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 void	ingame(t_win *wn)
 {
-	gameinput(wn);
+//	gameinput(wn);
 	if (key_pressed(wn, SDL_SCANCODE_ESCAPE))
 	{
 		wn->interface = MGAME;
 		wn->menu->choice = 10;
 	}
-	display_skybox(wn);
-	main_cloud(wn);
-	maindrawpoly(wn);
-	display_crosshair(wn);
+//	display_skybox(wn);
+	turn_rast(wn);
+//	main_cloud(wn);
+//	maindrawpoly(wn);
+//	display_crosshair(wn);
 }
 
 void	newgame(t_win *wn)
@@ -52,6 +53,7 @@ void	menugame(t_win *wn)
 {
 	menu_game_input(wn);
 	SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "menu"), NULL, NULL);
+	show_game_cursor(wn);
 }
 
 void	game(t_win *wn)	// Common info
@@ -63,6 +65,11 @@ void	game(t_win *wn)	// Common info
 		wn->oldinterface == NGAME ? mainintro(wn, "game", "intro", 60) : 0;
 		wn->oldinterface == LGAME ? mainintro(wn, "game", "intro", 60) : 0;
 		wn->oldinterface = wn->interface;
+	}
+	if (wn->interface != RGAME)
+	{
+		SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 255);
+		SDL_RenderClear(wn->rend);
 	}
 	game_interface(wn);
 }

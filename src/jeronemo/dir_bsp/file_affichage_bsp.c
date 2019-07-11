@@ -6,12 +6,12 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:48:43 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 10:29:30 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 12:58:01 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include <jeronemo.h> 
+#include <header_bsp.h> 
 
 void		ft_browse_the_bsp(t_mynode *s_node, char **tab,int decalage_pere, int decalage, int rang, int profondeur_max)
 {

@@ -15,3 +15,18 @@ Linked list img =>
 	|
 	V
   NULL
+ 
+
+Multijoueur :
+
+packet = "[;][index][index2 if (index == 255)][len][len2][data][;]"
+
+[;]		:	delimiter /!\ if manquant packet invalid
+
+index	:	0 = Saved for strlen;
+			1 = message
+			255 = Saved extended index;
+
+len		: 0xFFFF; 16 bits (65535) > 2048 (BUFFER SIZE)
+
+data	: len byte of data type[index]

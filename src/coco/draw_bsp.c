@@ -1,5 +1,5 @@
 #include <bsp.h>
-#include <jeronemo.h>
+#include <doom.h>
 
 t_poly *visible_polygons(t_bsp *bsp, int leaf)
 {

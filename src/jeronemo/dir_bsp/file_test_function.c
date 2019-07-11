@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 18:04:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 10:28:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:53:37 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h> 
+#include <header_bsp.h> 
 
 void			ft_display_the_polygon_list(t_mypolygon *polygon_lst)
 {
@@ -20,19 +20,19 @@ void			ft_display_the_polygon_list(t_mypolygon *polygon_lst)
 	int				j;
 
 	keep = polygon_lst;
-	printf("Display polygone lst\n");
+//	printf("Display polygone lst\n");
 	i = 0;
 	while (polygon_lst != NULL)
 	{
-		printf("\nPolynome n=%d\n", i);
+//		printf("\nPolynome n=%d\n", i);
 		keep_vec = polygon_lst->vertex_lst;
 		j = 0;
 		while (polygon_lst->vertex_lst != NULL)
 		{
-			printf("vertice n=%d\t", j);
-			printf("x =%f\t", polygon_lst->vertex_lst->x);
-			printf("y =%f\t", polygon_lst->vertex_lst->y);
-			printf("z =%f\n", polygon_lst->vertex_lst->z);
+//			printf("vertice n=%d\t", j);
+//			printf("x =%f\t", polygon_lst->vertex_lst->x);
+//			printf("y =%f\t", polygon_lst->vertex_lst->y);
+//			printf("z =%f\n", polygon_lst->vertex_lst->z);
 			j++;
 			polygon_lst->vertex_lst = polygon_lst->vertex_lst->next;
 		}

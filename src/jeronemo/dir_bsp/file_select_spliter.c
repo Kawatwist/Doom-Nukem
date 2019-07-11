@@ -6,11 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 13:47:35 by jchardin          #+#    #+#             */
-/*   Updated: 2019/06/08 10:29:04 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/08 12:59:16 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <jeronemo.h> 
+#include <header_bsp.h> 
 
 //The wall with the lowest score in the list wins and becomes the splitter for that node.Here's the formula
 //score=abs(frontfaces-backfaces)+(splits*8)
