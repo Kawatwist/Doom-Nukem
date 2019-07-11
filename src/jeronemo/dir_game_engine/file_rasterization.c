@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/11 14:46:53 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/11 18:11:43 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,35 +38,37 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->light_direction = ft_create_vector(0.5, 0.0, -1.0);
 	raster->light_direction = ft_normalise(raster->light_direction);
 
-/* case 0:	nTrisToAdd = Triangle_ClipAgainstPlane({ 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, test, clipped[0], clipped[1]); break; */
-/* 					case 1:	nTrisToAdd = Triangle_ClipAgainstPlane({ 0.0f, (float)ScreenHeight() - 1, 0.0f }, { 0.0f, -1.0f, 0.0f }, test, clipped[0], clipped[1]); break; */
-/* 					case 2:	nTrisToAdd = Triangle_ClipAgainstPlane({ 0.0f, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f }, test, clipped[0], clipped[1]); break; */
-/* 					case 3:	nTrisToAdd = Triangle_ClipAgainstPlane({ (float)ScreenWidth() - 1, 0.0f, 0.0f }, { -1.0f, 0.0f, 0.0f }, test, clipped[0], clipped[1]); break; */
-/* 	//camera */
+
+
+
+/* //haut */
+/* { 0.0f, 0.0f, 0.0f },									{ 0.0f, 1.0f, 0.0f }, */
+
+/* //bas */
+/* { 0.0f, (float)ScreenHeight() - 1, 0.0f },				{ 0.0f, -1.0f, 0.0f }, */
+
+/* //gauche */
+/* { 0.0f, 0.0f, 0.0f },									{ 1.0f, 0.0f, 0.0f }, */
+
+/* //droit */
+/* { (float)ScreenWidth() - 1, 0.0f, 0.0f },				{ -1.0f, 0.0f, 0.0f }, */
+
+
+	//camera
 	raster->plane_camera = ft_create_vector(0.0, 0.0, 1.0);
 	raster->point_camera = ft_create_vector(0.0, 0.0, 0.1);
-
 	//haut
-	raster->point_up_screen = ft_create_vector(-1, -1, -1);
-	raster->plane_up_screen = ft_create_vector(-1, -1, -1);
-
-
+	raster->point_up_screen = ft_create_vector( 0.0, 0.0, 0.0 );
+	raster->plane_up_screen = ft_create_vector( 0.0, 1.0, 0.0 );
 	//gauche
-	raster->point_left_screen = ft_create_vector(-1, -1, -1);
-	raster->plane_left_screen = ft_create_vector(-1, -1, -1);
-
-
+	raster->point_left_screen = ft_create_vector( 0.0, 0.0, 0.0 );
+	raster->plane_left_screen = ft_create_vector( 1.0, 0.0, 0.0 );
 	//droit
-	raster->point_right_screen = ft_create_vector(-1, -1, -1);
-	raster->plane_right_screen = ft_create_vector(-1, -1, -1);
-
-
+	raster->point_right_screen = ft_create_vector( XSCREEN - 1, 0.0, 0.0 );
+	raster->plane_right_screen = ft_create_vector( -1.0, 0.0, 0.0 );
 	//bas
-	raster->point_bottom_screen = ft_create_vector(-1, -1, -1);
-	raster->plane_bottom_screen = ft_create_vector(-1, -1, -1);
-
-
-
+	raster->point_bottom_screen = ft_create_vector( 0.0, YSCREEN - 1, 0.0 );
+	raster->plane_bottom_screen = ft_create_vector( 0.0, -1.0, 0.0 );
 	raster->i = 0;   //attention limit le nombre de triangle
 	raster->nbr_of_triangle = wn->rasterizer->max; //de meme
 	return (raster);
