@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 18:15:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:31:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void		ft_init_update_raster(t_myraster *raster)
 
 void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *wn)
 {
-	ft_init_update_raster(raster);
 	while (++(raster->i) < raster->nbr_of_triangle)
 	{
 		*(raster->triangle) = triangle_array[raster->i];

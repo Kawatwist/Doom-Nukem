@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 18:10:46 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:31:08 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *w
 int				ft_get_nbr_of_triangle(t_mypolygon *polygon_lst);
 void			ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn);
 t_mytriangle	*ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, int *nbr,t_mytriangle *clipped_triangle, t_mytriangle *triangle);
+void		ft_init_update_raster(t_myraster *raster);
 
 //FILE USER INPUT
 t_myraster		*ft_input_event_check(t_win *wn, t_myraster *raster);
