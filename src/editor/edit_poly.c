@@ -12,24 +12,24 @@
 
 #include "doom.h"
 
-// t_mypolygon 		*polygon_map(t_win *wn)
-// {
-// 	t_mypolygon 	*poly;
+t_mypolygon 		*polygon_map(t_win *wn)
+{
+	t_mypolygon 	*poly;
 
-// 	while (wn->elem != NULL)
-// 	{
-// 		poly = malloc(sizeof(t_mypolygon));
-// 		while (wn->elem->point != NULL)
-// 		{
-// 			poly->vertex_lst = wn->elem->point;
-// 			wn->elem->point = wn->elem->point->next;
-// 		}
-// 		wn->elem = wn->elem->next;
-// 	}
-// 	if (wn->elem == NULL)
-// 		poly = NULL;
-// 	return (poly);
-// }
+	while (wn->elem != NULL)
+	{
+		poly = malloc(sizeof(t_mypolygon));
+		while (wn->elem->point != NULL)
+		{
+			// poly->vertex_lst = wn->elem->point;
+			wn->elem->point = wn->elem->point->next;
+		}
+		wn->elem = wn->elem->next;
+	}
+	if (wn->elem == NULL)
+		poly = NULL;
+	return (poly);
+}
 
 t_poly 				*poly_map(t_win *wn)
 {

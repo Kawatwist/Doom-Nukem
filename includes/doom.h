@@ -443,12 +443,13 @@ void				print_text_with_arial_font(t_win *wn, char *s, SDL_Color color, SDL_Rect
 void				print_text_with_arial_path_full(t_win *wn, char *s, SDL_Color color, SDL_Rect position);
 void 				message_bg_editor(t_win *wn, char *message);
 void 				load_background(t_win *wn);
-int 				is_path_ok(t_win *wn, char *path);
+// int 				is_path_ok(t_win *wn, char *path);
 void   				find_last_poly(t_elem **curr);
 void     			find_last_point(t_win *wn, t_point **point);
-// t_mypolygon 		*polygon_map(t_win *wn);
+t_mypolygon 		*polygon_map(t_win *wn);
 t_poly 				*poly_map(t_win *wn);
 int 				pop_up_message(t_win *wn, char *msg, SDL_Rect *rect);
+void 				print_save_and_reset(t_win *wn);
 
 
 /**

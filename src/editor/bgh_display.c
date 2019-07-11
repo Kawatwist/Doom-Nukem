@@ -80,26 +80,29 @@ static void		text_for_bg(t_win *wn)
 void		bg_or_h(t_win *wn)
 {
 	if (wn->edit_image.bgh == 0)
+	{
 		print_bg(wn);
+		print_save_and_reset(wn);
+	}
 	// else if (wn->edit_image.bgh == 1)
 	// 	print_history(wn);
 }
 
-int			is_path_ok(t_win *wn, char *path)
-{
-	if (path == NULL)
-		return (1);
-	wn->load = ft_strdup(path);
-	if (load_texture(wn, "editor", "affichage", path) == 1)
-		message_bg_editor(wn, "This path doesn't exist.");
-	else
-	{
-		message_bg_editor(wn, "Image downloaded.");
-		return (0);
-	}
-	free(wn->load);
-	return (1);
-}
+// int			is_path_ok(t_win *wn, char *path)
+// {
+// 	if (path == NULL)
+// 		return (1);
+// 	wn->load = ft_strdup(path);
+// 	if (load_texture(wn, "editor", "affichage", path) == 1)
+// 		message_bg_editor(wn, "This path doesn't exist.");
+// 	else
+// 	{
+// 		message_bg_editor(wn, "Image downloaded.");
+// 		return (0);
+// 	}
+// 	free(wn->load);
+// 	return (1);
+// }
 
 void		load_background(t_win *wn)
 {
@@ -133,6 +136,65 @@ void		message_bg_editor(t_win *wn, char *message)
 	print_text_with_arial_font(wn, message, wn->color.red, position);
 	TTF_SetFontStyle(wn->fonts->arial, TTF_STYLE_NORMAL);
 }
+
+void 		print_save_and_reset(t_win *wn)
+{
+	int			w;
+	int			h;
+	SDL_Rect	position;
+	SDL_Surface *surface;
+	SDL_Texture *texture;
+
+	//BLOC SAVE
+	position = define_rect(5.5 * wn->xscreen, 2.5 * wn->yscreen / 7, 0.75 * wn->xscreen / 7, 0.5 * wn->yscreen / 7);
+	surface = SDL_CreateRGBSurface(0, position.x, position.y, 32, 0, 0, 0, 0);
+	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 0));
+	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
+	SDL_FreeSurface(surface);
+	if (SDL_RenderCopy(wn->rend, texture, NULL, &position) < 0)
+		stop_exec("rendercopy failed\n", wn);
+	TTF_SizeText(wn->fonts->ariel, "SAVE", &w, &h);
+	position = define_rect(5.9 * wn->xscreen - w / 2, 2.75 * wn->yscreen / 7 - h / 2, w, h);
+	TTF_SetFontStyle(wn->fonts->arial, TTF_STYLE_BOLD);
+	print_text_with_ariel_font(wn, "SAVE", wn->color.blanc, position);
+	TTF_SetFontStyle(wn->fonts->ariel, TTF_STYLE_NORMAL);
+
+	//BLOC RESET
+	position = define_rect(6.25 * wn->xscreen, 2.5 * wn->yscreen / 7, 0.75 * wn->xscreen / 7, 0.5 * wn->yscreen / 7);
+	surface = SDL_CreateRGBSurface(0, position.x, position.y, 32, 0, 0, 0, 0);
+	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 255, 255));
+	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
+	SDL_FreeSurface(surface);
+	if (SDL_RenderCopy(wn->rend, texture, NULL, &position) < 0)
+		stop_exec("rendercopy failed\n", wn);
+	TTF_SizeText(wn->fonts->ariel, "RESET", &w, &h);
+	position = define_rect(6.6 * wn->xscreen - w / 2, 2.75 * wn->yscreen - h / 2, w, h);
+	TTF_SetFontStyle(wn->fonts->ariel, TTF_STYLE_BOLD);
+	print_text_with_ariel_font(wn, "RESET", wn->color.noir, position);
+	TTF_SetFontStyle(wn->fonts->ariel, TTF_STYLE_NORMAL);
+	//ACTION SAVE ET RESET
+}
+
+// void 		save_the_map(t_win *wn)
+// {
+// 	SDL_Rect 	rect;
+
+// 	rect = define_rect(wn->xscreen / 2 - 250, wn->yscreen / 2 - 150, 500, 300);
+// 	if (key_pressed(wn, SDL_SCANCODE_ESCAPE) == TRUE && wn->elem != NULL)
+// 	{
+// 		if (pop_up_message(wn, "Save the map?", &rect) == 1)
+// 		{
+// 			traduire map en t_poly
+// 			sauver map dans fichier
+// 		}
+// 		if (pop_up_message(wn, "Save the map?", &rect) == 2)
+// 		{
+// 			free la wn->elem
+// 			tout remettre à zero
+// 		}
+// 	}
+// 	(wn->edit_image.bgh == 0) ? print_save_and_reset(wn) : 0 ;
+// }
 
 void		manage_tilde(char **path)
 {

@@ -62,18 +62,6 @@ void		change_bloc(t_win *wn)
 		wn->edit_image.tbp = 2;
 }
 
-static void		test_pop_up(t_win *wn)
-{
-	SDL_Rect 		rect;
-	int 			n;
-	
-
-	rect = define_rect(wn->xscreen / 3, wn->yscreen / 3, 500, 300);
-	
-	n = pop_up_message(wn, "blablablablabla ?", &rect);
-	printf("popup ================== %d\n", n);
-}
-
 void		printeditor(t_win *wn)
 {
 	print_background_editor(wn);
@@ -84,5 +72,4 @@ void		printeditor(t_win *wn)
 	print_bgh_editor(wn);
 	print_tbp_editor(wn);
 	wn->editext.on == 1 ? print_x_y_z(wn) : 0;
-	test_pop_up(wn);
 }
