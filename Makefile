@@ -16,6 +16,8 @@ neutre=\033[0m
 cyanfonce=\033[0;36m
 cyanclair=\033[1;36m
 vertfonce=\033[0;32m
+vertclair=\033[1;32m
+
 NAME			= doom
 
 HEADER 			= $(shell find includes -type f) $(shell find libraries/include -type f 2>/dev/null || true)
@@ -87,8 +89,18 @@ SRC				= main.c										\
 				  menu_show.c 									\
 				  load_fonts.c 									\
 				  tool.c 										\
+				  bresenham.c 									\
+				  elem.c 										\
+				  bgh_display.c 								\
+				  tools_editor.c 								\
+				  init_edit.c 									\
+				  mouse_editor.c 								\
+				  display_map.c 								\
+				  display_blocs.c 								\
+				  edit_poly.c 									\
 				  world2view.c									\
-				  world2view_mat.c
+				  world2view_mat.c 								\
+				  tool2.c 										\
 
 
 #GAME ENGINE
@@ -159,10 +171,7 @@ IMAGE 			= ./libraries \
 
 DEBUG			= -g -fsanitize=address
 
-all: clear $(NAME)
-
-clear:
-	clear
+all: $(NAME)
 
 $(NAME): $(IMAGE) $(OBJ)
 	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
@@ -184,6 +193,8 @@ $(IMAGE): FORCE
 
 $(LIBFTA): FORCE
 	@if [ -f "/tmp/doom_log2" ]; then \
+		echo "${vertfonce}doom_log2 exists.${neutre}"; \
+	else \
 		touch /tmp/doom_log2; \
 		chmod 777 /tmp/doom_log2; \
 	fi
@@ -201,7 +212,7 @@ fclean : clean
 	@echo "${rouge}Fcleaning the project ...${neutre}\c"
 	@make fclean -C libft
 	@if [ -f "/tmp/doom_log2" ]; then \
-		rm /tmp/doom_log2; \
+		rm /tmp/doom_log2;
 	fi
 	@rm -rf $(NAME)
 	@echo "${rose}DONE${neutre}"
