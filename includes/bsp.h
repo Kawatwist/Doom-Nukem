@@ -448,5 +448,6 @@ void 	free_poly_attr(t_poly *p);
 t_poly *visible_polygons(t_bsp *bsp, int leaf);
 t_poly *render_bsp(t_bsp *bsp, t_vec *pos);
 int 	line_of_sight(t_bsp *bsp, t_vec *start, t_vec *end, int node);
+int 	collision(t_bsp *bsp, t_vec *newpos); //UNTESTED
 //t_mytriangle *make_triangles(t_poly *poly);
 #endif

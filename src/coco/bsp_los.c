@@ -72,3 +72,39 @@ int line_of_sight(t_bsp *bsp, t_vec *start, t_vec *end, int node)
 	}
 	return (1);
 }
+
+int collision(t_bsp *bsp, t_vec *newpos)  //untested
+{
+	int curr_node;
+	int pos;
+
+	curr_node = 0;
+	while (1)
+	{
+		if (curr_node == -1)
+			return (0);\
+		pos = class_point(newpos, &bsp->plane[bsp->node[curr_node].plane]);
+		if (bsp->node[curr_node].isleaf == 1)
+		{
+			//pos = class_point(newpos, bsp->plane[bsp->node[curr_node]]);
+			if (pos == 1)
+				return (1);
+			else
+				return (0);
+		}
+		else
+		{
+			//pos = class_point(newpos, bsp->plane[bsp->node[curr_node]]);
+			if (pos == -1)
+			{
+				if (bsp->node[curr_node].back == -1)
+					return (0);
+				else
+					curr_node = bsp->node[curr_node].back;
+			}
+			else
+				curr_node = bsp->node[curr_node].front;
+		}
+
+	}
+}

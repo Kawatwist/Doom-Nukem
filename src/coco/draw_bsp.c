@@ -5,7 +5,7 @@ t_poly *visible_polygons(t_bsp *bsp, int leaf)
 {
 	t_vp vp;
 
-	printf("VISIBLE POLY\n");
+	//printf("VISIBLE POLY\n");
 	vp.pointer = bsp->pvs + bsp->leaf[leaf].pvs_index;
 	vp.curr_leaf = 0;
 	vp.list = NULL;
@@ -160,55 +160,3 @@ t_mytriangle *make_triangles(t_poly *list, int *max)
 	}
 	return (res);
 }
-
-
-
-/** void RenderTree(D3DVECTOR pos)
-{
-int Node=0;
-int leaf=0;
-while(1)
-{
-switch(ClassifyPoint(&pos,&PlaneArray[NodeArray[Node].Plane]))
-{
-case CP_FRONT: 
-if (NodeArray[Node].IsLeaf!=0)
-{
-leaf=NodeArray[Node].Front;
-DrawTree(leaf);
-return;
-}
-else
-{
-Node = NodeArray[Node].Front;
-}
-break;
-
-case CP_BACK: 
-if (NodeArray[Node].Back==-1)
-{
-return;
-}
-else
-{
-Node = NodeArray[Node].Back;
-}
-break;
-
-case CP_ONPLANE:
-if (NodeArray[Node].IsLeaf!=0)
-{
-leaf=NodeArray[Node].Front;
-DrawTree(leaf);
-return;
-}
-else
-{
-Node = NodeArray[Node].Front;
-}
-
-default:
-break;
-}
-}// end while
-}// End Function **/

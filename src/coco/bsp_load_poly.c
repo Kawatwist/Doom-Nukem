@@ -169,28 +169,54 @@ void triangulize(t_poly *list) //ajoute les triangles dans indices
 		tmp = tmp->next;
 	}
 }
-/*
-int main()
+
+/**
+typedef struct s_lo
 {
-	t_poly *list;
-	t_vec *tmp;
-	int i;
+	int fd;
+	char *line;
+	char **data;
 
-	list = loadMap("test_poly.txt");
-	triangulize(list);
-	while (list != NULL)
+}				t_lo;
+
+typedef struct				s_mypolygon
+{
+	int						obj_indice;
+	t_myvec					*vertex_lst;             //liste des vertex
+	t_myvec					normal;                  //la normal au polygon
+	int						number_of_vertex;        //nombre de vertex
+	int						number_of_indices;       //nombre d'indices
+	int						*indices;                //la listes des indices apres triangulasisation
+	struct s_mypolygon		*next;                   //le prochain noeud dans la liste
+}							t_mypolygon;
+
+struct	s_poly //polygon
+{
+	t_vec		*ver_list;  //TAB
+	t_vec			*ver_tmp; //@ LOIC
+	t_vec		normal;
+	int			nb_ver; //points du polygone
+	int			nb_indices; 
+	int			*indices; //liste de coordonnées des triangles qui forment le polygone
+	t_poly		*next;
+	char		was_splitter;
+	int			texture;
+};//				t_poly;
+
+t_poly *load_obj(t_mypolygon *in)
+{
+	t_poly *out;
+	t_poly *new;
+
+	while (in != NULL)
 	{
-		printf("Polygon \n");
-		tmp = list->ver_list;
+		if (!(new = (t_poly*)malloc(sizeof(t_poly))))
+			exit(0);
+		if (!(new->ver_list = (t_vec*)malloc(sizeof(t_vec) * in->number_of_vertex)))
+			exit(0);
+		new->nb_ver = in->number_of_vertex;
+		new->nb_indices = in->number_of_indices;
 		i = 0;
-		while (i < list->nb_indices)
-		{
-			printf("I %d \n", list->indices[i]);
-			printf("ind %f %f %f \n", list->ver_list[list->indices[i]].x, list->ver_list[list->indices[i]].y, list->ver_list[list->indices[i]].z);
-			i++;
-		}
-		printf("\n");
-		list = list->next;
+		while (i < )
 	}
-
-}*/
+} **/

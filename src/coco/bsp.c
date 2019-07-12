@@ -31,6 +31,7 @@ void	bsp_init(t_bsp *bsp)
 	if (!(bsp->portal = (t_portal**)malloc(sizeof(t_portal*) * bsp->max_portals)))
 			return ;
 	bsp->poly_list = loadMap("test_poly.txt");
+	//bsp->poly_list = ft_read_the_polygon_file();
 	triangulize(bsp->poly_list);
     bsp->nb_polys = 0;
     bsp->nb_nodes = 0;
