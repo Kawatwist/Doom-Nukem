@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/11 19:40:02 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/12 16:26:07 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,10 @@ void	ft_clipping_camera(t_mytriangle *triangle,
 		t_mytriangle **clipped_triangle)
 {
 	printf("clipping camera\n");
+	printf("Je vais CLIP la camera \t\t\t\t\t<= ICI\n");
 	raster->nbr_of_clipped_triangle_created = 0;
-	*clipped_triangle = ft_triangle_clips_again_plan( raster->point_camera, raster->plane_camera, &(raster->nbr_of_clipped_triangle_created),
-			*clipped_triangle,
+	clipped_triangle = ft_triangle_clips_again_plan( raster->point_camera, raster->plane_camera, &(raster->nbr_of_clipped_triangle_created),
+			clipped_triangle,
 			triangle);
 	printf("nbr_of_clipped_triangle_created =%d\n", raster->nbr_of_clipped_triangle_created);
 }
@@ -108,9 +109,10 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 	t_mytriangle		*head;
 
 	head = triangle_lst;
+	printf("Je vais CLIP le screen \t\t\t\t\t<= ICI\n");
 	while(triangle_lst != NULL)
 	{
-		printf("le numero de poly dans le clipping =%d\n", i);
+		printf("le numero de poly dans le clipping = %d\n", i);
 		i = 0;
 		while (i < 4)
 		{
@@ -119,42 +121,44 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 			{
 				printf("gauche\n");
 				//bord gauche
-				*clipped_triangle = ft_triangle_clips_again_plan(
+				clipped_triangle = ft_triangle_clips_again_plan(
 									raster->point_left_screen,
 									raster->plane_left_screen,
 									&(raster->nbr_of_clipped_triangle_created),
-									*clipped_triangle,
+									clipped_triangle,
 									triangle_lst);
 			}
-			else if (i == 1) { printf("hautt\n");
+			else if (i == 1)
+			{
+				printf("hautt\n");
 				//bord du haut
-				*clipped_triangle = ft_triangle_clips_again_plan(
+				clipped_triangle = ft_triangle_clips_again_plan(
 									raster->point_up_screen,
 									raster->plane_up_screen,
 									&(raster->nbr_of_clipped_triangle_created),
-									*clipped_triangle,
+									clipped_triangle,
 									triangle_lst);
 			}
 			else if (i == 2)
 			{
 				printf("droite\n");
 				//bord de droite
-				*clipped_triangle = ft_triangle_clips_again_plan(
+				clipped_triangle = ft_triangle_clips_again_plan(
 									raster->point_right_screen,
 									raster->plane_right_screen,
 									&(raster->nbr_of_clipped_triangle_created),
-									*clipped_triangle,
+									clipped_triangle,
 									triangle_lst);
 			}
 			else if (i == 3)
 			{
 				printf("bas\n");
 				//bord du bas
-				*clipped_triangle = ft_triangle_clips_again_plan(
+				clipped_triangle = ft_triangle_clips_again_plan(
 									raster->point_bottom_screen,
 									raster->plane_bottom_screen,
 									&(raster->nbr_of_clipped_triangle_created),
-									*clipped_triangle,
+									clipped_triangle,
 									triangle_lst);
 			}
 			j = 0;
