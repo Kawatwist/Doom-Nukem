@@ -17,6 +17,7 @@ cyanfonce=\033[0;36m
 cyanclair=\033[1;36m
 vertfonce=\033[0;32m
 vertclair=\033[1;32m
+
 NAME			= doom
 
 HEADER 			= $(shell find includes -type f) $(shell find libraries/include -type f 2>/dev/null || true)
@@ -192,6 +193,8 @@ $(IMAGE): FORCE
 
 $(LIBFTA): FORCE
 	@if [ -f "/tmp/doom_log2" ]; then \
+		echo "${vertfonce}doom_log2 exists.${neutre}"; \
+	else \
 		touch /tmp/doom_log2; \
 		chmod 777 /tmp/doom_log2; \
 	fi
