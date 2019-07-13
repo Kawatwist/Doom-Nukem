@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/11 18:49:36 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/13 13:18:50 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	turn_rast(t_win *wn)
 	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
 	{
 		ft_clear_window(wn);
+		printf("ADDRESS in turn_rast = %p\n", ((t_myraster *)wn->rasterizer->tmp)->clipped_triangle);
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->tmp2, wn);
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
 		if (wn->interface == DGAME)

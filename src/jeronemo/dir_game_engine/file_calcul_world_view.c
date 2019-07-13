@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/12 16:26:07 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/13 13:29:30 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	ft_clipping_camera(t_mytriangle *triangle,
 	printf("clipping camera\n");
 	printf("Je vais CLIP la camera \t\t\t\t\t<= ICI\n");
 	raster->nbr_of_clipped_triangle_created = 0;
+	printf("ADDRESS ft_clipping camera = %p\n", *clipped_triangle);
 	clipped_triangle = ft_triangle_clips_again_plan( raster->point_camera, raster->plane_camera, &(raster->nbr_of_clipped_triangle_created),
 			clipped_triangle,
 			triangle);
@@ -109,6 +110,7 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 	t_mytriangle		*head;
 
 	head = triangle_lst;
+	printf("ADDRESS ft_clipping screen = %p\n", *clipped_triangle);
 	printf("Je vais CLIP le screen \t\t\t\t\t<= ICI\n");
 	while(triangle_lst != NULL)
 	{

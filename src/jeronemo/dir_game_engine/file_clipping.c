@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/12 16:43:51 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/13 13:33:34 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_mytriangle	**ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, i
 	float		distance;
 	int			j;
 
+	printf("ADDRESS ft_triangle_clips start = %p\n", &(**clipped_triangle));
 
 	/* if ((int)(point.x) == -1) */
 	/* { */
@@ -93,46 +94,49 @@ t_mytriangle	**ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, i
 	if (n_inside_points == 0)
 	{
 		printf("==>reject\n");
-		clipped_triangle = NULL;
+//		clipped_triangle = NULL;
 		*nbr += 0;
 	}
 	else if (n_inside_points == 1)
 	{
 		printf("==>form one triangle ROUGE\n");
-		clipped_triangle[0]->vertice[0] = points_inside[0];
+		(*clipped_triangle)[0].vertice[0] = points_inside[0];
 		printf("Set a red triangle (Point inside)\n");
-		clipped_triangle[0]->vertice[1] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
+		(*clipped_triangle)[0].vertice[1] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
 		printf("Set a red triangle (Vector intersect 1)\n");
-		clipped_triangle[0]->vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[1]);
+		(*clipped_triangle)[0].vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[1]);
 		printf("Set a red triangle (Vector intersect 2)\n");
-		clipped_triangle[0]->ft_color = 'r';
+		(*clipped_triangle)[0].ft_color = 'r';
 		printf("Set a red triangle (Apply color)\n");
 		*nbr += 1;
 	}
 	else if (n_inside_points == 2)
 	{
 		printf("==>form a quadra GREEN\n\n");
-		clipped_triangle[0]->vertice[0] = points_inside[0];
-		clipped_triangle[0]->vertice[1] = points_inside[1];
-		clipped_triangle[0]->vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
-		clipped_triangle[0]->ft_color = 'g';
+		(*clipped_triangle)[0].vertice[0] = points_inside[0];
+		(*clipped_triangle)[0].vertice[1] = points_inside[1];
+		(*clipped_triangle)[0].vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
+		(*clipped_triangle)[0].ft_color = 'g';
 		printf("J'ai Clipped le premier triangle GREEN!!!!!!!!!!!!!\n");
 		
+		printf("ADDRESS 2 POINT INSIDE [0] = %p\n", &(**clipped_triangle));
+		printf("ADDRESS 2 POINT INSIDE [1] = %p\n", &((*clipped_triangle)[1]));
 		printf("%f || %f || %f\n", points_inside[1].x, points_inside[1].y, points_inside[1].z);
-		clipped_triangle[1]->vertice[0] = points_inside[1];
+		(*clipped_triangle)[1].vertice[0] = points_inside[1];
 		printf("J'ai add le point inside 2 OF THE SECOND TRIANGLE\n");
-		clipped_triangle[1]->vertice[1] = clipped_triangle[0]->vertice[2];
-		clipped_triangle[1]->vertice[2] = ft_vector_intersect(plane_norm,  point, points_inside[1], points_outside[0]);
-		clipped_triangle[1]->ft_color = 'g';
+		(*clipped_triangle)[1].vertice[1] = clipped_triangle[0]->vertice[2];
+		(*clipped_triangle)[1].vertice[2] = ft_vector_intersect(plane_norm,  point, points_inside[1], points_outside[0]);
+		(*clipped_triangle)[1].ft_color = 'g';
 		*nbr += 2;
 	}
 	else if (n_inside_points == 3)
 	{
 		printf("do nothing BLUE\n");
 //		printf("=%f\n", clipped_triangle->vertice[0].x);
-		*clipped_triangle = triangle;
-		clipped_triangle[0]->ft_color = 'b';
+		(*clipped_triangle)[0] = *triangle;
+		(*clipped_triangle)[0].ft_color = 'b';
 		*nbr += 1;
 	}
+	printf("ADDRESS ft_triangle_clips END = %p\n", &(**clipped_triangle));
 	return (clipped_triangle);
 }

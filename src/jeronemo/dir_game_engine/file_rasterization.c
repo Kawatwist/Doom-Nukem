@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/12 16:35:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/13 13:27:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 {
 	raster->triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle));
 	raster->clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
+	printf("ADDRESS malloc base = %p\n", raster->clipped_triangle);
 	SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2);
 	raster->mat_trans = ft_make_matrix_5_5();
 	raster->mat_rot_x = ft_make_matrix_5_5();
@@ -85,6 +86,7 @@ void		ft_init_update_raster(t_myraster *raster)
 
 void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *wn)
 {
+	printf("ADDRESS ft_update_raster = %p\n", raster->clipped_triangle);
 	ft_init_update_raster(raster);
 	while (++(raster->i) < raster->nbr_of_triangle)
 	{
@@ -94,6 +96,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 		{
 			ft_calcul_shade(raster->triangle, raster);
 			ft_calcul_cam_view(raster->triangle, raster);
+			printf("ADDRESS ft_update_raster CALL clipping camera = %p\n", raster->clipped_triangle);
 			ft_clipping_camera(raster->triangle, raster, &(raster->clipped_triangle));
 			raster->j = -1;
 			while (++(raster->j) < raster->nbr_of_clipped_triangle_created)
@@ -109,6 +112,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 //	printf("BFR TEST\n");
 ///	printf("%f TEST\n", raster->clipped_triangle[1].vertice[0].x);
 //	printf("AFTER TEST\n");
+	printf("ADDRESS ft_update_raster CALL clipping screen = %p\n", raster->clipped_triangle);
 	ft_clipping_screen(
 			raster->triangle_lst,
 			raster,
