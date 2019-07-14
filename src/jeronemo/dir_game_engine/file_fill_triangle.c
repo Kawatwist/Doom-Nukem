@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:59:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 11:13:48 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/14 16:11:58 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,41 @@ void	ft_fill_triangle_one_color(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn
 	}
 }
 
+// TEST WITH COLOR
+void	ft_fill_triangle_shade(t_mytriangle t, t_win *wn, float shade)
+{
+	t_myvec				v4;
+	t_myputtheline		s_line;;
+	t_mycolor			color;
+
+	color = ft_setcolor(GREEN);
+	ft_order_triangle_vertice(&t.vertice[0], &t.vertice[1], &t.vertice[2]);
+	if (shade > 0)
+		shade *= 165;
+	else
+		shade = 150;
+	t.ft_color = 'g' ? SDL_SetRenderDrawColor(wn->rend, 0, color.ggg - shade, 0, 255) : 0;
+	t.ft_color = 'r' ? SDL_SetRenderDrawColor(wn->rend, color.ggg - shade, 0, 0, 255) : 0;
+	t.ft_color = 'b' ? SDL_SetRenderDrawColor(wn->rend, 0, 0, color.ggg - shade, 255) : 0;
+	if (t.vertice[1].y == t.vertice[2].y)
+		ft_fill_bottom_flat_triangle(&t.vertice[0], &t.vertice[1], &t.vertice[2], wn);
+	else if (t.vertice[0].y == t.vertice[1].y)
+		ft_fill_top_flat_triangle(&t.vertice[0], &t.vertice[1], &t.vertice[2], wn);
+	else
+	{
+		v4.y = t.vertice[1].y;
+		v4.x = t.vertice[0].x + ((t.vertice[1].y - t.vertice[0].y) / (t.vertice[2].y - t.vertice[0].y)) * (t.vertice[2].x - t.vertice[0].x);
+		s_line.un.a = t.vertice[1].x;
+		s_line.un.b = t.vertice[1].y;
+		s_line.deux.a = v4.x;
+		s_line.deux.b = v4.y;
+		ft_draw_line(wn, &s_line);
+		ft_fill_bottom_flat_triangle(&t.vertice[0], &t.vertice[1], &v4, wn);
+		ft_fill_top_flat_triangle(&t.vertice[1], &v4, &t.vertice[2], wn);
+	}
+}
+
+/*
 void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_win *wn, float shade)
 {
 	t_myvec				v4;
@@ -152,4 +187,4 @@ void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_win *wn, float
 		ft_fill_top_flat_triangle(&v2, &v4, &v3, wn);
 	}
 }
-
+*/

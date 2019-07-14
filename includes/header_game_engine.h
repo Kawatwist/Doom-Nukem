@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/12 16:24:54 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/14 16:05:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ t_myvec			ft_vector_inverse(t_myvec src);
 t_myvec			ft_vector_multiply_vector(t_myvec a, t_myvec b);
 
 //FILE FILL TRIANGLE
-void			ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_win *wn, float shade);
+void			ft_fill_triangle_shade(t_mytriangle t, t_win *wn, float shade);
 
 //file window
 void			ft_clear_window(t_win *wn);

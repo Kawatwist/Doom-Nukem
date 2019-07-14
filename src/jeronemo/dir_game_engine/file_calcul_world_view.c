@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/13 13:29:30 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/14 16:18:52 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		ft_culling(t_mytriangle *triangle, t_myraster *raster)
 		return (0);
 }
 
-void	ft_calcul_shade(t_mytriangle *triangle, t_myraster *raster)
+void	ft_calcul_shade(t_mytriangle *triangle, t_myraster *raster) // check gouraud
 {
 	t_myvec			normal;
 
@@ -92,9 +92,7 @@ void	ft_clipping_camera(t_mytriangle *triangle,
 		t_mytriangle **clipped_triangle)
 {
 	printf("clipping camera\n");
-	printf("Je vais CLIP la camera \t\t\t\t\t<= ICI\n");
 	raster->nbr_of_clipped_triangle_created = 0;
-	printf("ADDRESS ft_clipping camera = %p\n", *clipped_triangle);
 	clipped_triangle = ft_triangle_clips_again_plan( raster->point_camera, raster->plane_camera, &(raster->nbr_of_clipped_triangle_created),
 			clipped_triangle,
 			triangle);
@@ -110,11 +108,8 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 	t_mytriangle		*head;
 
 	head = triangle_lst;
-	printf("ADDRESS ft_clipping screen = %p\n", *clipped_triangle);
-	printf("Je vais CLIP le screen \t\t\t\t\t<= ICI\n");
 	while(triangle_lst != NULL)
 	{
-		printf("le numero de poly dans le clipping = %d\n", i);
 		i = 0;
 		while (i < 4)
 		{
@@ -163,13 +158,9 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 									clipped_triangle,
 									triangle_lst);
 			}
-			j = 0;
-			while(j < raster->nbr_of_clipped_triangle_created)
-			{
-				printf("add to lst\n");
+			j = -1;
+			while(++j < raster->nbr_of_clipped_triangle_created)
 				ft_add_triangle_to_lst(raster->clipped_triangle[raster->j], &(raster->triangle_lst_2));
-				j++;
-			}
 			i++;
 		}
 		printf("next\n");
@@ -210,15 +201,14 @@ void	ft_scale_screen(t_mytriangle *triangle)
 
 void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
-		printf("on affiche\n");
 	t_mytriangle	*keep;
 
 	keep = triangle_lst_2;
 	while (triangle_lst_2 != NULL)
 	{
-printf("=%f\n", triangle_lst_2->vertice[0].x);
+		//printf("=%f\n", triangle_lst_2->vertice[0].x);
 		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
-		ft_fill_triangle_shade((triangle_lst_2->vertice[0]), (triangle_lst_2->vertice[1]), (triangle_lst_2->vertice[2]), wn, triangle_lst_2->shade);
+		ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade);
 		//DRAW MESH
 		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
 		triangle_lst_2 = triangle_lst_2->next;
