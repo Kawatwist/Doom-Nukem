@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/14 16:20:22 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/14 17:26:02 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void		ft_init_update_raster(t_myraster *raster)
 	raster->i = -1;
 }
 
-static void	SHOW_TRIANGLE(t_mytriangle *trg, int nb)
+/*static void	SHOW_TRIANGLE(t_mytriangle *trg, int nb)
 {
 	int	i;
 
@@ -98,6 +98,7 @@ static void	SHOW_TRIANGLE(t_mytriangle *trg, int nb)
 		nb -= 1;
 	}
 }
+*/
 
 void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *wn)
 {
@@ -111,13 +112,13 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 			ft_calcul_shade(raster->triangle, raster);
 			ft_calcul_cam_view(raster->triangle, raster);
 			ft_clipping_camera(raster->triangle, raster, &(raster->clipped_triangle));
-			SHOW_TRIANGLE(raster->clipped_triangle, raster->nbr_of_clipped_triangle_created);
-			raster->j = -1;
-			while (++(raster->j) < raster->nbr_of_clipped_triangle_created)
+			raster->j = 0;
+			while (raster->j < raster->nbr_of_clipped_triangle_created)
 			{
 				ft_calcul_projection_view(&(raster->clipped_triangle[raster->j]), raster);
 				ft_scale_screen(&(raster->clipped_triangle[raster->j]));
 				ft_add_triangle_to_lst(raster->clipped_triangle[raster->j], &(raster->triangle_lst));
+				raster->j += 1;
 			}
 		}
 	}
@@ -126,12 +127,12 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 ///	printf("%f TEST\n", raster->clipped_triangle[1].vertice[0].x);
 //	printf("AFTER TEST\n");
 //	printf("ADDRESS ft_update_raster CALL clipping screen = %p\n", raster->clipped_triangle);
-//	ft_clipping_screen(
-//			raster->triangle_lst,
-//			raster,
-//			&(raster->clipped_triangle));
+	ft_clipping_screen(
+			raster->triangle_lst,
+			raster,
+			&(raster->clipped_triangle));
 //	printf("fin clipping screen \n");
+	ft_free_lst(raster->triangle_lst_2);
 	raster->triangle_lst_2 = raster->triangle_lst;
 	ft_draw(raster->triangle_lst_2, wn);
-	ft_free_lst(raster->triangle_lst_2);
 }

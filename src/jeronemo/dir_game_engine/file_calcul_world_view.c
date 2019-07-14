@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/14 16:18:52 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/14 17:18:34 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,13 @@ void	ft_free_lst(t_mytriangle *triangle_lst_2)
 }
 
 //surement un truck a faire ici pour le passage par adresse
-void	ft_clipping_camera(t_mytriangle *triangle,
-		t_myraster *raster,
-		t_mytriangle **clipped_triangle)
+void	ft_clipping_camera(t_mytriangle *triangle, t_myraster *raster, t_mytriangle **clipped_triangle)
 {
-	printf("clipping camera\n");
 	raster->nbr_of_clipped_triangle_created = 0;
-	clipped_triangle = ft_triangle_clips_again_plan( raster->point_camera, raster->plane_camera, &(raster->nbr_of_clipped_triangle_created),
+	clipped_triangle = ft_triangle_clips_again_plan(raster->point_camera, raster->plane_camera,
+			&(raster->nbr_of_clipped_triangle_created),
 			clipped_triangle,
 			triangle);
-	printf("nbr_of_clipped_triangle_created =%d\n", raster->nbr_of_clipped_triangle_created);
 }
 
 void	ft_clipping_screen(t_mytriangle *triangle_lst,

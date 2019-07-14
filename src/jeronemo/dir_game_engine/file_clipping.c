@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/14 16:16:21 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/14 17:43:41 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,14 @@ t_mytriangle	**ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, i
 	printf(" inside = %d\n", n_inside_points);
 	printf(" outside = %d\n", n_outside_points);
 	if (n_inside_points == 0)
-		*nbr += 0;
+		*nbr = 0;
 	else if (n_inside_points == 1)
 	{
 		(*clipped_triangle)[0].vertice[0] = points_inside[0];
 		(*clipped_triangle)[0].vertice[1] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
 		(*clipped_triangle)[0].vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[1]);
 		(*clipped_triangle)[0].ft_color = 'r';
-		*nbr += 1;
+		*nbr = 1;
 	}
 	else if (n_inside_points == 2)
 	{
@@ -109,13 +109,14 @@ t_mytriangle	**ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, i
 		(*clipped_triangle)[1].vertice[1] = clipped_triangle[0]->vertice[2];
 		(*clipped_triangle)[1].vertice[2] = ft_vector_intersect(plane_norm,  point, points_inside[1], points_outside[0]);
 		(*clipped_triangle)[1].ft_color = 'g';
-		*nbr += 2;
+		*nbr = 2;
 	}
 	else if (n_inside_points == 3)
 	{
 		(*clipped_triangle)[0] = *triangle;
-		(*clipped_triangle)[0].ft_color = 'b';
-		*nbr += 1;
+		if ((*clipped_triangle)[0].ft_color == 'b')
+			(*clipped_triangle)[0].ft_color = 'b';
+		*nbr = 1;
 	}
 	return (clipped_triangle);
 }
