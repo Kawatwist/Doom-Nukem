@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:59:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/15 15:18:37 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/15 17:26:59 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,7 @@ void	ft_fill_triangle_shade(t_mytriangle t, t_win *wn, float shade)
 		shade *= 165;
 	else
 		shade = 150;
-	printf("COLOR => %d\n", t.ft_color);
-	SDL_SetRenderDrawColor(wn->rend, 255, 0, 0, 255);
+	SDL_SetRenderDrawColor(wn->rend, 255 - shade, 0, 125 - (shade / 2), 255);
 //	t.ft_color = 103 ? SDL_SetRenderDrawColor(wn->rend, 0, 255 - shade, 0, 255) : 0;
 //	t.ft_color = 114 ? SDL_SetRenderDrawColor(wn->rend, 255 - shade, 0, 0, 255) : 0;
 //	t.ft_color = 67 ? SDL_SetRenderDrawColor(wn->rend, 0, 0, 255 - shade, 255) : 0;

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/15 17:10:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/15 17:37:00 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,6 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 				raster->j += 1;
 			}
 		}
-		else
-		{
-			printf("Culling REFUSED\n");
-			SHOW_TRIANGLE(raster->triangle, 1);
-		}
 	}
 	ft_order_triangle_z_buffer(&(raster->triangle_lst));
 //	printf("BFR TEST\n");
@@ -141,8 +136,8 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	ft_draw(raster->triangle_lst_2, wn);
 	ft_free_lst(raster->triangle_lst_2);
 	SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 255);
-	SDL_RenderDrawLine(wn->rend, XSCREEN / 2 - 200, 0, XSCREEN / 2 - 200, YSCREEN);
-	SDL_RenderDrawLine(wn->rend, XSCREEN / 2 + 200, 0, XSCREEN / 2 + 200, YSCREEN);
-	SDL_RenderDrawLine(wn->rend, 0, YSCREEN / 2 -200, XSCREEN, YSCREEN / 2 - 200);
-	SDL_RenderDrawLine(wn->rend, 0, YSCREEN / 2 +200, XSCREEN, YSCREEN / 2 + 200);
+	SDL_RenderDrawLine(wn->rend, 30, 0, 30, YSCREEN);
+	SDL_RenderDrawLine(wn->rend, XSCREEN - 30, 0, XSCREEN - 30, YSCREEN);
+	SDL_RenderDrawLine(wn->rend, 0, 30, XSCREEN, 30);
+	SDL_RenderDrawLine(wn->rend, 0, YSCREEN - 30, XSCREEN, YSCREEN - 30);
 }
