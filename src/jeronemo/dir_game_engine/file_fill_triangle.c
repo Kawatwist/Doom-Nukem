@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:59:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/14 17:43:43 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/15 15:18:37 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,10 @@ void	ft_fill_triangle_shade(t_mytriangle t, t_win *wn, float shade)
 	else
 		shade = 150;
 	printf("COLOR => %d\n", t.ft_color);
-	t.ft_color = 103 ? SDL_SetRenderDrawColor(wn->rend, 0, 255 - shade, 0, 255) : 0;
-	t.ft_color = 114 ? SDL_SetRenderDrawColor(wn->rend, 255 - shade, 0, 0, 255) : 0;
-	t.ft_color = 67 ? SDL_SetRenderDrawColor(wn->rend, 0, 0, 255 - shade, 255) : 0;
+	SDL_SetRenderDrawColor(wn->rend, 255, 0, 0, 255);
+//	t.ft_color = 103 ? SDL_SetRenderDrawColor(wn->rend, 0, 255 - shade, 0, 255) : 0;
+//	t.ft_color = 114 ? SDL_SetRenderDrawColor(wn->rend, 255 - shade, 0, 0, 255) : 0;
+//	t.ft_color = 67 ? SDL_SetRenderDrawColor(wn->rend, 0, 0, 255 - shade, 255) : 0;
 	if (t.vertice[1].y == t.vertice[2].y)
 		ft_fill_bottom_flat_triangle(&t.vertice[0], &t.vertice[1], &t.vertice[2], wn);
 	else if (t.vertice[0].y == t.vertice[1].y)
@@ -186,5 +187,4 @@ void	ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_win *wn, float
 		ft_fill_bottom_flat_triangle(&v1, &v2, &v4, wn);
 		ft_fill_top_flat_triangle(&v2, &v4, &v3, wn);
 	}
-}
-*/
+}*/

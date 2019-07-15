@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/14 17:26:02 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/15 17:10:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void		ft_init_update_raster(t_myraster *raster)
 	raster->i = -1;
 }
 
-/*static void	SHOW_TRIANGLE(t_mytriangle *trg, int nb)
+void	SHOW_TRIANGLE(t_mytriangle *trg, int nb)
 {
 	int	i;
 
@@ -98,7 +98,7 @@ void		ft_init_update_raster(t_myraster *raster)
 		nb -= 1;
 	}
 }
-*/
+
 
 void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *wn)
 {
@@ -121,6 +121,11 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 				raster->j += 1;
 			}
 		}
+		else
+		{
+			printf("Culling REFUSED\n");
+			SHOW_TRIANGLE(raster->triangle, 1);
+		}
 	}
 	ft_order_triangle_z_buffer(&(raster->triangle_lst));
 //	printf("BFR TEST\n");
@@ -132,7 +137,12 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 			raster,
 			&(raster->clipped_triangle));
 //	printf("fin clipping screen \n");
-	ft_free_lst(raster->triangle_lst_2);
-	raster->triangle_lst_2 = raster->triangle_lst;
+//	raster->triangle_lst_2 = raster->triangle_lst;
 	ft_draw(raster->triangle_lst_2, wn);
+	ft_free_lst(raster->triangle_lst_2);
+	SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 255);
+	SDL_RenderDrawLine(wn->rend, XSCREEN / 2 - 200, 0, XSCREEN / 2 - 200, YSCREEN);
+	SDL_RenderDrawLine(wn->rend, XSCREEN / 2 + 200, 0, XSCREEN / 2 + 200, YSCREEN);
+	SDL_RenderDrawLine(wn->rend, 0, YSCREEN / 2 -200, XSCREEN, YSCREEN / 2 - 200);
+	SDL_RenderDrawLine(wn->rend, 0, YSCREEN / 2 +200, XSCREEN, YSCREEN / 2 + 200);
 }

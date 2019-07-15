@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/10 17:53:57 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/15 16:11:33 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,16 @@ typedef enum		e_interface
 	CLIENT,
 	HOST,
 }					t_interface;
+
+typedef struct		s_rectbox
+{
+	float			x;
+	float			y;
+	float			z;
+	float			w;
+	float			h;
+	float			l;
+}					t_rectbox;
 
 typedef struct		s_myvec
 {
@@ -289,6 +299,7 @@ float						ft_atoi_comma(const char *str);
 t_myvec						ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
 
 
+void				SHOW_TRIANGLE(t_mytriangle *triangle, int nb);
 
 
 
@@ -425,6 +436,7 @@ void				setkeyboard(Uint8 *new, Uint8 *current);
 void				stop_exec(char *msg, t_win *wn);
 void				full_screen(t_win *wn);
 SDL_Rect			*create_rect(int x, int y, int w, int h);
+int					hitboxbox(t_myvec vec, t_rectbox box);
 int					hitbox(int x, int y, SDL_Rect *pos);
 Uint32				set_bit(Uint32 var, Uint32 mask);
 int					mouse_pressed(t_win *wn, Uint32 mask);
