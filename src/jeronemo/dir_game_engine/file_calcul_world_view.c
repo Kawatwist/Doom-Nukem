@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/16 12:28:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/16 14:08:06 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	ft_calcul_world_view_matrix(t_myraster *raster)
 	//ft_set_raster_rot_x(raster->ftheta, raster);
 	ft_set_raster_rot_x(180, raster);
 	//ft_set_raster_rot_y(raster->ftheta, raster);
-	ft_set_raster_rot_z(raster->ftheta * 0.5, raster);
+	//ft_set_raster_rot_z(raster->ftheta * 0.5 + 180, raster);
+	ft_set_raster_rot_z(0, raster);
 }
 
 void	ft_calcul_world_view(t_mytriangle *triangle, t_myraster *raster)
