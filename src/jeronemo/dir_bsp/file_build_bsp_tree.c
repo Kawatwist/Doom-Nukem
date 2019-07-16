@@ -21,11 +21,6 @@ static void			ft_split_then_distribute(t_mypolygon **front_lst, t_mypolygon **ba
 	ft_bzero(front_split, sizeof(t_mypolygon));
 	back_split = (t_mypolygon*)malloc(sizeof(t_mypolygon));
 	ft_bzero(back_split, sizeof(t_mypolygon));
-	if (polygon_lst->id == 2)
-	{
-		printf("ccccccccccccccccccccccccccccccccccccccccc\n");
-		ft_display_the_polygon_list(polygon_lst);
-	}
 	ft_split_polygon(polygon_lst, splitter, front_split, back_split);
 	ft_add_polygon(front_lst, front_split);
 	ft_add_polygon(back_lst, back_split);
