@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 14:51:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/16 14:31:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_myraster	*ft_mouse_event_check(t_win *wn, t_myraster *raster)
 		SDL_ShowCursor(SDL_DISABLE);
 		SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
 		(raster->theta_camera  += (wn->input->x - (wn->xscreen / 2)) / 10);
-		(raster->pitch  += ((wn->input->y) - (wn->yscreen / 2) ) /10);
+		(raster->pitch  += ((wn->yscreen / 2) - (wn->input->y)  ) /10) ;
 		//	raster->theta_camera += 1;
 		//> 360
 		//				? wn->player->rawx -= 360 : 0;

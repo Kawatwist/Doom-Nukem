@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/11 15:28:06 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/16 14:28:09 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	game_interface(t_win *wn)
 		}
 		ingame(wn);
 		SDL_UnlockTexture(wn->gametxt);
-		SDL_RenderCopy(wn->rend, wn->gametxt, NULL, NULL);
+		/* SDL_RenderCopy(wn->rend, wn->gametxt, NULL, NULL); */
 	}
 	else if (wn->interface == NGAME)
 		newgame(wn);
