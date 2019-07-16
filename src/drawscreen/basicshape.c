@@ -6,11 +6,12 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 15:29:27 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/11 17:47:07 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/16 16:25:43 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+#include "header_bresenham.h"
 
 void		drawsquare(void	**pixels, int pitch, SDL_Rect rect, t_color color)
 {
@@ -49,12 +50,31 @@ void		drawcircle(void **pixels, int pitch, t_point origin, int rayon)
 	}
 }
 
-void		drawline(void **pixels, int pitch, t_point origin, t_point dest)
+void		drawlinexyz(t_win *wn, int color, t_xyz_point origin, t_xyz_point dest)
 {
-	(void)pixels;
-	(void)pitch;
-	(void)origin;
-	(void)dest;
+	t_point	neworigin;
+	t_point	newdest;
+	
+	neworigin.x = origin.a;
+	neworigin.y = origin.b;
+	newdest.x = dest.a;
+	newdest.y = dest.b;
+	wn->color = color;
+	bresenham(wn, &neworigin, &newdest);
+}
+
+void		drawline(t_win *wn, int color, t_point origin, t_point dest)
+{
+	wn->color = color;
+	bresenham(wn, &origin, &dest);
+}
+
+void		drawpointintcolor(void **pixels, int pitch, t_point position, int color)
+{
+	int	place;
+
+	place = (position.y * (pitch >> 2)) + (position.x);
+	(((int*)pixels))[place] = color;
 }
 
 void		drawpoint(void **pixels, int pitch, t_point position, t_color color)

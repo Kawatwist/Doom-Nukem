@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/16 13:39:42 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/16 17:42:15 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <game.h>
 # include <rasterisation.h>
 # include <skybox.h>
+# include <header_bresenham.h>
 # include <SDL.h>
 # include <SDL_ttf.h>
 
@@ -159,6 +160,19 @@ typedef struct		s_load
 	struct s_load	*next;
 }					t_load;
 
+typedef struct 		s_bresenham 
+{
+	int 			x;
+	int 			y;
+	int 			x1;
+	int 			y1;
+	int 			dx;
+	int 			dy;
+	int 			sx;
+	int 			sy;
+	int 			e;
+}					t_bres;
+
 typedef struct		s_thread
 {
 	pthread_t		thd;
@@ -223,6 +237,7 @@ typedef struct				s_mycolor
 typedef struct				s_mytriangle
 {
 	t_myvec					vertice[3];
+	float					zbuff;
 	struct s_mytriangle		*next;
 	char					ft_color;
 	float					shade;
@@ -264,6 +279,7 @@ typedef struct		s_win
 	t_input			*input;
 	SDL_Event		ev;
 	SDL_Window		*window;
+	int				color;			// COLOR FOR DRAWLINE/DRAWPOINT
 	void			*pixels;		// CHANGE TO APPLY TO TEXTURE WHILE GAME
 	int				pitch;
 	SDL_Texture		*gametxt;
@@ -272,6 +288,7 @@ typedef struct		s_win
 	SDL_Texture		*txtnotload;
 	SDL_Texture		*loading;
 	SDL_Texture		*loadingscreen;
+	t_bres			bres;
 	t_map			*map;
 	t_elem			*elem;
 	t_joueur		*player;
@@ -319,10 +336,16 @@ void				SHOW_TRIANGLE(t_mytriangle *triangle, int nb);
 
 t_color				itocolor(int value);
 
+void				ft_draw_line(t_win *wn, t_myputtheline *s_line);
+
+void				bresenham(t_win *wn, t_point *alst, t_point *next);
+
 void				drawsquare(void **pixels, int pitch, SDL_Rect rect, t_color color);
 void				drawcircle(void **pixels, int pitch, t_point origin, int rayon);
-void				drawline(void **pixels, int pitch, t_point origin, t_point dest);
+void				drawlinexyz(t_win *wn, int color, t_xyz_point origin, t_xyz_point dest);
+void				drawline(t_win *wn, int color, t_point origin, t_point dest);
 void				drawpoint(void **pixels, int pitch, t_point position, t_color color);
+void				drawpointintcolor(void **pixels, int pitch, t_point position, int color);
 
 /**
  ** GAME
@@ -389,9 +412,9 @@ void				print_command(t_win *wn, char *s, int posi_x, int posi_y);
 void				initttf(t_win **wn);
 void				init_ver(t_vec *vec, float x, float y, float z);
 t_text				*findpostxt(t_win *wn, char *type,
-						char *subtype, char *name);
+		char *subtype, char *name);
 t_text				*findpos(t_win *wn, char *type,
-						char *subtype, char *name);
+		char *subtype, char *name);
 int					parsearg(int argc, char **argv, t_win **wn);
 void				loadminimenu(t_win **wn);
 void				showload(t_win **wn, int load);
@@ -404,14 +427,14 @@ void				init_input(t_win **wn);
 void				initskybox(t_win **wn);
 void				initplayer(t_win **wn);
 int					load_texture(t_win *wn, char *type,
-						char *subtype, char *name);
+		char *subtype, char *name);
 void				*load_intro(void *params);
 void				inittexture(t_win **wn);
 SDL_Texture			*initload2(t_win **wn, const char *path);
 void				showlinkedlist(t_win **wn, char *type, char *subtype);
 void				initload(t_win **wn);
 SDL_Texture			*findtexture(t_win *wn, char *type,
-						char *subtype, char *name);
+		char *subtype, char *name);
 int					initmutex(t_win **wn);
 void				*loadingthread(void *param);
 void				loadnothread(t_win **wn);

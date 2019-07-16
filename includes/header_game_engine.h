@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/16 12:45:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/16 17:54:14 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ typedef struct				s_myraster
 	
 
 }							t_myraster;
+
+void			ft_store_in_lst(t_mytriangle *toadd, t_mytriangle **head);
 
 
 //FILE GAME ENGINE

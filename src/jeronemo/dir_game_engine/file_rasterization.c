@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/16 14:22:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/16 18:12:27 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 			ft_my_time(&(raster->time_culling), &current_time, &last_time);
 
 			ft_calcul_shade(raster->triangle, raster);
+			raster->triangle->shade *= 100;
 			ft_my_time(&(raster->time_shade), &current_time, &last_time);
 
 			ft_calcul_cam_view(raster->triangle, raster);
@@ -164,14 +165,15 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 				ft_scale_screen(&(raster->clipped_triangle[raster->j]));
 				ft_my_time(&(raster->time_scale_screen), &current_time, &last_time);
 
-				ft_add_triangle_to_lst(raster->clipped_triangle[raster->j], &(raster->triangle_lst));
+				ft_store_in_lst(ft_triangle_node_create(raster->clipped_triangle[raster->j]), &raster->triangle_lst); // Place in the linked list @ the right place
+//				ft_add_triangle_to_lst(raster->clipped_triangle[raster->j], &(raster->triangle_lst)); // STORE IN THE RIGHT PLACE && CALCUL Z1
 				ft_my_time(&(raster->time_add_to_lst), &current_time, &last_time);
 
 				raster->j += 1;
 			}
 		}
 	}
-	ft_order_triangle_z_buffer(&(raster->triangle_lst));
+//	ft_order_triangle_z_buffer(&(raster->triangle_lst));
 //	ft_my_time(&(raster->time_z_buffer), &current_time, &last_time);
 
 	//	printf("BFR TEST\n");
@@ -183,7 +185,6 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 			raster,
 			&(raster->clipped_triangle));
 	ft_my_time(&(raster->time_clipping_screen), &current_time, &last_time);
-
 	//	printf("fin clipping screen \n");
 	//	raster->triangle_lst_2 = raster->triangle_lst;
 	ft_draw(raster->triangle_lst_2, wn);
@@ -192,15 +193,11 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	ft_free_lst(raster->triangle_lst_2);
 	ft_my_time(&(raster->time_free_lst), &current_time, &last_time);
 
-
-
 	SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 255);
 	SDL_RenderDrawLine(wn->rend, 30, 0, 30, YSCREEN);
 	SDL_RenderDrawLine(wn->rend, XSCREEN - 30, 0, XSCREEN - 30, YSCREEN);
 	SDL_RenderDrawLine(wn->rend, 0, 30, XSCREEN, 30);
 	SDL_RenderDrawLine(wn->rend, 0, YSCREEN - 30, XSCREEN, YSCREEN - 30);
-
-
 
 	printf("world view\t=%u\n", raster->time_world_view);
 	printf("culling\t\t=%u\n", raster->time_culling);
@@ -214,9 +211,5 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	printf("clip screen\t=%u\n", raster->time_clipping_screen);
 	printf("draw\t\t=%u\n", raster->time_draw);
 	printf("free\t\t=%u\n\n\n\n", raster->time_free_lst);
-
-
-
-
 
 }
