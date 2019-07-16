@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/14 16:05:55 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/16 12:45:51 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,20 @@ typedef struct				s_myraster
 
 	int						nbr_of_clipped_triangle_created;
 
+
+	unsigned int			time_world_view;
+	unsigned int			time_culling;
+	unsigned int			time_shade;
+	unsigned int			time_cam_view;
+	unsigned int			time_clipping_camera;
+	unsigned int			time_projetion;
+	unsigned int			time_scale_screen;
+	unsigned int			time_add_to_lst;
+	unsigned int			time_z_buffer;
+	unsigned int			time_clipping_screen;
+	unsigned int			time_draw;
+	unsigned int			time_free_lst;
+	
 
 }							t_myraster;
 
