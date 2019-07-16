@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/07/14 17:29:47 by lomasse          ###   ########.fr        #
+#    Updated: 2019/07/16 13:39:58 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -87,6 +87,8 @@ SRC				= main.c										\
 				  menu_show.c 									\
 				  load_fonts.c 									\
 				  tool.c 										\
+				  color.c										\
+				  basicshape.c									\
 				  world2view.c									\
 				  world2view_mat.c
 

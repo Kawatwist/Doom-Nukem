@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/10 17:56:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/11 15:28:06 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,20 @@ void	show_game_cursor(t_win *wn)
 
 void	game_interface(t_win *wn)
 {
+	if (wn->gametxt == NULL)
+		wn->gametxt = SDL_CreateTexture(wn->rend, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, wn->xscreen, wn->yscreen);
+	SDL_LockTexture(wn->gametxt, NULL, (void **)&wn->pixels, &wn->pitch);
 	if (wn->interface == RGAME || wn->interface == DGAME)
 	{
 		if (wn->rasterizer == NULL)
 		{
-			wn->rasterizer = malloc(sizeof(t_rasterizer)); // SECURE NEED;
+			if (!(wn->rasterizer = malloc(sizeof(t_rasterizer))))
+				return ;
 			ft_launch_rasterization(wn);
 		}
 		ingame(wn);
+		SDL_UnlockTexture(wn->gametxt);
+		SDL_RenderCopy(wn->rend, wn->gametxt, NULL, NULL);
 	}
 	else if (wn->interface == NGAME)
 		newgame(wn);

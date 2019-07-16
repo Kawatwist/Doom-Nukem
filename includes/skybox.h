@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:22:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/11 13:15:21 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/11 15:05:50 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SKYBOX_H
 
 # include "SDL.h"
+
 /*
 typedef struct		s_cloud
 {
@@ -29,6 +30,7 @@ typedef struct		s_cloud
 	struct s_cloud	*next;
 }					t_cloud;
 */
+
 typedef struct		s_cloudy
 {
 	char			sens;
