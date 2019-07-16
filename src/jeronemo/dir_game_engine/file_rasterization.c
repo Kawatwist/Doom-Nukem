@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/16 14:21:01 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/16 14:22:32 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 			}
 		}
 	}
-//	ft_order_triangle_z_buffer(&(raster->triangle_lst));
+	ft_order_triangle_z_buffer(&(raster->triangle_lst));
 //	ft_my_time(&(raster->time_z_buffer), &current_time, &last_time);
 
 	//	printf("BFR TEST\n");
