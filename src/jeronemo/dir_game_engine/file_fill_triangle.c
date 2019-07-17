@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:59:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/16 17:36:29 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/17 17:00:39 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ void	ft_fill_triangle_shade(t_mytriangle t, t_win *wn, float shade)
 
 	//color = ft_setcolor(GREEN);
 	ft_order_triangle_vertice(&t.vertice[0], &t.vertice[1], &t.vertice[2]);
-	wn->color = ((0xFFFF00FF - (((int)shade) << 16)) - ((int)shade));
+//	wn->color = (((0xFFFF00FF - (((int)shade) << 16)) - (((int)shade) & 0xFF)));
+	wn->color = 0xFF000000 + (((int)shade) << 16);
 	if (shade > 0)
 		shade *= 165;
 	else

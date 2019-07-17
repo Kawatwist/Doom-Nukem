@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 17:43:53 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/16 18:11:40 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/17 15:58:07 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 static float	calcul_zbuff(t_mytriangle *triangle)
 {
-	return (triangle->vertice[0].z + triangle->vertice[1].z + triangle->vertice[2].z);
+	return ((triangle->vertice[0].z + triangle->vertice[1].z + triangle->vertice[2].z) / 3);
 }
 
 void			ft_store_in_lst(t_mytriangle *toadd, t_mytriangle **head)
@@ -35,15 +35,23 @@ void			ft_store_in_lst(t_mytriangle *toadd, t_mytriangle **head)
 	else
 	{
 		curr = *head;
-		while (curr->next != NULL && toadd->zbuff > curr->zbuff)
+		while (curr->next != NULL && toadd->zbuff > curr->next->zbuff)
 			curr = curr->next;
 		if (curr->next == NULL)
 			curr->next = toadd;
 		else
 		{
-			tmp = curr->next;
-			curr->next = toadd;
-			toadd->next = tmp;
+			if (curr == *head)
+			{
+				*head = toadd;
+				(*head)->next = curr;
+			}
+			else
+			{
+				tmp = curr->next;
+				curr->next = toadd;
+				toadd->next = tmp;
+			}
 		}
 	}
 }

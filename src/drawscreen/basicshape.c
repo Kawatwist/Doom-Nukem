@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 15:29:27 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/16 16:25:43 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/17 17:52:31 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		drawcircle(void **pixels, int pitch, t_point origin, int rayon)
 		{
 			k = (((pos.x << 1) / rayon) * ((pos.x << 1) / rayon)) + ((pos.y / rayon) * (pos.y / rayon));
 			if (k > 0.95 && k < 1.08)
-				drawpoint(pixels, pitch, pos, itocolor(0xFF00FF));
+				drawpoint(pixels, pitch, pos, itocolor(0xFFFF00FF));
 			pos.y += 1;
 		}
 		pos.x += 1;
@@ -60,21 +60,21 @@ void		drawlinexyz(t_win *wn, int color, t_xyz_point origin, t_xyz_point dest)
 	newdest.x = dest.a;
 	newdest.y = dest.b;
 	wn->color = color;
-	bresenham(wn, &neworigin, &newdest);
+	if ((unsigned int)wn->color == 0xFF00FF00)
+		bresenham(wn, &neworigin, &newdest);
 }
 
 void		drawline(t_win *wn, int color, t_point origin, t_point dest)
 {
 	wn->color = color;
-	bresenham(wn, &origin, &dest);
+	(void)origin;
+	(void)dest;
+//	bresenham(wn, &origin, &dest);
 }
 
 void		drawpointintcolor(void **pixels, int pitch, t_point position, int color)
 {
-	int	place;
-
-	place = (position.y * (pitch >> 2)) + (position.x);
-	(((int*)pixels))[place] = color;
+	((int*)pixels)[(position.y * (pitch >> 2)) + (position.x)] = color;
 }
 
 void		drawpoint(void **pixels, int pitch, t_point position, t_color color)
