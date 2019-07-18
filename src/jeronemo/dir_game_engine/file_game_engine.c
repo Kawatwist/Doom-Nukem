@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/16 14:02:25 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/18 14:21:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_game_engine(t_win *wn)
 void	turn_rast(t_win *wn)
 {
 	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
+	//############
+	wn->interface = DGAME;
 	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
 	{
 		ft_clear_window(wn);
@@ -50,4 +52,5 @@ void	ft_launch_rasterization(t_win *wn)
 	wn->rasterizer->max = ft_get_nbr_of_triangle(wn->rasterizer->tmp3);
 	wn->rasterizer->tmp = malloc(sizeof(t_myraster));
 	wn->rasterizer->tmp = ft_init_rasterization(wn, (t_myraster*)(wn->rasterizer->tmp));
+	//exit(0);
 }

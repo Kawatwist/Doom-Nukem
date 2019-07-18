@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/07/16 13:39:58 by lomasse          ###   ########.fr        #
+#    Updated: 2019/07/18 16:12:56 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -109,6 +109,7 @@ SRC += file_order_z_buffer.c
 SRC += file_draw_triangle.c
 SRC += file_window.c
 SRC += file_calcul_world_view.c
+SRC += ft_draw_textured_triangle.c
 
 #BSP
 SRC += file_bsp.c

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/16 14:22:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/18 16:13:29 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	current_time = 0;
 	ft_init_update_raster(raster);
 
-
 	raster->time_world_view = 0;
 	raster->time_culling = 0;
 	raster->time_shade = 0;
@@ -131,20 +130,48 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	raster->time_draw = 0;
 	raster->time_free_lst = 0;
 
+	while (++(raster->i) < raster->nbr_of_triangle)
+	{
+		*(raster->triangle) = triangle_array[raster->i];
+
+		raster->triangle->vertice[0] = ft_normalise((raster->triangle->vertice[0]));
+		raster->triangle->vertice[1] = ft_normalise((raster->triangle->vertice[1]));
+		raster->triangle->vertice[2] = ft_normalise((raster->triangle->vertice[2]));
+
+		triangle_array[raster->i].texture[0].u = raster->triangle->vertice[0].x;
+		triangle_array[raster->i].texture[0].v = raster->triangle->vertice[0].y;
+		triangle_array[raster->i].texture[0].w = 1;
+
+		triangle_array[raster->i].texture[1].u = raster->triangle->vertice[1].x;
+		triangle_array[raster->i].texture[1].v = raster->triangle->vertice[1].y;
+		triangle_array[raster->i].texture[1].w = 1;
+
+		triangle_array[raster->i].texture[2].u = raster->triangle->vertice[2].x;
+		triangle_array[raster->i].texture[2].v = raster->triangle->vertice[2].y;
+		triangle_array[raster->i].texture[2].w = 1;
+	}
 
 
-
+	raster->i = -1;
 	while (++(raster->i) < raster->nbr_of_triangle)
 	{
 		current_time = clock();
 		*(raster->triangle) = triangle_array[raster->i];
 
+		printf("TRIANGLE N=%d\n", raster->i);
+		printf("x =%f \t x=%f \t x=%f\t\n", raster->triangle->vertice[0].x, raster->triangle->vertice[1].x, raster->triangle->vertice[2].x);
+		printf("y =%f \t y=%f \t y=%f\t\n", raster->triangle->vertice[0].y, raster->triangle->vertice[1].y, raster->triangle->vertice[2].y);
+		printf("z =%f \t z=%f \t z=%f\t\n", raster->triangle->vertice[0].z, raster->triangle->vertice[1].z, raster->triangle->vertice[2].z);
+		printf("je normalise pour uv\n");
+		printf("u =%f \t u=%f \t u=%f\t\n", raster->triangle->texture[0].u, raster->triangle->texture[1].u, raster->triangle->texture[2].u);
+		printf("v =%f \t v=%f \t v=%f\t\n", raster->triangle->texture[0].v, raster->triangle->texture[1].v, raster->triangle->texture[2].v);
+		printf("w =%f \t w=%f \t w=%f\t\n", raster->triangle->texture[0].w, raster->triangle->texture[1].w, raster->triangle->texture[2].w);
+
 		ft_calcul_world_view(raster->triangle, raster);
 		ft_my_time(&(raster->time_world_view), &current_time, &last_time);
 
 		if (ft_culling(raster->triangle, raster) == 1)
-		{
-			ft_my_time(&(raster->time_culling), &current_time, &last_time);
+		{ft_my_time(&(raster->time_culling), &current_time, &last_time);
 
 			ft_calcul_shade(raster->triangle, raster);
 			ft_my_time(&(raster->time_shade), &current_time, &last_time);
@@ -187,6 +214,10 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	//	printf("fin clipping screen \n");
 	//	raster->triangle_lst_2 = raster->triangle_lst;
 	ft_draw(raster->triangle_lst_2, wn);
+
+	ft_draw_textured_triangle();
+
+
 	ft_my_time(&(raster->time_draw), &current_time, &last_time);
 
 	ft_free_lst(raster->triangle_lst_2);

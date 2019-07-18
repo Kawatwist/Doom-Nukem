@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/16 13:39:42 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/18 14:42:20 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,13 @@ typedef struct		s_myvec
 	float			shade;
 	struct s_myvec	*next;
 }					t_myvec;
+
+typedef struct		s_mytexture
+{
+	float			u;
+	float			v;
+	float			w;
+}					t_mytexture;
 
 typedef struct		s_point
 {
@@ -223,6 +230,7 @@ typedef struct				s_mycolor
 typedef struct				s_mytriangle
 {
 	t_myvec					vertice[3];
+	t_mytexture				texture[3];
 	struct s_mytriangle		*next;
 	char					ft_color;
 	float					shade;
