@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/17 17:55:48 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/15 13:50:06 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ float	ft_distance(t_myvec plane_n, t_myvec plane_p, t_myvec p)
 	float	distance;
 
 	distance =  (plane_n.x * p.x + plane_n.y * p.y + plane_n.z * p.z - ft_dot_product(plane_n, plane_p));
+	//printf("la distance =%f\n", distance);
 	return (distance);
 }
 
@@ -40,6 +41,33 @@ t_mytriangle	**ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, i
 	int			n_outside_points = 0;
 	float		distance;
 	int			j;
+
+	/* if ((int)(point.x) == -1) */
+	/* { */
+	/* 	clipped_triangle = triangle; */
+	/* 	*nbr = 1; */
+	/* 	return (clipped_triangle); */
+	/* } */
+	/* else */
+	/* { */
+	/* 	if (triangle->vertice[0].z < 0 */
+	/* 			||triangle->vertice[1].z < 0 */ 
+	/* 			||triangle->vertice[2].z < 0) */
+	/* 	{ */
+	/* 		*nbr = 0; */
+	/* 		printf("tout z nul\n"); */
+	/* 		clipped_triangle = NULL; */
+	/* 	} */
+	/* 	else */
+	/* 	{ */
+	/* 		*nbr = 1; */
+	/* 		printf("copied\n"); */
+	/* 		clipped_triangle = triangle; */
+	/* 	} */
+	/* } */
+	/* return (clipped_triangle); */
+
+
 
 	j = 0;
 	plane_norm = ft_normalise(plane_norm);
@@ -59,7 +87,9 @@ t_mytriangle	**ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, i
 		}
 		j++;
 	}
-	if (n_inside_points == 0)
+	printf(" inside = %d\n", n_inside_points);
+	printf(" outside = %d\n", n_outside_points);
+/*	if (n_inside_points == 0)
 		*nbr = 0;
 	else if (n_inside_points == 1)
 	{
@@ -81,7 +111,8 @@ t_mytriangle	**ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, i
 		(*clipped_triangle)[1].ft_color = 'g';
 		*nbr = 2;
 	}
-	else if (n_inside_points == 3)
+	else */
+	if (n_inside_points == 3)
 	{
 		(*clipped_triangle)[0] = *triangle;
 		if ((*clipped_triangle)[0].ft_color == 'b')

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/17 18:44:40 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/16 17:47:18 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,11 @@ void	ft_clipping_camera(t_mytriangle *triangle, t_myraster *raster, t_mytriangle
 	}
 }
 
-static void	find_outside(t_mytriangle *triangle, int *nb)
+void	ft_clipping_screen(t_mytriangle *triangle_lst,
+		t_myraster *raster, 
+		t_mytriangle **clipped_triangle)
 {
+	t_mytriangle		*head;
 	t_rectbox	box;
 
 	box.x = 30;
@@ -115,196 +118,133 @@ static void	find_outside(t_mytriangle *triangle, int *nb)
 	box.h = YSCREEN - 60;
 	box.l = 999;
 
-	if (!hitboxbox(triangle->vertice[0], box))
-		*nb += 1;
-	if (!hitboxbox(triangle->vertice[1], box))
-		*nb += 1;
-	if (!hitboxbox(triangle->vertice[2], box))
-		*nb += 1;	
-}
-
-void	ft_clipping_screen(t_mytriangle *triangle_lst, t_myraster *raster, t_mytriangle **clipped_triangle)
-{
 	(void)clipped_triangle;
-	t_mytriangle	*curr;
-	int				nb;
-
-	curr = triangle_lst; //   <=HEAD
-	while (curr != NULL)
+	head = triangle_lst;
+	while(triangle_lst != NULL)
 	{
-		nb = 0;
-		find_outside(curr, &nb);
-		if (nb == 0)
-	   		ft_add_triangle_to_lst(*curr, &(raster->triangle_lst_2));	// ADD @ the 2nd list
-//		else if (nb == 1) // 1 => need double split
-//			split_double(*curr, &(raster->triangle_lst_2));
-//		else if (nb == 2)
-//			split_hard(*curr, &(raster->triangle_lst_2));
-//		else
-//			split_toohard(*curr, &(raster->triangle_lst_2));
-		curr = curr->next;
+		if (!hitboxbox(triangle_lst->vertice[0], box) || !hitboxbox(triangle_lst->vertice[1], box) || !hitboxbox(triangle_lst->vertice[2], box))
+			(raster->nbr_of_clipped_triangle_created) = 0;
+		else
+			ft_add_triangle_to_lst(*triangle_lst, &(raster->triangle_lst_2));
+		//else
+		//{
+		//(raster->nbr_of_clipped_triangle_created) = 1;
+		//(*clipped_triangle)[0] = *triangle;
+		//}
+		/*
+		   i = 0;
+		   while (i < 4)
+		   {
+		   raster->nbr_of_clipped_triangle_created = 0;
+		   if (i == 0)
+		   {
+		   printf("gauche\n");
+		//bord gauche
+		clipped_triangle = ft_triangle_clips_again_plan(
+		raster->point_left_screen,
+		raster->plane_left_screen,
+		&(raster->nbr_of_clipped_triangle_created),
+		clipped_triangle,
+		triangle_lst);
+		}
+		else if (i == 1)
+		{
+		printf("hautt\n");
+		//bord du haut
+		clipped_triangle = ft_triangle_clips_again_plan(
+		raster->point_up_screen,
+		raster->plane_up_screen,
+		&(raster->nbr_of_clipped_triangle_created),
+		clipped_triangle,
+		triangle_lst);
+		}
+		else if (i == 2)
+		{
+		printf("droite\n");
+		//bord de droite
+		clipped_triangle = ft_triangle_clips_again_plan(
+		raster->point_right_screen,
+		raster->plane_right_screen,
+		&(raster->nbr_of_clipped_triangle_created),
+		clipped_triangle,
+		triangle_lst);
+		}
+		else if (i == 3)
+		{
+		printf("bas\n");
+		//bord du bas
+		clipped_triangle = ft_triangle_clips_again_plan(
+		raster->point_bottom_screen,
+		raster->plane_bottom_screen,
+		&(raster->nbr_of_clipped_triangle_created),
+		clipped_triangle,
+		triangle_lst);
+		}
+		*/
+		//		j = -1;
+		//		while(++j < raster->nbr_of_clipped_triangle_created)
+		//		{
+		//			ft_add_triangle_to_lst(raster->clipped_triangle[raster->j], &(raster->triangle_lst_2));
+		//			i++;
+		//		}
+		triangle_lst = triangle_lst->next;
 	}
-}
+	triangle_lst = head;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-   void	ft_clipping_screen(t_mytriangle *triangle_lst,
-   t_myraster *raster, 
-   t_mytriangle **clipped_triangle)
-   {
-   t_mytriangle		*head;
-   t_rectbox	box;
-
-   box.x = 30;
-   box.y = 30;
-   box.z = 0.1;
-   box.w = XSCREEN - 60;
-   box.h = YSCREEN - 60;
-   box.l = 999;
-
-   (void)clipped_triangle;
-   head = triangle_lst;
-   while(triangle_lst != NULL)
-   {
-   if (!hitboxbox(triangle_lst->vertice[0], box) || !hitboxbox(triangle_lst->vertice[1], box) || !hitboxbox(triangle_lst->vertice[2], box))
-   (raster->nbr_of_clipped_triangle_created) = 0;
-   else
-   ft_add_triangle_to_lst(*triangle_lst, &(raster->triangle_lst_2));
-//else
-//{
-//(raster->nbr_of_clipped_triangle_created) = 1;
-//(*clipped_triangle)[0] = *triangle;
-//}
-
-i = 0;
-while (i < 4)
-{
-raster->nbr_of_clipped_triangle_created = 0;
-if (i == 0)
-{
-printf("gauche\n");
-//bord gauche
-clipped_triangle = ft_triangle_clips_again_plan(
-raster->point_left_screen,
-raster->plane_left_screen,
-&(raster->nbr_of_clipped_triangle_created),
-clipped_triangle,
-triangle_lst);
-}
-else if (i == 1)
-{
-printf("hautt\n");
-//bord du haut
-clipped_triangle = ft_triangle_clips_again_plan(
-raster->point_up_screen,
-raster->plane_up_screen,
-&(raster->nbr_of_clipped_triangle_created),
-clipped_triangle,
-triangle_lst);
-}
-else if (i == 2)
-{
-printf("droite\n");
-//bord de droite
-clipped_triangle = ft_triangle_clips_again_plan(
-raster->point_right_screen,
-raster->plane_right_screen,
-&(raster->nbr_of_clipped_triangle_created),
-clipped_triangle,
-triangle_lst);
-}
-else if (i == 3)
-{
-printf("bas\n");
-//bord du bas
-clipped_triangle = ft_triangle_clips_again_plan(
-raster->point_bottom_screen,
-	raster->plane_bottom_screen,
-	&(raster->nbr_of_clipped_triangle_created),
-	clipped_triangle,
-	triangle_lst);
-}
-
-//		j = -1;
-//		while(++j < raster->nbr_of_clipped_triangle_created)
-//		{
-//			ft_add_triangle_to_lst(raster->clipped_triangle[raster->j], &(raster->triangle_lst_2));
-//			i++;
-//		}
-triangle_lst = triangle_lst->next;
-}
-triangle_lst = head;
-}
-	*/
-void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)
-{
-	ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);
-}
-
-void	ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster)
-{
-	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_proje);//PROJECTION
-}
-
-void	ft_scale_screen(t_mytriangle *triangle)
-{
-	triangle->vertice[0].x += 1.0;
-	triangle->vertice[1].x += 1.0;
-	triangle->vertice[2].x += 1.0;
-
-	triangle->vertice[0].y += 1.0;
-	triangle->vertice[1].y += 1.0;
-	triangle->vertice[2].y += 1.0;
-
-
-	triangle->vertice[0].x *= 0.5 * (float)XSCREEN;
-	triangle->vertice[1].x *= 0.5 * (float)XSCREEN;
-	triangle->vertice[2].x *= 0.5 * (float)XSCREEN;
-
-	triangle->vertice[0].y *= 0.5 * (float)YSCREEN;
-	triangle->vertice[1].y *= 0.5 * (float)YSCREEN;
-	triangle->vertice[2].y *= 0.5 * (float)YSCREEN;
-}
-
-void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
-{
-	t_mytriangle	*keep;
-
-	keep = triangle_lst_2;
-	while (triangle_lst_2 != NULL)
+	void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)
 	{
-		//printf("=%f\n", triangle_lst_2->vertice[0].x);
-		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
-		ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade);
-		//DRAW MESH
-		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
-		triangle_lst_2 = triangle_lst_2->next;
+		ft_apply_calucul(ft_matrix_multiply_vector_general, triangle, raster->mat_camera_view);
 	}
-	triangle_lst_2 = keep;
-}
 
-void	ft_make_the_world_spin(int turn, t_myraster *raster)
-{
-	if (turn == 1)
+	void	ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster)
 	{
-		raster->ftheta += 1;
-		if (raster->ftheta == 360 * 2)
-			raster->ftheta = 0;
+		ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_proje);//PROJECTION
 	}
-}
+
+	void	ft_scale_screen(t_mytriangle *triangle)
+	{
+		triangle->vertice[0].x += 1.0;
+		triangle->vertice[1].x += 1.0;
+		triangle->vertice[2].x += 1.0;
+
+		triangle->vertice[0].y += 1.0;
+		triangle->vertice[1].y += 1.0;
+		triangle->vertice[2].y += 1.0;
+
+
+		triangle->vertice[0].x *= 0.5 * (float)XSCREEN;
+		triangle->vertice[1].x *= 0.5 * (float)XSCREEN;
+		triangle->vertice[2].x *= 0.5 * (float)XSCREEN;
+
+		triangle->vertice[0].y *= 0.5 * (float)YSCREEN;
+		triangle->vertice[1].y *= 0.5 * (float)YSCREEN;
+		triangle->vertice[2].y *= 0.5 * (float)YSCREEN;
+	}
+
+	void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
+	{
+		t_mytriangle	*keep;
+
+		keep = triangle_lst_2;
+		while (triangle_lst_2 != NULL)
+		{
+			//printf("=%f\n", triangle_lst_2->vertice[0].x);
+			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
+			ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade);
+			//DRAW MESH
+			ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
+			triangle_lst_2 = triangle_lst_2->next;
+		}
+		triangle_lst_2 = keep;
+	}
+
+	void	ft_make_the_world_spin(int turn, t_myraster *raster)
+	{
+		if (turn == 1)
+		{
+			raster->ftheta += 1;
+			if (raster->ftheta == 360 * 2)
+				raster->ftheta = 0;
+		}
+	}
