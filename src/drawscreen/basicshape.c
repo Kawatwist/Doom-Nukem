@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 15:29:27 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/17 17:52:31 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/18 12:58:48 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,13 @@ void		drawlinexyz(t_win *wn, int color, t_xyz_point origin, t_xyz_point dest)
 	newdest.x = dest.a;
 	newdest.y = dest.b;
 	wn->color = color;
-	if ((unsigned int)wn->color == 0xFF00FF00)
-		bresenham(wn, &neworigin, &newdest);
+	bresenham(wn, &neworigin, &newdest);
 }
 
 void		drawline(t_win *wn, int color, t_point origin, t_point dest)
 {
 	wn->color = color;
-	(void)origin;
-	(void)dest;
-//	bresenham(wn, &origin, &dest);
+	bresenham(wn, &origin, &dest);
 }
 
 void		drawpointintcolor(void **pixels, int pitch, t_point position, int color)

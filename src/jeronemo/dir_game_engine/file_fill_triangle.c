@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:59:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/17 17:00:39 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/18 13:02:41 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	ft_fill_bottom_flat_triangle(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *
 		s_line.un.b = scanline_y;
 		s_line.deux.a = (int)curx2;
 		s_line.deux.b = scanline_y;
-		(void)wn;
 //		ft_draw_line(wn, &s_line);
 		drawlinexyz(wn, wn->color, s_line.un, s_line.deux);
 		curx1 += invslope1;
@@ -90,7 +89,6 @@ void	ft_fill_top_flat_triangle(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn)
 		s_line.un.b = scanline_y;
 		s_line.deux.a = (int)curx2;
 		s_line.deux.b = scanline_y;
-		(void)wn;
 		drawlinexyz(wn, wn->color, s_line.un, s_line.deux);
 //		ft_draw_line(wn, &s_line);
 		curx1 -= invslope1;
@@ -132,7 +130,7 @@ void	ft_fill_triangle_shade(t_mytriangle t, t_win *wn, float shade)
 	//color = ft_setcolor(GREEN);
 	ft_order_triangle_vertice(&t.vertice[0], &t.vertice[1], &t.vertice[2]);
 //	wn->color = (((0xFFFF00FF - (((int)shade) << 16)) - (((int)shade) & 0xFF)));
-	wn->color = 0xFF000000 + (((int)shade) << 16);
+	wn->color = 0xFFFF00FF - (((int)shade) << 16) - ((int)shade);
 	if (shade > 0)
 		shade *= 165;
 	else
