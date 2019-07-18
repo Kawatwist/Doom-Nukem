@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:59:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/18 13:02:41 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/18 18:55:37 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,20 +131,30 @@ void	ft_fill_triangle_shade(t_mytriangle t, t_win *wn, float shade)
 	ft_order_triangle_vertice(&t.vertice[0], &t.vertice[1], &t.vertice[2]);
 //	wn->color = (((0xFFFF00FF - (((int)shade) << 16)) - (((int)shade) & 0xFF)));
 	wn->color = 0xFFFF00FF - (((int)shade) << 16) - ((int)shade);
-	if (shade > 0)
-		shade *= 165;
-	else
-		shade = 150;
+//	if (shade > 0)
+//		shade *= 165;
+//	else
+//		shade = 150;
 //	SDL_SetRenderDrawColor(wn->rend, 255 - shade, 0, 125 - (shade / 2), 255);
 //	t.ft_color = 103 ? SDL_SetRenderDrawColor(wn->rend, 0, 255 - shade, 0, 255) : 0;
 //	t.ft_color = 114 ? SDL_SetRenderDrawColor(wn->rend, 255 - shade, 0, 0, 255) : 0;
 //	t.ft_color = 67 ? SDL_SetRenderDrawColor(wn->rend, 0, 0, 255 - shade, 255) : 0;
+	printf("FIRST\n");
 	if (t.vertice[1].y == t.vertice[2].y)
+	{
+		printf("IF\n");
 		ft_fill_bottom_flat_triangle(&t.vertice[0], &t.vertice[1], &t.vertice[2], wn);
+		printf("IFend\n");
+	}
 	else if (t.vertice[0].y == t.vertice[1].y)
+	{
+		printf("ELSE IF\n");
 		ft_fill_top_flat_triangle(&t.vertice[0], &t.vertice[1], &t.vertice[2], wn);
+		printf("ELSE IFend\n");
+	}
 	else
 	{
+		printf("ELSE\n");
 		v4.y = t.vertice[1].y;
 		v4.x = t.vertice[0].x + ((t.vertice[1].y - t.vertice[0].y) / (t.vertice[2].y - t.vertice[0].y)) * (t.vertice[2].x - t.vertice[0].x);
 		s_line.un.a = t.vertice[1].x;
@@ -152,9 +162,13 @@ void	ft_fill_triangle_shade(t_mytriangle t, t_win *wn, float shade)
 		s_line.deux.a = v4.x;
 		s_line.deux.b = v4.y;
 //		ft_draw_line(wn, &s_line);
+		printf("else 2\n");
 		drawlinexyz(wn, wn->color, s_line.un, s_line.deux);
+		printf("else 3\n");
 		ft_fill_bottom_flat_triangle(&t.vertice[0], &t.vertice[1], &v4, wn);
+		printf("else 4\n");
 		ft_fill_top_flat_triangle(&t.vertice[1], &v4, &t.vertice[2], wn);
+		printf("ELSEend\n");
 	}
 }
 

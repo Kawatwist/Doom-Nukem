@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/16 17:42:15 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/18 15:21:22 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,6 +310,7 @@ typedef struct		s_win
  **/
 
 // MODIF
+void						clipping(t_mytriangle toclip, t_mytriangle **tostore);
 void						ft_launch_rasterization(t_win *wn);
 void						turn_rast(t_win *wn);
 //
