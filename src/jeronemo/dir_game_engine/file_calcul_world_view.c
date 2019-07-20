@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/18 18:33:39 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/20 18:34:22 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,14 +124,12 @@ void	ft_clipping_screen(t_mytriangle *head, t_myraster *raster, t_mytriangle **c
 			ft_add_triangle_to_lst(*curr, &(raster->triangle_lst_2)); // All inside
 		curr = curr->next;
 	}
-	printf("Clippend\n");
 	curr = head;
 	while (curr != NULL)
 	{
-		printf("Coucou\n");
+		printf("Nb of triangle\n");
 		curr = curr->next;
 	}
-	printf("TheEnd\n");
 }
 
 void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)
@@ -173,16 +171,11 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	{
 		//printf("=%f\n", triangle_lst_2->vertice[0].x);
 		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
-		printf("i ll fill => %f | %f\n", triangle_lst_2->vertice[0].x, triangle_lst_2->vertice[0].y);
 		ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade);
-		printf("Triangle Fill\n");
 		//DRAW MESH
 		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
-		printf("Triangle Draw\n");
 		triangle_lst_2 = triangle_lst_2->next;
-		printf("Triangle Drawed\n");
 	}
-	printf("END DRAW\n");
 	triangle_lst_2 = keep;
 }
 
