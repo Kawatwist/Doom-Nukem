@@ -6,11 +6,23 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/21 17:30:06 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/21 18:09:43 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
+
+SDL_Texture		*loadbmp(SDL_Renderer *tmp_renderer, char *path)
+{
+	SDL_Texture			*txt;
+	SDL_Surface			*tmp;
+
+	tmp = SDL_LoadBMP(path);
+	txt = SDL_CreateTextureFromSurface(tmp_renderer, tmp);
+	if (tmp != NULL)
+		SDL_FreeSurface(tmp);
+	return (txt);
+}
 
 void	ft_swap_int(int *a, int *b)
 {
@@ -81,10 +93,13 @@ void	ft_draw_textured_triangle(	int x1, int y1, float u1, float v1, float w1,
 	float	dax_step;
 	float	dbx_step;
 
+	SDL_Texture			*texture;
+	texture = loadbmp(wn->rend, "src/jeronemo/Cast_iron.bmp");
+
 	SDL_SetRenderDrawColor(wn->rend, 0, 0, 255, 255);
 
 	if (dy1)
-		dax_step = dx1 / (float)abs(dy1);
+		dax_step = dx1 / (float)abs(dy1);//de combien de y on descent quand on avance d'un y
 	if (dy2)
 		dbx_step = dx2 / (float)abs(dy2);
 	if (dy1 > 0)
@@ -101,6 +116,7 @@ void	ft_draw_textured_triangle(	int x1, int y1, float u1, float v1, float w1,
 			while (j < bx)
 			{
 				//on draw
+				//metre ici le render copy au lieu du draw point
 				SDL_RenderDrawPoint(wn->rend, j, i);
 				j++;
 			}
