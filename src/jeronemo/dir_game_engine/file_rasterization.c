@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/18 16:13:29 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/21 17:14:39 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	//	raster->triangle_lst_2 = raster->triangle_lst;
 	ft_draw(raster->triangle_lst_2, wn);
 
-	ft_draw_textured_triangle();
+
 
 
 	ft_my_time(&(raster->time_draw), &current_time, &last_time);

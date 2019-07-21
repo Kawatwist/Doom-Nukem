@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/18 15:48:52 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/21 17:30:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,6 +234,27 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 			ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade);
 			//DRAW MESH
 			ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
+
+
+	ft_draw_textured_triangle(	triangle_lst_2->vertice[0].x, 
+								triangle_lst_2->vertice[0].y,
+								triangle_lst_2->texture[0].u, 
+								triangle_lst_2->texture[0].v, 
+								triangle_lst_2->texture[0].w, 
+								triangle_lst_2->vertice[1].x, 
+								triangle_lst_2->vertice[1].y,
+								triangle_lst_2->texture[1].u, 
+								triangle_lst_2->texture[1].v, 
+								triangle_lst_2->texture[1].w, 
+								triangle_lst_2->vertice[2].x, 
+								triangle_lst_2->vertice[2].y,
+								triangle_lst_2->texture[2].u,
+								triangle_lst_2->texture[2].v,
+								triangle_lst_2->texture[2].w,
+								wn
+			);
+
+
 			triangle_lst_2 = triangle_lst_2->next;
 		}
 		triangle_lst_2 = keep;
