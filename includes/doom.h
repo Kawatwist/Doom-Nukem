@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/18 15:21:22 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/21 15:17:21 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,7 @@ typedef struct				s_mytriangle
 	struct s_mytriangle		*next;
 	char					ft_color;
 	float					shade;
+	int						splitted;
 }							t_mytriangle;
 
 typedef struct				s_mypolygon
