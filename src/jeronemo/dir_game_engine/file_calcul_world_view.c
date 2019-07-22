@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/21 17:32:03 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/22 17:39:34 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,36 +104,38 @@ void	ft_clipping_screen(t_mytriangle *head, t_myraster *raster, t_mytriangle **c
 	t_mytriangle	*curr;
 	SDL_Rect		box;
 
-	box.x = 200;
-	box.y = 200;
+	box.x = 0;
+	box.y = 0;
 //	box.z = 0;
-	box.w = XSCREEN - 400;
-	box.h = YSCREEN - 400;
+	box.w = XSCREEN - 0;
+	box.h = YSCREEN - 0;
 //	box.l = 999;
 
 	(void)clipped_triangle;
+	curr = head;
+	while (curr != NULL)
+	{
+		curr->sub = 0;
+		curr = curr->next;
+	}
 	curr = head;
 	while(curr != NULL)
 	{
 		curr->splitted = 0;
 		if (!hitbox(curr->vertice[0].x, curr->vertice[0].y, &box) || !hitbox(curr->vertice[1].x, curr->vertice[1].y, &box) || !hitbox(curr->vertice[2].x, curr->vertice[2].y, &box))
 		{
-		if (!hitbox(curr->vertice[0].x, curr->vertice[0].y, &box) && !hitbox(curr->vertice[1].x, curr->vertice[1].y, &box) && !hitbox(curr->vertice[2].x, curr->vertice[2].y, &box))
+			if (!hitbox(curr->vertice[0].x, curr->vertice[0].y, &box) && !hitbox(curr->vertice[1].x, curr->vertice[1].y, &box) && !hitbox(curr->vertice[2].x, curr->vertice[2].y, &box))
 				;
 			else
 				clipping(*curr ,&(raster->triangle_lst_2));
 		}
 		else
-		{
-			printf("all inside\n");
 			ft_add_triangle_to_lst(*curr, &(raster->triangle_lst_2)); // All inside
-		}
 		curr = curr->next;
 	}
 	curr = head;
 	while (curr != NULL)
 	{
-		printf("Nb of triangle\n");
 		curr = curr->next;
 	}
 }
@@ -184,7 +186,9 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
 		triangle_lst_2 = triangle_lst_2->next;
 	}
-	start.x = 200;
+	(void)end;
+	(void)start;
+	/*start.x = 200;
 	start.y = 0;
 	end.x = 200;
 	end.y = YSCREEN;
@@ -204,7 +208,7 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	end.x = XSCREEN;
 	end.y = YSCREEN - 200;
 	drawline(wn, 0xFF0000FF, start, end);
-	triangle_lst_2 = keep;
+*/	triangle_lst_2 = keep;
 }
 
 void	ft_make_the_world_spin(int turn, t_myraster *raster)

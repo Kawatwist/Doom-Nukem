@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_newclip.c                                     :+:      :+:    :+:   */
+/*   file_downside.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 14:41:02 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/22 17:39:37 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/22 15:07:20 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,7 @@
 #include <header_game_engine.h>
 #include <math.h>
 
-void		show_vec(t_myvec v1)
-{
-	printf("Vertex = %f\t %f\t %f\n", v1.x ,v1.y, v1.z);
-}
-/*
-static double	lineslope(t_myvec v1, t_myvec v2)
-{
-	if (v1.x - v2.x == 0.0)
-		return (0.0);
-	else
-		return ((v1.y - v2.y) / (v1.x - v2.x));
-}*/
+void		show_vec(t_myvec v1); // PROTO
 
 static t_myvec	find_intersection(t_myvec v1, t_myvec v2, char side) // <= V2 is out0 L=0, U=1, R=2, D=3
 {
@@ -42,22 +31,22 @@ static t_myvec	find_intersection(t_myvec v1, t_myvec v2, char side) // <= V2 is 
 
 	if (side == 0 || side == 1)
 	{
-		pos.x = 0;
-		pos.y = 0;
+		pos.x = 200;
+		pos.y = 200;
 	}
 	else
 	{
-		pos.x = XSCREEN - 0;
-		pos.y = YSCREEN - 0;
+		pos.x = XSCREEN - 200;
+		pos.y = YSCREEN - 200;
 	}
-	side == 0 ? dir.x = 0 : 0;
-	side == 0 ? dir.y = YSCREEN - 0 : 0;
-	side == 1 ? dir.x = XSCREEN - 0 : 0;
-	side == 1 ? dir.y = 0 : 0;
-	side == 2 ? dir.x = XSCREEN - 0 : 0;
-	side == 2 ? dir.y = 0 : 0;
-	side == 3 ? dir.x = 0 : 0;
-	side == 3 ? dir.y = YSCREEN - 0 : 0;
+	side == 0 ? dir.x = 200 : 0;
+	side == 0 ? dir.y = YSCREEN - 200 : 0;
+	side == 1 ? dir.x = XSCREEN - 200 : 0;
+	side == 1 ? dir.y = 200 : 0;
+	side == 2 ? dir.x = XSCREEN - 200 : 0;
+	side == 2 ? dir.y = 200 : 0;
+	side == 3 ? dir.x = 200 : 0;
+	side == 3 ? dir.y = YSCREEN - 200 : 0;
 	a1 = v2.y - v1.y;
 	b1 = v1.x - v2.x;
 	c1 = a1 * v1.x + b1 * v1.y;
@@ -85,32 +74,34 @@ static int			nb_outside(t_mytriangle *curr, int side)
 	nb = 0;
 	if (side == 0)
 	{
-		curr->vertice[0].x < 0 ? nb = 1 : 0;
-		curr->vertice[1].x < 0 ? nb = nb | 0x2 : 0;
-		curr->vertice[2].x < 0 ? nb = nb | 0x4 : 0;
+		curr->vertice[0].x < 200 ? nb = 1 : 0;
+		curr->vertice[1].x < 200 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].x < 200 ? nb = nb | 0x4 : 0;
 	}
 	else if (side == 1)
 	{
-		curr->vertice[0].y < 0 ? nb = 1 : 0;
-		curr->vertice[1].y < 0 ? nb = nb | 0x2 : 0;
-		curr->vertice[2].y < 0 ? nb = nb | 0x4 : 0;
+		if (curr == NULL)
+			printf("NULL !\n");
+		curr->vertice[0].y < 200 ? nb = 1 : 0;
+		curr->vertice[1].y < 200 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].y < 200 ? nb = nb | 0x4 : 0;
 	}
 	else if (side == 2)
 	{
-		curr->vertice[0].x > XSCREEN - 0 ? nb = 1 : 0;		// ATTENTION FULLSCREEN
-		curr->vertice[1].x > XSCREEN - 0 ? nb = nb | 0x2 : 0;
-		curr->vertice[2].x > XSCREEN - 0 ? nb = nb | 0x4 : 0;
+		curr->vertice[0].x > XSCREEN - 200 ? nb = 1 : 0;		// ATTENTION FULLSCREEN
+		curr->vertice[1].x > XSCREEN - 200 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].x > XSCREEN - 200 ? nb = nb | 0x4 : 0;
 	}
 	else
 	{
-		curr->vertice[0].y > YSCREEN - 0 ? nb = 1 : 0;
-		curr->vertice[1].y > YSCREEN - 0 ? nb = nb | 0x2 : 0;
-		curr->vertice[2].y > YSCREEN - 0 ? nb = nb | 0x4 : 0;
+		curr->vertice[0].y > YSCREEN - 200 ? nb = 1 : 0;
+		curr->vertice[1].y > YSCREEN - 200 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].y > YSCREEN - 200 ? nb = nb | 0x4 : 0;
 	}
 	return (nb);
 }
 
-static t_mytriangle	*left_side(t_mytriangle *toclip, int *value, int side)
+t_mytriangle	*down_side(t_mytriangle *toclip, int *value, int side)
 {
 	t_mytriangle	*curr;
 	t_mytriangle	*before;
@@ -119,16 +110,20 @@ static t_mytriangle	*left_side(t_mytriangle *toclip, int *value, int side)
 
 	curr = toclip;
 	before = NULL;
+	side = 3;
 	while (curr != NULL)
 	{
 		nb = nb_outside(curr, side);
+		curr->vertice[2].y < 200 ? nb = nb | 0x4 : 0;
 		if (nb == 4 || nb == 2 || nb == 1) // <= Need to create a new triangle
 		{
-		//	printf("4 || 2 || 1\n");
+			printf("One point outside (%d)\n", nb);
+			show_vec(curr->vertice[0]);
+			show_vec(curr->vertice[1]);
+			show_vec(curr->vertice[2]);
 			*value += 1;
 			toadd = malloc(sizeof(t_mytriangle)); // MALLOC SECURE of not malloc if i find how to dodge
 			toadd->splitted = 1;
-			toadd->sub = curr->sub + 1;
 			curr->splitted = 1;
 			if (curr->next == NULL)
 				toadd->next = NULL;
@@ -160,7 +155,7 @@ static t_mytriangle	*left_side(t_mytriangle *toclip, int *value, int side)
 			}
 			toadd->shade = curr->shade;
 			curr->next = toadd;
-			curr = toclip;
+			curr = curr->next;
 		}
 		else if ((((nb & 0x4) >> 2) + ((nb & 0x2) >> 1) + (nb & 0x1)) == 2)
 		{
@@ -180,7 +175,6 @@ static t_mytriangle	*left_side(t_mytriangle *toclip, int *value, int side)
 				curr->vertice[1] = find_intersection(curr->vertice[0], curr->vertice[1], side);
 				curr->vertice[2] = find_intersection(curr->vertice[0], curr->vertice[2], side);
 			}
-			curr->sub += 1;
 			before = curr;
 			curr = curr->next;
 		}
@@ -189,7 +183,7 @@ static t_mytriangle	*left_side(t_mytriangle *toclip, int *value, int side)
 			before = curr;
 			curr = curr->next;
 		}
-		else // nb == 7 Triangle out
+		else
 		{
 			if (before == NULL)
 				toclip = curr->next;
@@ -199,24 +193,4 @@ static t_mytriangle	*left_side(t_mytriangle *toclip, int *value, int side)
 		}
 	}
 	return (toclip);
-}
-
-t_mytriangle *down_side(t_mytriangle *toclip, int *value, int side); // PROTO
-
-void		clipping(t_mytriangle toclip, t_mytriangle **tostore)
-{
-	t_mytriangle	*ret;
-	int				side;
-	int				nb;
-
-	ret = &toclip;
-	side = -1;
-	while (++side < 4)
-		ret = left_side(ret, &nb, side);
-	//ret = down_side(ret, &nb, 3);
-	while (ret)
-	{
-		ft_add_triangle_to_lst(*ret, tostore);
-		ret = ret->next;
-	}
 }

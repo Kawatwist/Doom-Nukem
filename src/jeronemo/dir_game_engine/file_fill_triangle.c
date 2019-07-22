@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:59:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/21 17:55:31 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/22 17:15:58 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,20 @@ void	ft_fill_triangle_shade(t_mytriangle t, t_win *wn, float shade)
 	t_myvec				v4;
 	t_myputtheline		s_line;;
 
+	(void)t;
+	(void)v4;
+	(void)shade;
+	(void)s_line;
+	(void)wn;
 	ft_order_triangle_vertice(&t.vertice[0], &t.vertice[1], &t.vertice[2]);
+	wn->color = 0xFFCCCCCC - (((int)shade) << 8) - ((int)shade);
 	if (t.splitted == 0)
-		wn->color = 0xFF00FFFF - (((int)shade) << 8) - ((int)shade);
+		wn->color = 0xFF0000FF;
 	if (t.splitted == 1)
-		wn->color = 0xFF0000FF - ((int)shade);
+		wn->color = 0xFF008FFF;
 	if (t.splitted == 2)
-		wn->color = 0xFFFF0000 - (((int)shade) << 16);
+		wn->color = 0xFF00FFFF;
+	wn->color += (t.sub * 20) << 16;
 	if (t.vertice[1].y == t.vertice[2].y)
 	{
 		ft_fill_bottom_flat_triangle(&t.vertice[0], &t.vertice[1], &t.vertice[2], wn);
