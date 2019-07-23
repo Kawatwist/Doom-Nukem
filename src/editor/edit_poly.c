@@ -11,29 +11,47 @@
 /* ************************************************************************** */
 
 #include "doom.h"
+#include "header_bsp.h"
 
-t_mypolygon 		*polygon_map(t_win *wn)
+t_myvec 		*create_vec_node(t_point *point)
+{
+	t_myvec		*vec;
+
+	vec = malloc(sizeof(t_myvec));
+	vec->x = point->x;
+	vec->y = point->y;
+	vec->z = point->z;
+	return (vec);
+}
+
+t_mypolygon	 	*polygon_map(t_win *wn)
 {
 	t_mypolygon 	*poly;
+	t_mypolygon 	*gon;
+	t_point			*point;
 	t_elem 			*keep;
+	t_myvec 		*vec;
+	t_myvec			*tex;
 
 	keep = wn->elem;
+	gon	= NULL;
+	tex = NULL;
 	while (keep != NULL)
 	{
-		poly = malloc(sizeof(t_mypolygon));
-		if (keep->point != NULL)
+		point = keep->point;
+		while (point != NULL)
 		{
-			poly->vertex_lst = malloc(sizeof(t_myvec));
-			poly->vertex_lst->x = keep->point->x;
-			poly->vertex_lst->y = keep->point->y;
-			poly->vertex_lst->z = keep->point->z;
-			keep->point = keep->point->next;
+			vec = create_vec_node(point);
+			ft_add_vertex(&tex, vec);
+			point = point->next;
 		}
+		poly = ft_create_polygon_node(tex);
+		ft_add_polygon(&gon, poly);
 		keep = keep->next;
 	}
 	if (wn->elem == NULL)
-		poly = NULL;
-	return (poly);
+		gon = NULL;
+	return (gon);
 }
 
 t_poly 				*poly_map(t_win *wn)

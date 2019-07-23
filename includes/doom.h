@@ -446,7 +446,7 @@ void 				load_background(t_win *wn);
 // int 				is_path_ok(t_win *wn, char *path);
 void   				find_last_poly(t_elem **curr);
 void     			find_last_point(t_win *wn, t_point **point);
-t_mypolygon 		*polygon_map(t_win *wn);
+t_mypolygon		 	*polygon_map(t_win *wn);
 t_poly 				*poly_map(t_win *wn);
 int 				pop_up_message(t_win *wn, char *msg, SDL_Rect *rect);
 void 				print_save_and_reset(t_win *wn);
