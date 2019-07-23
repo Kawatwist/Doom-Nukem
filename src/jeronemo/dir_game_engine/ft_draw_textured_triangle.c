@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/21 18:09:43 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/23 13:26:36 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,22 @@ void	ft_draw_textured_triangle(	int x1, int y1, float u1, float v1, float w1,
 		dax_step = dx1 / (float)abs(dy1);//de combien de y on descent quand on avance d'un y
 	if (dy2)
 		dbx_step = dx2 / (float)abs(dy2);
-	if (dy1 > 0)
+
+
+	int j;
+	int i;
+	if (dy1 > 0) //on draw le triangle du haut
 	{
-		int j;
-		int i;
 		printf("on draw le triangle du haut (flat bottom)\n");
-			i = y1;
+		i = y1;
 		while (i < y2)
 		{
 			int ax = x1 + (float)(i - y1) * dax_step;
 			int bx = x1 + (float)(i - y1) * dbx_step;
+			if (ax > bx)
+			{
+				ft_swap_int(&ax, &bx);
+			}
 			j = ax;
 			while (j < bx)
 			{
@@ -126,10 +132,37 @@ void	ft_draw_textured_triangle(	int x1, int y1, float u1, float v1, float w1,
 
 
 	dy1 = y3 - y2;
+	dx1 = x3 - x2;
+	if (dy1)
+		dax_step = dx1 / (float)abs(dy1);
+	if (dy2)
+		dbx_step = dx2 / (float)abs(dy2);
+
+
 	if (dy1 > 0)
 	{
 		printf("on draw le triangle du bas (flat up)\n");
 		SDL_SetRenderDrawColor(wn->rend, 0, 255, 0, 255);
+		printf("on draw le triangle du haut (flat bottom)\n");
+		i = y2;
+		while (i < y3)
+		{
+			int ax = x2 + (float)(i - y2) * dax_step;
+			int bx = x1 + (float)(i - y1) * dbx_step;
+			if (ax > bx)
+			{
+				ft_swap_int(&ax, &bx);
+			}
+			j = ax;
+			while (j < bx)
+			{
+				//on draw
+				//metre ici le render copy au lieu du draw point
+				SDL_RenderDrawPoint(wn->rend, j, i);
+				j++;
+			}
+			i += 5;
+		}
 	}
 
 
