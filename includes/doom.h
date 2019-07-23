@@ -450,6 +450,8 @@ t_mypolygon 		*polygon_map(t_win *wn);
 t_poly 				*poly_map(t_win *wn);
 int 				pop_up_message(t_win *wn, char *msg, SDL_Rect *rect);
 void 				print_save_and_reset(t_win *wn);
+void 				print_message(t_win *wn, char *msg);
+
 
 
 /**

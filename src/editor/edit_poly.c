@@ -15,16 +15,21 @@
 t_mypolygon 		*polygon_map(t_win *wn)
 {
 	t_mypolygon 	*poly;
+	t_elem 			*keep;
 
-	while (wn->elem != NULL)
+	keep = wn->elem;
+	while (keep != NULL)
 	{
 		poly = malloc(sizeof(t_mypolygon));
-		while (wn->elem->point != NULL)
+		while (keep->point != NULL)
 		{
-			// poly->vertex_lst = wn->elem->point;
-			wn->elem->point = wn->elem->point->next;
+			poly->vertex_lst = malloc(sizeof(t_myvec));
+			poly->vertex_lst->x = keep->point->x;
+			poly->vertex_lst->y = keep->point->y;
+			poly->vertex_lst->z = keep->point->z;
+			keep->point = keep->point->next;
 		}
-		wn->elem = wn->elem->next;
+		keep = keep->next;
 	}
 	if (wn->elem == NULL)
 		poly = NULL;
@@ -34,23 +39,25 @@ t_mypolygon 		*polygon_map(t_win *wn)
 t_poly 				*poly_map(t_win *wn)
 {
 	t_poly 		*poly;
+	t_elem 		*keep;
 	int			i;
 
+	keep = wn->elem;
 	i = 0;
-	while (wn->elem != NULL)
+	while (keep != NULL)
 	{
 		poly = malloc(sizeof(t_poly));
-		poly->nb_ver = wn->elem->nb_pt;
+		poly->nb_ver = keep->nb_pt;
 		poly->ver_list = malloc(sizeof(t_vec) * poly->nb_ver);
-		while (i < poly->nb_ver && wn->elem->point != NULL)
+		while (i < poly->nb_ver && keep->point != NULL)
 		{
-			poly->ver_list[i].x = wn->elem->point->x;
-			poly->ver_list[i].y = wn->elem->point->y;
-			poly->ver_list[i].z = wn->elem->point->z;
+			poly->ver_list[i].x = keep->point->x;
+			poly->ver_list[i].y = keep->point->y;
+			poly->ver_list[i].z = keep->point->z;
 			i++;
-			wn->elem->point = wn->elem->point->next;
+			keep->point = keep->point->next;
 		}
-		wn->elem = wn->elem->next;
+		keep = keep->next;
 	}
 	if (wn->elem == NULL)
 		poly = NULL;

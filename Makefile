@@ -198,7 +198,7 @@ $(LIBFTA): FORCE
 		touch /tmp/doom_log2; \
 		chmod 777 /tmp/doom_log2; \
 	fi
-	@make -C libft >> /tmp/doom_log2 2>&1
+	@make -C libft #>> /tmp/doom_log2 2>&1
 
 FORCE:
 

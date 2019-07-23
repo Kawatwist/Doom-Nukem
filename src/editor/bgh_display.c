@@ -146,7 +146,13 @@ void 		print_save_and_reset(t_win *wn)
 	SDL_Texture *texture;
 
 	//BLOC SAVE
-	position = define_rect(5.5 * wn->xscreen, 2.5 * wn->yscreen / 7, 0.75 * wn->xscreen / 7, 0.5 * wn->yscreen / 7);
+	position = define_rect(5.5 * wn->xscreen / 7, 2.5 * wn->yscreen / 7, 0.75 * wn->xscreen / 7, 0.5 * wn->yscreen / 7);
+	if (hitbox(wn->input->x, wn->input->y, &position) == TRUE && mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE)
+	{
+		// wn->rasterizer->tmp3 = polygon_map(wn);
+		// sauvegarde fichier;
+		print_message(wn, "Map saved.");
+	}
 	surface = SDL_CreateRGBSurface(0, position.x, position.y, 32, 0, 0, 0, 0);
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 0));
 	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
@@ -154,13 +160,13 @@ void 		print_save_and_reset(t_win *wn)
 	if (SDL_RenderCopy(wn->rend, texture, NULL, &position) < 0)
 		stop_exec("rendercopy failed\n", wn);
 	TTF_SizeText(wn->fonts->ariel, "SAVE", &w, &h);
-	position = define_rect(5.9 * wn->xscreen - w / 2, 2.75 * wn->yscreen / 7 - h / 2, w, h);
-	TTF_SetFontStyle(wn->fonts->arial, TTF_STYLE_BOLD);
+	position = define_rect(5.9 * wn->xscreen / 7 - (w / 2), 2.75 * wn->yscreen / 7 - (h / 2), w, h);
+	TTF_SetFontStyle(wn->fonts->ariel, TTF_STYLE_BOLD);
 	print_text_with_ariel_font(wn, "SAVE", wn->color.blanc, position);
 	TTF_SetFontStyle(wn->fonts->ariel, TTF_STYLE_NORMAL);
 
 	//BLOC RESET
-	position = define_rect(6.25 * wn->xscreen, 2.5 * wn->yscreen / 7, 0.75 * wn->xscreen / 7, 0.5 * wn->yscreen / 7);
+	position = define_rect(6.25 * wn->xscreen / 7, 2.5 * wn->yscreen / 7, 0.75 * wn->xscreen / 7, 0.5 * wn->yscreen / 7);
 	surface = SDL_CreateRGBSurface(0, position.x, position.y, 32, 0, 0, 0, 0);
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 255, 255));
 	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
@@ -168,7 +174,7 @@ void 		print_save_and_reset(t_win *wn)
 	if (SDL_RenderCopy(wn->rend, texture, NULL, &position) < 0)
 		stop_exec("rendercopy failed\n", wn);
 	TTF_SizeText(wn->fonts->ariel, "RESET", &w, &h);
-	position = define_rect(6.6 * wn->xscreen - w / 2, 2.75 * wn->yscreen - h / 2, w, h);
+	position = define_rect(6.6 * wn->xscreen / 7 - (w / 2), 2.75 * wn->yscreen / 7 - (h / 2), w, h);
 	TTF_SetFontStyle(wn->fonts->ariel, TTF_STYLE_BOLD);
 	print_text_with_ariel_font(wn, "RESET", wn->color.noir, position);
 	TTF_SetFontStyle(wn->fonts->ariel, TTF_STYLE_NORMAL);
