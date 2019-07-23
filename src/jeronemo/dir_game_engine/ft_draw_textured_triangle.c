@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/23 14:23:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/23 18:31:45 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,12 @@ void	ft_draw_textured_triangle(
 	int		ax;				float	au;
 	int		bx;				float	bu;
 
-	//## #######################################################################
+	//#########################################################################
 	dy1 = y2 - y1;			dv1 = v2 - v1;
 	dx1 = x2 - x1;			du1 = u2 - u1;
 
 	dy2 = y3 - y1;			dv2 = v3 - v1;
 	dx2 = x3 - x1;			du2 = u3 - u1;
-
 
 	if (dy1)
 	{
@@ -129,7 +128,6 @@ void	ft_draw_textured_triangle(
 			ax = x1 + (float)(i - y1) * dax_step;
 			bx = x1 + (float)(i - y1) * dbx_step;
 
-
 			float tex_su = u1 + (float)(i - y1) * du1_step;
 			float tex_sv = v1 + (float)(i - y1) * dv1_step;
 			float tex_sw = w1 + (float)(i - y1) * dw1_step;
@@ -137,15 +135,16 @@ void	ft_draw_textured_triangle(
 			float tex_eu = u1 + (float)(i - y1) * du2_step;
 			float tex_ev = v1 + (float)(i - y1) * dv2_step;
 			float tex_ew = w1 + (float)(i - y1) * dw2_step;
-
-
 			if (ax > bx)
 			{
 				ft_swap_int(&ax, &bx);
+				ft_swap_float(tex_su, tex_eu);
+				ft_swap_float(tex_sv, tex_ev);
+				ft_swap_float(tex_sw, tex_ew);
 			}
 			j = ax;
 			while (j < bx)
-			{
+			 {
 				//on draw
 				//metre ici le render copy au lieu du draw point
 				SDL_RenderDrawPoint(wn->rend, j, i);
@@ -154,7 +153,6 @@ void	ft_draw_textured_triangle(
 			i += 5;
 		}
 	}
-
 
 	//#########################################################################
 	dy1 = y3 - y2;
@@ -181,8 +179,6 @@ void	ft_draw_textured_triangle(
 			float tex_eu = u1 + (float)(i - y1) * du2_step;
 			float tex_ev = v1 + (float)(i - y1) * dv2_step;
 			float tex_ew = w1 + (float)(i - y1) * dw2_step;
-
-
 			if (ax > bx)
 			{
 				ft_swap_int(&ax, &bx);
@@ -201,8 +197,4 @@ void	ft_draw_textured_triangle(
 			i += 5;
 		}
 	}
-
-
 }
-
-
