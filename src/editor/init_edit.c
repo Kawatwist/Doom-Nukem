@@ -46,7 +46,7 @@ void			init_edit(t_win **wn)
 	(*wn)->editext.on = 1;
 	(*wn)->editext.map_w = 600;
 	(*wn)->editext.map_h = 600;
-	(*wn)->edit_image.bgh = 1;
+	(*wn)->edit_image.bgh = 0;
 	(*wn)->edit_image.in = 1;
 	(*wn)->edit_image.tbp = 2;
 	(*wn)->bg_map.path = NULL;

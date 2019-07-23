@@ -21,7 +21,7 @@ t_mypolygon 		*polygon_map(t_win *wn)
 	while (keep != NULL)
 	{
 		poly = malloc(sizeof(t_mypolygon));
-		while (keep->point != NULL)
+		if (keep->point != NULL)
 		{
 			poly->vertex_lst = malloc(sizeof(t_myvec));
 			poly->vertex_lst->x = keep->point->x;

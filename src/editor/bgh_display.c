@@ -149,10 +149,11 @@ void 		print_save_and_reset(t_win *wn)
 	position = define_rect(5.5 * wn->xscreen / 7, 2.5 * wn->yscreen / 7, 0.75 * wn->xscreen / 7, 0.5 * wn->yscreen / 7);
 	if (hitbox(wn->input->x, wn->input->y, &position) == TRUE && mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE)
 	{
-		// wn->rasterizer->tmp3 = polygon_map(wn);
+		wn->rasterizer->tmp3 = polygon_map(wn);
 		// sauvegarde fichier;
-		print_message(wn, "Map saved.");
 	}
+	// if (wn->rasterizer->tmp3 != NULL)
+	// 	print_message(wn, "Map saved.");
 	surface = SDL_CreateRGBSurface(0, position.x, position.y, 32, 0, 0, 0, 0);
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 0));
 	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
@@ -178,7 +179,6 @@ void 		print_save_and_reset(t_win *wn)
 	TTF_SetFontStyle(wn->fonts->ariel, TTF_STYLE_BOLD);
 	print_text_with_ariel_font(wn, "RESET", wn->color.noir, position);
 	TTF_SetFontStyle(wn->fonts->ariel, TTF_STYLE_NORMAL);
-	//ACTION SAVE ET RESET
 }
 
 // void 		save_the_map(t_win *wn)
