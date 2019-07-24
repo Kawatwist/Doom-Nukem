@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 11:54:33 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/17 17:05:19 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/22 17:01:15 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void	ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn)
 	SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 255);
 	t_myputtheline		s_line;;
 
+	(void)v1;
+	(void)v2;
+	(void)v3;
+	(void)wn;
+//	wn->color = 0xFF00FF00;
 	s_line.un.a = v1->x;
 	s_line.un.b = v1->y;
 	s_line.deux.a = v2->x;
