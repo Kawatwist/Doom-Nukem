@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 14:51:00 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/10 17:56:27 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	show_game_cursor(t_win *wn)
 
 void	game_interface(t_win *wn)
 {
-	if (wn->interface == RGAME)
+	if (wn->interface == RGAME || wn->interface == DGAME)
 	{
 		if (wn->rasterizer == NULL)
 		{

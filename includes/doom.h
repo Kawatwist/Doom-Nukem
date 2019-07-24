@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 15:16:24 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/10 17:53:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef enum		e_interface
 	MGAME,
 	NGAME,
 	LGAME,
+	DGAME,
 	RGAME,
 	EDITEUR,
 	MEDITEUR,
