@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/18 18:27:33 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/24 17:27:08 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,27 +166,17 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 				ft_my_time(&(raster->time_scale_screen), &current_time, &last_time);
 
 				ft_store_in_lst(ft_triangle_node_create(raster->clipped_triangle[raster->j]), &raster->triangle_lst); // Place in the linked list @ the right place
-//				ft_add_triangle_to_lst(raster->clipped_triangle[raster->j], &(raster->triangle_lst)); // STORE IN THE RIGHT PLACE && CALCUL Z1
 				ft_my_time(&(raster->time_add_to_lst), &current_time, &last_time);
 
 				raster->j += 1;
 			}
 		}
 	}
-//	ft_order_triangle_z_buffer(&(raster->triangle_lst));
-//	ft_my_time(&(raster->time_z_buffer), &current_time, &last_time);
-
-	//	printf("BFR TEST\n");
-	///	printf("%lu TEST\n", raster->clipped_triangle[1].vertice[0].x);
-	//	printf("AFTER TEST\n");
-	//	printf("ADDRESS ft_update_raster CALL clipping screen = %p\n", raster->clipped_triangle);
 	ft_clipping_screen(
 			raster->triangle_lst,
 			raster,
 			&(raster->clipped_triangle));
 	ft_my_time(&(raster->time_clipping_screen), &current_time, &last_time);
-	//	printf("fin clipping screen \n");
-	//	raster->triangle_lst_2 = raster->triangle_lst;
 	ft_draw(raster->triangle_lst_2, wn);
 	ft_my_time(&(raster->time_draw), &current_time, &last_time);
 

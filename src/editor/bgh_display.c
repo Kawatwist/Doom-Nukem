@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 17:25:35 by llejeune          #+#    #+#             */
-/*   Updated: 2019/06/05 17:25:39 by llejeune         ###   ########.fr       */
+/*   Updated: 2019/07/24 17:35:24 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void		message_bg_editor(t_win *wn, char *message)
 	TTF_SetFontStyle(wn->fonts->arial, TTF_STYLE_NORMAL);
 }
 
+#include <header_game_engine.h>
 void 		print_save_and_reset(t_win *wn)
 {
 	int			w;
@@ -154,7 +155,6 @@ void 		print_save_and_reset(t_win *wn)
 		// 	free wn->rasterizer->tmp3;
 		// }
 		ft_launch_rasterization(wn);
-		wn->rasterizer->tmp3 = polygon_map(wn);
 		// sauvegarde fichier;
 	}
 	// if (wn->rasterizer->tmp3 != NULL)

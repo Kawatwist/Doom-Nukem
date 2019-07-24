@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 12:38:03 by llejeune          #+#    #+#             */
-/*   Updated: 2019/07/09 12:38:05 by llejeune         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:00:49 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,17 @@ t_mypolygon	 	*polygon_map(t_win *wn)
 	while (keep != NULL)
 	{
 		point = keep->point;
+		if (point != NULL)
+			point = point->next;
 		while (point != NULL)
 		{
+			printf("Create new point%f || %f || %f \n", point->x, point->y, point->z);
 			vec = create_vec_node(point);
 			ft_add_vertex(&tex, vec);
-			point = point->next;
+			if (point->next != NULL)
+				point = point->next->next;
+			else
+				break;
 		}
 		poly = ft_create_polygon_node(tex);
 		ft_add_polygon(&gon, poly);

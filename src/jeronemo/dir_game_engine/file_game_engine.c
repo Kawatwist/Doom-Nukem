@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/16 14:02:25 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/24 17:41:18 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	ft_launch_rasterization(t_win *wn)
 	wn->rasterizer->tmp3 = NULL;
 	if (wn->interface != EDITEUR)
 		wn->rasterizer->tmp3 = ft_read_the_polygon_file();
+	else
+		wn->rasterizer->tmp3 = polygon_map(wn);
 	ft_launch_bsp_tree(wn->rasterizer->tmp3);
 	wn->rasterizer->tmp2 = ft_get_triangles_array(wn->rasterizer->tmp3);
 	wn->rasterizer->max = ft_get_nbr_of_triangle(wn->rasterizer->tmp3);
