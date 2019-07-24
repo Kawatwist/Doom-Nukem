@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/10 17:56:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/16 14:50:24 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ void	ingame(t_win *wn)
 		wn->interface = MGAME;
 		wn->menu->choice = 10;
 	}
-//	display_skybox(wn);
+	display_skybox(wn);
 	turn_rast(wn);
 //	main_cloud(wn);
-//	maindrawpoly(wn);
 //	display_crosshair(wn);
 }
 

@@ -6,11 +6,20 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 14:47:38 by llejeune          #+#    #+#             */
-/*   Updated: 2019/06/03 10:28:54 by llejeune         ###   ########.fr       */
+/*   Updated: 2019/07/17 16:07:41 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+
+static t_point	create_pos(float x, float y)
+{
+	t_point	pos;
+
+	pos.x = x;
+	pos.y = y;
+	return (pos);
+}
 
 static void	init_bres(t_win *wn, t_point *alst, t_point *next)
 {
@@ -25,14 +34,15 @@ static void	init_bres(t_win *wn, t_point *alst, t_point *next)
 	wn->bres.dx = abs(2 * wn->bres.dx);
 	wn->bres.dy = abs(2 * wn->bres.dy);
 	wn->bres.e = (wn->bres.dx > wn->bres.dy) ?
-			wn->bres.dx / 2 : wn->bres.dy / 2;
+		wn->bres.dx / 2 : wn->bres.dy / 2;
 }
 
 static void	bres_x(t_win *wn)
 {
 	if (wn->bres.x <= wn->xscreen && wn->bres.x >= 0
-		&& wn->bres.y <= wn->yscreen && wn->bres.y >= 0)
-		SDL_RenderDrawPoint(wn->rend, wn->bres.x, wn->bres.y);
+			&& wn->bres.y <= wn->yscreen && wn->bres.y >= 0)
+		drawpointintcolor(wn->pixels, (wn->xscreen << 2),
+			create_pos(wn->bres.x, wn->bres.y), wn->coolor);
 	wn->bres.e = wn->bres.e - wn->bres.dy;
 	if (wn->bres.e < 0)
 	{
@@ -45,8 +55,9 @@ static void	bres_x(t_win *wn)
 static void	bres_y(t_win *wn)
 {
 	if (wn->bres.x <= wn->xscreen && wn->bres.x >= 0
-		&& wn->bres.y <= wn->yscreen && wn->bres.y >= 0)
-		SDL_RenderDrawPoint(wn->rend, wn->bres.x, wn->bres.y);
+			&& wn->bres.y <= wn->yscreen && wn->bres.y >= 0)
+		drawpointintcolor(wn->pixels, (wn->xscreen << 2),
+			create_pos(wn->bres.x, wn->bres.y), wn->coolor);
 	wn->bres.e = wn->bres.e - wn->bres.dx;
 	if (wn->bres.e < 0)
 	{
@@ -56,7 +67,7 @@ static void	bres_y(t_win *wn)
 	wn->bres.y += wn->bres.sy;
 }
 
-void	bresenham(t_win *wn, t_point *alst, t_point *next)
+void	bresenhamburger(t_win *wn, t_point *alst, t_point *next)
 {
 	init_bres(wn, alst, next);
 	if (wn->bres.dx > wn->bres.dy)

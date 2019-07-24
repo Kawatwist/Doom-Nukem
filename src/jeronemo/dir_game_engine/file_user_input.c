@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 14:51:11 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/24 12:57:54 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,7 @@ t_myraster	*ft_mouse_event_check(t_win *wn, t_myraster *raster)
 		SDL_ShowCursor(SDL_DISABLE);
 		SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
 		(raster->theta_camera  += (wn->input->x - (wn->xscreen / 2)) / 10);
-		(raster->pitch  += ((wn->input->y) - (wn->yscreen / 2) ) /10);
-		//	raster->theta_camera += 1;
-		//> 360
-		//				? wn->player->rawx -= 360 : 0;
-		//	(wn->player->rawy += (wn->input->y - (wn->yscreen / 2))) > YSCREEN
-		//				? wn->player->rawy = YSCREEN : 0;
-		//		raster->theta_camera += (wn->input->x - (wn->xscreen / 2)) ;
+		(raster->pitch  += ((wn->yscreen / 2) - (wn->input->y)  ) /10) ;
 		if ((wn->input->x - (wn->xscreen >> 1)) || (wn->input->y - (wn->yscreen >> 1)))
 			 raster->modif = 1;
 	}
@@ -107,9 +101,10 @@ t_myraster	*ft_mouse_event_check(t_win *wn, t_myraster *raster)
 
 static void mouseconfig(t_win *wn)
   {
-		SDL_ShowCursor(wn->interface != RGAME && wn->interface != DGAME && ((t_myraster *)wn->rasterizer->tmp)->leave_mouse ? SDL_ENABLE : SDL_DISABLE);
-			SDL_CaptureMouse((wn->interface == RGAME || wn->interface == DGAME) && ((t_myraster *)wn->rasterizer->tmp)->leave_mouse ? 1 : 0);
-	(wn->interface == RGAME || wn->interface == DGAME) && !((t_myraster*)wn->rasterizer->tmp)->leave_mouse? SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) : 0;
+	  (void)wn;
+//		SDL_ShowCursor(wn->interface != RGAME && wn->interface != DGAME && ((t_myraster *)wn->rasterizer->tmp)->leave_mouse ? SDL_ENABLE : SDL_DISABLE);
+//		SDL_CaptureMouse((wn->interface == RGAME || wn->interface == DGAME) && ((t_myraster *)wn->rasterizer->tmp)->leave_mouse ? 1 : 0);
+//	(wn->interface == RGAME || wn->interface == DGAME) && !((t_myraster*)wn->rasterizer->tmp)->leave_mouse? SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) : 0;
 }
 
 t_myraster	*ft_input_event_check(t_win *wn, t_myraster *raster)
