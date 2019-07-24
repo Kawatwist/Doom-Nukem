@@ -30,7 +30,6 @@ void	game_interface(t_win *wn)
 	{
 		if (wn->rasterizer == NULL)
 		{
-			wn->rasterizer = malloc(sizeof(t_rasterizer)); // SECURE NEED;
 			ft_launch_rasterization(wn);
 		}
 		ingame(wn);

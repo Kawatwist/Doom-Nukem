@@ -44,8 +44,10 @@ void	turn_rast(t_win *wn)
 
 void	ft_launch_rasterization(t_win *wn)
 {
+	wn->rasterizer = malloc(sizeof(t_rasterizer));
 	wn->rasterizer->tmp3 = NULL;
-	wn->rasterizer->tmp3 = ft_read_the_polygon_file();
+	if (wn->interface != EDITEUR)
+		wn->rasterizer->tmp3 = ft_read_the_polygon_file();
 	ft_launch_bsp_tree(wn->rasterizer->tmp3);
 	wn->rasterizer->tmp2 = ft_get_triangles_array(wn->rasterizer->tmp3);
 	wn->rasterizer->max = ft_get_nbr_of_triangle(wn->rasterizer->tmp3);
