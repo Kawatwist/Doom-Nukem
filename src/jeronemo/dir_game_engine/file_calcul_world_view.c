@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/22 17:39:34 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/24 14:24:50 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ void	ft_clipping_screen(t_mytriangle *head, t_myraster *raster, t_mytriangle **c
 	t_mytriangle	*curr;
 	SDL_Rect		box;
 
-	box.x = 0;
-	box.y = 0;
+	box.x = 20;
+	box.y = 100;
 //	box.z = 0;
-	box.w = XSCREEN - 0;
-	box.h = YSCREEN - 0;
+	box.w = XSCREEN - 40;
+	box.h = YSCREEN - 200;
 //	box.l = 999;
 
 	(void)clipped_triangle;
@@ -188,27 +188,27 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	}
 	(void)end;
 	(void)start;
-	/*start.x = 200;
-	start.y = 0;
-	end.x = 200;
-	end.y = YSCREEN;
+	start.x = 20;
+	start.y = 100;
+	end.x = 20;
+	end.y = YSCREEN - 100;
 	drawline(wn, 0xFF0000FF, start, end);
-	start.x = XSCREEN - 200;
-	start.y = 0;
-	end.x = XSCREEN - 200;
-	end.y = YSCREEN;
+	start.x = XSCREEN - 20;
+	start.y = 100;
+	end.x = XSCREEN - 20;
+	end.y = YSCREEN - 100;
 	drawline(wn, 0xFF0000FF, start, end);
-	start.x = 0;
-	start.y = 200;
-	end.x = XSCREEN;
-	end.y = 200;
+	start.x = 20;
+	start.y = 100;
+	end.x = XSCREEN - 20;
+	end.y = 100;
 	drawline(wn, 0xFF0000FF, start, end);
-	start.x = 0;
-	start.y = YSCREEN - 200;
-	end.x = XSCREEN;
-	end.y = YSCREEN - 200;
+	start.x = 20;
+	start.y = YSCREEN - 100;
+	end.x = XSCREEN - 20;
+	end.y = YSCREEN - 100;
 	drawline(wn, 0xFF0000FF, start, end);
-*/	triangle_lst_2 = keep;
+	triangle_lst_2 = keep;
 }
 
 void	ft_make_the_world_spin(int turn, t_myraster *raster)

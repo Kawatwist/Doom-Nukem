@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 14:41:02 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/22 17:39:37 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/24 14:22:45 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,22 @@ static t_myvec	find_intersection(t_myvec v1, t_myvec v2, char side) // <= V2 is 
 
 	if (side == 0 || side == 1)
 	{
-		pos.x = 0;
-		pos.y = 0;
+		pos.x = 20;
+		pos.y = 100;
 	}
 	else
 	{
-		pos.x = XSCREEN - 0;
-		pos.y = YSCREEN - 0;
+		pos.x = XSCREEN - 20;
+		pos.y = YSCREEN - 100;
 	}
-	side == 0 ? dir.x = 0 : 0;
-	side == 0 ? dir.y = YSCREEN - 0 : 0;
-	side == 1 ? dir.x = XSCREEN - 0 : 0;
-	side == 1 ? dir.y = 0 : 0;
-	side == 2 ? dir.x = XSCREEN - 0 : 0;
-	side == 2 ? dir.y = 0 : 0;
-	side == 3 ? dir.x = 0 : 0;
-	side == 3 ? dir.y = YSCREEN - 0 : 0;
+	side == 0 ? dir.x = 20 : 0;
+	side == 0 ? dir.y = YSCREEN - 100 : 0;
+	side == 1 ? dir.x = XSCREEN - 20 : 0;
+	side == 1 ? dir.y = 100 : 0;
+	side == 2 ? dir.x = XSCREEN - 20 : 0;
+	side == 2 ? dir.y = 100 : 0;
+	side == 3 ? dir.x = 20 : 0;
+	side == 3 ? dir.y = YSCREEN - 100 : 0;
 	a1 = v2.y - v1.y;
 	b1 = v1.x - v2.x;
 	c1 = a1 * v1.x + b1 * v1.y;
@@ -85,27 +85,27 @@ static int			nb_outside(t_mytriangle *curr, int side)
 	nb = 0;
 	if (side == 0)
 	{
-		curr->vertice[0].x < 0 ? nb = 1 : 0;
-		curr->vertice[1].x < 0 ? nb = nb | 0x2 : 0;
-		curr->vertice[2].x < 0 ? nb = nb | 0x4 : 0;
+		curr->vertice[0].x < 20 ? nb = 1 : 0;
+		curr->vertice[1].x < 20 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].x < 20 ? nb = nb | 0x4 : 0;
 	}
 	else if (side == 1)
 	{
-		curr->vertice[0].y < 0 ? nb = 1 : 0;
-		curr->vertice[1].y < 0 ? nb = nb | 0x2 : 0;
-		curr->vertice[2].y < 0 ? nb = nb | 0x4 : 0;
+		curr->vertice[0].y < 100 ? nb = 1 : 0;
+		curr->vertice[1].y < 100 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].y < 100 ? nb = nb | 0x4 : 0;
 	}
 	else if (side == 2)
 	{
-		curr->vertice[0].x > XSCREEN - 0 ? nb = 1 : 0;		// ATTENTION FULLSCREEN
-		curr->vertice[1].x > XSCREEN - 0 ? nb = nb | 0x2 : 0;
-		curr->vertice[2].x > XSCREEN - 0 ? nb = nb | 0x4 : 0;
+		curr->vertice[0].x > XSCREEN - 20 ? nb = 1 : 0;		// ATTENTION FULLSCREEN
+		curr->vertice[1].x > XSCREEN - 20 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].x > XSCREEN - 20 ? nb = nb | 0x4 : 0;
 	}
 	else
 	{
-		curr->vertice[0].y > YSCREEN - 0 ? nb = 1 : 0;
-		curr->vertice[1].y > YSCREEN - 0 ? nb = nb | 0x2 : 0;
-		curr->vertice[2].y > YSCREEN - 0 ? nb = nb | 0x4 : 0;
+		curr->vertice[0].y > YSCREEN - 100 ? nb = 1 : 0;
+		curr->vertice[1].y > YSCREEN - 100 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].y > YSCREEN - 100 ? nb = nb | 0x4 : 0;
 	}
 	return (nb);
 }
@@ -124,7 +124,6 @@ static t_mytriangle	*left_side(t_mytriangle *toclip, int *value, int side)
 		nb = nb_outside(curr, side);
 		if (nb == 4 || nb == 2 || nb == 1) // <= Need to create a new triangle
 		{
-		//	printf("4 || 2 || 1\n");
 			*value += 1;
 			toadd = malloc(sizeof(t_mytriangle)); // MALLOC SECURE of not malloc if i find how to dodge
 			toadd->splitted = 1;
@@ -147,7 +146,7 @@ static t_mytriangle	*left_side(t_mytriangle *toclip, int *value, int side)
 				toadd->vertice[0] = curr->vertice[0];
 				toadd->vertice[1] = curr->vertice[2];
 				toadd->vertice[2] = find_intersection(curr->vertice[0], curr->vertice[1], side);
-				curr->vertice[1] = find_intersection(curr->vertice[2], curr->vertice[1], side); // NOT SURE
+				curr->vertice[1] = find_intersection(curr->vertice[2], curr->vertice[1], side);
 				curr->vertice[0] = toadd->vertice[2];
 			}
 			else
@@ -155,12 +154,12 @@ static t_mytriangle	*left_side(t_mytriangle *toclip, int *value, int side)
 				toadd->vertice[0] = curr->vertice[1];
 				toadd->vertice[1] = curr->vertice[2];
 				toadd->vertice[2] = find_intersection(curr->vertice[2], curr->vertice[0], side);
-				curr->vertice[0] = find_intersection(curr->vertice[2], curr->vertice[0], side);
+				curr->vertice[0] = find_intersection(curr->vertice[1], curr->vertice[0], side);
 				curr->vertice[2] = toadd->vertice[2];
 			}
 			toadd->shade = curr->shade;
 			curr->next = toadd;
-			curr = toclip;
+//			curr = toclip;
 		}
 		else if ((((nb & 0x4) >> 2) + ((nb & 0x2) >> 1) + (nb & 0x1)) == 2)
 		{
@@ -213,7 +212,6 @@ void		clipping(t_mytriangle toclip, t_mytriangle **tostore)
 	side = -1;
 	while (++side < 4)
 		ret = left_side(ret, &nb, side);
-	//ret = down_side(ret, &nb, 3);
 	while (ret)
 	{
 		ft_add_triangle_to_lst(*ret, tostore);
