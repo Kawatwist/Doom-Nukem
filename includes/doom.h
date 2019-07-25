@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/10 17:53:57 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/22 17:07:27 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <game.h>
 # include <rasterisation.h>
 # include <skybox.h>
+# include <header_bresenham.h>
 # include <SDL.h>
 # include <SDL_ttf.h>
 
@@ -93,6 +94,16 @@ typedef enum		e_interface
 	HOST,
 }					t_interface;
 
+typedef struct		s_rectbox
+{
+	float			x;
+	float			y;
+	float			z;
+	float			w;
+	float			h;
+	float			l;
+}					t_rectbox;
+
 typedef struct		s_myvec
 {
 	float			x;
@@ -151,6 +162,19 @@ typedef struct		s_load
 	struct s_load	*next;
 }					t_load;
 
+typedef struct 		s_bresenham 
+{
+	int 			x;
+	int 			y;
+	int 			x1;
+	int 			y1;
+	int 			dx;
+	int 			dy;
+	int 			sx;
+	int 			sy;
+	int 			e;
+}					t_bres;
+
 typedef struct		s_thread
 {
 	pthread_t		thd;
@@ -192,6 +216,10 @@ typedef struct 		s_color
 	SDL_Color		violetrose;
 	SDL_Color 		red;
 	SDL_Color 		blanc;
+	unsigned char	r;			
+	unsigned char	g;			
+	unsigned char	b;			
+	unsigned char	a;	
 }					t_color;
 
 typedef struct 		s_loadbgmap
@@ -231,18 +259,18 @@ typedef struct 		s_var_edit
 	int 			nb_point;
 }					t_var_edit;
 
-typedef struct 		s_bresenham 
-{
-	int 			x;
-	int 			y;
-	int 			x1;
-	int 			y1;
-	int 			dx;
-	int 			dy;
-	int 			sx;
-	int 			sy;
-	int 			e;
-}					t_bres;
+// typedef struct 		s_bresenham 
+// {
+// 	int 			x;
+// 	int 			y;
+// 	int 			x1;
+// 	int 			y1;
+// 	int 			dx;
+// 	int 			dy;
+// 	int 			sx;
+// 	int 			sy;
+// 	int 			e;
+// }					t_bres;
 
 typedef struct 		s_console
 {
@@ -257,6 +285,11 @@ typedef struct  	s_fonts
 	TTF_Font 		*arial_path;
 } 					t_fonts;
 
+// typedef struct		s_color
+// {
+		
+// }					t_color;
+
 //JEROME
 
 typedef struct				s_mycolor
@@ -269,9 +302,12 @@ typedef struct				s_mycolor
 typedef struct				s_mytriangle
 {
 	t_myvec					vertice[3];
+	float					zbuff;
 	struct s_mytriangle		*next;
 	char					ft_color;
 	float					shade;
+	int						splitted;
+	int						sub;
 }							t_mytriangle;
 
 typedef struct				s_mypolygon
@@ -310,6 +346,10 @@ typedef struct		s_win
 	t_input			*input;
 	SDL_Event		ev;
 	SDL_Window		*window;
+	int				coolor;			// COLOR FOR DRAWLINE/DRAWPOINT
+	void			*pixels;		// CHANGE TO APPLY TO TEXTURE WHILE GAME
+	int				pitch;
+	SDL_Texture		*gametxt;
 	SDL_Renderer	*rend;
 	t_text			*texture;
 	SDL_Texture		*txtnotload;
@@ -345,6 +385,7 @@ typedef struct		s_win
  **/
 
 // MODIF
+void						clipping(t_mytriangle toclip, t_mytriangle **tostore);
 void						ft_launch_rasterization(t_win *wn);
 void						turn_rast(t_win *wn);
 //
@@ -362,8 +403,25 @@ float						ft_atoi_comma(const char *str);
 t_myvec						ft_calculate_normal_of_points(t_myvec vertex1, t_myvec vertex2, t_myvec vertex3);
 
 
+void				SHOW_TRIANGLE(t_mytriangle *triangle, int nb);
 
 
+/**
+ **	DRAWSCREEN
+ **/
+
+t_color				itocolor(int value);
+
+void				ft_draw_line(t_win *wn, t_myputtheline *s_line);
+
+void				bresenham(t_win *wn, t_point *alst, t_point *next);
+
+void				drawsquare(void **pixels, int pitch, SDL_Rect rect, t_color color);
+void				drawcircle(void **pixels, int pitch, t_point origin, int rayon);
+void				drawlinexyz(t_win *wn, int color, t_xyz_point origin, t_xyz_point dest);
+void				drawline(t_win *wn, int color, t_point origin, t_point dest);
+void				drawpoint(void **pixels, int pitch, t_point position, t_color color);
+void				drawpointintcolor(void **pixels, int pitch, t_point position, int color);
 
 /**
  ** GAME
@@ -426,9 +484,6 @@ void				print_tbp_editor(t_win *wn);
 void 				change_bloc(t_win *wn);
 void 				print_arrow(t_win *wn);
 void 				stop_editor(t_win *wn);
-void				init_bres(t_win *wn, t_point *alst, t_point *next);
-void				bres_x(t_win *wn);
-void 				bres_y(t_win *wn);
 void				bresenham(t_win *wn, t_point *alst, t_point *next);
 t_point 			create_t_point(int x, int y);
 void 				showmap(t_win *wn);
@@ -452,6 +507,8 @@ t_poly 				*poly_map(t_win *wn);
 int 				pop_up_message(t_win *wn, char *msg, SDL_Rect *rect);
 void 				print_save_and_reset(t_win *wn);
 void 				print_message(t_win *wn, char *msg);
+void				bresenhamburger(t_win *wn, t_point *alst, t_point *next);
+
 
 
 
@@ -473,9 +530,9 @@ char				*printable_input(t_win *wn, char *command);
 void				initttf(t_win **wn);
 void				init_ver(t_vec *vec, float x, float y, float z);
 t_text				*findpostxt(t_win *wn, char *type,
-						char *subtype, char *name);
+		char *subtype, char *name);
 t_text				*findpos(t_win *wn, char *type,
-						char *subtype, char *name);
+		char *subtype, char *name);
 int					parsearg(int argc, char **argv, t_win **wn);
 void				loadminimenu(t_win **wn);
 void				showload(t_win **wn, int load);
@@ -488,14 +545,14 @@ void				init_input(t_win **wn);
 void				initskybox(t_win **wn);
 void				initplayer(t_win **wn);
 int					load_texture(t_win *wn, char *type,
-						char *subtype, char *name);
+		char *subtype, char *name);
 void				*load_intro(void *params);
 void				inittexture(t_win **wn);
 SDL_Texture			*initload2(t_win **wn, const char *path);
 void				showlinkedlist(t_win **wn, char *type, char *subtype);
 void				initload(t_win **wn);
 SDL_Texture			*findtexture(t_win *wn, char *type,
-						char *subtype, char *name);
+		char *subtype, char *name);
 int					initmutex(t_win **wn);
 void				*loadingthread(void *param);
 void				loadnothread(t_win **wn);
@@ -540,6 +597,7 @@ void				setkeyboard(Uint8 *new, Uint8 *current);
 void				stop_exec(char *msg, t_win *wn);
 void				full_screen(t_win *wn);
 SDL_Rect			*create_rect(int x, int y, int w, int h);
+int					hitboxbox(t_myvec vec, t_rectbox box);
 int					hitbox(int x, int y, SDL_Rect *pos);
 Uint32				set_bit(Uint32 var, Uint32 mask);
 int					mouse_pressed(t_win *wn, Uint32 mask);

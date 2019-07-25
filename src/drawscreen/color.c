@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 07:06:24 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/11 15:15:00 by lomasse          ###   ########.fr       */
+/*   Created: 2019/07/11 16:45:03 by lomasse           #+#    #+#             */
+/*   Updated: 2019/07/11 16:47:20 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "doom.h"
 
-void	ft_bzero(void *s, size_t n)
+t_color	itocolor(int value)
 {
-	char	*str;
-	size_t	i;
+	t_color	color;
 
-	i = 0;
-	str = (char *)s;
-	while (n)
-	{
-		*(str + i++) = 0;
-		n--;
-	}
+	color.r = (value & 0xFF000000) >> 24;
+	color.g = (value & 0xFF0000) >> 16;
+	color.b = (value & 0xFF00) >> 8;
+	color.a = (value & 0xFF);
+	return (color);
 }

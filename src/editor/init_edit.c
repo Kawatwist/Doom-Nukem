@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:58:28 by llejeune          #+#    #+#             */
-/*   Updated: 2019/06/11 14:58:31 by llejeune         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:01:52 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void			init_edit(t_win **wn)
 	(*wn)->editext.texture_z = NULL;
 	(*wn)->edit_image.texture_tools = NULL;
 	(*wn)->editext.on = 1;
-	(*wn)->editext.map_w = 600;
-	(*wn)->editext.map_h = 600;
+	(*wn)->editext.map_w = 60;
+	(*wn)->editext.map_h = 60;
 	(*wn)->edit_image.bgh = 0;
 	(*wn)->edit_image.in = 1;
 	(*wn)->edit_image.tbp = 2;

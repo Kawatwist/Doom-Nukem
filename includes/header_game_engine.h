@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 18:10:46 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/16 17:54:14 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,23 @@ typedef struct				s_myraster
 	int						nbr_of_clipped_triangle_created;
 
 
+	unsigned int			time_world_view;
+	unsigned int			time_culling;
+	unsigned int			time_shade;
+	unsigned int			time_cam_view;
+	unsigned int			time_clipping_camera;
+	unsigned int			time_projetion;
+	unsigned int			time_scale_screen;
+	unsigned int			time_add_to_lst;
+	unsigned int			time_z_buffer;
+	unsigned int			time_clipping_screen;
+	unsigned int			time_draw;
+	unsigned int			time_free_lst;
+	
+
 }							t_myraster;
+
+void			ft_store_in_lst(t_mytriangle *toadd, t_mytriangle **head);
 
 
 //FILE GAME ENGINE
@@ -88,7 +104,7 @@ t_myraster		*ft_init_rasterization(t_win *wn, t_myraster *raster);
 void	ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *wn);
 int				ft_get_nbr_of_triangle(t_mypolygon *polygon_lst);
 void			ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn);
-t_mytriangle	*ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, int *nbr,t_mytriangle *clipped_triangle, t_mytriangle *triangle);
+t_mytriangle	**ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, int *nbr,t_mytriangle **clipped_triangle, t_mytriangle *triangle);
 
 //FILE USER INPUT
 t_myraster		*ft_input_event_check(t_win *wn, t_myraster *raster);
@@ -127,7 +143,7 @@ t_myvec			ft_vector_inverse(t_myvec src);
 t_myvec			ft_vector_multiply_vector(t_myvec a, t_myvec b);
 
 //FILE FILL TRIANGLE
-void			ft_fill_triangle_shade(t_myvec v1, t_myvec v2, t_myvec v3, t_win *wn, float shade);
+void			ft_fill_triangle_shade(t_mytriangle t, t_win *wn, float shade);
 
 //file window
 void			ft_clear_window(t_win *wn);
@@ -161,6 +177,8 @@ void			ft_clipping_camera(t_mytriangle *triangle,
 void			ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster);
 void			ft_scale_screen(t_mytriangle *triangle);
 
-void			ft_clipping_screen(void);
+void	ft_clipping_screen(t_mytriangle *triangle,
+							t_myraster *raster, 
+							t_mytriangle **clipped_triangle);
 void			ft_draw(t_mytriangle *triangle_lst_2, t_win *wn);
 void			ft_make_the_world_spin(int turn, t_myraster *raster);

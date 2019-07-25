@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/07/10 12:43:37 by jchardin         ###   ########.fr        #
+#    Updated: 2019/07/22 14:35:48 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -98,6 +98,12 @@ SRC				= main.c										\
 				  display_map.c 								\
 				  display_blocs.c 								\
 				  edit_poly.c 									\
+				  file_list.c									\
+				  bresen2.c										\
+				  color.c										\
+				  file_newclip.c								\
+				  file_downside.c								\
+				  basicshape.c									\
 				  world2view.c									\
 				  world2view_mat.c 								\
 				  tool2.c 										\
@@ -175,7 +181,7 @@ all: $(NAME)
 
 $(NAME): $(IMAGE) $(OBJ)
 	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
-	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG)
+	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG) $(DEBUG)
 	@echo "${vertclair}DONE${neutre}"
 
 $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
