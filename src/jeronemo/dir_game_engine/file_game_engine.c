@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/24 17:41:18 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/25 12:45:44 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	turn_rast(t_win *wn)
 	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
 	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
 	{
-		ft_clear_window(wn);
+//		ft_clear_window(wn);
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->tmp2, wn);
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
-		if (wn->interface == DGAME)
-			SDL_RenderPresent(wn->rend);
+//		if (wn->interface == DGAME)
+		SDL_RenderPresent(wn->rend);
 	}
 }
 

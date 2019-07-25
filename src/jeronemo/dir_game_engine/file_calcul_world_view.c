@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/24 17:19:33 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/25 12:22:32 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	}
 	(void)end;
 	(void)start;
-	start.x = 20;
+/*	start.x = 20;
 	start.y = 100;
 	end.x = 20;
 	end.y = YSCREEN - 100;
@@ -209,7 +209,7 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	end.y = YSCREEN - 100;
 	drawline(wn, 0xFF0000FF, start, end);
 	triangle_lst_2 = keep;
-}
+*/}
 
 void	ft_make_the_world_spin(int turn, t_myraster *raster)
 {

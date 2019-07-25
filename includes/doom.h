@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/22 17:07:27 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/25 12:09:52 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -588,6 +588,7 @@ void				showmenu(t_win *wn);
  ** MAIN
  **/
 
+void				ft_memintset(void *str, int value, int len);
 char				*text_box(t_win *wn, char *line);
 void				main_input(t_win *wn);
 void				turn(t_win *wn);

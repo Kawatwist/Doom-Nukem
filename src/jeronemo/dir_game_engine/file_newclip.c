@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 14:41:02 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/24 14:22:45 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/25 12:41:53 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ static t_mytriangle	*left_side(t_mytriangle *toclip, int *value, int side)
 		{
 			*value += 1;
 			toadd = malloc(sizeof(t_mytriangle)); // MALLOC SECURE of not malloc if i find how to dodge
+			toadd->zbuff = curr->zbuff;
 			toadd->splitted = 1;
 			toadd->sub = curr->sub + 1;
 			curr->splitted = 1;

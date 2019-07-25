@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:57:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/16 15:12:14 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/25 14:21:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ static void	bg_skybox(t_win *wn)
 	t_color color;
 	t_point origin;
 	
-	color.r = 255;
-	color.g = 255;
+	color.r = 50;
+	color.g = 100;
 	color.b = 255;
 	color.a = 255;
 	origin.x = 50;
 	origin.y = 50;
-	ft_memset(wn->pixels, 0, wn->xscreen * 4 * wn->yscreen);
-//	drawsquare(wn->pixels, wn->xscreen * 4, *create_rect(10, 10, 200, 200), color);
+//	ft_memintset(&(wn->pixels[wn->xscreen * 400]), 0xFFAAAAFF, wn->xscreen * (wn->yscreen - 200));
+	drawsquare(wn->pixels, wn->xscreen * 4, *create_rect(21, 100, wn->xscreen - 40, wn->yscreen - 200), color);
 //	drawcircle(wn->pixels, wn->xscreen * 4, origin, 25);
 }
 
