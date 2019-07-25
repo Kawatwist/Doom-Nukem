@@ -30,7 +30,7 @@ t_mypolygon	 	*polygon_map(t_win *wn)
 	t_mypolygon 	*gon;
 	t_point			*point;
 	t_elem 			*keep;
-	t_myvec 		*vec;
+	t_myvec 		*ver;
 	t_myvec			*tex;
 
 	keep = wn->elem;
@@ -41,8 +41,8 @@ t_mypolygon	 	*polygon_map(t_win *wn)
 		point = keep->point;
 		while (point != NULL)
 		{
-			vec = create_vec_node(point);
-			ft_add_vertex(&tex, vec);
+			ver = create_vec_node(point);
+			ft_add_vertex(&tex, ver);
 			point = point->next;
 		}
 		poly = ft_create_polygon_node(tex);

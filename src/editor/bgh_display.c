@@ -149,12 +149,7 @@ void 		print_save_and_reset(t_win *wn)
 	position = define_rect(5.5 * wn->xscreen / 7, 2.5 * wn->yscreen / 7, 0.75 * wn->xscreen / 7, 0.5 * wn->yscreen / 7);
 	if (hitbox(wn->input->x, wn->input->y, &position) == TRUE && mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE)
 	{
-		// if (wn->rasterizer->tmp3 != NULL)
-		// {
-		// 	free wn->rasterizer->tmp3;
-		// }
 		ft_launch_rasterization(wn);
-		wn->rasterizer->tmp3 = polygon_map(wn);
 		// sauvegarde fichier;
 	}
 	// if (wn->rasterizer->tmp3 != NULL)
