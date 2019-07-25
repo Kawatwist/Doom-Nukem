@@ -43,8 +43,8 @@ t_mypolygon	 	*polygon_map(t_win *wn)
 			point = point->next;
 		while (point != NULL)
 		{
-			vec = create_vec_node(point);
-			ft_add_vertex(&tex, vec);
+			ver = create_vec_node(point);
+			ft_add_vertex(&tex, ver);
 			if (point->next != NULL)
 				point = point->next->next;
 			else
