@@ -151,10 +151,14 @@ void 		print_save_and_reset(t_win *wn)
 	if (hitbox(wn->input->x, wn->input->y, &position) == TRUE && mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE)
 	{
 		ft_launch_rasterization(wn);
+		wn->varedit.map_saved = 1;
 		// sauvegarde fichier;
 	}
-	// if (wn->rasterizer->tmp3 != NULL)
-	// 	print_message(wn, "Map saved.");
+	if (wn->varedit.map_saved == 1)
+	{
+		print_message(wn, "Map saved.", wn->color.blanc);
+		//wn->varedit.map_saved = 0;
+	}
 	surface = SDL_CreateRGBSurface(0, position.x, position.y, 32, 0, 0, 0, 0);
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 0));
 	texture = SDL_CreateTextureFromSurface(wn->rend, surface);

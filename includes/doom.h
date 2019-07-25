@@ -257,6 +257,7 @@ typedef struct 		s_written
 typedef struct 		s_var_edit
 {
 	int 			nb_point;
+	int 			map_saved;
 }					t_var_edit;
 
 // typedef struct 		s_bresenham 
@@ -506,7 +507,7 @@ t_mypolygon		 	*polygon_map(t_win *wn);
 t_poly 				*poly_map(t_win *wn);
 int 				pop_up_message(t_win *wn, char *msg, SDL_Rect *rect);
 void 				print_save_and_reset(t_win *wn);
-void 				print_message(t_win *wn, char *msg);
+void 				print_message(t_win *wn, char *msg, SDL_Color color);
 void				bresenhamburger(t_win *wn, t_point *alst, t_point *next);
 
 

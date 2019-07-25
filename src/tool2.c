@@ -12,19 +12,26 @@
 
 #include "doom.h"
 
-void 		print_message(t_win *wn, char *msg)
+void 		print_message(t_win *wn, char *msg, SDL_Color color)
 {
 	SDL_Rect 	rect;
 	int 		w;
 	int 		h;
+	static Uint32 	time = 0;
 
-	if (SDL_GetTicks() < 15000)
+	(time == 0) ? time = SDL_GetTicks() : 0;
+	if (SDL_GetTicks() - time < 3000)
 	{
 		TTF_SizeText(wn->fonts->arial_path, msg, &w, &h);
-		rect = define_rect(wn->xscreen / 2 - w / 2, wn->yscreen / 2 - h / 2, w, h);
+		rect = define_rect(wn->xscreen / 2 - w / 2, 5 * wn->yscreen / 7 - h / 2, w, h);
 		TTF_SetFontStyle(wn->fonts->arial_path, TTF_STYLE_ITALIC);
-		print_text_with_arial_path_full(wn, msg, wn->color.noir, rect);
+		print_text_with_arial_path_full(wn, msg, color, rect);
 		TTF_SetFontStyle(wn->fonts->arial_path, TTF_STYLE_NORMAL);
+	}
+	else
+	{
+		time = 0;
+		wn->varedit.map_saved = 0;
 	}
 }
 
