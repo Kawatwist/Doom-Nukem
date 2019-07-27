@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 11:54:33 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/25 12:20:38 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/27 15:46:23 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn)
 	(void)v3;
 	(void)wn;
 	(void)s_line;
-//	wn->color = 0xFF00FF00;
-/*	s_line.un.a = v1->x;
+	wn->coolor = 0xFF00FF00;
+	s_line.un.a = v1->x;
 	s_line.un.b = v1->y;
 	s_line.deux.a = v2->x;
 	s_line.deux.b = v2->y;
@@ -39,4 +39,4 @@ void	ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn)
 	s_line.deux.a = v1->x;
 	s_line.deux.b = v1->y;
 	drawlinexyz(wn, 0xFF00FF00, s_line.un, s_line.deux);
-*/}
+}

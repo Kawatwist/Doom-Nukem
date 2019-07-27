@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/25 12:22:32 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/27 16:13:34 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,40 +101,9 @@ void	ft_clipping_camera(t_mytriangle *triangle, t_myraster *raster, t_mytriangle
 
 void	ft_clipping_screen(t_win *wn, t_mytriangle *head, t_myraster *raster, t_mytriangle **clipped_triangle)
 {
-	t_mytriangle	*curr;
-	SDL_Rect		box;
-
-	box.x = 20;
-	box.y = 100;
-//	box.z = 0;
-	box.w = XSCREEN - 40;
-	box.h = YSCREEN - 200;
-//	box.l = 999;
-
 	(void)clipped_triangle;
-	curr = head;
-	while (curr != NULL)
-	{
-		curr->sub = 0;
-		curr = curr->next;
-	}
-	curr = head;
-	clipping(wn, *curr ,&(raster->triangle_lst_2));
-/*	while(curr != NULL)
-	{
-		curr->splitted = 0;
-		if (!hitbox(curr->vertice[0].x, curr->vertice[0].y, &box) || !hitbox(curr->vertice[1].x, curr->vertice[1].y, &box) || !hitbox(curr->vertice[2].x, curr->vertice[2].y, &box))
-		{
-			if (!hitbox(curr->vertice[0].x, curr->vertice[0].y, &box) && !hitbox(curr->vertice[1].x, curr->vertice[1].y, &box) && !hitbox(curr->vertice[2].x, curr->vertice[2].y, &box))
-				;
-			else
-				clipping(wn, *curr ,&(raster->triangle_lst_2));
-		}
-		else
-			ft_add_triangle_to_lst(*curr, &(raster->triangle_lst_2)); // All inside
-		curr = curr->next;
-	}
-*/
+	if (head != NULL)
+		clipping(wn, *head ,&(raster->triangle_lst_2));
 }
 
 void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)
