@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/16 17:54:14 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/27 14:59:22 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ typedef struct				s_myraster
 }							t_myraster;
 
 void			ft_store_in_lst(t_mytriangle *toadd, t_mytriangle **head);
+t_myvec			find_intersection(t_win *wn, t_myvec v1, t_myvec v2, char side);
+int				nb_outside(t_win *wn, t_mytriangle *curr, int side);
 
 
 //FILE GAME ENGINE
@@ -177,7 +179,7 @@ void			ft_clipping_camera(t_mytriangle *triangle,
 void			ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster);
 void			ft_scale_screen(t_mytriangle *triangle);
 
-void	ft_clipping_screen(t_mytriangle *triangle,
+void			ft_clipping_screen(t_win *wn, t_mytriangle *triangle,
 							t_myraster *raster, 
 							t_mytriangle **clipped_triangle);
 void			ft_draw(t_mytriangle *triangle_lst_2, t_win *wn);

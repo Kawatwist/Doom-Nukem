@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/07/25 12:11:04 by lomasse          ###   ########.fr        #
+#    Updated: 2019/07/27 14:47:24 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -102,12 +102,12 @@ SRC				= main.c										\
 				  bresen2.c										\
 				  color.c										\
 				  file_newclip.c								\
-				  file_downside.c								\
 				  basicshape.c									\
 				  world2view.c									\
 				  world2view_mat.c 								\
 				  tool2.c 										\
 				  tool3.c 										\
+				  file_outside.c								\
 
 
 #GAME ENGINE

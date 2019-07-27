@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 15:29:27 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/25 12:48:57 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/27 14:25:46 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,6 @@ void		drawsquare(void	**pixels, int pitch, SDL_Rect rect, t_color color)
 		pos.x += 1;
 	}
 }
-
-// void		drawcircle(void **pixels, int pitch, t_point origin, int rayon)
-// {
-// 	t_point	pos;
-// 	float	k;
-
-// 	pos.x = origin.x - (rayon >> 1);
-// 	while (pos.x < origin.x + (rayon >> 1))
-// 	{
-// 		pos.y = origin.y - (rayon >> 1);
-// 		while (pos.y < origin.y + (rayon >> 1))
-// 		{
-// 			k = (((pos.x << 1) / rayon) * ((pos.x << 1) / rayon)) + ((pos.y / rayon) * (pos.y / rayon));
-// 			if (k > 0.95 && k < 1.08)
-// 				drawpoint(pixels, pitch, pos, itocolor(0xFFFF00FF));
-// 			pos.y += 1;
-// 		}
-// 		pos.x += 1;
-// 	}
-// }
 
 void		drawlinexyz(t_win *wn, int color, t_xyz_point origin, t_xyz_point dest)
 {

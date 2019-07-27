@@ -99,7 +99,7 @@ void	ft_clipping_camera(t_mytriangle *triangle, t_myraster *raster, t_mytriangle
 	}
 }
 
-void	ft_clipping_screen(t_mytriangle *head, t_myraster *raster, t_mytriangle **clipped_triangle)
+void	ft_clipping_screen(t_win *wn, t_mytriangle *head, t_myraster *raster, t_mytriangle **clipped_triangle)
 {
 	t_mytriangle	*curr;
 	SDL_Rect		box;
@@ -119,7 +119,8 @@ void	ft_clipping_screen(t_mytriangle *head, t_myraster *raster, t_mytriangle **c
 		curr = curr->next;
 	}
 	curr = head;
-	while(curr != NULL)
+	clipping(wn, *curr ,&(raster->triangle_lst_2));
+/*	while(curr != NULL)
 	{
 		curr->splitted = 0;
 		if (!hitbox(curr->vertice[0].x, curr->vertice[0].y, &box) || !hitbox(curr->vertice[1].x, curr->vertice[1].y, &box) || !hitbox(curr->vertice[2].x, curr->vertice[2].y, &box))
@@ -127,17 +128,13 @@ void	ft_clipping_screen(t_mytriangle *head, t_myraster *raster, t_mytriangle **c
 			if (!hitbox(curr->vertice[0].x, curr->vertice[0].y, &box) && !hitbox(curr->vertice[1].x, curr->vertice[1].y, &box) && !hitbox(curr->vertice[2].x, curr->vertice[2].y, &box))
 				;
 			else
-				clipping(*curr ,&(raster->triangle_lst_2));
+				clipping(wn, *curr ,&(raster->triangle_lst_2));
 		}
 		else
 			ft_add_triangle_to_lst(*curr, &(raster->triangle_lst_2)); // All inside
 		curr = curr->next;
 	}
-	curr = head;
-	while (curr != NULL)
-	{
-		curr = curr->next;
-	}
+*/
 }
 
 void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)

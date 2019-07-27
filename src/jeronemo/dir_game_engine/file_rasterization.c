@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/25 12:29:50 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/27 14:56:15 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,10 +172,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 			}
 		}
 	}
-	ft_clipping_screen(
-			raster->triangle_lst,
-			raster,
-			&(raster->clipped_triangle));
+	ft_clipping_screen(wn, raster->triangle_lst, raster, &(raster->clipped_triangle));
 	ft_my_time(&(raster->time_clipping_screen), &current_time, &last_time);
 	ft_draw(raster->triangle_lst_2, wn);
 	ft_my_time(&(raster->time_draw), &current_time, &last_time);
@@ -189,17 +186,16 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 //	SDL_RenderDrawLine(wn->rend, 0, 30, XSCREEN, 30);
 //	SDL_RenderDrawLine(wn->rend, 0, YSCREEN - 30, XSCREEN, YSCREEN - 30);
 
-	printf("world view\t=%u\n", raster->time_world_view);
-	printf("culling\t\t=%u\n", raster->time_culling);
-	printf("shade\t\t=%u\n", raster->time_shade);
-	printf("cam view\t=%u\n", raster->time_cam_view);
-	printf("clip camera\t=%u\n", raster->time_clipping_camera);
-	printf("projection\t=%u\n", raster->time_projetion);
-	printf("scale\t\t=%u\n", raster->time_scale_screen);
-	printf("add lst\t\t=%u\n", raster->time_add_to_lst);
-	printf("z buffer\t=%u\n", raster->time_z_buffer);
-	printf("clip screen\t=%u\n", raster->time_clipping_screen);
-	printf("draw\t\t=%u\n", raster->time_draw);
-	printf("free\t\t=%u\n\n\n\n", raster->time_free_lst);
+	// printf("world view\t=%u\n", raster->time_world_view);
+	// printf("culling\t\t=%u\n", raster->time_culling);
+	// printf("shade\t\t=%u\n", raster->time_shade);
+	// printf("cam view\t=%u\n", raster->time_cam_view);
+	// printf("clip camera\t=%u\n", raster->time_clipping_camera);
+	// printf("projection\t=%u\n", raster->time_projetion);
+	// printf("scale\t\t=%u\n", raster->time_scale_screen);
+	// printf("add lst\t\t=%u\n", raster->time_add_to_lst);
+	// printf("clip screen\t=%u\n", raster->time_clipping_screen);
+	// printf("draw\t\t=%u\n", raster->time_draw);
+	// printf("free\t\t=%u\n\n\n\n", raster->time_free_lst);
 
 }
