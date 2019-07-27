@@ -6,15 +6,14 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/24 12:57:54 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/27 14:12:05 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 
-t_myraster	*ft_keyboard_event_check(t_win *wn, Uint8 *old, t_myraster *raster)
+t_myraster	*ft_keyboard_event_check(t_win *wn, t_myraster *raster)
 {
-	(void)old;
 	if (wn->state[SDL_SCANCODE_ESCAPE])
 	{
 		raster->quit = TRUE;
@@ -25,66 +24,44 @@ t_myraster	*ft_keyboard_event_check(t_win *wn, Uint8 *old, t_myraster *raster)
 		wn->interface = DGAME;
 	else if (key_pressed(wn, SDL_SCANCODE_SPACE))
 		wn->interface = RGAME;
-	if (wn->state[SDL_SCANCODE_UP] == 1/* && old[SDL_SCANCODE_UP] == 0*/)
-	{
+	if (wn->state[SDL_SCANCODE_UP])
 		raster->v_camera.y -= 1;   // a changer apres pour que ce soit clair que le y est inverser
-		raster->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_DOWN] == 1 /*&& old[SDL_SCANCODE_DOWN] == 0*/)
-	{
+	if (wn->state[SDL_SCANCODE_DOWN])
 		raster->v_camera.y += 1;
-		raster->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_LEFT] == 1 /*&& old[SDL_SCANCODE_LEFT] == 0*/)
-	{
+	if (wn->state[SDL_SCANCODE_LEFT])
 		raster->v_camera.x -= 1;
-		raster->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_RIGHT] == 1/* && old[SDL_SCANCODE_RIGHT] == 0*/)
-	{
+	if (wn->state[SDL_SCANCODE_RIGHT])
 		raster->v_camera.x += 1;
-		raster->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_A] == 1/* && old[SDL_SCANCODE_A] == 0*/)
-	{
+	if (wn->state[SDL_SCANCODE_A])
 		raster->translate_right = 1;
-		raster->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_D] == 1/* && old[SDL_SCANCODE_D] == 0*/)
-	{
+	if (wn->state[SDL_SCANCODE_D])
 		raster->translate_left = 1;
-		raster->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_W] == 1/* && old[SDL_SCANCODE_W] == 0*/)
-	{
+	if (wn->state[SDL_SCANCODE_W])
 		raster->avancer = 1;
-		raster->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_S] == 1/* && old[SDL_SCANCODE_S] == 0*/)
-	{
+	if (wn->state[SDL_SCANCODE_S])
 		raster->reculer = 1;
+	if (wn->state[SDL_SCANCODE_S] || wn->state[SDL_SCANCODE_W] || wn->state[SDL_SCANCODE_D]
+			|| wn->state[SDL_SCANCODE_A] || wn->state[SDL_SCANCODE_RIGHT]
+			|| wn->state[SDL_SCANCODE_LEFT] || wn->state[SDL_SCANCODE_DOWN]
+			|| wn->state[SDL_SCANCODE_UP])
 		raster->modif = 1;
-	}
-	if (wn->state[SDL_SCANCODE_U] == 1 && wn->old[SDL_SCANCODE_U] == 0)
+	if (wn->state[SDL_SCANCODE_U] && !wn->old[SDL_SCANCODE_U])
 	{
-		if (raster->leave_mouse == 1)
+		if (raster->leave_mouse)
 		{
-			SDL_WarpMouseInWindow(wn->window, XSCREEN / 2, YSCREEN / 2);
-			raster->leave_mouse = 0;
 			wn->input->x = wn->xscreen / 2;
 			wn->input->y = wn->yscreen / 2;
+			SDL_WarpMouseInWindow(wn->window, wn->input->x, wn->input->y);
+			raster->leave_mouse = 0;
 		}
 		else
-		{
 			raster->leave_mouse = 1;
-		}
 	}
 	return (raster);
 }
 
 t_myraster	*ft_mouse_event_check(t_win *wn, t_myraster *raster)
 {
-	//		printf("lalalala\n");
 	if (!raster->leave_mouse)
 	{
 		SDL_ShowCursor(SDL_DISABLE);
@@ -99,22 +76,9 @@ t_myraster	*ft_mouse_event_check(t_win *wn, t_myraster *raster)
 	return (raster);
 }
 
-static void mouseconfig(t_win *wn)
-  {
-	  (void)wn;
-//		SDL_ShowCursor(wn->interface != RGAME && wn->interface != DGAME && ((t_myraster *)wn->rasterizer->tmp)->leave_mouse ? SDL_ENABLE : SDL_DISABLE);
-//		SDL_CaptureMouse((wn->interface == RGAME || wn->interface == DGAME) && ((t_myraster *)wn->rasterizer->tmp)->leave_mouse ? 1 : 0);
-//	(wn->interface == RGAME || wn->interface == DGAME) && !((t_myraster*)wn->rasterizer->tmp)->leave_mouse? SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) : 0;
-}
-
 t_myraster	*ft_input_event_check(t_win *wn, t_myraster *raster)
 {
-//	SDL_PollEvent(&(wn->ev));
-//	wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
-//	wn->input->oldmouse = wn->input->mouse;
-//	wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
-	raster = ft_keyboard_event_check(wn, raster->old, raster);
+	raster = ft_keyboard_event_check(wn, raster);
 	raster = ft_mouse_event_check(wn, raster);
-	mouseconfig(wn);
 	return(raster);
 }
