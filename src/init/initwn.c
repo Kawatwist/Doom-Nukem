@@ -52,23 +52,6 @@ static void	inittext(t_win **wn)
 	inittext2(wn, 1, "option", "intro");
 }
 
-static void	initmap(t_win **wn)
-{
-	((*wn)->map = malloc(sizeof(t_map))) == NULL ? exit(0) : 0;
-	(*wn)->map->x = 0.1;
-	(*wn)->map->y = 0.1;
-	(*wn)->map->w = 600;
-	(*wn)->map->h = 600;
-	(*wn)->map->size = 1;
-}
-
-static void	initelem(t_win **wn)
-{
-	((*wn)->elem = malloc(sizeof(t_elem))) == NULL ? stop_exec("Elem malloc failed\n", *wn) : 0;
-	(*wn)->elem->point = NULL;
-	(*wn)->elem->next = NULL;
-}
-
 static void	initmenu(t_win **wn)
 {
 	((*wn)->menu = malloc(sizeof(t_menu))) == NULL ? exit(0) : 0;
@@ -97,10 +80,9 @@ void		initwn(t_win **wn)
 	(*wn)->xscreen = XSCREEN;
 	(*wn)->yscreen = YSCREEN;
 	initconsole(wn);
-	initmap(wn);
-	initelem(wn);
 	initmenu(wn);
 	inittext(wn);
+	init_edit(wn);
 	initmutex(wn);
 	(*wn)->pixels = NULL;
 	(*wn)->flag = 0;

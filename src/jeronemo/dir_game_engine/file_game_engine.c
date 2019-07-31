@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <header_game_engine.h>
+#include <header_game_engine.h>
+#include <editor.h>
+
 t_mypolygon		*ft_read_the_polygon_file(void);
 
 t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)

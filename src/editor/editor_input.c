@@ -10,43 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom.h"
+#include "editor.h"
 
-static void	resetmap(t_win *wn)
+static void	resetmap(t_edit *edit)
 {
-	wn->map->x = 0.1;
-	wn->map->y = 0.1;
-	wn->map->h = wn->editext.map_h;
-	wn->map->w = wn->editext.map_w;
-	wn->map->size = 1;
+	edit->map->x = 0.1;
+	edit->map->y = 0.1;
+	edit->map->h = edit->indice->map_h;
+	edit->map->w = edit->indice->map_w;
+	edit->map->size = 1;
 }
 
-static void	keyboardtool(t_win *wn)
+static void	keyboardtool(t_win *wn, t_edit *edit)
 {
-	wn->state[SDL_SCANCODE_LEFT] ? wn->map->x -= (6.5 - wn->map->size) : 0;
-	wn->state[SDL_SCANCODE_RIGHT] ? wn->map->x += (6.5 - wn->map->size) : 0;
-	wn->state[SDL_SCANCODE_UP] ? wn->map->y -= (6.5 - wn->map->size) : 0;
-	wn->state[SDL_SCANCODE_DOWN] ? wn->map->y += (6.5 - wn->map->size) : 0;
+	wn->state[SDL_SCANCODE_LEFT] ? edit->map->x -= (6.5 - edit->map->size) : 0;
+	wn->state[SDL_SCANCODE_RIGHT] ? edit->map->x += (6.5 - edit->map->size) : 0;
+	wn->state[SDL_SCANCODE_UP] ? edit->map->y -= (6.5 - edit->map->size) : 0;
+	wn->state[SDL_SCANCODE_DOWN] ? edit->map->y += (6.5 - edit->map->size) : 0;
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MENU : 0;
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 0 : 0;
-	wn->state[SDL_SCANCODE_KP_PLUS] && wn->map->size < 6
-		&& !wn->old[SDL_SCANCODE_KP_PLUS] ? wn->map->size *= 1.2 : 0;
+	wn->state[SDL_SCANCODE_KP_PLUS] && edit->map->size < 6
+		&& !wn->old[SDL_SCANCODE_KP_PLUS] ? edit->map->size *= 1.2 : 0;
 	wn->state[SDL_SCANCODE_KP_PLUS]
-		&& wn->map->size >= 6 ? wn->map->size = 6 : 0;
-	wn->state[SDL_SCANCODE_KP_MINUS] && wn->map->size > 0.5
-		&& !wn->old[SDL_SCANCODE_KP_MINUS] ? wn->map->size *= 0.8 : 0;
+		&& edit->map->size >= 6 ? edit->map->size = 6 : 0;
+	wn->state[SDL_SCANCODE_KP_MINUS] && edit->map->size > 0.5
+		&& !wn->old[SDL_SCANCODE_KP_MINUS] ? edit->map->size *= 0.8 : 0;
 	wn->state[SDL_SCANCODE_KP_MINUS]
-		&& wn->map->size <= 0.5 ? wn->map->size = 0.5 : 0;
-	wn->state[SDL_SCANCODE_R] ? resetmap(wn) : 0;
-	wn->map->h = wn->editext.map_h * wn->map->size;
-	wn->map->w = wn->editext.map_w * wn->map->size;
+		&& edit->map->size <= 0.5 ? edit->map->size = 0.5 : 0;
+	wn->state[SDL_SCANCODE_R] ? resetmap(edit) : 0;
+	edit->map->h = edit->indice->map_h * edit->map->size;
+	edit->map->w = edit->indice->map_w * edit->map->size;
 }
 
 void		inputeditor(t_win *wn)
 {
 	if (!(wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT))
 		&& (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)))
-		change_bloc(wn);
-	keyboardtool(wn);
-	mouse_input_poly(wn);
+		change_bloc(wn, wn->edit);
+	keyboardtool(wn, wn->edit);
+	mouse_input_poly(wn, wn->edit);
 }

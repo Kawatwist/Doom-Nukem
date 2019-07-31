@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom.h"
+#include "editor.h"
 #include "header_bsp.h"
 
 t_myvec 		*create_vec_node(t_point *point)
@@ -33,7 +33,7 @@ t_mypolygon	 	*polygon_map(t_win *wn)
 	t_myvec 		*ver;
 	t_myvec			*tex;
 
-	keep = wn->elem;
+	keep = ((t_edit *)wn->edit)->elem;
 	gon	= NULL;
 	tex = NULL;
 	while (keep != NULL)
@@ -54,35 +54,35 @@ t_mypolygon	 	*polygon_map(t_win *wn)
 		ft_add_polygon(&gon, poly);
 		keep = keep->next;
 	}
-	if (wn->elem == NULL)
+	if (((t_edit *)wn->edit)->elem == NULL)
 		gon = NULL;
 	return (gon);
 }
 
-t_poly 				*poly_map(t_win *wn)
-{
-	t_poly 		*poly;
-	t_elem 		*keep;
-	int			i;
+// t_poly 				*poly_map(t_win *wn)
+// {
+// 	t_poly 		*poly;
+// 	t_elem 		*keep;
+// 	int			i;
 
-	keep = wn->elem;
-	i = 0;
-	while (keep != NULL)
-	{
-		poly = malloc(sizeof(t_poly));
-		poly->nb_ver = keep->nb_pt;
-		poly->ver_list = malloc(sizeof(t_vec) * poly->nb_ver);
-		while (i < poly->nb_ver && keep->point != NULL)
-		{
-			poly->ver_list[i].x = keep->point->x;
-			poly->ver_list[i].y = keep->point->y;
-			poly->ver_list[i].z = keep->point->z;
-			i++;
-			keep->point = keep->point->next;
-		}
-		keep = keep->next;
-	}
-	if (wn->elem == NULL)
-		poly = NULL;
-	return (poly);
-}
+// 	keep = wn->elem;
+// 	i = 0;
+// 	while (keep != NULL)
+// 	{
+// 		poly = malloc(sizeof(t_poly));
+// 		poly->nb_ver = keep->nb_pt;
+// 		poly->ver_list = malloc(sizeof(t_vec) * poly->nb_ver);
+// 		while (i < poly->nb_ver && keep->point != NULL)
+// 		{
+// 			poly->ver_list[i].x = keep->point->x;
+// 			poly->ver_list[i].y = keep->point->y;
+// 			poly->ver_list[i].z = keep->point->z;
+// 			i++;
+// 			keep->point = keep->point->next;
+// 		}
+// 		keep = keep->next;
+// 	}
+// 	if (wn->elem == NULL)
+// 		poly = NULL;
+// 	return (poly);
+// }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom.h"
+#include "editor.h"
 
 void		print_background_editor(t_win *wn)
 {
@@ -32,7 +32,7 @@ static int	is_between(double x, double min, double max)
 	return (1);
 }
 
-void		change_bloc(t_win *wn)
+void		change_bloc(t_win *wn, t_edit *edit)
 {
 	int x;
 	int y;
@@ -41,35 +41,38 @@ void		change_bloc(t_win *wn)
 	y = wn->input->y;
 	if (is_between(x, 5.5 * wn->xscreen / 7, 5.75 * wn->xscreen / 7) == 0
 		&& is_between(y, 0, 0.25 * wn->yscreen / 7) == 0)
-		wn->edit_image.bgh = 1;
+		edit->tab->bgh = 1;
 	else if (is_between(x, 5.5 * wn->xscreen / 7, 5.75 * wn->xscreen / 7) == 0
 		&& is_between(y, 0.25, 0.5 * wn->yscreen / 7) == 0)
-		wn->edit_image.bgh = 0;
+		edit->tab->bgh = 0;
 	if (is_between(x, 6.75 * wn->xscreen / 7, wn->xscreen) == 0 && is_between(y, 3 *
-		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
-		wn->edit_image.in = 0;
+		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && edit->tab->in == 1)
+		edit->tab->in = 0;
 	else if (is_between(x, 6.75 * wn->xscreen / 7, wn->xscreen) == 0 && is_between(y, 5.75 *
-		wn->yscreen / 7, 6 * wn->yscreen / 7) == 0 && wn->edit_image.in == 0)
-		wn->edit_image.in = 1;
+		wn->yscreen / 7, 6 * wn->yscreen / 7) == 0 && edit->tab->in == 0)
+		edit->tab->in = 1;
 	if (is_between(x, 5.5 * wn->xscreen / 7, 5.75 * wn->xscreen / 7) == 0 && is_between(y, 3 *
-		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
-		wn->edit_image.tbp = 0;
+		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && edit->tab->in == 1)
+		edit->tab->tbp = 0;
 	if (is_between(x, 5.75 * wn->xscreen / 7, 6 * wn->xscreen / 7) == 0 && is_between(y, 3 *
-		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
-		wn->edit_image.tbp = 1;
+		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && edit->tab->in == 1)
+		edit->tab->tbp = 1;
 	if (is_between(x, 6 * wn->xscreen / 7, 6.25 * wn->xscreen / 7) == 0 && is_between(y, 3 *
-		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
-		wn->edit_image.tbp = 2;
+		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && edit->tab->in == 1)
+		edit->tab->tbp = 2;
 }
 
 void		printeditor(t_win *wn)
 {
+	t_edit 	*edit;
+
+	edit = ((t_edit *)(*wn).edit);
 	print_background_editor(wn);
 	// (is_path_ok(wn, wn->bg_map.path) == 0 && wn->edit_image.bgh == 0) ? load_background(wn) : 0;
-	showmap(wn);
-	which_cursor(wn);
-	print_tools_editor(wn);
-	print_bgh_editor(wn);
-	print_tbp_editor(wn);
-	wn->editext.on == 1 ? print_x_y_z(wn) : 0;
+	showmap(wn, edit);
+	which_cursor(wn, edit);
+	// print_tools_editor(wn, edit);
+	print_bgh_editor(wn, edit);
+	print_tbp_editor(wn, edit);
+	edit->indice->on == 1 ? print_x_y_z(wn, edit) : 0;
 }

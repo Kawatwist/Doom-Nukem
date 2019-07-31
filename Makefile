@@ -89,7 +89,6 @@ SRC				= main.c										\
 				  menu_show.c 									\
 				  load_fonts.c 									\
 				  tool.c 										\
-				  bresenham.c 									\
 				  elem.c 										\
 				  bgh_display.c 								\
 				  tools_editor.c 								\
@@ -99,7 +98,8 @@ SRC				= main.c										\
 				  display_blocs.c 								\
 				  edit_poly.c 									\
 				  file_list.c									\
-				  bresen2.c										\
+				  bresenham.c 									\
+				  bresenhamburger.c								\
 				  color.c										\
 				  file_newclip.c								\
 				  file_downside.c								\

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <doom.h>
+#include <editor.h>
 
 SDL_Color	making_color(unsigned char r, unsigned char g, unsigned char b,
 	unsigned char a)

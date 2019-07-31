@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom.h"
+#include <editor.h>
 
 void 		print_message(t_win *wn, char *msg, SDL_Color color)
 {
@@ -31,7 +31,7 @@ void 		print_message(t_win *wn, char *msg, SDL_Color color)
 	else
 	{
 		time = 0;
-		wn->varedit.map_saved = 0;
+		((t_edit *)wn->edit)->var->map_saved = 0;
 	}
 }
 

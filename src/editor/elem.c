@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom.h"
+#include "editor.h"
 
 void			find_last_poly(t_elem **curr)
 {
@@ -18,32 +18,32 @@ void			find_last_poly(t_elem **curr)
 		*curr = (*curr)->next;
 }
 
-void			find_last_point(t_win *wn, t_point **point)
+void			find_last_point(t_edit *edit, t_point **point)
 {
-	wn->varedit.nb_point = 1;
+	edit->var->nb_point = 1;
 	while (*point != NULL && (*point)->next != NULL)
 	{
 		*point = (*point)->next;
-		wn->varedit.nb_point++;
+		edit->var->nb_point++;
 	}
-	wn->varedit.nb_point += 2;
+	edit->var->nb_point += 2;
 }
 
-static void		fill_point(t_win *wn, t_point **point) // SET VALUE OF A POINT AND CREATE THE NEXT ONE
+static void		fill_point(t_win *wn, t_edit *edit, t_point **point)
 {
 	(*point)->next = malloc(sizeof(t_point));
 	*point = (*point)->next;
-	(*point)->x = (wn->input->x - wn->map->x) / wn->map->size;
-	(*point)->y = (wn->input->y - wn->map->y) / wn->map->size;
-	(*point)->z = wn->editext.val_z;
+	(*point)->x = (wn->input->x - edit->map->x) / edit->map->size / 10;
+	(*point)->y = (wn->input->y - edit->map->y) / edit->map->size / 10;
+	(*point)->z = edit->indice->val_z;
 	(*point)->next = malloc(sizeof(t_point));
-	(*point)->next->x = (wn->input->x - wn->map->x) / wn->map->size;
-	(*point)->next->y = (wn->input->y - wn->map->y) / wn->map->size;
+	(*point)->next->x = (wn->input->x - edit->map->x) / edit->map->size / 10;
+	(*point)->next->y = (wn->input->y - edit->map->y) / edit->map->size / 10;
 	(*point)->next->z = 0;
 	(*point)->next->next = NULL;
 }
 
-int				check_point(t_win *wn, t_point *point) // DODGE DOUBLE SAME POINT
+int				check_point(t_win *wn, t_point *point)
 {
 	if (wn->input->x == point->x && wn->input->y == point->y)
 		return (FALSE);
@@ -67,50 +67,50 @@ void			remove_poly(t_elem *curr)
 	}
 }
 
-static void 	add_two_points(t_win *wn, t_elem *curr)
+static void 	add_two_points(t_win *wn, t_edit *edit, t_elem *curr)
 {
 	t_point *point;
 
 	curr->point = malloc(sizeof(t_point));
 	point = curr->point;
-	point->x = (wn->input->x - wn->map->x) / wn->map->size;
-	point->y = (wn->input->y - wn->map->y) / wn->map->size;
-	point->z = wn->editext.val_z;
+	point->x = (wn->input->x - edit->map->x) / edit->map->size / 10;
+	point->y = (wn->input->y - edit->map->y) / edit->map->size / 10;
+	point->z = edit->indice->val_z;
 	point->next = malloc(sizeof(t_point));
-	point->next->x = (wn->input->x - wn->map->x) / wn->map->size;
-	point->next->y = (wn->input->y - wn->map->y) / wn->map->size;
+	point->next->x = (wn->input->x - edit->map->x) / edit->map->size / 10;
+	point->next->y = (wn->input->y - edit->map->y) / edit->map->size / 10;
 	point->next->z = 0;
 	point->next->next = NULL;
 }
 
-void			mouse_input_poly(t_win *wn)
+void			mouse_input_poly(t_win *wn, t_edit *edit)
 {
 	t_elem  *curr;
 	t_point *point;
 
-	curr = wn->elem;
-	find_last_poly(&curr); // REACH LAST POLYGON ACTIF
-	if (curr->point == NULL && mouse_pressed(wn, SDL_BUTTON_LEFT)  && (wn->input->x - wn->map->x) <= wn->map->w && (wn->input->y - wn->map->y) <= wn->map->h && (wn->input->x - wn->map->x) >= 0 && (wn->input->y - wn->map->y) >= 0)
-		add_two_points(wn, curr);
-	else if ((mouse_pressed(wn, SDL_BUTTON_LEFT) || mouse_pressed(wn, SDL_BUTTON_RIGHT)) && (wn->input->x - wn->map->x) <= wn->map->w && (wn->input->y - wn->map->y) <= wn->map->h && (wn->input->x - wn->map->x) >= 0 && (wn->input->y - wn->map->y) >= 0)
+	curr = edit->elem;
+	find_last_poly(&curr);
+	if (curr->point == NULL && mouse_pressed(wn, SDL_BUTTON_LEFT)  && (wn->input->x - edit->map->x) <= edit->map->w && (wn->input->y - edit->map->y) <= edit->map->h && (wn->input->x - edit->map->x) >= 0 && (wn->input->y - edit->map->y) >= 0)
+		add_two_points(wn, edit, curr);
+	else if ((mouse_pressed(wn, SDL_BUTTON_LEFT) || mouse_pressed(wn, SDL_BUTTON_RIGHT)) && (wn->input->x - edit->map->x) <= edit->map->w && (wn->input->y - edit->map->y) <= edit->map->h && (wn->input->x - edit->map->x) >= 0 && (wn->input->y - edit->map->y) >= 0)
 	{
-		wn->varedit.nb_point = 0;
-		if (mouse_pressed(wn, SDL_BUTTON_LEFT)) // Create a new point and fill it /!\ NEED TO BE CARE FOR THE FIRST POInt OF THE FIRST POLYGON
+		edit->var->nb_point = 0;
+		if (mouse_pressed(wn, SDL_BUTTON_LEFT))
 		{
 			point = curr->point;
-			find_last_point(wn, &point); // REACH LAST POINT CREATE
-			fill_point(wn, &point);
-			curr->nb_pt = wn->varedit.nb_point;
+			find_last_point(edit, &point);
+			fill_point(wn, edit, &point);
+			curr->nb_pt = edit->var->nb_point;
 		}
-		if (mouse_pressed(wn, SDL_BUTTON_RIGHT)) // CREATE A NEW POLY   /!\ BECARFULL IF A POLYGONE GOT LESS THAN 3 POINT HE'S INVALID
+		if (mouse_pressed(wn, SDL_BUTTON_RIGHT))
 		{
 			if (curr->nb_pt < 5)
 				remove_poly(curr);
 			else
 			{
-				if ((curr->next = malloc(sizeof(t_elem))) == NULL) // MALLOC NEW POLY
+				if ((curr->next = malloc(sizeof(t_elem))) == NULL)
 					stop_exec("Malloc elem failed\n", wn);
-				curr->next->next = NULL;                  // INIT NEXT POINTEUR
+				curr->next->next = NULL;
 				curr->next->point = NULL;
 			}
 		}

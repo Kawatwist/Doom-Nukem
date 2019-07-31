@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <doom.h>
+#include <editor.h>
 
 static void		load_edit_texture(t_win **wn)
 {
@@ -37,38 +37,70 @@ static void		load_edit_texture(t_win **wn)
 	free((*wn)->load);
 }
 
+static void	initmap(t_edit *edit)
+{
+	edit->map->x = 0.1;
+	edit->map->y = 0.1;
+	edit->map->w = 600;
+	edit->map->h = 600;
+	edit->map->size = 1;
+}
+
+static void	initelem(t_edit *edit)
+{
+	edit->elem->point = NULL;
+	edit->elem->next = NULL;
+}
+
 void			init_edit(t_win **wn)
 {
-	(*wn)->editext.texture_x = NULL;
-	(*wn)->editext.texture_y = NULL;
-	(*wn)->editext.texture_z = NULL;
-	(*wn)->edit_image.texture_tools = NULL;
-	(*wn)->editext.on = 1;
-	(*wn)->editext.map_w = 60;
-	(*wn)->editext.map_h = 60;
-	(*wn)->edit_image.bgh = 0;
-	(*wn)->edit_image.in = 1;
-	(*wn)->edit_image.tbp = 2;
-	(*wn)->bg_map.path = NULL;
-	(*wn)->editext.val_z = 200;
+	t_edit *edit;
+
+	(*wn)->edit = malloc(sizeof(t_edit));
+	edit = ((t_edit *)(*wn)->edit);
+	edit->map = malloc(sizeof(t_map));
+	edit->elem = malloc(sizeof(t_elem));
+	edit->loadbg = malloc(sizeof(t_loadbg));
+	edit->tab = malloc(sizeof(t_tab));
+	edit->indice = malloc(sizeof(t_indice));
+	edit->var = malloc(sizeof(t_var));
+	edit->indice->texture_x = NULL;
+	edit->indice->texture_y = NULL;
+	edit->indice->texture_z = NULL;
+	edit->indice->on = 1;
+	edit->indice->map_w = 600;
+	edit->indice->map_h = 600;
+	edit->indice->val_z = 20;
+	edit->tab->texture_tools = NULL;
+	edit->tab->bgh = 0;
+	edit->tab->in = 1;
+	edit->tab->tbp = 2;
+	edit->loadbg->path = NULL;
+	edit->var->nb_point = 1;
+	edit->var->map_saved = 0;
+	initmap(edit);
+	initelem(edit);
 	load_edit_texture(wn);
 }
 
 void			stop_editor(t_win *wn)
 {
-	if (wn->editext.texture_x != NULL)
-		SDL_DestroyTexture(wn->editext.texture_x);
-	if (wn->editext.texture_y != NULL)
-		SDL_DestroyTexture(wn->editext.texture_y);
-	if (wn->editext.texture_z != NULL)
-		SDL_DestroyTexture(wn->editext.texture_z);
-	if (wn->edit_image.texture_tools != NULL)
-		SDL_DestroyTexture(wn->edit_image.texture_tools);
-	if (wn->edit_image.texture_bgh != NULL)
-		SDL_DestroyTexture(wn->edit_image.texture_bgh);
-	if (wn->edit_image.texture_tbp != NULL)
-		SDL_DestroyTexture(wn->edit_image.texture_tbp);
-	if (wn->edit_image.fleche != NULL)
-		SDL_DestroyTexture(wn->edit_image.fleche);
+	t_edit 	*edit;
+
+	edit = ((t_edit *)(*wn).edit);
+	if (edit->indice->texture_x != NULL)
+		SDL_DestroyTexture(edit->indice->texture_x);
+	if (edit->indice->texture_y != NULL)
+		SDL_DestroyTexture(edit->indice->texture_y);
+	if (edit->indice->texture_z != NULL)
+		SDL_DestroyTexture(edit->indice->texture_z);
+	if (edit->tab->texture_tools != NULL)
+		SDL_DestroyTexture(edit->tab->texture_tools);
+	if (edit->tab->texture_bgh != NULL)
+		SDL_DestroyTexture(edit->tab->texture_bgh);
+	if (edit->tab->texture_tbp != NULL)
+		SDL_DestroyTexture(edit->tab->texture_tbp);
+	if (edit->tab->fleche != NULL)
+		SDL_DestroyTexture(edit->tab->fleche);
 	wn->fonts->arial != NULL ? TTF_CloseFont(wn->fonts->arial) : 0;
 }

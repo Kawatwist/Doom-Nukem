@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom.h"
+#include <editor.h>
 
 void			print_text_with_ariel_font(t_win *wn, char *s, SDL_Color color, SDL_Rect position)
 {
@@ -64,9 +64,9 @@ void			print_text_with_arial_path(t_win *wn, char *s, SDL_Color color, SDL_Rect 
 	surface = TTF_RenderText_Solid(wn->fonts->arial_path, s, color);
 	if (surface == NULL)
 		stop_exec("TTF_RenderText()failed", wn);
-	wn->edit_image.bg_path = SDL_CreateTextureFromSurface(wn->rend, surface);
-	if (wn->edit_image.bg_path == NULL)
+	((t_edit *)wn->edit)->tab->bg_path = SDL_CreateTextureFromSurface(wn->rend, surface);
+	if (((t_edit *)wn->edit)->tab->bg_path == NULL)
 		stop_exec("SDL_CreateTextureFromSurface()failed", wn);
 	SDL_FreeSurface(surface);
-	SDL_RenderCopy(wn->rend, wn->edit_image.bg_path, &wn->edit_image.pos_path, &position);
+	SDL_RenderCopy(wn->rend, ((t_edit *)wn->edit)->tab->bg_path, &((t_edit *)wn->edit)->tab->pos_path, &position);
 }

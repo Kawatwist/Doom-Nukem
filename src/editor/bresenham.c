@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/28 14:47:38 by llejeune          #+#    #+#             */
-/*   Updated: 2019/06/03 10:28:54 by llejeune         ###   ########.fr       */
+/*   Created: 2019/07/31 17:52:27 by llejeune          #+#    #+#             */
+/*   Updated: 2019/07/31 17:53:35 by llejeune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static void	init_bres(t_win *wn, t_point *alst, t_point *next)
 	wn->bres.dx = abs(2 * wn->bres.dx);
 	wn->bres.dy = abs(2 * wn->bres.dy);
 	wn->bres.e = (wn->bres.dx > wn->bres.dy) ?
-			wn->bres.dx / 2 : wn->bres.dy / 2;
+		wn->bres.dx / 2 : wn->bres.dy / 2;
 }
 
 static void	bres_x(t_win *wn)
 {
 	if (wn->bres.x <= wn->xscreen && wn->bres.x >= 0
-		&& wn->bres.y <= wn->yscreen && wn->bres.y >= 0)
+			&& wn->bres.y <= wn->yscreen && wn->bres.y >= 0)
 		SDL_RenderDrawPoint(wn->rend, wn->bres.x, wn->bres.y);
 	wn->bres.e = wn->bres.e - wn->bres.dy;
 	if (wn->bres.e < 0)
@@ -45,7 +45,7 @@ static void	bres_x(t_win *wn)
 static void	bres_y(t_win *wn)
 {
 	if (wn->bres.x <= wn->xscreen && wn->bres.x >= 0
-		&& wn->bres.y <= wn->yscreen && wn->bres.y >= 0)
+			&& wn->bres.y <= wn->yscreen && wn->bres.y >= 0)
 		SDL_RenderDrawPoint(wn->rend, wn->bres.x, wn->bres.y);
 	wn->bres.e = wn->bres.e - wn->bres.dx;
 	if (wn->bres.e < 0)
