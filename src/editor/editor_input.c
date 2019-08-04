@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 19:02:08 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/16 16:53:29 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/04 13:28:36 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void	resetmap(t_edit *edit)
 
 static void	keyboardtool(t_win *wn, t_edit *edit)
 {
+	key_pressed(wn, SDL_SCANCODE_O) ? edit->var->cursor -= 1 : 0; // NOT PROTECT IF < 0
+	key_pressed(wn, SDL_SCANCODE_P) ? edit->var->cursor += 1 : 0; // NOT PROTECT IF > 9
 	wn->state[SDL_SCANCODE_LEFT] ? edit->map->x -= (6.5 - edit->map->size) : 0;
 	wn->state[SDL_SCANCODE_RIGHT] ? edit->map->x += (6.5 - edit->map->size) : 0;
 	wn->state[SDL_SCANCODE_UP] ? edit->map->y -= (6.5 - edit->map->size) : 0;

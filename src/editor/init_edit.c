@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:58:28 by llejeune          #+#    #+#             */
-/*   Updated: 2019/07/24 18:01:52 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/04 18:14:05 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void		load_edit_texture(t_win **wn)
 	free((*wn)->load);
 	(*wn)->load = ft_strdup("./texture/editor/fleche.tga");
 	load_texture(*wn, "editor", "affichage", "fleche");
+	(*wn)->load = ft_strdup("./texture/editor/cursor.tga");
+	load_texture(*wn, "editor", "affichage", "cursor_panel");
 	free((*wn)->load);
 }
 
@@ -52,7 +54,21 @@ static void	initelem(t_edit *edit)
 	edit->elem->next = NULL;
 }
 
-void			init_edit(t_win **wn)
+static void	init_editor_fct(t_edit *edit)
+{
+	edit->cursor_fct[CURSOR] = cursor;
+	edit->cursor_fct[DRAW] = draw_cursor;
+	edit->cursor_fct[ERASE] = erase_cursor;
+	edit->cursor_fct[ZOOM] = zoom_cursor;
+	edit->cursor_fct[HAND] = hand_cursor;
+	edit->cursor_fct[SELECT] = select_cursor;
+	edit->cursor_fct[WAND] = wand_cursor;
+	edit->cursor_fct[FORM] = form_cursor;
+	edit->cursor_fct[SWAP] = swap_cursor;
+	edit->cursor_fct[RESIZE] = resize_cursor;
+}
+
+void		init_edit(t_win **wn)
 {
 	t_edit *edit;
 
@@ -76,10 +92,14 @@ void			init_edit(t_win **wn)
 	edit->tab->in = 1;
 	edit->tab->tbp = 2;
 	edit->loadbg->path = NULL;
+	edit->var->cursor = 1;
+	edit->var->swapvar = 0;
 	edit->var->nb_point = 1;
 	edit->var->map_saved = 0;
+	edit->selected = NULL;
 	initmap(edit);
 	initelem(edit);
+	init_editor_fct(edit);
 	load_edit_texture(wn);
 }
 

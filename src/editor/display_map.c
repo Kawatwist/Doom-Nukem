@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 15:56:46 by llejeune          #+#    #+#             */
-/*   Updated: 2019/07/05 15:56:48 by llejeune         ###   ########.fr       */
+/*   Updated: 2019/08/04 18:05:55 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,37 @@ static void	showelem(t_win *wn, t_edit *edit)
 		SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
 		while (point != NULL && point->next != NULL)
 		{
-			start = create_t_point((point->x * edit->map->size + edit->map->x) * 10, (point->y * edit->map->size + edit->map->y) * 10);
-			end = create_t_point((point->next->x * edit->map->size + edit->map->x) * 10, (point->next->y * edit->map->size + edit->map->y) * 10);
+			start = create_t_point((point->x * edit->map->size * 10) + edit->map->x, (point->y * edit->map->size * 10) + edit->map->y);
+			end = create_t_point((point->next->x * edit->map->size * 10) + edit->map->x, (point->next->y * edit->map->size * 10) + edit->map->y);
+			if ((edit->var->cursor & 0xFFFF) == SWAP)
+			{
+				start.x += (point->z / 200) * (short)((edit->var->swapvar & 0xFFFF0000) >> 16);
+				start.y += (point->z / 200) * (short)(edit->var->swapvar & 0xFFFF);
+				end.x += (point->next->z / 200) * (short)((edit->var->swapvar & 0xFFFF0000) >> 16);
+				end.y += (point->next->z / 200) * (short)(edit->var->swapvar & 0xFFFF);
+			}
 			bresenham(wn, &start, &end);
 			point = point->next;
 		}
 		if (curr->next == NULL && point != NULL)
 		{
-			start = create_t_point((point->x * edit->map->size + edit->map->x) * 10, (point->y * edit->map->size + edit->map->y) * 10);
+			start = create_t_point((point->x * edit->map->size * 10) + edit->map->x, (point->y * edit->map->size * 10) + edit->map->y);
 			end = create_t_point(wn->input->x, wn->input->y);
 			bresenham(wn, &start, &end);
 		}
 		if (curr->nb_pt > 4 && curr->next != NULL)
 		{
-			start = create_t_point((curr->point->x * edit->map->size + edit->map->x) * 10, (curr->point->y * edit->map->size + edit->map->y) * 10);
+			start = create_t_point((curr->point->x * edit->map->size * 10) + edit->map->x, (curr->point->y * edit->map->size * 10) + edit->map->y);
 			tmp = curr->point;
 			find_last_point(edit, &tmp);
-			end = create_t_point((tmp->x * edit->map->size + edit->map->x) * 10, (tmp->y * edit->map->size + edit->map->y) * 10);
+			end = create_t_point((tmp->x * edit->map->size * 10) + edit->map->x, (tmp->y * edit->map->size * 10) + edit->map->y);
+			if ((edit->var->cursor & 0xFFFF) == SWAP)
+			{
+				start.x += (curr->point->z / 200) * (short)((edit->var->swapvar & 0xFFFF0000) >> 16);
+				start.y += (curr->point->z / 200) * (short)(edit->var->swapvar & 0xFFFF);
+				end.x += (tmp->z / 200) * (short)((edit->var->swapvar & 0xFFFF0000) >> 16);
+				end.y += (tmp->z / 200) * (short)(edit->var->swapvar & 0xFFFF);
+			}
 			bresenham(wn, &start, &end);
 		}
 		curr = curr->next;

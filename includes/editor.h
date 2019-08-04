@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 16:48:09 by llejeune          #+#    #+#             */
-/*   Updated: 2019/07/31 16:48:12 by llejeune         ###   ########.fr       */
+/*   Updated: 2019/08/04 18:28:08 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 # define EDITOR_H
 
 # include <doom.h>
+
+typedef enum		e_cursor
+{
+	CURSOR = 0,
+	DRAW = 1,
+	ERASE = 2,
+	ZOOM = 3,
+	HAND = 4,
+	SELECT = 5,
+	WAND = 6,
+	FORM = 7,
+	SWAP = 8,
+	RESIZE = 9,
+}					t_cursor;
 
 typedef struct		s_elem
 {
@@ -65,6 +79,8 @@ typedef struct 		s_indice
 
 typedef struct 		s_var
 {
+	int				cursor;
+	int				swapvar;
 	int 			nb_point;
 	int 			map_saved;
 }					t_var;
@@ -77,8 +93,23 @@ typedef struct 		s_edit
 	t_tab 			*tab;
 	t_indice 		*indice;
 	t_var 			*var;
+	t_point			**selected;
+	void			(*cursor_fct[10]) (t_win *wn, struct s_edit *edit);
 }					t_edit;
 
+void				cursor(t_win *wn, t_edit *edit);
+void				draw_cursor(t_win *wn, t_edit *edit);
+void				erase_cursor(t_win *wn, t_edit *edit);
+void				zoom_cursor(t_win *wn, t_edit *edit);
+void				hand_cursor(t_win *wn, t_edit *edit);
+void				select_cursor(t_win *wn, t_edit *edit);
+void				wand_cursor(t_win *wn, t_edit *edit);
+void				form_cursor(t_win *wn, t_edit *edit);
+void				swap_cursor(t_win *wn, t_edit *edit);
+void				resize_cursor(t_win *wn, t_edit *edit);
+
+t_point				**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box);
+t_point				*find_closer_point(t_win *wn, t_edit *edit);
 void				inputeditor(t_win *wn);
 void				printeditor(t_win *wn);
 SDL_Color			making_color(unsigned char r, unsigned char g, unsigned char b, unsigned char a);

@@ -6,11 +6,75 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:51:44 by llejeune          #+#    #+#             */
-/*   Updated: 2019/06/11 14:51:47 by llejeune         ###   ########.fr       */
+/*   Updated: 2019/08/04 18:31:43 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <editor.h>
+
+t_point		**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box)
+{
+	t_point **ret;
+	t_elem	*elem;
+	t_point *point;
+	int		nb;
+
+	(void)wn;
+	(void)ret;
+	nb = 0;
+	elem = edit->elem;
+	while(elem)
+	{
+		point = elem->point;
+		while (point)
+		{
+			if (hitbox(point->x * edit->map->size * 10, point->y * edit->map->size * 10, &box))
+				nb++;
+			point = point->next;
+		}
+		elem = elem->next;
+	}
+	printf("IL Y A %d POINT DANS LA BOX\n", nb);
+	return (NULL);
+}
+
+t_point		*find_closer_point(t_win *wn, t_edit *edit)
+{
+	int		distance;
+	int		olddistance;
+	t_elem	*elem;
+	t_point	*check;
+	t_point	*point;
+
+	elem = edit->elem;
+	distance = 999;
+	olddistance = 999;
+	while (elem != NULL)
+	{
+		check = elem->point;
+		while (check != NULL)
+		{
+			distance = (wn->input->x - (check->x * edit->map->size * 10) > 0
+					? wn->input->x - (check->x * edit->map->size * 10)
+					: (check->x * edit->map->size * 10) - wn->input->x)
+					+ (wn->input->y - (check->y * edit->map->size * 10) > 0
+					? wn->input->y - (check->y * edit->map->size * 10)
+					: (check->y * edit->map->size * 10) - wn->input->y);
+			if (distance < olddistance)
+			{
+				point = check;
+				olddistance = distance;
+			}
+			if (!olddistance)
+				return (point);
+			check = check->next;
+		}
+		elem = elem->next;
+	}
+	if (olddistance == 999)
+		return (NULL);
+	return (point);
+}
 
 SDL_Color	making_color(unsigned char r, unsigned char g, unsigned char b,
 	unsigned char a)

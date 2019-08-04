@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:01:32 by llejeune          #+#    #+#             */
-/*   Updated: 2019/06/11 15:01:34 by llejeune         ###   ########.fr       */
+/*   Updated: 2019/08/04 15:06:12 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		print_x_y_z(t_win *wn, t_edit *edit)
 			edit->indice->val_z, wn->color.violetrose);
 	}
 }
-
+/*
 static void	bloc_cursor(t_win *wn)
 {
 	t_point start;
@@ -65,10 +65,10 @@ static void	bloc_cursor(t_win *wn)
 	end = create_t_point(wn->xscreen, wn->input->y);
 	bresenham(wn, &start, &end);
 }
-
+*/
 void		which_cursor(t_win *wn, t_edit *edit)
 {
-	if (wn->input->x < (wn->xscreen / 7 * 5.5)
+/*	if (wn->input->x < (wn->xscreen / 7 * 5.5)
 		&& wn->input->y < (wn->yscreen / 7 * 6))
 		bloc_cursor(wn);
 	else
@@ -80,4 +80,7 @@ void		which_cursor(t_win *wn, t_edit *edit)
 		else
 			edit->indice->on = 0;
 	}
+*/
+	(void)wn;
+	edit->cursor_fct[edit->var->cursor & 0xFF](wn, edit);
 }
