@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 16:48:09 by llejeune          #+#    #+#             */
-/*   Updated: 2019/08/04 18:28:08 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/06 19:59:33 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void				swap_cursor(t_win *wn, t_edit *edit);
 void				resize_cursor(t_win *wn, t_edit *edit);
 
 t_point				**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box);
+t_point				*find_point_before(t_win *wn, t_edit *edit);
 t_point				*find_closer_point(t_win *wn, t_edit *edit);
 void				inputeditor(t_win *wn);
 void				printeditor(t_win *wn);

@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:51:44 by llejeune          #+#    #+#             */
-/*   Updated: 2019/08/04 18:31:43 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/06 20:10:29 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,44 @@ t_point		**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box)
 	}
 	printf("IL Y A %d POINT DANS LA BOX\n", nb);
 	return (NULL);
+}
+
+t_point		*find_point_before(t_win *wn, t_edit *edit)
+{
+	int		distance;
+	int		olddistance;
+	t_elem	*elem;
+	t_point	*check;
+	t_point	*point;
+
+	elem = edit->elem;
+	distance = 999;
+	olddistance = 999;
+	while (elem != NULL)
+	{
+		check = elem->point;
+		while (check != NULL && check->next != NULL)
+		{
+			distance = (wn->input->x - (check->next->x * edit->map->size * 10) > 0
+					? wn->input->x - (check->next->x * edit->map->size * 10)
+					: (check->next->x * edit->map->size * 10) - wn->input->x)
+					+ (wn->input->y - (check->next->y * edit->map->size * 10) > 0
+					? wn->input->y - (check->next->y * edit->map->size * 10)
+					: (check->next->y * edit->map->size * 10) - wn->input->y);
+			if (distance < olddistance)
+			{
+				point = check;
+				olddistance = distance;
+			}
+			if (!olddistance)
+				return (point);
+			check = check->next;
+		}
+		elem = elem->next;
+	}
+	if (olddistance == 999)
+		return (NULL);
+	return (point);
 }
 
 t_point		*find_closer_point(t_win *wn, t_edit *edit)

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 12:06:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/08/04 18:31:45 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/06 20:10:39 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,33 @@ void	draw_cursor(t_win *wn, t_edit *edit)
 
 void	erase_cursor(t_win *wn, t_edit *edit)
 {
-	(void)wn;
-	(void)edit;
+	static t_point	*selected = NULL;
+	static int		x = 0;
+	static int		y = 0;
+
+	if (((edit->var->cursor & 0xFFFF0000) >> 16) == ERASE && wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT))
+	{
+		if (mouse_pressed(wn, SDL_BUTTON_LEFT))
+		{
+			selected = find_point_before(wn, edit);
+			if (selected != NULL && selected->next != NULL && selected->next->next != NULL)
+				selected->next = selected->next->next;
+		}
+		if (selected != NULL)
+		{
+			selected->x += (wn->input->x - x) / edit->map->size / 10;
+			selected->y += (wn->input->y - y) / edit->map->size / 10;
+		}
+	}
+	x = wn->input->x;
+	y = wn->input->y;
 }
 
 void	zoom_cursor(t_win *wn, t_edit *edit)
 {
-	if (edit->map->size < 6 && mouse_pressed(wn, SDL_BUTTON_LEFT) && ((edit->var->cursor & 0xFFFF0000) >> 16) == 3)
+	if (edit->map->size < 6 && mouse_pressed(wn, SDL_BUTTON_LEFT) && ((edit->var->cursor & 0xFFFF0000) >> 16) == ZOOM)
 		edit->map->size += 0.2;
-	if (edit->map->size > 0.4 && mouse_pressed(wn, SDL_BUTTON_RIGHT) && ((edit->var->cursor & 0xFFFF0000) >> 16) == 3)
+	if (edit->map->size > 0.4 && mouse_pressed(wn, SDL_BUTTON_RIGHT) && ((edit->var->cursor & 0xFFFF0000) >> 16) == ZOOM)
 		edit->map->size -= 0.2;
 }
 
@@ -111,6 +129,7 @@ void	select_cursor(t_win *wn, t_edit *edit)
 			}
 		}
 	}
+	SDL_SetRenderDrawColor(wn->rend, 255, 100, 100, 0);
 	if (click >= 1)
 		SDL_RenderDrawRect(wn->rend, &box);
 }
