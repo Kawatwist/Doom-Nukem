@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 12:06:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/08/06 20:10:39 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/07 19:41:04 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,26 @@ void	cursor(t_win *wn, t_edit *edit)
 	static t_point	*selected = NULL;
 	static int		x = 0;
 	static int		y = 0;
+	int				i;
 
 	if (((edit->var->cursor & 0xFFFF0000) >> 16) == CURSOR && wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		if (mouse_pressed(wn, SDL_BUTTON_LEFT))
+		if (mouse_pressed(wn, SDL_BUTTON_LEFT) && edit->selected == NULL)
 			selected = find_closer_point(wn, edit);
 		if (selected != NULL)
 		{
 			selected->x += (wn->input->x - x) / edit->map->size / 10;
 			selected->y += (wn->input->y - y) / edit->map->size / 10;
+		}
+		else if (edit->selected != NULL)
+		{
+			i = 0;
+			while (edit->selected[i] != NULL)
+			{
+				edit->selected[i]->x += (wn->input->x - x) / edit->map->size / 10;
+				edit->selected[i]->y += (wn->input->y - y) / edit->map->size / 10;
+				i++;
+			}
 		}
 	}
 	x = wn->input->x;
@@ -37,8 +48,8 @@ void	draw_cursor(t_win *wn, t_edit *edit)
 	t_point start;
 	t_point end;
 
+	(void)edit;
 	SDL_ShowCursor(SDL_DISABLE);
-	edit->indice->on = 1;
 	SDL_SetRenderDrawColor(wn->rend, 238, 10, 214, 0);
 	start = create_t_point(wn->input->x, 0);
 	end = create_t_point(wn->input->x, wn->yscreen);
@@ -113,8 +124,9 @@ void	select_cursor(t_win *wn, t_edit *edit)
 			{
 				box.w = wn->input->x - box.x;
 				box.h = wn->input->y - box.y;
-				if (edit->selected == NULL)
-					edit->selected = find_box_point(wn, edit, box);
+				if (edit->selected != NULL)
+					free(edit->selected);
+				edit->selected = find_box_point(wn, edit, box);
 				//find point in box
 				// ADD SQUARE TO LIST
 			}

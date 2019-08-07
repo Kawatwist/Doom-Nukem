@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:51:44 by llejeune          #+#    #+#             */
-/*   Updated: 2019/08/07 17:18:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/07 19:56:31 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_point		**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box)
 	int		nb;
 
 	(void)wn;
-	(void)ret;
 	nb = 0;
 	elem = edit->elem;
 	while(elem)
@@ -34,8 +33,29 @@ t_point		**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box)
 		}
 		elem = elem->next;
 	}
-	printf("IL Y A %d POINT DANS LA BOX\n", nb);
-	return (NULL);
+	printf("%d\n", nb);
+	ret = malloc(sizeof(t_point) * nb); // SECURE	
+	elem = edit->elem;
+	nb = 0;
+	while(elem)
+	{
+		point = elem->point;
+		while (point)
+		{
+			if (hitbox(edit->map->x + (point->x * edit->map->size * 10), edit->map->y + point->y * edit->map->size * 10, &box))
+			{
+				printf("BEFORE %d\n", nb);
+				ret[nb] = point;
+				nb++;
+			}
+			point = point->next;
+		}
+		elem = elem->next;
+	}
+	printf("%d\n", nb);
+	ret[nb] = NULL;
+	printf("APRES\n");
+	return (ret);
 }
 
 t_point		*find_point_before(t_win *wn, t_edit *edit)
