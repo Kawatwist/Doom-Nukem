@@ -59,12 +59,26 @@ static void		fill_first_point(t_win *wn, t_edit *edit, t_point **point, float z)
 
 static void		fill_point(t_win *wn, t_edit *edit, t_point **point, float z)
 {
+	t_point *old;
+	double	x;
+	double	y;
+
+	old = *point;
 	if (!((*point)->next = malloc(sizeof(t_point))))
 		return ; // STOP_exec
 	(*point) = (*point)->next;
 	(*point)->x = (wn->input->x - edit->map->x) / edit->map->size / 10;
 	(*point)->y = (wn->input->y - edit->map->y) / edit->map->size / 10;
 	(*point)->z = z;
+	x = (*point)->x - old->x > 0 ? (*point)->x - old->x : old->x - (*point)->x;
+	y = (*point)->y - old->y > 0 ? (*point)->y - old->y : old->y - (*point)->y;
+	if (wn->state[SDL_SCANCODE_LSHIFT])
+	{
+		if (x < y)
+			(*point)->x = old->x;
+		else
+			(*point)->y = old->y;
+	}
 	(*point)->next = NULL;
 }
 

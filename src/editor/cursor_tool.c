@@ -1,5 +1,32 @@
 #include <editor.h>
 
+static int select_len(t_point **select)
+{  
+    int i;
+
+    i = 0;
+    while (select[i] != NULL)
+        i++;
+    return (i);
+}
+
+t_point **addtmptoselection(t_point **tmp, t_point **select)
+{
+    t_point **ret;
+    int     i;
+    int     j;
+
+    i = select_len(tmp);
+    j = select_len(select);
+    ret = malloc(sizeof(t_point *) * (i + j + 1)); // need secure
+    memcpy(ret, tmp, i * sizeof(t_point *));
+    memcpy(&ret[i], select, j * sizeof(t_point *));
+    ret[i + j] = NULL;
+    free(tmp);
+    free(select);
+    return (ret);
+}
+
 t_point *find_center(t_point **lst)
 {
     t_point *center;
