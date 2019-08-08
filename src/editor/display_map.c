@@ -16,17 +16,32 @@ static void	showelem(t_win *wn, t_edit *edit)
 {
 	t_elem		*curr;
 	t_point		*point;
+	t_point		*pointbis;
 	t_point		start;
 	t_point		end;
 	t_point		*tmp;
+	int			i;
 
 	curr = edit->elem;
+	i = 0;
 	while (curr != NULL)
 	{
 		point = curr->point;
+		if ((i % 2) == 0)
+			pointbis = curr->next->point;
 		SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
 		while (point != NULL && point->next != NULL)
 		{
+			if ((i % 2) == 0 && (edit->var->cursor & 0xFFFF) == SWAP)
+			{
+				start = create_t_point((point->x * edit->map->size * 10) + edit->map->x, (point->y * edit->map->size * 10) + edit->map->y);
+				end = create_t_point((pointbis->x * edit->map->size * 10) + edit->map->x, (pointbis->y * edit->map->size * 10) + edit->map->y);
+				//printf("%f|%f -> %f|%f\n", point->x, point->y, pointbis->x, pointbis->y);
+				end.x += (pointbis->z / 200) * (short)((edit->var->swapvar & 0xFFFF0000) >> 16);
+				end.y += (pointbis->z / 200) * (short)(edit->var->swapvar & 0xFFFF);
+				pointbis = pointbis->next;
+				bresenham(wn, &start, &end);
+			}
 			start = create_t_point((point->x * edit->map->size * 10) + edit->map->x, (point->y * edit->map->size * 10) + edit->map->y);
 			end = create_t_point((point->next->x * edit->map->size * 10) + edit->map->x, (point->next->y * edit->map->size * 10) + edit->map->y);
 			if ((edit->var->cursor & 0xFFFF) == SWAP)
@@ -39,13 +54,22 @@ static void	showelem(t_win *wn, t_edit *edit)
 			bresenham(wn, &start, &end);
 			point = point->next;
 		}
+		if ((i % 2) == 0 && (edit->var->cursor & 0xFFFF) == SWAP && point != NULL)
+		{
+			start = create_t_point((point->x * edit->map->size * 10) + edit->map->x, (point->y * edit->map->size * 10) + edit->map->y);
+			end = create_t_point((pointbis->x * edit->map->size * 10) + edit->map->x, (pointbis->y * edit->map->size * 10) + edit->map->y);
+			//printf("%f|%f -> %f|%f\n", point->x, point->y, pointbis->x, pointbis->y);
+			end.x += (pointbis->z / 200) * (short)((edit->var->swapvar & 0xFFFF0000) >> 16);
+			end.y += (pointbis->z / 200) * (short)(edit->var->swapvar & 0xFFFF);
+			bresenham(wn, &start, &end);
+		}
 		if (curr->next == NULL && point != NULL)
 		{
 			start = create_t_point((point->x * edit->map->size * 10) + edit->map->x, (point->y * edit->map->size * 10) + edit->map->y);
 			end = create_t_point(wn->input->x, wn->input->y);
 			bresenham(wn, &start, &end);
 		}
-		if (curr->nb_pt > 4 && curr->next != NULL)
+		if (curr->next != NULL && curr->next->next != NULL)
 		{
 			start = create_t_point((curr->point->x * edit->map->size * 10) + edit->map->x, (curr->point->y * edit->map->size * 10) + edit->map->y);
 			tmp = curr->point;
@@ -61,6 +85,7 @@ static void	showelem(t_win *wn, t_edit *edit)
 			bresenham(wn, &start, &end);
 		}
 		curr = curr->next;
+		i++;
 	}
 }
 

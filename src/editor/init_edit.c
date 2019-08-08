@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:58:28 by llejeune          #+#    #+#             */
-/*   Updated: 2019/08/04 18:14:05 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/07 14:42:10 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ static void	initmap(t_edit *edit)
 static void	initelem(t_edit *edit)
 {
 	edit->elem->point = NULL;
-	edit->elem->next = NULL;
+	edit->elem->next = malloc(sizeof(t_elem)); // MALLOC SECURE
+	edit->elem->next->point = NULL;
+	edit->elem->next->next = NULL;
 }
 
 static void	init_editor_fct(t_edit *edit)

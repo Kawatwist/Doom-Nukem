@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:51:44 by llejeune          #+#    #+#             */
-/*   Updated: 2019/08/06 20:10:29 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/07 19:56:31 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_point		**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box)
 	int		nb;
 
 	(void)wn;
-	(void)ret;
 	nb = 0;
 	elem = edit->elem;
 	while(elem)
@@ -28,14 +27,31 @@ t_point		**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box)
 		point = elem->point;
 		while (point)
 		{
-			if (hitbox(point->x * edit->map->size * 10, point->y * edit->map->size * 10, &box))
+			if (hitbox(edit->map->x + (point->x * edit->map->size * 10), edit->map->y + point->y * edit->map->size * 10, &box))
 				nb++;
 			point = point->next;
 		}
 		elem = elem->next;
 	}
-	printf("IL Y A %d POINT DANS LA BOX\n", nb);
-	return (NULL);
+	ret = malloc(sizeof(t_point*) * (nb + 1)); // SECURE
+	elem = edit->elem;
+	nb = 0;
+	while(elem)
+	{
+		point = elem->point;
+		while (point)
+		{
+			if (hitbox(edit->map->x + (point->x * edit->map->size * 10), edit->map->y + point->y * edit->map->size * 10, &box))
+			{
+				ret[nb] = point;
+				nb++;
+			}
+			point = point->next;
+		}
+		elem = elem->next;
+	}
+	ret[nb] = (void*)0;
+	return (ret);
 }
 
 t_point		*find_point_before(t_win *wn, t_edit *edit)
@@ -54,12 +70,12 @@ t_point		*find_point_before(t_win *wn, t_edit *edit)
 		check = elem->point;
 		while (check != NULL && check->next != NULL)
 		{
-			distance = (wn->input->x - (check->next->x * edit->map->size * 10) > 0
-					? wn->input->x - (check->next->x * edit->map->size * 10)
-					: (check->next->x * edit->map->size * 10) - wn->input->x)
-					+ (wn->input->y - (check->next->y * edit->map->size * 10) > 0
-					? wn->input->y - (check->next->y * edit->map->size * 10)
-					: (check->next->y * edit->map->size * 10) - wn->input->y);
+			distance = (wn->input->x - (edit->map->x + (check->x * edit->map->size * 10)) > 0
+					? wn->input->x - (edit->map->x + (check->x * edit->map->size * 10))
+					: (edit->map->x + (check->x * edit->map->size * 10)) - wn->input->x)
+					+ (wn->input->y - (edit->map->y + (check->y * edit->map->size * 10)) > 0
+					? wn->input->y - (edit->map->y + (check->y * edit->map->size * 10))
+					: (edit->map->y + (check->y * edit->map->size * 10)) - wn->input->y);
 			if (distance < olddistance)
 			{
 				point = check;
@@ -92,12 +108,12 @@ t_point		*find_closer_point(t_win *wn, t_edit *edit)
 		check = elem->point;
 		while (check != NULL)
 		{
-			distance = (wn->input->x - (check->x * edit->map->size * 10) > 0
-					? wn->input->x - (check->x * edit->map->size * 10)
-					: (check->x * edit->map->size * 10) - wn->input->x)
-					+ (wn->input->y - (check->y * edit->map->size * 10) > 0
-					? wn->input->y - (check->y * edit->map->size * 10)
-					: (check->y * edit->map->size * 10) - wn->input->y);
+			distance = (wn->input->x - (edit->map->x + (check->x * edit->map->size * 10)) > 0
+					? wn->input->x - (edit->map->x + (check->x * edit->map->size * 10))
+					: (edit->map->x + (check->x * edit->map->size * 10)) - wn->input->x)
+					+ (wn->input->y - (edit->map->y + (check->y * edit->map->size * 10)) > 0
+					? wn->input->y - (edit->map->y + (check->y * edit->map->size * 10))
+					: (edit->map->y + (check->y * edit->map->size * 10)) - wn->input->y);
 			if (distance < olddistance)
 			{
 				point = check;

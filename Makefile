@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/08/04 12:23:49 by lomasse          ###   ########.fr        #
+#    Updated: 2019/08/07 11:57:39 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -89,7 +89,7 @@ SRC				= main.c										\
 				  menu_show.c 									\
 				  load_fonts.c 									\
 				  tool.c 										\
-				  elem.c 										\
+				  elem2.c 										\
 				  bgh_display.c 								\
 				  tools_editor.c 								\
 				  init_edit.c 									\
