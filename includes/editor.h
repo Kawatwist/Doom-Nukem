@@ -99,6 +99,8 @@ typedef struct 		s_edit
 	void			(*cursor_fct[10]) (t_win *wn, struct s_edit *edit);
 }					t_edit;
 
+t_point				*find_center(t_point **lst);
+
 void				cursor(t_win *wn, t_edit *edit);
 void				draw_cursor(t_win *wn, t_edit *edit);
 void				erase_cursor(t_win *wn, t_edit *edit);

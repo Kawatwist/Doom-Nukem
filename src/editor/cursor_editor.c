@@ -207,6 +207,32 @@ void	swap_cursor(t_win *wn, t_edit *edit)
 }
 void	resize_cursor(t_win *wn, t_edit *edit)
 {
-	(void)wn;
-	(void)edit;
+	static t_point  *center = NULL;
+	static float	anglex = 0;
+	static float	angley = 0;
+	static int 		x = 0;
+	static int 		y = 0;
+	t_point			tmp;
+	int				nb;
+
+	if (center == NULL && edit->selected == NULL)
+		;
+	else if (edit->selected != NULL && (edit->var->cursor & 0xFFFF0000) >> 16 == RESIZE)
+		center = find_center(edit->selected);
+	if (center != NULL && wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT))
+	{
+		anglex = (float)((wn->input->x - x) >> 4);
+		angley = (float)((wn->input->y - y) >> 4);
+		nb = 0;
+		while (edit->selected[nb] != NULL)
+		{
+			tmp.x = edit->selected[nb]->x - center->x;
+			tmp.y = edit->selected[nb]->y - center->y;
+			edit->selected[nb]->x = (cos(anglex * 0.0174533) * (tmp.x)) + (sin(angley * 0.0174533) * (tmp.y)) + center->x;
+			edit->selected[nb]->y = (-sin(anglex * 0.0174533) * (tmp.x)) + (cos(angley * 0.0174533) * (tmp.y)) + center->y;
+			nb++;
+		}
+	}
+	x = wn->input->x;
+	y = wn->input->y;
 }
