@@ -33,8 +33,7 @@ t_point		**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box)
 		}
 		elem = elem->next;
 	}
-	printf("%d\n", nb);
-	ret = malloc(sizeof(t_point) * nb); // SECURE	
+	ret = malloc(sizeof(t_point*) * (nb + 1)); // SECURE
 	elem = edit->elem;
 	nb = 0;
 	while(elem)
@@ -44,7 +43,6 @@ t_point		**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box)
 		{
 			if (hitbox(edit->map->x + (point->x * edit->map->size * 10), edit->map->y + point->y * edit->map->size * 10, &box))
 			{
-				printf("BEFORE %d\n", nb);
 				ret[nb] = point;
 				nb++;
 			}
@@ -52,9 +50,7 @@ t_point		**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box)
 		}
 		elem = elem->next;
 	}
-	printf("%d\n", nb);
-	ret[nb] = NULL;
-	printf("APRES\n");
+	ret[nb] = (void*)0;
 	return (ret);
 }
 

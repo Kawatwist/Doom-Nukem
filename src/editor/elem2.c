@@ -12,6 +12,23 @@
 
 #include "editor.h"
 
+void			remove_poly(t_elem *curr)
+{
+	t_point 	*tmp;
+
+	if (curr->point != NULL)
+	{
+		tmp = curr->point->next;
+		while (curr->point != NULL)
+		{
+			free(curr->point);
+			curr->point = NULL;
+			curr->point = tmp;
+			tmp != NULL ? tmp = tmp->next : 0;
+		}
+	}
+}
+
 void			find_last_poly(t_elem **curr)
 {
 	while ((*curr) != NULL && (*curr)->next != NULL && (*curr)->next->next != NULL)
@@ -81,10 +98,13 @@ void			mouse_input_poly(t_win *wn, t_edit *edit)
 			}
 			if (mouse_pressed(wn, SDL_BUTTON_RIGHT))
 			{
-				// if (curr->nb_pt < 0) // < 3 normallement
-				// 	;//remove_poly(curr);
-				// else
-				// {
+				if (curr->nb_pt < 4)
+				{
+					remove_poly(curr->next);
+					remove_poly(curr);
+				}
+				else
+				{
 					if ((curr->next->next = malloc(sizeof(t_elem))) == NULL)
 						stop_exec("Malloc elem failed\n", wn);
 					if ((curr->next->next->next = malloc(sizeof(t_elem))) == NULL)
@@ -92,7 +112,7 @@ void			mouse_input_poly(t_win *wn, t_edit *edit)
 					curr->next->next->next->next = NULL;
 					curr->next->next->point = NULL;
 					curr->next->next->next->point = NULL;
-				// }
+				}
 			}
 		}
 	}
