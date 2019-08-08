@@ -25,41 +25,35 @@ void		print_background_editor(t_win *wn)
 		stop_exec("rendercopy failed\n", wn);
 }
 
+void		change_bloc(t_win *wn, t_edit *edit)
+{
+	int x;
+	int y;
+	SDL_Rect	tab;
+
+	x = wn->input->x;
+	y = wn->input->y;
+	if (hitbox(x, y, &edit->tab->arrow) == TRUE)
+		edit->tab->in = -edit->tab->in;
+	tab = define_rect(6 * wn->xscreen / 8, 0.5 * wn->yscreen / 8, 2 * wn->xscreen / 8 / 4, 0.5 * wn->yscreen / 8);
+	if (hitbox(x, y, &tab) == TRUE && edit->tab->in == 1)
+		edit->tab->onglet = 0;
+	tab = define_rect(6.5 * wn->xscreen / 8, 0.5 * wn->yscreen / 8, 2 * wn->xscreen / 8 / 4, 0.5 * wn->yscreen / 8);	
+	if (hitbox(x, y, &tab) == TRUE && edit->tab->in == 1)
+		edit->tab->onglet = 1;
+	tab = define_rect(7 * wn->xscreen / 8, 0.5 * wn->yscreen / 8, 2 * wn->xscreen / 8 / 4, 0.5 * wn->yscreen / 8);	
+	if (hitbox(x, y, &tab) == TRUE && edit->tab->in == 1)
+		edit->tab->onglet = 2;
+	tab = define_rect(7.5 * wn->xscreen / 8, 0.5 * wn->yscreen / 8, 2 * wn->xscreen / 8 / 4, 0.5 * wn->yscreen / 8);
+	if (hitbox(x, y, &tab) == TRUE && edit->tab->in == 1)
+		edit->tab->onglet = 3;
+}
+
 static int	is_between(double x, double min, double max)
 {
 	if (x >= min && x < max)
 		return (0);
 	return (1);
-}
-
-void		change_bloc(t_win *wn, t_edit *edit)
-{
-	int x;
-	int y;
-
-	x = wn->input->x;
-	y = wn->input->y;
-	if (is_between(x, 5.5 * wn->xscreen / 7, 5.75 * wn->xscreen / 7) == 0
-		&& is_between(y, 0, 0.25 * wn->yscreen / 7) == 0)
-		edit->tab->bgh = 1;
-	else if (is_between(x, 5.5 * wn->xscreen / 7, 5.75 * wn->xscreen / 7) == 0
-		&& is_between(y, 0.25, 0.5 * wn->yscreen / 7) == 0)
-		edit->tab->bgh = 0;
-	if (is_between(x, 6.75 * wn->xscreen / 7, wn->xscreen) == 0 && is_between(y, 3 *
-		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && edit->tab->in == 1)
-		edit->tab->in = 0;
-	else if (is_between(x, 6.75 * wn->xscreen / 7, wn->xscreen) == 0 && is_between(y, 5.75 *
-		wn->yscreen / 7, 6 * wn->yscreen / 7) == 0 && edit->tab->in == 0)
-		edit->tab->in = 1;
-	if (is_between(x, 5.5 * wn->xscreen / 7, 5.75 * wn->xscreen / 7) == 0 && is_between(y, 3 *
-		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && edit->tab->in == 1)
-		edit->tab->tbp = 0;
-	if (is_between(x, 5.75 * wn->xscreen / 7, 6 * wn->xscreen / 7) == 0 && is_between(y, 3 *
-		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && edit->tab->in == 1)
-		edit->tab->tbp = 1;
-	if (is_between(x, 6 * wn->xscreen / 7, 6.25 * wn->xscreen / 7) == 0 && is_between(y, 3 *
-		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && edit->tab->in == 1)
-		edit->tab->tbp = 2;
 }
 
 static void	checkcursor(t_win *wn, t_edit *edit)
@@ -81,10 +75,10 @@ void		printeditor(t_win *wn)
 	showmap(wn, edit);
 	checkcursor(wn, edit);
 	which_cursor(wn, edit);
-	// print_tools_editor(wn, edit);
-	print_bgh_editor(wn, edit);
-	print_tbp_editor(wn, edit);
+	// print_bgh_editor(wn, edit);
+	print_tab_editor(wn, edit);
 	SDL_RenderCopy(wn->rend, findtexture(wn, "editor", "affichage", "cursor_panel"), NULL, NULL);
 	edit->indice->on == 1 ? print_x_y_z(wn, edit) : 0;
 	edit->var->cursor = ((edit->var->cursor & 0xFFFF) << 16) + (edit->var->cursor & 0xFFFF); // Save cursor
+	print_save_and_reset(wn, edit);
 }

@@ -36,7 +36,7 @@ void		print_x_y_z(t_win *wn, t_edit *edit)
 
 	x = ((wn->input->x - edit->map->x) * edit->indice->map_w) / edit->map->w / 10;
 	y = ((wn->input->y - edit->map->y) * edit->indice->map_h) / edit->map->h / 10;
-	if (x >= 0 && x <= edit->indice->map_w && y <= edit->indice->map_h && y >= 0)
+	if (x >= 0 && x <= (edit->indice->map_w / 10) && y <= (edit->indice->map_h / 10) && y >= 0)
 	{
 		edit->indice->src.x = wn->input->x + 10;
 		edit->indice->src.y = wn->input->y + 1;
@@ -49,38 +49,20 @@ void		print_x_y_z(t_win *wn, t_edit *edit)
 			edit->indice->val_z, wn->color.violetrose);
 	}
 }
-/*
-static void	bloc_cursor(t_win *wn)
-{
-	t_point start;
-	t_point end;
 
-	SDL_ShowCursor(SDL_DISABLE);
-	((t_edit *)wn->edit)->indice->on = 1;
-	SDL_SetRenderDrawColor(wn->rend, 238, 10, 214, 0);
-	start = create_t_point(wn->input->x, 0);
-	end = create_t_point(wn->input->x, wn->yscreen);
-	bresenham(wn, &start, &end);
-	start = create_t_point(0, wn->input->y);
-	end = create_t_point(wn->xscreen, wn->input->y);
-	bresenham(wn, &start, &end);
-}
-*/
 void		which_cursor(t_win *wn, t_edit *edit)
 {
-/*	if (wn->input->x < (wn->xscreen / 7 * 5.5)
-		&& wn->input->y < (wn->yscreen / 7 * 6))
-		bloc_cursor(wn);
+	if (hitbox(wn->input->x, wn->input->y, &edit->tab->tab) == FALSE && wn->input->x > (wn->xscreen / 18))
+		edit->indice->on = 1;
 	else
 	{
-		if (wn->input->y > (3 * wn->yscreen / 7)
-			&& wn->input->y < (5.75 * wn->yscreen / 7)
-			&& edit->tab->in == 0)
-			bloc_cursor(wn);
+		if ((hitbox(wn->input->x, wn->input->y, &edit->tab->tab) == TRUE && edit->tab->in != 1))
+			edit->indice->on = 1;
 		else
+		{
 			edit->indice->on = 0;
+		}
 	}
-*/
-	(void)wn;
+	hitbox(wn->input->x, wn->input->y, &edit->tab->arrow) == TRUE ? edit->indice->on = 0 : 0;
 	edit->cursor_fct[edit->var->cursor & 0xFF](wn, edit);
 }

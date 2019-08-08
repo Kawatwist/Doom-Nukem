@@ -90,7 +90,7 @@ void		init_edit(t_win **wn)
 	edit->tab->texture_tools = NULL;
 	edit->tab->bgh = 0;
 	edit->tab->in = 1;
-	edit->tab->tbp = 2;
+	edit->tab->onglet = 2;
 	edit->loadbg->path = NULL;
 	edit->var->cursor = 1;
 	edit->var->swapvar = 0;
@@ -116,10 +116,10 @@ void			stop_editor(t_win *wn)
 		SDL_DestroyTexture(edit->indice->texture_z);
 	if (edit->tab->texture_tools != NULL)
 		SDL_DestroyTexture(edit->tab->texture_tools);
-	if (edit->tab->texture_bgh != NULL)
-		SDL_DestroyTexture(edit->tab->texture_bgh);
-	if (edit->tab->texture_tbp != NULL)
-		SDL_DestroyTexture(edit->tab->texture_tbp);
+	// if (edit->tab->texture_bgh != NULL)
+	// 	SDL_DestroyTexture(edit->tab->texture_bgh);
+	if (edit->tab->texture_tab != NULL)
+		SDL_DestroyTexture(edit->tab->texture_tab);
 	if (edit->tab->fleche != NULL)
 		SDL_DestroyTexture(edit->tab->fleche);
 	wn->fonts->arial != NULL ? TTF_CloseFont(wn->fonts->arial) : 0;

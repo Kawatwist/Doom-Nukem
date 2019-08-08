@@ -36,9 +36,13 @@ void	draw_cursor(t_win *wn, t_edit *edit)
 {
 	t_point start;
 	t_point end;
+	SDL_Rect	rect;
 
-	SDL_ShowCursor(SDL_DISABLE);
-	edit->indice->on = 1;
+	rect = define_rect(6 * wn->xscreen / 8, 0, 2 * wn->xscreen / 8, 0.5 * wn->yscreen / 8);
+	if ((hitbox(wn->input->x, wn->input->y, &edit->tab->tab) == TRUE && edit->tab->in == 1) || hitbox(wn->input->x, wn->input->y, &edit->tab->arrow) == TRUE || hitbox(wn->input->x, wn->input->y, &rect) == TRUE)
+		SDL_ShowCursor(SDL_ENABLE);
+	else
+		SDL_ShowCursor(SDL_DISABLE);
 	SDL_SetRenderDrawColor(wn->rend, 238, 10, 214, 0);
 	start = create_t_point(wn->input->x, 0);
 	end = create_t_point(wn->input->x, wn->yscreen);

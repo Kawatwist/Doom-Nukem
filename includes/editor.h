@@ -54,14 +54,16 @@ typedef struct 		s_tab
 {
 	SDL_Texture 	*texture_tools;
 	SDL_Texture 	*texture_bgh;
-	SDL_Texture 	*texture_tbp;
+	SDL_Texture 	*texture_tab;
 	SDL_Texture 	*bg_path;
 	SDL_Texture 	*fleche;
 	SDL_Rect		bg;
 	SDL_Rect 		pos_path;
+	SDL_Rect 		arrow;
+	SDL_Rect 		tab;
 	int 			bgh;
 	int 			in;
-	int 			tbp;
+	int 			onglet;
 }					t_tab;
 
 typedef struct 		s_indice
@@ -120,9 +122,8 @@ void 				which_cursor(t_win *wn, t_edit *edit);
 void 				print_background_editor(t_win *wn);
 void 				print_tools_editor(t_win *wn, t_edit *edit);
 void				print_bgh_editor(t_win *wn, t_edit *edit);
-void				print_tbp_editor(t_win *wn, t_edit *edit);
+void				print_tab_editor(t_win *wn, t_edit *edit);
 void 				change_bloc(t_win *wn, t_edit *edit);
-// void 				print_arrow(t_win *wn, t_edit *edit);
 t_point 			create_t_point(int x, int y);
 void 				showmap(t_win *wn, t_edit *edit);
 int 				mouse_pressed(t_win *wn, Uint32 Mask);
@@ -145,5 +146,7 @@ t_poly 				*poly_map(t_win *wn);
 int 				pop_up_message(t_win *wn, char *msg, SDL_Rect *rect);
 void 				print_save_and_reset(t_win *wn, t_edit *edit);
 void 				print_message(t_win *wn, char *msg, SDL_Color color);
+void				display_tab(t_win *wn, t_edit *edit);
+void    			exec_tab(t_win *wn, t_edit *edit);
 
 #endif
