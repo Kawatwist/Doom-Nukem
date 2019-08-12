@@ -39,13 +39,13 @@ static void		load_edit_texture(t_win **wn)
 	free((*wn)->load);
 }
 
-static void	initmap(t_edit *edit)
+static void	initmap(t_win *wn, t_edit *edit)
 {
-	edit->map->x = 0.1;
-	edit->map->y = 0.1;
+	edit->map->size = 1.6;
 	edit->map->w = 600;
 	edit->map->h = 600;
-	edit->map->size = 1;
+	edit->map->x = (wn->xscreen / 3) - (edit->map->w / 2);
+	edit->map->y = (wn->yscreen / 3) - ((edit->map->h / 2));
 }
 
 static void	initelem(t_edit *edit)
@@ -99,7 +99,7 @@ void		init_edit(t_win **wn)
 	edit->var->nb_point = 1;
 	edit->var->map_saved = 0;
 	edit->selected = NULL;
-	initmap(edit);
+	initmap(*wn, edit);
 	initelem(edit);
 	init_editor_fct(edit);
 	load_edit_texture(wn);

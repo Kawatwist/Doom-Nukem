@@ -49,6 +49,7 @@ void			find_last_point(t_edit *edit, t_point **point)
 
 static void		fill_first_point(t_win *wn, t_edit *edit, t_point **point, float z)
 {
+	printf("Create New POint\n");
 	if (!((*point) = malloc(sizeof(t_point))))
 		return ; // STOP_exec
 	(*point)->x = (wn->input->x - edit->map->x) / edit->map->size / 10;
@@ -90,7 +91,24 @@ void			mouse_input_poly(t_win *wn, t_edit *edit)
 
 	curr = edit->elem;
 	find_last_poly(&curr);
-	if (wn->input->x > wn->xscreen / 18.28 && (edit->var->cursor & 0xFF) == 1) // MODE CURSOR && NOT IN CURSOR AREA
+	if (curr == NULL)
+	{
+		if ((curr = malloc(sizeof(t_elem))) == NULL)
+			stop_exec("Malloc elem failed\n", wn);
+		else
+			curr->point = NULL;
+		curr->next = NULL;
+		edit->elem = curr;
+	}
+	if (curr->next == NULL)
+	{
+		if ((curr->next = malloc(sizeof(t_elem))) == NULL)
+			stop_exec("Malloc elem failed\n", wn);
+		else
+			curr->next->point = NULL;
+		curr->next->next = NULL;
+	}
+	if (curr != NULL && wn->input->x > wn->xscreen / 18.28 && (edit->var->cursor & 0xFF) == 1) // MODE CURSOR && NOT IN CURSOR AREA
 	{
 		if (curr->point == NULL && mouse_pressed(wn, SDL_BUTTON_LEFT)  && (wn->input->x - edit->map->x) <= edit->map->w && (wn->input->y - edit->map->y) <= edit->map->h && (wn->input->x - edit->map->x) >= 0 && (wn->input->y - edit->map->y) >= 0)
 		{

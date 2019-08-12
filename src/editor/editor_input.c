@@ -12,13 +12,22 @@
 
 #include "editor.h"
 
-void		resetmap(t_edit *edit)
+void		resetmap(t_win *wn, t_edit *edit)
 {
-	edit->map->x = 0.1;
-	edit->map->y = 0.1;
+	t_elem 		*curr;
+
+	while (edit->elem != NULL)
+	{
+		curr = edit->elem;
+		edit->elem = edit->elem->next;
+		remove_poly(curr);
+	}
+	edit->elem = NULL;
 	edit->map->h = edit->indice->map_h;
 	edit->map->w = edit->indice->map_w;
-	edit->map->size = 1;
+	edit->map->x = (wn->xscreen / 3) - (edit->map->w / 2);
+	edit->map->y = (wn->yscreen / 3) - ((edit->map->h / 2));
+	edit->map->size = 1.6;
 }
 
 static void	keyboardtool(t_win *wn, t_edit *edit)
@@ -39,7 +48,7 @@ static void	keyboardtool(t_win *wn, t_edit *edit)
 		&& !wn->old[SDL_SCANCODE_KP_MINUS] ? edit->map->size *= 0.8 : 0;
 	wn->state[SDL_SCANCODE_KP_MINUS]
 		&& edit->map->size <= 0.5 ? edit->map->size = 0.5 : 0;
-	wn->state[SDL_SCANCODE_R] ? resetmap(edit) : 0;
+	wn->state[SDL_SCANCODE_R] ? resetmap(wn, edit) : 0;
 	edit->map->h = edit->indice->map_h * edit->map->size;
 	edit->map->w = edit->indice->map_w * edit->map->size;
 }

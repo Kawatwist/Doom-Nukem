@@ -72,23 +72,6 @@ int				check_point(t_win *wn, t_point *point)
 	return (TRUE);
 }
 
-void			remove_poly(t_elem *curr)
-{
-	t_point 	*tmp;
-
-	if (curr->point != NULL)
-	{
-		tmp = curr->point->next;
-		while (curr->point != NULL)
-		{
-			free(curr->point);
-			curr->point = NULL;
-			curr->point = tmp;
-			tmp != NULL ? tmp = tmp->next : 0;
-		}
-	}
-}
-
 static void 	add_two_points(t_win *wn, t_edit *edit, t_elem *curr)
 {
 	t_point *point;
