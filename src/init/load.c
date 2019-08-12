@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 13:35:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/07 13:27:37 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/06 13:57:42 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,9 @@ t_text			*findpostxt(t_win *wn, char *type, char *subtype, char *name)
 	curr = wn->texture;
 	while (curr->next_type != NULL && ft_strcmp(type, curr->type))
 		curr = curr->next_type;
-	while (curr->next_subtype != NULL && ft_strcmp(subtype, curr->subtype)
-			&& !ft_strcmp(type, curr->type))
+	while (curr->next_subtype != NULL && ft_strcmp(subtype, curr->subtype) && !ft_strcmp(type, curr->type))
 		curr = curr->next_subtype;
-	while (curr->next != NULL && ft_strcmp(name, curr->name)
-			&& !ft_strcmp(type, curr->type)
-			&& !ft_strcmp(subtype, curr->subtype))
+	while (curr->next != NULL && ft_strcmp(name, curr->name) && !ft_strcmp(type, curr->type) && !ft_strcmp(subtype, curr->subtype))
 		curr = curr->next;
 	return (curr);
 }

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 17:15:15 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/22 11:48:19 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/11 15:12:03 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,16 @@ static void	initmap(t_win **wn)
 static void	initelem(t_win **wn)
 {
 	((*wn)->elem = malloc(sizeof(t_elem))) == NULL ? stop_exec("Elem malloc failed\n", *wn) : 0;
-	((*wn)->elem->point = malloc(sizeof(t_point))) == NULL ? stop_exec("point malloc failed\n", *wn) : 0;
+	(*wn)->elem->point = NULL;
 	(*wn)->elem->next = NULL;
-	(*wn)->elem->point->next = NULL;
 }
 
 static void	initmenu(t_win **wn)
 {
 	((*wn)->menu = malloc(sizeof(t_menu))) == NULL ? exit(0) : 0;
+	(*wn)->menu->ask = 0;
 	(*wn)->menu->choice = 0;
+	(*wn)->menu->connected  = 0;
 }
 
 static void initconsole(t_win **wn)
@@ -101,6 +102,9 @@ void		initwn(t_win **wn)
 	initmenu(wn);
 	inittext(wn);
 	initmutex(wn);
+	(*wn)->pixels = NULL;
 	(*wn)->flag = 0;
 	(*wn)->sky = 1;
+	(*wn)->serv = NULL;
+	(*wn)->client = NULL;
 }

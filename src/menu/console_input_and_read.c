@@ -6,7 +6,7 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:00:23 by jleblond          #+#    #+#             */
-/*   Updated: 2019/05/22 11:55:54 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/06/20 16:48:54 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ static void stock_in_history(t_win *wn, char *command)
 
 static char	*readcommand(t_win *wn, char *command)
 {
-	if(ft_strcmp(command, "kill") == 0)
+	if ((wn->serv != NULL || wn->client != NULL) && chat_box(wn, command))
+		return (command);
+	else if (wn->serv != NULL && !ft_strncmp(command, "/disconnect", 11))
+		stop_com(wn, ft_atoi(command));
+	else if (ft_strcmp(command, "kill") == 0)
 		stop_exec("KILL !\n", wn);
 	else if (ft_strcmp(command, "slow") == 0)
 		wn->flag = set_bit(wn->flag, CINE);
@@ -48,25 +52,37 @@ static char	*readcommand(t_win *wn, char *command)
 	return (command);
 }
 
-static char	printable_key_check(int i)
+char	printable_key_check(t_win *wn, int i)
 {
-	if ((i >= SDL_SCANCODE_A) && (i <= SDL_SCANCODE_Z))
+	if ((i >= SDL_SCANCODE_A) && (i <= SDL_SCANCODE_Z) && !wn->state[SDL_SCANCODE_LSHIFT])
 		return (i - SDL_SCANCODE_A + 'a');
-	else if ((i >= SDL_SCANCODE_1) && (i <= SDL_SCANCODE_9))
+	else if ((i >= SDL_SCANCODE_A) && (i <= SDL_SCANCODE_Z) && wn->state[SDL_SCANCODE_LSHIFT])
+		return (i - SDL_SCANCODE_A + 'A');
+	else if ((i >= SDL_SCANCODE_1) && (i <= SDL_SCANCODE_9) && !wn->state[SDL_SCANCODE_LSHIFT])
 		return (i - SDL_SCANCODE_1 + '1');
 	else if ((i >= SDL_SCANCODE_KP_1) && (i <= SDL_SCANCODE_KP_9))
 		return (i - SDL_SCANCODE_KP_1 + '1');
 	else if ( i == SDL_SCANCODE_SPACE)
 		return (' ');
-	else if (i == SDL_SCANCODE_0)
+	else if (i == SDL_SCANCODE_0 || i == SDL_SCANCODE_KP_0)
 		return ('0');
-	else if (i == SDL_SCANCODE_KP_0)
-		return ('0');
+	else if (i == SDL_SCANCODE_GRAVE)
+		return ('~');
+	else if (i == SDL_SCANCODE_PERIOD || i == SDL_SCANCODE_KP_PERIOD)
+		return ('.');
+	else if (i == SDL_SCANCODE_KP_DIVIDE || (i == SDL_SCANCODE_SLASH && !wn->state[SDL_SCANCODE_LSHIFT]))
+		return ('/');
+	else if (i == SDL_SCANCODE_MINUS || i == SDL_SCANCODE_KP_MINUS)
+		return ('-');
+	else if (i == SDL_SCANCODE_SLASH && wn->state[SDL_SCANCODE_LSHIFT])
+		return ('?');
+	else if (i == SDL_SCANCODE_1 && wn->state[SDL_SCANCODE_LSHIFT])
+		return ('!');
 	else
 		return (INVALID);
 }
 
-static char *printable_input(t_win *wn, char *command)
+char		*printable_input(t_win *wn, char *command)
 {
 	int				i;
 	char			str[2];
@@ -78,7 +94,7 @@ static char *printable_input(t_win *wn, char *command)
 	{
 		if (key_pressed(wn, i))
 		{
-			key_val = printable_key_check(i);
+			key_val = printable_key_check(wn, i);
 			if (key_val != INVALID)
 			{
 				str[0] = key_val;

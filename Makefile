@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/07/08 12:59:59 by lomasse          ###   ########.fr        #
+#    Updated: 2019/08/12 16:11:07 by naali            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -17,7 +17,6 @@ cyanfonce=\033[0;36m
 cyanclair=\033[1;36m
 vertfonce=\033[0;32m
 vertclair=\033[1;32m
-rouge=\033[31m
 
 NAME			= doom
 
@@ -29,8 +28,11 @@ INC_PATH 		= $(shell find includes -type d) $(shell find libft -type d) $(shell 
 
 OBJ_PATH		= OBJ
 
+SDL_IMAGE_DOWNLOAD = https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.3.tar.gz
+
 SRC				= main.c										\
 				  turn.c 										\
+				  text.c										\
 				  inputturn.c									\
 				  window.c										\
 				  init.c										\
@@ -47,6 +49,13 @@ SRC				= main.c										\
 				  load2.c										\
 				  load_intro.c									\
 				  texture.c										\
+				  stop.c										\
+				  get.c											\
+				  send.c										\
+				  msn.c											\
+				  mainmulti.c									\
+				  mainhost.c									\
+				  mainclient.c									\
 				  maingame.c 									\
 				  mainmenu.c									\
 				  menuinput.c									\
@@ -80,25 +89,68 @@ SRC				= main.c										\
 				  menu_show.c 									\
 				  load_fonts.c 									\
 				  tool.c 										\
+				  bresenham.c 									\
+				  elem.c 										\
+				  bgh_display.c 								\
+				  tools_editor.c 								\
+				  init_edit.c 									\
+				  mouse_editor.c 								\
+				  display_map.c 								\
+				  display_blocs.c 								\
+				  edit_poly.c 									\
+				  file_list.c									\
+				  bresen2.c										\
+				  color.c										\
+				  file_newclip.c								\
+				  basicshape.c									\
 				  world2view.c									\
-				  world2view_mat.c								\
-				  inventaire_init_weapons.c						\
-				  weapons.c										\
-				  weapo_swap.c									\
-				  weapo_shoots.c								\
-				  weapo_select_shot_reload.c					\
-				  weapo_reload.c								\
-				  weapo_list_op.c								\
-				  weapo_destruct.c								\
-				  consumable.c									\
-				  conso_swap.c									\
-				  conso_list_op.c								\
-				  conso_destruct.c								\
-				  inventaire.c									\
-				  print_inventaire.c							\
-				  print_names.c									\
-				  print_qty.c									\
-				  test_creation.c # A DELETE
+				  world2view_mat.c 								\
+				  tool2.c 										\
+				  tool3.c 										\
+				  file_outside.c								\
+
+
+#GAME ENGINE
+SRC += file_game_engine.c
+SRC += file_user_input.c
+SRC += file_rasterization.c
+SRC += file_get_triangles.c
+SRC += file_itoa_coma.c
+SRC += file_matrix_tool.c
+SRC += file_vector_tool.c
+SRC += file_fill_triangle.c
+SRC += file_clipping.c
+SRC += file_apply_calcul.c
+SRC += file_lst.c
+SRC += file_order_z_buffer.c
+SRC += file_draw_triangle.c
+SRC += file_window.c
+SRC += file_calcul_world_view.c
+
+#BSP
+SRC += file_bsp.c
+#SRC += file_main_bsp.c
+#SRC += file_mouse_handle.c
+SRC += file_parser_polygons.c
+SRC += file_process_polygon.c
+SRC += file_test_function.c
+SRC += file_maths.c
+SRC += file_build_bsp_tree.c
+SRC += file_select_spliter.c
+SRC += file_classify_polygon.c
+SRC += file_affichage_bsp.c
+
+#BRESENHAM
+SRC += fille_bresename.c
+
+#MAP EDITOR
+#SRC += file_map_editor.c
+#SRC += file_map_editor_util.c
+#SRC += file_map_editor_ihc.c
+#SRC += file_map_editor_display_right_pan.c
+#SRC += file_map_editor_update_show_cross.c
+
+######################################################################
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 
@@ -109,7 +161,7 @@ LIB_PATH 		= ./libft \
 
 FRAMEWORK 		= OpenGL AppKit
 
-CC 				= gcc -g -std=c99
+CC 				= gcc -g -std=c99 -fsanitize=address
 
 vpath %.c $(foreach dir, $(SRC_PATH), $(dir):)
 
@@ -147,10 +199,12 @@ $(IMAGE): FORCE
 
 $(LIBFTA): FORCE
 	@if [ -f "/tmp/doom_log2" ]; then \
+		echo "${vertfonce}doom_log2 exists.${neutre}"; \
+	else \
 		touch /tmp/doom_log2; \
 		chmod 777 /tmp/doom_log2; \
 	fi
-	@make -C libft >> /tmp/doom_log2 2>&1
+	@make -C libft #>> /tmp/doom_log2 2>&1
 
 FORCE:
 
@@ -163,7 +217,9 @@ clean :
 fclean : clean
 	@echo "${rouge}Fcleaning the project ...${neutre}\c"
 	@make fclean -C libft
-	@rm /tmp/doom_log2
+	@if [ -f "/tmp/doom_log2" ]; then \
+		rm /tmp/doom_log2;
+	fi
 	@rm -rf $(NAME)
 	@echo "${rose}DONE${neutre}"
 
@@ -220,5 +276,26 @@ libraries/lib/libSDL2.dylib:
 	@make -C ./libraries/SDL2-2.0.8 >>/tmp/doom_lib_log 2>&1
 	@make -C ./libraries/SDL2-2.0.8 install >>/tmp/doom_lib_log 2>&1
 	@echo "${cyanclair}DONE${neutre}"
+
+sdl_image:
+	if [ -d "./sdl_image/" ]; then \
+		echo "SDL (image) ==> Nothing to be done"; \
+		else \
+		mkdir sdl_image && \
+		echo "SDL (image) ==> Downloading SDL image" && \
+		cd ./sdl_image && \
+		curl -s $(SDL_IMAGE_DOWNLOAD) -O && \
+		echo "SDL (image) ==> Compilation SDL image" && \
+		tar xzf SDL2_image-2.0.3.tar.gz && \
+		cd SDL2_image-2.0.3 && \
+		./configure --prefix=$(shell pwd)/sdl_image/SDL2_image-2.0.3 --with-sdl-prefix=$(shell pwd)/libraries/  > /dev/null 2>&1 && \
+		$(MAKE)  > /dev/null 2>&1  &&  \
+		$(MAKE) install > /dev/null 2>&1  && \
+		echo "SDL (image) ==> DONE"; \
+		fi
+
+
+
+
 
 .PHONY: all clean fclean re image
