@@ -180,25 +180,38 @@ void	wand_cursor(t_win *wn, t_edit *edit)
 	t_point			*curr;
 
 	elem = edit->elem;
-	diff = 999;
+	diff = 0x7FFFFFFF;
 	if (closer != NULL && mouse_pressed(wn, SDL_BUTTON_RIGHT))
 		closer = NULL;
-	if (mouse_pressed(wn, SDL_BUTTON_LEFT) && closer == NULL)
+	if (((edit->var->cursor & 0xFFFF0000) >> 16) == WAND && mouse_pressed(wn, SDL_BUTTON_LEFT) && closer == NULL)
 	{
+		printf("Closer == NULL && Leftclick\n");
 		while (elem != NULL)
 		{
 			curr = find_center_linked(&elem);
-			tmp = (curr->x - wn->input->x) + (curr->y - wn->input->y);
-			if (tmp < diff)
+			tmp = fabs((curr->x * edit->map->size * 10) - wn->input->x) + ((curr->y * edit->map->size * 10) - wn->input->y);
+			printf("Check\n");
+			printf("%f || %f\n", curr->x, curr->y);
+			if (tmp < diff && tmp > 0)
 			{
+				printf("New Value %d || %d\n", diff, tmp);
 				diff = tmp;
 				closer = elem;
 			}
 			elem = elem->next;
 		}
-		if (closer != NULL)
-			edit->selected = cpy_elem_selected(closer); // NEED SECURE
+		if (closer == NULL)
+			printf("No match found\n");
+		else
+			printf("Found 1 or more match\n");
+		edit->selected = cpy_elem_selected(closer); // NEED SECURE
+		if (edit->selected == NULL)
+			printf("No obj selected\n");
+		else
+			printf("Selected binded\n");
 	}
+	if (edit->selected == NULL)
+		printf("No obj binded\n");
 }
 
 void	form_cursor(t_win *wn, t_edit *edit)

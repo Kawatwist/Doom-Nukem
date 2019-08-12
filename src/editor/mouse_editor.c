@@ -31,8 +31,8 @@ void		create_text_texture(t_win *wn, SDL_Texture *texture, int x, SDL_Color colo
 
 void		print_x_y_z(t_win *wn, t_edit *edit)
 {
-	int x;
-	int y;
+	float x;
+	float y;
 
 	x = ((wn->input->x - edit->map->x) * edit->indice->map_w) / edit->map->w / 10;
 	y = ((wn->input->y - edit->map->y) * edit->indice->map_h) / edit->map->h / 10;

@@ -51,7 +51,7 @@ t_point     **cpy_elem_selected(t_elem *elem)
         i++;
     }
     ret[i] = NULL;
-    return (ret);
+    return (&(ret[0]));
 }
 
 t_point *find_center_linked(t_elem **lst)
