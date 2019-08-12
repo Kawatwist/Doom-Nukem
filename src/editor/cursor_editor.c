@@ -173,8 +173,32 @@ void	select_cursor(t_win *wn, t_edit *edit)
 
 void	wand_cursor(t_win *wn, t_edit *edit)
 {
-	(void)wn;
-	(void)edit;
+	static t_elem	*closer = NULL;
+	int				diff;
+	int				tmp;
+	t_elem			*elem;
+	t_point			*curr;
+
+	elem = edit->elem;
+	diff = 999;
+	if (closer != NULL && mouse_pressed(wn, SDL_BUTTON_RIGHT))
+		closer = NULL;
+	if (mouse_pressed(wn, SDL_BUTTON_LEFT) && closer == NULL)
+	{
+		while (elem != NULL)
+		{
+			curr = find_center_linked(&elem);
+			tmp = (curr->x - wn->input->x) + (curr->y - wn->input->y);
+			if (tmp < diff)
+			{
+				diff = tmp;
+				closer = elem;
+			}
+			elem = elem->next;
+		}
+		if (closer != NULL)
+			edit->selected = cpy_elem_selected(closer); // NEED SECURE
+	}
 }
 
 void	form_cursor(t_win *wn, t_edit *edit)
