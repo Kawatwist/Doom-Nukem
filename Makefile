@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/07/27 14:47:24 by lomasse          ###   ########.fr        #
+#    Updated: 2019/08/12 17:26:10 by naali            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -24,7 +24,7 @@ HEADER 			= $(shell find includes -type f) $(shell find libraries/include -type 
 
 SRC_PATH		= $(shell find src -type d)
 
-INC_PATH 		= $(shell find includes -type d) $(shell find libft -type d) $(shell find libraries/include -type d 2>/dev/null || true) \
+INC_PATH 		= $(shell find includes -type d) $(shell find libft -type d) $(shell find libraries/include -type d 2>/dev/null || true) $(shell find src/inventaire/includes -type d) \
 
 OBJ_PATH		= OBJ
 
@@ -37,6 +37,7 @@ SRC				= main.c										\
 				  window.c										\
 				  init.c										\
 				  poly.c										\
+				  print_ariel_text.c 							\
 				  drawpoly.c									\
 				  matrice.c										\
 				  parse.c										\
@@ -85,7 +86,6 @@ SRC				= main.c										\
 				  player.c 										\
 				  console.c 									\
 				  console_input_and_read.c 						\
-				  print_ariel_text.c 							\
 				  menu_show.c 									\
 				  load_fonts.c 									\
 				  tool.c 										\
@@ -108,7 +108,6 @@ SRC				= main.c										\
 				  tool2.c 										\
 				  tool3.c 										\
 				  file_outside.c								\
-
 
 #GAME ENGINE
 SRC += file_game_engine.c
@@ -137,7 +136,7 @@ SRC += file_test_function.c
 SRC += file_maths.c
 SRC += file_build_bsp_tree.c
 SRC += file_select_spliter.c
-SRC += file_classify_polygon.c 
+SRC += file_classify_polygon.c
 SRC += file_affichage_bsp.c
 
 #BRESENHAM
@@ -150,8 +149,31 @@ SRC += fille_bresename.c
 #SRC += file_map_editor_display_right_pan.c
 #SRC += file_map_editor_update_show_cross.c
 
-######################################################################
+#INVENTAIRE
+SRC += inventaire.c
+SRC += test_creation.c
+SRC += conso_destruct.c
+SRC += conso_list_op.c
+SRC += conso_swap.c
+SRC += consumable.c
+SRC += inventaire_init_weapons.c
+SRC += print_inventaire.c
+SRC += print_names.c
+SRC += print_qty.c
+SRC += weapo_destruct.c
+SRC += weapo_list_op.c
+SRC += weapo_reload.c
+SRC += weapo_select_shot_reload.c
+SRC += weapo_shoots.c
+SRC += weapo_swap.c
+SRC += weapons.c
 
+#INVENTAIRE TEST
+#SRC += file_bmp_texture.c
+#SRC += inventaire.c
+#SRC += old_main.c
+
+######################################################################
 
 OBJ 			= $(addprefix $(OBJ_PATH)/, $(SRC:%.c=%.o))
 
@@ -182,7 +204,7 @@ all: $(NAME)
 
 $(NAME): $(IMAGE) $(OBJ)
 	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
-	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG) $(DEBUG)
+	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG)
 	@echo "${vertclair}DONE${neutre}"
 
 $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)

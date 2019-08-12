@@ -6,11 +6,11 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 17:25:35 by llejeune          #+#    #+#             */
-/*   Updated: 2019/07/24 17:35:24 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/12 17:24:02 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom.h"
+#include <doom.h>
 
 void		print_bgh_editor(t_win *wn)
 {

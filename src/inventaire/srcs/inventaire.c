@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 10:37:37 by naali             #+#    #+#             */
-/*   Updated: 2019/07/09 14:28:07 by naali            ###   ########.fr       */
+/*   Updated: 2019/08/12 17:00:11 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void			choose_item_color(SDL_Color *color, int isselected)
 	}
 }
 
-void		init_inventory(t_win wn, t_joueurs *j, SDL_rect *src, SDL_Rect *dst)
+void		init_inventory(t_win *wn, t_joueurs *j, SDL_Rect *src, SDL_Rect *dst)
 {
-	txt = findtexture(wn, "game", "inventaire", "bg");
+	j->inv_txt = findtexture(wn, "game", "inventaire", "bg");
 	ft_init_inventaire_pos(wn, src, dst);
 }
 
@@ -62,7 +62,7 @@ void		print_inventory(t_win *wn, t_joueurs *j, int selected)
 	SDL_Rect	dst;
 
 	pos = 0;
-	(j->inv_txt == NULL) ? initinventory(wn, j, &src, &dst) : 0;
+	(j->inv_txt == NULL) ? init_inventory(wn, j, &src, &dst) : 0;
 	SDL_SetTextureBlendMode(j->inv_txt, SDL_BLENDMODE_MOD);
 	SDL_SetRenderTarget(wn->rend, j->inv_txt);
 	SDL_RenderCopy(wn->rend, j->inv_txt, &src, &dst);
