@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/07/09 13:15:35 by lomasse          ###   ########.fr        #
+#    Updated: 2019/07/27 14:47:24 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -16,6 +16,8 @@ neutre=\033[0m
 cyanfonce=\033[0;36m
 cyanclair=\033[1;36m
 vertfonce=\033[0;32m
+vertclair=\033[1;32m
+
 NAME			= doom
 
 HEADER 			= $(shell find includes -type f) $(shell find libraries/include -type f 2>/dev/null || true)
@@ -87,16 +89,26 @@ SRC				= main.c										\
 				  menu_show.c 									\
 				  load_fonts.c 									\
 				  tool.c 										\
+				  bresenham.c 									\
+				  elem.c 										\
+				  bgh_display.c 								\
+				  tools_editor.c 								\
+				  init_edit.c 									\
+				  mouse_editor.c 								\
+				  display_map.c 								\
+				  display_blocs.c 								\
+				  edit_poly.c 									\
+				  file_list.c									\
+				  bresen2.c										\
+				  color.c										\
+				  file_newclip.c								\
+				  basicshape.c									\
 				  world2view.c									\
-				  world2view_mat.c
+				  world2view_mat.c 								\
+				  tool2.c 										\
+				  tool3.c 										\
+				  file_outside.c								\
 
-#MAIN
-SRC += file_main.c
-#SRC += file_mouse_handle.c
-SRC += file_draw_triangle.c
-
-#WINDOW
-SRC += file_window.c
 
 #GAME ENGINE
 SRC += file_game_engine.c
@@ -109,10 +121,16 @@ SRC += file_vector_tool.c
 SRC += file_fill_triangle.c
 SRC += file_clipping.c
 SRC += file_apply_calcul.c
+SRC += file_lst.c
+SRC += file_order_z_buffer.c
+SRC += file_draw_triangle.c
+SRC += file_window.c
+SRC += file_calcul_world_view.c
 
 #BSP
 SRC += file_bsp.c
 #SRC += file_main_bsp.c
+#SRC += file_mouse_handle.c
 SRC += file_parser_polygons.c
 SRC += file_process_polygon.c
 SRC += file_test_function.c
@@ -122,15 +140,15 @@ SRC += file_select_spliter.c
 SRC += file_classify_polygon.c 
 SRC += file_affichage_bsp.c
 
+#BRESENHAM
+SRC += fille_bresename.c
+
 #MAP EDITOR
 #SRC += file_map_editor.c
 #SRC += file_map_editor_util.c
 #SRC += file_map_editor_ihc.c
 #SRC += file_map_editor_display_right_pan.c
 #SRC += file_map_editor_update_show_cross.c
-
-#BRESENHAM
-SRC += fille_bresename.c
 
 ######################################################################
 
@@ -160,14 +178,11 @@ IMAGE 			= ./libraries \
 
 DEBUG			= -g -fsanitize=address
 
-all: clear $(NAME)
-
-clear:
-	clear
+all: $(NAME)
 
 $(NAME): $(IMAGE) $(OBJ)
 	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
-	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG)
+	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG) $(DEBUG)
 	@echo "${vertclair}DONE${neutre}"
 
 $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
@@ -185,10 +200,12 @@ $(IMAGE): FORCE
 
 $(LIBFTA): FORCE
 	@if [ -f "/tmp/doom_log2" ]; then \
+		echo "${vertfonce}doom_log2 exists.${neutre}"; \
+	else \
 		touch /tmp/doom_log2; \
 		chmod 777 /tmp/doom_log2; \
 	fi
-	@make -C libft >> /tmp/doom_log2 2>&1
+	@make -C libft #>> /tmp/doom_log2 2>&1
 
 FORCE:
 
@@ -202,7 +219,7 @@ fclean : clean
 	@echo "${rouge}Fcleaning the project ...${neutre}\c"
 	@make fclean -C libft
 	@if [ -f "/tmp/doom_log2" ]; then \
-		rm /tmp/doom_log2; \
+		rm /tmp/doom_log2;
 	fi
 	@rm -rf $(NAME)
 	@echo "${rose}DONE${neutre}"

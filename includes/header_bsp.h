@@ -60,3 +60,5 @@ void			ft_split_polygon(t_mypolygon *poly,
 							t_mypolygon *front_split,
 							t_mypolygon *back_split);
 t_myvec			ft_vector_from_two_points(t_myvec v2, t_myvec v1);
+void			ft_add_vertex(t_myvec **vertex_lst, t_myvec *vertex_node);
+t_mypolygon		*ft_create_polygon_node(t_myvec *vertex_lst);

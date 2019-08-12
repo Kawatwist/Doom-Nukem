@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 17:26:54 by lomasse           #+#    #+#             */
-/*   Updated: 2019/06/12 13:04:14 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/10 11:15:25 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	menu_game_input(t_win *wn)
 	{
 		wn->oldinterface = wn->interface;
 		wn->menu->choice == 10 ? wn->interface = RGAME : 0;
+		wn->menu->choice == 10 ? SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) : 0;
 		wn->menu->choice == 11 ? wn->interface = NGAME : 0;
 		wn->menu->choice == 12 ? wn->interface = LGAME : 0;
 		wn->menu->choice == 13 ? wn->interface = MULTI : 0;

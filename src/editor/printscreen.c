@@ -6,94 +6,70 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 11:07:03 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/12 13:01:36 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/05/24 13:48:54 by llejeune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
 
-static void	showelem(t_win *wn)
+void		print_background_editor(t_win *wn)
 {
-	t_elem		*curr;
-	t_point		*point;
+	SDL_Surface		*surface;
+	SDL_Texture		*texture;
 
-	curr = wn->elem;
-	while (curr != NULL)
-	{
-		point = curr->point;
-		while (point != NULL && point->next != NULL)
-		{
-			SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
-			SDL_RenderDrawLine(wn->rend, point->x, point->y, point->next->x, point->next->y);
-			SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 0);
-			SDL_RenderDrawLine(wn->rend, point->x, point->y + 1, point->next->x, point->next->y + 1);
-			point = point->next;
-		}
-		curr = curr->next;
-	}
+	surface = SDL_CreateRGBSurface(0, wn->xscreen, wn->yscreen, 32, 0, 0, 0, 0);
+	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 66, 66, 66));
+	texture = SDL_CreateTextureFromSurface(wn->rend, surface);
+	SDL_FreeSurface(surface);
+	if (SDL_RenderCopy(wn->rend, texture, NULL, NULL) < 0)
+		stop_exec("rendercopy failed\n", wn);
 }
 
-static void	showline2(t_win *wn)
+static int	is_between(double x, double min, double max)
 {
-	float		i;
-	float		j;
-
-	j = wn->map->y;
-	i = wn->map->x;
-	if (wn->map->size > 1)
-	{
-		SDL_SetRenderDrawColor(wn->rend, 50 + (wn->map->size * 20 / 6),
-				50 + (wn->map->size * 20 / 6),
-				50 + (wn->map->size * 20 / 6), 0);
-		while (j <= wn->map->y + wn->map->h)
-		{
-			SDL_RenderDrawLine(wn->rend, wn->map->x, j,
-					wn->map->w + wn->map->x, j);
-			j += wn->map->h / 40;
-		}
-		j = wn->map->y;
-		while (i <= wn->map->x + wn->map->w)
-		{
-			SDL_RenderDrawLine(wn->rend, i, wn->map->y, i,
-					wn->map->h + wn->map->y);
-			i += wn->map->w / 40;
-		}
-	}
+	if (x >= min && x < max)
+		return (0);
+	return (1);
 }
 
-static void	showline(t_win *wn)
+void		change_bloc(t_win *wn)
 {
-	float		i;
-	float		j;
+	int x;
+	int y;
 
-	j = wn->map->y;
-	i = wn->map->x;
-	showline2(wn);
-	SDL_SetRenderDrawColor(wn->rend, 150, 100, 100, 0);
-	while (j <= wn->map->y + wn->map->h + 1)
-	{
-		SDL_RenderDrawLine(wn->rend, wn->map->x, j, wn->map->w + wn->map->x, j);
-		j += wn->map->h / 10;
-	}
-	j = wn->map->y;
-	while (i <= wn->map->x + wn->map->w + 1)
-	{
-		SDL_RenderDrawLine(wn->rend, i, wn->map->y, i, wn->map->h + wn->map->y);
-		i += wn->map->w / 10;
-	}
-}
-
-static void	showmap(t_win *wn)
-{
-	showline(wn);
-	showelem(wn);
+	x = wn->input->x;
+	y = wn->input->y;
+	if (is_between(x, 5.5 * wn->xscreen / 7, 5.75 * wn->xscreen / 7) == 0
+		&& is_between(y, 0, 0.25 * wn->yscreen / 7) == 0)
+		wn->edit_image.bgh = 1;
+	else if (is_between(x, 5.5 * wn->xscreen / 7, 5.75 * wn->xscreen / 7) == 0
+		&& is_between(y, 0.25, 0.5 * wn->yscreen / 7) == 0)
+		wn->edit_image.bgh = 0;
+	if (is_between(x, 6.75 * wn->xscreen / 7, wn->xscreen) == 0 && is_between(y, 3 *
+		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
+		wn->edit_image.in = 0;
+	else if (is_between(x, 6.75 * wn->xscreen / 7, wn->xscreen) == 0 && is_between(y, 5.75 *
+		wn->yscreen / 7, 6 * wn->yscreen / 7) == 0 && wn->edit_image.in == 0)
+		wn->edit_image.in = 1;
+	if (is_between(x, 5.5 * wn->xscreen / 7, 5.75 * wn->xscreen / 7) == 0 && is_between(y, 3 *
+		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
+		wn->edit_image.tbp = 0;
+	if (is_between(x, 5.75 * wn->xscreen / 7, 6 * wn->xscreen / 7) == 0 && is_between(y, 3 *
+		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
+		wn->edit_image.tbp = 1;
+	if (is_between(x, 6 * wn->xscreen / 7, 6.25 * wn->xscreen / 7) == 0 && is_between(y, 3 *
+		wn->yscreen / 7, 3.25 * wn->yscreen / 7) == 0 && wn->edit_image.in == 1)
+		wn->edit_image.tbp = 2;
 }
 
 void		printeditor(t_win *wn)
 {
-	t_text	*bg;
-
-	bg = findpostxt(wn, "editor", "intro", "119");
-	bg != NULL && bg->txt != NULL ? SDL_RenderCopy(wn->rend, bg->txt, NULL, NULL) : 0;
+	print_background_editor(wn);
+	// (is_path_ok(wn, wn->bg_map.path) == 0 && wn->edit_image.bgh == 0) ? load_background(wn) : 0;
 	showmap(wn);
+	which_cursor(wn);
+	print_tools_editor(wn);
+	print_bgh_editor(wn);
+	print_tbp_editor(wn);
+	wn->editext.on == 1 ? print_x_y_z(wn) : 0;
 }

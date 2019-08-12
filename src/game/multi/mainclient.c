@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 13:44:52 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/08 19:31:41 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/09 13:54:58 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,11 @@ static void	*msn_client(void *params)
 	wn = (t_win *)thd->wn;
 	ip = thd->str;
 	port = thd->value;
-	printf("Je vais essayer de me co a l addresse : %s avec le port : %d \n", ip, port);
 	tryconnect(wn, ip, port);
 	if (wn->client == NULL || ((t_client *)wn->client)->sockfd < 0)
 		return (NULL);
 	wn->menu->connected = 3;
 	add_chat(wn, 0);
-	printf("J'ai etait deconnecter du server\n");
 	free(ip);
 	close(((t_client *)wn->client)->sockfd);
 	wn->client = NULL; // NEED CLEAN CLIENT BEFORE SET TO NULL (FREE)

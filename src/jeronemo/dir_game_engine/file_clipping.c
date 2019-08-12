@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 22:01:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/18 15:18:17 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,17 @@ float	ft_distance(t_myvec plane_n, t_myvec plane_p, t_myvec p)
 	return (distance);
 }
 
-int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle *clipped_triangle, t_mytriangle *triangle)
+t_mytriangle	**ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, int *nbr, t_mytriangle **clipped_triangle, t_mytriangle *triangle)
 {
 	t_myvec		points_inside[3];
 	t_myvec		points_outside[3];
 	int			n_inside_points = 0;
 	int			n_outside_points = 0;
 	float		distance;
-	int			result = 0;
 	int			j;
 
 	j = 0;
 	plane_norm = ft_normalise(plane_norm);
-	point = ft_normalise(point);
 	while (j < 3)
 	{
 		distance = 0;
@@ -62,42 +60,39 @@ int	ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, t_mytriangle
 		}
 		j++;
 	}
-	/* printf(" inside = %d\n", n_inside_points); */
-	/* printf(" outside = %d\n", n_outside_points); */
-	if (n_inside_points == 0)
-	{
-		/* printf("reject\n"); */
-		result = 0;
-	}
+	printf(" inside = %d\n", n_inside_points);
+	printf(" outside = %d\n", n_outside_points);
+/*	if (n_inside_points == 0)
+		*nbr = 0;
 	else if (n_inside_points == 1)
 	{
-		/* printf("form one triangle ROUGE\n"); */
-		clipped_triangle[0].vertice[0] = points_inside[0];
-		clipped_triangle[0].vertice[1] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
-		clipped_triangle[0].vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[1]);
-		clipped_triangle[0].ft_color = 'r';
-		result = 1;
+		(*clipped_triangle)[0].vertice[0] = points_inside[0];
+		(*clipped_triangle)[0].vertice[1] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
+		(*clipped_triangle)[0].vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[1]);
+		(*clipped_triangle)[0].ft_color = 'r';
+		*nbr = 1;
 	}
 	else if (n_inside_points == 2)
 	{
-		/* printf("==>form a quadra GREEN\n\n"); */
-		clipped_triangle[0].vertice[0] = points_inside[0];
-		clipped_triangle[0].vertice[1] = points_inside[1];
-		clipped_triangle[0].vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
-		clipped_triangle[0].ft_color = 'g';
-
-		clipped_triangle[1].vertice[0] = points_inside[1];
-		clipped_triangle[1].vertice[1] = clipped_triangle[0].vertice[2];
-		clipped_triangle[1].vertice[2] = ft_vector_intersect(plane_norm,  point, points_inside[1], points_outside[0]);
-		clipped_triangle[1].ft_color = 'g';
-		result = 2;
+		(*clipped_triangle)[0].vertice[0] = points_inside[0];
+		(*clipped_triangle)[0].vertice[1] = points_inside[1];
+		(*clipped_triangle)[0].vertice[2] = ft_vector_intersect(plane_norm, point, points_inside[0], points_outside[0]);
+		(*clipped_triangle)[0].ft_color = 'g';
+		(*clipped_triangle)[1].vertice[0] = points_inside[1];
+		(*clipped_triangle)[1].vertice[1] = clipped_triangle[0]->vertice[2];
+		(*clipped_triangle)[1].vertice[2] = ft_vector_intersect(plane_norm,  point, points_inside[1], points_outside[0]);
+		(*clipped_triangle)[1].ft_color = 'g';
+		*nbr = 2;
 	}
-	else if (n_inside_points == 3)
+	else */
+	if (n_inside_points == 3)
 	{
-		/* printf("do nothing BLUE\n"); */
-		clipped_triangle[0] = *triangle;
-		clipped_triangle[0].ft_color = 'b';
-		result = 1;
+		(*clipped_triangle)[0] = *triangle;
+		if ((*clipped_triangle)[0].ft_color == 'b')
+			(*clipped_triangle)[0].ft_color = 'b';
+		*nbr = 1;
 	}
-	return (result);
+	else
+		*nbr = 0;
+	return (clipped_triangle);
 }

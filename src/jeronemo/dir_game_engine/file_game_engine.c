@@ -6,60 +6,52 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 12:59:09 by jchardin         ###   ########.fr       */
-/*                                                                            */ /* ************************************************************************** */ # include <header_game_engine.h>
+/*   Updated: 2019/07/25 12:45:44 by lomasse          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+# include <header_game_engine.h>
 t_mypolygon		*ft_read_the_polygon_file(void);
 
-void	ft_init_rasterization(t_win *wn, t_myraster *raster)
+t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
 {
-	SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) ;
-	raster->mat_trans = ft_make_matrix_5_5();
-	raster->mat_rot_x = ft_make_matrix_5_5();
-	raster->mat_rot_y = ft_make_matrix_5_5();
-	raster->mat_rot_z = ft_make_matrix_5_5();
-	raster->mat_proje = ft_make_matrix_5_5();
-	ft_set_pro(raster);
-	raster->ftheta = 0;
-	raster->theta_camera = 0;
-	raster->pitch = 0;
-	raster->leave_mouse = 0;
-	raster->v_camera.x = 0;
-	raster->v_camera.y = 0;
-	raster->v_camera.z = 0;
-	raster->avancer = 0;
-	raster->reculer = 0;
-	raster->translate_left = 0;
-	raster->translate_right = 0;
-	raster->modif = 1;
-	raster->old = (Uint8*)malloc(sizeof(Uint8) * 300);
-	raster->quit = 0;
+	t_mycolor	s_color;
+
+	s_color.rrr = rrr;
+	s_color.ggg = ggg;
+	s_color.bbb = bbb;
+	return (s_color);
+}
+
+void	ft_game_engine(t_win *wn)
+{
+	ft_launch_rasterization(wn);
+}
+
+void	turn_rast(t_win *wn)
+{
+	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
+	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
+	{
+//		ft_clear_window(wn);
+		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->tmp2, wn);
+		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
+//		if (wn->interface == DGAME)
+		SDL_RenderPresent(wn->rend);
+	}
 }
 
 void	ft_launch_rasterization(t_win *wn)
 {
-	t_myraster			raster;
-	t_mytriangle		*triangle_array;
-	t_mypolygon			*polygon_lst;
-	int					max;
-
-	polygon_lst = NULL;
-	polygon_lst = ft_read_the_polygon_file();
-	ft_launch_bsp_tree(polygon_lst);
-	triangle_array = ft_get_triangles_array(polygon_lst);
-	max = ft_get_nbr_of_triangle(polygon_lst);
-	ft_init_rasterization(wn, &raster);
-	/* ft_display_triangle_array(s_win, triangle_array, max); */
-	while (!raster.quit)
-	{
-		ft_input_event_check(wn, &raster);
-		if (raster.modif == 1 && !raster.quit)
-		{
-			ft_clear_window(wn);
-			ft_update_raster(&raster, triangle_array, max, wn);
-			SDL_RenderPresent(wn->rend);
-			SDL_Delay(30);
-			raster.modif = 0;
-		}
-		setkeyboard(raster.old, wn->state);
-	}
+	wn->rasterizer = malloc(sizeof(t_rasterizer));
+	wn->rasterizer->tmp3 = NULL;
+	if (wn->interface != EDITEUR)
+		wn->rasterizer->tmp3 = ft_read_the_polygon_file();
+	else
+		wn->rasterizer->tmp3 = polygon_map(wn);
+	ft_launch_bsp_tree(wn->rasterizer->tmp3);
+	wn->rasterizer->tmp2 = ft_get_triangles_array(wn->rasterizer->tmp3);
+	wn->rasterizer->max = ft_get_nbr_of_triangle(wn->rasterizer->tmp3);
+	wn->rasterizer->tmp = malloc(sizeof(t_myraster));
+	wn->rasterizer->tmp = ft_init_rasterization(wn, (t_myraster*)(wn->rasterizer->tmp));
 }

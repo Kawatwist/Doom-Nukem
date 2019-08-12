@@ -6,11 +6,11 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:26:36 by lomasse           #+#    #+#             */
-/*   Updated: 2019/05/24 13:13:33 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/10 11:27:24 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/tga_reader.h"
+#include "tga_reader.h"
 
 void		*free_tga(t_tga *tga)
 {
