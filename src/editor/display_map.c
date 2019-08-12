@@ -149,8 +149,40 @@ static void	showline(t_win *wn, t_edit *edit)
 	}
 }
 
+static void	showselection(t_win *wn, t_edit *edit)
+{
+	int			i;
+	SDL_Rect	selection;
+
+	if (edit->selected != NULL)
+	{
+		i = 0;
+		SDL_SetRenderDrawColor(wn->rend, 255, 0, 255, 255);
+		while (edit->selected[i] != NULL)
+		{
+			if (((edit->var->cursor & 0xFFFF0000) >> 16) == SWAP && (edit->var->cursor & 0xFFFF) == SWAP)
+			{
+				//printf("Decalage = %f\n", ((edit->selected[i]->z / 200) * ((edit->var->swapvar & 0xFFFF0000) >> 16)));
+				selection.x = (edit->selected[i]->x * edit->map->size * 10) - 10 + edit->map->x + ((edit->selected[i]->z / 200) * (short)((edit->var->swapvar & 0xFFFF0000) >> 16));
+				selection.y = (edit->selected[i]->y * edit->map->size * 10) - 10 + edit->map->y + ((edit->selected[i]->z / 200) * (short)(edit->var->swapvar & 0xFFFF));
+			}
+			else
+			{
+				selection.x = (edit->selected[i]->x * edit->map->size * 10) - 10 + edit->map->x;
+				selection.y = (edit->selected[i]->y * edit->map->size * 10) - 10 + edit->map->y;
+			}
+			selection.w = 20;
+			selection.h = 20;
+			SDL_RenderFillRect(wn->rend, &selection);
+			i++;
+		}
+	}
+
+}
+
 void		showmap(t_win *wn, t_edit *edit)
 {
 	showline(wn, edit);
 	showelem(wn, edit);
+	showselection(wn, edit);
 }

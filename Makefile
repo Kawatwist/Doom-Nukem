@@ -6,7 +6,7 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/08/07 11:57:39 by lomasse          ###   ########.fr        #
+#    Updated: 2019/08/08 13:14:45 by lomasse          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 rose=\033[1;31m
@@ -94,6 +94,7 @@ SRC				= main.c										\
 				  tools_editor.c 								\
 				  init_edit.c 									\
 				  cursor_editor.c								\
+				  cursor_tool.c									\
 				  mouse_editor.c 								\
 				  display_map.c 								\
 				  display_blocs.c 								\

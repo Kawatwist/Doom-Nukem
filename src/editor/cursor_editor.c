@@ -44,7 +44,7 @@ void	cursor(t_win *wn, t_edit *edit)
 }
 
 void	draw_cursor(t_win *wn, t_edit *edit)
-{
+{ // ATTENTION CHANGEMENT DE CURSEUR QUAND LE POLY N'EST PAS FINI
 	t_point start;
 	t_point end;
 	SDL_Rect	rect;
@@ -72,7 +72,7 @@ void	erase_cursor(t_win *wn, t_edit *edit)
 	if (((edit->var->cursor & 0xFFFF0000) >> 16) == ERASE && wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
 		if (mouse_pressed(wn, SDL_BUTTON_LEFT))
-		{
+		{	
 			selected = find_point_before(wn, edit);
 			if (selected != NULL && selected->next != NULL && selected->next->next != NULL)
 				selected->next = selected->next->next;
@@ -93,6 +93,8 @@ void	zoom_cursor(t_win *wn, t_edit *edit)
 		edit->map->size += 0.2;
 	if (edit->map->size > 0.4 && mouse_pressed(wn, SDL_BUTTON_RIGHT) && ((edit->var->cursor & 0xFFFF0000) >> 16) == ZOOM)
 		edit->map->size -= 0.2;
+	if (key_pressed(wn, SDL_SCANCODE_SPACE))
+		edit->map->size = 1;
 }
 
 void	hand_cursor(t_win *wn, t_edit *edit)
@@ -105,6 +107,11 @@ void	hand_cursor(t_win *wn, t_edit *edit)
 		edit->map->x += wn->input->x - x;
 		edit->map->y += wn->input->y - y;
 	}
+	if (key_pressed(wn, SDL_SCANCODE_SPACE))
+	{
+		edit->map->x = (wn->xscreen >> 1) - (edit->map->w);
+		edit->map->y = (wn->yscreen >> 1) - ((edit->map->h / 2));
+	}
 	x = wn->input->x;
 	y = wn->input->y;
 
@@ -114,6 +121,7 @@ void	select_cursor(t_win *wn, t_edit *edit)
 {
 	static SDL_Rect	box = {0, 0, 0, 0};
 	static char		click = 0;
+	t_point			**tmp;
 	
 	if (((edit->var->cursor & 0xFFFF0000) >> 16) == SELECT)
 	{
@@ -124,6 +132,13 @@ void	select_cursor(t_win *wn, t_edit *edit)
 				box.x = wn->input->x;
 				box.y = wn->input->y;
 			}
+			else if (wn->state[SDL_SCANCODE_LSHIFT] && edit->selected != NULL)
+			{
+				box.w = wn->input->x - box.x;
+				box.h = wn->input->y - box.y;
+				tmp = find_box_point(wn, edit, box);
+				edit->selected = addtmptoselection(tmp, edit->selected);
+			}
 			else
 			{
 				box.w = wn->input->x - box.x;
@@ -131,10 +146,8 @@ void	select_cursor(t_win *wn, t_edit *edit)
 				if (edit->selected != NULL)
 					free(edit->selected);
 				edit->selected = find_box_point(wn, edit, box);
-				//find point in box
-				// ADD SQUARE TO LIST
 			}
-			click = (click == 0 ? 1 : 0); // RESET
+			click = (click < 1 ? click += 1 : 0); // RESET
 		}
 		else
 		{
@@ -142,6 +155,14 @@ void	select_cursor(t_win *wn, t_edit *edit)
 			{
 				box.w = wn->input->x - box.x;
 				box.h = wn->input->y - box.y;
+			}
+		}
+		if (mouse_pressed(wn, SDL_BUTTON_RIGHT) || key_pressed(wn, SDL_SCANCODE_BACKSPACE))
+		{
+			if (edit->selected != NULL)
+			{
+				free(edit->selected);
+				edit->selected = NULL;
 			}
 		}
 	}
@@ -202,11 +223,55 @@ void	swap_cursor(t_win *wn, t_edit *edit)
 		edit->var->swapvar += ((short)((wn->input->x - x) & 0xFFFF) << 16);
 		edit->var->swapvar += ((short)(wn->input->y - y) & 0xFFFF);
 	}
+	if (key_pressed(wn, SDL_SCANCODE_BACKSPACE))
+		edit->var->swapvar = 0;
 	x = wn->input->x;
 	y = wn->input->y;
 }
-void	resize_cursor(t_win *wn, t_edit *edit)
+void	resize_cursor(t_win *wn, t_edit *edit) // ROTATE
 {
-	(void)wn;
-	(void)edit;
+	static t_point  *center = NULL;
+	static float	saverot = 0;
+	static float	anglex = 0;
+	static int 		x = 0;
+	static int 		y = 0;
+	t_point			tmp;
+	int				nb;
+
+	if (center == NULL && edit->selected == NULL)
+		;
+	else if (edit->selected != NULL && (edit->var->cursor & 0xFFFF0000) >> 16 == RESIZE)
+		center = find_center(edit->selected);
+	if (mouse_pressed(wn, SDL_BUTTON_LEFT))
+		saverot = 0;
+	if (center != NULL && wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT) && (edit->var->cursor & 0xFFFF0000) >> 16 == RESIZE)
+	{
+		anglex = (float)((x - wn->input->x)) / 4;
+		anglex += (float)((y - wn->input->y)) / 4;
+		nb = 0;
+		while (edit->selected[nb] != NULL)
+		{
+			tmp.x = edit->selected[nb]->x - center->x;
+			tmp.y = edit->selected[nb]->y - center->y;
+			edit->selected[nb]->x = (cos(anglex * 0.0174533) * (tmp.x)) - (sin(anglex * 0.0174533) * (tmp.y)) + center->x;
+			edit->selected[nb]->y = (sin(anglex * 0.0174533) * (tmp.x)) + (cos(anglex * 0.0174533) * (tmp.y)) + center->y;
+			nb++;
+		}
+		saverot += anglex;
+	}
+	if (mouse_pressed(wn, SDL_BUTTON_RIGHT) && edit->selected != NULL)
+	{
+		nb = 0;
+		while (edit->selected[nb] != NULL)
+		{
+			tmp.x = edit->selected[nb]->x - center->x;
+			tmp.y = edit->selected[nb]->y - center->y;
+			edit->selected[nb]->x = (cos(-saverot * 0.0174533) * (tmp.x)) - (sin(-saverot * 0.0174533) * (tmp.y)) + center->x;
+			edit->selected[nb]->y = (sin(-saverot * 0.0174533) * (tmp.x)) + (cos(-saverot * 0.0174533) * (tmp.y)) + center->y;
+			nb++;
+		}
+		saverot = 0;
+	}
+	x = wn->input->x;
+	y = wn->input->y;
 }
