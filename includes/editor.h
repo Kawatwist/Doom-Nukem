@@ -148,5 +148,6 @@ void 				print_save_and_reset(t_win *wn, t_edit *edit);
 void 				print_message(t_win *wn, char *msg, SDL_Color color);
 void				display_tab(t_win *wn, t_edit *edit);
 void    			exec_tab(t_win *wn, t_edit *edit);
+void		resetmap(t_edit *edit)
 
 #endif

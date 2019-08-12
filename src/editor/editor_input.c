@@ -12,7 +12,7 @@
 
 #include "editor.h"
 
-static void	resetmap(t_edit *edit)
+void		resetmap(t_edit *edit)
 {
 	edit->map->x = 0.1;
 	edit->map->y = 0.1;
