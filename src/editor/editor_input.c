@@ -48,7 +48,7 @@ static void	keyboardtool(t_win *wn, t_edit *edit)
 		&& !wn->old[SDL_SCANCODE_KP_MINUS] ? edit->map->size *= 0.8 : 0;
 	wn->state[SDL_SCANCODE_KP_MINUS]
 		&& edit->map->size <= 0.5 ? edit->map->size = 0.5 : 0;
-	wn->state[SDL_SCANCODE_R] ? resetmap(wn, edit) : 0;
+	wn->state[SDL_SCANCODE_BACKSPACE] ? resetmap(wn, edit) : 0;
 	edit->map->h = edit->indice->map_h * edit->map->size;
 	edit->map->w = edit->indice->map_w * edit->map->size;
 }
