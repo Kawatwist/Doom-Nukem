@@ -49,7 +49,6 @@ void			find_last_point(t_edit *edit, t_point **point)
 
 static void		fill_first_point(t_win *wn, t_edit *edit, t_point **point, float z)
 {
-	printf("Create New POint\n");
 	if (!((*point) = malloc(sizeof(t_point))))
 		return ; // STOP_exec
 	(*point)->x = (wn->input->x - edit->map->x) / edit->map->size / 10;

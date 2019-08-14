@@ -6,7 +6,7 @@
 /*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:58:28 by llejeune          #+#    #+#             */
-/*   Updated: 2019/08/07 14:42:10 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/12 17:01:49 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static void		load_edit_texture(t_win **wn)
 static void	initmap(t_win *wn, t_edit *edit)
 {
 	edit->map->size = 1.6;
-	edit->map->w = 600;
-	edit->map->h = 600;
+	edit->map->w = 1000;
+	edit->map->h = 1000;
 	edit->map->x = (wn->xscreen / 3) - (edit->map->w / 2);
 	edit->map->y = (wn->yscreen / 3) - ((edit->map->h / 2));
 }

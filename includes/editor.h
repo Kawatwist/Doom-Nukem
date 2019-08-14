@@ -100,6 +100,8 @@ typedef struct 		s_edit
 }					t_edit;
 
 t_point				**addtmptoselection(t_point **tmp, t_point **select);
+t_point     		**cpy_elem_selected(t_elem *elem);
+t_point				*find_center_linked(t_elem **lst);
 t_point				*find_center(t_point **lst);
 
 void				cursor(t_win *wn, t_edit *edit);
