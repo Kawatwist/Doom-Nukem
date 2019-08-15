@@ -17,7 +17,7 @@ void	stop_exec(char *msg, t_win *wn)
 	int			fd;
 
 	ft_putstr(msg);
-	if (wn->edit)
+	if (wn->edit != NULL)
 		stop_editor(wn);
 	wn->fonts->ariel != NULL ? TTF_CloseFont(wn->fonts->ariel) : 0;
 	SDL_Quit();

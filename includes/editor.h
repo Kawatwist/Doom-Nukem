@@ -48,6 +48,9 @@ typedef struct		s_map
 typedef struct 		s_loadbg
 {
 	char 			*path;
+	int				x; // Pos of texture x
+	int				y;
+	char			flag; // active mouvement + write enable
 } 					t_loadbg;
 
 typedef struct 		s_tab
@@ -55,6 +58,7 @@ typedef struct 		s_tab
 	SDL_Texture 	*texture_tools;
 	SDL_Texture 	*texture_bgh;
 	SDL_Texture 	*texture_tab;
+	SDL_Texture 	*bg_pics;
 	SDL_Texture 	*bg_path;
 	SDL_Texture 	*fleche;
 	SDL_Rect		bg;
