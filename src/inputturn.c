@@ -34,11 +34,14 @@ static void	mouseconfig(t_win *wn)
 
 static void	resetinput(t_win *wn)
 {
+	// SDL_Event 	event;
+
 	setkeyboard(wn->old, wn->state);
 	wn->input->oldmouse = wn->input->mouse;
 	SDL_PumpEvents();
 	wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
 	wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
+	// (event.type == SDL_QUIT) ? stop_exec("Thank you for playing", wn) : 0;
 }
 
 void		main_input(t_win *wn)
