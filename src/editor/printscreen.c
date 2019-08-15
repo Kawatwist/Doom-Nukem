@@ -65,12 +65,25 @@ static void	checkcursor(t_win *wn, t_edit *edit)
 	(edit->var->cursor & 0xFF) < 0 || (edit->var->cursor & 0xFF) > 9 ? edit->var->cursor = edit->var->cursor & 0xFFFF0000 : 0;
 }
 
+static void	showbgpics(t_win *wn, t_edit *edit)
+{
+	SDL_Rect pos;
+
+	pos.x = edit->map->x;//edit->loadbg->x;
+	pos.y = edit->map->y;//edit->loadbg->y;
+	pos.w = edit->map->w;
+	pos.h = edit->map->h;
+	SDL_RenderCopy(wn->rend, edit->tab->bg_pics, NULL, &pos);
+}
+
 void		printeditor(t_win *wn)
 {
 	t_edit 	*edit;
 
 	edit = ((t_edit *)(*wn).edit);
 	print_background_editor(wn);
+	if (edit->tab->bg_pics != NULL)
+		showbgpics(wn, edit);
 	// (is_path_ok(wn, wn->bg_map.path) == 0 && wn->edit_image.bgh == 0) ? load_background(wn) : 0;
 	showmap(wn, edit);
 	checkcursor(wn, edit);

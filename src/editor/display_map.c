@@ -28,8 +28,12 @@ static void	showelem(t_win *wn, t_edit *edit)
 	{
 		point = curr->point;
 		if ((i % 2) == 0)
+		{
 			pointbis = curr->next->point;
-		SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
+			SDL_SetRenderDrawColor(wn->rend, 155, 155, 255, 0);
+		}
+		else
+			SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 0);
 		while (point != NULL && point->next != NULL)
 		{
 			if ((i % 2) == 0 && (edit->var->cursor & 0xFFFF) == SWAP)

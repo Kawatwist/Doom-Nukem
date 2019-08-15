@@ -96,10 +96,19 @@ void		init_edit(t_win **wn)
 	edit->indice->map_h = 600;
 	edit->indice->val_z = 20;
 	edit->tab->texture_tools = NULL;
+	edit->tab->bg_pics = NULL;
+	edit->tab->bg_path = NULL;
+	edit->tab->texture_tab = NULL;
+	edit->tab->fleche = NULL;
+	edit->tab->bg.x = 0;
+	edit->tab->bg.y = 0;
 	edit->tab->bgh = 0;
 	edit->tab->in = 1;
 	edit->tab->onglet = 2;
 	edit->loadbg->path = NULL;
+	edit->loadbg->x = 0;
+	edit->loadbg->y = 0;
+	edit->loadbg->flag = 0;
 	edit->var->cursor = 1;
 	edit->var->swapvar = 0;
 	edit->var->nb_point = 1;
@@ -115,7 +124,7 @@ void			stop_editor(t_win *wn)
 {
 	t_edit 	*edit;
 
-	edit = ((t_edit *)(*wn).edit);
+	edit = (t_edit *)(wn->edit);
 	if (edit->indice->texture_x != NULL)
 		SDL_DestroyTexture(edit->indice->texture_x);
 	if (edit->indice->texture_y != NULL)

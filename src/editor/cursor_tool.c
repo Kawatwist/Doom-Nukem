@@ -10,6 +10,37 @@ static int select_len(t_point **select)
     return (i);
 }
 
+static void removedouble(t_point ***ret)
+{
+    int i;
+    int j;
+    int save;
+
+    i = 0;
+    save = 0;
+    while ((*ret)[i] != NULL)
+    {
+        j = 1;
+        while ((*ret)[i] != NULL && (*ret)[i + j] != NULL)
+        {
+            if ((*ret)[i] == (*ret)[i + j])
+            {
+                save = i;
+                while ((*ret)[i + 1] != NULL)
+                {
+                    (*ret)[i] = (*ret)[i + 1];
+                    i++;
+                }
+                (*ret)[i] = NULL;
+                i = save;
+                j = 0;
+            }
+            j++;
+        }
+        i++;
+    }
+}
+
 t_point **addtmptoselection(t_point **tmp, t_point **select)
 {
     t_point **ret;
@@ -22,11 +53,11 @@ t_point **addtmptoselection(t_point **tmp, t_point **select)
     memcpy(ret, tmp, i * sizeof(t_point *));
     memcpy(&ret[i], select, j * sizeof(t_point *));
     ret[i + j] = NULL;
+    removedouble(&ret);
     free(tmp);
     free(select);
     return (ret);
 }
-
 
 t_point     **cpy_elem_selected(t_elem *elem)
 {
