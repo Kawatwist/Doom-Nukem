@@ -12,6 +12,15 @@
 
 #include "editor.h"
 
+static void	center_map(t_win *wn, t_edit *edit)
+{
+	edit->map->h = edit->indice->map_h;
+	edit->map->w = edit->indice->map_w;
+	edit->map->x = (wn->xscreen / 3.5) - (edit->map->w / 2);
+	edit->map->y = (wn->yscreen / 3) - ((edit->map->h / 2));
+	edit->map->size = 1.6;
+}
+
 void		check_hitbox(t_win *wn, t_edit *edit)
 {
 	SDL_Rect cursor;
@@ -45,21 +54,10 @@ void		resetmap(t_win *wn, t_edit *edit)
 		remove_poly(curr);
 	}
 	edit->elem = NULL;
-	edit->map->h = edit->indice->map_h;
-	edit->map->w = edit->indice->map_w;
-	edit->map->x = (wn->xscreen / 3.5) - (edit->map->w / 2);
-	edit->map->y = (wn->yscreen / 3) - ((edit->map->h / 2));
-	edit->map->size = 1.6;	
+	center_map(wn, edit);
 }
 
-static void	center_map(t_win *wn, t_edit *edit)
-{
-	edit->map->h = edit->indice->map_h;
-	edit->map->w = edit->indice->map_w;
-	edit->map->x = (wn->xscreen / 3.5) - (edit->map->w / 2);
-	edit->map->y = (wn->yscreen / 3) - ((edit->map->h / 2));
-	edit->map->size = 1.6;
-}
+
 
 static void	control_map(t_win *wn, t_edit *edit)
 {
