@@ -55,12 +55,15 @@ void	display_slider(t_win *wn, SDL_Rect rect, SDL_Texture *texture)
 		SDL_RenderCopy(wn->rend, motif, NULL, &tmp) < 0 ? stop_exec("rendercopy failed in display_slider 2\n", wn) : 0;
 	else
 	{
-		move = wn->input->y - move;
-		rect.y + move < rect.y ? move = 0 : 0;
-		move + slider_height > rect.h ? move = rect.h - slider_height : 0;
 		tmp = define_rect(rect.x + rect.w + 0.05 * wn->xscreen / 8, rect.y + move, 0.05 * wn->xscreen / 8, slider_height);
+		if (mouse_pressed(wn, SDL_BUTTON_LEFT) && hitbox(wn->input->x, wn->input->y, &tmp))
+		{
+			// move != 0 ? move = wn->input->y : 0;
+			move = wn->input->y - move;
+			rect.y + move < rect.y ? move = 0 : 0;
+			move + slider_height > rect.h ? move = rect.h - slider_height : 0;
+		}
 		SDL_RenderCopy(wn->rend, motif, NULL, &tmp) < 0 ? stop_exec("rendercopy failed in display_slider 3\n", wn) : 0;
-		move = wn->input->y;
 	}
 }
 
