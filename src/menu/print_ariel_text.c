@@ -25,6 +25,7 @@ void			print_text_with_ariel_font(t_win *wn, char *s, SDL_Color color, SDL_Rect 
 		stop_exec("SDL_CreateTextureFromSurface()failed", wn);
 	SDL_FreeSurface(surface);
 	SDL_RenderCopy(wn->rend, texture, NULL, &position);
+	SDL_DestroyTexture(texture);
 }
 
 void			print_text_with_arial_font(t_win *wn, char *s, SDL_Color color, SDL_Rect position)
@@ -40,6 +41,7 @@ void			print_text_with_arial_font(t_win *wn, char *s, SDL_Color color, SDL_Rect 
 		stop_exec("SDL_CreateTextureFromSurface()failed", wn);
 	SDL_FreeSurface(surface);
 	SDL_RenderCopy(wn->rend, texture, NULL, &position);
+	SDL_DestroyTexture(texture);
 }
 
 void			print_text_with_arial_path_full(t_win *wn, char *s, SDL_Color color, SDL_Rect position)
@@ -55,6 +57,7 @@ void			print_text_with_arial_path_full(t_win *wn, char *s, SDL_Color color, SDL_
 		stop_exec("SDL_CreateTextureFromSurface()failed", wn);
 	SDL_FreeSurface(surface);
 	SDL_RenderCopy(wn->rend, texture, NULL, &position);
+	SDL_DestroyTexture(texture);
 }
 
 void			print_text_with_arial_path(t_win *wn, char *s, SDL_Color color, SDL_Rect position)
@@ -64,6 +67,8 @@ void			print_text_with_arial_path(t_win *wn, char *s, SDL_Color color, SDL_Rect 
 	surface = TTF_RenderText_Solid(wn->fonts->arial_path, s, color);
 	if (surface == NULL)
 		stop_exec("TTF_RenderText()failed", wn);
+	if (((t_edit *)wn->edit)->tab->bg_path != NULL)
+		free(((t_edit *)wn->edit)->tab->bg_path);
 	((t_edit *)wn->edit)->tab->bg_path = SDL_CreateTextureFromSurface(wn->rend, surface);
 	if (((t_edit *)wn->edit)->tab->bg_path == NULL)
 		stop_exec("SDL_CreateTextureFromSurface()failed", wn);

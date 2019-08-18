@@ -141,6 +141,8 @@ void		print_bg(t_win *wn, t_edit *edit)
 		print_path(wn, path, edit->tab->bg.x + 5, edit->tab->bg.y + 5);
 	if (key_pressed(wn, SDL_SCANCODE_RETURN))
 	{
+		if (edit->loadbg->path != NULL)
+			free(edit->loadbg->path);
 		edit->loadbg->path = ft_strdup(path);
 		is_path_ok(wn, path);
 		((t_edit *)(*wn).edit)->tab->bg_pics = findtexture(wn, "editor", "affichage", ((t_edit *)wn->edit)->loadbg->path);

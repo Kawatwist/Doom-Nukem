@@ -53,6 +53,7 @@ int 		pop_up_message(t_win *wn, char *msg, SDL_Rect *rect)
 	SDL_FreeSurface(surface);
 	if (SDL_RenderCopy(wn->rend, texture, NULL, rect) < 0)
 		stop_exec("rendercopy failed\n", wn);
+	SDL_DestroyTexture(texture);
 	TTF_SizeText(wn->fonts->arial_path, msg, &w, &h);
 	position = define_rect(rect->x + rect->w /2 - w / 2, rect->y + rect->h / 4, w, h);
 	TTF_SetFontStyle(wn->fonts->arial_path, TTF_STYLE_BOLD);
@@ -66,6 +67,7 @@ int 		pop_up_message(t_win *wn, char *msg, SDL_Rect *rect)
 	SDL_FreeSurface(surface);
 	if (SDL_RenderCopy(wn->rend, texture, NULL, &position) < 0)
 		stop_exec("rendercopy failed\n", wn);
+	SDL_DestroyTexture(texture);
 	TTF_SizeText(wn->fonts->arial_path, "YES", &w, &h);
 	if (mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE && hitbox(wn->input->x, wn->input->y, &position) == TRUE)
 		return(1);
@@ -81,6 +83,7 @@ int 		pop_up_message(t_win *wn, char *msg, SDL_Rect *rect)
 	SDL_FreeSurface(surface);
 	if (SDL_RenderCopy(wn->rend, texture, NULL, &position) < 0)
 		stop_exec("rendercopy failed\n", wn);
+	SDL_DestroyTexture(texture);
 	TTF_SizeText(wn->fonts->arial_path, "NO", &w, &h);
 	if (mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE && hitbox(wn->input->x, wn->input->y, &position) == TRUE)
 		return(2);
