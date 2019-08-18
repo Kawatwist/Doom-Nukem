@@ -37,6 +37,12 @@ static void		load_edit_texture(t_win **wn)
 	(*wn)->load = ft_strdup("./texture/editor/cursor.tga");
 	load_texture(*wn, "editor", "affichage", "cursor_panel");
 	free((*wn)->load);
+	(*wn)->load = ft_strdup("./texture/editor/slider.tga");
+	load_texture(*wn, "editor", "affichage", "slider_window");
+	free((*wn)->load);
+	(*wn)->load = ft_strdup("./texture/editor/back_slider.tga");
+	load_texture(*wn, "editor", "affichage", "back_slider");
+	free((*wn)->load);
 }
 
 static void	initmap(t_win *wn, t_edit *edit)

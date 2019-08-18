@@ -39,6 +39,7 @@ static void	resetinput(t_win *wn)
 	SDL_PumpEvents();
 	wn->state = (Uint8*)SDL_GetKeyboardState(NULL);
 	wn->input->mouse = SDL_GetMouseState(&wn->input->x, &wn->input->y);
+	// (wn->ev.type == SDL_QUIT) ? stop_exec("Thank you for playing", wn) : 0;
 }
 
 void		main_input(t_win *wn)
