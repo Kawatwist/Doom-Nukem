@@ -23,6 +23,7 @@ void		print_background_editor(t_win *wn)
 	SDL_FreeSurface(surface);
 	if (SDL_RenderCopy(wn->rend, texture, NULL, NULL) < 0)
 		stop_exec("rendercopy failed\n", wn);
+	SDL_DestroyTexture(texture);
 }
 
 void		change_bloc(t_win *wn, t_edit *edit)

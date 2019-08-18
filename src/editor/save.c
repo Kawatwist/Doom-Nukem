@@ -41,6 +41,7 @@ void 		print_save_and_reset(t_win *wn, t_edit *edit)
     SDL_FreeSurface(surface);
 	if (SDL_RenderCopy(wn->rend, texture, NULL, &position) < 0)
 		stop_exec("rendercopy failed in save\n", wn);
+	SDL_DestroyTexture(texture);
 	TTF_SizeText(wn->fonts->ariel, "SAVE", &w, &h);
 	position = define_rect(6.5 * wn->xscreen / 8 - (w / 2), 0.25 * wn->yscreen / 8 - (h / 2), w, h);
 	TTF_SetFontStyle(wn->fonts->ariel, TTF_STYLE_BOLD);
@@ -57,6 +58,7 @@ void 		print_save_and_reset(t_win *wn, t_edit *edit)
 	SDL_FreeSurface(surface);
 	if (SDL_RenderCopy(wn->rend, texture, NULL, &position) < 0)
 		stop_exec("rendercopy failed in reset\n", wn);
+	SDL_DestroyTexture(texture);
 	TTF_SizeText(wn->fonts->ariel, "RESET", &w, &h);
 	position = define_rect(7.5 * wn->xscreen / 8 - (w / 2), 0.25 * wn->yscreen / 8 - (h / 2), w, h);
 	TTF_SetFontStyle(wn->fonts->ariel, TTF_STYLE_BOLD);
