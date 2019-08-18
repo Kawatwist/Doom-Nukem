@@ -513,6 +513,7 @@ void				full_screen(t_win *wn);
 SDL_Rect			*create_rect(int x, int y, int w, int h);
 int					hitboxbox(t_myvec vec, t_rectbox box);
 int					hitbox(int x, int y, SDL_Rect *pos);
+int					boxhitbox(SDL_Renderer *rend, SDL_Rect *check, SDL_Rect *pos, char show);
 Uint32				set_bit(Uint32 var, Uint32 mask);
 int					mouse_pressed(t_win *wn, Uint32 mask);
 int					key_pressed(t_win *wn, int key_value);

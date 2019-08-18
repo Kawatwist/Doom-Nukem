@@ -35,6 +35,15 @@ void 		print_message(t_win *wn, char *msg, SDL_Color color)
 	}
 }
 
+int		boxhitbox(SDL_Renderer *rend, SDL_Rect *check, SDL_Rect *pos, char show)
+{
+	if (show == 1)
+		SDL_RenderDrawRect(rend, pos);
+	if (check->x >= pos->x && check->y >= pos->y && check->x <= pos->x + pos->w && check->y <= pos->y + pos->h)
+		return (TRUE);
+	return (FALSE);
+}
+
 int 		pop_up_message(t_win *wn, char *msg, SDL_Rect *rect)
 {
 	int				w;

@@ -21,6 +21,24 @@ static void	center_map(t_win *wn, t_edit *edit)
 	edit->map->size = 1.6;
 }
 
+void		check_hitbox(t_win *wn, t_edit *edit)
+{
+	SDL_Rect cursor;
+
+	cursor.x =  wn->input->x;
+	cursor.y =  wn->input->y;
+	(void)edit;
+	SDL_SetRenderDrawColor(wn->rend, 255,255,255, 255);
+	if (boxhitbox(wn->rend, &cursor, create_rect(720, 200, 200, 200), 1))
+	{
+		if (edit->tab->bg_pics != NULL && mouse_pressed(wn, SDL_BUTTON_LEFT))
+		{
+			free(edit->tab->bg_pics);
+			edit->tab->bg_pics = NULL;
+		}
+	}
+}
+
 void		resetmap(t_win *wn, t_edit *edit)
 {
 	t_elem 		*curr;
