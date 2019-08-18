@@ -46,7 +46,7 @@ void	display_slider(t_win *wn, SDL_Rect rect, SDL_Texture *texture)
 
 	SDL_QueryTexture(texture, NULL, NULL, &size, &size);
 	slider_height = rect.h * rect.h / size;
-	tmp = define_rect(rect.x + rect.w + 0.1 * wn->xscreen / 8, rect.y, 0.1 * wn->xscreen / 8, rect.h);
+	tmp = define_rect(rect.x + rect.w + 0.05 * wn->xscreen / 8, rect.y, 0.05 * wn->xscreen / 8, rect.h);
 	motif = findtexture(wn, "editor", "affichage", "back_slider");
 	SDL_RenderCopy(wn->rend, motif, NULL, &tmp) < 0 ? stop_exec("rendercopy failed in display_slider\n", wn) : 0;
 	motif = findtexture(wn, "editor", "affichage", "slider_window");
@@ -56,7 +56,7 @@ void	display_slider(t_win *wn, SDL_Rect rect, SDL_Texture *texture)
 	else
 	{
 		move = wn->input->y - move;
-		tmp = define_rect(rect.x + rect.w + 0.1 * wn->xscreen / 8, rect.y + move, 0.1 * wn->xscreen / 8, slider_height);
+		tmp = define_rect(rect.x + rect.w + 0.05 * wn->xscreen / 8, rect.y + move, 0.05 * wn->xscreen / 8, slider_height);
 		SDL_RenderCopy(wn->rend, motif, NULL, &tmp) < 0 ? stop_exec("rendercopy failed in display_slider 3\n", wn) : 0;
 		move = wn->input->y;
 	}

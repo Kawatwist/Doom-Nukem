@@ -50,8 +50,8 @@ static void	initmap(t_win *wn, t_edit *edit)
 	edit->map->size = 1.6;
 	edit->map->w = 1000;
 	edit->map->h = 1000;
-	edit->map->x = (wn->xscreen / 3) - (edit->map->w / 2);
-	edit->map->y = (wn->yscreen / 3) - ((edit->map->h / 2));
+	edit->map->x = (wn->xscreen / 2.5) - (edit->map->w / 2);
+	edit->map->y = (wn->yscreen / 2) - ((edit->map->h / 2));
 }
 
 static void	initelem(t_edit *edit)
