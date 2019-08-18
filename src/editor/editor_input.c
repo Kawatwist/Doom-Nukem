@@ -43,28 +43,38 @@ void		resetmap(t_win *wn, t_edit *edit)
 	edit->elem = NULL;
 	edit->map->h = edit->indice->map_h;
 	edit->map->w = edit->indice->map_w;
-	edit->map->x = (wn->xscreen / 3) - (edit->map->w / 2);
+	edit->map->x = (wn->xscreen / 3.5) - (edit->map->w / 2);
+	edit->map->y = (wn->yscreen / 3) - ((edit->map->h / 2));
+	edit->map->size = 1.6;	
+}
+
+static void	center_map(t_win *wn, t_edit *edit)
+{
+	edit->map->h = edit->indice->map_h;
+	edit->map->w = edit->indice->map_w;
+	edit->map->x = (wn->xscreen / 3.5) - (edit->map->w / 2);
 	edit->map->y = (wn->yscreen / 3) - ((edit->map->h / 2));
 	edit->map->size = 1.6;
 }
 
 static void	keyboardtool(t_win *wn, t_edit *edit)
 {
+	key_pressed(wn, SDL_SCANCODE_SPACE) ? center_map(wn, edit) : 0;
 	key_pressed(wn, SDL_SCANCODE_O) ? edit->var->cursor -= 1 : 0; // NOT PROTECT IF < 0
 	key_pressed(wn, SDL_SCANCODE_P) ? edit->var->cursor += 1 : 0; // NOT PROTECT IF > 9
-	wn->state[SDL_SCANCODE_LEFT] ? edit->map->x -= (6.5 - edit->map->size) : 0;
-	wn->state[SDL_SCANCODE_RIGHT] ? edit->map->x += (6.5 - edit->map->size) : 0;
-	wn->state[SDL_SCANCODE_UP] ? edit->map->y -= (6.5 - edit->map->size) : 0;
-	wn->state[SDL_SCANCODE_DOWN] ? edit->map->y += (6.5 - edit->map->size) : 0;
+	wn->state[SDL_SCANCODE_A] ? edit->map->x -= (6.5 - edit->map->size) : 0;
+	wn->state[SDL_SCANCODE_D] ? edit->map->x += (6.5 - edit->map->size) : 0;
+	wn->state[SDL_SCANCODE_W] ? edit->map->y -= (6.5 - edit->map->size) : 0;
+	wn->state[SDL_SCANCODE_S] ? edit->map->y += (6.5 - edit->map->size) : 0;
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MENU : 0;
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 0 : 0;
-	wn->state[SDL_SCANCODE_KP_PLUS] && edit->map->size < 6
-		&& !wn->old[SDL_SCANCODE_KP_PLUS] ? edit->map->size *= 1.2 : 0;
-	wn->state[SDL_SCANCODE_KP_PLUS]
+	wn->state[SDL_SCANCODE_E] && edit->map->size < 6
+		&& !wn->old[SDL_SCANCODE_E] ? edit->map->size *= 1.2 : 0;
+	wn->state[SDL_SCANCODE_E]
 		&& edit->map->size >= 6 ? edit->map->size = 6 : 0;
-	wn->state[SDL_SCANCODE_KP_MINUS] && edit->map->size > 0.5
-		&& !wn->old[SDL_SCANCODE_KP_MINUS] ? edit->map->size *= 0.8 : 0;
-	wn->state[SDL_SCANCODE_KP_MINUS]
+	wn->state[SDL_SCANCODE_Q] && edit->map->size > 0.5
+		&& !wn->old[SDL_SCANCODE_Q] ? edit->map->size *= 0.8 : 0;
+	wn->state[SDL_SCANCODE_Q]
 		&& edit->map->size <= 0.5 ? edit->map->size = 0.5 : 0;
 	wn->state[SDL_SCANCODE_BACKSPACE] ? resetmap(wn, edit) : 0;
 	edit->map->h = edit->indice->map_h * edit->map->size;
