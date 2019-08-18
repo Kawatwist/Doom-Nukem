@@ -95,7 +95,10 @@ void		printeditor(t_win *wn)
 	edit->indice->on == 1 ? print_x_y_z(wn, edit) : 0;
 	edit->var->cursor = ((edit->var->cursor & 0xFFFF) << 16) + (edit->var->cursor & 0xFFFF); // Save cursor
 	print_save_and_reset(wn, edit);
+<<<<<<< HEAD
 	check_hitbox(wn, wn->edit);
 	// test_slider(wn);
+=======
+>>>>>>> 8bd9be805b701ae77c58ebaa5129521ca8d07601
 	test_slider(wn);
 }
