@@ -15,6 +15,14 @@
 
 # include <doom.h>
 
+typedef enum		e_flag
+{
+	WRITE = 1,
+	LOCK = 2,	//BG FOLLOW MAP
+	MAP = 4,	//ONLY MAP or ONLY BG
+
+}					t_flag;
+
 typedef enum		e_cursor
 {
 	CURSOR = 0,
@@ -50,6 +58,7 @@ typedef struct 		s_loadbg
 	char 			*path;
 	int				x; // Pos of texture x
 	int				y;
+	int				size;
 	char			flag; // active mouvement + write enable
 } 					t_loadbg;
 
