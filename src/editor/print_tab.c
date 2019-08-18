@@ -56,6 +56,8 @@ void	display_slider(t_win *wn, SDL_Rect rect, SDL_Texture *texture)
 	else
 	{
 		move = wn->input->y - move;
+		rect.y + move < rect.y ? move = 0 : 0;
+		move + slider_height > rect.h ? move = rect.h - slider_height : 0;
 		tmp = define_rect(rect.x + rect.w + 0.05 * wn->xscreen / 8, rect.y + move, 0.05 * wn->xscreen / 8, slider_height);
 		SDL_RenderCopy(wn->rend, motif, NULL, &tmp) < 0 ? stop_exec("rendercopy failed in display_slider 3\n", wn) : 0;
 		move = wn->input->y;
@@ -67,7 +69,7 @@ void 		test_slider(t_win *wn)
 	SDL_Rect	rect;
 	SDL_Texture		*texture;
 
-	rect = define_rect(wn->xscreen / 3, 0, wn->xscreen / 4, wn->yscreen / 4);
+	rect = define_rect(wn->xscreen / 3, wn->yscreen / 4, wn->xscreen / 4, wn->yscreen / 4);
 	texture = findtexture(wn, "editor", "affichage", "slider_window");
 	display_slider(wn, rect, texture);
 }
