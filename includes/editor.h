@@ -119,6 +119,8 @@ void				form_cursor(t_win *wn, t_edit *edit);
 void				swap_cursor(t_win *wn, t_edit *edit);
 void				resize_cursor(t_win *wn, t_edit *edit);
 
+void				check_hitbox(t_win *wn, t_edit *edit);
+
 t_point				**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box);
 t_point				*find_point_before(t_win *wn, t_edit *edit);
 t_point				*find_closer_point(t_win *wn, t_edit *edit);
