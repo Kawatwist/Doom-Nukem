@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/18 14:42:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/19 16:29:49 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,10 +250,10 @@ typedef struct				s_mypolygon
 //
 typedef struct		s_rasterizer
 {
-	int				max;
+	int				nbr_triangle;
 	void			*tmp;
-	t_mytriangle	*tmp2;
-	t_mypolygon		*tmp3;
+	t_mytriangle	*triangle_array;
+	t_mypolygon		*polygon_lst;
 }					t_rasterizer;
 
 typedef struct		s_win

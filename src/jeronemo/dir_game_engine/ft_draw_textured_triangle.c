@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/23 18:31:45 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/19 12:57:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	ft_draw_textured_triangle(
 	int		dx2;			float	du2;
 	float	dax_step = 0;	float	du1_step = 0;	float	dv1_step = 0;
 	float	dbx_step = 0;	float	du2_step = 0;	float	dv2_step = 0;
-	int		ax;				float	au;
-	int		bx;				float	bu;
+	int		ax;				//float	au;
+	int		bx;				//float	bu;
 
 	//#########################################################################
 	dy1 = y2 - y1;			dv1 = v2 - v1;
@@ -118,7 +118,11 @@ void	ft_draw_textured_triangle(
 		du2_step = du2 / abs(dy2);
 		dv2_step = dv2 / abs(dy2);
 	}
-	if (dy1 > 0) //on draw le triangle du haut
+/* ************************************************************************** */
+/*	on draw le triangle du haut   */
+/* ************************************************************************** */
+
+	if (dy1 > 0)
 	{
 		printf("on draw le triangle du haut (flat bottom)\n");
 		SDL_SetRenderDrawColor(wn->rend, 0, 0, 255, 255);
@@ -128,19 +132,19 @@ void	ft_draw_textured_triangle(
 			ax = x1 + (float)(i - y1) * dax_step;
 			bx = x1 + (float)(i - y1) * dbx_step;
 
-			float tex_su = u1 + (float)(i - y1) * du1_step;
-			float tex_sv = v1 + (float)(i - y1) * dv1_step;
-			float tex_sw = w1 + (float)(i - y1) * dw1_step;
+			/* float tex_su = u1 + (float)(i - y1) * du1_step; */
+			/* float tex_sv = v1 + (float)(i - y1) * dv1_step; */
+			/* float tex_sw = w1 + (float)(i - y1) * dw1_step; */
 
-			float tex_eu = u1 + (float)(i - y1) * du2_step;
-			float tex_ev = v1 + (float)(i - y1) * dv2_step;
-			float tex_ew = w1 + (float)(i - y1) * dw2_step;
+			/* float tex_eu = u1 + (float)(i - y1) * du2_step; */
+			 /* float tex_ev = v1 + (float)(i - y1) * dv2_step; */
+			/* float tex_ew = w1 + (float)(i - y1) * dw2_step; */
 			if (ax > bx)
 			{
 				ft_swap_int(&ax, &bx);
-				ft_swap_float(tex_su, tex_eu);
-				ft_swap_float(tex_sv, tex_ev);
-				ft_swap_float(tex_sw, tex_ew);
+				/* ft_swap_float(tex_su, tex_eu); */
+				/* ft_swap_float(tex_sv, tex_ev); */
+				/* ft_swap_float(tex_sw, tex_ew); */
 			}
 			j = ax;
 			while (j < bx)
@@ -172,19 +176,19 @@ void	ft_draw_textured_triangle(
 			bx = x1 + (float)(i - y1) * dbx_step;
 
 
-			float tex_su = u2 + (float)(i - y2) * du1_step;
-			float tex_sv = v2 + (float)(i - y2) * dv1_step;
-			float tex_sw = w2 + (float)(i - y2) * dw1_step;
+			/* float tex_su = u2 + (float)(i - y2) * du1_step; */
+			/* float tex_sv = v2 + (float)(i - y2) * dv1_step; */
+			/* float tex_sw = w2 + (float)(i - y2) * dw1_step; */
 
-			float tex_eu = u1 + (float)(i - y1) * du2_step;
-			float tex_ev = v1 + (float)(i - y1) * dv2_step;
-			float tex_ew = w1 + (float)(i - y1) * dw2_step;
+			/* float tex_eu = u1 + (float)(i - y1) * du2_step; */
+			/* float tex_ev = v1 + (float)(i - y1) * dv2_step; */
+			/* float tex_ew = w1 + (float)(i - y1) * dw2_step; */
 			if (ax > bx)
 			{
 				ft_swap_int(&ax, &bx);
-				ft_swap_float(tex_su, tex_eu);
-				ft_swap_float(tex_sv, tex_ev);
-				ft_swap_float(tex_sw, tex_ew);
+				/* ft_swap_float(tex_su, tex_eu); */
+				/* ft_swap_float(tex_sv, tex_ev); */
+				/* ft_swap_float(tex_sw, tex_ew); */
 			}
 			j = ax;
 			while (j < bx)

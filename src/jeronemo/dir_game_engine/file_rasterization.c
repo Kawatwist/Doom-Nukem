@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/21 17:14:39 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/19 16:35:03 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->point_bottom_screen = ft_create_vector( 0.0, YSCREEN - 1, 0.0 );
 	raster->plane_bottom_screen = ft_create_vector( 0.0, -1.0, 0.0 );
 	raster->i = 0;   //attention limit le nombre de triangle
-	raster->nbr_of_triangle = wn->rasterizer->max; //de meme
+	raster->nbr_of_triangle = wn->rasterizer->nbr_triangle; //de meme
 	return (raster);
 }
 

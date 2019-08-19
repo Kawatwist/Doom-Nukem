@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/18 14:21:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/19 16:33:59 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	turn_rast(t_win *wn)
 	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
 	{
 		ft_clear_window(wn);
-		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->tmp2, wn);
+		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array, wn);
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
 		if (wn->interface == DGAME)
 			SDL_RenderPresent(wn->rend);
@@ -45,11 +45,11 @@ void	turn_rast(t_win *wn)
 
 void	ft_launch_rasterization(t_win *wn)
 {
-	wn->rasterizer->tmp3 = NULL;
-	wn->rasterizer->tmp3 = ft_read_the_polygon_file();
-	ft_launch_bsp_tree(wn->rasterizer->tmp3);
-	wn->rasterizer->tmp2 = ft_get_triangles_array(wn->rasterizer->tmp3);
-	wn->rasterizer->max = ft_get_nbr_of_triangle(wn->rasterizer->tmp3);
+	wn->rasterizer->polygon_lst = NULL;
+	wn->rasterizer->polygon_lst = ft_read_the_polygon_file();
+	ft_launch_bsp_tree(wn->rasterizer->polygon_lst);
+	wn->rasterizer->triangle_array = ft_get_triangles_array(wn->rasterizer->polygon_lst);
+	wn->rasterizer->nbr_triangle = ft_get_nbr_of_triangle(wn->rasterizer->polygon_lst);
 	wn->rasterizer->tmp = malloc(sizeof(t_myraster));
 	wn->rasterizer->tmp = ft_init_rasterization(wn, (t_myraster*)(wn->rasterizer->tmp));
 	//exit(0);
