@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:20:59 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/19 23:17:20 by jsauron          ###   ########.fr       */
+/*   Updated: 2019/08/20 00:29:19 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 
 int			ft_get_intersect(t_myvec *line_start,
-							t_myvec *line_end,
-							t_myvec *vertex,
-							t_myvec *normal,
-							t_myvec *intersection,
-							float *percentage)
+		t_myvec *line_end,
+		t_myvec *vertex,
+		t_myvec *normal,
+		t_myvec *intersection,
+		float *percentage)
 {
 	t_myvec		direction;
 	t_myvec		L1;
@@ -42,9 +42,9 @@ int			ft_get_intersect(t_myvec *line_start,
 	percentage = dist_from_plane / line_length;
 
 	if (percentage<0.0f)
-			return (0);
+		return (0);
 	else if (percentage > 1.0f)
-			return (0);
+		return (0);
 
 	intersection->x = line_start->x + direction.x * (percentage);
 	intersection->y = line_start->y + direction.y * (percentage);
@@ -52,7 +52,22 @@ int			ft_get_intersect(t_myvec *line_start,
 	return (1);
 }
 
+t_myvec		*ft_calculate_tex_coor(t_mypolygon *poly, t_myvec *intersect_point, int current_vertex, float percent, int i)
+{
+	float		delta_x;
+	float		delta_y;
+	float		tex_x;
+	float		tex_y;
 
+	delta_x = Poly->VertexList[CurrentVertex].tu - Poly->vertex_list[i - 1].x//.tu;
+	delta_y = Poly->VertexList[CurrentVertex].tv - Poly->vertex_list[i - 1].y//.tv;
+	tex_x = Poly->vertex_list[i - 1].x/*tu*/ + (delta_x * percent);
+	tex_y = Poly->vertex_list[i - 1].y/*tv*/ + (delta_y * percent);
+	return (D3DLVERTEX(intersect_point, RGB_MAKE(255,255,255), 0, tex_x, tex_y)); 
+	//focntion d'application de texture
+	//tu = Values describing the texture coordinates of the vertex.
+	//tv = Values describing the texture coordinates of the vertex.
+}
 
 void		ft_split_polygon(t_mypolygon *poly, t_mypolygon *plane, t_mypolygon *front_split, t_mypolygon *back_split)
 {
@@ -101,33 +116,130 @@ void		ft_split_polygon(t_mypolygon *poly, t_mypolygon *plane, t_mypolygon *front
 
 		if (result == ON_PLANE) //// on ajoute au deux list
 		{
-				front_list[front_counter++] = poly->vertex_list[current_vertex];
-				back_list[back_counter++] = poly->vertex_list[current_vertex];
+			front_list[front_counter++] = poly->vertex_list[current_vertex];
+			back_list[back_counter++] = poly->vertex_list[current_vertex];
 		}
 		else
 		{
+
 			if (ft_get_intersect(point_a, point_b, point_on_plane, plane_normal, intersect_point, percent))
 			{
+				copy = ft_calculate_tex_coor(poly, intersect_point, current_vertex, percent, i)
+					/////si il y intersection if a edge get intersect
+					if (result == FRONT)
+					{
+						back_list[back_counter++] = copy;
+						front_list[FrontCounter++] = copy;
+						if (current_vertex != 0)
+							front_list[front_counter++] = poly->vertex_list[current_vertex];
+					}
+				if (result == BACK)
+				{
+					front_list[front_counter++] = copy;
+					back_list[back_counter++] = copy;
+					if (current_vertex != 0)
+						back_list[back_counter++] = poly->vertex_list[current_vertex];
+				}
+				else
+				{
+					///// si il il n'y a pas d'intersection
+					if (result == FRONT && current_vertex != 0)
+						front_list[front_counter++] = poly->vertex_list[current_vertex]; ///// a changer
+					if (result == BACK && curent_vertex != 0)
+						back_list[back_counter++] = poly->vertex_list[current_vertex]; ///// a changer
+				}
+			}
+			i++;
+		}
+		front_split->number_of_vertices = 0;
+		back_split->number_of_Vertices = 0;
 
-				/////si il y intersection if a edge get intersect
+		i = 0;
+		while (i < front_counter)
+		{
+			front_split->number_of_vertices++;
+			front_split->vertex_list[i] = front_list[i];
+			i++;
+		}
+
+		i = 0;
+		while (i < back_counter)
+		{
+			back_split->number_of_vertices++;
+			Back_split->vertex_list[i] = back_list[i];
+			i++;
+		}
+
+		back_split->number_of_indices = (back_split->number_of_vertices - 2) * 3;
+		front_split->number_of_indices = (front_split->number_of_vertices - 2) * 3;
+
+		// Fill in the Indices Array
+		int		v0;
+		int		v1;
+		int		v2;
+		i = 0;
+		// for (loop=0;loop<FrontSplit->NumberOfIndices/3;loop++)
+		while (i < front_split->number_of_indices / 3)
+		{
+			if (i == 0)
+			{
+				v0 = 0;
+				v1 = 1;
+				v2 = 2;
 			}
 			else
 			{
-				///// si il il n'y a pas d'intersection
-				if (result == FRONT && current_vertex != 0)
-					front_list[front_counter++] = poly->vertex_list[current_vertex]; ///// a changer
-				if (result == BACK && curent_vertex != 0)
-					back_list[back_counter++] = poly->vertex_list[current_vertex]; ///// a changer
+				v1 = v2;
+				v2++;
 			}
+			front_split->indices[loop * 3] = v0;
+			FrontSplit->indices[(loop * 3) + 1] = v1;
+			FrontSplit->indices[(i * 3) + 2] = v2;
+			i++;
 		}
-		i++;
-	}
 
-	/////////////////we process les deux vouveau polygones
-	//normal
-	//nombre de vertex
-	//nombre d'indices
-	//tableau d'indices
+		i = 0;
+		while (i < back_split->number_of_indices / 3)
+		{
+			if (i == 0)
+			{
+				v0 = 0;
+				v1 = 1;
+				v2 = 2;
+			}
+			else
+			{
+				v1 = v2;
+				v2++;
+			}
+			back_split->indices[i * 3] = v0;
+			back_split->indices[(i * 3) + 1] = v1;
+			back_split->indices[(i * 3) + 2] = v2;
+			i++;
+		}
+		// calculate polygon Normals
+
+		t_myvect edg1;
+		t_myvect edg2;
+
+		edge1 = front_split->vertex_list[front_split->indices[1]] - front_split->vertex_list[front_split->indices[0]];
+
+		edge2 = front_split->vertex_list[front_split->indices[front_split->number_of_indices - 1]] - front_split->vertex_list[front_split->indices[0]];
+
+		front_split->normal = ft_cross_product(edge1, edge2);
+		front_split->normal = ft_normalise(front_split->normal);
+
+		edge1 = back_split->vertex_list[back_split->indices[1]] - back_split->vertex_list[back_split->indices[0]];
+
+		edge2 = back_split->vertex_list[back_split->indices[back_split->number_of_indices - 1]] - back_split->vertex_list[back_split->indices[0]];
+
+		back_split->normal = ft_cross_product(edge1, edge2);
+		back_split->normal = ft_normalise(back_split->normal);
+	}
+	void SplitPolygon(POLYGON *Poly,POLYGON *Plane,POLYGON *FrontSplit,POLYGON *BackSplit) 
+		//nombre de vertex
+		//nombre d'indices
+		//tableau d'indices
 }
 
 
