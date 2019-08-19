@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/19 15:41:46 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:03:07 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ int		ft_get_the_vertex_number(char *line, int *j)
 	return (line[*j] - '0');
 }
 
-
 typedef struct		s_myfichier
 {
 	char				*line;
@@ -212,24 +211,26 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	/* printf("===> L'ecture des indices\n"); */
 	polygon_obj_indice = 0;
 
-
-
 	keep_fichier = fichier_lst;
 	while(fichier_lst != NULL)
 	{
 		if (fichier_lst->line[0] == 'f' && fichier_lst->line[1] == ' ')
 		{
 			i++;
-			printf("Polynome n=%d\n", i);
+			printf("Polygon n=%d\n", i);
 			j = 1;
-			printf("les indices =");
+			printf("les indices des vertex=");
 			while (fichier_lst->line[j] != '\0')
 			{
 				j++;
 				vertex_node = NULL;
 				vertex_node = (t_myvec*)malloc(sizeof(t_myvec));
 				vertex_node->obj_indice = (int)ft_atoi_comma(&(fichier_lst->line[j]));
-				printf(" =%d  ", vertex_node->obj_indice);
+				j++;
+				j++;
+				printf(" =%d", vertex_node->obj_indice);
+				vertex_node->obj_indice_texture = (int)ft_atoi_comma(&(fichier_lst->line[j]));
+				printf("/%d  ", vertex_node->obj_indice_texture);
 				ft_add_vertex(&vertex_lst, vertex_node);
 				while (fichier_lst->line[j] != ' ' && fichier_lst->line[j] != '\0')
 					j++;
@@ -245,6 +246,8 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 		fichier_lst = fichier_lst->next;
 	}
 	fichier_lst = keep_fichier;
+
+	exit(0);
 
 
 
