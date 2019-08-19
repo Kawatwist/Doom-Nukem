@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:58:52 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/19 15:58:31 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/19 18:36:15 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,41 @@ int				ft_get_nbr_of_triangle(t_mypolygon *polygon_lst)
 	return (nbr_indices / 3);
 }
 
+float		ft_get_the_indice_vertex_u(int indice, t_myvec *vertex_lst)
+{
+	int		i;
+	float	u;
+
+	i = 0;
+	t_myvec		*keep;
+	keep = vertex_lst;
+	while (i < indice)
+	{
+		vertex_lst = vertex_lst->next;
+		i++;
+	}
+	u = vertex_lst->u;
+	vertex_lst = keep;
+	return (u);
+}
+
+float		ft_get_the_indice_vertex_v(int indice, t_myvec *vertex_lst)
+{
+	int		i;
+	float	v;
+
+	i = 0;
+	t_myvec		*keep;
+	keep = vertex_lst;
+	while (i < indice)
+	{
+		vertex_lst = vertex_lst->next;
+		i++;
+	}
+	v = vertex_lst->v;
+	vertex_lst = keep;
+	return (v);
+}
 float		ft_get_the_indice_vertex_x(int indice, t_myvec *vertex_lst)
 {
 	int		i;
@@ -294,14 +329,24 @@ t_mytriangle	ft_get_vertice_of_the_triangle(t_mypolygon *polygon, int indice)
 	triangle.vertice[0].y = ft_get_the_indice_vertex_y(polygon->indices[indice], polygon->vertex_lst);
 	triangle.vertice[0].z = ft_get_the_indice_vertex_z(polygon->indices[indice], polygon->vertex_lst);
 	triangle.vertice[0].w = 1;
+	triangle.texture[0].u = ft_get_the_indice_vertex_u(polygon->indices[indice] ,polygon->vertex_lst);
+	triangle.texture[0].v = ft_get_the_indice_vertex_v(polygon->indices[indice], polygon->vertex_lst);
+	triangle.texture[0].w = 1;
+	triangle.vertice[0].w = 1;
 	triangle.vertice[1].x = ft_get_the_indice_vertex_x(polygon->indices[indice + 1], polygon->vertex_lst);
 	triangle.vertice[1].y = ft_get_the_indice_vertex_y(polygon->indices[indice + 1], polygon->vertex_lst);
 	triangle.vertice[1].z = ft_get_the_indice_vertex_z(polygon->indices[indice + 1], polygon->vertex_lst);
 	triangle.vertice[1].w = 1;
+	triangle.texture[1].u = ft_get_the_indice_vertex_u(polygon->indices[indice] ,polygon->vertex_lst);
+	triangle.texture[1].v = ft_get_the_indice_vertex_v(polygon->indices[indice], polygon->vertex_lst);
+	triangle.texture[1].w = 1;
 	triangle.vertice[2].x = ft_get_the_indice_vertex_x(polygon->indices[indice + 2], polygon->vertex_lst);
 	triangle.vertice[2].y = ft_get_the_indice_vertex_y(polygon->indices[indice + 2], polygon->vertex_lst);
 	triangle.vertice[2].z = ft_get_the_indice_vertex_z(polygon->indices[indice + 2], polygon->vertex_lst);
 	triangle.vertice[2].w = 1;
+	triangle.texture[2].u = ft_get_the_indice_vertex_u(polygon->indices[indice] ,polygon->vertex_lst);
+	triangle.texture[2].v = ft_get_the_indice_vertex_v(polygon->indices[indice], polygon->vertex_lst);
+	triangle.texture[2].w = 1;
 	return (triangle);
 }
 

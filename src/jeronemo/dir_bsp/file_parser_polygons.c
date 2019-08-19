@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/19 17:41:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:43:58 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,6 +401,5 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	}
 	polygon_lst = keep;
 
-	exit(0);
 	return (polygon_lst);
 }
