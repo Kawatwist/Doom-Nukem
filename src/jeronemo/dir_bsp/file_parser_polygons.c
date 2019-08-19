@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/19 17:03:07 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:41:51 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,42 @@ void	ft_add_polygon(t_mypolygon **polygon_lst, t_mypolygon *polygon_node)
 		/* polygon_node->next = *polygon_lst; */
 		/* *polygon_lst = polygon_node; */
 	}
+}
+t_myvec			ft_get_texture(char *line)
+{
+	int			k;
+	char		nbr[1000];
+	t_myvec		s_vertex;
+	int			i;
+
+	i = 3;
+	k = 0;
+
+	while(ft_isdigit(line[i]) || line[i] == '-' || line[i] == '.' )
+	{
+		nbr[k] = line[i];
+		i++;
+		k++;
+	}
+	nbr[k] = '\0';
+	/* printf("le nombre =%s\n", nbr); */
+	s_vertex.u = ft_atoi_comma(nbr);
+	/* printf(" =%f\n", ft_atoi_comma(nbr)); */
+
+	k = 0;
+	while (line[i] == ' ')
+		i++;
+	while(ft_isdigit(line[i]) || line[i] == '-' || line[i] == '.' )
+	{
+		nbr[k] = line[i];
+		i++;
+		k++;
+	}
+	nbr[k] = '\0';
+	s_vertex.v = ft_atoi_comma(nbr);
+	/* printf(" =%f\n", ft_atoi_comma(nbr)); */
+
+	return (s_vertex);
 }
 
 t_myvec			ft_get_vertex(char *line)
@@ -247,15 +283,17 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	}
 	fichier_lst = keep_fichier;
 
-	exit(0);
-
-
 
 	int vertex_add = 0;
 
+
+
 	t_myvec		vertex;
-	keep = polygon_lst;
 	int		current_vertex;
+
+
+
+	keep = polygon_lst;
 	while (polygon_lst != NULL)
 	{
 		keep_vec = polygon_lst->vertex_lst;
@@ -298,9 +336,52 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	polygon_lst = keep;
 
 
+	//########################
+	keep = polygon_lst;
+	while (polygon_lst != NULL)
+	{
+		keep_vec = polygon_lst->vertex_lst;
+		while (polygon_lst->vertex_lst != NULL)
+		{
+			current_vertex = 0;
+			vertex_add = 0;
+			keep_fichier = fichier_lst;
+			while(fichier_lst != NULL && polygon_lst->vertex_lst != NULL && vertex_add == 0)
+			{
+				printf("==%s\n", fichier_lst->line);
+				if (fichier_lst->line[0] == 'v' && fichier_lst->line [1] == 't' && fichier_lst->line [2] == ' ')
+					current_vertex++;
+				printf("=current texture =%d\n", current_vertex);
+				if (current_vertex == polygon_lst->vertex_lst->obj_indice_texture)
+				{
+					printf("A Le polygone n =%d\n", polygon_lst->obj_indice);
+					printf("B la ligne =%s\n", fichier_lst->line);
+					printf("On ajoute la texture d'indice =%d\n", polygon_lst->vertex_lst->obj_indice_texture);
+					vertex = ft_get_texture(fichier_lst->line);
+					printf("vertex node u=%f\n", vertex.u);
+					printf("vertex node v=%f\n", vertex.v);
+					polygon_lst->vertex_lst->u =  vertex.u;
+					polygon_lst->vertex_lst->v =  vertex.v;
+					printf("ladreese next =%p\n", polygon_lst->vertex_lst->next);
+					polygon_lst->vertex_lst = polygon_lst->vertex_lst->next;
+					printf("\n\n\n");
+					vertex_add = 1;
+				}
+				fichier_lst = fichier_lst->next;
+			}
+			fichier_lst = keep_fichier;
 
+		}
+		polygon_lst->vertex_lst = keep_vec;
+		polygon_lst = polygon_lst->next;
+	}
+	polygon_lst = keep;
 
+	//##########################3
+
+	printf("###########################################################\n");
 	printf("PARSEUR FICHIER OBJ\n");
+	printf("###########################################################\n");
 
 	keep = polygon_lst;
 	while (polygon_lst != NULL)
@@ -310,8 +391,8 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 		keep_vec = polygon_lst->vertex_lst;
 		while (polygon_lst->vertex_lst != NULL)
 		{
-			printf(" =%d ", polygon_lst->vertex_lst->obj_indice);   
-			printf("  x=%f  y=%f  z=%f   \n", polygon_lst->vertex_lst->x, polygon_lst->vertex_lst->y, polygon_lst->vertex_lst->z);
+			printf("indice vertex=%d texture=%d", polygon_lst->vertex_lst->obj_indice, polygon_lst->vertex_lst->obj_indice_texture);   
+			printf("  x=%f  y=%f  z=%f u=%f v=%f\n", polygon_lst->vertex_lst->x, polygon_lst->vertex_lst->y, polygon_lst->vertex_lst->z, polygon_lst->vertex_lst->u, polygon_lst->vertex_lst->v);
 			polygon_lst->vertex_lst = polygon_lst->vertex_lst->next;
 		}
 		printf("\n");
@@ -320,5 +401,6 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	}
 	polygon_lst = keep;
 
+	exit(0);
 	return (polygon_lst);
 }
