@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/19 16:35:03 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/19 18:44:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,26 +130,26 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	raster->time_draw = 0;
 	raster->time_free_lst = 0;
 
-	while (++(raster->i) < raster->nbr_of_triangle)
-	{
-		*(raster->triangle) = triangle_array[raster->i];
+	/* while (++(raster->i) < raster->nbr_of_triangle) */
+	/* { */
+	/* 	*(raster->triangle) = triangle_array[raster->i]; */
 
-		raster->triangle->vertice[0] = ft_normalise((raster->triangle->vertice[0]));
-		raster->triangle->vertice[1] = ft_normalise((raster->triangle->vertice[1]));
-		raster->triangle->vertice[2] = ft_normalise((raster->triangle->vertice[2]));
+	/* 	raster->triangle->vertice[0] = ft_normalise((raster->triangle->vertice[0])); */
+	/* 	raster->triangle->vertice[1] = ft_normalise((raster->triangle->vertice[1])); */
+	/* 	raster->triangle->vertice[2] = ft_normalise((raster->triangle->vertice[2])); */
 
-		triangle_array[raster->i].texture[0].u = raster->triangle->vertice[0].x;
-		triangle_array[raster->i].texture[0].v = raster->triangle->vertice[0].y;
-		triangle_array[raster->i].texture[0].w = 1;
+	/* 	triangle_array[raster->i].texture[0].u = raster->triangle->vertice[0].x; */
+	/* 	triangle_array[raster->i].texture[0].v = raster->triangle->vertice[0].y; */
+	/* 	triangle_array[raster->i].texture[0].w = 1; */
 
-		triangle_array[raster->i].texture[1].u = raster->triangle->vertice[1].x;
-		triangle_array[raster->i].texture[1].v = raster->triangle->vertice[1].y;
-		triangle_array[raster->i].texture[1].w = 1;
+	/* 	triangle_array[raster->i].texture[1].u = raster->triangle->vertice[1].x; */
+	/* 	triangle_array[raster->i].texture[1].v = raster->triangle->vertice[1].y; */
+	/* 	triangle_array[raster->i].texture[1].w = 1; */
 
-		triangle_array[raster->i].texture[2].u = raster->triangle->vertice[2].x;
-		triangle_array[raster->i].texture[2].v = raster->triangle->vertice[2].y;
-		triangle_array[raster->i].texture[2].w = 1;
-	}
+	/* 	triangle_array[raster->i].texture[2].u = raster->triangle->vertice[2].x; */
+	/* 	triangle_array[raster->i].texture[2].v = raster->triangle->vertice[2].y; */
+	/* 	triangle_array[raster->i].texture[2].w = 1; */
+	/* } */
 
 
 	raster->i = -1;
@@ -171,7 +171,8 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 		ft_my_time(&(raster->time_world_view), &current_time, &last_time);
 
 		if (ft_culling(raster->triangle, raster) == 1)
-		{ft_my_time(&(raster->time_culling), &current_time, &last_time);
+		{
+			ft_my_time(&(raster->time_culling), &current_time, &last_time);
 
 			ft_calcul_shade(raster->triangle, raster);
 			ft_my_time(&(raster->time_shade), &current_time, &last_time);
