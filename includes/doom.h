@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/27 14:55:22 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/19 21:28:27 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,7 +287,7 @@ typedef struct  	s_fonts
 
 // typedef struct		s_color
 // {
-		
+
 // }					t_color;
 
 //JEROME
@@ -322,6 +322,17 @@ typedef struct				s_mypolygon
 }							t_mypolygon;
 // FIN JEROME
 //
+
+typedef struct		s_mynode
+{
+	t_mypolygon			*splitter;
+	struct s_mynode		*front;
+	struct s_mynode		*back;
+	char				is_leaf;
+	char				is_solid;
+}						t_mynode;
+
+
 typedef struct		s_rasterizer
 {
 	int				max;
@@ -332,6 +343,7 @@ typedef struct		s_rasterizer
 
 typedef struct		s_win
 {
+	t_mynode		*s_node;
 	Uint32			flag;
 	char			sky;		//flag => 2
 	char			difficulty; //flag => 2
@@ -393,7 +405,7 @@ void						turn_rast(t_win *wn);
 
 
 t_mycolor					ft_setcolor(int rrr, int ggg, int bbb);
-void						ft_launch_bsp_tree(t_mypolygon *polygon_lst);
+void						ft_launch_bsp_tree(t_mypolygon *polygon_lst, t_mynode *node);
 float						ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec						ft_cross_product(t_myvec v1, t_myvec v2);
 int							ft_abs(int number);

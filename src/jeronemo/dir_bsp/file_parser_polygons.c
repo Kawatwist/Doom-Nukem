@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/27 16:24:42 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/19 21:35:59 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 	fichier_lst = NULL;
 
-	fd = open("src/jeronemo/dir_bsp/house.obj", O_RDWR); // <= PATH OBJ
+	fd = open("src/jeronemo/normal.obj", O_RDWR); // <= PATH OBJ
 	while(get_next_line(fd, &line))
 	{
 		fichier_node = ft_create_line_node(line);

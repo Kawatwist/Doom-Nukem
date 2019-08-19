@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/25 12:45:44 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/19 21:30:57 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_launch_rasterization(t_win *wn)
 		wn->rasterizer->tmp3 = ft_read_the_polygon_file();
 	else
 		wn->rasterizer->tmp3 = polygon_map(wn);
-	ft_launch_bsp_tree(wn->rasterizer->tmp3);
+	ft_launch_bsp_tree(wn->rasterizer->tmp3, wn->s_node);
 	wn->rasterizer->tmp2 = ft_get_triangles_array(wn->rasterizer->tmp3);
 	wn->rasterizer->max = ft_get_nbr_of_triangle(wn->rasterizer->tmp3);
 	wn->rasterizer->tmp = malloc(sizeof(t_myraster));

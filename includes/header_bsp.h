@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 12:57:02 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/09 11:09:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/19 21:29:12 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,6 @@ typedef struct		s_mypointf
 	double				x;
 	double				y;
 }					t_mypointf;
-
-typedef struct			s_mynode
-{
-	t_mypolygon			*splitter;
-	struct s_mynode		*front;
-	struct s_mynode		*back;
-	char				is_leaf;
-	char				is_solid;
-}						t_mynode;
 
 typedef enum			e_myclass
 {

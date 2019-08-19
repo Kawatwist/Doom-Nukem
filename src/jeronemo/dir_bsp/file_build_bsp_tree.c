@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 18:02:54 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 12:58:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/19 21:23:29 by jsauron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,6 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 		back_lst = back_lst->next;
 	}
 	back_lst = keep;
-
-
-
 
 	///////////gestion du fils front
 	new_front = (t_mynode*)malloc(sizeof(t_mynode));
