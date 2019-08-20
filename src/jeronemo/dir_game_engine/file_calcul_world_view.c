@@ -6,11 +6,13 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/19 18:49:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/20 16:03:29 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
+
+SDL_Texture		*loadbmp(SDL_Renderer *tmp_renderer, char *path);
 
 void	ft_calcul_world_view_matrix(t_myraster *raster)
 {
@@ -236,6 +238,13 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 			ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
 
 
+	SDL_Texture			*texture;
+	texture = loadbmp(wn->rend, "texture.bmp");
+	if (texture == NULL )
+	{
+		printf("bye \n");
+		exit (0);
+	}
 	ft_draw_textured_triangle(	triangle_lst_2->vertice[0].x,
 								triangle_lst_2->vertice[0].y,
 								triangle_lst_2->texture[0].u,
@@ -251,8 +260,10 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 								triangle_lst_2->texture[2].u,
 								triangle_lst_2->texture[2].v,
 								triangle_lst_2->texture[2].w,
-								wn
+								wn,
+								texture
 			);
+	free(texture);
 
 
 			triangle_lst_2 = triangle_lst_2->next;

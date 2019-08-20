@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/19 12:57:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/20 17:08:14 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ SDL_Texture		*loadbmp(SDL_Renderer *tmp_renderer, char *path)
 		SDL_FreeSurface(tmp);
 	return (txt);
 }
+
+//
+
+
 
 void	ft_swap_int(int *a, int *b)
 {
@@ -75,7 +79,8 @@ void	ft_draw_textured_triangle(
 		int x1, int y1, float u1, float v1, float w1,
 		int x2, int y2, float u2, float v2, float w2,
 		int x3, int y3, float u3, float v3, float w3,
-		t_win *wn)
+		t_win *wn,
+		SDL_Texture *texture)
 {
 
 	//sorting base on the y coordinate
@@ -84,9 +89,9 @@ void	ft_draw_textured_triangle(
 			&x2, &y2, &u2, &v2, &w2,
 			&x3, &y3, &u3, &v3, &w3);
 	printf("Le triangle order : %d < %d < %d\n", y1, y2, y3);
+	printf("u1  %f u2  %f u3 %f\n", u1, u2, u3);
+	printf("v1  %f v2 %f  v3 %f\n", v1, v2, v3);
 
-	SDL_Texture			*texture;
-	texture = loadbmp(wn->rend, "src/jeronemo/Cast_iron.bmp");
 
 	int		j;
 	int		i;
@@ -99,7 +104,15 @@ void	ft_draw_textured_triangle(
 	int		ax;				//float	au;
 	int		bx;				//float	bu;
 
-	//#########################################################################
+	float	tex_u;
+	float	tex_v;
+	float	tstep;
+
+	SDL_Rect	srcrect;
+	SDL_Rect	dstrect;
+/* ************************************************************************** */
+/*	on draw le triangle du haut                                               */
+/* ************************************************************************** */
 	dy1 = y2 - y1;			dv1 = v2 - v1;
 	dx1 = x2 - x1;			du1 = u2 - u1;
 
@@ -119,8 +132,14 @@ void	ft_draw_textured_triangle(
 		dv2_step = dv2 / abs(dy2);
 	}
 /* ************************************************************************** */
-/*	on draw le triangle du haut   */
+/*	on draw le triangle du haut             to half                                  */
 /* ************************************************************************** */
+
+/* ########             DRAWING                         #########################*/
+
+	int count = 0;
+
+
 
 	if (dy1 > 0)
 	{
@@ -129,42 +148,91 @@ void	ft_draw_textured_triangle(
 		i = y1;
 		while (i < y2)
 		{
+			printf("new line ########################################################################3\n");
 			ax = x1 + (float)(i - y1) * dax_step;
 			bx = x1 + (float)(i - y1) * dbx_step;
 
-			/* float tex_su = u1 + (float)(i - y1) * du1_step; */
-			/* float tex_sv = v1 + (float)(i - y1) * dv1_step; */
+			float tex_su = u1 + (float)(i - y1) * du1_step;
+			float tex_sv = v1 + (float)(i - y1) * dv1_step;
 			/* float tex_sw = w1 + (float)(i - y1) * dw1_step; */
 
-			/* float tex_eu = u1 + (float)(i - y1) * du2_step; */
-			 /* float tex_ev = v1 + (float)(i - y1) * dv2_step; */
+			float tex_eu = u1 + (float)(i - y1) * du2_step;
+			float tex_ev = v1 + (float)(i - y1) * dv2_step;
 			/* float tex_ew = w1 + (float)(i - y1) * dw2_step; */
 			if (ax > bx)
 			{
 				ft_swap_int(&ax, &bx);
-				/* ft_swap_float(tex_su, tex_eu); */
-				/* ft_swap_float(tex_sv, tex_ev); */
+				ft_swap_float(&tex_su, &tex_eu);
+				ft_swap_float(&tex_sv, &tex_ev);
 				/* ft_swap_float(tex_sw, tex_ew); */
 			}
+
+			tex_u = tex_su;
+			tex_v = tex_sv;
+			tstep = 1.0 / ((float)(bx - ax));
+			/* printf("le step =%f\n", tstep); */
+			float t = 0.0;
+
+
 			j = ax;
 			while (j < bx)
 			 {
 				//on draw
 				//metre ici le render copy au lieu du draw point
 				SDL_RenderDrawPoint(wn->rend, j, i);
+
+				tex_u = (1.0 - t) * tex_su + t * tex_eu;
+			/* printf("le u =%f\n", tex_u); */
+				tex_v = (1.0 - t) * tex_sv + t * tex_ev;
+			/* printf("le v =%f\n", tex_v); */
+
+				t += tstep;
+
+				//image_x = tex_u * length_x;
+				srcrect.x = tex_u * 512;
+				printf("le x image = %d", srcrect.x);
+				//image_y = tex_v * length_y;
+				srcrect.y = tex_v * 512;
+				printf("le y image = %d\n", srcrect.y);
+				srcrect.w = 1;
+				srcrect.h = 1;
+
+
+				//a copier sur l'ecran
+				//x = j;
+				//y = i;
+
+				dstrect.x = j;
+				dstrect.y = i;
+				dstrect.w = 1;
+				dstrect.h = 1;
+
+		SDL_RenderCopy(wn->rend, texture, &srcrect, &dstrect);
+
 				j++;
+				count++;
+				/* if (count == 5) */
+				/* 	exit(0); */
 			}
-			i += 5;
+			/* i += 5; */
+				i++;
 		}
 	}
 
-	//#########################################################################
+/* ************************************************************************** */
+/*	on draw le triangle du bas                                                */
+/* ************************************************************************** */
 	dy1 = y3 - y2;
 	dx1 = x3 - x2;
+
+
+
+
 	if (dy1)
 		dax_step = dx1 / (float)abs(dy1);
 	if (dy2)
 		dbx_step = dx2 / (float)abs(dy2);
+/* ########             DRAWING                         #########################*/
 	if (dy1 > 0)
 	{
 		printf("on draw le triangle du bas (flat up)\n");
