@@ -82,7 +82,7 @@ void	ft_draw_textured_triangle(
 		t_win *wn,
 		SDL_Texture *texture)
 {
-
+	(void)texture;
 	//sorting base on the y coordinate
 	ft_order_point(
 			&x1, &y1, &u1, &v1, &w1,
@@ -146,6 +146,10 @@ void	ft_draw_textured_triangle(
 
 	if (dy1 > 0)
 	{
+		printf("NEW TRIANGLE =============================================\n");
+		printf("UV MAP 1 = %f || %f\n", u1,v1);
+		printf("UV MAP 2 = %f || %f\n", u2,v2);
+		printf("UV MAP 3 = %f || %f\n", u3,v3);
 		printf("on draw le triangle du haut (flat bottom)\n");
 		SDL_SetRenderDrawColor(wn->rend, 0, 0, 255, 255);
 		i = y1;
@@ -182,7 +186,7 @@ void	ft_draw_textured_triangle(
 			 {
 				 //on draw
 				 //metre ici le render copy au lieu du draw point
-				 /* SDL_RenderDrawPoint(wn->rend, j, i); */
+				SDL_RenderDrawPoint(wn->rend, j, i);
 
 				 tex_u = (1.0 - t) * tex_su + t * tex_eu;
 				 tex_v = (1.0 - t) * tex_sv + t * tex_ev;
@@ -195,10 +199,11 @@ void	ft_draw_textured_triangle(
 				 dstrect.y = i;
 				 dstrect.w = 1;
 				 dstrect.h = 1;
-				 SDL_RenderCopy(wn->rend, texture, &srcrect, &dstrect);
-				 j++;
+				SDL_RenderCopy(wn->rend, texture, &srcrect, &dstrect);
+				j++;
 				 count++;
 			}
+			//SDL_Delay(200);
 				 /* printf("le u =%f\n", tex_u); */
 				 /* printf("le v =%f\n", tex_v); */
 				 /* printf("le x image = %d", srcrect.x); */
@@ -257,4 +262,12 @@ void	ft_draw_textured_triangle(
 			i += 5;
 		}
 	}
+// 	if (((t_myraster *)wn->rasterizer->tmp)->debug)
+// 	{
+// 		SDL_RenderPresent(wn->rend);
+// 		char *line;
+
+// line = NULL;
+// 		get_next_line(0, &line);
+// 	}
 }

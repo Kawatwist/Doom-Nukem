@@ -79,7 +79,7 @@ t_myraster	*ft_keyboard_event_check(t_win *wn, Uint8 *old, t_myraster *raster)
 			raster->leave_mouse = 1;
 		}
 	}
-	if (wn->state[SDL_SCANCODE_F] == 1 && wn->old[SDL_SCANCODE_F] == 0)
+	if (key_pressed(wn, SDL_SCANCODE_B))
 	{
 		if (raster->debug == 1)
 		{

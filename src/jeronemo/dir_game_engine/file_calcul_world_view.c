@@ -230,7 +230,7 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 		SDL_Texture		*texture;
 		int i = 0;
 
-		texture = loadbmp(wn->rend, "texture.bmp");
+		texture = loadbmp(wn->rend, "texturelight.bmp");
 		/* texture = NULL; */
 
 		/* texture = malloc(sizeof(SDL_Texture**) * 30); */
