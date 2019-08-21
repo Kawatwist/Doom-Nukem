@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/18 13:36:52 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/21 10:15:39 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,17 @@ t_myraster	*ft_keyboard_event_check(t_win *wn, Uint8 *old, t_myraster *raster)
 		else
 		{
 			raster->leave_mouse = 1;
+		}
+	}
+	if (wn->state[SDL_SCANCODE_F] == 1 && wn->old[SDL_SCANCODE_F] == 0)
+	{
+		if (raster->debug == 1)
+		{
+			raster->debug = 0;
+		}
+		else
+		{
+			raster->debug = 1;
 		}
 	}
 	return (raster);

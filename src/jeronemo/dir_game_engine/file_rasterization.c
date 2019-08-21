@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/20 16:03:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/21 10:27:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 {
+	raster->debug = 0;
+
 	raster->triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle));
 	raster->clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
 	SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2);
