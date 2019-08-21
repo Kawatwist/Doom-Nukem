@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 18:04:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/20 15:43:30 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/21 14:58:51 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void			ft_display_the_polygon_list(t_mypolygon *polygon_lst)
 			printf("vertice n=%d\t", j);
 			printf("x =%f\t", polygon_lst->vertex_lst->x);
 			printf("y =%f\t", polygon_lst->vertex_lst->y);
-			printf("u =%f\n", polygon_lst->vertex_lst->u);
+			printf("u =%f\t", polygon_lst->vertex_lst->u);
 			printf("v =%f\n", polygon_lst->vertex_lst->v);
 			j++;
 			polygon_lst->vertex_lst = polygon_lst->vertex_lst->next;

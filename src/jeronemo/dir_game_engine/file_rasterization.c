@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/21 10:27:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:24:47 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,12 +161,12 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 		*(raster->triangle) = triangle_array[raster->i];
 
 		printf("TRIANGLE N=%d\n", raster->i);
-		printf("x =%f \t x=%f \t x=%f\t\n", raster->triangle->vertice[0].x, raster->triangle->vertice[1].x, raster->triangle->vertice[2].x);
-		printf("y =%f \t y=%f \t y=%f\t\n", raster->triangle->vertice[0].y, raster->triangle->vertice[1].y, raster->triangle->vertice[2].y);
-		printf("z =%f \t z=%f \t z=%f\t\n", raster->triangle->vertice[0].z, raster->triangle->vertice[1].z, raster->triangle->vertice[2].z);
+		/* printf("x =%f \t x=%f \t x=%f\t\n", raster->triangle->vertice[0].x, raster->triangle->vertice[1].x, raster->triangle->vertice[2].x); */
+		/* printf("y =%f \t y=%f \t y=%f\t\n", raster->triangle->vertice[0].y, raster->triangle->vertice[1].y, raster->triangle->vertice[2].y); */
+		/* printf("z =%f \t z=%f \t z=%f\t\n", raster->triangle->vertice[0].z, raster->triangle->vertice[1].z, raster->triangle->vertice[2].z); */
 		printf("u =%f \t u=%f \t u=%f\t\n", raster->triangle->texture[0].u, raster->triangle->texture[1].u, raster->triangle->texture[2].u);
 		printf("v =%f \t v=%f \t v=%f\t\n", raster->triangle->texture[0].v, raster->triangle->texture[1].v, raster->triangle->texture[2].v);
-		printf("w =%f \t w=%f \t w=%f\t\n", raster->triangle->texture[0].w, raster->triangle->texture[1].w, raster->triangle->texture[2].w);
+		/* printf("w =%f \t w=%f \t w=%f\t\n", raster->triangle->texture[0].w, raster->triangle->texture[1].w, raster->triangle->texture[2].w); */
 
 
 		ft_calcul_world_view(raster->triangle, raster);
@@ -216,6 +216,12 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 
 	//	printf("fin clipping screen \n");
 	//	raster->triangle_lst_2 = raster->triangle_lst;
+
+
+
+
+
+
 	ft_draw(raster->triangle_lst_2, wn);
 
 

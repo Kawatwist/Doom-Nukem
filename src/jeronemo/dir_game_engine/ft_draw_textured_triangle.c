@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/21 11:18:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/21 15:40:52 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_swap_float(float *a, float *b)
 	float tmp;
 	tmp = *a;
 	*a = *b;
-	*b = *a;
+	*b = tmp; // javais mis a
 }
 
 
@@ -84,6 +84,10 @@ void	ft_draw_textured_triangle(
 {
 	(void)texture;
 	//sorting base on the y coordinate
+	printf("avant order point\n");
+	 printf("x1=%d y1=%d u1=%f v1=%f\n", x1, y1, u1, v1);
+	 printf("x2=%d y2=%d u2=%f v2=%f\n", x2, y2, u2, v2);
+	 printf("x3=%d y3=%d u3=%f v3=%f\n", x3, y3, u3, v3);
 	ft_order_point(
 			&x1, &y1, &u1, &v1, &w1,
 			&x2, &y2, &u2, &v2, &w2,
@@ -94,6 +98,7 @@ void	ft_draw_textured_triangle(
 
 
 
+	printf("apres order point\n");
 	 printf("x1=%d y1=%d u1=%f v1=%f\n", x1, y1, u1, v1);
 	 printf("x2=%d y2=%d u2=%f v2=%f\n", x2, y2, u2, v2);
 	 printf("x3=%d y3=%d u3=%f v3=%f\n", x3, y3, u3, v3);

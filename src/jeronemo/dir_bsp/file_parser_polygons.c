@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/21 13:19:50 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/21 16:24:01 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 	fichier_lst = NULL;
 
-	fd = open("carre_avec_uv_texture_coordinate.obj", O_RDWR);
+	fd = open("quatre_carre_avec_uv_texture_coordinate.obj", O_RDWR);
 	while(get_next_line(fd, &line))
 	{
 		fichier_node = ft_create_line_node(line);
@@ -238,8 +238,6 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 		fichier_lst = fichier_lst->next;
 	}
 	fichier_lst = keep_fichier;
-
-
 
 	t_mypolygon	*keep;
 	t_myvec		*keep_vec;
@@ -262,8 +260,13 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 				vertex_node = NULL;
 				vertex_node = (t_myvec*)malloc(sizeof(t_myvec));
 				vertex_node->obj_indice = (int)ft_atoi_comma(&(fichier_lst->line[j]));
+
+
+				while(fichier_lst->line[j] != '/')
+					j++;
 				j++;
-				j++;
+
+
 				printf(" =%d", vertex_node->obj_indice);
 				vertex_node->obj_indice_texture = (int)ft_atoi_comma(&(fichier_lst->line[j]));
 				printf("/%d  ", vertex_node->obj_indice_texture);
@@ -391,7 +394,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 		keep_vec = polygon_lst->vertex_lst;
 		while (polygon_lst->vertex_lst != NULL)
 		{
-			printf("indice vertex=%d texture=%d", polygon_lst->vertex_lst->obj_indice, polygon_lst->vertex_lst->obj_indice_texture);   
+			printf("indice vertex=%d texture=%d", polygon_lst->vertex_lst->obj_indice, polygon_lst->vertex_lst->obj_indice_texture);
 			printf("  x=%f  y=%f  z=%f u=%f v=%f\n", polygon_lst->vertex_lst->x, polygon_lst->vertex_lst->y, polygon_lst->vertex_lst->z, polygon_lst->vertex_lst->u, polygon_lst->vertex_lst->v);
 			polygon_lst->vertex_lst = polygon_lst->vertex_lst->next;
 		}
