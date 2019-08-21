@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/21 11:16:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/21 11:28:24 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,6 +264,8 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 	/* 	printf("bye \n"); */
 	/* 	exit (0); */
 	/* } */
+		SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 255);
+		SDL_RenderClear(wn->rend);
 	ft_draw_textured_triangle(	triangle_lst_2->vertice[0].x,
 								triangle_lst_2->vertice[0].y,
 								triangle_lst_2->texture[0].u,
@@ -282,6 +284,9 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 								wn,
 								texture[i]
 			);
+				 SDL_RenderPresent(wn->rend);
+				SDL_Delay(2000);
+
 
 
 			triangle_lst_2 = triangle_lst_2->next;
