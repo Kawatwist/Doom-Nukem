@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/21 16:24:54 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:28:22 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,8 +268,6 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 	printf("dans draw\n");
 		printf("u =%f \t u=%f \t u=%f\t\n", triangle_lst_2->texture[0].u, triangle_lst_2->texture[1].u, triangle_lst_2->texture[2].u);
 		printf("v =%f \t v=%f \t v=%f\t\n", triangle_lst_2->texture[0].v, triangle_lst_2->texture[1].v, triangle_lst_2->texture[2].v);
-
-
 
 
 	ft_draw_textured_triangle(	triangle_lst_2->vertice[0].x,
