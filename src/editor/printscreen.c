@@ -96,5 +96,5 @@ void		printeditor(t_win *wn)
 	edit->var->cursor = ((edit->var->cursor & 0xFFFF) << 16) + (edit->var->cursor & 0xFFFF); // Save cursor
 	print_save_and_reset(wn, edit);
 	check_hitbox(wn, wn->edit);
-	test_slider(wn);
+	// test_slider(wn);
 }

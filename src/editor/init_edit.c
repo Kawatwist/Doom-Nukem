@@ -108,6 +108,7 @@ void		init_edit(t_win **wn)
 	edit->loadbg->path = NULL;
 	edit->loadbg->x = 0;
 	edit->loadbg->y = 0;
+	edit->loadbg->size = 1;
 	edit->loadbg->flag = 0;
 	edit->var->cursor = 1;
 	edit->var->swapvar = 0;

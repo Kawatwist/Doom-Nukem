@@ -49,7 +49,7 @@ int			is_path_ok(t_win *wn, char *path)
 }
 
 
-void		message_bg_editor(t_win *wn, t_edit *edit, char *message)
+void		message_bg_editor(t_win *wn, t_edit *edit, char *message) // NEED TO CHANGE
 {
 	int			w;
 	int			h;
@@ -134,9 +134,12 @@ void		print_bg(t_win *wn, t_edit *edit)
 	SDL_SetRenderDrawColor(wn->rend, 250, 250, 250, 0);
 	(SDL_RenderFillRect(wn->rend, &edit->tab->bg) < 0) ?
 	stop_exec("fillrect failed in print_bg\n", wn) : 0;
-	path = printable_input(wn, path);
-	if ((key_pressed(wn, SDL_SCANCODE_BACKSPACE)) && path != NULL && ft_strlen(path))
-		path[ft_strlen(path) - 1] = 0;
+	if (edit->loadbg->flag & WRITE)
+	{
+		path = printable_input(wn, path);
+		if ((key_pressed(wn, SDL_SCANCODE_BACKSPACE)) && path != NULL && ft_strlen(path))
+			path[ft_strlen(path) - 1] = 0;
+	}
 	if ((path != NULL) && ft_strlen(path))
 		print_path(wn, path, edit->tab->bg.x + 5, edit->tab->bg.y + 5);
 	if (key_pressed(wn, SDL_SCANCODE_RETURN))
