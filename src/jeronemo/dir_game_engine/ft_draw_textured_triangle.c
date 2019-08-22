@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 14:03:18 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 16:37:30 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	ft_draw_textured_triangle(
 		SDL_Texture *texture,
 		t_mytext *s_tex)
 {
+	(void)texture;
+	(void)wn;
 	int		x1 = tri->vertice[0].x;
 	int		y1 = tri->vertice[0].y;
 	float	u1 = tri->texture[0].u;
@@ -154,6 +156,7 @@ void	ft_draw_textured_triangle(
 				s_tex->srcrect.y = s_tex->tex_v * 512;
 				s_tex->dstrect.x = j;
 				s_tex->dstrect.y = i;
+				/* s_tex->m_pPixels[i * 1920 + j] = 0xFF0000FF; */
 				SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect));
 				j++;
 			}
@@ -208,6 +211,7 @@ void	ft_draw_textured_triangle(
 				s_tex->srcrect.y = s_tex->tex_v * 512;
 				s_tex->dstrect.x = j;
 				s_tex->dstrect.y = i;
+				/* s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF; */
 				SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect));
 				j++;
 				t += s_tex->tstep;

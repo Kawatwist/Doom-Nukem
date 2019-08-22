@@ -6,50 +6,55 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 13:35:42 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 16:16:15 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <doom.h>
+# include <tga_reader.h>
 
 typedef struct	s_mytex
 {
 	int			ax;
 	int			bx;
 
-	float	dax_step;
-	float	du1_step;
-	float	dv1_step;
-	float	dbx_step;
-	float	du2_step;
-	float	dv2_step;
+	float		dax_step;
+	float		du1_step;
+	float		dv1_step;
+	float		dbx_step;
+	float		du2_step;
+	float		dv2_step;
 
-	int		dy1;
-	float	dv1;
-	int		dx1;
-	float	du1;
-	int		dy2;
-	float	dv2;
-	int		dx2;
-	float	du2;
+	int			dy1;
+	float		dv1;
+	int			dx1;
+	float		du1;
+	int			dy2;
+	float		dv2;
+	int			dx2;
+	float		du2;
 
-	float tex_su;
-	float tex_sv;
-	float tex_eu;
-	float tex_ev;
+	float		tex_su;
+	float		tex_sv;
+	float		tex_eu;
+	float		tex_ev;
 
-	float	tex_u;
-	float	tex_v;
-	float	tstep;
+	float		tex_u;
+	float		tex_v;
+	float		tstep;
 
 	SDL_Rect	srcrect;
 	SDL_Rect	dstrect;
+
+	Uint32		*m_pPixels;
 }				t_mytext;
 
 typedef struct				s_myraster
 {
 	int						i;
 	int						j;
+
+
 
 
 	int						debug;
