@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 12:57:11 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 13:09:45 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 		{
 			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
 			/* ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade); */
-			ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
+			/* ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn); */
 			ft_draw_textured_triangle(	triangle_lst_2->vertice[0].x,
 					triangle_lst_2->vertice[0].y,
 					triangle_lst_2->texture[0].u,

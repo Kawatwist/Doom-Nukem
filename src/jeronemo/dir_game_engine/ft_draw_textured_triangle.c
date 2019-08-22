@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 12:58:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 13:09:40 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,6 @@ void	ft_draw_textured_triangle(
 		SDL_Texture *texture,
 		t_mytext *s_tex)
 {
-
-	/* t_mytext	*s_tex; */
-	/* s_tex = malloc(sizeof(t_mytext)); */
-
-
 	ft_order_point(
 			&x1, &y1, &u1, &v1, &w1,
 			&x2, &y2, &u2, &v2, &w2,
@@ -101,12 +96,22 @@ void	ft_draw_textured_triangle(
 	int		dx2;
 	float	du2;
 
+	float tex_su;
+	float tex_sv;
+	float tex_eu;
+	float tex_ev;
+	float t;
+
 	s_tex->dax_step = 0;
 	s_tex->du1_step = 0;
 	s_tex->dv1_step = 0;
 	s_tex->dbx_step = 0;
 	s_tex->du2_step = 0;
 	s_tex->dv2_step = 0;
+	s_tex->srcrect.w = 1;
+	s_tex->srcrect.h = 1;
+	s_tex->dstrect.w = 1;
+	s_tex->dstrect.h = 1;
 	/* ********************************************************************** */
 	/*	on draw le triangle du haut        bleu                               */
 	/* ********************************************************************** */
@@ -137,12 +142,10 @@ void	ft_draw_textured_triangle(
 		{
 			s_tex->ax = x1 + (float)(i - y1) * s_tex->dax_step;
 			s_tex->bx = x1 + (float)(i - y1) * s_tex->dbx_step;
-
-			float tex_su = u1 + (float)(i - y1) * s_tex->du1_step;
-			float tex_sv = v1 + (float)(i - y1) * s_tex->dv1_step;
-
-			float tex_eu = u1 + (float)(i - y1) * s_tex->du2_step;
-			float tex_ev = v1 + (float)(i - y1) * s_tex->dv2_step;
+			tex_su = u1 + (float)(i - y1) * s_tex->du1_step;
+			tex_sv = v1 + (float)(i - y1) * s_tex->dv1_step;
+			tex_eu = u1 + (float)(i - y1) * s_tex->du2_step;
+			tex_ev = v1 + (float)(i - y1) * s_tex->dv2_step;
 			if (s_tex->ax > s_tex->bx)
 			{
 				ft_swap_int(&(s_tex->ax), &(s_tex->bx));
@@ -152,7 +155,7 @@ void	ft_draw_textured_triangle(
 			s_tex->tex_u = tex_su;
 			s_tex->tex_v = tex_sv;
 			s_tex->tstep = 1.0 / ((float)(s_tex->bx - s_tex->ax));
-			float t = 0.0;
+			t = 0.0;
 			j = s_tex->ax;
 			while (j < s_tex->bx)
 			{
@@ -161,19 +164,14 @@ void	ft_draw_textured_triangle(
 				t += s_tex->tstep;
 				s_tex->srcrect.x = s_tex->tex_u * 512;
 				s_tex->srcrect.y = s_tex->tex_v * 512;
-				s_tex->srcrect.w = 1;
-				s_tex->srcrect.h = 1;
 				s_tex->dstrect.x = j;
 				s_tex->dstrect.y = i;
-				s_tex->dstrect.w = 1;
-				s_tex->dstrect.h = 1;
 				SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect));
 				j++;
 			}
 			i++;
 		}
 	}
-
 	/* ************************************************************************** */
 	/*	on draw le triangle du bas                                                */
 	/* ************************************************************************** */
@@ -181,8 +179,6 @@ void	ft_draw_textured_triangle(
 	dx1 = x3 - x2;
 	dv1 = v3 - v2;
 	du1 = u3 - u2;
-
-
 	if (dy1)
 		s_tex->dax_step = dx1 / (float)abs(dy1);
 	if (dy2)
@@ -201,10 +197,10 @@ void	ft_draw_textured_triangle(
 		{
 			s_tex->ax = x2 + (float)(i - y2) * s_tex->dax_step;
 			s_tex->bx = x1 + (float)(i - y1) * s_tex->dbx_step;
-			float tex_su = u2 + (float)(i - y2) * s_tex->du1_step;
-			float tex_sv = v2 + (float)(i - y2) * s_tex->dv1_step;
-			float tex_eu = u1 + (float)(i - y1) * s_tex->du2_step;
-			float tex_ev = v1 + (float)(i - y1) * s_tex->dv2_step;
+			tex_su = u2 + (float)(i - y2) * s_tex->du1_step;
+			tex_sv = v2 + (float)(i - y2) * s_tex->dv1_step;
+			tex_eu = u1 + (float)(i - y1) * s_tex->du2_step;
+			tex_ev = v1 + (float)(i - y1) * s_tex->dv2_step;
 			if (s_tex->ax > s_tex->bx)
 			{
 				ft_swap_int(&(s_tex->ax), &(s_tex->bx));
@@ -214,7 +210,7 @@ void	ft_draw_textured_triangle(
 			s_tex->tex_u = tex_su;
 			s_tex->tex_v = tex_sv;
 			s_tex->tstep = 1.0f / ((float)(s_tex->bx - s_tex->ax));
-			float t = 0.0f;
+			t = 0.0f;
 			j = s_tex->ax;
 			while (j < s_tex->bx)
 			{
@@ -222,12 +218,8 @@ void	ft_draw_textured_triangle(
 				s_tex->tex_v = (1.0f - t) * tex_sv + t * tex_ev;
 				s_tex->srcrect.x = s_tex->tex_u * 512;
 				s_tex->srcrect.y = s_tex->tex_v * 512;
-				s_tex->srcrect.w = 1;
-				s_tex->srcrect.h = 1;
 				s_tex->dstrect.x = j;
 				s_tex->dstrect.y = i;
-				s_tex->dstrect.w = 1;
-				s_tex->dstrect.h = 1;
 				SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect));
 				j++;
 				t += s_tex->tstep;
