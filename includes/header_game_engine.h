@@ -6,11 +6,31 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 12:00:25 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 12:58:06 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <doom.h>
+
+typedef struct	s_mytex
+{
+	int			ax;
+	int			bx;
+
+	float	dax_step;
+	float	du1_step;
+	float	dv1_step;
+	float	dbx_step;
+	float	du2_step;
+	float	dv2_step;
+
+	float	tex_u;
+	float	tex_v;
+	float	tstep;
+
+	SDL_Rect	srcrect;
+	SDL_Rect	dstrect;
+}				t_mytext;
 
 typedef struct				s_myraster
 {
@@ -20,6 +40,7 @@ typedef struct				s_myraster
 
 	int						debug;
 	SDL_Texture				*texture;
+	t_mytext				*s_tex;
 
 
 	t_mytriangle			*triangle;
@@ -185,7 +206,16 @@ void	ft_clipping_screen(t_mytriangle *triangle,
 void			ft_draw(t_mytriangle *triangle_lst_2, t_win *wn);
 void			ft_make_the_world_spin(int turn, t_myraster *raster);
 
-void	ft_draw_textured_triangle(	int x1, int y1, float u1, float v1, float w1,
+
+
+void	ft_draw_textured_triangle(
+		int x1, int y1, float u1, float v1, float w1,
 		int x2, int y2, float u2, float v2, float w2,
 		int x3, int y3, float u3, float v3, float w3,
-		t_win *wn, SDL_Texture *texture);
+		t_win *wn,
+		SDL_Texture *texture,
+		t_mytext *s_tex);
+
+
+
+

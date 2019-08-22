@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 12:47:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 12:58:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,39 +71,17 @@ void	ft_order_point(	int *x1, int *y1, float *u1, float *v1, float *w1,
 }
 
 
-typedef struct	s_mytex
-{
-	int			ax;
-	int			bx;
-
-
-
-	float	dax_step;
-	float	du1_step;
-	float	dv1_step;
-	float	dbx_step;
-	float	du2_step;
-	float	dv2_step;
-
-	float	tex_u;
-	float	tex_v;
-	float	tstep;
-
-	SDL_Rect	srcrect;
-	SDL_Rect	dstrect;
-}				t_mytext;
-
 void	ft_draw_textured_triangle(
 		int x1, int y1, float u1, float v1, float w1,
 		int x2, int y2, float u2, float v2, float w2,
 		int x3, int y3, float u3, float v3, float w3,
 		t_win *wn,
-		SDL_Texture *texture)
+		SDL_Texture *texture,
+		t_mytext *s_tex)
 {
 
-	t_mytext	*s_tex;
-
-	s_tex = malloc(sizeof(t_mytext));
+	/* t_mytext	*s_tex; */
+	/* s_tex = malloc(sizeof(t_mytext)); */
 
 
 	ft_order_point(
@@ -129,7 +107,6 @@ void	ft_draw_textured_triangle(
 	s_tex->dbx_step = 0;
 	s_tex->du2_step = 0;
 	s_tex->dv2_step = 0;
-
 	/* ********************************************************************** */
 	/*	on draw le triangle du haut        bleu                               */
 	/* ********************************************************************** */

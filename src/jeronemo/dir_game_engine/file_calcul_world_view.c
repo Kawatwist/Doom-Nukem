@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 12:21:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 12:57:11 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,9 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 					triangle_lst_2->texture[2].v,
 					triangle_lst_2->texture[2].w,
 					wn,
-					((t_myraster*)wn->rasterizer->tmp)->texture);
+					((t_myraster*)wn->rasterizer->tmp)->texture,
+					((t_myraster*)wn->rasterizer->tmp)->s_tex
+					);
 			triangle_lst_2 = triangle_lst_2->next;
 		}
 		triangle_lst_2 = keep;
