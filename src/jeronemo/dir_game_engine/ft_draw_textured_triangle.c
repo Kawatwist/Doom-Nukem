@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 13:09:40 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 13:22:24 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,6 @@ void	ft_draw_textured_triangle(
 	int		j;
 	int		i;
 
-	int		dy1;
-	float	dv1;
-	int		dx1;
-	float	du1;
-	int		dy2;
-	float	dv2;
-	int		dx2;
-	float	du2;
-
-	float tex_su;
-	float tex_sv;
-	float tex_eu;
-	float tex_ev;
 	float t;
 
 	s_tex->dax_step = 0;
@@ -112,55 +99,55 @@ void	ft_draw_textured_triangle(
 	s_tex->srcrect.h = 1;
 	s_tex->dstrect.w = 1;
 	s_tex->dstrect.h = 1;
-	/* ********************************************************************** */
+	/* ************************************************************************/
 	/*	on draw le triangle du haut        bleu                               */
-	/* ********************************************************************** */
-	dy1 = y2 - y1;
-	dv1 = v2 - v1;
-	dx1 = x2 - x1;
-	du1 = u2 - u1;
-	dy2 = y3 - y1;
-	dv2 = v3 - v1;
-	dx2 = x3 - x1;
-	du2 = u3 - u1;
-	if (dy1)
+	/* ************************************************************************/
+	s_tex->dy1 = y2 - y1;
+	s_tex->dv1 = v2 - v1;
+	s_tex->dx1 = x2 - x1;
+	s_tex->du1 = u2 - u1;
+	s_tex->dy2 = y3 - y1;
+	s_tex->dv2 = v3 - v1;
+	s_tex->dx2 = x3 - x1;
+	s_tex->du2 = u3 - u1;
+	if (s_tex->dy1)
 	{
-		s_tex->dax_step = dx1 / (float)abs(dy1);
-		s_tex->du1_step = du1 / abs(dy1);
-		s_tex->dv1_step = dv1 / abs(dy1);
+		s_tex->dax_step = s_tex->dx1 / (float)abs(s_tex->dy1);
+		s_tex->du1_step = s_tex->du1 / abs(s_tex->dy1);
+		s_tex->dv1_step = s_tex->dv1 / abs(s_tex->dy1);
 	}
-	if (dy2)
+	if (s_tex->dy2)
 	{
-		s_tex->dbx_step = dx2 / (float)abs(dy2);
-		s_tex->du2_step = du2 / abs(dy2);
-		s_tex->dv2_step = dv2 / abs(dy2);
+		s_tex->dbx_step = s_tex->dx2 / (float)abs(s_tex->dy2);
+		s_tex->du2_step = s_tex->du2 / abs(s_tex->dy2);
+		s_tex->dv2_step = s_tex->dv2 / abs(s_tex->dy2);
 	}
-	if (dy1 > 0)
+	if (s_tex->dy1 > 0)
 	{
 		i = y1;
 		while (i < y2)
 		{
 			s_tex->ax = x1 + (float)(i - y1) * s_tex->dax_step;
 			s_tex->bx = x1 + (float)(i - y1) * s_tex->dbx_step;
-			tex_su = u1 + (float)(i - y1) * s_tex->du1_step;
-			tex_sv = v1 + (float)(i - y1) * s_tex->dv1_step;
-			tex_eu = u1 + (float)(i - y1) * s_tex->du2_step;
-			tex_ev = v1 + (float)(i - y1) * s_tex->dv2_step;
+			s_tex->tex_su = u1 + (float)(i - y1) * s_tex->du1_step;
+			s_tex->tex_sv = v1 + (float)(i - y1) * s_tex->dv1_step;
+			s_tex->tex_eu = u1 + (float)(i - y1) * s_tex->du2_step;
+			s_tex->tex_ev = v1 + (float)(i - y1) * s_tex->dv2_step;
 			if (s_tex->ax > s_tex->bx)
 			{
 				ft_swap_int(&(s_tex->ax), &(s_tex->bx));
-				ft_swap_float(&(tex_su), &(tex_eu));
-				ft_swap_float(&(tex_sv), &(tex_ev));
+				ft_swap_float(&(s_tex->tex_su), &(s_tex->tex_eu));
+				ft_swap_float(&(s_tex->tex_sv), &(s_tex->tex_ev));
 			}
-			s_tex->tex_u = tex_su;
-			s_tex->tex_v = tex_sv;
+			s_tex->tex_u = s_tex->tex_su;
+			s_tex->tex_v = s_tex->tex_sv;
 			s_tex->tstep = 1.0 / ((float)(s_tex->bx - s_tex->ax));
 			t = 0.0;
 			j = s_tex->ax;
 			while (j < s_tex->bx)
 			{
-				s_tex->tex_u = (1.0 - t) * tex_su + t * tex_eu;
-				s_tex->tex_v = (1.0 - t) * tex_sv + t * tex_ev;
+				s_tex->tex_u = (1.0 - t) * s_tex->tex_su + t * s_tex->tex_eu;
+				s_tex->tex_v = (1.0 - t) * s_tex->tex_sv + t * s_tex->tex_ev;
 				t += s_tex->tstep;
 				s_tex->srcrect.x = s_tex->tex_u * 512;
 				s_tex->srcrect.y = s_tex->tex_v * 512;
@@ -172,50 +159,50 @@ void	ft_draw_textured_triangle(
 			i++;
 		}
 	}
-	/* ************************************************************************** */
-	/*	on draw le triangle du bas                                                */
-	/* ************************************************************************** */
-	dy1 = y3 - y2;
-	dx1 = x3 - x2;
-	dv1 = v3 - v2;
-	du1 = u3 - u2;
-	if (dy1)
-		s_tex->dax_step = dx1 / (float)abs(dy1);
-	if (dy2)
-		s_tex->dbx_step = dx2 / (float)abs(dy2);
+	/**************************************************************************/
+	/*	on draw le triangle du bas                                            */
+	/**************************************************************************/
+	s_tex->dy1 = y3 - y2;
+	s_tex->dx1 = x3 - x2;
+	s_tex->dv1 = v3 - v2;
+	s_tex->du1 = u3 - u2;
+	if (s_tex->dy1)
+		s_tex->dax_step = s_tex->dx1 / (float)abs(s_tex->dy1);
+	if (s_tex->dy2)
+		s_tex->dbx_step = s_tex->dx2 / (float)abs(s_tex->dy2);
 	s_tex->du1_step = 0;
 	s_tex->dv1_step = 0;
-	if (dy1)
+	if (s_tex->dy1)
 	{
-		s_tex->du1_step = du1 / (float)abs(dy1);
-		s_tex->dv1_step = dv1 / (float)abs(dy1);
+		s_tex->du1_step = s_tex->du1 / (float)abs(s_tex->dy1);
+		s_tex->dv1_step = s_tex->dv1 / (float)abs(s_tex->dy1);
 	}
-	if (dy1 > 0)
+	if (s_tex->dy1 > 0)
 	{
 		i = y2;
 		while (i < y3)
 		{
 			s_tex->ax = x2 + (float)(i - y2) * s_tex->dax_step;
 			s_tex->bx = x1 + (float)(i - y1) * s_tex->dbx_step;
-			tex_su = u2 + (float)(i - y2) * s_tex->du1_step;
-			tex_sv = v2 + (float)(i - y2) * s_tex->dv1_step;
-			tex_eu = u1 + (float)(i - y1) * s_tex->du2_step;
-			tex_ev = v1 + (float)(i - y1) * s_tex->dv2_step;
+			s_tex->tex_su = u2 + (float)(i - y2) * s_tex->du1_step;
+			s_tex->tex_sv = v2 + (float)(i - y2) * s_tex->dv1_step;
+			s_tex->tex_eu = u1 + (float)(i - y1) * s_tex->du2_step;
+			s_tex->tex_ev = v1 + (float)(i - y1) * s_tex->dv2_step;
 			if (s_tex->ax > s_tex->bx)
 			{
 				ft_swap_int(&(s_tex->ax), &(s_tex->bx));
-				ft_swap_float(&(tex_su), &(tex_eu));
-				ft_swap_float(&(tex_sv), &(tex_ev));
+				ft_swap_float(&(s_tex->tex_su), &(s_tex->tex_eu));
+				ft_swap_float(&(s_tex->tex_sv), &(s_tex->tex_ev));
 			}
-			s_tex->tex_u = tex_su;
-			s_tex->tex_v = tex_sv;
+			s_tex->tex_u = s_tex->tex_su;
+			s_tex->tex_v = s_tex->tex_sv;
 			s_tex->tstep = 1.0f / ((float)(s_tex->bx - s_tex->ax));
 			t = 0.0f;
 			j = s_tex->ax;
 			while (j < s_tex->bx)
 			{
-				s_tex->tex_u = (1.0f - t) * tex_su + t * tex_eu;
-				s_tex->tex_v = (1.0f - t) * tex_sv + t * tex_ev;
+				s_tex->tex_u = (1.0f - t) * s_tex->tex_su + t * s_tex->tex_eu;
+				s_tex->tex_v = (1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev;
 				s_tex->srcrect.x = s_tex->tex_u * 512;
 				s_tex->srcrect.y = s_tex->tex_v * 512;
 				s_tex->dstrect.x = j;

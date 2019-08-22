@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 12:58:06 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 13:22:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ typedef struct	s_mytex
 	float	dbx_step;
 	float	du2_step;
 	float	dv2_step;
+
+	int		dy1;
+	float	dv1;
+	int		dx1;
+	float	du1;
+	int		dy2;
+	float	dv2;
+	int		dx2;
+	float	du2;
+
+	float tex_su;
+	float tex_sv;
+	float tex_eu;
+	float tex_ev;
 
 	float	tex_u;
 	float	tex_v;
