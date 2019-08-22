@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 13:39:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 14:03:18 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,28 +73,26 @@ void	ft_order_point(
 
 
 void	ft_draw_textured_triangle(
-		t_mytriangle *triangle_lst_2,
+		t_mytriangle *tri,
 		t_win *wn,
 		SDL_Texture *texture,
 		t_mytext *s_tex)
 {
-	int		x1 = triangle_lst_2->vertice[0].x;
-	int		y1 = triangle_lst_2->vertice[0].y;
-	float	u1 = triangle_lst_2->texture[0].u;
-	float	v1 = triangle_lst_2->texture[0].v;
-	/* float	w1 = triangle_lst_2->texture[0].w; */
-	int		x2 = triangle_lst_2->vertice[1].x;
-	int		y2 = triangle_lst_2->vertice[1].y;
-	float	u2 = triangle_lst_2->texture[1].u;
-	float	v2 = triangle_lst_2->texture[1].v;
-	/* float	w2 = triangle_lst_2->texture[1].w; */
-	int		x3 = triangle_lst_2->vertice[2].x;
-	int		y3 = triangle_lst_2->vertice[2].y;
-	float	u3 = triangle_lst_2->texture[2].u;
-	float	v3 = triangle_lst_2->texture[2].v;
-	/* float	w3 = triangle_lst_2->texture[2].w; */
-
-
+	int		x1 = tri->vertice[0].x;
+	int		y1 = tri->vertice[0].y;
+	float	u1 = tri->texture[0].u;
+	float	v1 = tri->texture[0].v;
+	/* float	w1 = tri->texture[0].w; */
+	int		x2 = tri->vertice[1].x;
+	int		y2 = tri->vertice[1].y;
+	float	u2 = tri->texture[1].u;
+	float	v2 = tri->texture[1].v;
+	/* float	w2 = tri->texture[1].w; */
+	int		x3 = tri->vertice[2].x;
+	int		y3 = tri->vertice[2].y;
+	float	u3 = tri->texture[2].u;
+	float	v3 = tri->texture[2].v;
+	/* float	w3 = tri->texture[2].w; */
 
 	ft_order_point( &x1, &y1, &u1, &v1, &x2, &y2, &u2, &v2, &x3, &y3, &u3, &v3);
 
@@ -102,16 +100,6 @@ void	ft_draw_textured_triangle(
 	int		i;
 	float	t;
 
-	s_tex->dax_step = 0;
-	s_tex->du1_step = 0;
-	s_tex->dv1_step = 0;
-	s_tex->dbx_step = 0;
-	s_tex->du2_step = 0;
-	s_tex->dv2_step = 0;
-	s_tex->srcrect.w = 1;
-	s_tex->srcrect.h = 1;
-	s_tex->dstrect.w = 1;
-	s_tex->dstrect.h = 1;
 	/* ************************************************************************/
 	/*	on draw le triangle du haut        bleu                               */
 	/* ************************************************************************/

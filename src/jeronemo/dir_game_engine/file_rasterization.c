@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 12:53:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 13:47:59 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->texture = loadbmp(wn->rend, "texturelight.bmp");
 	raster->debug = 0;
 	raster->s_tex = malloc(sizeof(t_mytext));
+	raster->s_tex->dax_step = 0;
+	raster->s_tex->du1_step = 0;
+	raster->s_tex->dv1_step = 0;
+	raster->s_tex->dbx_step = 0;
+	raster->s_tex->du2_step = 0;
+	raster->s_tex->dv2_step = 0;
+	raster->s_tex->srcrect.w = 1;
+	raster->s_tex->srcrect.h = 1;
+	raster->s_tex->dstrect.w = 1;
+	raster->s_tex->dstrect.h = 1;
 
 	raster->triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle));
 	raster->clipped_triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle) * 3);
