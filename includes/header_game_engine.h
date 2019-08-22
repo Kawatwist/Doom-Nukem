@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 13:22:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 13:35:42 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,13 +223,10 @@ void			ft_make_the_world_spin(int turn, t_myraster *raster);
 
 
 void	ft_draw_textured_triangle(
-		int x1, int y1, float u1, float v1, float w1,
-		int x2, int y2, float u2, float v2, float w2,
-		int x3, int y3, float u3, float v3, float w3,
+		t_mytriangle *triangle_lst_2,
 		t_win *wn,
 		SDL_Texture *texture,
 		t_mytext *s_tex);
-
 
 
 

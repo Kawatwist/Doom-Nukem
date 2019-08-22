@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 13:13:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 13:35:02 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,25 +232,11 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
 			/* ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade); */
 			/* ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn); */
-			ft_draw_textured_triangle(	triangle_lst_2->vertice[0].x,
-					triangle_lst_2->vertice[0].y,
-					triangle_lst_2->texture[0].u,
-					triangle_lst_2->texture[0].v,
-					triangle_lst_2->texture[0].w,
-					triangle_lst_2->vertice[1].x,
-					triangle_lst_2->vertice[1].y,
-					triangle_lst_2->texture[1].u,
-					triangle_lst_2->texture[1].v,
-					triangle_lst_2->texture[1].w,
-					triangle_lst_2->vertice[2].x,
-					triangle_lst_2->vertice[2].y,
-					triangle_lst_2->texture[2].u,
-					triangle_lst_2->texture[2].v,
-					triangle_lst_2->texture[2].w,
+			ft_draw_textured_triangle(
+					triangle_lst_2,
 					wn,
 					((t_myraster*)wn->rasterizer->tmp)->texture,
-					((t_myraster*)wn->rasterizer->tmp)->s_tex
-					);
+					((t_myraster*)wn->rasterizer->tmp)->s_tex);
 			triangle_lst_2 = triangle_lst_2->next;
 		}
 		triangle_lst_2 = keep;

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 13:22:24 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 13:39:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ void	ft_swap_float(float *a, float *b)
 	*b = tmp;
 }
 
-void	ft_order_point(	int *x1, int *y1, float *u1, float *v1, float *w1,
-		int *x2, int *y2, float *u2, float *v2, float *w2,
-		int *x3, int *y3, float *u3, float *v3, float *w3)
+void	ft_order_point(
+		int *x1, int *y1, float *u1, float *v1,
+		int *x2, int *y2, float *u2, float *v2,
+		int *x3, int *y3, float *u3, float *v3)
 {
 	if (*y2 < *y1)
 	{
@@ -50,7 +51,7 @@ void	ft_order_point(	int *x1, int *y1, float *u1, float *v1, float *w1,
 		ft_swap_int(y1, y2);
 		ft_swap_float(u1, u2);
 		ft_swap_float(v1, v2);
-		ft_swap_float(w1, w2);
+		/* ft_swap_float(w1, w2); */
 	}
 	if (*y3 < *y1)
 	{
@@ -58,7 +59,7 @@ void	ft_order_point(	int *x1, int *y1, float *u1, float *v1, float *w1,
 		ft_swap_int(y1, y3);
 		ft_swap_float(u1, u3);
 		ft_swap_float(v1, v3);
-		ft_swap_float(w1, w3);
+		/* ft_swap_float(w1, w3); */
 	}
 	if (*y3 < *y2)
 	{
@@ -66,28 +67,40 @@ void	ft_order_point(	int *x1, int *y1, float *u1, float *v1, float *w1,
 		ft_swap_int(y2, y3);
 		ft_swap_float(u2, u3);
 		ft_swap_float(v2, v3);
-		ft_swap_float(w2, w3);
+		/* ft_swap_float(w2, w3); */
 	}
 }
 
 
 void	ft_draw_textured_triangle(
-		int x1, int y1, float u1, float v1, float w1,
-		int x2, int y2, float u2, float v2, float w2,
-		int x3, int y3, float u3, float v3, float w3,
+		t_mytriangle *triangle_lst_2,
 		t_win *wn,
 		SDL_Texture *texture,
 		t_mytext *s_tex)
 {
-	ft_order_point(
-			&x1, &y1, &u1, &v1, &w1,
-			&x2, &y2, &u2, &v2, &w2,
-			&x3, &y3, &u3, &v3, &w3);
+	int		x1 = triangle_lst_2->vertice[0].x;
+	int		y1 = triangle_lst_2->vertice[0].y;
+	float	u1 = triangle_lst_2->texture[0].u;
+	float	v1 = triangle_lst_2->texture[0].v;
+	/* float	w1 = triangle_lst_2->texture[0].w; */
+	int		x2 = triangle_lst_2->vertice[1].x;
+	int		y2 = triangle_lst_2->vertice[1].y;
+	float	u2 = triangle_lst_2->texture[1].u;
+	float	v2 = triangle_lst_2->texture[1].v;
+	/* float	w2 = triangle_lst_2->texture[1].w; */
+	int		x3 = triangle_lst_2->vertice[2].x;
+	int		y3 = triangle_lst_2->vertice[2].y;
+	float	u3 = triangle_lst_2->texture[2].u;
+	float	v3 = triangle_lst_2->texture[2].v;
+	/* float	w3 = triangle_lst_2->texture[2].w; */
+
+
+
+	ft_order_point( &x1, &y1, &u1, &v1, &x2, &y2, &u2, &v2, &x3, &y3, &u3, &v3);
 
 	int		j;
 	int		i;
-
-	float t;
+	float	t;
 
 	s_tex->dax_step = 0;
 	s_tex->du1_step = 0;
