@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 16:37:13 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 16:57:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,8 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 		int i = 0;
 		while (i < 1920 * 1080)
 		{
-			((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFFFFFFFF;
+			if(((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] != 0xFFFFFFFF)
+				((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFFFFFFFF;
 			i++;
 		}
 		keep = triangle_lst_2;
@@ -246,8 +247,8 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 			triangle_lst_2 = triangle_lst_2->next;
 		}
 		triangle_lst_2 = keep;
-		/* SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex-> m_pPixels, 1920 * sizeof(Uint32)); */
-		/* SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL); */
+		SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex-> m_pPixels, 1920 * sizeof(Uint32));
+		SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
 
 	}
 

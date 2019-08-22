@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 16:37:30 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:16:39 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,7 @@ void	ft_draw_textured_triangle(
 	s_tex->dx1 = x2 - x1;
 	s_tex->du1 = u2 - u1;
 	s_tex->dy2 = y3 - y1;
-	s_tex->dv2 = v3 - v1;
-	s_tex->dx2 = x3 - x1;
+	s_tex->dv2 = v3 - v1; s_tex->dx2 = x3 - x1;
 	s_tex->du2 = u3 - u1;
 	if (s_tex->dy1)
 	{
@@ -152,12 +151,17 @@ void	ft_draw_textured_triangle(
 				s_tex->tex_u = (1.0 - t) * s_tex->tex_su + t * s_tex->tex_eu;
 				s_tex->tex_v = (1.0 - t) * s_tex->tex_sv + t * s_tex->tex_ev;
 				t += s_tex->tstep;
-				s_tex->srcrect.x = s_tex->tex_u * 512;
-				s_tex->srcrect.y = s_tex->tex_v * 512;
+				s_tex->srcrect.x = s_tex->tex_u * s_tex->tga->w;
+				s_tex->srcrect.y = s_tex->tex_v * s_tex->tga->w;
 				s_tex->dstrect.x = j;
 				s_tex->dstrect.y = i;
 				/* s_tex->m_pPixels[i * 1920 + j] = 0xFF0000FF; */
-				SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect));
+
+				/* s_tex->m_pPixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * 512)]; */
+				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
+					s_tex->m_pPixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
+
+				/* SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect)); */
 				j++;
 			}
 			i++;
@@ -207,12 +211,15 @@ void	ft_draw_textured_triangle(
 			{
 				s_tex->tex_u = (1.0f - t) * s_tex->tex_su + t * s_tex->tex_eu;
 				s_tex->tex_v = (1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev;
-				s_tex->srcrect.x = s_tex->tex_u * 512;
-				s_tex->srcrect.y = s_tex->tex_v * 512;
+				s_tex->srcrect.x = s_tex->tex_u * s_tex->tga->w;
+				s_tex->srcrect.y = s_tex->tex_v * s_tex->tga->w;
 				s_tex->dstrect.x = j;
 				s_tex->dstrect.y = i;
 				/* s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF; */
-				SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect));
+
+				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
+					s_tex->m_pPixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
+				/* SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect)); */
 				j++;
 				t += s_tex->tstep;
 			}

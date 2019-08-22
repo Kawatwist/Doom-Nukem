@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 16:20:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 16:57:08 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,16 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 {
 
 	raster->s_tex = malloc(sizeof(t_mytext));
-	t_tga		*tga;
-	tga = load_tga("texturelight.tga");
+	raster->s_tex->tga = load_tga("texturelight.tga");
+	if (raster->s_tex->tga == NULL)
+	{
+		printf("probleme tga\n");
+		exit(0);
+	}
 
 
 	/* raster->texture = loadbmp(wn->rend, "texturelight.bmp"); */
-	raster->texture = SDL_CreateTexture(wn->rend, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, 512, 512);
+	raster->texture = SDL_CreateTexture(wn->rend, SDL_PIXELFORMAT_ARGB32, SDL_TEXTUREACCESS_STREAMING, 1920, 1080);
 	raster->s_tex->m_pPixels = malloc(1920*1080*sizeof(Uint32));
 
 	raster->debug = 0;

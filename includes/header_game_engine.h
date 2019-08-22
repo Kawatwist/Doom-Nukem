@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 16:16:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 16:56:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 typedef struct	s_mytex
 {
+
+
+	t_tga		*tga;
+
+
+
 	int			ax;
 	int			bx;
 
