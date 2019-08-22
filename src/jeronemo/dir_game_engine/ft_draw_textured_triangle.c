@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/21 15:40:52 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 11:47:37 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,11 +151,11 @@ void	ft_draw_textured_triangle(
 
 	if (dy1 > 0)
 	{
-		printf("NEW TRIANGLE =============================================\n");
-		printf("UV MAP 1 = %f || %f\n", u1,v1);
-		printf("UV MAP 2 = %f || %f\n", u2,v2);
-		printf("UV MAP 3 = %f || %f\n", u3,v3);
-		printf("on draw le triangle du haut (flat bottom)\n");
+		/* printf("NEW TRIANGLE =============================================\n"); */
+		/* printf("UV MAP 1 = %f || %f\n", u1,v1); */
+		/* printf("UV MAP 2 = %f || %f\n", u2,v2); */
+		/* printf("UV MAP 3 = %f || %f\n", u3,v3); */
+		/* printf("on draw le triangle du haut (flat bottom)\n"); */
 		SDL_SetRenderDrawColor(wn->rend, 0, 0, 255, 255);
 		i = y1;
 		while (i < y2)
@@ -222,18 +222,30 @@ void	ft_draw_textured_triangle(
 /* ************************************************************************** */
 	dy1 = y3 - y2;
 	dx1 = x3 - x2;
-
-
+	dv1 = v3 - v2;
+	du1 = u3 - u2;
 
 
 	if (dy1)
 		dax_step = dx1 / (float)abs(dy1);
 	if (dy2)
 		dbx_step = dx2 / (float)abs(dy2);
+	du1_step = 0;
+	dv1_step = 0;
+	if (dy1)
+	{
+		du1_step = du1 / (float)abs(dy1);
+		dv1_step = dv1 / (float)abs(dy1);
+	}
 /* ########             DRAWING       green                  #########################*/
 	if (dy1 > 0)
 	{
 		printf("on draw le triangle du bas (flat up)\n");
+		printf("NEW TRIANGLE =============================================\n");
+		printf("UV MAP 1 = %f || %f\n", u1,v1);
+		printf("UV MAP 2 = %f || %f\n", u2,v2);
+		printf("UV MAP 3 = %f || %f\n", u3,v3);
+		printf("on draw le triangle du haut (flat bottom)\n");
 		SDL_SetRenderDrawColor(wn->rend, 0, 255, 0, 255);
 		i = y2;
 		while (i < y3)
@@ -242,29 +254,48 @@ void	ft_draw_textured_triangle(
 			bx = x1 + (float)(i - y1) * dbx_step;
 
 
-			/* float tex_su = u2 + (float)(i - y2) * du1_step; */
-			/* float tex_sv = v2 + (float)(i - y2) * dv1_step; */
+			float tex_su = u2 + (float)(i - y2) * du1_step;
+			float tex_sv = v2 + (float)(i - y2) * dv1_step;
 			/* float tex_sw = w2 + (float)(i - y2) * dw1_step; */
 
-			/* float tex_eu = u1 + (float)(i - y1) * du2_step; */
-			/* float tex_ev = v1 + (float)(i - y1) * dv2_step; */
+			float tex_eu = u1 + (float)(i - y1) * du2_step;
+			float tex_ev = v1 + (float)(i - y1) * dv2_step;
 			/* float tex_ew = w1 + (float)(i - y1) * dw2_step; */
 			if (ax > bx)
 			{
 				ft_swap_int(&ax, &bx);
-				/* ft_swap_float(tex_su, tex_eu); */
-				/* ft_swap_float(tex_sv, tex_ev); */
+				ft_swap_float(&tex_su, &tex_eu);
+				ft_swap_float(&tex_sv, &tex_ev);
 				/* ft_swap_float(tex_sw, tex_ew); */
 			}
+				tex_u = tex_su;
+				tex_v = tex_sv;
+				/* tex_w = tex_sw; */
+				tstep = 1.0f / ((float)(bx - ax));
+				float t = 0.0f;
 			j = ax;
 			while (j < bx)
 			{
 				//on draw
+					/* SDL_RenderDrawPoint(wn->rend, j, i); */
 				//metre ici le render copy au lieu du draw point
-				SDL_RenderDrawPoint(wn->rend, j, i);
+					tex_u = (1.0f - t) * tex_su + t * tex_eu;
+					tex_v = (1.0f - t) * tex_sv + t * tex_ev;
+					/* tex_w = (1.0f - t) * tex_sw + t * tex_ew; */
+				 srcrect.x = tex_u * 512;//image_x = tex_u * length_x;
+				 srcrect.y = tex_v * 512;//image_y = tex_v * length_y;
+				 srcrect.w = 1;
+				 srcrect.h = 1;
+				 dstrect.x = j;
+				 dstrect.y = i;
+				 dstrect.w = 1;
+				 dstrect.h = 1;
+				SDL_RenderCopy(wn->rend, texture, &srcrect, &dstrect);
 				j++;
+				t += tstep;
 			}
-			i += 5;
+			/* i += 5; */
+			i++;
 		}
 	}
 // 	if (((t_myraster *)wn->rasterizer->tmp)->debug)

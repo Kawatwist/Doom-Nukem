@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/21 16:24:47 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 11:27:41 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,29 +217,17 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	//	printf("fin clipping screen \n");
 	//	raster->triangle_lst_2 = raster->triangle_lst;
 
-
-
-
-
-
 	ft_draw(raster->triangle_lst_2, wn);
-
-
-
-
 	ft_my_time(&(raster->time_draw), &current_time, &last_time);
 
 	ft_free_lst(raster->triangle_lst_2);
 	ft_my_time(&(raster->time_free_lst), &current_time, &last_time);
-
-
 
 	SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 255);
 	SDL_RenderDrawLine(wn->rend, 30, 0, 30, YSCREEN);
 	SDL_RenderDrawLine(wn->rend, XSCREEN - 30, 0, XSCREEN - 30, YSCREEN);
 	SDL_RenderDrawLine(wn->rend, 0, 30, XSCREEN, 30);
 	SDL_RenderDrawLine(wn->rend, 0, YSCREEN - 30, XSCREEN, YSCREEN - 30);
-
 
 
 	printf("world view\t=%u\n", raster->time_world_view);

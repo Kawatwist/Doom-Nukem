@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/21 16:24:40 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 11:26:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,8 @@ void	ft_launch_rasterization(t_win *wn)
 	wn->rasterizer->polygon_lst = NULL;
   	wn->rasterizer->polygon_lst = ft_read_the_polygon_file();
 	ft_launch_bsp_tree(wn->rasterizer->polygon_lst);
-	printf("good\n");
 	wn->rasterizer->triangle_array = ft_get_triangles_array(wn->rasterizer->polygon_lst);
-	printf("not good\n");
 	wn->rasterizer->nbr_triangle = ft_get_nbr_of_triangle(wn->rasterizer->polygon_lst);
 	wn->rasterizer->tmp = malloc(sizeof(t_myraster));
 	wn->rasterizer->tmp = ft_init_rasterization(wn, (t_myraster*)(wn->rasterizer->tmp));
-	//exit(0);
 }

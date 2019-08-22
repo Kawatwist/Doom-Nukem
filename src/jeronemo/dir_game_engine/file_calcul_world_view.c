@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/21 16:28:22 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 11:29:06 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,16 +231,6 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 		int i = 0;
 
 		texture = loadbmp(wn->rend, "texturelight.bmp");
-		/* texture = NULL; */
-
-		/* texture = malloc(sizeof(SDL_Texture**) * 30); */
-		/* while (i < 20) */
-		/* { */
-		/* 	texture[i] = malloc(sizeof(SDL_Texture*)); */
-		/* 	texture[i] = loadbmp(wn->rend, "texture.bmp"); */
-		/* 	i++; */
-		/* } */
-		/* i = 0; */
 
 		keep = triangle_lst_2;
 		while (triangle_lst_2 != NULL)
@@ -250,20 +240,10 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 			/* ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade); */
 			//DRAW MESH
 			/* if (((t_myraster*)wn->rasterizer->tmp)->debug == 1) */
-			/* { */
-			/* 	SDL_Delay(1000); */
-			/* } */
 			i++;
 			printf("############################################3\n");
 	printf("ON draw le traingle n=%d\n", i);
 			ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
-
-
-	/* if (texture == NULL ) */
-	/* { */
-	/* 	printf("bye \n"); */
-	/* 	exit (0); */
-	/* } */
 
 	printf("dans draw\n");
 		printf("u =%f \t u=%f \t u=%f\t\n", triangle_lst_2->texture[0].u, triangle_lst_2->texture[1].u, triangle_lst_2->texture[2].u);
