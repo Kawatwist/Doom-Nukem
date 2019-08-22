@@ -6,15 +6,19 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 11:27:41 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 12:06:19 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
 #include <time.h> ///////////a sup apres
 
+SDL_Texture		*loadbmp(SDL_Renderer *tmp_renderer, char *path);
+
 t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 {
+
+	raster->texture = loadbmp(wn->rend, "texturelight.bmp");
 	raster->debug = 0;
 
 	raster->triangle = (t_mytriangle*)malloc(sizeof(t_mytriangle));

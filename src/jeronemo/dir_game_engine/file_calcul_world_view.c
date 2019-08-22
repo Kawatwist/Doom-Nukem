@@ -6,13 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 11:29:06 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/22 12:12:56 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
-
-SDL_Texture		*loadbmp(SDL_Renderer *tmp_renderer, char *path);
 
 void	ft_calcul_world_view_matrix(t_myraster *raster)
 {
@@ -227,50 +225,30 @@ void	ft_clipping_screen(t_mytriangle *triangle_lst,
 	void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	{
 		t_mytriangle	*keep;
-		SDL_Texture		*texture;
-		int i = 0;
-
-		texture = loadbmp(wn->rend, "texturelight.bmp");
 
 		keep = triangle_lst_2;
 		while (triangle_lst_2 != NULL)
 		{
-			//printf("=%f\n", triangle_lst_2->vertice[0].x);
 			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
 			/* ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade); */
-			//DRAW MESH
-			/* if (((t_myraster*)wn->rasterizer->tmp)->debug == 1) */
-			i++;
-			printf("############################################3\n");
-	printf("ON draw le traingle n=%d\n", i);
 			ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
-
-	printf("dans draw\n");
-		printf("u =%f \t u=%f \t u=%f\t\n", triangle_lst_2->texture[0].u, triangle_lst_2->texture[1].u, triangle_lst_2->texture[2].u);
-		printf("v =%f \t v=%f \t v=%f\t\n", triangle_lst_2->texture[0].v, triangle_lst_2->texture[1].v, triangle_lst_2->texture[2].v);
-
-
-	ft_draw_textured_triangle(	triangle_lst_2->vertice[0].x,
-								triangle_lst_2->vertice[0].y,
-								triangle_lst_2->texture[0].u,
-								triangle_lst_2->texture[0].v,
-								triangle_lst_2->texture[0].w,
-								triangle_lst_2->vertice[1].x,
-								triangle_lst_2->vertice[1].y,
-								triangle_lst_2->texture[1].u,
-								triangle_lst_2->texture[1].v,
-								triangle_lst_2->texture[1].w,
-								triangle_lst_2->vertice[2].x,
-								triangle_lst_2->vertice[2].y,
-								triangle_lst_2->texture[2].u,
-								triangle_lst_2->texture[2].v,
-								triangle_lst_2->texture[2].w,
-								wn,
-								texture
-			);
-
-
-
+			ft_draw_textured_triangle(	triangle_lst_2->vertice[0].x,
+					triangle_lst_2->vertice[0].y,
+					triangle_lst_2->texture[0].u,
+					triangle_lst_2->texture[0].v,
+					triangle_lst_2->texture[0].w,
+					triangle_lst_2->vertice[1].x,
+					triangle_lst_2->vertice[1].y,
+					triangle_lst_2->texture[1].u,
+					triangle_lst_2->texture[1].v,
+					triangle_lst_2->texture[1].w,
+					triangle_lst_2->vertice[2].x,
+					triangle_lst_2->vertice[2].y,
+					triangle_lst_2->texture[2].u,
+					triangle_lst_2->texture[2].v,
+					triangle_lst_2->texture[2].w,
+					wn,
+					((t_myraster*)wn->rasterizer->tmp)->texture);
 			triangle_lst_2 = triangle_lst_2->next;
 		}
 		triangle_lst_2 = keep;
