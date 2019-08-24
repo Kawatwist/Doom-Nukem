@@ -155,7 +155,6 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	keep = triangle_lst_2;
 	while (triangle_lst_2 != NULL)
 	{
-<<<<<<< HEAD
 		t_mytriangle	*keep;
 
 		int i = 0;
