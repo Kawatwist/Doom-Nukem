@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 20:42:36 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/08 20:48:40 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/16 14:42:35 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,5 @@ typedef struct			s_myputtheline
 	float				le_z1;
 	float				le_z2;
 }						t_myputtheline;
-
-void			ft_draw_line(t_win *wn, t_myputtheline *s_line);
 
 #endif

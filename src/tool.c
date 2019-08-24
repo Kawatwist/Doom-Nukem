@@ -6,7 +6,7 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:49 by jleblond          #+#    #+#             */
-/*   Updated: 2019/07/15 16:27:02 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/21 18:11:15 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,3 @@ int	 key_pressed(t_win *wn, int key_value)
 		return (TRUE);
 	return (FALSE);
 }
-

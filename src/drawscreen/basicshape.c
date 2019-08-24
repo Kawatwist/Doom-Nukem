@@ -6,11 +6,12 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 15:29:27 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/11 17:47:07 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/27 14:25:46 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+#include "header_bresenham.h"
 
 void		drawsquare(void	**pixels, int pitch, SDL_Rect rect, t_color color)
 {
@@ -29,32 +30,28 @@ void		drawsquare(void	**pixels, int pitch, SDL_Rect rect, t_color color)
 	}
 }
 
-void		drawcircle(void **pixels, int pitch, t_point origin, int rayon)
+void		drawlinexyz(t_win *wn, int color, t_xyz_point origin, t_xyz_point dest)
 {
-	t_point	pos;
-	float	k;
-
-	pos.x = origin.x - (rayon >> 1);
-	while (pos.x < origin.x + (rayon >> 1))
-	{
-		pos.y = origin.y - (rayon >> 1);
-		while (pos.y < origin.y + (rayon >> 1))
-		{
-			k = (((pos.x << 1) / rayon) * ((pos.x << 1) / rayon)) + ((pos.y / rayon) * (pos.y / rayon));
-			if (k > 0.95 && k < 1.08)
-				drawpoint(pixels, pitch, pos, itocolor(0xFF00FF));
-			pos.y += 1;
-		}
-		pos.x += 1;
-	}
+	t_point	neworigin;
+	t_point	newdest;
+	
+	neworigin.x = origin.a;
+	neworigin.y = origin.b;
+	newdest.x = dest.a;
+	newdest.y = dest.b;
+	wn->coolor = color;
+	bresenhamburger(wn, &neworigin, &newdest);
 }
 
-void		drawline(void **pixels, int pitch, t_point origin, t_point dest)
+void		drawline(t_win *wn, int color, t_point origin, t_point dest)
 {
-	(void)pixels;
-	(void)pitch;
-	(void)origin;
-	(void)dest;
+	wn->coolor = color;
+	bresenhamburger(wn, &origin, &dest);
+}
+
+void		drawpointintcolor(void **pixels, int pitch, t_point position, int color)
+{
+	((int*)pixels)[(int)((position.y * (pitch >> 2)) + (position.x))] = color;
 }
 
 void		drawpoint(void **pixels, int pitch, t_point position, t_color color)

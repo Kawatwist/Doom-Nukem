@@ -35,11 +35,11 @@ void	turn_rast(t_win *wn)
 	wn->interface = DGAME;
 	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
 	{
-		ft_clear_window(wn);
- 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array, wn);
+//		ft_clear_window(wn);
+		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->tmp2, wn);
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
-		if (wn->interface == DGAME)
-			SDL_RenderPresent(wn->rend);
+//		if (wn->interface == DGAME)
+		SDL_RenderPresent(wn->rend);
 	}
 }
 
@@ -47,7 +47,7 @@ void	ft_launch_rasterization(t_win *wn)
 {
 	wn->rasterizer->polygon_lst = NULL;
   	wn->rasterizer->polygon_lst = ft_read_the_polygon_file();
-	ft_launch_bsp_tree(wn->rasterizer->polygon_lst);
+	ft_launch_bsp_tree(wn->rasterizer->polygon_lst); // PROTECTION POUR SAVE FROM EDITOR
 	wn->rasterizer->triangle_array = ft_get_triangles_array(wn->rasterizer->polygon_lst);
 	wn->rasterizer->nbr_triangle = ft_get_nbr_of_triangle(wn->rasterizer->polygon_lst);
 	wn->rasterizer->tmp = malloc(sizeof(t_myraster));

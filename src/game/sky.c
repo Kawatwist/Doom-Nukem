@@ -6,12 +6,12 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:57:20 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/11 17:47:09 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/27 13:40:21 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
-
+/*
 static void	bg2_skybox(t_win *wn)
 {
 	t_text		*img;
@@ -23,7 +23,7 @@ static void	bg2_skybox(t_win *wn)
 	src.h = 400;
 	img = findpostxt(wn, "game", "skybox", "sky2");
 	SDL_RenderCopy(wn->rend, img->txt, &src, NULL);
-}
+}*/
 /*
 static void	bg_skybox(t_win *wn)
 {
@@ -59,18 +59,18 @@ static void	bg_skybox(t_win *wn)
 	t_color color;
 	t_point origin;
 	
-	color.r = 255;
-	color.g = 255;
+	color.r = 50;
+	color.g = 100;
 	color.b = 255;
 	color.a = 255;
 	origin.x = 50;
 	origin.y = 50;
-	ft_memset(wn->pixels, wn->xscreen * 4 * wn->yscreen, 0);
-//	drawsquare(wn->pixels, wn->xscreen * 4, *create_rect(10, 10, 200, 200), color);
-	drawcircle(wn->pixels, wn->xscreen * 4, origin, 25);
+//	ft_memintset(&(wn->pixels[wn->xscreen * 400]), 0xFFAAAAFF, wn->xscreen * (wn->yscreen - 200));
+	drawsquare(wn->pixels, wn->xscreen * 4, *create_rect(21, 100, wn->xscreen - 40, wn->yscreen - 200), color);
+//	drawcircle(wn->pixels, wn->xscreen * 4, origin, 25);
 }
 
 void		display_skybox(t_win *wn)
 {
-	wn->flag & SKY2 ? bg2_skybox(wn) : bg_skybox(wn);
+	bg_skybox(wn);
 }

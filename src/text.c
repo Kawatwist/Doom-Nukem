@@ -32,7 +32,7 @@ static char *special_key(t_win *wn, char *line)
 	return (line);
 }
 
-static char	printable_key_check(int i)
+static char	printable_key(int i)
 {
 	if ((i >= SDL_SCANCODE_A) && (i <= SDL_SCANCODE_Z))
 		return (i - SDL_SCANCODE_A + 'a');
@@ -64,7 +64,7 @@ static char	*basic_key(t_win *wn, char *line)
 	{
 		if (key_pressed(wn, i))
 		{
-			key_val = printable_key_check(i);
+			key_val = printable_key(i);
 			if (key_val != INVALID)
 			{
 				str[0] = key_val;

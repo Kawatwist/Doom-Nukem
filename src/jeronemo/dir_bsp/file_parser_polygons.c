@@ -6,7 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/08/24 13:59:35 by jchardin         ###   ########.fr       */
+=======
+/*   Updated: 2019/07/27 16:24:42 by lomasse          ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +225,11 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 	fichier_lst = NULL;
 
+<<<<<<< HEAD
 	fd = open(" pyramide.obj", O_RDWR);
+=======
+	fd = open("src/jeronemo/dir_bsp/house.obj", O_RDWR); // <= PATH OBJ
+>>>>>>> master
 	while(get_next_line(fd, &line))
 	{
 		fichier_node = ft_create_line_node(line);
@@ -234,7 +242,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	while (fichier_lst != NULL)
 	{
 
-		printf("=%s\n", fichier_lst->line);
+	//	printf("=%s\n", fichier_lst->line);
 		fichier_lst = fichier_lst->next;
 	}
 	fichier_lst = keep_fichier;
@@ -251,15 +259,22 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 		if (fichier_lst->line[0] == 'f' && fichier_lst->line[1] == ' ')
 		{
 			i++;
+<<<<<<< HEAD
 			printf("Polygon n=%d\n", i);
 			j = 1;
 			printf("les indices des vertex=");
+=======
+	//		printf("Polynome n=%d\n", i);
+			j = 1;
+	//		printf("les indices =");
+>>>>>>> master
 			while (fichier_lst->line[j] != '\0')
 			{
 				j++;
 				vertex_node = NULL;
 				vertex_node = (t_myvec*)malloc(sizeof(t_myvec));
 				vertex_node->obj_indice = (int)ft_atoi_comma(&(fichier_lst->line[j]));
+<<<<<<< HEAD
 
 
 				while(fichier_lst->line[j] != '/')
@@ -270,6 +285,9 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 				printf(" =%d", vertex_node->obj_indice);
 				vertex_node->obj_indice_texture = (int)ft_atoi_comma(&(fichier_lst->line[j]));
 				printf("/%d  ", vertex_node->obj_indice_texture);
+=======
+	//			printf(" =%d  ", vertex_node->obj_indice);
+>>>>>>> master
 				ft_add_vertex(&vertex_lst, vertex_node);
 				while (fichier_lst->line[j] != ' ' && fichier_lst->line[j] != '\0')
 					j++;
@@ -277,7 +295,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 			/* printf("\n"); */
 			polygon_node = ft_create_polygon_node(vertex_lst);
 			polygon_node->obj_indice = polygon_obj_indice;
-			printf("On a ajouter le polygone =%d\n\n", polygon_node->obj_indice);
+	//		printf("On a ajouter le polygone =%d\n\n", polygon_node->obj_indice);
 			polygon_obj_indice++;
 			ft_add_polygon(&polygon_lst, polygon_node);
 			vertex_lst = NULL;
@@ -304,25 +322,25 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 			keep_fichier = fichier_lst;
 			while(fichier_lst != NULL && polygon_lst->vertex_lst != NULL && vertex_add == 0)
 			{
-				printf("==%s\n", fichier_lst->line);
+	//			printf("==%s\n", fichier_lst->line);
 				if (fichier_lst->line[0] == 'v' && fichier_lst->line [1] == ' ')
 					current_vertex++;
-				printf("=current vertex =%d\n", current_vertex);
+	//			printf("=current vertex =%d\n", current_vertex);
 				if (current_vertex == polygon_lst->vertex_lst->obj_indice)
 				{
-					printf("A Le polygone n =%d\n", polygon_lst->obj_indice);
-					printf("B la ligne =%s\n", fichier_lst->line);
-					printf("On ajoute le vecteur d'indice =%d\n", polygon_lst->vertex_lst->obj_indice);
+	//				printf("A Le polygone n =%d\n", polygon_lst->obj_indice);
+	//				printf("B la ligne =%s\n", fichier_lst->line);
+	//				printf("On ajoute le vecteur d'indice =%d\n", polygon_lst->vertex_lst->obj_indice);
 					vertex = ft_get_vertex(fichier_lst->line);
-					printf("vertex node x=%f\n", vertex.x);
-					printf("vertex node y=%f\n", vertex.y);
-					printf("vertex node z=%f\n", vertex.z);
+	//				printf("vertex node x=%f\n", vertex.x);
+	//				printf("vertex node y=%f\n", vertex.y);
+	//				printf("vertex node z=%f\n", vertex.z);
 					polygon_lst->vertex_lst->x =  vertex.x;
 					polygon_lst->vertex_lst->y =  vertex.y;
 					polygon_lst->vertex_lst->z =  vertex.z;
-					printf("ladreese next =%p\n", polygon_lst->vertex_lst->next);
+	//				printf("ladreese next =%p\n", polygon_lst->vertex_lst->next);
 					polygon_lst->vertex_lst = polygon_lst->vertex_lst->next;
-					printf("\n\n\n");
+	//				printf("\n\n\n");
 					vertex_add = 1;
 				}
 				fichier_lst = fichier_lst->next;
@@ -379,23 +397,32 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 	//##########################3
 
+<<<<<<< HEAD
 	printf("###########################################################\n");
 	printf("PARSEUR FICHIER OBJ\n");
 	printf("###########################################################\n");
+=======
+//	printf("PARSEUR FICHIER OBJ\n");
+>>>>>>> master
 
 	keep = polygon_lst;
 	while (polygon_lst != NULL)
 	{
-		printf("Polygon n=%d\n", polygon_lst->obj_indice);
-		printf("La liste des indes \n");
+//		printf("Polygon n=%d\n", polygon_lst->obj_indice);
+//		printf("La liste des indes \n");
 		keep_vec = polygon_lst->vertex_lst;
 		while (polygon_lst->vertex_lst != NULL)
 		{
+<<<<<<< HEAD
 			printf("indice vertex=%d texture=%d", polygon_lst->vertex_lst->obj_indice, polygon_lst->vertex_lst->obj_indice_texture);
 			printf("  x=%f  y=%f  z=%f u=%f v=%f\n", polygon_lst->vertex_lst->x, polygon_lst->vertex_lst->y, polygon_lst->vertex_lst->z, polygon_lst->vertex_lst->u, polygon_lst->vertex_lst->v);
+=======
+//			printf(" =%d ", polygon_lst->vertex_lst->obj_indice);   
+//			printf("  x=%f  y=%f  z=%f   \n", polygon_lst->vertex_lst->x, polygon_lst->vertex_lst->y, polygon_lst->vertex_lst->z);
+>>>>>>> master
 			polygon_lst->vertex_lst = polygon_lst->vertex_lst->next;
 		}
-		printf("\n");
+//		printf("\n");
 		polygon_lst->vertex_lst = keep_vec;
 		polygon_lst = polygon_lst->next;
 	}

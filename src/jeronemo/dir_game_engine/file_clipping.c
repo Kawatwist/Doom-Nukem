@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 12:39:10 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/15 13:50:06 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/18 15:18:17 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,6 @@ t_mytriangle	**ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, i
 	int			n_outside_points = 0;
 	float		distance;
 	int			j;
-
-	/* if ((int)(point.x) == -1) */
-	/* { */
-	/* 	clipped_triangle = triangle; */
-	/* 	*nbr = 1; */
-	/* 	return (clipped_triangle); */
-	/* } */
-	/* else */
-	/* { */
-	/* 	if (triangle->vertice[0].z < 0 */
-	/* 			||triangle->vertice[1].z < 0 */ 
-	/* 			||triangle->vertice[2].z < 0) */
-	/* 	{ */
-	/* 		*nbr = 0; */
-	/* 		printf("tout z nul\n"); */
-	/* 		clipped_triangle = NULL; */
-	/* 	} */
-	/* 	else */
-	/* 	{ */
-	/* 		*nbr = 1; */
-	/* 		printf("copied\n"); */
-	/* 		clipped_triangle = triangle; */
-	/* 	} */
-	/* } */
-	/* return (clipped_triangle); */
-
-
 
 	j = 0;
 	plane_norm = ft_normalise(plane_norm);
