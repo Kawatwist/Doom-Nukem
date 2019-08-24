@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/24 12:36:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/24 13:59:35 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,9 +288,6 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 
 	int vertex_add = 0;
-
-
-
 	t_myvec		vertex;
 	int		current_vertex;
 
