@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/22 16:57:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/24 11:48:29 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_clipping_camera(t_mytriangle *triangle, t_myraster *raster, t_mytriangle
 }
 
 void	ft_clipping_screen(t_mytriangle *triangle_lst,
-		t_myraster *raster, 
+		t_myraster *raster,
 		t_mytriangle **clipped_triangle)
 {
 	t_mytriangle		*head;
