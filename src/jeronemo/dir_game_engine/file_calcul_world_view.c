@@ -6,11 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2019/08/24 11:48:29 by jchardin         ###   ########.fr       */
-=======
-/*   Updated: 2019/07/27 16:13:34 by lomasse          ###   ########.fr       */
->>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +99,7 @@ void	ft_clipping_camera(t_mytriangle *triangle, t_myraster *raster, t_mytriangle
 	}
 }
 
-<<<<<<< HEAD
-void	ft_clipping_screen(t_mytriangle *triangle_lst,
-		t_myraster *raster,
-		t_mytriangle **clipped_triangle)
-=======
 void	ft_clipping_screen(t_win *wn, t_mytriangle *head, t_myraster *raster, t_mytriangle **clipped_triangle)
->>>>>>> master
 {
 	(void)clipped_triangle;
 	if (head != NULL)
@@ -148,13 +138,6 @@ void	ft_scale_screen(t_mytriangle *triangle)
 
 void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
-	t_mytriangle	*keep;
-	t_point			start;
-	t_point			end;
-
-	keep = triangle_lst_2;
-	while (triangle_lst_2 != NULL)
-	{
 		t_mytriangle	*keep;
 
 		int i = 0;
@@ -177,21 +160,11 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 					((t_myraster*)wn->rasterizer->tmp)->s_tex);
 			triangle_lst_2 = triangle_lst_2->next;
 		}
-		triangle_lst_2 = keep;
-		SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex-> m_pPixels, 1920 * sizeof(Uint32));
-		SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
+	triangle_lst_2 = keep;
 
-=======
-		//printf("=%f\n", triangle_lst_2->vertice[0].x);
-		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
-		ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade);
-		//DRAW MESH
-		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
-		triangle_lst_2 = triangle_lst_2->next;
->>>>>>> master
-	}
-	(void)end;
-	(void)start;
+	SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels, 1920 * sizeof(Uint32));
+	SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
+
 /*	start.x = 20;
 	start.y = 100;
 	end.x = 20;

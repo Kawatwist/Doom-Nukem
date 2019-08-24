@@ -350,13 +350,13 @@ t_mytriangle	ft_get_vertice_of_the_triangle(t_mypolygon *polygon, int indice)
 
 
 
-	printf("le u=%f  ",triangle.texture[0].u);
-	printf("le v=%f\n", triangle.texture[0].v);
-	printf("le u=%f  ",triangle.texture[1].u);
-	printf("le v=%f\n", triangle.texture[1].v);
-	printf("le u=%f  ",triangle.texture[2].u);
-	printf("le v=%f\n", triangle.texture[2].v);
-	printf("new triangle\n");
+	// printf("le u=%f  ",triangle.texture[0].u);
+	// printf("le v=%f\n", triangle.texture[0].v);
+	// printf("le u=%f  ",triangle.texture[1].u);
+	// printf("le v=%f\n", triangle.texture[1].v);
+	// printf("le u=%f  ",triangle.texture[2].u);
+	// printf("le v=%f\n", triangle.texture[2].v);
+	// printf("new triangle\n");
 	return (triangle);
 }
 

@@ -32,11 +32,10 @@ void	turn_rast(t_win *wn)
 {
 	 wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
 	//############
-	wn->interface = DGAME;
 	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
 	{
 //		ft_clear_window(wn);
-		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->tmp2, wn);
+		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array , wn);
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
 //		if (wn->interface == DGAME)
 		SDL_RenderPresent(wn->rend);

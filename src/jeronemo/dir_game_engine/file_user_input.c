@@ -6,11 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:01:40 by jchardin          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2019/08/21 10:15:39 by jchardin         ###   ########.fr       */
-=======
-/*   Updated: 2019/07/27 14:25:14 by lomasse          ###   ########.fr       */
->>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +16,10 @@ t_myraster	*ft_keyboard_event_check(t_win *wn, t_myraster *raster)
 {
 	if (wn->state[SDL_SCANCODE_ESCAPE])
 	{
+		printf("ESCAPE PRESSED\n");
 		raster->quit = TRUE;
-		wn->interface = MENU;
-		wn->menu->choice = 0;
+		wn->interface = MGAME;
+		wn->menu->choice = 10;
 	}
 	if (key_pressed(wn, SDL_SCANCODE_SPACE) && wn->interface == RGAME)
 		wn->interface = DGAME;

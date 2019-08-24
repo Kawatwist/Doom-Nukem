@@ -31,7 +31,7 @@ void	menu_game_input(t_win *wn)
 	if (!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_RETURN))
 	{
 		wn->oldinterface = wn->interface;
-		wn->menu->choice == 10 ? wn->interface = RGAME : 0;
+		wn->menu->choice == 10 ? wn->interface = DGAME : 0;
 		wn->menu->choice == 10 ? SDL_WarpMouseInWindow(wn->window, wn->xscreen / 2, wn->yscreen / 2) : 0;
 		wn->menu->choice == 11 ? wn->interface = NGAME : 0;
 		wn->menu->choice == 12 ? wn->interface = LGAME : 0;

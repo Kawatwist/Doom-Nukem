@@ -6,11 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2019/08/24 11:49:11 by jchardin         ###   ########.fr       */
-=======
-/*   Updated: 2019/07/27 16:04:46 by lomasse          ###   ########.fr       */
->>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,44 +222,16 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	}
 	ft_clipping_screen(wn, raster->triangle_lst, raster, &(raster->clipped_triangle));
 	ft_my_time(&(raster->time_clipping_screen), &current_time, &last_time);
-<<<<<<< HEAD
 
 	//	printf("fin clipping screen \n");
 	//	raster->triangle_lst_2 = raster->triangle_lst;
 
-=======
->>>>>>> master
 	ft_draw(raster->triangle_lst_2, wn);
 	ft_my_time(&(raster->time_draw), &current_time, &last_time);
 
 	ft_free_lst(raster->triangle_lst_2);
 	ft_my_time(&(raster->time_free_lst), &current_time, &last_time);
 
-<<<<<<< HEAD
-	SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 255);
-	SDL_RenderDrawLine(wn->rend, 30, 0, 30, YSCREEN);
-	SDL_RenderDrawLine(wn->rend, XSCREEN - 30, 0, XSCREEN - 30, YSCREEN);
-	SDL_RenderDrawLine(wn->rend, 0, 30, XSCREEN, 30);
-	SDL_RenderDrawLine(wn->rend, 0, YSCREEN - 30, XSCREEN, YSCREEN - 30);
-
-
-	printf("world view\t=%u\n", raster->time_world_view);
-	printf("culling\t\t=%u\n", raster->time_culling);
-	printf("shade\t\t=%u\n", raster->time_shade);
-	printf("cam view\t=%u\n", raster->time_cam_view);
-	printf("clip camera\t=%u\n", raster->time_clipping_camera);
-	printf("projection\t=%u\n", raster->time_projetion);
-	printf("scale\t\t=%u\n", raster->time_scale_screen);
-	printf("add lst\t\t=%u\n", raster->time_add_to_lst);
-	printf("z buffer\t=%u\n", raster->time_z_buffer);
-	printf("clip screen\t=%u\n", raster->time_clipping_screen);
-	printf("draw\t\t=%u\n", raster->time_draw);
-	printf("free\t\t=%u\n\n\n\n", raster->time_free_lst);
-
-
-
-
-=======
 //	SDL_SetRenderDrawColor(wn->rend, 255, 255, 255, 255);
 //	SDL_RenderDrawLine(wn->rend, 30, 0, 30, YSCREEN);
 //	SDL_RenderDrawLine(wn->rend, XSCREEN - 30, 0, XSCREEN - 30, YSCREEN);
@@ -281,6 +249,5 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	 printf("clip screen\t=%u\n", raster->time_clipping_screen);
 	 printf("draw\t\t=%u\n", raster->time_draw);
 	 printf("free\t\t=%u\n\n\n\n", raster->time_free_lst);
->>>>>>> master
 
 }

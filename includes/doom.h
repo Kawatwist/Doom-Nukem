@@ -6,11 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:14:06 by lomasse           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/08/22 16:32:38 by jchardin         ###   ########.fr       */
-=======
 /*   Updated: 2019/07/27 14:55:22 by lomasse          ###   ########.fr       */
->>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,11 +312,8 @@ typedef struct				s_mycolor
 typedef struct				s_mytriangle
 {
 	t_myvec					vertice[3];
-<<<<<<< HEAD
 	t_mytexture				texture[3];
-=======
 	float					zbuff;
->>>>>>> master
 	struct s_mytriangle		*next;
 	char					ft_color;
 	float					shade;

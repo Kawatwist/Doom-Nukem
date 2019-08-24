@@ -30,6 +30,12 @@ t_mytriangle	    *clip_side(t_win *wn, t_mytriangle *toclip, int *value, int sid
 		{
 			*value += 1;
 			toadd = malloc(sizeof(t_mytriangle)); // MALLOC SECURE of not malloc if i find how to dodge
+			toadd->texture[0].u = 0.5;
+			toadd->texture[0].v = 0.5;
+			toadd->texture[1].u = 0.5;
+			toadd->texture[1].v = 0.5;
+			toadd->texture[2].u = 0.5;
+			toadd->texture[2].v = 0.5;
 			toadd->zbuff = curr->zbuff;
 			toadd->splitted = 1;
 			toadd->sub = curr->sub + 1;
