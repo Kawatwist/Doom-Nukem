@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 19:12:32 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:16:34 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 		{
 			/* if(((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] != 0xFFFFFFFF) */
 				((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFFFFFFFF;
-			depth_buffer[i] = 0.0;  
+			depth_buffer[i] = 0.0;
 			i++;
 		}
 		keep = triangle_lst_2;
@@ -205,8 +205,7 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	start.y = 100;
 	end.x = 20;
 	end.y = YSCREEN - 100;
-	drawline(wn, 0xFF0000FF, start, end);
-	start.x = XSCREEN - 20;
+	drawline(wn, 0xFF0000FF, start, end); start.x = XSCREEN - 20;
 	start.y = 100;
 	end.x = XSCREEN - 20;
 	end.y = YSCREEN - 100;

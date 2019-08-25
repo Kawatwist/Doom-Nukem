@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 19:08:57 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:17:40 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,13 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 
 
 	s_tex->dax_step = 0;
+	s_tex->dbx_step = 0;
 	s_tex->du1_step = 0;
 	s_tex->dv1_step = 0;
-	s_tex->dbx_step = 0;
 	s_tex->du2_step = 0;
 	s_tex->dv2_step = 0;
+	s_tex->dw1_step = 0;
+	s_tex->dw2_step = 0;
 
 	ft_order_point( &x1, &y1, &u1, &v1, &w1, &x2, &y2, &u2, &v2, &w2, &x3, &y3, &u3, &v3, &w3);
 
