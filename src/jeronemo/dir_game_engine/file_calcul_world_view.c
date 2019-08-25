@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/24 11:48:29 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 11:49:31 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,6 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 			/* ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn); */
 			ft_draw_textured_triangle(
 					triangle_lst_2,
-					wn,
-					((t_myraster*)wn->rasterizer->tmp)->texture,
 					((t_myraster*)wn->rasterizer->tmp)->s_tex);
 			triangle_lst_2 = triangle_lst_2->next;
 		}

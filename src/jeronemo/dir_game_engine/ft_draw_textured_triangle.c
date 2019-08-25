@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/24 11:45:47 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 11:47:21 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,8 @@ void	ft_order_point(
 
 void	ft_draw_textured_triangle(
 		t_mytriangle *tri,
-		t_win *wn,
-		SDL_Texture *texture,
 		t_mytext *s_tex)
-{
-	(void)texture;
-	(void)wn;
+{ 
 	int		x1 = tri->vertice[0].x;
 	int		y1 = tri->vertice[0].y;
 	float	u1 = tri->texture[0].u;
