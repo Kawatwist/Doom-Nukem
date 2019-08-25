@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 18:59:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:08:57 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 	float	t;
 
 
-	printf("le u1=%f le v1=%f le w1=%f\n", u1, v1, w1);
-	printf("le u2=%f le v2=%f le w2=%f\n", u2, v2, w2);
-	printf("le u3=%f le v3=%f le w3=%f\n", u3, v3, w3);
+	/* printf("le u1=%f le v1=%f le w1=%f\n", u1, v1, w1); */
+	/* printf("le u2=%f le v2=%f le w2=%f\n", u2, v2, w2); */
+	/* printf("le u3=%f le v3=%f le w3=%f\n", u3, v3, w3); */
 
 
 	s_tex->dax_step = 0;
@@ -179,13 +179,13 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 				/* s_tex->m_ppixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * 512)]; */
 				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
 				{
-					if ((int)(s_tex->tex_w * 1000000) > (int)(depth_buffer[i * s_tex->tga->w + j] * 1000000))
+					if (s_tex->tex_w > depth_buffer[i * XSCREEN + j] )
 					{
 						s_tex->m_pPixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
-						depth_buffer[i * s_tex->tga->w + j] = s_tex->tex_w;
+						depth_buffer[i * XSCREEN + j] = s_tex->tex_w;
 					}
 				}
-			printf("s_tex->tex_w=%f\n", s_tex->tex_w);
+			/* printf("s_tex->tex_w=%f\n", s_tex->tex_w); */
 
 				/* SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect)); */
 				j++;
@@ -238,7 +238,6 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 			s_tex->tex_v = s_tex->tex_sv;
 			s_tex->tex_w = s_tex->tex_sw;
 
-
 			s_tex->tstep = 1.0f / ((float)(s_tex->bx - s_tex->ax));
 			t = 0.0f;
 			j = s_tex->ax;
@@ -248,7 +247,6 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 				s_tex->tex_v = (1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev;
 				s_tex->tex_w = (1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew;
 
-
 				s_tex->srcrect.x = s_tex->tex_u / s_tex->tex_w * s_tex->tga->w;
 				s_tex->srcrect.y = s_tex->tex_v / s_tex->tex_w * s_tex->tga->w;
 				s_tex->dstrect.x = j;
@@ -257,10 +255,10 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 
 				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
 				{
-					if ((int)(s_tex->tex_w * 1000000) > (int)(depth_buffer[i * s_tex->tga->w + j] * 1000000))
+					if (s_tex->tex_w > depth_buffer[i * XSCREEN + j])
 					{
 						s_tex->m_pPixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
-						depth_buffer[i * s_tex->tga->w + j] = s_tex->tex_w;
+						depth_buffer[i * XSCREEN + j] = s_tex->tex_w;
 					}
 				}
 				/* SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect)); */
