@@ -12,26 +12,15 @@
 
 #include <header_bsp.h>
 
-t_mypolygon			*ft_mafonction(void)
-{
-	t_mypolygon		*front_split;
-	front_split = (t_mypolygon*)malloc(sizeof(t_mypolygon));
-	ft_bzero(front_split, sizeof(t_mypolygon));
-	return (front_split);
-
-}
-
-
 static void			ft_split_then_distribute(t_mypolygon **front_lst, t_mypolygon **back_lst, t_mypolygon *splitter, t_mypolygon *polygon_lst)
 {
 	t_mypolygon		*front_split;
 	t_mypolygon		*back_split;
 
-	// front_split = (t_mypolygon*)malloc(sizeof(t_mypolygon));
-	// ft_bzero(front_split, sizeof(t_mypolygon));
+	front_split = (t_mypolygon*)malloc(sizeof(t_mypolygon));
+	ft_bzero(front_split, sizeof(t_mypolygon));
 	back_split = (t_mypolygon*)malloc(sizeof(t_mypolygon));
 	ft_bzero(back_split, sizeof(t_mypolygon));
-	front_split = ft_mafonction();
 	ft_split_polygon(polygon_lst, splitter, front_split, back_split);
 	ft_add_polygon(front_lst, front_split);
 	ft_add_polygon(back_lst, back_split);

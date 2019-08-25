@@ -105,9 +105,10 @@ void		ft_split_polygon(t_mypolygon *poly,
 	t_myvec					*next_vertex_keeper;
 	t_myvec 				*first_vertex_keeper;
 
+	ft_bzero(&intersect_point, sizeof(t_myvec));
 	next_vertex_keeper = NULL;
 	point_on_plane = plane->vertex_lst;  //un point faisant partis du polygon splitter
-	first_vertex_keeper = poly->vertex_lst;
+	first_vertex_keeper = ft_copy_vertex_node(poly->vertex_lst);
 	point_a = poly->vertex_lst;
 	point_b = point_a->next;
 	ft_put_first_vertex_in_lst(front_split, back_split, poly, plane);
@@ -150,6 +151,8 @@ void		ft_split_polygon(t_mypolygon *poly,
 		if (result == ON_PLANE && next_vertex_keeper != NULL) //// on ajoute au deux list
 		{
 			// printf("vertex is on plane\n");
+			// tmp_vertex = ft_copy_vertex_node(point_b); //mark delete later
+			// ft_add_vertex(&(front_split->vertex_lst), tmp_vertex);
 			ft_add_vertex(&(front_split->vertex_lst), point_b);
 			ft_add_vertex(&(back_split->vertex_lst), point_b);
 			front_split->number_of_vertex++;
