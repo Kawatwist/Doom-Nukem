@@ -51,6 +51,7 @@ typedef struct		s_map
 	float			x;
 	float			y;
 	float			size;
+	char			*name;
 }					t_map;
 
 typedef struct 		s_loadbg
@@ -109,8 +110,12 @@ typedef struct 		s_edit
 	t_indice 		*indice;
 	t_var 			*var;
 	t_point			**selected;
+	t_point			**center;
 	void			(*cursor_fct[10]) (t_win *wn, struct s_edit *edit);
 }					t_edit;
+
+void				ftoa_fd(float nbr, int fd);
+void        		save_panel(t_win *wn, t_edit *edit);
 
 t_point				**addtmptoselection(t_point **tmp, t_point **select);
 t_point     		**cpy_elem_selected(t_elem *elem);

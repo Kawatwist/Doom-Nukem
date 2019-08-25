@@ -111,6 +111,8 @@ SRC				= main.c										\
 				  tool2.c 										\
 				  save.c 										\
 				  print_tab.c 									\
+				  Save_obj.c									\
+				  ftoa_fd.c										\
 
 
 #GAME ENGINE

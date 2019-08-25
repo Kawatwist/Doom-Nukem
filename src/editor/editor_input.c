@@ -29,7 +29,7 @@ void		check_hitbox(t_win *wn, t_edit *edit)
 	cursor.y =  wn->input->y;
 	(void)edit;
 	SDL_SetRenderDrawColor(wn->rend, 255,255,255, 255);
-	if (boxhitbox(wn->rend, &cursor, create_rect(720, 200, 200, 200), 1))
+	if (boxhitbox(wn->rend, &cursor, create_rect(720, 200, 200, 200), 1)) // CREATE_RECT LEAKS !
 	{
 		if (edit->tab->bg_pics != NULL && mouse_pressed(wn, SDL_BUTTON_LEFT))
 		{
