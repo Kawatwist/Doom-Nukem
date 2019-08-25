@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 14:41:02 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/27 14:34:58 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/25 19:50:45 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,13 @@ t_mytriangle	    *clip_side(t_win *wn, t_mytriangle *toclip, int *value, int sid
 			toadd = malloc(sizeof(t_mytriangle)); // MALLOC SECURE of not malloc if i find how to dodge
 			toadd->texture[0].u = 0.5;
 			toadd->texture[0].v = 0.5;
+			toadd->texture[0].w = 1;
 			toadd->texture[1].u = 0.5;
 			toadd->texture[1].v = 0.5;
+			toadd->texture[1].w = 1;
 			toadd->texture[2].u = 0.5;
 			toadd->texture[2].v = 0.5;
+			toadd->texture[2].w = 1;
 			toadd->zbuff = curr->zbuff;
 			toadd->splitted = 1;
 			toadd->sub = curr->sub + 1;
