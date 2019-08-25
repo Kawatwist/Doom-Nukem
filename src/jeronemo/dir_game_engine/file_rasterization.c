@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 11:49:19 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 15:42:22 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,11 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 		printf("probleme tga\n");
 		exit(0);
 	}
-
-
 	/* raster->texture = loadbmp(wn->rend, "texturelight.bmp"); */
 	raster->texture = SDL_CreateTexture(wn->rend, SDL_PIXELFORMAT_ARGB32, SDL_TEXTUREACCESS_STREAMING, 1920, 1080);
 	raster->s_tex->m_pPixels = malloc(1920*1080*sizeof(Uint32));
 
 	raster->debug = 0;
-	raster->s_tex->dax_step = 0;
-	raster->s_tex->du1_step = 0;
-	raster->s_tex->dv1_step = 0;
-	raster->s_tex->dbx_step = 0;
-	raster->s_tex->du2_step = 0;
-	raster->s_tex->dv2_step = 0;
 	raster->s_tex->srcrect.w = 1;
 	raster->s_tex->srcrect.h = 1;
 	raster->s_tex->dstrect.w = 1;
@@ -66,8 +58,6 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->quit = 0;
 	raster->light_direction = ft_create_vector(0.5, 0.0, -1.0);
 	raster->light_direction = ft_normalise(raster->light_direction);
-
-
 
 
 	/* //haut */
@@ -227,6 +217,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	//	raster->triangle_lst_2 = raster->triangle_lst;
 
 	ft_draw(raster->triangle_lst_2, wn);
+	/* exit(0); */
 	ft_my_time(&(raster->time_draw), &current_time, &last_time);
 
 	ft_free_lst(raster->triangle_lst_2);

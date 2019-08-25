@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 11:47:56 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 14:33:16 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,37 @@ typedef struct	s_mytex
 	float		dax_step;
 	float		du1_step;
 	float		dv1_step;
+	float		dw1_step;
 	float		dbx_step;
 	float		du2_step;
 	float		dv2_step;
+	float		dw2_step;
 
 	int			dy1;
 	float		dv1;
 	int			dx1;
 	float		du1;
+	float		dw1;
 	int			dy2;
 	float		dv2;
 	int			dx2;
 	float		du2;
+	float		dw2;
 
 	float		tex_su;
 	float		tex_sv;
+	float		tex_sw;
 	float		tex_eu;
 	float		tex_ev;
+	float		tex_ew;
 
 	float		tex_u;
 	float		tex_v;
 	float		tstep;
+	float		tex_w;
 
 	SDL_Rect	srcrect;
 	SDL_Rect	dstrect;
-
 	Uint32		*m_pPixels;
 }				t_mytext;
 
@@ -236,7 +242,8 @@ void			ft_draw(t_mytriangle *triangle_lst_2, t_win *wn);
 void			ft_make_the_world_spin(int turn, t_myraster *raster);
 
 
+
 void	ft_draw_textured_triangle(
 		t_mytriangle *tri,
-		t_mytext *s_tex);
-
+		t_mytext *s_tex,
+		float	*depth_buffer);

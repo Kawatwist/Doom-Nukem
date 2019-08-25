@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 11:52:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 15:45:25 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,18 @@ void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)
 void	ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster)
 {
 	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_proje);//PROJECTION
+	triangle->vertice[0].x /= triangle->vertice[0].w;
+	triangle->vertice[0].y /= triangle->vertice[0].w;
+	triangle->vertice[0].z /= triangle->vertice[0].w;
+	triangle->vertice[1].x /= triangle->vertice[1].w;
+	triangle->vertice[1].y /= triangle->vertice[1].w;
+	triangle->vertice[1].z /= triangle->vertice[1].w;
+	triangle->vertice[2].x /= triangle->vertice[2].w;
+	triangle->vertice[2].y /= triangle->vertice[2].w;
+	triangle->vertice[2].z /= triangle->vertice[2].w;
+	printf("le w du point 0=%f\n", triangle->vertice[0].w);
+	printf("le w du point 1=%f\n", triangle->vertice[1].w);
+	printf("le w du point 2=%f\n", triangle->vertice[2].w);
 }
 
 void	ft_scale_screen(t_mytriangle *triangle)
@@ -139,12 +151,19 @@ void	ft_scale_screen(t_mytriangle *triangle)
 void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
 		t_mytriangle	*keep;
+		float			*depth_buffer;
+
+		depth_buffer = malloc(sizeof(float) * 1920 * 1080);
+		printf("hello\n");
+		if (depth_buffer == NULL)
+			exit(0);
 
 		int i = 0;
 		while (i < 1920 * 1080)
 		{
 			if(((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] != 0xFFFFFFFF)
 				((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFFFFFFFF;
+			depth_buffer[i] = 999999999999999999;  
 			i++;
 		}
 		keep = triangle_lst_2;
@@ -155,10 +174,12 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 			/* ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn); */
 			ft_draw_textured_triangle(
 					triangle_lst_2,
-					((t_myraster*)wn->rasterizer->tmp)->s_tex);
+					((t_myraster*)wn->rasterizer->tmp)->s_tex,
+					depth_buffer);
 			triangle_lst_2 = triangle_lst_2->next;
 		}
 	triangle_lst_2 = keep;
+	free(depth_buffer);
 
 	SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels, 1920 * sizeof(Uint32));
 	SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
