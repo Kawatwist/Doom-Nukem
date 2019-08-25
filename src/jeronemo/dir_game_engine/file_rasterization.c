@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 15:42:22 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:48:03 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,6 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	//	raster->triangle_lst_2 = raster->triangle_lst;
 
 	ft_draw(raster->triangle_lst_2, wn);
-	/* exit(0); */
 	ft_my_time(&(raster->time_draw), &current_time, &last_time);
 
 	ft_free_lst(raster->triangle_lst_2);

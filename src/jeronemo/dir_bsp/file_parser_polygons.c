@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/24 13:59:35 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 16:41:39 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 	fichier_lst = NULL;
 
-	fd = open(" pyramide.obj", O_RDWR); // <= PATH OBJ
+	fd = open("quatre_carre_avec_uv_texture_coordinate.obj", O_RDWR); // <= PATH OBJ
 	while(get_next_line(fd, &line))
 	{
 		fichier_node = ft_create_line_node(line);
