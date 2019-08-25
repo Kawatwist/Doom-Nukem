@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 11:47:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 11:56:43 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	ft_swap_float(float *a, float *b)
 }
 
 void	ft_order_point(
-		int *x1, int *y1, float *u1, float *v1,
-		int *x2, int *y2, float *u2, float *v2,
-		int *x3, int *y3, float *u3, float *v3)
+		int *x1, int *y1, float *u1, float *v1, float *w1,
+		int *x2, int *y2, float *u2, float *v2, float *w2,
+		int *x3, int *y3, float *u3, float *v3, float *w3)
 {
 	if (*y2 < *y1)
 	{
@@ -51,7 +51,7 @@ void	ft_order_point(
 		ft_swap_int(y1, y2);
 		ft_swap_float(u1, u2);
 		ft_swap_float(v1, v2);
-		/* ft_swap_float(w1, w2); */
+		ft_swap_float(w1, w2);
 	}
 	if (*y3 < *y1)
 	{
@@ -59,7 +59,7 @@ void	ft_order_point(
 		ft_swap_int(y1, y3);
 		ft_swap_float(u1, u3);
 		ft_swap_float(v1, v3);
-		/* ft_swap_float(w1, w3); */
+		ft_swap_float(w1, w3);
 	}
 	if (*y3 < *y2)
 	{
@@ -67,7 +67,7 @@ void	ft_order_point(
 		ft_swap_int(y2, y3);
 		ft_swap_float(u2, u3);
 		ft_swap_float(v2, v3);
-		/* ft_swap_float(w2, w3); */
+		ft_swap_float(w2, w3);
 	}
 }
 
@@ -80,19 +80,19 @@ void	ft_draw_textured_triangle(
 	int		y1 = tri->vertice[0].y;
 	float	u1 = tri->texture[0].u;
 	float	v1 = tri->texture[0].v;
-	/* float	w1 = tri->texture[0].w; */
+	float	w1 = tri->texture[0].w;
 	int		x2 = tri->vertice[1].x;
 	int		y2 = tri->vertice[1].y;
 	float	u2 = tri->texture[1].u;
 	float	v2 = tri->texture[1].v;
-	/* float	w2 = tri->texture[1].w; */
+	float	w2 = tri->texture[1].w;
 	int		x3 = tri->vertice[2].x;
 	int		y3 = tri->vertice[2].y;
 	float	u3 = tri->texture[2].u;
 	float	v3 = tri->texture[2].v;
-	/* float	w3 = tri->texture[2].w; */
+	float	w3 = tri->texture[2].w;
 
-	ft_order_point( &x1, &y1, &u1, &v1, &x2, &y2, &u2, &v2, &x3, &y3, &u3, &v3);
+	ft_order_point( &x1, &y1, &u1, &v1, &w1, &x2, &y2, &u2, &v2, &w2, &x3, &y3, &u3, &v3, &w3);
 
 	int		j;
 	int		i;
