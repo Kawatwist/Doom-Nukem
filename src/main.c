@@ -45,7 +45,7 @@ int		main(int argc, char **argv)
 	// if (argc > 1 && ft_strcmp(argv[1], "doom_engine") == 0)
 	// 	ft_game_engine(wn);
 	// else
-	// 	turn(wn);
+		// turn(wn);
 	if (wn->rasterizer == NULL)
 	{
 		if (!(wn->rasterizer = malloc(sizeof(t_rasterizer))))

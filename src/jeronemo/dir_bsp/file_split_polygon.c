@@ -105,7 +105,7 @@ void		ft_split_polygon(t_mypolygon *poly,
 	t_myvec					*next_vertex_keeper;
 	t_myvec 				*first_vertex_keeper;
 
-
+	next_vertex_keeper = NULL;
 	point_on_plane = plane->vertex_lst;  //un point faisant partis du polygon splitter
 	first_vertex_keeper = poly->vertex_lst;
 	point_a = poly->vertex_lst;
@@ -136,13 +136,6 @@ void		ft_split_polygon(t_mypolygon *poly,
 
 
 	i = 0;
-
-
-
-
-
-
-
 	while (i < poly->number_of_vertex)
 	{
 		// printf("number_of_vertex:%d\n", poly->number_of_vertex);
@@ -196,6 +189,11 @@ void		ft_split_polygon(t_mypolygon *poly,
 			point_b = next_vertex_keeper;
 		i++;
 	}
+	if (front_split->number_of_vertex < 2 || front_split->number_of_vertex < 2)
+	{
+		printf("++++++++++++++++++++++++++++++++\n");
+	}
+
 	ft_fill_splitted_node(front_split, back_split, poly);
 }
 

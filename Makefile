@@ -179,7 +179,8 @@ LIBFTA			= ./libft \
 
 IMAGE 			= ./libraries \
 
-DEBUG			= -g -fsanitize=address
+# DEBUG			= -g -fsanitize=address
+DEBUG			= -g
 
 all: $(NAME)
 

@@ -220,9 +220,13 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	int				id_counter = 1;
 
 	fichier_lst = NULL;
-	fd = open(" pyramide.obj", O_RDWR); // <= PATH OBJ
+	fd = open("quatre_carre_avec_uv_texture_coordinate.obj", O_RDWR); // <= PATH OBJ
+	// fd = open(" pyramide.obj", O_RDWR); // <= PATH OBJ
 	if (fd < 0)
+	{
 		printf("can not open obj file\n");
+		exit(0);
+	}
 	while(get_next_line(fd, &line))
 	{
 		fichier_node = ft_create_line_node(line);
