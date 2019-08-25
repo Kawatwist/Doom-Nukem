@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 18:54:43 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:12:32 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)
 
 void	ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster)
 {
-	printf("le w=%f\n", triangle->vertice[0].w);
+	/* printf("le w=%f\n", triangle->vertice[0].w); */
 	/* exit(0); */
 	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_proje);//PROJECTION
 
@@ -140,9 +140,9 @@ void	ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster)
 	triangle->vertice[2].y /= triangle->vertice[2].w;
 	triangle->vertice[2].z /= triangle->vertice[2].w;
 
-	printf("p1 le u=%f le v=%f le w=%f\n", triangle->texture[0].u, triangle->texture[0].v, triangle->texture[0].w);
-	printf("p2 le u=%f le v=%f le w=%f\n", triangle->texture[1].u, triangle->texture[1].v, triangle->texture[1].w);
-	printf("p3 le u=%f le v=%f le w=%f\n", triangle->texture[2].u, triangle->texture[2].v, triangle->texture[2].w);
+	/* printf("p1 le u=%f le v=%f le w=%f\n", triangle->texture[0].u, triangle->texture[0].v, triangle->texture[0].w); */
+	/* printf("p2 le u=%f le v=%f le w=%f\n", triangle->texture[1].u, triangle->texture[1].v, triangle->texture[1].w); */
+	/* printf("p3 le u=%f le v=%f le w=%f\n", triangle->texture[2].u, triangle->texture[2].v, triangle->texture[2].w); */
 }
 
 void	ft_scale_screen(t_mytriangle *triangle)
@@ -171,7 +171,7 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 		float			*depth_buffer;
 
 		depth_buffer = malloc(sizeof(float) * 1920 * 1080);
-		printf("hello\n");
+		/* printf("hello\n"); */
 		if (depth_buffer == NULL)
 			exit(0);
 
