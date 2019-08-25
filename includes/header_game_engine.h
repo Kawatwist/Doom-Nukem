@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 14:33:16 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:38:46 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 
 typedef struct	s_mytex
 {
-
-
 	t_tga		*tga;
-
-
 
 	int			ax;
 	int			bx;
@@ -59,6 +55,8 @@ typedef struct	s_mytex
 	SDL_Rect	srcrect;
 	SDL_Rect	dstrect;
 	Uint32		*m_pPixels;
+
+
 }				t_mytext;
 
 typedef struct				s_myraster

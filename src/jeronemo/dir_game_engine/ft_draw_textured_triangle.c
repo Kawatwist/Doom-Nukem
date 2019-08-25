@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 19:17:40 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 19:41:52 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	ft_swap_int(int *a, int *b)
 {
 	int tmp;
 	tmp = *a;
-	*a = *b;
-	*b = tmp;
+	*a = *b; *b = tmp;
 }
 
 void	ft_swap_float(float *a, float *b)
@@ -74,6 +73,7 @@ void	ft_order_point(
 
 void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_buffer)
 {
+
 	int		x1 = tri->vertice[0].x;
 	int		y1 = tri->vertice[0].y;
 	float	u1 = tri->texture[0].u;
