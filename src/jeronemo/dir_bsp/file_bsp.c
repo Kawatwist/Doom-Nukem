@@ -17,17 +17,16 @@ void	ft_launch_bsp_tree(t_mypolygon *polygon_lst)
 {
 	printf("BSP tree launcher\n");
 
- 	ft_display_the_polygon_list(polygon_lst);
+ 	// ft_display_the_polygon_list(polygon_lst);
 	ft_process_polygon(polygon_lst);
  	ft_display_the_polygon_list(polygon_lst);
 
+ 	t_mynode		s_node;
 
 
-
-
-	//ft_build_bsp_tree((&s_node), s_win->polygon_lst);
-	//ft_afficher_le_bsp(&s_node);
-	//ft_display_polygon();
+ 	ft_bzero(&s_node, sizeof(s_node));
+	ft_build_bsp_tree((&s_node), polygon_lst);
+	ft_afficher_le_bsp(&s_node);
 
 
 	/* (void)wn; */

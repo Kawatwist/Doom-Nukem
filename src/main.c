@@ -38,10 +38,20 @@ int		main(int argc, char **argv)
 	t_win	*wn;
 
 	(wn = malloc(sizeof(t_win))) == NULL ? stop_exec("Malloc failed\n", wn): 0;
-	//init(&wn, argc, argv) == 0 ? stop_exec("Init failed\n", wn) : 0;
 	init(&wn, argc, argv) == 0 ? stop_exec("Init failed\n", wn) : 0;
-	if (argc > 1 && ft_strcmp(argv[1], "doom_engine") == 0)
-		ft_game_engine(wn);
-	else
-		turn(wn);
+
+
+	//---------modif temp pour lancer bsp plus vite
+	// if (argc > 1 && ft_strcmp(argv[1], "doom_engine") == 0)
+	// 	ft_game_engine(wn);
+	// else
+	// 	turn(wn);
+	if (wn->rasterizer == NULL)
+	{
+		if (!(wn->rasterizer = malloc(sizeof(t_rasterizer))))
+			return (0) ;
+		ft_launch_rasterization(wn);
+	}
+	return (0);
+	//mark jie
 }

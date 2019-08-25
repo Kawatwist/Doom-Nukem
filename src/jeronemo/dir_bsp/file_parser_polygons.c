@@ -153,7 +153,7 @@ t_myvec			ft_get_vertex(char *line)
 	nbr[k] = '\0';
 	s_vertex.z = ft_atoi_comma(nbr);
 	//  printf(" =%f\n", ft_atoi_comma(nbr));
-	//  printf("\n\n"); 
+	//  printf("\n\n");
 	return (s_vertex);
 }
 int		ft_get_the_vertex_number(char *line, int *j)
@@ -215,13 +215,14 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	int				polygon_obj_indice;
 	int i = -1;
 
-
 	t_myfichier		*fichier_lst;
 	t_myfichier		*fichier_node;
+	int				id_counter = 1;
 
 	fichier_lst = NULL;
-
 	fd = open(" pyramide.obj", O_RDWR); // <= PATH OBJ
+	if (fd < 0)
+		printf("can not open obj file\n");
 	while(get_next_line(fd, &line))
 	{
 		fichier_node = ft_create_line_node(line);
@@ -279,6 +280,8 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 			polygon_node->obj_indice = polygon_obj_indice;
 	//		printf("On a ajouter le polygone =%d\n\n", polygon_node->obj_indice);
 			polygon_obj_indice++;
+			polygon_node->id = id_counter;
+			id_counter++;
 			ft_add_polygon(&polygon_lst, polygon_node);
 			vertex_lst = NULL;
 		}
@@ -394,7 +397,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 		{
 			// printf("indice vertex=%d texture=%d", polygon_lst->vertex_lst->obj_indice, polygon_lst->vertex_lst->obj_indice_texture);
 			// printf("  x=%f  y=%f  z=%f u=%f v=%f\n", polygon_lst->vertex_lst->x, polygon_lst->vertex_lst->y, polygon_lst->vertex_lst->z, polygon_lst->vertex_lst->u, polygon_lst->vertex_lst->v);
-//			printf(" =%d ", polygon_lst->vertex_lst->obj_indice);   
+//			printf(" =%d ", polygon_lst->vertex_lst->obj_indice);
 //			printf("  x=%f  y=%f  z=%f   \n", polygon_lst->vertex_lst->x, polygon_lst->vertex_lst->y, polygon_lst->vertex_lst->z);
 			polygon_lst->vertex_lst = polygon_lst->vertex_lst->next;
 		}

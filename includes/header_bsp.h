@@ -62,3 +62,6 @@ void			ft_split_polygon(t_mypolygon *poly,
 t_myvec			ft_vector_from_two_points(t_myvec v2, t_myvec v1);
 void			ft_add_vertex(t_myvec **vertex_lst, t_myvec *vertex_node);
 t_mypolygon		*ft_create_polygon_node(t_myvec *vertex_lst);
+int				ft_calculate_number_of_indices(t_mypolygon *polygon_node);
+int				*ft_calculate_indices_tab(t_mypolygon *polygon_node);
+

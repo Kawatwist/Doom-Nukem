@@ -172,7 +172,7 @@ typedef struct		s_load
 	struct s_load	*next;
 }					t_load;
 
-typedef struct 		s_bresenham 
+typedef struct 		s_bresenham
 {
 	int 			x;
 	int 			y;
@@ -226,10 +226,10 @@ typedef struct 		s_color
 	SDL_Color		violetrose;
 	SDL_Color 		red;
 	SDL_Color 		blanc;
-	unsigned char	r;			
-	unsigned char	g;			
-	unsigned char	b;			
-	unsigned char	a;	
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	a;
 }					t_color;
 
 typedef struct 		s_loadbgmap
@@ -269,7 +269,7 @@ typedef struct 		s_var_edit
 	int 			nb_point;
 }					t_var_edit;
 
-// typedef struct 		s_bresenham 
+// typedef struct 		s_bresenham
 // {
 // 	int 			x;
 // 	int 			y;
@@ -297,7 +297,7 @@ typedef struct  	s_fonts
 
 // typedef struct		s_color
 // {
-		
+
 // }					t_color;
 
 //JEROME
@@ -329,6 +329,7 @@ typedef struct				s_mypolygon
 	int						number_of_vertex;        //nombre de vertex
 	int						number_of_indices;       //nombre d'indices
 	int						*indices;                //la listes des indices apres triangulasisation
+	int						id;
 	struct s_mypolygon		*next;                   //le prochain noeud dans la liste
 }							t_mypolygon;
 // FIN JEROME
@@ -408,6 +409,7 @@ void						ft_launch_bsp_tree(t_mypolygon *polygon_lst);
 float						ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec						ft_cross_product(t_myvec v1, t_myvec v2);
 int							ft_abs(int number);
+float						ft_abs_float(float number);
 float						ft_atoi_comma(const char *str);
 
 //commun
