@@ -149,6 +149,7 @@ typedef struct				s_myraster
 }							t_myraster;
 
 void			ft_store_in_lst(t_mytriangle *toadd, t_mytriangle **head);
+void    		ft_clipping_texture_one_side(t_win *wn, t_mytriangle **origin, t_mytriangle **toadd, char side);
 t_myvec			find_intersection(t_win *wn, t_myvec v1, t_myvec v2, char side);
 int				nb_outside(t_win *wn, t_mytriangle *curr, int side);
 
