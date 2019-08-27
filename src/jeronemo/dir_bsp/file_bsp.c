@@ -15,17 +15,19 @@
 
 void	ft_launch_bsp_tree(t_mypolygon *polygon_lst)
 {
- 	t_mynode		s_node;
+ 	// t_mynode		s_node;
 
 	printf("BSP tree launcher\n");
  	// ft_display_the_polygon_list(polygon_lst);
 	ft_process_polygon(polygon_lst);
  	ft_display_the_polygon_list(polygon_lst);
 
- 	ft_bzero(&s_node, sizeof(s_node));
-	ft_build_bsp_tree((&s_node), polygon_lst);
-	ft_afficher_le_bsp(&s_node);
+ // 	s_node = (t_mynode*)malloc(sizeof(t_mynode));
+ // 	ft_bzero(&s_node, sizeof(s_node));
+	// ft_build_bsp_tree((&s_node), polygon_lst);
+	// ft_afficher_le_bsp(&s_node);
 
+	// return (&s_node);
 
 	/* (void)wn; */
 	/* s_win->current_window = J_BINARY_TREE; */

@@ -406,6 +406,7 @@ void						turn_rast(t_win *wn);
 
 t_mycolor					ft_setcolor(int rrr, int ggg, int bbb);
 void						ft_launch_bsp_tree(t_mypolygon *polygon_lst);
+
 float						ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec						ft_cross_product(t_myvec v1, t_myvec v2);
 int							ft_abs(int number);

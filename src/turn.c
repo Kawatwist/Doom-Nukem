@@ -40,6 +40,6 @@ void			turn(t_win *wn)
 		interface(wn);
 		difftime = SDL_GetTicks();
 		(difftime - time) < (1000 / 60) ? SDL_Delay((1000 / 60) - (difftime - time)) : 0;
-		wn->interface != DGAME && wn->interface != RGAME ? SDL_RenderPresent(wn->rend) : 0;
+		wn->interface != DGAME /*&& wn->interface != RGAME*/ ? SDL_RenderPresent(wn->rend) : 0;
 	}
 }

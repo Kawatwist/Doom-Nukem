@@ -42,6 +42,7 @@ typedef enum			e_myclass
 	ON_PLANE,
 }						t_myclass;
 
+void			ft_walk_bsp_tree(t_mynode *s_node, t_myvec *pos, t_mypolygon **new_lst);
 void			ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst);
 t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst);
 void			ft_split_polygon(t_mypolygon *poly,
