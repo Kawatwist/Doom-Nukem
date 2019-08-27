@@ -628,6 +628,8 @@ int					key_pressed(t_win *wn, int key_value);
  **/
 
 t_mytriangle *make_triangles(t_poly *list, int *max);
+t_poly  	 *load_obj(t_mypolygon *in);
+t_mypolygon	 *ft_read_the_polygon_file(void);
 
 void	ft_game_engine(t_win *wn);
 #endif

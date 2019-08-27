@@ -220,19 +220,12 @@ $(IMAGE): FORCE
 	fi
 
 $(LIBFTA): FORCE
-<<<<<<< HEAD
-#	@if [ -f "/tmp/doom_log2" ]; then \
-	#	touch /tmp/doom_log2; \
-	#	chmod 777 /tmp/doom_log2; \
-#	fi
-=======
 	@if [ -f "/tmp/doom_log2" ]; then \
 		echo "${vertfonce}doom_log2 exists.${neutre}"; \
 	else \
 		touch /tmp/doom_log2; \
 		chmod 777 /tmp/doom_log2; \
 	fi
->>>>>>> master
 	@make -C libft #>> /tmp/doom_log2 2>&1
 
 FORCE:

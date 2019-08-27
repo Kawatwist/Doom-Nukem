@@ -39,6 +39,7 @@ t_portal *calculate_init_portal(t_bsp *bsp, int node)
 	printf("CREATE PORTAL %f %f\n", bsp->node[node].bbox.boxmax.z, bsp->node[node].bbox.boxmin.z);
 	calc.maxp = bsp->node[node].bbox.boxmax;
 	calc.minp = bsp->node[node].bbox.boxmin;
+	printf("test node %d\n", bsp->node[node].plane);
 	calc.plane_normal = bsp->plane[bsp->node[node].plane].normal;
 	calc.cb.x = (calc.maxp.x + calc.minp.x) / 2;
 	calc.cb.y = (calc.maxp.y + calc.minp.y) / 2;

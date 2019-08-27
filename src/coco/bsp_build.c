@@ -113,7 +113,7 @@ void	build_bsp_tree(int node, t_bsp *bsp)
 {
 	t_tree *t;
 
-	//printf("TREE\n");
+	printf("TREE\n");
 	//printf("VER %d\n", bsp->poly_list->nb_ver);
 	t = init_tree(node);
 	//printf("TREE2 %d\n", bsp->node[t->node].plane);

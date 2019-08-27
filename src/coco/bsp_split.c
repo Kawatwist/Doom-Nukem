@@ -78,6 +78,7 @@ int			select_splitter(t_bsp *bsp) //function choosing best splitter for a more b
 
 	//printf("SELECT SPLIT\n");
 	init_select_split(&s, bsp->poly_list);
+	//printf(" WAS SPLIT %d\n", bsp->poly_list->was_splitter);
 	while(s.splitter != NULL)
 	{
 		//printf("QUOI??\n");

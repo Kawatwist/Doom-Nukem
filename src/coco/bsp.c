@@ -10,10 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <bsp.h>
+//#include <bsp.h>
+#include <doom.h>
+#include <header_bsp.h>
 
 void	bsp_init(t_bsp *bsp)
 {
+	t_mypolygon *tmp;
 
 	bsp->max_nodes = 100;
     bsp->max_polys = 100;
@@ -30,8 +33,10 @@ void	bsp_init(t_bsp *bsp)
 		return ;
 	if (!(bsp->portal = (t_portal**)malloc(sizeof(t_portal*) * bsp->max_portals)))
 			return ;
-	bsp->poly_list = loadMap("test_poly.txt");
-	//bsp->poly_list = ft_read_the_polygon_file();
+	//bsp->poly_list = loadMap("test_poly.txt");
+	tmp = ft_read_the_polygon_file();
+	ft_process_polygon(tmp);
+	bsp->poly_list = load_obj(tmp);
 	triangulize(bsp->poly_list);
     bsp->nb_polys = 0;
     bsp->nb_nodes = 0;

@@ -43,8 +43,11 @@ struct	s_vec //vector
 	float	x;
 	float	y;
 	float	z;
-	int		tx;
-	int		ty;
+	//int tx;
+	//int ty
+	float		tx;
+	float		ty;
+	float 		tz;
 };//				t_vec;
 
 typedef struct	s_ver //vertex
@@ -78,7 +81,7 @@ struct	s_poly //polygon
 struct s_portal
 {
 	t_vec		*ver_list;
-		t_vec			*ver_tmp; //@ LOIC TEMP TO SOLVE SHIT
+	t_vec		*ver_tmp; //@ LOIC TEMP TO SOLVE SHIT
 	t_vec		normal;
 	int 		nb_ver;
 	int 		nb_indices;
@@ -449,5 +452,6 @@ t_poly *visible_polygons(t_bsp *bsp, int leaf);
 t_poly *render_bsp(t_bsp *bsp, t_vec *pos);
 int 	line_of_sight(t_bsp *bsp, t_vec *start, t_vec *end, int node);
 int 	collision(t_bsp *bsp, t_vec *newpos); //UNTESTED
+//t_poly  *load_obj(t_mypolygon *in);
 //t_mytriangle *make_triangles(t_poly *poly);
 #endif

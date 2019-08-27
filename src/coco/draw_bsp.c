@@ -134,6 +134,17 @@ t_mytriangle *make_triangles(t_poly *list, int *max)
 			res[j].vertice[2].x = poly->ver_list[poly->indices[(i * 3) + 2]].x;
 			res[j].vertice[2].y = poly->ver_list[poly->indices[(i * 3) + 2]].y;
 			res[j].vertice[2].z = poly->ver_list[poly->indices[(i * 3) + 2]].z;
+
+			res[j].texture[0].u = poly->ver_list[poly->indices[i * 3]].tx;
+			res[j].texture[0].v = poly->ver_list[poly->indices[i * 3]].ty;
+			res[j].texture[0].w = poly->ver_list[poly->indices[i * 3]].tz;
+			res[j].texture[1].u = poly->ver_list[poly->indices[(i * 3) + 1]].tx;
+			res[j].texture[1].v = poly->ver_list[poly->indices[(i * 3) + 1]].ty;
+			res[j].texture[1].w = poly->ver_list[poly->indices[(i * 3) + 1]].tz;
+			res[j].texture[2].u = poly->ver_list[poly->indices[(i * 3) + 2]].tx;
+			res[j].texture[2].v = poly->ver_list[poly->indices[(i * 3) + 2]].ty;
+			res[j].texture[2].w = poly->ver_list[poly->indices[(i * 3) + 2]].tz;
+
 		/**	new->vertice[i].x = poly->ver_list[poly->indices[i * 3]].x;
 			new->vertice[i].y = poly->ver_list[poly->indices[i * 3]].y;
 			new->vertice[i].z = poly->ver_list[poly->indices[i * 3]].z;

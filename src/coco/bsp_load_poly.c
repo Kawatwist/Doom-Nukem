@@ -1,6 +1,7 @@
 //fonctions pout lire les polygone d'une scene et let mettre dans une liste chainee
 
-#include <bsp.h>
+// #include <bsp.h>
+#include <doom.h>
 
 t_poly* loadMap(char *file) // format Polygon : x1 y1 z1 ; x2 y2 z2 ; .... : "texture.tga"
 {
@@ -201,22 +202,82 @@ struct	s_poly //polygon
 	t_poly		*next;
 	char		was_splitter;
 	int			texture;
-};//				t_poly;
+};//				t_poly; **/
 
 t_poly *load_obj(t_mypolygon *in)
 {
 	t_poly *out;
 	t_poly *new;
+	t_myvec *tmp;
+	int i;
 
+	out = NULL;
 	while (in != NULL)
 	{
 		if (!(new = (t_poly*)malloc(sizeof(t_poly))))
 			exit(0);
+		//printf("TEST %d\n", in->number_of_vertex);
 		if (!(new->ver_list = (t_vec*)malloc(sizeof(t_vec) * in->number_of_vertex)))
 			exit(0);
 		new->nb_ver = in->number_of_vertex;
 		new->nb_indices = in->number_of_indices;
 		i = 0;
-		while (i < )
+		tmp = in->vertex_lst;
+		while (i < new->nb_ver)
+		{
+			new->ver_list[i].x = tmp->x;
+			new->ver_list[i].y = tmp->y;
+			new->ver_list[i].z = tmp->z;
+			new->ver_list[i].tx = tmp->u;
+			new->ver_list[i].ty = tmp->v;
+			new->ver_list[i].tz = tmp->w;
+			tmp = tmp->next;
+			i++;
+		}
+		i = 0;
+		printf("TEST %d\n", new->nb_indices);
+		if (!(new->indices = (int*)malloc(sizeof(int) * in->number_of_indices))) //MALLOC INDICES
+			exit(0);
+		while (i < new->nb_indices)
+		{
+			new->indices[i] = in->indices[i];
+			i++;
+		}
+		new->normal.x = in->normal.x;
+		new->normal.y = in->normal.y;
+		new->normal.z = in->normal.z;
+		new->was_splitter = 0;
+		in = in->next;
+		new->next = out;
+		out = new;
 	}
-} **/
+	return (out);
+}
+
+/**
+struct	s_vec //vector
+{
+	float	x;
+	float	y;
+	float	z;
+	//int tx;
+	//int ty
+	float		tx;
+	float		ty;
+	float 		tz;
+};//				t_vec;
+
+
+typedef struct		s_myvec
+{
+	float			x;
+	float			y;
+	float			z;
+	float			w;
+	float			u;  //pour texture x
+	float			v;  //pour texture y
+	int				obj_indice;
+	int				obj_indice_texture;
+	float			shade;
+	struct s_myvec	*next;
+}					t_myvec; **/
