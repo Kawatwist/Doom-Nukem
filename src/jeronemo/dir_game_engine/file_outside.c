@@ -52,6 +52,7 @@ t_myvec      find_intersection(t_win *wn, t_myvec v1, t_myvec v2, char side) // 
 	determinant = a1 * b2 - a2 * b1;
 	intersection.x = (determinant != 0 ? (b2 * c1 - b1 * c2) / determinant : 0);
 	intersection.y = (determinant != 0 ? (a1 * c2 - a2 * c1) / determinant : 0);
+	intersection.z = v1.z + ((v1.z - v2.z) * sqrtf((v1.x * v2.x) + (v1.y * v1.y)));
 	return (intersection);
 }
 

@@ -102,7 +102,6 @@ void		clipping(t_win *wn, t_mytriangle toclip, t_mytriangle **tostore) // Need t
 
 	ret = &toclip;
 	side = -1;
-	printf("Start clip\n");
 	while (++side < 4)
 		ret = clip_side(wn, ret, &nb, side);
 	while (ret)
@@ -110,5 +109,4 @@ void		clipping(t_win *wn, t_mytriangle toclip, t_mytriangle **tostore) // Need t
 		ft_add_triangle_to_lst(*ret, tostore);
 		ret = ret->next;
 	}
-	printf("END clip\n");
 }

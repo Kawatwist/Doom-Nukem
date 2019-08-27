@@ -117,12 +117,12 @@ void	ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster)
 	/* exit(0); */
 	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_proje);//PROJECTION
 
-	triangle->texture[0].u /= triangle->vertice[0].w;
-	triangle->texture[0].v /= triangle->vertice[0].w;
-	triangle->texture[1].u /= triangle->vertice[1].w;
-	triangle->texture[1].v /= triangle->vertice[1].w;
-	triangle->texture[2].u /= triangle->vertice[2].w;
-	triangle->texture[2].v /= triangle->vertice[2].w;
+	// triangle->texture[0].u /= triangle->vertice[0].w;
+	// triangle->texture[0].v /= triangle->vertice[0].w;
+	// triangle->texture[1].u /= triangle->vertice[1].w;
+	// triangle->texture[1].v /= triangle->vertice[1].w;
+	// triangle->texture[2].u /= triangle->vertice[2].w;
+	// triangle->texture[2].v /= triangle->vertice[2].w;
 
 	triangle->texture[0].w = 1.0 / triangle->vertice[0].w;
 	triangle->texture[1].w = 1.0 / triangle->vertice[1].w;

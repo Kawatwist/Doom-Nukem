@@ -173,17 +173,18 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 				s_tex->tex_v = (1.0 - t) * s_tex->tex_sv + t * s_tex->tex_ev;
 				s_tex->tex_w = (1.0 - t) * s_tex->tex_sw + t * s_tex->tex_ew;
 				t += s_tex->tstep;
-				s_tex->srcrect.x = s_tex->tex_u / s_tex->tex_w * s_tex->tga->w;
-				s_tex->srcrect.y = s_tex->tex_v / s_tex->tex_w * s_tex->tga->w;
+				s_tex->srcrect.x = s_tex->tex_u / 1 * s_tex->tga->w;
+				s_tex->srcrect.y = s_tex->tex_v / 1 * s_tex->tga->w;
 				s_tex->dstrect.x = j;
 				s_tex->dstrect.y = i;
 
 				/* s_tex->m_ppixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * 512)]; */
-				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
+				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < (s_tex->tga->w * s_tex->tga->h) - 10 && (s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) > 0)
 				{
 					if (s_tex->tex_w > depth_buffer[i * XSCREEN + j] )
 					{
 						s_tex->m_pPixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
+
 						depth_buffer[i * XSCREEN + j] = s_tex->tex_w;
 					}
 				}
@@ -249,13 +250,13 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 				s_tex->tex_v = (1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev;
 				s_tex->tex_w = (1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew;
 
-				s_tex->srcrect.x = s_tex->tex_u / s_tex->tex_w * s_tex->tga->w;
-				s_tex->srcrect.y = s_tex->tex_v / s_tex->tex_w * s_tex->tga->w;
+				s_tex->srcrect.x = s_tex->tex_u / 1 * s_tex->tga->w;
+				s_tex->srcrect.y = s_tex->tex_v / 1/*s_tex->tex_w*/ * s_tex->tga->w;
 				s_tex->dstrect.x = j;
 				s_tex->dstrect.y = i;
 				/* s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF; */
 
-				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
+				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < (s_tex->tga->w * s_tex->tga->h) - 10 && (s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) > 0)
 				{
 					if (s_tex->tex_w > depth_buffer[i * XSCREEN + j])
 					{
