@@ -144,6 +144,7 @@ SDL_Color	making_color(unsigned char r, unsigned char g, unsigned char b,
 
 void		load_color(t_win *wn)
 {
+	wn->color.gris = making_color(62, 62, 62, 0);
 	wn->color.noir = making_color(0, 0, 0, 0);
 	wn->color.violetfonce = making_color(188, 7, 237, 0);
 	wn->color.violet = making_color(199, 62, 236, 0);

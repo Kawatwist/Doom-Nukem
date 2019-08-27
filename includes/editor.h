@@ -98,7 +98,10 @@ typedef struct 		s_var
 	int				swapvar;
 	int 			nb_point;
 	int 			map_saved;
+	int 			on;
 }					t_var;
+
+
 
 typedef struct 		s_edit
 {
@@ -163,7 +166,8 @@ void   				find_last_poly(t_elem **curr);
 void     			find_last_point(t_edit *edit, t_point **point);
 t_mypolygon		 	*polygon_map(t_win *wn);
 t_poly 				*poly_map(t_win *wn);
-int 				pop_up_message(t_win *wn, char *msg, SDL_Rect *rect);
+t_popup				param_pop_up(char *question, char *yes, char *no, SDL_Rect *rect);
+int 				pop_up_message(t_win *wn, t_popup popup);
 void 				print_save_and_reset(t_win *wn, t_edit *edit);
 void 				print_message(t_win *wn, char *msg, SDL_Color color);
 void				display_tab(t_win *wn, t_edit *edit);

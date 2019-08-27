@@ -196,6 +196,7 @@ typedef struct		s_mut
 
 typedef struct 		s_color
 {
+	SDL_Color		gris;
 	SDL_Color		noir;
 	SDL_Color 		violetfonce;
 	SDL_Color		violet;
@@ -208,7 +209,13 @@ typedef struct 		s_color
 	unsigned char	a;	
 }					t_color;
 
-
+typedef struct		s_popup
+{
+	char			*message;
+	char 			*yes;
+	char 			*no;
+	SDL_Rect 		*rect;
+}					t_popup;
 
 
 
