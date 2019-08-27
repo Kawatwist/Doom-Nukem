@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 18:02:54 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/21 16:47:01 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/27 11:39:40 by jleblond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,9 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	t_mypolygon		*poly_test;
 	t_mypolygon		*next_poly_keeper = NULL;
 	t_mynode		*new_node;
-
-	// t_mypolygon		*keep;
 	t_mypolygon		*back_lst;
 	t_mypolygon		*front_lst;
-	// t_mynode		*new_front;
-	// t_mynode		*new_back;
 	int				result;
-
 
 /////////////////////affichage///////////////////
 	// printf("\n=======================>CREATION DUN NODE\n");
@@ -55,7 +50,6 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	back_lst = NULL;
 	front_lst = NULL;
 	current_node->splitter = ft_select_the_best_poly_splitter(poly_test);
-
 
 	printf("======> On choisit le spliter ayant %d vertex\n", current_node->splitter->number_of_vertex);
 	while (poly_test != NULL)
@@ -112,6 +106,8 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 
 	///////////gestion du fils front
 	new_node = (t_mynode*)malloc(sizeof(t_mynode));
+	if (!new_node)
+		return ;
 	ft_bzero(new_node, sizeof(t_mynode));
 	if (front_lst == NULL)
 	{
@@ -127,6 +123,8 @@ void		ft_build_bsp_tree(t_mynode *current_node, t_mypolygon *polygon_lst)
 	}
 	///////////gestion du fils back
 	new_node = (t_mynode*)malloc(sizeof(t_mynode));
+	if (!new_node)
+		return ;;
 	ft_bzero(new_node, sizeof(t_mynode));
 	if (back_lst == NULL)
 	{

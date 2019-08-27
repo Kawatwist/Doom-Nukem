@@ -16,13 +16,13 @@ int			ft_get_intersect(t_myvec *line_start,
 							t_myvec *line_end,
 							t_myvec *vertex_on_plane,
 							t_myvec *normal,
-							t_myvec *intersection)
+							t_myvec *intersection,
+							float	*percentage)
 {
 	t_myvec		direction;
 	t_myvec		line1; //vercteur from start point to vertex on splitter plane
 	float		line_dist_to_plane; // distance vers splitter plane du point de start + celui du point end
 	float		start_dist_to_plane;
-	float		percentage;
 
 	direction.x = line_end->x - line_start->x;
 	direction.y = line_end->y - line_start->y;
@@ -34,12 +34,12 @@ int			ft_get_intersect(t_myvec *line_start,
 	line1.y = vertex_on_plane->y - line_start->y;
 	line1.z = vertex_on_plane->z - line_start->z;
 	start_dist_to_plane = ft_dot_product(line1, *normal);
-	percentage = start_dist_to_plane / line_dist_to_plane;
- 	if (percentage < 0.0 || percentage > 1.0)
+	(*percentage) = start_dist_to_plane / line_dist_to_plane;
+ 	if ((*percentage) < 0.0 || (*percentage) > 1.0)
   		return (FALSE);
-  	intersection->x = line_start->x + direction.x * percentage;
-  	intersection->y = line_start->y + direction.y * percentage;
-  	intersection->z = line_start->z + direction.z * percentage;
+  	intersection->x = line_start->x + direction.x * (*percentage);
+  	intersection->y = line_start->y + direction.y * (*percentage);
+  	intersection->z = line_start->z + direction.z * (*percentage);
 	return (TRUE);
 }
 
@@ -54,7 +54,9 @@ t_myvec		*ft_copy_vertex_node(t_myvec *node_to_copy)
 	return(new_node);
 }
 
-static void			ft_fill_splitted_node(t_mypolygon *front_split, t_mypolygon *back_split, t_mypolygon *poly)
+static void			ft_fill_splitted_node(t_mypolygon *front_split,
+										t_mypolygon *back_split,
+										t_mypolygon *poly)
 {
 	front_split->normal = poly->normal;
 	front_split->number_of_indices = ft_calculate_number_of_indices(front_split);
@@ -66,7 +68,10 @@ static void			ft_fill_splitted_node(t_mypolygon *front_split, t_mypolygon *back_
 	back_split->id = (poly->id) * 100 + 2;
 }
 
-static void		ft_put_first_vertex_in_lst(t_mypolygon *front_split, t_mypolygon *back_split, t_mypolygon *poly, t_mypolygon *plane)
+static void		ft_put_first_vertex_in_lst(t_mypolygon *front_split,
+											t_mypolygon *back_split,
+											t_mypolygon *poly,
+											t_mypolygon *plane)
 {
 	int			result;
 	t_myvec 	*first_vertex;
@@ -106,7 +111,9 @@ void		ft_split_polygon(t_mypolygon *poly,
 	int						result;
 	t_myvec					*next_vertex_keeper;
 	t_myvec 				*first_vertex_keeper;
+	float					percentage;
 
+	percentage = 0.0;
 	ft_bzero(&intersect_point, sizeof(t_myvec));
 	next_vertex_keeper = NULL;
 	point_on_plane = plane->vertex_lst;  //un point faisant partis du polygon splitter
@@ -129,7 +136,7 @@ void		ft_split_polygon(t_mypolygon *poly,
 		else
 		{
 			// printf("\nvertex number %d vertex is not on the splitter, intersect point test:\n", i + 1);
-			if (ft_get_intersect(point_a, point_b, point_on_plane, &(plane->normal), &intersect_point) == TRUE)
+			if (ft_get_intersect(point_a, point_b, point_on_plane, &(plane->normal), &intersect_point, &percentage) == TRUE)
 			{
 				tmp_vertex = ft_copy_vertex_node(&intersect_point);
 				ft_add_vertex(&(front_split->vertex_lst), tmp_vertex);
@@ -162,6 +169,3 @@ void		ft_split_polygon(t_mypolygon *poly,
 	free(first_vertex_keeper);
 	ft_fill_splitted_node(front_split, back_split, poly);
 }
-
-
-
