@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 15:27:26 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/10 17:53:54 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/18 13:39:12 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	stop_exec(char *msg, t_win *wn)
 	int			fd;
 
 	ft_putstr(msg);
+	stop_editor(wn);
 	wn->fonts->ariel != NULL ? TTF_CloseFont(wn->fonts->ariel) : 0;
 	SDL_Quit();
 	TTF_Quit();

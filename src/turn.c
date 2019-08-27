@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/10 17:54:20 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/07/25 12:46:11 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ void			turn(t_win *wn)
 		interface(wn);
 		difftime = SDL_GetTicks();
 		(difftime - time) < (1000 / 60) ? SDL_Delay((1000 / 60) - (difftime - time)) : 0;
-		wn->interface != DGAME ? SDL_RenderPresent(wn->rend) : 0;
+		wn->interface != DGAME && wn->interface != RGAME ? SDL_RenderPresent(wn->rend) : 0;
 	}
 }

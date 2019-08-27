@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/11 14:24:21 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 18:47:31 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ float	**t_camera_compute_view(t_myraster *raster) //calcul de la matrice de vue
 	//this is the look at vector   (rotation de la camera)
 	raster->forward = zaxis;
 	raster->v_right = xaxis;
-	raster->v_up = ft_vector_inverse(yaxis);
+	raster->v_up = yaxis;//ft_vector_inverse(yaxis);
 
 	if (raster->avancer == 1)
 	{
@@ -80,6 +80,11 @@ float	**t_camera_compute_view(t_myraster *raster) //calcul de la matrice de vue
 	result[1][2] = inv_forward.y;
 	result[2][2] = inv_forward.z;
 	result[3][2] = - (ft_dot_product(inv_forward, raster->v_camera));
+
+	result[0][3] = 0.0;  //jai rajouter pour le w
+	result[1][3] = 0.0;
+	result[2][3] = 0.0;
+	result[3][3] = 1.0;
 	return (result);
 }
 

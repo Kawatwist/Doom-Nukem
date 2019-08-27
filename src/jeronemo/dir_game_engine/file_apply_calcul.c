@@ -6,12 +6,11 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 12:33:36 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/10 14:54:08 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/19 18:49:19 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_game_engine.h>
-
 
 void	ft_apply_calucul(t_myvec function(float**, t_myvec), t_mytriangle *triangle, float **matrix)
 {

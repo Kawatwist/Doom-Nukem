@@ -6,9 +6,10 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
-#    Updated: 2019/07/10 12:43:37 by jchardin         ###   ########.fr        #
+#    Updated: 2019/07/18 16:12:56 by jchardin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 rose=\033[1;31m
 violetfonce=\033[0;35m
 violetclair=\033[1;35m
@@ -16,6 +17,8 @@ neutre=\033[0m
 cyanfonce=\033[0;36m
 cyanclair=\033[1;36m
 vertfonce=\033[0;32m
+vertclair=\033[1;32m
+
 NAME			= doom
 
 HEADER 			= $(shell find includes -type f) $(shell find libraries/include -type f 2>/dev/null || true)
@@ -87,8 +90,25 @@ SRC				= main.c										\
 				  menu_show.c 									\
 				  load_fonts.c 									\
 				  tool.c 										\
+				  bresenham.c 									\
+				  elem.c 										\
+				  bgh_display.c 								\
+				  tools_editor.c 								\
+				  init_edit.c 									\
+				  mouse_editor.c 								\
+				  display_map.c 								\
+				  display_blocs.c 								\
+				  edit_poly.c 									\
+				  file_list.c									\
+				  bresen2.c										\
+				  color.c										\
+				  file_newclip.c								\
+				  basicshape.c									\
 				  world2view.c									\
-				  world2view_mat.c
+				  world2view_mat.c 								\
+				  tool2.c 										\
+				  tool3.c 										\
+				  file_outside.c								\
 
 
 #GAME ENGINE
@@ -107,6 +127,7 @@ SRC += file_order_z_buffer.c
 SRC += file_draw_triangle.c
 SRC += file_window.c
 SRC += file_calcul_world_view.c
+SRC += ft_draw_textured_triangle.c
 
 
 #BSP_COCO
@@ -178,14 +199,11 @@ IMAGE 			= ./libraries \
 
 DEBUG			= -g -fsanitize=address
 
-all: clear $(NAME)
-
-clear:
-	clear
+all: $(NAME)
 
 $(NAME): $(IMAGE) $(OBJ)
 	@echo "${vertfonce}Compiling $@ ...${neutre}\c"
-	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG)
+	@$(CC) $(CFLAG) -o $(NAME) $(OBJ) $(LFLAG) $(DEBUG)
 	@echo "${vertclair}DONE${neutre}"
 
 $(OBJ_PATH)/%.o: %.c $(HEADER) $(LIBFTA)
@@ -202,10 +220,19 @@ $(IMAGE): FORCE
 	fi
 
 $(LIBFTA): FORCE
+<<<<<<< HEAD
 #	@if [ -f "/tmp/doom_log2" ]; then \
 	#	touch /tmp/doom_log2; \
 	#	chmod 777 /tmp/doom_log2; \
 #	fi
+=======
+	@if [ -f "/tmp/doom_log2" ]; then \
+		echo "${vertfonce}doom_log2 exists.${neutre}"; \
+	else \
+		touch /tmp/doom_log2; \
+		chmod 777 /tmp/doom_log2; \
+	fi
+>>>>>>> master
 	@make -C libft #>> /tmp/doom_log2 2>&1
 
 FORCE:
@@ -220,7 +247,7 @@ fclean : clean
 	@echo "${rouge}Fcleaning the project ...${neutre}\c"
 	@make fclean -C libft
 	@if [ -f "/tmp/doom_log2" ]; then \
-		rm /tmp/doom_log2; \
+		rm /tmp/doom_log2;
 	fi
 	@rm -rf $(NAME)
 	@echo "${rose}DONE${neutre}"

@@ -52,7 +52,7 @@ static char	*readcommand(t_win *wn, char *command)
 	return (command);
 }
 
-static char	printable_key_check(t_win *wn, int i)
+char	printable_key_check(t_win *wn, int i)
 {
 	if ((i >= SDL_SCANCODE_A) && (i <= SDL_SCANCODE_Z) && !wn->state[SDL_SCANCODE_LSHIFT])
 		return (i - SDL_SCANCODE_A + 'a');
@@ -64,10 +64,12 @@ static char	printable_key_check(t_win *wn, int i)
 		return (i - SDL_SCANCODE_KP_1 + '1');
 	else if ( i == SDL_SCANCODE_SPACE)
 		return (' ');
-	else if (i == SDL_SCANCODE_0)
+	else if (i == SDL_SCANCODE_0 || i == SDL_SCANCODE_KP_0)
 		return ('0');
-	else if (i == SDL_SCANCODE_KP_0)
-		return ('0');
+	else if (i == SDL_SCANCODE_GRAVE)
+		return ('~');
+	else if (i == SDL_SCANCODE_PERIOD || i == SDL_SCANCODE_KP_PERIOD)
+		return ('.');
 	else if (i == SDL_SCANCODE_KP_DIVIDE || (i == SDL_SCANCODE_SLASH && !wn->state[SDL_SCANCODE_LSHIFT]))
 		return ('/');
 	else if (i == SDL_SCANCODE_MINUS || i == SDL_SCANCODE_KP_MINUS)
@@ -80,7 +82,7 @@ static char	printable_key_check(t_win *wn, int i)
 		return (INVALID);
 }
 
-static char *printable_input(t_win *wn, char *command)
+char		*printable_input(t_win *wn, char *command)
 {
 	int				i;
 	char			str[2];

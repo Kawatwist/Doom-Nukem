@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 19:42:03 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/04 13:42:34 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/25 15:38:22 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,20 @@ t_myvec		ft_vector_add(t_myvec v1, t_myvec v2)
 t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i)
 {
 	t_myvec v;
-	float w;
+	/* float w; */
 
- 	v.x = i.x * m[0][0] + i.y * m[1][0] + i.z * m[2][0] + m[3][0];
-	v.y = i.x * m[0][1] + i.y * m[1][1] + i.z * m[2][1] + m[3][1];
-	v.z = i.x * m[0][2] + i.y * m[1][2] + i.z * m[2][2] + m[3][2];
-	w = i.x * m[0][3] + i.y * m[1][3] + i.z * m[2][3] + m[3][3];
-	if (w != 0.0)
-	{
-		v.x /= w;
-		v.y /= w;
-		v.z /= w;
+ 	v.x = i.x * m[0][0] + i.y * m[1][0] + i.z * m[2][0] + i.w * m[3][0];
+	v.y = i.x * m[0][1] + i.y * m[1][1] + i.z * m[2][1] + i.w * m[3][1];
+	v.z = i.x * m[0][2] + i.y * m[1][2] + i.z * m[2][2] + i.w * m[3][2];
+	v.w = i.x * m[0][3] + i.y * m[1][3] + i.z * m[2][3] + i.w * m[3][3];
+	/* w = i.x * m[0][3] + i.y * m[1][3] + i.z * m[2][3] + m[3][3]; */
+	/* if (w != 0.0) */
+	/* { */
+		/* v.x /= w; */
+		/* v.y /= w; */
+		/* v.z /= w; */
 
-	}
+	/* } */
 	return v;
 }
 

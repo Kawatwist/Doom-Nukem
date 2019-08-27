@@ -6,7 +6,7 @@
 /*   By: jleblond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:49 by jleblond          #+#    #+#             */
-/*   Updated: 2019/07/10 14:32:01 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/07/21 18:11:15 by lomasse          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ SDL_Rect	*create_rect(int	x, int	y, int	w, int	h)
 	pos->w = w;
 	pos->h = h;
 	return (pos);
+}
+
+int		hitboxbox(t_myvec vec, t_rectbox box)
+{
+	if (vec.x >= box.x && vec.x <= (box.x + box.w))
+		if (vec.y >= box.y && vec.y <= (box.y + box.h))
+			if (vec.z >= box.z && vec.z <= (box.z + box.l))
+				return (TRUE);
+	return (FALSE);
 }
 
 int		hitbox(int	x, int	y, SDL_Rect *pos)
@@ -50,4 +59,3 @@ int	 key_pressed(t_win *wn, int key_value)
 		return (TRUE);
 	return (FALSE);
 }
-
