@@ -334,12 +334,24 @@ typedef struct				s_mypolygon
 }							t_mypolygon;
 // FIN JEROME
 //
+
+typedef struct			s_mynode
+{
+	t_mypolygon			*splitter;
+	struct s_mynode		*front;
+	struct s_mynode		*back;
+	char				is_leaf;
+	char				is_solid;
+}						t_mynode;
+
+
 typedef struct		s_rasterizer
 {
 	int				nbr_triangle;
 	void			*tmp;
 	t_mytriangle	*triangle_array;
 	t_mypolygon		*polygon_lst;
+	t_mynode		*bsp_node;
 }					t_rasterizer;
 
 typedef struct		s_win
@@ -400,12 +412,14 @@ typedef struct		s_win
 void						clipping(t_win *wn, t_mytriangle toclip, t_mytriangle **tostore);
 void						ft_launch_rasterization(t_win *wn);
 void						turn_rast(t_win *wn);
+void	ft_launch_bsp_tree(t_mypolygon *polygon_lst, t_mynode **bsp_node);
+
 //
 
 
 
 t_mycolor					ft_setcolor(int rrr, int ggg, int bbb);
-void						ft_launch_bsp_tree(t_mypolygon *polygon_lst);
+// void						ft_launch_bsp_tree(t_mypolygon *polygon_lst);
 
 float						ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec						ft_cross_product(t_myvec v1, t_myvec v2);

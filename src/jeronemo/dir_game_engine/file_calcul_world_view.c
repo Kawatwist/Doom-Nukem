@@ -153,11 +153,11 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
 			/* ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade); */
 			 ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
-			// ft_draw_textured_triangle(
-					// triangle_lst_2,
-					// wn,
-					// ((t_myraster*)wn->rasterizer->tmp)->texture,
-					// ((t_myraster*)wn->rasterizer->tmp)->s_tex);
+			ft_draw_textured_triangle(
+					triangle_lst_2,
+					wn,
+					((t_myraster*)wn->rasterizer->tmp)->texture,
+					((t_myraster*)wn->rasterizer->tmp)->s_tex);
 			triangle_lst_2 = triangle_lst_2->next;
 		}
 	triangle_lst_2 = keep;

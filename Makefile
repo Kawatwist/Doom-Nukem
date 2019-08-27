@@ -142,6 +142,7 @@ SRC += file_select_spliter.c
 SRC += file_classify_polygon.c
 SRC += file_affichage_bsp.c
 SRC += file_split_polygon.c
+SRC += file_walk_bsp_tree.c
 
 #BRESENHAM
 SRC += fille_bresename.c

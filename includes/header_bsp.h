@@ -25,14 +25,14 @@ typedef struct		s_mypointf
 	double				y;
 }					t_mypointf;
 
-typedef struct			s_mynode
-{
-	t_mypolygon			*splitter;
-	struct s_mynode		*front;
-	struct s_mynode		*back;
-	char				is_leaf;
-	char				is_solid;
-}						t_mynode;
+// typedef struct			s_mynode
+// {
+// 	t_mypolygon			*splitter;
+// 	struct s_mynode		*front;
+// 	struct s_mynode		*back;
+// 	char				is_leaf;
+// 	char				is_solid;
+// }						t_mynode;
 
 typedef enum			e_myclass
 {

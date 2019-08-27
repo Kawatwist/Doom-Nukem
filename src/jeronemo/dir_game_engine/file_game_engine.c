@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 # include <header_game_engine.h>
+
 t_mypolygon		*ft_read_the_polygon_file(void);
 
 t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
@@ -30,11 +31,17 @@ t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
 
 void	turn_rast(t_win *wn)
 {
-	 wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
+	t_mypolygon		*new_lst;
+
+	new_lst = NULL;
+	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
 	//############
 	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
 	{
 //		ft_clear_window(wn);
+		ft_walk_bsp_tree(wn->rasterizer->bsp_node, &(((t_myraster *)wn->rasterizer->tmp)->v_camera), &new_lst);
+		wn->rasterizer->triangle_array = ft_get_triangles_array(new_lst);
+		wn->rasterizer->nbr_triangle = ft_get_nbr_of_triangle(new_lst);
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array , wn);
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
 //		if (wn->interface == DGAME)
@@ -46,9 +53,9 @@ void	ft_launch_rasterization(t_win *wn)
 {
 	wn->rasterizer->polygon_lst = NULL;
   	wn->rasterizer->polygon_lst = ft_read_the_polygon_file();
-	ft_launch_bsp_tree(wn->rasterizer->polygon_lst); // PROTECTION POUR SAVE FROM EDITOR
-	wn->rasterizer->triangle_array = ft_get_triangles_array(wn->rasterizer->polygon_lst);
-	wn->rasterizer->nbr_triangle = ft_get_nbr_of_triangle(wn->rasterizer->polygon_lst);
+	ft_launch_bsp_tree(wn->rasterizer->polygon_lst, &(wn->rasterizer->bsp_node)); // PROTECTION POUR SAVE FROM EDITOR
+	// wn->rasterizer->triangle_array = ft_get_triangles_array(wn->rasterizer->polygon_lst);
+	// wn->rasterizer->nbr_triangle = ft_get_nbr_of_triangle(wn->rasterizer->polygon_lst);
 	wn->rasterizer->tmp = malloc(sizeof(t_myraster));
 	wn->rasterizer->tmp = ft_init_rasterization(wn, (t_myraster*)(wn->rasterizer->tmp));
 }
