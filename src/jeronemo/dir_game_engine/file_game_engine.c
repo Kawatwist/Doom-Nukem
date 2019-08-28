@@ -55,6 +55,12 @@ void	turn_rast(t_win *wn)
 
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->tmp2, wn); **/
 //		ft_clear_window(wn);
+		wn->rasterizer->curr_pos.x = ((t_myraster*)wn->rasterizer->tmp)->v_camera.x;
+		wn->rasterizer->curr_pos.y = ((t_myraster*)wn->rasterizer->tmp)->v_camera.y;
+		wn->rasterizer->curr_pos.z = ((t_myraster*)wn->rasterizer->tmp)->v_camera.z;
+		wn->rasterizer->poly_list = render_bsp(wn->rasterizer->bsp, &wn->rasterizer->curr_pos);
+		wn->rasterizer->triangle_array = make_triangles(wn->rasterizer->poly_list, &wn->rasterizer->nbr_triangle);
+		//! COCO 
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array , wn);
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
 //		if (wn->interface == DGAME)
