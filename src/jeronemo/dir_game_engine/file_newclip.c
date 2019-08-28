@@ -58,23 +58,23 @@ t_mytriangle	    *clip_side(t_win *wn, t_mytriangle *toclip, int *value, int sid
 		}
 		else if ((((nb & 0x4) >> 2) + ((nb & 0x2) >> 1) + (nb & 0x1)) == 2)
 		{
-			curr->splitted = 2;
-			if (!(nb & 0x4))
-			{
-				curr->vertice[0] = find_intersection(wn, curr->vertice[2], curr->vertice[0], side);
-				curr->vertice[1] = find_intersection(wn, curr->vertice[2], curr->vertice[1], side);
-			}
-			if (!(nb & 0x2))
-			{
-				curr->vertice[0] = find_intersection(wn, curr->vertice[1], curr->vertice[0], side);
-				curr->vertice[2] = find_intersection(wn, curr->vertice[1], curr->vertice[2], side);
-			}
-			if (!(nb & 0x1))
-			{
-				curr->vertice[1] = find_intersection(wn, curr->vertice[0], curr->vertice[1], side);
-				curr->vertice[2] = find_intersection(wn, curr->vertice[0], curr->vertice[2], side);
-			}
-			// ft_clipping_texture_two_point(wn, &curr, nb);
+			// curr->splitted = 2;
+			// if (!(nb & 0x4))
+			// {
+			// 	curr->vertice[0] = find_intersection(wn, curr->vertice[2], curr->vertice[0], side);
+			// 	curr->vertice[1] = find_intersection(wn, curr->vertice[2], curr->vertice[1], side);
+			// }
+			// if (!(nb & 0x2))
+			// {
+			// 	curr->vertice[0] = find_intersection(wn, curr->vertice[1], curr->vertice[0], side);
+			// 	curr->vertice[2] = find_intersection(wn, curr->vertice[1], curr->vertice[2], side);
+			// }
+			// if (!(nb & 0x1))
+			// {
+			// 	curr->vertice[1] = find_intersection(wn, curr->vertice[0], curr->vertice[1], side);
+			// 	curr->vertice[2] = find_intersection(wn, curr->vertice[0], curr->vertice[2], side);
+			// }
+			ft_clipping_texture_two_point(wn, &curr, nb, side);
 			curr->sub += 1;
     		curr->splitted = 2;
 			// ft_clipping_texture_two_point(wn, &curr, nb);
