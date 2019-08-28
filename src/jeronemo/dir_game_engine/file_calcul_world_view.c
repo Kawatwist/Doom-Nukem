@@ -188,12 +188,6 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 		{
 			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
 			 ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade);
-			printf("x1=%f,y1=%f,\n", triangle_lst_2->vertice[0].x, triangle_lst_2->vertice[0].y);
-			printf("x2=%f,y2=%f,\n", triangle_lst_2->vertice[1].x, triangle_lst_2->vertice[1].y);
-			printf("x3=%f,y3=%f,\n", triangle_lst_2->vertice[2].x, triangle_lst_2->vertice[2].y);
-			printf("hello+++++++++++++\n");
-
-
 			 ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
 			ft_draw_textured_triangle(
 					triangle_lst_2,
