@@ -25,7 +25,7 @@ void	ft_launch_bsp_tree(t_mypolygon *polygon_lst, t_mynode **bsp_node)
  	ft_bzero(s_node, sizeof(s_node));
 	ft_build_bsp_tree((s_node), polygon_lst);
 	*bsp_node= s_node;
-	// ft_afficher_le_bsp(&s_node);
+	ft_afficher_le_bsp(*bsp_node);
 
 
 	/* (void)wn; */

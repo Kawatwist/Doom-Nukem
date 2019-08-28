@@ -21,9 +21,12 @@ void	ft_copy_and_add_bot(t_mypolygon **alst, t_mypolygon *new)
 	if (!copy)
 		return ;
 	*copy = *new;
+	copy->next = NULL;
 	tmp = *alst;
 	if (*alst == NULL)
+	{
 		*alst = copy;
+	}
 	else
 	{
 		while (tmp->next != NULL)
@@ -33,6 +36,7 @@ void	ft_copy_and_add_bot(t_mypolygon **alst, t_mypolygon *new)
 		tmp->next = copy;
 	}
 }
+
 void	ft_walk_bsp_tree(t_mynode *s_node, t_myvec *pos, t_mypolygon **new_lst)
 {
 	int			result;
