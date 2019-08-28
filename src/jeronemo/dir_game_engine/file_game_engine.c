@@ -50,7 +50,8 @@ void	turn_rast(t_win *wn)
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array, wn);
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
 //		if (wn->interface == DGAME)
-		SDL_RenderPresent(wn->rend);
+		if (!(wn->flag & MESH))
+			SDL_RenderPresent(wn->rend);
 	}
 }
 
