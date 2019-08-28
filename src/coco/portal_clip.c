@@ -40,9 +40,12 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 {
 	t_pclip pclip;
 
-	//printf("PORTAL CLIP NODE %d\n", node);
+	//printf("PORTAL CLIP NODE %d\n", bsp->node[node].plane);
 	init_pclip(&pclip);
-	pclip.result = class_poly(&bsp->plane[bsp->node[node].plane], (t_poly*)portal);
+	if (bsp->node[node].plane == -1) //check segv
+		pclip.result = 1;
+	else //end check segv
+		pclip.result = class_poly(&bsp->plane[bsp->node[node].plane], (t_poly*)portal);
 	//printf("PCLIP RES %d\n", pclip.result);
 	if (pclip.result == 1)
 	{
