@@ -1,7 +1,7 @@
 #include <doom.h>
 #include <header_game_engine.h>
 
-static t_mytexture ft_find_uv_texture(t_myvec *inter, t_mytriangle **origin, short pos) //[P1][P2]
+t_mytexture	ft_find_uv_texture(t_myvec *inter, t_mytriangle **origin, short pos) //[P1][P2]
 {
 	t_mytexture ret;
 	unsigned char	p1;
@@ -9,11 +9,10 @@ static t_mytexture ft_find_uv_texture(t_myvec *inter, t_mytriangle **origin, sho
 
 	p1 = (pos & 0xFF00) >> 8;
 	p2 = (pos & 0xFF);
-	ret.u = (*origin)->texture[p1].u + ((*origin)->texture[p2].u - (*origin)->texture[p1].u) * ((inter->x - (*origin)->vertice[p1].x) / ((*origin)->vertice[p2].x - (*origin)->vertice[p1].x));
-	ret.v = (*origin)->texture[p1].v + ((*origin)->texture[p2].v - (*origin)->texture[p1].v) * ((inter->y - (*origin)->vertice[p1].y) / ((*origin)->vertice[p2].y - (*origin)->vertice[p1].y));
-    // ret.u = (((float)(fabsf(inter->x - (*origin)->vertice[p1].x)) / fabsf(((*origin)->vertice[p2].x) - (*origin)->vertice[p1].x)) * fabsf(((*origin)->texture[p2].u) - ((*origin)->texture[p1].u)));
-    // ret.v = (((float)(fabsf(inter->y - (*origin)->vertice[p1].y)) / fabsf(((*origin)->vertice[p2].y) - (*origin)->vertice[p1].y)) * fabsf(((*origin)->texture[p2].v) - ((*origin)->texture[p1].v)));
-	// ret.w = 0;//(((float)(fabsf(inter->z - (*origin)->vertice[p1].z)) / fabsf(((*origin)->vertice[p2].z) - (*origin)->vertice[p1].z)) * fabsf(((*origin)->texture[p2].w) - ((*origin)->texture[p1].w)));
+	ret.u = (*origin)->texture[p1].u + (((*origin)->texture[p2].u - (*origin)->texture[p1].u)) * (((inter->x - (*origin)->vertice[p1].x)) / ((*origin)->vertice[p2].x - (*origin)->vertice[p1].x));
+	ret.u < 0 || ret.u > 1 ? ret.u = 0.5 : 0;
+	ret.v = (*origin)->texture[p1].v + ((*origin)->texture[p2].v - (*origin)->texture[p1].v) * (((inter->y - (*origin)->vertice[p1].y)) / ((*origin)->vertice[p2].y - (*origin)->vertice[p1].y));
+	ret.v < 0 || ret.v > 1 ? ret.v = 0.5 : 0;
 	return (ret);
 }
 

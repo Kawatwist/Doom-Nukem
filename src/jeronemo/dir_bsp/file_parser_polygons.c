@@ -221,7 +221,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 	fichier_lst = NULL;
 
-	fd = open("quatre_carre_avec_uv_texture_coordinate.obj", O_RDWR); // <= PATH OBJ
+	fd = open("text.obj", O_RDWR); // <= PATH OBJ
 	while(get_next_line(fd, &line))
 	{
 		fichier_node = ft_create_line_node(line);

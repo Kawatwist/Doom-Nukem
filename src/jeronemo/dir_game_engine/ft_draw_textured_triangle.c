@@ -179,9 +179,9 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 				s_tex->dstrect.y = i;
 
 				/* s_tex->m_ppixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * 512)]; */
-				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < (s_tex->tga->w * s_tex->tga->h) - 10 && (s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) > 0)
+				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < (s_tex->tga->w * s_tex->tga->h) - 10 && (s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) > 0 && (s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < s_tex->tga->w * s_tex->tga->h)
 				{
-					if (s_tex->tex_w > depth_buffer[i * XSCREEN + j] )
+					if (s_tex->tex_w > depth_buffer[i * XSCREEN + j])
 					{
 						s_tex->m_pPixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
 
@@ -256,7 +256,7 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 				s_tex->dstrect.y = i;
 				/* s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF; */
 
-				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < (s_tex->tga->w * s_tex->tga->h) - 10 && (s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) > 0)
+				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < (s_tex->tga->w * s_tex->tga->h) - 10 && (s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) > 0 && (s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < s_tex->tga->w * s_tex->tga->h)
 				{
 					if (s_tex->tex_w > depth_buffer[i * XSCREEN + j])
 					{

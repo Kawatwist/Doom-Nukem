@@ -110,6 +110,7 @@ SRC				= main.c										\
 				  tool3.c 										\
 				  file_outside.c								\
 				  file_clip_texture.c							\
+				  file_clip_texture2.c							\
 
 
 #GAME ENGINE

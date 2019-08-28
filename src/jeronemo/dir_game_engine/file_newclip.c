@@ -53,7 +53,8 @@ t_mytriangle	    *clip_side(t_win *wn, t_mytriangle *toclip, int *value, int sid
 				toadd->next = curr->next;
 			ft_clipping_texture_one_side(wn, &curr, &toadd, ((side & 0xF) << 4) + (nb & 0xF));
 			toadd->shade = curr->shade;
-			curr->next = toadd; 
+			curr->next = toadd;
+			printf("NB == %d\n", nb);
 		}
 		else if ((((nb & 0x4) >> 2) + ((nb & 0x2) >> 1) + (nb & 0x1)) == 2)
 		{
@@ -73,7 +74,10 @@ t_mytriangle	    *clip_side(t_win *wn, t_mytriangle *toclip, int *value, int sid
 				curr->vertice[1] = find_intersection(wn, curr->vertice[0], curr->vertice[1], side);
 				curr->vertice[2] = find_intersection(wn, curr->vertice[0], curr->vertice[2], side);
 			}
+			// ft_clipping_texture_two_point(wn, &curr, nb);
 			curr->sub += 1;
+    		curr->splitted = 2;
+			// ft_clipping_texture_two_point(wn, &curr, nb);
 			before = curr;
 			curr = curr->next;
 		}
