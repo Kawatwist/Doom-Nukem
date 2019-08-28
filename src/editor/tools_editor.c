@@ -27,7 +27,7 @@ t_point		**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box)
 		point = elem->point;
 		while (point)
 		{
-			if (hitbox(edit->map->x + (point->x * edit->map->size * 10), edit->map->y + point->y * edit->map->size * 10, &box))
+			if (hitbox(edit->map->x + (point->x * edit->map->size * 10), edit->map->y + point->y * edit->map->size * 10, &box, 0))
 				nb++;
 			point = point->next;
 		}
@@ -41,7 +41,7 @@ t_point		**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box)
 		point = elem->point;
 		while (point)
 		{
-			if (hitbox(edit->map->x + (point->x * edit->map->size * 10), edit->map->y + point->y * edit->map->size * 10, &box))
+			if (hitbox(edit->map->x + (point->x * edit->map->size * 10), edit->map->y + point->y * edit->map->size * 10, &box, 0))
 			{
 				ret[nb] = point;
 				nb++;

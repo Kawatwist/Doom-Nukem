@@ -215,6 +215,7 @@ typedef struct		s_popup
 	char 			*yes;
 	char 			*no;
 	SDL_Rect 		*rect;
+	SDL_Rect 		position;
 }					t_popup;
 
 
@@ -519,7 +520,7 @@ void				stop_exec(char *msg, t_win *wn);
 void				full_screen(t_win *wn);
 SDL_Rect			*create_rect(int x, int y, int w, int h);
 int					hitboxbox(t_myvec vec, t_rectbox box);
-int					hitbox(int x, int y, SDL_Rect *pos);
+int					hitbox(int x, int y, SDL_Rect *pos, int needtofree);
 int					boxhitbox(SDL_Renderer *rend, SDL_Rect *check, SDL_Rect *pos, char show);
 Uint32				set_bit(Uint32 var, Uint32 mask);
 int					mouse_pressed(t_win *wn, Uint32 mask);

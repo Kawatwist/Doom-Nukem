@@ -33,10 +33,14 @@ int		hitboxbox(t_myvec vec, t_rectbox box)
 	return (FALSE);
 }
 
-int		hitbox(int	x, int	y, SDL_Rect *pos)
+int		hitbox(int	x, int	y, SDL_Rect *pos, int needtofree)
 {
 	if (x >= pos->x && y >= pos->y && x <= pos->x + pos->w && y <= pos->y + pos->h)
+	{
+		needtofree == 1 ? free(pos) : 0;
 		return (TRUE);
+	}
+	needtofree == 1 ? free(pos) : 0;
 	return (FALSE);
 }
 

@@ -34,19 +34,19 @@ void		change_bloc(t_win *wn, t_edit *edit)
 
 	x = wn->input->x;
 	y = wn->input->y;
-	if (hitbox(x, y, &edit->tab->arrow) == TRUE)
+	if (hitbox(x, y, &edit->tab->arrow, 0) == TRUE)
 		edit->tab->in = -edit->tab->in;
 	tab = define_rect(6 * wn->xscreen / 8, 0.5 * wn->yscreen / 8, 2 * wn->xscreen / 8 / 4, 0.5 * wn->yscreen / 8);
-	if (hitbox(x, y, &tab) == TRUE && edit->tab->in == 1)
+	if (hitbox(x, y, &tab, 0) == TRUE && edit->tab->in == 1)
 		edit->tab->onglet = 0;
 	tab = define_rect(6.5 * wn->xscreen / 8, 0.5 * wn->yscreen / 8, 2 * wn->xscreen / 8 / 4, 0.5 * wn->yscreen / 8);	
-	if (hitbox(x, y, &tab) == TRUE && edit->tab->in == 1)
+	if (hitbox(x, y, &tab, 0) == TRUE && edit->tab->in == 1)
 		edit->tab->onglet = 1;
 	tab = define_rect(7 * wn->xscreen / 8, 0.5 * wn->yscreen / 8, 2 * wn->xscreen / 8 / 4, 0.5 * wn->yscreen / 8);	
-	if (hitbox(x, y, &tab) == TRUE && edit->tab->in == 1)
+	if (hitbox(x, y, &tab, 0) == TRUE && edit->tab->in == 1)
 		edit->tab->onglet = 2;
 	tab = define_rect(7.5 * wn->xscreen / 8, 0.5 * wn->yscreen / 8, 2 * wn->xscreen / 8 / 4, 0.5 * wn->yscreen / 8);
-	if (hitbox(x, y, &tab) == TRUE && edit->tab->in == 1)
+	if (hitbox(x, y, &tab, 0) == TRUE && edit->tab->in == 1)
 		edit->tab->onglet = 3;
 }
 
@@ -98,6 +98,6 @@ void		printeditor(t_win *wn)
 	print_save_and_reset(wn, edit);
 	check_hitbox(wn, wn->edit);
 	rect = define_rect(wn->xscreen / 3, wn->yscreen / 3, wn->xscreen / 3, wn->yscreen / 3);
-	pop_up_message(wn, param_pop_up("jesuisunebananaetlabananaestunfruitjaunequ'onpeututiliser pourlessmoothiesetpourlesmilkshakes", "VRAI", "FAUX", &rect));
+	printf("popup = %d\n", pop_up_message(wn, param_pop_up("je suis une banana et la banana est un fruit jaune qu'on peut utiliser pour les smoothies et pour les milkshakes", "VRAI", "FAUX", &rect)));
 	// test_slider(wn);
 }

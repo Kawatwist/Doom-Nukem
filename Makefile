@@ -111,6 +111,7 @@ SRC				= main.c										\
 				  tool2.c 										\
 				  save.c 										\
 				  print_tab.c 									\
+				  popup.c 										\
 
 
 #GAME ENGINE

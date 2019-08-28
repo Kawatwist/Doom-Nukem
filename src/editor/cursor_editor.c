@@ -52,7 +52,7 @@ void	draw_cursor(t_win *wn, t_edit *edit)
 	SDL_Rect	rect;
 
 	rect = define_rect(6 * wn->xscreen / 8, 0, 2 * wn->xscreen / 8, 0.5 * wn->yscreen / 8);
-	if ((hitbox(wn->input->x, wn->input->y, &edit->tab->tab) == TRUE && edit->tab->in == 1) || hitbox(wn->input->x, wn->input->y, &edit->tab->arrow) == TRUE || hitbox(wn->input->x, wn->input->y, &rect) == TRUE || wn->input->x < (wn->xscreen / 18))
+	if ((hitbox(wn->input->x, wn->input->y, &edit->tab->tab, 0) == TRUE && edit->tab->in == 1) || hitbox(wn->input->x, wn->input->y, &edit->tab->arrow, 0) == TRUE || hitbox(wn->input->x, wn->input->y, &rect, 0) == TRUE || wn->input->x < (wn->xscreen / 18))
 		SDL_ShowCursor(SDL_ENABLE);
 	else
 		SDL_ShowCursor(SDL_DISABLE);
