@@ -98,11 +98,11 @@ t_poly *render_bsp(t_bsp *bsp, t_vec *pos)
 t_mytriangle *make_triangles(t_poly *list, int *max) //LISTE DE TRIANGLE
 {
 	t_poly		 *tmp;
-	t_mytriangle *new;
+	//t_mytriangle *new;
 	t_mytriangle *res;
 	t_poly *poly;
 	int i;
-	//int j;
+	int j;
 
 	printf("MAKIng TRIANGLES\n");
 	tmp = list;
@@ -116,18 +116,18 @@ t_mytriangle *make_triangles(t_poly *list, int *max) //LISTE DE TRIANGLE
 		*max += i;
 		tmp = tmp->next;
 	}
-	//if (!(res = (t_mytriangle*)malloc(sizeof(t_mytriangle) * (*max))))
-	//	exit(0);
-	res = NULL;
+	if (!(res = (t_mytriangle*)malloc(sizeof(t_mytriangle) * (*max))))
+		exit(0);
+	//res = NULL;
 	printf("MAX %d\n", *max );
-	//j = 0;
+	j = 0;
 	while(list != NULL)
 	{
 		poly = list;
 		i = 0;
 		while((i * 3) < poly->nb_indices)
 		{
-		/**	res[j].vertice[0].x = poly->ver_list[poly->indices[i * 3]].x;
+			res[j].vertice[0].x = poly->ver_list[poly->indices[i * 3]].x;
 			res[j].vertice[0].y = poly->ver_list[poly->indices[i * 3]].y;
 			res[j].vertice[0].z = poly->ver_list[poly->indices[i * 3]].z;
 			res[j].vertice[1].x = poly->ver_list[poly->indices[(i * 3) + 1]].x;
@@ -145,9 +145,9 @@ t_mytriangle *make_triangles(t_poly *list, int *max) //LISTE DE TRIANGLE
 			res[j].texture[1].w = poly->ver_list[poly->indices[(i * 3) + 1]].tz;
 			res[j].texture[2].u = poly->ver_list[poly->indices[(i * 3) + 2]].tx;
 			res[j].texture[2].v = poly->ver_list[poly->indices[(i * 3) + 2]].ty;
-			res[j].texture[2].w = poly->ver_list[poly->indices[(i * 3) + 2]].tz; **/
+			res[j].texture[2].w = poly->ver_list[poly->indices[(i * 3) + 2]].tz;
 
-			if (!(new = (t_mytriangle*)malloc(sizeof(t_mytriangle))))
+			/**if (!(new = (t_mytriangle*)malloc(sizeof(t_mytriangle))))
 				exit(0);
 			new->vertice[0].x = poly->ver_list[poly->indices[i * 3]].x;
 			new->vertice[0].y = poly->ver_list[poly->indices[i * 3]].y;
@@ -167,10 +167,10 @@ t_mytriangle *make_triangles(t_poly *list, int *max) //LISTE DE TRIANGLE
 			new->texture[1].w = poly->ver_list[poly->indices[(i * 3) + 1]].tz;
 			new->texture[2].u = poly->ver_list[poly->indices[(i * 3) + 2]].tx;
 			new->texture[2].v = poly->ver_list[poly->indices[(i * 3) + 2]].ty;
-			new->texture[2].w = poly->ver_list[poly->indices[(i * 3) + 2]].tz;
-			//j++;
-			new->next = res;
-			res = new;
+			new->texture[2].w = poly->ver_list[poly->indices[(i * 3) + 2]].tz; **/
+			j++;
+			//new->next = res;
+			//res = new;
 			i++;
 		}
 		//printf("TRIANGLE\n");
@@ -178,20 +178,20 @@ t_mytriangle *make_triangles(t_poly *list, int *max) //LISTE DE TRIANGLE
 	}
 	i = 0;
 	printf("TRIANGLE LIST\n");
-	/** while (i < *max)
+	 while (i < *max)
 	{
 		printf("Triangle: %f %f %f ; %f %f %f ; %f %f %f\n", res[i].vertice[0].x, res[i].vertice[0].y, res[i].vertice[0].z,
 				res[i].vertice[1].x, res[i].vertice[1].y, res[i].vertice[1].z,
 				res[i].vertice[2].x, res[i].vertice[2].y, res[i].vertice[2].z);
 		i++;
-	} **/
-	new = res;
+	}
+	/**new = res;
 	while (new != NULL)
 	{
 		printf("Triangle: %f %f %f ; %f %f %f ; %f %f %f\n", new->vertice[0].x, new->vertice[0].y, new->vertice[0].z,
 				new->vertice[1].x, new->vertice[1].y, new->vertice[1].z,
 				new->vertice[2].x, new->vertice[2].y, new->vertice[2].z);
 		new = new->next;
-	}
+	} **/
 	return (res);
 }
