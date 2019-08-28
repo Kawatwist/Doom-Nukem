@@ -128,7 +128,7 @@ void	ft_fill_triangle_shade(t_mytriangle t, t_win *wn, float shade)
 
 	ft_order_triangle_vertice(&t.vertice[0], &t.vertice[1], &t.vertice[2]);
 //	wn->coolor = 0xFFFF00FF - (((int)shade) << 16) - ((int)shade);
-	SDL_SetRenderDrawColor(wn->rend, 0xFF - (((int)shade) / 2), 0x00, 0xFF - (int)shade, 0xFF);
+	SDL_SetRenderDrawColor(wn->rend, 0xFF - (((int)shade) / 8) , 100, 0xFF - (int)shade , 0xFF);
 	(void)shade;
 	wn->coolor = 0xFF000000;
 	if (t.vertice[1].y == t.vertice[2].y)

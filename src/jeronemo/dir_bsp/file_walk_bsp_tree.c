@@ -37,6 +37,20 @@ void	ft_copy_and_add_bot(t_mypolygon **alst, t_mypolygon *new)
 	}
 }
 
+void	ft_copy_and_add_top(t_mypolygon **alst, t_mypolygon *new)
+{
+	t_mypolygon *copy;
+
+	copy = (t_mypolygon*)malloc(sizeof(t_mypolygon));
+	if (!copy)
+		return ;
+	copy->next = *alst;
+	*alst = copy;
+	*copy = *new;
+	printf("added id---------:%d\n", copy->id);
+}
+
+
 void	ft_walk_bsp_tree(t_mynode *s_node, t_myvec *pos, t_mypolygon **new_lst)
 {
 	int			result;
@@ -47,10 +61,8 @@ void	ft_walk_bsp_tree(t_mynode *s_node, t_myvec *pos, t_mypolygon **new_lst)
 	if (result == FRONT)
 	{
 		if (s_node->back != NULL)
-		{
 			ft_walk_bsp_tree(s_node->back, pos, new_lst);
-			ft_copy_and_add_bot(new_lst, s_node->splitter);
-		}
+		ft_copy_and_add_top(new_lst, s_node->splitter);
 		if (s_node->front != NULL)
 			ft_walk_bsp_tree(s_node->front, pos, new_lst);
 		return ;

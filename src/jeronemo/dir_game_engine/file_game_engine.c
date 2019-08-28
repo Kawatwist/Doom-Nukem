@@ -37,7 +37,7 @@ void	turn_rast(t_win *wn)
 	//############
 	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
 	{
-//		ft_clear_window(wn);
+		// ft_clear_window(wn);
 		new_lst = NULL;
 		ft_walk_bsp_tree(wn->rasterizer->bsp_node, &(((t_myraster *)wn->rasterizer->tmp)->v_camera), &new_lst);
  		ft_display_the_polygon_list(new_lst);
