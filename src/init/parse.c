@@ -16,6 +16,7 @@ int		parsearg(int argc, char **argv, t_win **wn)
 {
 	if (argc >= 3)
 	{
+		ft_strcmp(argv[2], "MESH") == 0 ? (*wn)->flag += MESH : 0;
 		ft_strcmp(argv[2], "DEBUG") == 0 ? (*wn)->flag += CONSOLE : 0;
 		ft_strcmp(argv[2], "SLOW") == 0 ? (*wn)->flag += CINE : 0;
 		ft_strcmp(argv[2], "EASY") == 0 ? (*wn)->difficulty = 0 : 0;

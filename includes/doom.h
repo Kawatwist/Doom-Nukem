@@ -39,6 +39,7 @@
 # define FS			1 << 1
 # define CINE		1 << 2
 # define CONSOLE	1 << 3
+# define MESH		1 << 4
 # define SKY        1 << 16
 # define DIFFICULTY 1 << 18
 # define SKY2		1 << 20
