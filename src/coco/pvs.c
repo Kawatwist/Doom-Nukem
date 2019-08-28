@@ -91,10 +91,12 @@ void recurse_pvs(t_bsp *bsp, t_cpvs *cpvs)
 	rec.gp_index = -1;
 	rec.source_portal = NULL;
 	rec.generator_portal = NULL;
-	while(rec.gp_index < bsp->leaf[rec.generator_leaf].nbportals)
+	while(rec.gp_index < bsp->leaf[rec.generator_leaf].nbportals - 1)
 	{
 		rec.gp_index++;
 		//printf("REC 1 %p %p \n", bsp->portal[bsp->leaf[rec.generator_leaf].portal[rec.gp_index]], cpvs->target_portal);
+		//printf("TEST RECURSE %d %d %d\n", rec.generator_leaf, rec.gp_index, bsp->leaf[rec.generator_leaf].nbportals);
+		//printf("TEST RECURSE %d\n", bsp->leaf[rec.generator_leaf].portal[rec.gp_index]);
 		if (bsp->portal[bsp->leaf[rec.generator_leaf].portal[rec.gp_index]] == cpvs->target_portal)
 		{
 			//printf("REC 2\n");

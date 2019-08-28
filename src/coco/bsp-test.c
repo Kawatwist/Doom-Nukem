@@ -37,6 +37,7 @@ t_bsp *bsp_compile()
 	//printf("init done\n");
 	build_bsp_tree(0, bsp);
 	printf("tree built\n");
+	print_polys(bsp->poly, bsp->nb_polys);
 	build_portal(bsp);
 	//printf("portal built\n");
 	if (!(bsp->pvs = (char*)malloc(bsp->nb_leafs * ((bsp->nb_leafs + 7) / 8))))

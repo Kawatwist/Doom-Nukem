@@ -21,15 +21,19 @@ void init_portal(t_portal *portal)
 	portal->leafs[1] = 0;
 }
 
-float	calculate_box_length(t_bsp *bsp, t_calcp *calc)
+float	calculate_box_length(t_calcp *calc)
 {
 	t_vec tmp;
 
-	(void)bsp; //TO REMOVE
+	//printf("CALCBOX LENGTH\n");
 	tmp.x = calc->maxp.x - calc->cb.x;
 	tmp.y = calc->maxp.y - calc->cb.y;
 	tmp.z = calc->maxp.z - calc->cb.z;
-	return (sqrt(tmp.x * tmp.x + tmp.y * tmp.y + tmp.z * tmp.z));
+	//printf("VALUES maxp %f %f %f \n", calc->maxp.x, calc->maxp.y, calc->maxp.z);
+	//printf("VALUES minp %f %f %f \n", calc->minp.x, calc->minp.y, calc->minp.z);
+	//printf("VALUES cb %f %f %f\n", calc->cb.x, calc->cb.y , calc->cb.z);
+	//printf("values %f %f %f\n", tmp.x, tmp.y, tmp.z);
+	return (sqrt((tmp.x * tmp.x) + (tmp.y * tmp.y) + (tmp.z * tmp.z)));
 }
 
 t_portal *calculate_init_portal(t_bsp *bsp, int node)
@@ -39,14 +43,14 @@ t_portal *calculate_init_portal(t_bsp *bsp, int node)
 	printf("CREATE PORTAL %f %f\n", bsp->node[node].bbox.boxmax.z, bsp->node[node].bbox.boxmin.z);
 	calc.maxp = bsp->node[node].bbox.boxmax;
 	calc.minp = bsp->node[node].bbox.boxmin;
-	printf("test node %d\n", bsp->node[node].plane);
+	//printf("test node %d\n", bsp->node[node].plane);
 	calc.plane_normal = bsp->plane[bsp->node[node].plane].normal;
 	calc.cb.x = (calc.maxp.x + calc.minp.x) / 2;
 	calc.cb.y = (calc.maxp.y + calc.minp.y) / 2;
 	calc.cb.z = (calc.maxp.z + calc.minp.z) / 2;
 	calc.dist_plane = ((bsp->plane[bsp->node[node].plane].point.x - calc.cb.x) * calc.plane_normal.x)
 		+ ((bsp->plane[bsp->node[node].plane].point.y - calc.cb.y) * calc.plane_normal.y)
-		+ ((bsp->plane[bsp->node[node].plane].point.z - calc.cb.z) * calc.plane_normal.z);
+		+ ((bsp->plane[bsp->node[node].plane].point.z - calc.cb.z) * calc.plane_normal.z); //Dist from cb to plane
 	calc.cp.x = calc.cb.x + (calc.plane_normal.x * calc.dist_plane);
 	calc.cp.y = calc.cb.y + (calc.plane_normal.y * calc.dist_plane);
 	calc.cp.z = calc.cb.z + (calc.plane_normal.z * calc.dist_plane);
@@ -71,7 +75,8 @@ t_portal *calculate_init_portal(t_bsp *bsp, int node)
 	vec_normalize(&(calc.u), &(calc.u));
 	vec_cross_prod(&(calc.u), &(calc.plane_normal), &(calc.v));
 	vec_normalize(&(calc.v), &(calc.v));
-	calc.length = calculate_box_length(bsp, &calc);
+	calc.length = calculate_box_length(&calc);
+	//printf("BOX LENGTH %f\n", calc.length);
 	calc.u.x *= calc.length;
 	calc.u.y *= calc.length;
 	calc.u.z *= calc.length;
@@ -83,6 +88,9 @@ t_portal *calculate_init_portal(t_bsp *bsp, int node)
 	init_portal(calc.portal);
 	if (!(calc.portal->ver_list = (t_vec*)malloc(sizeof(t_vec) * 4)))
 		exit(0);
+	//printf("TESTING VALUES X: %f %f %f\n", calc.cp.x, calc.u.x, calc.v.x);
+	//printf("TESTING VALUES Y: %f %f %f\n", calc.cp.y, calc.u.y, calc.v.y);
+	//printf("TESTING VALUES Z: %f %f %f\n", calc.cp.z, calc.u.z, calc.v.z);
 	set_vec(&(calc.portal->ver_list[0]), calc.cp.x + calc.u.x - calc.v.x, calc.cp.y + calc.u.y - calc.v.y, calc.cp.z + calc.u.z - calc.v.z);
 	set_vec(&(calc.portal->ver_list[1]), calc.cp.x + calc.u.x + calc.v.x, calc.cp.y + calc.u.y + calc.v.y, calc.cp.z + calc.u.z + calc.v.z);
 	set_vec(&(calc.portal->ver_list[2]), calc.cp.x - calc.u.x + calc.v.x, calc.cp.y - calc.u.y + calc.v.y, calc.cp.z - calc.u.z + calc.v.z);
@@ -101,5 +109,6 @@ t_portal *calculate_init_portal(t_bsp *bsp, int node)
 	printf("NB VER %d \n", calc.portal->nb_ver);
 	print_polys((t_poly*)calc.portal, 1);
 	printf("END CREATE PORTAL %f %f %f\n", calc.portal->ver_list[0].x, calc.portal->ver_list[0].y, calc.portal->ver_list[0].z);
+	//sleep(1000);
 	return (calc.portal);
 }
