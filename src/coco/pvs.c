@@ -330,8 +330,10 @@ int compress_leaf(t_bsp *bsp, char *leaf_pvs, int position)
 	{
 	//	printf("CL 3 %d %d\n", cl.i, leaf_pvs[cl.i]);
 		//cl.i++;
+		printf("COMPRESS LEAF TEST %d %d\n", bsp->nb_leafs * ((bsp->nb_leafs + 7) / 8), cl.i);
+		printf("COMPARE POINTERS %p %p\n", cl.dest_p, &bsp->pvs[((bsp->nb_leafs * (bsp->nb_leafs + 7) / 8))]);
 		*(cl.dest_p) = leaf_pvs[cl.i];
-		(cl.dest_p)++;  //??
+		cl.dest_p++;  //??
 		cl.i++;
 		if(leaf_pvs[cl.i - 1])
 			continue;
