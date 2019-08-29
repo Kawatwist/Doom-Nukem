@@ -52,7 +52,7 @@ void print_leafs(t_leaf *leafs, int nb_leafs)
 	i = 0;
 	while (i < nb_leafs)
 	{
-		printf("Leaf (%d) %d - %d Box: %f %f %f - %f %f %f pvs_index: %d\n",i, leafs[i].start_poly, leafs[i].end_poly - 1, leafs[i].bbox.boxmin.x, leafs[i].bbox.boxmin.y, leafs[i].bbox.boxmin.z
+		printf("Leaf (%d) %d - %d Box: %f %f %f ; %f %f %f pvs_index: %d\n",i, leafs[i].start_poly, leafs[i].end_poly - 1, leafs[i].bbox.boxmin.x, leafs[i].bbox.boxmin.y, leafs[i].bbox.boxmin.z
 			,leafs[i].bbox.boxmax.x, leafs[i].bbox.boxmax.y, leafs[i].bbox.boxmax.z, leafs[i].pvs_index);
 		i++;
 	}

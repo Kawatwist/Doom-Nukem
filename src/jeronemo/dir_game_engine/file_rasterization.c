@@ -169,7 +169,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	/* 	triangle_array[raster->i].texture[2].w = 1; */
 	/* } */
 
-	printf("UPDATE RASTER \n\n");
+	//printf("UPDATE RASTER \n\n");
 	raster->i = -1;
 	while (++(raster->i) < raster->nbr_of_triangle)
 	{
@@ -178,9 +178,9 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 
 
 
-		printf("Raster Triangle: %f %f %f ; %f %f %f ; %f %f %f\n", raster->triangle->vertice[0].x, raster->triangle->vertice[0].y, raster->triangle->vertice[0].z,
-				raster->triangle->vertice[1].x, raster->triangle->vertice[1].y, raster->triangle->vertice[1].z,
-				raster->triangle->vertice[2].x, raster->triangle->vertice[2].y, raster->triangle->vertice[2].z);
+		//printf("Raster Triangle: %f %f %f ; %f %f %f ; %f %f %f\n", raster->triangle->vertice[0].x, raster->triangle->vertice[0].y, raster->triangle->vertice[0].z,
+		//		raster->triangle->vertice[1].x, raster->triangle->vertice[1].y, raster->triangle->vertice[1].z,
+		//		raster->triangle->vertice[2].x, raster->triangle->vertice[2].y, raster->triangle->vertice[2].z);
 
 
 

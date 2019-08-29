@@ -68,6 +68,8 @@ t_poly *render_bsp(t_bsp *bsp, t_vec *pos)
 	node = 0;
 	leaf = 0;
 	//printf("RENDER\n");
+	print_leafs(bsp->leaf, bsp->nb_leafs);
+	printf("POSITION %f %f %f\n", pos->x, pos->y, pos->z);
 	while(1)
 	{
 		result = class_point(pos, &(bsp->plane[bsp->node[node].plane]));
@@ -77,6 +79,7 @@ t_poly *render_bsp(t_bsp *bsp, t_vec *pos)
 			if (bsp->node[node].isleaf == 1)
 			{
 				leaf = bsp->node[node].front;
+				printf("IN LEAF %d\n", leaf);
 				return (visible_polygons(bsp, leaf));
 			}
 			else
@@ -86,7 +89,10 @@ t_poly *render_bsp(t_bsp *bsp, t_vec *pos)
 		if (result == -1)
 		{
 			if (bsp->node[node].back == -1)
+			{
+				printf("IN SOLID\n");
 				return (NULL);
+			}
 			else
 				node = bsp->node[node].back;
 			//break;
@@ -119,7 +125,7 @@ t_mytriangle *make_triangles(t_poly *list, int *max) //LISTE DE TRIANGLE
 	if (!(res = (t_mytriangle*)malloc(sizeof(t_mytriangle) * (*max))))
 		exit(0);
 	//res = NULL;
-	printf("MAX %d\n", *max );
+	printf("NB TRIANGLES %d\n", *max );
 	j = 0;
 	while(list != NULL)
 	{
@@ -176,7 +182,7 @@ t_mytriangle *make_triangles(t_poly *list, int *max) //LISTE DE TRIANGLE
 		//printf("TRIANGLE\n");
 		list = list->next;
 	}
-	i = 0;
+	/**i = 0;
 	printf("TRIANGLE LIST\n");
 	 while (i < *max)
 	{
@@ -184,7 +190,7 @@ t_mytriangle *make_triangles(t_poly *list, int *max) //LISTE DE TRIANGLE
 				res[i].vertice[1].x, res[i].vertice[1].y, res[i].vertice[1].z,
 				res[i].vertice[2].x, res[i].vertice[2].y, res[i].vertice[2].z);
 		i++;
-	}
+	}] **/
 	/**new = res;
 	while (new != NULL)
 	{
