@@ -39,7 +39,7 @@ void	game_interface(t_win *wn)
 		}
 		ingame(wn);
 		SDL_UnlockTexture(wn->gametxt);
-		//SDL_RenderCopy(wn->rend, wn->gametxt, NULL, NULL);
+		SDL_RenderCopy(wn->rend, wn->gametxt, NULL, NULL);
 	}
 	else if (wn->interface == NGAME)
 		newgame(wn);
