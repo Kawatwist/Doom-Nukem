@@ -80,7 +80,7 @@ static void	showbgpics(t_win *wn, t_edit *edit)
 void		printeditor(t_win *wn)
 {
 	t_edit 	*edit;
-	SDL_Rect rect;
+	// SDL_Rect rect;
 
 	edit = ((t_edit *)(*wn).edit);
 	print_background_editor(wn);
@@ -97,7 +97,7 @@ void		printeditor(t_win *wn)
 	edit->var->cursor = ((edit->var->cursor & 0xFFFF) << 16) + (edit->var->cursor & 0xFFFF); // Save cursor
 	print_save_and_reset(wn, edit);
 	check_hitbox(wn, wn->edit);
-	rect = define_rect(wn->xscreen / 3, wn->yscreen / 3, wn->xscreen / 3, wn->yscreen / 3);
-	printf("popup = %d\n", pop_up_message(wn, param_pop_up("je suis une banana et la banana est un fruit jaune qu'on peut utiliser pour les smoothies et pour les milkshakes", "VRAI", "FAUX", &rect)));
+	//rect = define_rect(wn->xscreen / 3, wn->yscreen / 3, wn->xscreen / 3, wn->yscreen / 3);
+	//printf("popup = %d\n", pop_up_message(wn, param_pop_up("je suis une banana et la banana est un fruit jaune qu'on peut utiliser pour les smoothies et pour les milkshakes", "VRAI", "FAUX", &rect)));
 	// test_slider(wn);
 }
