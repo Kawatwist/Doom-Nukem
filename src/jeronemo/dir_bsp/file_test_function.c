@@ -32,6 +32,7 @@ void			ft_display_the_polygon_list(t_mypolygon *polygon_lst)
 			printf("vertice n=%d\t", j);
 			printf("x =%f\t", polygon_lst->vertex_lst->x);
 			printf("y =%f\t", polygon_lst->vertex_lst->y);
+			printf("z =%f\t", polygon_lst->vertex_lst->z);
 			printf("u =%f\t", polygon_lst->vertex_lst->u);
 			printf("v =%f\n", polygon_lst->vertex_lst->v);
 			j++;

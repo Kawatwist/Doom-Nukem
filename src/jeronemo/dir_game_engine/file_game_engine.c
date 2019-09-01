@@ -29,9 +29,23 @@ t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
 	ft_launch_rasterization(wn);
  }
 
+void	free_poly_list(t_mypolygon *lst)
+{
+	t_mypolygon	*keep_next;
+
+	while (lst != NULL)
+	{
+		keep_next = lst->next;
+		free(lst);
+		lst = NULL;
+		lst = keep_next;
+	}
+}
+
 void	turn_rast(t_win *wn)
 {
 	t_mypolygon		*new_lst;
+	t_myvec			camera;
 
 	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
 	//############
@@ -39,7 +53,11 @@ void	turn_rast(t_win *wn)
 	{
 		// ft_clear_window(wn);
 		new_lst = NULL;
-		ft_walk_bsp_tree(wn->rasterizer->bsp_node, &(((t_myraster *)wn->rasterizer->tmp)->v_camera), &new_lst);
+		camera.x = ((t_myraster *)wn->rasterizer->tmp)->v_camera.x;
+		camera.y = -((t_myraster *)wn->rasterizer->tmp)->v_camera.y;
+		camera.z = -(((t_myraster *)wn->rasterizer->tmp)->v_camera.z);
+		// ft_walk_bsp_tree(wn->rasterizer->bsp_node, &(((t_myraster *)wn->rasterizer->tmp)->v_camera), &new_lst);
+		ft_walk_bsp_tree(wn->rasterizer->bsp_node, &(camera), &new_lst);
  		ft_display_the_polygon_list(new_lst);
 
 		wn->rasterizer->triangle_array = ft_get_triangles_array(new_lst);
@@ -52,6 +70,7 @@ void	turn_rast(t_win *wn)
 //		if (wn->interface == DGAME)
 		if (!(wn->flag & MESH))
 			SDL_RenderPresent(wn->rend);
+		free_poly_list(new_lst);
 	}
 }
 

@@ -36,7 +36,7 @@ typedef struct		s_mypointf
 
 typedef enum			e_myclass
 {
-	FRONT,
+	FRONT = 0,
 	BACK,
 	SPANNING,
 	ON_PLANE,

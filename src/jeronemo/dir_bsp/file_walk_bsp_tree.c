@@ -35,6 +35,7 @@ void	ft_copy_and_add_bot(t_mypolygon **alst, t_mypolygon *new)
 		}
 		tmp->next = copy;
 	}
+	printf("added id---------:%d\n", copy->id);
 }
 
 void	ft_copy_and_add_top(t_mypolygon **alst, t_mypolygon *new)
@@ -44,9 +45,9 @@ void	ft_copy_and_add_top(t_mypolygon **alst, t_mypolygon *new)
 	copy = (t_mypolygon*)malloc(sizeof(t_mypolygon));
 	if (!copy)
 		return ;
+	*copy = *new;
 	copy->next = *alst;
 	*alst = copy;
-	*copy = *new;
 	printf("added id---------:%d\n", copy->id);
 }
 
@@ -60,6 +61,7 @@ void	ft_walk_bsp_tree(t_mynode *s_node, t_myvec *pos, t_mypolygon **new_lst)
 	result = ft_classify_point(*pos, s_node->splitter);
 	if (result == FRONT)
 	{
+		printf("camera(%f, %f, %f) is front of poly id %d\n", pos->x, pos->y, pos->z, s_node->splitter->id);
 		if (s_node->back != NULL)
 			ft_walk_bsp_tree(s_node->back, pos, new_lst);
 		ft_copy_and_add_top(new_lst, s_node->splitter);
