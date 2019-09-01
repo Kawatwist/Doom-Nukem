@@ -166,7 +166,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	 // }
 
 
-printf("nbr_triangle aaaaaaaaaaa%d\n", raster->nbr_of_triangle);
+printf("nbr_triangle aaaaaaaaaaa:%d\n", raster->nbr_of_triangle);
 
 
 
@@ -186,10 +186,10 @@ printf("nbr_triangle aaaaaaaaaaa%d\n", raster->nbr_of_triangle);
 
 
 
-			printf("x1=%f,y1=%f,\n", raster->triangle->vertice[0].x, raster->triangle->vertice[0].y);
-			printf("x2=%f,y2=%f,\n", raster->triangle->vertice[1].x, raster->triangle->vertice[1].y);
-			printf("x3=%f,y3=%f,\n", raster->triangle->vertice[2].x, raster->triangle->vertice[2].y);
-			printf("debut\n\n");
+			// printf("x1=%f,y1=%f,\n", raster->triangle->vertice[0].x, raster->triangle->vertice[0].y);
+			// printf("x2=%f,y2=%f,\n", raster->triangle->vertice[1].x, raster->triangle->vertice[1].y);
+			// printf("x3=%f,y3=%f,\n", raster->triangle->vertice[2].x, raster->triangle->vertice[2].y);
+			// printf("debut\n\n");
 
 
 		ft_calcul_world_view(raster->triangle, raster);
@@ -211,10 +211,10 @@ printf("nbr_triangle aaaaaaaaaaa%d\n", raster->nbr_of_triangle);
 
 
 
-			printf("x1=%f,y1=%f,\n", raster->triangle->vertice[0].x, raster->triangle->vertice[0].y);
-			printf("x2=%f,y2=%f,\n", raster->triangle->vertice[1].x, raster->triangle->vertice[1].y);
-			printf("x3=%f,y3=%f,\n", raster->triangle->vertice[2].x, raster->triangle->vertice[2].y);
-			printf("clip camera\n\n");
+			// printf("x1=%f,y1=%f,\n", raster->triangle->vertice[0].x, raster->triangle->vertice[0].y);
+			// printf("x2=%f,y2=%f,\n", raster->triangle->vertice[1].x, raster->triangle->vertice[1].y);
+			// printf("x3=%f,y3=%f,\n", raster->triangle->vertice[2].x, raster->triangle->vertice[2].y);
+			// printf("clip camera\n\n");
 
 
 
@@ -243,13 +243,13 @@ printf("nbr_triangle aaaaaaaaaaa%d\n", raster->nbr_of_triangle);
 	//	raster->triangle_lst_2 = raster->triangle_lst;
 
 
-	if (raster->triangle_lst_2 != NULL)
-	{
-		printf("x1=%f,y1=%f,\n", raster->triangle_lst_2->vertice[0].x, raster->triangle_lst_2->vertice[0].y);
-		printf("x2=%f,y2=%f,\n", raster->triangle_lst_2->vertice[1].x, raster->triangle_lst_2->vertice[1].y);
-		printf("x3=%f,y3=%f,\n", raster->triangle_lst_2->vertice[2].x, raster->triangle_lst_2->vertice[2].y);
-		printf("clip screen\n\n");
-	}
+	// if (raster->triangle_lst_2 != NULL)
+	// {
+	// 	printf("x1=%f,y1=%f,\n", raster->triangle_lst_2->vertice[0].x, raster->triangle_lst_2->vertice[0].y);
+	// 	printf("x2=%f,y2=%f,\n", raster->triangle_lst_2->vertice[1].x, raster->triangle_lst_2->vertice[1].y);
+	// 	printf("x3=%f,y3=%f,\n", raster->triangle_lst_2->vertice[2].x, raster->triangle_lst_2->vertice[2].y);
+	// 	printf("clip screen\n\n");
+	// }
 
 
 

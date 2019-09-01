@@ -56,7 +56,6 @@ void	turn_rast(t_win *wn)
 		camera.x = ((t_myraster *)wn->rasterizer->tmp)->v_camera.x;
 		camera.y = -((t_myraster *)wn->rasterizer->tmp)->v_camera.y;
 		camera.z = -(((t_myraster *)wn->rasterizer->tmp)->v_camera.z);
-		// ft_walk_bsp_tree(wn->rasterizer->bsp_node, &(((t_myraster *)wn->rasterizer->tmp)->v_camera), &new_lst);
 		ft_walk_bsp_tree(wn->rasterizer->bsp_node, &(camera), &new_lst);
  		ft_display_the_polygon_list(new_lst);
 
@@ -79,9 +78,6 @@ void	ft_launch_rasterization(t_win *wn)
 	wn->rasterizer->polygon_lst = NULL;
   	wn->rasterizer->polygon_lst = ft_read_the_polygon_file();
 	ft_launch_bsp_tree(wn->rasterizer->polygon_lst, &(wn->rasterizer->bsp_node)); // PROTECTION POUR SAVE FROM EDITOR
-
-	// wn->rasterizer->triangle_array = ft_get_triangles_array(wn->rasterizer->polygon_lst);
-	// wn->rasterizer->nbr_triangle = ft_get_nbr_of_triangle(wn->rasterizer->polygon_lst);
 	wn->rasterizer->tmp = malloc(sizeof(t_myraster));
 	wn->rasterizer->tmp = ft_init_rasterization(wn, (t_myraster*)(wn->rasterizer->tmp));
 }

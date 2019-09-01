@@ -40,6 +40,9 @@ int			ft_get_intersect(t_myvec *line_start,
   	intersection->x = line_start->x + direction.x * (*percentage);
   	intersection->y = line_start->y + direction.y * (*percentage);
   	intersection->z = line_start->z + direction.z * (*percentage);
+  	intersection->u = line_start->u + (line_end->u - line_start->u) * (*percentage);
+  	intersection->v = line_start->v + (line_end->v - line_start->v) * (*percentage);
+  	intersection->w = 1.0;
 	return (TRUE);
 }
 
@@ -126,7 +129,7 @@ void		ft_split_polygon(t_mypolygon *poly,
 	while (i < poly->number_of_vertex)
 	{
 		result = ft_classify_point(*point_b, plane);
-		if (result == ON_PLANE && next_vertex_keeper != NULL) //// on ajoute au deux list
+		if (result == ON_PLANE && i < poly->number_of_vertex - 1) //// on ajoute au deux list
 		{
 			ft_add_vertex(&(front_split->vertex_lst), point_b);
 			ft_add_vertex(&(back_split->vertex_lst), point_b);
@@ -135,7 +138,6 @@ void		ft_split_polygon(t_mypolygon *poly,
 		}
 		else
 		{
-			// printf("\nvertex number %d vertex is not on the splitter, intersect point test:\n", i + 1);
 			if (ft_get_intersect(point_a, point_b, point_on_plane, &(plane->normal), &intersect_point, &percentage) == TRUE)
 			{
 				tmp_vertex = ft_copy_vertex_node(&intersect_point);
@@ -145,12 +147,12 @@ void		ft_split_polygon(t_mypolygon *poly,
 				front_split->number_of_vertex++;
 				back_split->number_of_vertex++;
 			}
-			if (result == FRONT && next_vertex_keeper != NULL)
+			if (result == FRONT && i < poly->number_of_vertex - 1)
 			{
 				ft_add_vertex(&(front_split->vertex_lst), point_b);
 				front_split->number_of_vertex++;
 			}
-			else if (result == BACK && next_vertex_keeper != NULL)
+			if (result == BACK && i < poly->number_of_vertex - 1)
 			{
 				ft_add_vertex(&(back_split->vertex_lst), point_b);
 				back_split->number_of_vertex++;
