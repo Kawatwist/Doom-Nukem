@@ -148,40 +148,55 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	raster->time_draw = 0;
 	raster->time_free_lst = 0;
 
-	/* while (++(raster->i) < raster->nbr_of_triangle) */
-	/* { */
-	/* 	*(raster->triangle) = triangle_array[raster->i]; */
+	 // while (++(raster->i) < raster->nbr_of_triangle)
+	 // {
+	 // 	*(raster->triangle) = triangle_array[raster->i];
+	 // 	raster->triangle->vertice[0] = ft_normalise((raster->triangle->vertice[0]));
+	 // 	raster->triangle->vertice[1] = ft_normalise((raster->triangle->vertice[1]));
+	 // 	raster->triangle->vertice[2] = ft_normalise((raster->triangle->vertice[2]));
+	 // 	triangle_array[raster->i].texture[0].u = raster->triangle->vertice[0].x;
+		// triangle_array[raster->i].texture[0].v = raster->triangle->vertice[0].y;
+	 // 	triangle_array[raster->i].texture[0].w = 1;
+	 // 	triangle_array[raster->i].texture[1].u = raster->triangle->vertice[1].x;
+	 // 	triangle_array[raster->i].texture[1].v = raster->triangle->vertice[1].y;
+	 // 	triangle_array[raster->i].texture[1].w = 1;
+	 // 	triangle_array[raster->i].texture[2].u = raster->triangle->vertice[2].x;
+	 // 	triangle_array[raster->i].texture[2].v = raster->triangle->vertice[2].y;
+	 // 	triangle_array[raster->i].texture[2].w = 1;
+	 // }
 
-	/* 	raster->triangle->vertice[0] = ft_normalise((raster->triangle->vertice[0])); */
-	/* 	raster->triangle->vertice[1] = ft_normalise((raster->triangle->vertice[1])); */
-	/* 	raster->triangle->vertice[2] = ft_normalise((raster->triangle->vertice[2])); */
 
-	/* 	triangle_array[raster->i].texture[0].u = raster->triangle->vertice[0].x; */
-	/* 	triangle_array[raster->i].texture[0].v = raster->triangle->vertice[0].y; */
-	/* 	triangle_array[raster->i].texture[0].w = 1; */
+printf("nbr_triangle aaaaaaaaaaa:%d\n", raster->nbr_of_triangle);
 
-	/* 	triangle_array[raster->i].texture[1].u = raster->triangle->vertice[1].x; */
-	/* 	triangle_array[raster->i].texture[1].v = raster->triangle->vertice[1].y; */
-	/* 	triangle_array[raster->i].texture[1].w = 1; */
 
-	/* 	triangle_array[raster->i].texture[2].u = raster->triangle->vertice[2].x; */
-	/* 	triangle_array[raster->i].texture[2].v = raster->triangle->vertice[2].y; */
-	/* 	triangle_array[raster->i].texture[2].w = 1; */
-	/* } */
 
 
 	raster->i = -1;
 	while (++(raster->i) < raster->nbr_of_triangle)
 	{
+
+
+
+
+
+
 		current_time = clock();
 		*(raster->triangle) = triangle_array[raster->i];
+
+
+
+
+			// printf("x1=%f,y1=%f,\n", raster->triangle->vertice[0].x, raster->triangle->vertice[0].y);
+			// printf("x2=%f,y2=%f,\n", raster->triangle->vertice[1].x, raster->triangle->vertice[1].y);
+			// printf("x3=%f,y3=%f,\n", raster->triangle->vertice[2].x, raster->triangle->vertice[2].y);
+			// printf("debut\n\n");
 
 
 		ft_calcul_world_view(raster->triangle, raster);
 		ft_my_time(&(raster->time_world_view), &current_time, &last_time);
 
-		if (ft_culling(raster->triangle, raster) == 1)
-		{
+		//if (ft_culling(raster->triangle, raster) == 1)
+		//{
 			ft_my_time(&(raster->time_culling), &current_time, &last_time);
 
 			ft_calcul_shade(raster->triangle, raster);
@@ -193,6 +208,17 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 
 			ft_clipping_camera(raster->triangle, raster, &(raster->clipped_triangle));
 			ft_my_time(&(raster->time_clipping_camera), &current_time, &last_time);
+
+
+
+			// printf("x1=%f,y1=%f,\n", raster->triangle->vertice[0].x, raster->triangle->vertice[0].y);
+			// printf("x2=%f,y2=%f,\n", raster->triangle->vertice[1].x, raster->triangle->vertice[1].y);
+			// printf("x3=%f,y3=%f,\n", raster->triangle->vertice[2].x, raster->triangle->vertice[2].y);
+			// printf("clip camera\n\n");
+
+
+
+
 
 			raster->j = 0;
 			while (raster->j < raster->nbr_of_clipped_triangle_created)
@@ -208,13 +234,28 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 
 				raster->j += 1;
 			}
-		}
+		//}
 	}
 	ft_clipping_screen(wn, raster->triangle_lst, raster, &(raster->clipped_triangle));
 	ft_my_time(&(raster->time_clipping_screen), &current_time, &last_time);
 
 	//	printf("fin clipping screen \n");
 	//	raster->triangle_lst_2 = raster->triangle_lst;
+
+
+	// if (raster->triangle_lst_2 != NULL)
+	// {
+	// 	printf("x1=%f,y1=%f,\n", raster->triangle_lst_2->vertice[0].x, raster->triangle_lst_2->vertice[0].y);
+	// 	printf("x2=%f,y2=%f,\n", raster->triangle_lst_2->vertice[1].x, raster->triangle_lst_2->vertice[1].y);
+	// 	printf("x3=%f,y3=%f,\n", raster->triangle_lst_2->vertice[2].x, raster->triangle_lst_2->vertice[2].y);
+	// 	printf("clip screen\n\n");
+	// }
+
+
+
+
+
+
 
 	ft_draw(raster->triangle_lst_2, wn);
 	ft_my_time(&(raster->time_draw), &current_time, &last_time);

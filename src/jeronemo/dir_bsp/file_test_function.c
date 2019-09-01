@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <header_bsp.h> 
+#include <header_bsp.h>
 
 void			ft_display_the_polygon_list(t_mypolygon *polygon_lst)
 {
@@ -24,7 +24,7 @@ void			ft_display_the_polygon_list(t_mypolygon *polygon_lst)
 	i = 0;
 	while (polygon_lst != NULL)
 	{
-		printf("\nPolynome n=%d\n", i);
+		printf("\nPolynome id=%d\n", polygon_lst->id);
 		keep_vec = polygon_lst->vertex_lst;
 		j = 0;
 		while (polygon_lst->vertex_lst != NULL)
@@ -32,6 +32,7 @@ void			ft_display_the_polygon_list(t_mypolygon *polygon_lst)
 			printf("vertice n=%d\t", j);
 			printf("x =%f\t", polygon_lst->vertex_lst->x);
 			printf("y =%f\t", polygon_lst->vertex_lst->y);
+			printf("z =%f\t", polygon_lst->vertex_lst->z);
 			printf("u =%f\t", polygon_lst->vertex_lst->u);
 			printf("v =%f\n", polygon_lst->vertex_lst->v);
 			j++;

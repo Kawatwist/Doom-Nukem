@@ -12,6 +12,7 @@
 
 # include <doom.h>
 # include <tga_reader.h>
+# include <header_bsp.h>
 
 typedef struct	s_mytex
 {
@@ -63,8 +64,6 @@ typedef struct				s_myraster
 {
 	int						i;
 	int						j;
-
-
 
 
 	int						debug;
@@ -144,9 +143,10 @@ typedef struct				s_myraster
 	unsigned int			time_clipping_screen;
 	unsigned int			time_draw;
 	unsigned int			time_free_lst;
-	
+
 
 }							t_myraster;
+
 
 void			ft_store_in_lst(t_mytriangle *toadd, t_mytriangle **head);
 t_myvec			find_intersection(t_win *wn, t_myvec v1, t_myvec v2, char side);
@@ -234,7 +234,7 @@ void			ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster);
 void			ft_scale_screen(t_mytriangle *triangle);
 
 void			ft_clipping_screen(t_win *wn, t_mytriangle *triangle,
-							t_myraster *raster, 
+							t_myraster *raster,
 							t_mytriangle **clipped_triangle);
 void			ft_draw(t_mytriangle *triangle_lst_2, t_win *wn);
 void			ft_make_the_world_spin(int turn, t_myraster *raster);

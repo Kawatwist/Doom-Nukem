@@ -178,15 +178,18 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 				s_tex->dstrect.x = j;
 				s_tex->dstrect.y = i;
 
+
 				/* s_tex->m_ppixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * 512)]; */
 				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
 				{
-					if (s_tex->tex_w > depth_buffer[i * XSCREEN + j] )
-					{
+					// if (s_tex->tex_w > depth_buffer[i * XSCREEN + j] )
+					// {
 						s_tex->m_pPixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
 						depth_buffer[i * XSCREEN + j] = s_tex->tex_w;
-					}
+					// }
 				}
+				// s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF;
+
 			/* printf("s_tex->tex_w=%f\n", s_tex->tex_w); */
 
 				/* SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect)); */
@@ -255,14 +258,17 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 				s_tex->dstrect.y = i;
 				/* s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF; */
 
+
 				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
 				{
-					if (s_tex->tex_w > depth_buffer[i * XSCREEN + j])
-					{
+					// if (s_tex->tex_w > depth_buffer[i * XSCREEN + j])
+					// {
 						s_tex->m_pPixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
 						depth_buffer[i * XSCREEN + j] = s_tex->tex_w;
-					}
+					// }
 				}
+				// s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF;
+
 				/* SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect)); */
 				j++;
 				t += s_tex->tstep;
