@@ -152,16 +152,16 @@ void	build_bsp_tree(int node, t_bsp *bsp)
 			t->count++;
 		t->temp = t->temp->next;
 	}
-	if (node == 17)
-		printf("t count %d \n", t->count);
+	//if (node == 17)
+	//	printf("t count %d \n", t->count);
 	calc_box(&bsp->node[t->node].bbox, t->front);
 	t->leaf_box = bsp->node[t->node].bbox;
 	calc_box(&bsp->node[t->node].bbox, t->back);
 	//printf("ICI ??\n");
 	if (t->count == 0)
 	{
-		if (node == 17)
-			printf("ON EST LAS %d\n", t->node);
+		//if (node == 17)
+		//	printf("ON EST LAS %d\n", t->node);
 		t->iter = t->front;
 		bsp->leaf[bsp->nb_leafs].start_poly = bsp->nb_polys;
 		while (t->iter != NULL)

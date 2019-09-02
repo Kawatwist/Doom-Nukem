@@ -117,7 +117,7 @@ void build_portal_start(t_bsp *bsp, t_buildp *buildp)
 {
 	//printf("BUILD PORTAL START %d\n", buildp->nodestack[buildp->stackpointer].node);
 	buildp->init = calculate_init_portal(bsp, buildp->nodestack[buildp->stackpointer].node);
-	printf("INITIAL PORTAL\n");
+	printf("INITIAL PORTAL\n\n");
 	print_polys((t_poly*)buildp->init, 1);
 	//print_portals(&buildp->init, 1);
 	buildp->p_list = clip_portal(bsp, 0, buildp->init);

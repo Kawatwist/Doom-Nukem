@@ -38,12 +38,16 @@ t_bsp *bsp_compile()
 	build_bsp_tree(0, bsp);
 	printf("tree built\n");
 	print_polys(bsp->poly, bsp->nb_polys);
+	print_nodes(bsp->node, bsp->nb_nodes);
+
+	sleep(1000);
 	build_portal(bsp);
 	//printf("portal built\n");
-	if (!(bsp->pvs = (char*)malloc(sizeof(char) * bsp->nb_leafs * ((bsp->nb_leafs + 7) / 8) + 1)))
+	if (!(bsp->pvs = (unsigned char*)malloc(sizeof(char) * bsp->nb_leafs * ((bsp->nb_leafs + 7) / 8) + 1)))
 		exit(0);
 	ft_bzero(bsp->pvs, bsp->nb_leafs * ((bsp->nb_leafs + 7) / 8));
 	bsp->pvs_size = calc_pvs(bsp);
-	//print_bsp(bsp);
+	print_bsp(bsp);
+	//sleep(1000);
 	return (bsp);
 }

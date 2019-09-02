@@ -122,6 +122,7 @@ void print_pvs(t_bsp *bsp)
 	int i;
 	int j;
 	int c;
+	//int l;
 
 	printf("\nPVS\nSize = %d\n", bsp->pvs_size);
 	i = 0;

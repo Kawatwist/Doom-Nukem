@@ -33,6 +33,9 @@ void split_portal(t_portal *front, t_portal *back, t_portal *portal, t_plane *pl
 	front->leafs[1] = portal->leafs[1];
 	back->leafs[0] = portal->leafs[0];
 	back->leafs[1] = portal->leafs[1];
+
+	front->debug_node = portal->debug_node; //to remove
+	back->debug_node = portal->debug_node; //to remove
 	//printf("fin split portal\n");
 }
 
@@ -40,7 +43,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 {
 	t_pclip pclip;
 
-	//printf("PORTAL CLIP NODE %d\n", bsp->node[node].plane);
+	printf("PORTAL CLIP NODE %d %d\n", node, portal->debug_node);//bsp->node[node].plane);
 	init_pclip(&pclip);
 	if (bsp->node[node].plane == -1) //check segv
 		pclip.result = 1;
@@ -52,7 +55,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 		//printf("TEST 1 IN\n");
 		if (bsp->node[node].isleaf == 0)
 		{
-			printf("FRONT CASE\n");
+			printf("FRONT CASE %d\n",bsp->node[node].front );
 			pclip.p_list = clip_portal(bsp, bsp->node[node].front, portal);
 			//printf("TEST 1 OUT\n");
 			return (pclip.p_list);

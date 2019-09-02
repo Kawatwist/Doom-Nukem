@@ -90,7 +90,7 @@ int			select_splitter(t_bsp *bsp) //function choosing best splitter for a more b
 		s.splitter = s.splitter->next;
 	}
 	//printf("WTF\n");
-	if (s.selected == NULL) //si ily a plus de poly qui peuvent etre splitters
+	if (s.selected == NULL) //si ily a plus de poly qui peuvent etre splitters ????
 		return (-1);
 	//printf("SELECT SPLIT\n");
 	s.selected->was_splitter = 1;

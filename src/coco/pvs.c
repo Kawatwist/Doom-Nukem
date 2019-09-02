@@ -65,7 +65,7 @@ void set_pvs_bit(char *pvs, int leaf) // sets the bit of corresponding leaf to 1
 	//printf("SET BIT %d to leaf %d\n", byte_to_set, leaf);
 	//byte_to_set = leaf / 8;
 	bit_to_set = (char)(leaf - (byte_to_set * 8));
-	pvs[byte_to_set] = pvs[byte_to_set]|(1<<bit_to_set);
+	pvs[byte_to_set] = pvs[byte_to_set] | (1<<bit_to_set);
 	//printf("%d\n", pvs[byte_to_set]); 
 }
 
@@ -326,6 +326,14 @@ int compress_leaf(t_bsp *bsp, char *leaf_pvs, int position)
 	cl.i = 0; //-1 ?
 	cl.bytes_per_set = (bsp->nb_leafs + 7) / 8;
 	//printf("CL 2 BPS = %d\n", cl.bytes_per_set);
+	/**while (cl.i < cl.bytes_per_set)
+	{
+		printf("%d ", (unsigned char)leaf_pvs[cl.i]);
+		cl.i++;
+	}
+	printf("\n");
+	sleep(1000);
+	cl.i = 0; **/
 	while (cl.i < cl.bytes_per_set)
 	{
 	//	printf("CL 3 %d %d\n", cl.i, leaf_pvs[cl.i]);
@@ -335,7 +343,7 @@ int compress_leaf(t_bsp *bsp, char *leaf_pvs, int position)
 		*(cl.dest_p) = leaf_pvs[cl.i];
 		cl.dest_p++;  //??
 		cl.i++;
-		if(leaf_pvs[cl.i - 1])
+		if(leaf_pvs[cl.i])
 			continue;
 		cl.rep = 1;
 		cl.i++;

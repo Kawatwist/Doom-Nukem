@@ -40,6 +40,11 @@ t_portal *calculate_init_portal(t_bsp *bsp, int node)
 {
 	t_calcp calc;
 
+	if (node != 0)
+	{
+		printf("ALTPORTAL\n");
+		sleep(100);
+	}
 	printf("CREATE PORTAL %f %f\n", bsp->node[node].bbox.boxmax.z, bsp->node[node].bbox.boxmin.z);
 	calc.maxp = bsp->node[node].bbox.boxmax;
 	calc.minp = bsp->node[node].bbox.boxmin;
@@ -86,6 +91,7 @@ t_portal *calculate_init_portal(t_bsp *bsp, int node)
 	if(!(calc.portal = (t_portal*)malloc(sizeof(t_portal))))
 		exit(0);
 	init_portal(calc.portal);
+	calc.portal->debug_node = node;
 	if (!(calc.portal->ver_list = (t_vec*)malloc(sizeof(t_vec) * 4)))
 		exit(0);
 	//printf("TESTING VALUES X: %f %f %f\n", calc.cp.x, calc.u.x, calc.v.x);

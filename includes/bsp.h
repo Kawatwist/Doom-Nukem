@@ -67,7 +67,7 @@ typedef struct	s_box //bounding box
 struct	s_poly //polygon
 {
 	t_vec		*ver_list;  //TAB
-	t_vec			*ver_tmp; //@ LOIC
+	t_vec		*ver_tmp; //@ LOIC
 	t_vec		normal;
 	int			nb_ver; //points du polygone
 	int			nb_indices; 
@@ -90,6 +90,8 @@ struct s_portal
 	t_portal 	*prev;
 	int 		nb_leafs;
 	int 		leafs[2];
+
+	int 		debug_node; //to remove
 };//				t_portal;
 
 typedef struct	s_node //bsp node
@@ -166,7 +168,7 @@ typedef struct	s_bsp //global use
 	t_leaf		*leaf;
 	t_plane		*plane;
 	t_portal	**portal; //tableau d'adresses de portails
-	char	*pvs;
+	unsigned char	*pvs;
 	int 		pvs_size;
 	int			nb_polys;
 	int			nb_nodes;
@@ -358,8 +360,8 @@ typedef struct s_cl
 {
 	int i;
 	int rep;
-	char *dest;
-	char *dest_p;
+	unsigned char *dest;
+	unsigned char *dest_p;
 	int bytes_per_set;
 }				t_cl;
 
@@ -368,7 +370,7 @@ typedef struct s_vp
 	t_poly 	*list;
 	t_poly 	*curr;
 	int 	offset;
-	char 	*pointer;
+	unsigned char 	*pointer;
 	int 	curr_leaf;
 	int  	i;
 	char	mask;

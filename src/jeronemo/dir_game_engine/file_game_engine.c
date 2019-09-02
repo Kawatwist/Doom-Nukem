@@ -60,6 +60,7 @@ void	turn_rast(t_win *wn)
 		wn->rasterizer->curr_pos.z = ((t_myraster*)wn->rasterizer->tmp)->v_camera.z;
 		wn->rasterizer->poly_list = render_bsp(wn->rasterizer->bsp, &wn->rasterizer->curr_pos);
 		wn->rasterizer->triangle_array = make_triangles(wn->rasterizer->poly_list, &wn->rasterizer->nbr_triangle);
+		print_pvs(wn->rasterizer->bsp);
 		//! COCO 
 		((t_myraster*)(wn->rasterizer->tmp))->nbr_of_triangle = wn->rasterizer->nbr_triangle;
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array , wn);
