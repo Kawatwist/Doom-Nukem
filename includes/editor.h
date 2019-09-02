@@ -113,6 +113,9 @@ typedef struct 		s_edit
 	void			(*cursor_fct[10]) (t_win *wn, struct s_edit *edit);
 }					t_edit;
 
+void    			ft_ftoafd(float nbr, int fd);
+void        		save_panel(t_win *wn, t_edit *edit);
+
 t_point				**addtmptoselection(t_point **tmp, t_point **select);
 t_point     		**cpy_elem_selected(t_elem *elem);
 t_point				*find_center_linked(t_elem **lst);
