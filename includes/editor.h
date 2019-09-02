@@ -101,8 +101,6 @@ typedef struct 		s_var
 	int 			on;
 }					t_var;
 
-
-
 typedef struct 		s_edit
 {
 	t_map 			*map;
