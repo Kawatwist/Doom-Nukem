@@ -6,9 +6,14 @@
 #    By: lomasse <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 19:24:01 by lomasse           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2019/08/12 17:26:10 by naali            ###   ########.fr        #
+=======
+#    Updated: 2019/07/18 16:12:56 by jchardin         ###   ########.fr        #
+>>>>>>> e4be04a6d043de8f22f2366dc09231de125bb537
 #                                                                              #
 # **************************************************************************** #
+
 rose=\033[1;31m
 violetfonce=\033[0;35m
 violetclair=\033[1;35m
@@ -125,6 +130,7 @@ SRC += file_order_z_buffer.c
 SRC += file_draw_triangle.c
 SRC += file_window.c
 SRC += file_calcul_world_view.c
+SRC += ft_draw_textured_triangle.c
 
 #BSP
 SRC += file_bsp.c
@@ -138,6 +144,8 @@ SRC += file_build_bsp_tree.c
 SRC += file_select_spliter.c
 SRC += file_classify_polygon.c
 SRC += file_affichage_bsp.c
+SRC += file_split_polygon.c
+SRC += file_walk_bsp_tree.c
 
 #BRESENHAM
 SRC += fille_bresename.c
@@ -198,7 +206,8 @@ LIBFTA			= ./libft \
 
 IMAGE 			= ./libraries \
 
-DEBUG			= -g -fsanitize=address
+# DEBUG			= -g -fsanitize=address
+DEBUG			= -g
 
 all: $(NAME)
 

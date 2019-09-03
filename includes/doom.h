@@ -39,6 +39,7 @@
 # define FS			1 << 1
 # define CINE		1 << 2
 # define CONSOLE	1 << 3
+# define MESH		1 << 4
 # define SKY        1 << 16
 # define DIFFICULTY 1 << 18
 # define SKY2		1 << 20
@@ -110,10 +111,20 @@ typedef struct		s_myvec
 	float			y;
 	float			z;
 	float			w;
+	float			u;  //pour texture x
+	float			v;  //pour texture y
 	int				obj_indice;
+	int				obj_indice_texture;
 	float			shade;
 	struct s_myvec	*next;
 }					t_myvec;
+
+typedef struct		s_mytexture
+{
+	float			u;
+	float			v;
+	float			w;
+}					t_mytexture;
 
 typedef struct		s_point
 {
@@ -162,7 +173,7 @@ typedef struct		s_load
 	struct s_load	*next;
 }					t_load;
 
-typedef struct 		s_bresenham 
+typedef struct 		s_bresenham
 {
 	int 			x;
 	int 			y;
@@ -216,10 +227,10 @@ typedef struct 		s_color
 	SDL_Color		violetrose;
 	SDL_Color 		red;
 	SDL_Color 		blanc;
-	unsigned char	r;			
-	unsigned char	g;			
-	unsigned char	b;			
-	unsigned char	a;	
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	a;
 }					t_color;
 
 typedef struct 		s_loadbgmap
@@ -259,7 +270,7 @@ typedef struct 		s_var_edit
 	int 			nb_point;
 }					t_var_edit;
 
-// typedef struct 		s_bresenham 
+// typedef struct 		s_bresenham
 // {
 // 	int 			x;
 // 	int 			y;
@@ -287,7 +298,7 @@ typedef struct  	s_fonts
 
 // typedef struct		s_color
 // {
-		
+
 // }					t_color;
 
 //JEROME
@@ -302,6 +313,7 @@ typedef struct				s_mycolor
 typedef struct				s_mytriangle
 {
 	t_myvec					vertice[3];
+	t_mytexture				texture[3];
 	float					zbuff;
 	struct s_mytriangle		*next;
 	char					ft_color;
@@ -318,16 +330,29 @@ typedef struct				s_mypolygon
 	int						number_of_vertex;        //nombre de vertex
 	int						number_of_indices;       //nombre d'indices
 	int						*indices;                //la listes des indices apres triangulasisation
+	int						id;
 	struct s_mypolygon		*next;                   //le prochain noeud dans la liste
 }							t_mypolygon;
 // FIN JEROME
 //
+
+typedef struct			s_mynode
+{
+	t_mypolygon			*splitter;
+	struct s_mynode		*front;
+	struct s_mynode		*back;
+	char				is_leaf;
+	char				is_solid;
+}						t_mynode;
+
+
 typedef struct		s_rasterizer
 {
-	int				max;
+	int				nbr_triangle;
 	void			*tmp;
-	t_mytriangle	*tmp2;
-	t_mypolygon		*tmp3;
+	t_mytriangle	*triangle_array;
+	t_mypolygon		*polygon_lst;
+	t_mynode		*bsp_node;
 }					t_rasterizer;
 
 typedef struct		s_win
@@ -388,15 +413,19 @@ typedef struct		s_win
 void						clipping(t_win *wn, t_mytriangle toclip, t_mytriangle **tostore);
 void						ft_launch_rasterization(t_win *wn);
 void						turn_rast(t_win *wn);
+void	ft_launch_bsp_tree(t_mypolygon *polygon_lst, t_mynode **bsp_node);
+
 //
 
 
 
 t_mycolor					ft_setcolor(int rrr, int ggg, int bbb);
-void						ft_launch_bsp_tree(t_mypolygon *polygon_lst);
+// void						ft_launch_bsp_tree(t_mypolygon *polygon_lst);
+
 float						ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec						ft_cross_product(t_myvec v1, t_myvec v2);
 int							ft_abs(int number);
+float						ft_abs_float(float number);
 float						ft_atoi_comma(const char *str);
 
 //commun

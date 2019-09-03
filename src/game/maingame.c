@@ -65,10 +65,10 @@ void	game(t_win *wn)	// Common info
 		wn->oldinterface == LGAME ? mainintro(wn, "game", "intro", 60) : 0;
 		wn->oldinterface = wn->interface;
 	}
-//	if (wn->interface != RGAME) // USELESS ?
-//	{
-//		SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 255);
-//		SDL_RenderClear(wn->rend);
-//	}
+	if (wn->interface != RGAME) // USELESS ?
+	{
+		SDL_SetRenderDrawColor(wn->rend, 0, 0, 0, 255);
+		SDL_RenderClear(wn->rend);
+	}
 	game_interface(wn);
 }

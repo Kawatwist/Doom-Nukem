@@ -6,16 +6,69 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/27 14:59:22 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/25 19:38:46 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <doom.h>
+# include <tga_reader.h>
+# include <header_bsp.h>
+
+typedef struct	s_mytex
+{
+	t_tga		*tga;
+
+	int			ax;
+	int			bx;
+
+	float		dax_step;
+	float		du1_step;
+	float		dv1_step;
+	float		dw1_step;
+	float		dbx_step;
+	float		du2_step;
+	float		dv2_step;
+	float		dw2_step;
+
+	int			dy1;
+	float		dv1;
+	int			dx1;
+	float		du1;
+	float		dw1;
+	int			dy2;
+	float		dv2;
+	int			dx2;
+	float		du2;
+	float		dw2;
+
+	float		tex_su;
+	float		tex_sv;
+	float		tex_sw;
+	float		tex_eu;
+	float		tex_ev;
+	float		tex_ew;
+
+	float		tex_u;
+	float		tex_v;
+	float		tstep;
+	float		tex_w;
+
+	SDL_Rect	srcrect;
+	SDL_Rect	dstrect;
+	Uint32		*m_pPixels;
+
+
+}				t_mytext;
 
 typedef struct				s_myraster
 {
 	int						i;
 	int						j;
+
+
+	int						debug;
+	SDL_Texture				*texture;
+	t_mytext				*s_tex;
 
 
 	t_mytriangle			*triangle;
@@ -90,9 +143,10 @@ typedef struct				s_myraster
 	unsigned int			time_clipping_screen;
 	unsigned int			time_draw;
 	unsigned int			time_free_lst;
-	
+
 
 }							t_myraster;
+
 
 void			ft_store_in_lst(t_mytriangle *toadd, t_mytriangle **head);
 t_myvec			find_intersection(t_win *wn, t_myvec v1, t_myvec v2, char side);
@@ -103,7 +157,7 @@ int				nb_outside(t_win *wn, t_mytriangle *curr, int side);
 void			ft_launch_rasterization(t_win *wn);
 t_myraster		*ft_init_rasterization(t_win *wn, t_myraster *raster);
 /* t_myraster		*ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, int max, t_win *wn); */
-void	ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *wn);
+void			ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *wn);
 int				ft_get_nbr_of_triangle(t_mypolygon *polygon_lst);
 void			ft_draw_triangle_base(t_myvec *v1, t_myvec *v2, t_myvec *v3, t_win *wn);
 t_mytriangle	**ft_triangle_clips_again_plan(t_myvec point, t_myvec plane_norm, int *nbr,t_mytriangle **clipped_triangle, t_mytriangle *triangle);
@@ -180,7 +234,14 @@ void			ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster);
 void			ft_scale_screen(t_mytriangle *triangle);
 
 void			ft_clipping_screen(t_win *wn, t_mytriangle *triangle,
-							t_myraster *raster, 
+							t_myraster *raster,
 							t_mytriangle **clipped_triangle);
 void			ft_draw(t_mytriangle *triangle_lst_2, t_win *wn);
 void			ft_make_the_world_spin(int turn, t_myraster *raster);
+
+
+
+void	ft_draw_textured_triangle(
+		t_mytriangle *tri,
+		t_mytext *s_tex,
+		float	*depth_buffer);

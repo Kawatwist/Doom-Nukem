@@ -6,27 +6,26 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:46:33 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/11 18:20:57 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/08/21 15:51:27 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header_bsp.h>
 
-
-void	ft_launch_bsp_tree(t_mypolygon *polygon_lst)
+void	ft_launch_bsp_tree(t_mypolygon *polygon_lst, t_mynode **bsp_node)
 {
+ 	t_mynode		*s_node;
+
 	printf("BSP tree launcher\n");
-
-	ft_display_the_polygon_list(polygon_lst);
+ 	// ft_display_the_polygon_list(polygon_lst);
 	ft_process_polygon(polygon_lst);
+ 	ft_display_the_polygon_list(polygon_lst);
 
-
-
-
-
-	//ft_build_bsp_tree((&s_node), s_win->polygon_lst);
-	//ft_afficher_le_bsp(&s_node);
-	//ft_display_polygon();
+ 	s_node = (t_mynode*)malloc(sizeof(t_mynode));
+ 	ft_bzero(s_node, sizeof(s_node));
+	ft_build_bsp_tree((s_node), polygon_lst);
+	*bsp_node= s_node;
+	ft_afficher_le_bsp(*bsp_node);
 
 
 	/* (void)wn; */

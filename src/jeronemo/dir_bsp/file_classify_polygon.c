@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <header_bsp.h> 
+#include <header_bsp.h>
 
 int			ft_classify_point(t_myvec point, t_mypolygon *plane)
 {

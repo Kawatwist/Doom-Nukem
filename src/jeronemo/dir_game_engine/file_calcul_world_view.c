@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/07/27 16:13:34 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/08/25 19:48:09 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,36 @@ void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)
 
 void	ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster)
 {
+	/* printf("le w=%f\n", triangle->vertice[0].w); */
+	/* exit(0); */
 	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_proje);//PROJECTION
+
+	triangle->texture[0].u /= triangle->vertice[0].w;
+	triangle->texture[0].v /= triangle->vertice[0].w;
+	triangle->texture[1].u /= triangle->vertice[1].w;
+	triangle->texture[1].v /= triangle->vertice[1].w;
+	triangle->texture[2].u /= triangle->vertice[2].w;
+	triangle->texture[2].v /= triangle->vertice[2].w;
+
+	triangle->texture[0].w = 1.0 / triangle->vertice[0].w;
+	triangle->texture[1].w = 1.0 / triangle->vertice[1].w;
+	triangle->texture[2].w = 1.0 / triangle->vertice[2].w;
+
+
+	//la division par z
+	triangle->vertice[0].x /= triangle->vertice[0].w;
+	triangle->vertice[0].y /= triangle->vertice[0].w;
+	triangle->vertice[0].z /= triangle->vertice[0].w;
+	triangle->vertice[1].x /= triangle->vertice[1].w;
+	triangle->vertice[1].y /= triangle->vertice[1].w;
+	triangle->vertice[1].z /= triangle->vertice[1].w;
+	triangle->vertice[2].x /= triangle->vertice[2].w;
+	triangle->vertice[2].y /= triangle->vertice[2].w;
+	triangle->vertice[2].z /= triangle->vertice[2].w;
+
+	/* printf("p1 le u=%f le v=%f le w=%f\n", triangle->texture[0].u, triangle->texture[0].v, triangle->texture[0].w); */
+	/* printf("p2 le u=%f le v=%f le w=%f\n", triangle->texture[1].u, triangle->texture[1].v, triangle->texture[1].w); */
+	/* printf("p3 le u=%f le v=%f le w=%f\n", triangle->texture[2].u, triangle->texture[2].v, triangle->texture[2].w); */
 }
 
 void	ft_scale_screen(t_mytriangle *triangle)
@@ -138,28 +167,51 @@ void	ft_scale_screen(t_mytriangle *triangle)
 
 void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
-	t_mytriangle	*keep;
-	t_point			start;
-	t_point			end;
+		t_mytriangle	*keep;
+		float			*depth_buffer;
 
-	keep = triangle_lst_2;
-	while (triangle_lst_2 != NULL)
-	{
-		//printf("=%f\n", triangle_lst_2->vertice[0].x);
-		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
-		ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade);
-		//DRAW MESH
-		ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
-		triangle_lst_2 = triangle_lst_2->next;
-	}
-	(void)end;
-	(void)start;
+		depth_buffer = malloc(sizeof(float) * 1920 * 1080);
+		/* printf("hello\n"); */
+		if (depth_buffer == NULL)
+			exit(0);
+
+		int i = 0;
+		while (i < 1920 * 1080)
+		{
+			if(((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] != 0xFF00FFFF)
+				((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFF00FFFF;
+			depth_buffer[i] = 0.0;
+			i++;
+		}
+		keep = triangle_lst_2;
+		while (triangle_lst_2 != NULL)
+		{
+			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
+			// printf("%p\n", triangle_lst_2);
+			if (wn->flag & MESH)
+			{
+				ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade);
+				ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
+				triangle_lst_2 = triangle_lst_2->next;
+			}
+			else
+			{
+				ft_draw_textured_triangle(
+						triangle_lst_2,
+						((t_myraster*)wn->rasterizer->tmp)->s_tex,
+						depth_buffer);
+				triangle_lst_2 = triangle_lst_2->next;
+			}
+		}
+	triangle_lst_2 = keep;
+	free(depth_buffer);
+	SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels, 1920 * sizeof(Uint32));
+	SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
 /*	start.x = 20;
 	start.y = 100;
 	end.x = 20;
 	end.y = YSCREEN - 100;
-	drawline(wn, 0xFF0000FF, start, end);
-	start.x = XSCREEN - 20;
+	drawline(wn, 0xFF0000FF, start, end); start.x = XSCREEN - 20;
 	start.y = 100;
 	end.x = XSCREEN - 20;
 	end.y = YSCREEN - 100;
