@@ -6,11 +6,12 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/08/28 15:19:59 by jleblond         ###   ########.fr       */
+/*   Updated: 2019/09/03 11:25:17 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom.h"
+#include "inventaire.h"
 
 static void		interface(t_win *wn)
 {
@@ -27,11 +28,20 @@ static void		interface(t_win *wn)
 	wn->flag & CONSOLE ? mainconsole(wn) : 0;
 }
 
+/**/
+int				test_joueur_creation(t_joueurs **j);
+/**/
+
 void			turn(t_win *wn)
 {
 	Uint32	difftime;
 	Uint32	time;
 
+/* TEST */
+	t_joueurs	*j;
+
+	test_joueur_creation(&j);
+/* TEST */
 	mainintro(wn, "main", "intro", 1);
 	while (TRUE)
 	{
@@ -40,6 +50,9 @@ void			turn(t_win *wn)
 		interface(wn);
 		difftime = SDL_GetTicks();
 		(difftime - time) < (1000 / 60) ? SDL_Delay((1000 / 60) - (difftime - time)) : 0;
+/* TEST */
+		print_inventory(wn, j, 1);
+/* TEST */
 		wn->interface != DGAME ? SDL_RenderPresent(wn->rend) : 0;
 	}
 }

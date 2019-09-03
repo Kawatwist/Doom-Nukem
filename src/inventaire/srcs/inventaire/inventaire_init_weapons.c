@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 18:21:44 by naali             #+#    #+#             */
-/*   Updated: 2019/06/28 14:02:28 by naali            ###   ########.fr       */
+/*   Updated: 2019/09/03 11:20:36 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void		init_weapon_names(char ***wp)
 	(*wp)[9] = ft_strdup("Kunai");
 	(*wp)[10] = ft_strdup("Filet");
 	(*wp)[11] = ft_strdup("Explosif");
-	(*wp)[12] = NULL;
 }
 
 static void		init_weapon_damages(unsigned int (*wp)[12][3])
