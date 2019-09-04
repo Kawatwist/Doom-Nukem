@@ -214,6 +214,7 @@ typedef struct		s_popup
 	char			*message;
 	char 			*yes;
 	char 			*no;
+	char			*str;
 	SDL_Rect 		*rect;
 	SDL_Rect 		position;
 }					t_popup;
