@@ -111,6 +111,44 @@ static void create_face(Uint32 nb1, Uint32 nb2, int fd, Uint32 currnb)
     ft_putchar_fd('\n', fd);
 }
 
+static void close_map(Uint32 nb, int fd)
+{
+    ft_putstr_fd("v 0.0 0.0 20.0\nv 60.0 0.0 20.0\nv 60.0 0.0 0.0\nv 0.0 0.0 0.0\nv 0.0 60.0 20.0\nv 60.0 60.0 20.0\nv 60.0 60.0 0.0\nv 0.0 60.0 0.0", fd);
+    ft_putstr_fd("\nf ", fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 1, fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 2, fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 3, fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 4, fd);
+    ft_putstr_fd("\nf ", fd);
+    ft_putnbr_fd(nb + 2, fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 6, fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 7, fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 3, fd);
+    ft_putstr_fd("\nf ", fd);
+    ft_putnbr_fd(nb + 6, fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 5, fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 8, fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 7, fd);
+    ft_putstr_fd("\nf ", fd);
+    ft_putnbr_fd(nb + 5, fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 1, fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 4, fd);
+    ft_putchar_fd(' ',fd);
+    ft_putnbr_fd(nb + 8, fd);
+}
+
 static void fill_file(t_edit *edit, int fd)
 {
     t_elem  *curr_elem;
@@ -136,7 +174,8 @@ static void fill_file(t_edit *edit, int fd)
         currnb += nb_ver1 + nb_ver2;
         nb++;
     }
-    ft_putstr_fd("# ", fd); // DONT NEED THIS BUT COULD BE USEFUL
+    close_map(currnb, fd);
+    ft_putstr_fd("\n# ", fd); // DONT NEED THIS BUT COULD BE USEFUL
     ft_putnbr_fd(nb - 1, fd);
     ft_putstr_fd(" elements", fd);
 }

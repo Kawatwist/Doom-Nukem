@@ -26,15 +26,15 @@ typedef enum		e_flag
 typedef enum		e_cursor
 {
 	CURSOR = 0,
-	DRAW = 1,
-	ERASE = 2,
-	ZOOM = 3,
-	HAND = 4,
-	SELECT = 5,
-	WAND = 6,
-	FORM = 7,
-	SWAP = 8,
-	RESIZE = 9,
+	SELECT = 1,
+	WAND = 2,
+	DRAW = 3,
+	FORM = 4,
+	ERASE = 5,
+	ZOOM = 6,
+	RESIZE = 7,
+	HAND = 8,
+	SWAP = 9,
 }					t_cursor;
 
 typedef struct		s_elem

@@ -59,9 +59,7 @@ void		which_cursor(t_win *wn, t_edit *edit)
 		if ((hitbox(wn->input->x, wn->input->y, &edit->tab->tab, 0) == TRUE && edit->tab->in != 1))
 			edit->indice->on = 1;
 		else
-		{
 			edit->indice->on = 0;
-		}
 	}
 	hitbox(wn->input->x, wn->input->y, &edit->tab->arrow, 0) == TRUE ? edit->indice->on = 0 : 0;
 	edit->cursor_fct[edit->var->cursor & 0xFF](wn, edit);
