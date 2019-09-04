@@ -343,7 +343,8 @@ int compress_leaf(t_bsp *bsp, char *leaf_pvs, int position)
 		*(cl.dest_p) = leaf_pvs[cl.i];
 		cl.dest_p++;  //??
 		cl.i++;
-		if(leaf_pvs[cl.i])
+		//printf("COmPRESS TEST %d %d\n", cl.i, bsp->nb_leafs);
+		if(leaf_pvs[cl.i - 1])
 			continue;
 		cl.rep = 1;
 		cl.i++;

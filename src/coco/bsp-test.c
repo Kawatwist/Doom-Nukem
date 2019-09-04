@@ -39,7 +39,7 @@ t_bsp *bsp_compile()
 	printf("tree built\n");
 	print_polys(bsp->poly, bsp->nb_polys);
 	print_nodes(bsp->node, bsp->nb_nodes);
-
+	print_leafs(bsp->leaf, bsp->nb_leafs);
 	sleep(1000);
 	build_portal(bsp);
 	//printf("portal built\n");

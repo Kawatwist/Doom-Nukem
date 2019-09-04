@@ -114,6 +114,8 @@ void	build_bsp_tree(int node, t_bsp *bsp)
 	t_tree *t;
 
 	printf("TREE\n");
+	//print_poly_list(bsp->poly_list);//si ily a plus de poly qui peuvent etre splitters ????
+	//sleep(100);
 	//printf("VER %d\n", bsp->poly_list->nb_ver);
 	t = init_tree(node);
 	//printf("TREE2 %d\n", bsp->node[t->node].plane);
@@ -121,6 +123,8 @@ void	build_bsp_tree(int node, t_bsp *bsp)
 	//printf("TREE 3\n");
 	if (bsp->node[t->node].plane == -1)
 	{
+		printf("AH %d\n", node);
+		//sleep(1);
 		free(t);
 		return ;
 	}
@@ -134,7 +138,7 @@ void	build_bsp_tree(int node, t_bsp *bsp)
 	bsp->node[node].bbox.boxmin = *create_vec(100000, 100000, 100000);
 	bsp->node[node].bbox.boxmax = *create_vec(-100000, -100000, -100000);
 	//printf("TREE\n");
-	while (t->test != NULL)
+	while (t->test != NULL) //place each polygon in front/back of the current one
 	{
 		//printf("START\n");
 		t->next = t->test->next;
@@ -191,9 +195,26 @@ void	build_bsp_tree(int node, t_bsp *bsp)
 		bsp->node[t->node].back = -1;
 	else
 	{
+		t->count = 0;		//temp
+		t->temp = t->back;
+		while (t->temp != NULL)
+		{
+			if (t->temp->was_splitter == 0)
+				t->count++;
+			t->temp = t->temp->next;
+		}
+		if (t->count == 0)
+		{
+			bsp->node[t->node].back = -1;
+			free(t);
+			return;
+		}
+							//temp
+
 		bsp->node[t->node].back = bsp->nb_nodes + 1;
 		inc_nodes(bsp);
 		bsp->poly_list = t->back;
+		printf("BACK CALL %d\n", bsp->nb_nodes);
 		build_bsp_tree(bsp->nb_nodes, bsp);
 	}
 	free(t);

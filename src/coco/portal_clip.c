@@ -102,7 +102,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 		init_portal(pclip.front_split);
 		init_portal(pclip.back_split);
 		printf("before split portal\n");
-		print_polys((t_poly*)portal, 1);
+		//print_polys((t_poly*)portal, 1);
 		split_portal(pclip.front_split, pclip.back_split, portal, &bsp->plane[bsp->node[node].plane]); ///to check
 		//split_portal(portal,  &bsp->plane[bsp->node[node].plane], pclip.front_split, pclip.back_split);
 		//printf("post_split\n");

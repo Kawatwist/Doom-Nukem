@@ -43,7 +43,7 @@ t_portal *calculate_init_portal(t_bsp *bsp, int node)
 	if (node != 0)
 	{
 		printf("ALTPORTAL\n");
-		sleep(100);
+		//sleep(100);
 	}
 	printf("CREATE PORTAL %f %f\n", bsp->node[node].bbox.boxmax.z, bsp->node[node].bbox.boxmin.z);
 	calc.maxp = bsp->node[node].bbox.boxmax;

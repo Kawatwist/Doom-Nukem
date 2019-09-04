@@ -76,7 +76,7 @@ int			select_splitter(t_bsp *bsp) //function choosing best splitter for a more b
 {
 	t_select_split	s;
 
-	//printf("SELECT SPLIT\n");
+	printf("SELECT SPLIT\n");
 	init_select_split(&s, bsp->poly_list);
 	//printf(" WAS SPLIT %d\n", bsp->poly_list->was_splitter);
 	while(s.splitter != NULL)
@@ -90,8 +90,13 @@ int			select_splitter(t_bsp *bsp) //function choosing best splitter for a more b
 		s.splitter = s.splitter->next;
 	}
 	//printf("WTF\n");
-	if (s.selected == NULL) //si ily a plus de poly qui peuvent etre splitters ????
+	if (s.selected == NULL)
+	{ 	
+		//print_poly_list(bsp->poly_list);//si ily a plus de poly qui peuvent etre splitters ????
+		//printf("------------------\n");
+		//sleep(100);
 		return (-1);
+	}
 	//printf("SELECT SPLIT\n");
 	s.selected->was_splitter = 1;
 	//printf("SELECT SPLIT22\n");
@@ -110,7 +115,7 @@ void		split_poly(t_poly *poly, t_plane *plane, t_poly *front, t_poly *back)
 
 	printf("SPLIT POLY\n");
 	//print_planes(plane, 1);
-	print_polys(poly, 1);
+	//print_polys(poly, 1);
 	init_split(&split);
 	//printf("HOP\n");
 	split.point = &plane->point;
