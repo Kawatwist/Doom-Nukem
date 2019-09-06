@@ -206,8 +206,8 @@ struct	s_inter
 
 typedef struct s_split //used in split poly
 {
-	t_vec	front[10];
-	t_vec	back[10];
+	t_vec	front[40];
+	t_vec	back[40];
 	t_vec	*first;
 	t_vec	*normal;
 	t_vec	*intersect;

@@ -221,7 +221,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 
 	fichier_lst = NULL;
 
-	fd = open("u_map.obj", O_RDWR); // <= PATH OBJ
+	fd = open("csgo.obj", O_RDWR); // <= PATH OBJ
 	while(get_next_line(fd, &line))
 	{
 		fichier_node = ft_create_line_node(line);
@@ -262,7 +262,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 				vertex_node->obj_indice = (int)ft_atoi_comma(&(fichier_lst->line[j]));
 
 				while(fichier_lst->line[j] != '/')
-					j++;
+					printf("FICHIER LINE %c\n" , fichier_lst->line[j++]);
 				j++;
 
 

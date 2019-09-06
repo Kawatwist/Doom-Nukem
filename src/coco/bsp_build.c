@@ -78,7 +78,7 @@ static void class_case2(t_tree *t, t_bsp *bsp)
 		exit(0);
 	if (!(back = (t_poly*)malloc(sizeof(t_poly))))
 		exit(0);
-	//printf("HOP\n");
+	printf("CC2 %d \n", bsp->node[t->node].plane);
 	split_poly(t->test, &bsp->plane[bsp->node[t->node].plane], front, back);
 	//printf("HOP\n");
 	front->was_splitter = t->test->was_splitter;

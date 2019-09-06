@@ -232,7 +232,7 @@ void		split_poly(t_poly *poly, t_plane *plane, t_poly *front, t_poly *back)
 		printf("HOP %d %d \n", front->nb_indices, back->nb_indices);
 	if (!(front->indices = (int*)malloc(sizeof(int) * front->nb_indices)))
 		exit(0);
-	//printf("HOP\n");
+	//printf("HOP %d\n",back->nb_indices );
 	if (!(back->indices = (int*)malloc(sizeof(int) * back->nb_indices)))
 		exit(0);
 	//printf("HOP\n");

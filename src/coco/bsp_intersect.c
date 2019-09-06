@@ -32,7 +32,9 @@ int	get_inter(t_inter *inter)
 	//printf("Inter 1\n");
 	if (fabs(inter->line_len) < 0.0001)
 		return (0);
-	//printf("Inter 1\n");
+	printf("Inter 1 %f %f %f\n", inter->l.x , inter->l.x, inter->l.x);
+	//inter->point->x = 0;
+	//printf("TEST DONE\n");
 	inter->l.x = inter->point->x - inter->start->x;
 	//printf("Inter 4\n");
 	inter->l.y = inter->point->y - inter->start->y;

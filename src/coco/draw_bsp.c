@@ -73,7 +73,7 @@ t_poly *render_bsp(t_bsp *bsp, t_vec *pos)
 	while(1)
 	{
 		result = class_point(pos, &(bsp->plane[bsp->node[node].plane]));
-		print_nodes(&bsp->node[node], 1);
+		//print_nodes(&bsp->node[node], 0);
 		//printf("RESULT %d\n", result);
 		if (result == 1 || result == 0)
 		{

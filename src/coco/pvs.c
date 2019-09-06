@@ -347,15 +347,15 @@ int compress_leaf(t_bsp *bsp, char *leaf_pvs, int position)
 		if(leaf_pvs[cl.i - 1])
 			continue;
 		cl.rep = 1;
-		cl.i++;
-		while (cl.i < cl.bytes_per_set)
+		//cl.i++;
+		while (++cl.i < cl.bytes_per_set)
 		{
 			//cl.i++;
 			if (leaf_pvs[cl.i] || cl.rep == 255)
 				break;
 			else
 				cl.rep++;
-			cl.i++;
+			//cl.i++;
 		}
 		*(cl.dest_p) = cl.rep;
 		cl.dest_p++;
