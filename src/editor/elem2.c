@@ -107,7 +107,7 @@ void			mouse_input_poly(t_win *wn, t_edit *edit)
 			curr->next->point = NULL;
 		curr->next->next = NULL;
 	}
-	if (curr != NULL && wn->input->x > wn->xscreen / 18.28 && (edit->var->cursor & 0xFF) == 1) // MODE CURSOR && NOT IN CURSOR AREA
+	if (curr != NULL && wn->input->x > wn->xscreen / 18.28 && (edit->var->cursor & 0xFF) == DRAW) // MODE CURSOR && NOT IN CURSOR AREA
 	{
 		if (curr->point == NULL && mouse_pressed(wn, SDL_BUTTON_LEFT)  && (wn->input->x - edit->map->x) <= edit->map->w && (wn->input->y - edit->map->y) <= edit->map->h && (wn->input->x - edit->map->x) >= 0 && (wn->input->y - edit->map->y) >= 0)
 		{
@@ -117,7 +117,7 @@ void			mouse_input_poly(t_win *wn, t_edit *edit)
 		else if ((mouse_pressed(wn, SDL_BUTTON_LEFT) || mouse_pressed(wn, SDL_BUTTON_RIGHT)) && (wn->input->x - edit->map->x) <= edit->map->w && (wn->input->y - edit->map->y) <= edit->map->h && (wn->input->x - edit->map->x) >= 0 && (wn->input->y - edit->map->y) >= 0)
 		{
 			edit->var->nb_point = 0;
-			if (mouse_pressed(wn, SDL_BUTTON_LEFT))
+			if (mouse_pressed(wn, SDL_BUTTON_LEFT) && !wn->state[SDL_SCANCODE_LSHIFT])
 			{
 				point = curr->point;
 				pointz = curr->next->point;
@@ -127,7 +127,7 @@ void			mouse_input_poly(t_win *wn, t_edit *edit)
 				fill_point(wn, edit, &pointz, 20);
 				curr->nb_pt = edit->var->nb_point;
 			}
-			if (mouse_pressed(wn, SDL_BUTTON_RIGHT))
+			if (mouse_pressed(wn, SDL_BUTTON_RIGHT) || (mouse_pressed(wn, SDL_BUTTON_LEFT) && wn->state[SDL_SCANCODE_LSHIFT]))
 			{
 				if (curr->nb_pt < 4)
 				{

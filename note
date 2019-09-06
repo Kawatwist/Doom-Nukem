@@ -1,0 +1,38 @@
+
+
+triangle = 24
+
+
+on draw le triangle du haut (flat bottom)
+world view      =591
+culling         =52
+shade           =27
+cam view        =41
+clip camera     =5
+projection      =42
+scale           =10
+add lst         =49
+z buffer        =0
+clip screen     =106
+draw            =499 247
+free            =9
+
+
+triangle 24
+
+world view      =574
+culling         =54
+shade           =27
+cam view        =37
+clip camera     =10
+projection      =30
+scale           =8
+add lst         =45
+z buffer        =0
+clip screen     =75
+draw            =1077 152
+free            =8
+
+
+
+draw            =993392

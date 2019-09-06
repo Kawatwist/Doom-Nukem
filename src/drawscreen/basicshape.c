@@ -21,8 +21,9 @@ void		drawsquare(void	**pixels, int pitch, SDL_Rect rect, t_color color)
 	while (pos.x < rect.x + rect.w)
 	{
 		pos.y = rect.y;
-		while (pos.y < rect.y + rect.h)
+		while (pos.y < rect.y + rect.h - 1)
 		{
+			printf("posx = %f, posy = %f\n", pos.x, pos.y);
 			drawpoint(pixels, pitch, pos, color);
 			pos.y += 1;
 		}

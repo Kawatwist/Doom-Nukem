@@ -89,11 +89,11 @@ static void	inputhost(t_win *wn)
 		key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->ask = wn->menu->ask & (U_MAX - 0x30) : 0;
 	}
 	//key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 40 : 0;
-	if ((wn->menu->ask & 0x03) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(707, 338, 528, 114)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+	if ((wn->menu->ask & 0x03) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(707, 338, 528, 114), 1) && mouse_pressed(wn, SDL_BUTTON_LEFT))
 		wn->menu->ask += 1;
-	if ((wn->menu->ask & 0x0C) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(707, 622, 528, 114)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+	if ((wn->menu->ask & 0x0C) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(707, 622, 528, 114), 1) && mouse_pressed(wn, SDL_BUTTON_LEFT))
 		wn->menu->ask += (1 << 2);
-	if ((wn->menu->ask & 0x30) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(707, 853, 528, 114)) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+	if ((wn->menu->ask & 0x30) == 0 && hitbox(wn->input->x, wn->input->y, create_rect(707, 853, 528, 114), 1) && mouse_pressed(wn, SDL_BUTTON_LEFT))
 		wn->menu->ask += (1 << 4);
 }
 

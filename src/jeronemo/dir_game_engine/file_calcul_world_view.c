@@ -122,9 +122,9 @@ void	ft_clipping_screen(t_mytriangle *head, t_myraster *raster, t_mytriangle **c
 	while(curr != NULL)
 	{
 		curr->splitted = 0;
-		if (!hitbox(curr->vertice[0].x, curr->vertice[0].y, &box) || !hitbox(curr->vertice[1].x, curr->vertice[1].y, &box) || !hitbox(curr->vertice[2].x, curr->vertice[2].y, &box))
+		if (!hitbox(curr->vertice[0].x, curr->vertice[0].y, &box, 0) || !hitbox(curr->vertice[1].x, curr->vertice[1].y, &box, 0) || !hitbox(curr->vertice[2].x, curr->vertice[2].y, &box, 0))
 		{
-			if (!hitbox(curr->vertice[0].x, curr->vertice[0].y, &box) && !hitbox(curr->vertice[1].x, curr->vertice[1].y, &box) && !hitbox(curr->vertice[2].x, curr->vertice[2].y, &box))
+			if (!hitbox(curr->vertice[0].x, curr->vertice[0].y, &box, 0) && !hitbox(curr->vertice[1].x, curr->vertice[1].y, &box, 0) && !hitbox(curr->vertice[2].x, curr->vertice[2].y, &box, 0))
 				;
 			else
 				clipping(*curr ,&(raster->triangle_lst_2));

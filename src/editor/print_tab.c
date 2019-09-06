@@ -56,10 +56,10 @@ void	display_slider(t_win *wn, SDL_Rect rect, SDL_Texture *texture)
 	else
 	{
 		tmp = define_rect(rect.x + rect.w + 0.05 * wn->xscreen / 8, rect.y + move, 0.05 * wn->xscreen / 8, slider_height);
-		if (mouse_pressed(wn, SDL_BUTTON_LEFT) && hitbox(wn->input->x, wn->input->y, &tmp))
+		// (wn->input->mouse & SDL_BUTTON_LEFT && hitbox(wn->input->x, wn->input->y, &tmp)) ? ((t_edit *)wn->edit)->var->on = 1 : ((t_edit*)wn->edit)->var->on = 0;
+		if (((t_edit *)wn->edit)->var->on == 1)
 		{
-			// move != 0 ? move = wn->input->y : 0;
-			move = wn->input->y - move;
+			move = wn->input->y - rect.y;
 			rect.y + move < rect.y ? move = 0 : 0;
 			move + slider_height > rect.h ? move = rect.h - slider_height : 0;
 		}

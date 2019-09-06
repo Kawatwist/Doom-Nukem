@@ -52,17 +52,15 @@ void		print_x_y_z(t_win *wn, t_edit *edit)
 
 void		which_cursor(t_win *wn, t_edit *edit)
 {
-	if (hitbox(wn->input->x, wn->input->y, &edit->tab->tab) == FALSE && wn->input->x > (wn->xscreen / 18))
+	if (hitbox(wn->input->x, wn->input->y, &edit->tab->tab, 0) == FALSE && wn->input->x > (wn->xscreen / 18))
 		edit->indice->on = 1;
 	else
 	{
-		if ((hitbox(wn->input->x, wn->input->y, &edit->tab->tab) == TRUE && edit->tab->in != 1))
+		if ((hitbox(wn->input->x, wn->input->y, &edit->tab->tab, 0) == TRUE && edit->tab->in != 1))
 			edit->indice->on = 1;
 		else
-		{
 			edit->indice->on = 0;
-		}
 	}
-	hitbox(wn->input->x, wn->input->y, &edit->tab->arrow) == TRUE ? edit->indice->on = 0 : 0;
+	hitbox(wn->input->x, wn->input->y, &edit->tab->arrow, 0) == TRUE ? edit->indice->on = 0 : 0;
 	edit->cursor_fct[edit->var->cursor & 0xFF](wn, edit);
 }

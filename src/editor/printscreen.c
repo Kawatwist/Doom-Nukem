@@ -34,19 +34,19 @@ void		change_bloc(t_win *wn, t_edit *edit)
 
 	x = wn->input->x;
 	y = wn->input->y;
-	if (hitbox(x, y, &edit->tab->arrow) == TRUE)
+	if (hitbox(x, y, &edit->tab->arrow, 0) == TRUE)
 		edit->tab->in = -edit->tab->in;
 	tab = define_rect(6 * wn->xscreen / 8, 0.5 * wn->yscreen / 8, 2 * wn->xscreen / 8 / 4, 0.5 * wn->yscreen / 8);
-	if (hitbox(x, y, &tab) == TRUE && edit->tab->in == 1)
+	if (hitbox(x, y, &tab, 0) == TRUE && edit->tab->in == 1)
 		edit->tab->onglet = 0;
 	tab = define_rect(6.5 * wn->xscreen / 8, 0.5 * wn->yscreen / 8, 2 * wn->xscreen / 8 / 4, 0.5 * wn->yscreen / 8);	
-	if (hitbox(x, y, &tab) == TRUE && edit->tab->in == 1)
+	if (hitbox(x, y, &tab, 0) == TRUE && edit->tab->in == 1)
 		edit->tab->onglet = 1;
 	tab = define_rect(7 * wn->xscreen / 8, 0.5 * wn->yscreen / 8, 2 * wn->xscreen / 8 / 4, 0.5 * wn->yscreen / 8);	
-	if (hitbox(x, y, &tab) == TRUE && edit->tab->in == 1)
+	if (hitbox(x, y, &tab, 0) == TRUE && edit->tab->in == 1)
 		edit->tab->onglet = 2;
 	tab = define_rect(7.5 * wn->xscreen / 8, 0.5 * wn->yscreen / 8, 2 * wn->xscreen / 8 / 4, 0.5 * wn->yscreen / 8);
-	if (hitbox(x, y, &tab) == TRUE && edit->tab->in == 1)
+	if (hitbox(x, y, &tab, 0) == TRUE && edit->tab->in == 1)
 		edit->tab->onglet = 3;
 }
 
@@ -60,9 +60,9 @@ static int	is_between(double x, double min, double max)
 static void	checkcursor(t_win *wn, t_edit *edit)
 {
 	if (mouse_pressed(wn, SDL_BUTTON_LEFT))
-		if (!is_between(wn->input->x, wn->xscreen / 128, wn->xscreen / 20.21))
-			if (!is_between(wn->input->y, wn->yscreen / 6.28, wn->yscreen / 1.1675))
-				edit->var->cursor = (wn->input->y - (wn->yscreen / 6.28)) / (wn->yscreen / 14.4) + (edit->var->cursor & 0xFFFF0000);
+		if (!is_between(wn->input->x, wn->xscreen / 101, wn->xscreen / 32.54))
+			if (!is_between(wn->input->y, wn->yscreen / 8.64, wn->yscreen / 1.56))
+				edit->var->cursor = ((wn->input->y - (wn->yscreen / 8.64)) / 58) + (edit->var->cursor & 0xFFFF0000);
 	(edit->var->cursor & 0xFF) < 0 || (edit->var->cursor & 0xFF) > 9 ? edit->var->cursor = edit->var->cursor & 0xFFFF0000 : 0;
 }
 
@@ -80,6 +80,7 @@ static void	showbgpics(t_win *wn, t_edit *edit)
 void		printeditor(t_win *wn)
 {
 	t_edit 	*edit;
+	// SDL_Rect rect;
 
 	edit = ((t_edit *)(*wn).edit);
 	print_background_editor(wn);
@@ -91,10 +92,14 @@ void		printeditor(t_win *wn)
 	which_cursor(wn, edit);
 	// print_bgh_editor(wn, edit);
 	print_tab_editor(wn, edit);
-	SDL_RenderCopy(wn->rend, findtexture(wn, "editor", "affichage", "cursor_panel"), NULL, NULL);
+	SDL_Rect	*pos = create_rect(0, 0, 72, 1080);
+	SDL_RenderCopy(wn->rend, findtexture(wn, "editor", "affichage", "cursor_panel"), NULL, pos);
+	free(pos);
 	edit->indice->on == 1 ? print_x_y_z(wn, edit) : 0;
 	edit->var->cursor = ((edit->var->cursor & 0xFFFF) << 16) + (edit->var->cursor & 0xFFFF); // Save cursor
 	print_save_and_reset(wn, edit);
 	check_hitbox(wn, wn->edit);
+	//rect = define_rect(wn->xscreen / 3, wn->yscreen / 3, wn->xscreen / 3, wn->yscreen / 3);
+	//printf("popup = %d\n", pop_up_message(wn, param_pop_up("je suis une banana et la banana est un fruit jaune qu'on peut utiliser pour les smoothies et pour les milkshakes", "VRAI", "FAUX", &rect)));
 	// test_slider(wn);
 }

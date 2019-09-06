@@ -22,7 +22,7 @@ void 		print_save_and_reset(t_win *wn, t_edit *edit)
 
 	//BLOC SAVE
 	position = define_rect(6 * wn->xscreen / 8, 0, wn->xscreen / 8, 0.5 * wn->yscreen / 8);
-	if (hitbox(wn->input->x, wn->input->y, &position) == TRUE && mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE)
+	if (hitbox(wn->input->x, wn->input->y, &position, 0) == TRUE && mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE)
 	{
 		ft_launch_rasterization(wn);
 		edit->var->map_saved = 1;
@@ -50,7 +50,7 @@ void 		print_save_and_reset(t_win *wn, t_edit *edit)
 
 	//BLOC RESET
 	position = define_rect(7 * wn->xscreen / 8, 0, wn->xscreen / 8, 0.5 * wn->yscreen / 8);
-	if (hitbox(wn->input->x, wn->input->y, &position) == TRUE && mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE)
+	if (hitbox(wn->input->x, wn->input->y, &position, 0) == TRUE && mouse_pressed(wn, SDL_BUTTON_LEFT) == TRUE)
 		resetmap(wn, edit);
 	surface = SDL_CreateRGBSurface(0, position.w, position.h, 32, 0, 0, 0, 0);
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 255, 255));

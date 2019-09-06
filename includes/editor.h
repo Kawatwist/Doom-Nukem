@@ -26,15 +26,15 @@ typedef enum		e_flag
 typedef enum		e_cursor
 {
 	CURSOR = 0,
-	DRAW = 1,
-	ERASE = 2,
-	ZOOM = 3,
-	HAND = 4,
-	SELECT = 5,
-	WAND = 6,
-	FORM = 7,
-	SWAP = 8,
-	RESIZE = 9,
+	SELECT = 1,
+	WAND = 2,
+	DRAW = 3,
+	FORM = 4,
+	ERASE = 5,
+	ZOOM = 6,
+	RESIZE = 7,
+	HAND = 8,
+	SWAP = 9,
 }					t_cursor;
 
 typedef struct		s_elem
@@ -99,6 +99,7 @@ typedef struct 		s_var
 	int				swapvar;
 	int 			nb_point;
 	int 			map_saved;
+	int 			on;
 }					t_var;
 
 typedef struct 		s_edit
@@ -114,7 +115,7 @@ typedef struct 		s_edit
 	void			(*cursor_fct[10]) (t_win *wn, struct s_edit *edit);
 }					t_edit;
 
-void				ftoa_fd(float nbr, int fd);
+void    			ft_ftoafd(float nbr, int fd);
 void        		save_panel(t_win *wn, t_edit *edit);
 
 t_point				**addtmptoselection(t_point **tmp, t_point **select);
@@ -168,7 +169,8 @@ void   				find_last_poly(t_elem **curr);
 void     			find_last_point(t_edit *edit, t_point **point);
 t_mypolygon		 	*polygon_map(t_win *wn);
 t_poly 				*poly_map(t_win *wn);
-int 				pop_up_message(t_win *wn, char *msg, SDL_Rect *rect);
+t_popup				param_pop_up(char *question, char *yes, char *no, SDL_Rect *rect);
+int 				pop_up_message(t_win *wn, t_popup popup);
 void 				print_save_and_reset(t_win *wn, t_edit *edit);
 void 				print_message(t_win *wn, char *msg, SDL_Color color);
 void				display_tab(t_win *wn, t_edit *edit);
