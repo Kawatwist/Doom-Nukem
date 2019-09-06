@@ -1,41 +1,37 @@
 #include <doom.h>
 #include <editor.h>
 
-// static t_point  *find_before(t_elem *elem, t_point *tofind)
-// {
-//     t_point *curr;
-    
-//     curr = elem->point;
-//     while (curr != NULL && curr != tofind && curr->next != tofind)
-//         curr = curr->next;
-//     return (curr == tofind ? NULL : curr);
-// }
+static int  *ft_storepoint(int i, int j, int k, int l)
+{
+    int *ret;
 
-// static int  store_reverse_vertice(t_elem *elem, int fd)
-// {
-//     int     nb_ver;
-//     t_point *curr;
-    
-//     nb_ver = 0;
-//     curr = elem->point;
-//     while (curr->next != NULL)
-//         curr = curr->next;
-//     while (curr != NULL)
-//     {
-//         ft_putstr_fd("v ", fd);
-//         ft_ftoafd(curr->x, fd); // NEED TO CHECK THIS FUNCTION
-//         ft_putchar_fd(' ', fd);
-//         ft_ftoafd(curr->y, fd); // NEED TO CHECK THIS FUNCTION
-//         ft_putchar_fd(' ', fd);
-//         ft_ftoafd(curr->z, fd); // NEED TO CHECK THIS FUNCTION
-//         ft_putchar_fd('\n', fd);
-//         nb_ver += 1;
-//         if (curr == elem->next->point)
-//             break;
-//         curr = find_before(elem, curr);
-//     }
-//     return (nb_ver);
-// }
+    ret = malloc(sizeof(int) * 4); // NEED SECURE
+    ret[0] = i;
+    ret[1] = j;
+    ret[2] = k;
+    ret[3] = l;
+    return (ret);
+}
+
+static void ft_putface_fd(int *f, int *t, int len,int fd)
+{
+    int n;
+
+    n = 0;
+    ft_putstr_fd("f ", fd);
+    while (n < len)
+    {
+        ft_putnbr_fd(f[n], fd);
+        ft_putchar_fd('/', fd);
+        ft_putnbr_fd(t[n], fd);
+        if (n < len-1)
+            ft_putchar_fd(' ', fd);
+        n++;
+    }
+    free(f);
+    free(t);
+    ft_putchar_fd('\n', fd);
+}
 
 static int  store_vertice(t_elem *elem, int fd)
 {
@@ -68,15 +64,42 @@ static void create_basic_face(Uint32 nb1, Uint32 nb2, int fd, Uint32 currnb)
     while (i < (nb1 + 1)) // ATTENTION SI NB1 != NB2
     {
         ft_putnbr_fd(i + currnb, fd);
-        ft_putchar_fd(' ', fd);
+        ft_putstr_fd("/1", fd);
+        if (i < nb1)
+            ft_putchar_fd(' ', fd);
         i++;
     }
+    i--;
+    // CREATE REVERSE
+    ft_putstr_fd("\nf ", fd);
+    while (i > 0) // ATTENTION SI NB1 != NB2
+    {
+        ft_putnbr_fd(i + currnb, fd);
+        ft_putstr_fd("/1", fd);
+        if (i > 1)
+            ft_putchar_fd(' ', fd);
+        i--;
+    }
+    i = nb1 + 1;
     ft_putstr_fd("\nf ", fd);
     while (i < (nb2 + nb1) + 1)
     {
         ft_putnbr_fd(i + currnb, fd);
-        ft_putchar_fd(' ', fd);
+        ft_putstr_fd("/1", fd);
+        if (i < nb2 + nb1)
+            ft_putchar_fd(' ', fd);
         i++;
+    }
+    i--;
+    //CREATE REVERSE
+    ft_putstr_fd("\nf ", fd);
+    while (i > nb1) // ATTENTION SI NB1 != NB2
+    {
+        ft_putnbr_fd(i + currnb, fd);
+        ft_putstr_fd("/1", fd);
+        if (i > nb1 + 1)
+            ft_putchar_fd(' ', fd);
+        i--;
     }
     ft_putchar_fd('\n', fd);
 }
@@ -91,62 +114,58 @@ static void create_face(Uint32 nb1, Uint32 nb2, int fd, Uint32 currnb)
     {
         ft_putstr_fd("f ", fd);
         ft_putnbr_fd(i + currnb, fd);
-        ft_putchar_fd(' ', fd);
+        ft_putstr_fd("/1 ", fd);
         ft_putnbr_fd(i + 1 + currnb, fd);
-        ft_putchar_fd(' ', fd);
+        ft_putstr_fd("/1 ", fd);
         ft_putnbr_fd(nb1 + i + 1 + currnb, fd);
-        ft_putchar_fd(' ', fd);
+        ft_putstr_fd("/1 ", fd);
         ft_putnbr_fd(nb1 + i + currnb, fd);
-        ft_putchar_fd('\n', fd);
+        ft_putstr_fd("/1\n", fd);
+
+        // CREATE REVERSE
+        ft_putstr_fd("f ", fd);
+        ft_putnbr_fd(nb1 + i + currnb, fd);
+        ft_putstr_fd("/1 ", fd);
+        ft_putnbr_fd(nb1 + i + currnb + 1, fd);
+        ft_putstr_fd("/1 ", fd);
+        ft_putnbr_fd(i + 1 + currnb, fd);
+        ft_putstr_fd("/1 ", fd);
+        ft_putnbr_fd(i + currnb, fd);
+        ft_putstr_fd("/1\n", fd);
         i++;
     }
     ft_putstr_fd("f ", fd);
     ft_putnbr_fd(currnb + 1, fd);
-    ft_putchar_fd(' ', fd);
+    ft_putstr_fd("/1 ", fd);
     ft_putnbr_fd(nb1 + currnb, fd);
-    ft_putchar_fd(' ', fd);
+    ft_putstr_fd("/1 ", fd);
     ft_putnbr_fd(nb2 + nb1 + currnb, fd);
-    ft_putchar_fd(' ', fd);
+    ft_putstr_fd("/1 ", fd);
     ft_putnbr_fd(nb1 + 1 + currnb, fd);
-    ft_putchar_fd('\n', fd);
+    ft_putstr_fd("/1\n", fd);
+
+    // CREATE REVERSE
+
+    ft_putstr_fd("f ", fd);
+    ft_putnbr_fd(currnb + 1 + nb1, fd);
+    ft_putstr_fd("/1 ", fd);
+    ft_putnbr_fd(nb1 + currnb + nb2, fd);
+    ft_putstr_fd("/1 ", fd);
+    ft_putnbr_fd(nb1 + currnb, fd);
+    ft_putstr_fd("/1 ", fd);
+    ft_putnbr_fd(1 + currnb, fd);
+    ft_putstr_fd("/1\n", fd);
 }
 
 static void close_map(Uint32 nb, int fd)
 {
-    ft_putstr_fd("v 0.0 0.0 20.0\nv 60.0 0.0 20.0\nv 60.0 0.0 0.0\nv 0.0 0.0 0.0\nv 0.0 60.0 20.0\nv 60.0 60.0 20.0\nv 60.0 60.0 0.0\nv 0.0 60.0 0.0", fd);
-    ft_putstr_fd("\nf ", fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 1, fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 2, fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 3, fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 4, fd);
-    ft_putstr_fd("\nf ", fd);
-    ft_putnbr_fd(nb + 2, fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 6, fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 7, fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 3, fd);
-    ft_putstr_fd("\nf ", fd);
-    ft_putnbr_fd(nb + 6, fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 5, fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 8, fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 7, fd);
-    ft_putstr_fd("\nf ", fd);
-    ft_putnbr_fd(nb + 5, fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 1, fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 4, fd);
-    ft_putchar_fd(' ',fd);
-    ft_putnbr_fd(nb + 8, fd);
+    ft_putstr_fd("v 0.0 0.0 60.0\nv 60.0 0.0 60.0\nv 60.0 0.0 0.0\nv 0.0 0.0 0.0\nv 0.0 60.0 60.0\nv 60.0 60.0 60.0\nv 60.0 60.0 0.0\nv 0.0 60.0 0.0\n", fd);
+    ft_putface_fd(ft_storepoint(nb + 1, nb + 2, nb + 3, nb + 4), ft_storepoint( 1, 1, 1, 1), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 2, nb + 6, nb + 7, nb + 3), ft_storepoint( 1, 1, 1, 1), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 6, nb + 5, nb + 8, nb + 7), ft_storepoint( 1, 1, 1, 1), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 5, nb + 1, nb + 4, nb + 8), ft_storepoint( 1, 1, 1, 1), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 6, nb + 2, nb + 1, nb + 5), ft_storepoint( 1, 1, 1, 1), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 4, nb + 3, nb + 7, nb + 8), ft_storepoint( 1, 1, 1, 1), 4, fd);
 }
 
 static void fill_file(t_edit *edit, int fd)
@@ -162,20 +181,21 @@ static void fill_file(t_edit *edit, int fd)
     currnb = 0;
     while (curr_elem != NULL && curr_elem->point != NULL && curr_elem->point->next != NULL)
     {
-        ft_putstr_fd("o Polygon.", fd);
-        ft_putnbr_fd(nb, fd);
-        ft_putchar_fd('\n', fd);
+        // ft_putstr_fd("o Polygon.", fd);
+        // ft_putnbr_fd(nb, fd);
+        // ft_putchar_fd('\n', fd);
         nb_ver1 = store_vertice(curr_elem, fd);
         nb_ver2 = store_vertice(curr_elem->next, fd);
+        ft_putstr_fd("vt 1.0 1.0 1.0\n", fd);
+        ft_putstr_fd("s off\n", fd);
         create_basic_face(nb_ver1, nb_ver2, fd, currnb);
         create_face(nb_ver1, nb_ver2, fd, currnb);
-        ft_putstr_fd("s off\n", fd);
         curr_elem = curr_elem->next->next;
         currnb += nb_ver1 + nb_ver2;
         nb++;
     }
     close_map(currnb, fd);
-    ft_putstr_fd("\n# ", fd); // DONT NEED THIS BUT COULD BE USEFUL
+    ft_putstr_fd("# ", fd); // DONT NEED THIS BUT COULD BE USEFUL
     ft_putnbr_fd(nb - 1, fd);
     ft_putstr_fd(" elements", fd);
 }
@@ -187,6 +207,7 @@ static void create_obj(t_edit *edit, char *name)
    fd = 0;
     if ((fd = creat(name, S_IRWXU | S_IRWXG | S_IRWXO)) != -1)
     {
+        ft_putchar_fd('#', fd);
         ft_putstr_fd(name, fd);
         ft_putchar_fd('\n', fd);
         fill_file(edit, fd);
