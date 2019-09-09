@@ -23,11 +23,11 @@ static int  store_reverse_vertice(t_elem *elem, int fd)
     while (curr != elem->point)
     {
         ft_putstr_fd("v ", fd);
-        ftoa_fd(curr->x, fd); // NEED TO CHECK THIS FUNCTION
+        ft_ftoafd(curr->x, fd); // NEED TO CHECK THIS FUNCTION
         ft_putchar_fd(' ', fd);
-        ftoa_fd(curr->y, fd); // NEED TO CHECK THIS FUNCTION
+        ft_ftoafd(curr->y, fd); // NEED TO CHECK THIS FUNCTION
         ft_putchar_fd(' ', fd);
-        ftoa_fd(curr->z, fd); // NEED TO CHECK THIS FUNCTION
+        ft_ftoafd(curr->z, fd); // NEED TO CHECK THIS FUNCTION
         ft_putchar_fd('\n', fd);
         nb_ver += 1;
         curr = find_before(elem, curr);
@@ -45,11 +45,11 @@ static int  store_vertice(t_elem *elem, int fd)
     while (curr != NULL)
     {
         ft_putstr_fd("v ", fd);
-        ftoa_fd(curr->x, fd); // NEED TO CHECK THIS FUNCTION
+        ft_ftoafd(curr->x, fd); // NEED TO CHECK THIS FUNCTION
         ft_putchar_fd(' ', fd);
-        ftoa_fd(curr->y, fd); // NEED TO CHECK THIS FUNCTION
+        ft_ftoafd(curr->y, fd); // NEED TO CHECK THIS FUNCTION
         ft_putchar_fd(' ', fd);
-        ftoa_fd(curr->z, fd); // NEED TO CHECK THIS FUNCTION
+        ft_ftoafd(curr->z, fd); // NEED TO CHECK THIS FUNCTION
         ft_putchar_fd('\n', fd);
         nb_ver += 1;
         curr = curr->next;
