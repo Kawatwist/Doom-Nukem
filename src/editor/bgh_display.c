@@ -121,6 +121,22 @@ void		print_path(t_win *wn, char *s, int posi_x, int posi_y)
 	}
 }
 
+static void	extract_obj(t_win *wn, t_edit *edit)
+{
+	SDL_Rect	position;
+	SDL_Rect	save;
+	SDL_Rect	cursor;
+
+	position = define_rect(720, 500, 200, 200);
+	save = define_rect(720, 700, 50, 50);
+	cursor.x = wn->input->x;
+	cursor.y = wn->input->y;
+	if (boxhitbox(wn->rend, &cursor, &(position), 1) || boxhitbox(wn->rend, &cursor, &(save), 1))
+	{
+		save_panel(wn, edit);
+	}
+}
+
 void		print_bg(t_win *wn, t_edit *edit)
 {
 	static char		*path = NULL;
@@ -152,6 +168,7 @@ void		print_bg(t_win *wn, t_edit *edit)
 		free(path); // ajouter free(path) et path = NULL dans fonction chargement bg
 		path = NULL; // faire ternaire (path != NULL) ? load_bg : ft_pr_mess_err_bg
 	}
+	extract_obj(wn, edit);
 }
 
 /*void		bg_or_h(t_win *wn, t_edit *edit)

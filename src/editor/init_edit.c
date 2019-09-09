@@ -34,7 +34,7 @@ static void		load_edit_texture(t_win **wn)
 	free((*wn)->load);
 	(*wn)->load = ft_strdup("./texture/editor/fleche.tga");
 	load_texture(*wn, "editor", "affichage", "fleche");
-	(*wn)->load = ft_strdup("./texture/editor/cursor.tga");
+	(*wn)->load = ft_strdup("./texture/editor/cursor2.tga");
 	load_texture(*wn, "editor", "affichage", "cursor_panel");
 	free((*wn)->load);
 	(*wn)->load = ft_strdup("./texture/editor/slider.tga");
@@ -65,15 +65,15 @@ static void	initelem(t_edit *edit)
 static void	init_editor_fct(t_edit *edit)
 {
 	edit->cursor_fct[CURSOR] = cursor;
-	edit->cursor_fct[DRAW] = draw_cursor;
-	edit->cursor_fct[ERASE] = erase_cursor;
-	edit->cursor_fct[ZOOM] = zoom_cursor;
-	edit->cursor_fct[HAND] = hand_cursor;
 	edit->cursor_fct[SELECT] = select_cursor;
 	edit->cursor_fct[WAND] = wand_cursor;
+	edit->cursor_fct[DRAW] = draw_cursor;
 	edit->cursor_fct[FORM] = form_cursor;
-	edit->cursor_fct[SWAP] = swap_cursor;
+	edit->cursor_fct[ERASE] = erase_cursor;
+	edit->cursor_fct[ZOOM] = zoom_cursor;
 	edit->cursor_fct[RESIZE] = resize_cursor;
+	edit->cursor_fct[HAND] = hand_cursor;
+	edit->cursor_fct[SWAP] = swap_cursor;
 }
 
 void		init_edit(t_win **wn)

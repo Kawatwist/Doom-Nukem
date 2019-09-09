@@ -183,28 +183,31 @@ void	wand_cursor(t_win *wn, t_edit *edit)
 
 	elem = edit->elem;
 	diff = 0x7FFFFFFF;
-	if ((closer != NULL && mouse_pressed(wn, SDL_BUTTON_RIGHT)) || wn->state[SDL_SCANCODE_LSHIFT])
-		closer = NULL;
-	if (((edit->var->cursor & 0xFFFF0000) >> 16) == WAND && mouse_pressed(wn, SDL_BUTTON_LEFT) && closer == NULL)
+	if (edit->elem != NULL)
 	{
-		while (elem != NULL)
+		if ((closer != NULL && mouse_pressed(wn, SDL_BUTTON_RIGHT)) || wn->state[SDL_SCANCODE_LSHIFT])
+			closer = NULL;
+		if (((edit->var->cursor & 0xFFFF0000) >> 16) == WAND && mouse_pressed(wn, SDL_BUTTON_LEFT) && closer == NULL)
 		{
-			curr = find_center_linked(&elem);
-			tmp = fabs((curr->x * edit->map->size * 10) - wn->input->x) + ((curr->y * edit->map->size * 10) - wn->input->y);
-
-			if (tmp < diff && tmp > 0)
+			while (elem != NULL)
 			{
-				diff = tmp;
-				closer = elem;
+				curr = find_center_linked(&elem);
+				tmp = fabs((curr->x * edit->map->size * 10) - wn->input->x) + ((curr->y * edit->map->size * 10) - wn->input->y);	
+
+				if (tmp < diff && tmp > 0)
+				{
+					diff = tmp;
+					closer = elem;
+				}
+				elem = elem->next;
 			}
-			elem = elem->next;
-		}
-		if (wn->state[SDL_SCANCODE_LSHIFT])
-			edit->selected = addtmptoselection(cpy_elem_selected(closer), edit->selected); // NEED SECURE
-		else
-		{
-			free(edit->selected);
-			edit->selected = cpy_elem_selected(closer); // NEED SECURE
+			if (wn->state[SDL_SCANCODE_LSHIFT])
+				edit->selected = addtmptoselection(cpy_elem_selected(closer), edit->selected); // NEED SECURE
+			else
+			{
+				free(edit->selected);
+				edit->selected = cpy_elem_selected(closer); // NEED SECURE
+			}
 		}
 	}
 }
