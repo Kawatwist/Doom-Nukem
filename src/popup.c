@@ -48,23 +48,13 @@ static void	text_texture(t_win *wn, char *msg, SDL_Color color, SDL_Rect rect)
 	TTF_SetFontStyle(wn->fonts->arial_path, TTF_STYLE_NORMAL);
 }
 
-int 		pop_up_message(t_win *wn, t_popup  popup)
+static void bloc_message(t_win *wn, SDL_Texture **texture, t_popup popup)
 {
-	int				w;
-	int				h;
-	SDL_Texture 	*texture;
-	// char 			*str;
-	static int 		a = 0;
+	int 	w;
+	int 	h;
+	int 	a;
 
-	// str = NULL;
-    texture = NULL;
-	//APPARITION SOURIS
-	if (hitbox(wn->input->x, wn->input->y, popup.rect, 0) == TRUE)
-		SDL_ShowCursor(SDL_ENABLE);
-	//BLOC QUESTION
-		// AFFICHAGE TEXTURE DE FOND
-    back_texture(wn, &texture, "back_slider", popup);
-		// NVELLE TEXTURE TEXTE AVEC TEXTURE DE FOND
+	a = 0;
 	TTF_SizeText(wn->fonts->arial_path, popup.message, &w, &h);
 	if (w > popup.rect->w && (ft_strchr(popup.message, ' ') != NULL || ft_strchr(popup.str, ' ') != NULL))
 	{
@@ -79,15 +69,38 @@ int 		pop_up_message(t_win *wn, t_popup  popup)
 	if ((a > popup.rect->w || w > popup.rect->w) || (ft_strchr(popup.message, ' ') == NULL || ft_strchr(popup.str, ' ') == NULL))
 	{
 		SDL_SetRenderTarget(wn->rend, NULL) < 0 ? stop_exec("setrendertarget failed\n", wn) : 0;
-		SDL_DestroyTexture(texture);
-		texture = NULL;
+		SDL_DestroyTexture(*texture);
+		*texture = NULL;
 		popup.position.x = -1;
 		*(popup.rect) = (a >= w ? define_rect(wn->xscreen / 2 - (a + 30) / 2, popup.rect->y, a + 30, popup.rect->h) : define_rect(wn->xscreen / 2 - (w + 30) / 2, popup.rect->y, w + 30, popup.rect->h));
-		back_texture(wn, &texture, "back_slider", popup);
+		back_texture(wn, &(*texture), "back_slider", popup);
 		text_texture(wn, popup.message, wn->color.blanc, define_rect(popup.rect->w / 2 - w / 2, (3 * popup.rect->h / 4) / 2 - h, w, h));
 		if (popup.str != NULL)
 			text_texture(wn, popup.str, wn->color.blanc, define_rect(popup.rect->w / 2 - a / 2, (3 * popup.rect->h / 4) / 2 + h, a, h));
 	}
+}
+
+static void	conditions_popup(t_win *wn, t_popup popup)
+{
+	if (hitbox(wn->input->x, wn->input->y, popup.rect, 0) == TRUE)
+		SDL_ShowCursor(SDL_ENABLE);
+	if (popup.rect->x < 0 || popup.rect->x > wn->xscreen || popup.rect->y < 0 || popup.rect->y > wn->yscreen)
+		print_message(wn, "Origin popup out of screen", wn->color.blanc);
+	if (popup.rect->w > wn->xscreen || popup.rect->h > wn->yscreen)
+		print_message(wn, "Rect size is too big", wn->color.blanc);
+}
+
+int 		pop_up_message(t_win *wn, t_popup  popup)
+{
+	int				w;
+	int				h;
+	SDL_Texture 	*texture;
+
+    texture = NULL;
+	conditions_popup(wn, popup);
+	//BLOC QUESTION
+    back_texture(wn, &texture, "back_slider", popup);
+	bloc_message(wn, &texture, popup);
 	//BLOC YES
 	popup.position = define_rect(0, 3 * popup.rect->h / 4, popup.rect->w / 2, popup.rect->h / 4);
 	back_texture(wn, &texture, "slider_window", popup);
