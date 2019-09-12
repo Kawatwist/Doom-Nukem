@@ -150,9 +150,9 @@ void        save_panel(t_win *wn, t_edit *edit)
    map_name = text_box(wn, map_name);
    mouse.x = wn->input->x;
    mouse.y = wn->input->y;
+    printf("mapname = %s\n", map_name);
    if (edit->elem != NULL && map_name != NULL && boxhitbox(wn->rend, &mouse, &position, 1) && mouse_pressed(wn, SDL_BUTTON_LEFT))
    {
-        printf("mapname = %s\n", map_name);
        map_name = ft_strjoinfree(map_name, ".obj", 1);
        create_obj(wn, edit, map_name);
        printf("Map save will be called %s\n", map_name);

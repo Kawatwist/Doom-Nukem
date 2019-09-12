@@ -179,7 +179,7 @@ void				resetmap(t_win *wn, t_edit *edit);
 void				remove_poly(t_elem *curr);
 void				display_slider(t_win *wn, SDL_Rect rect, SDL_Texture *texture);
 void   				info_bar(t_win *wn, t_edit *edit);
-void    			draw_to_find_position(t_win *wn);
+// void    			draw_to_find_position(t_win *wn);
 void 				test_slider(t_win *wn);
 
 #endif
