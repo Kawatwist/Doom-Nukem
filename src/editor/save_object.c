@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   save_object.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/12 16:56:40 by llejeune          #+#    #+#             */
+/*   Updated: 2019/09/12 16:56:42 by llejeune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <doom.h>
 #include <editor.h>
 
@@ -140,6 +152,7 @@ void        save_panel(t_win *wn, t_edit *edit)
    mouse.y = wn->input->y;
    if (edit->elem != NULL && map_name != NULL && boxhitbox(wn->rend, &mouse, &position, 1) && mouse_pressed(wn, SDL_BUTTON_LEFT))
    {
+        printf("mapname = %s\n", map_name);
        map_name = ft_strjoinfree(map_name, ".obj", 1);
        create_obj(wn, edit, map_name);
        printf("Map save will be called %s\n", map_name);

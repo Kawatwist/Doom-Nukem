@@ -75,6 +75,7 @@ static void	control_map(t_win *wn, t_edit *edit)
 	wn->state[SDL_SCANCODE_Q]
 		&& edit->map->size <= 0.5 ? edit->map->size = 0.5 : 0;
 	wn->state[SDL_SCANCODE_BACKSPACE] ? resetmap(wn, edit) : 0;
+	// wn->state[SDL_SCANCODE_F] ? draw_to_find_position(wn) : 0;
 }
 
 static void	keyboardtool(t_win *wn, t_edit *edit)

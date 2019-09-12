@@ -88,6 +88,7 @@ void		printeditor(t_win *wn)
 	showmap(wn, edit);
 	checkcursor(wn, edit);
 	which_cursor(wn, edit);
+	info_bar(wn, edit);
 	print_tab_editor(wn, edit);
 	SDL_Rect	*pos = create_rect(0, 0, 72, 1080);
 	SDL_RenderCopy(wn->rend, findtexture(wn, "editor", "affichage", "cursor_panel"), NULL, pos);
@@ -96,6 +97,5 @@ void		printeditor(t_win *wn)
 	edit->var->cursor = ((edit->var->cursor & 0xFFFF) << 16) + (edit->var->cursor & 0xFFFF); // Save cursor
 	print_save_and_reset(wn, edit);
 	check_hitbox(wn, wn->edit);
-	info_bar(wn, edit);
 	// test_slider(wn);
 }
