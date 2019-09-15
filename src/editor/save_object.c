@@ -146,7 +146,7 @@ void        save_panel(t_win *wn, t_edit *edit)
    SDL_Rect    position;
    SDL_Rect     mouse;
    
-   position = define_rect(720, 700, 50, 50);
+   position = define_rect(((t_edit *)wn->edit)->tab->bg.x + ((t_edit*)wn->edit)->tab->bg.w - 100, ((t_edit*)wn->edit)->tab->bg.y + 200, 50, ((t_edit*)wn->edit)->tab->bg.h);	
    map_name = text_box(wn, map_name);
    mouse.x = wn->input->x;
    mouse.y = wn->input->y;
