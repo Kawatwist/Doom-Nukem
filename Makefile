@@ -116,6 +116,7 @@ SRC				= main.c										\
 				  save_object.c									\
 				  bar_info.c 									\
 				  find_map.c 									\
+				  tab_coor.c 									\
 
 
 #GAME ENGINE

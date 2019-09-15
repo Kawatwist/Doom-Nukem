@@ -15,11 +15,10 @@
 void    display_tab(t_win *wn, t_edit *edit)
 {
     edit->tab->onglet == 0 ? edit->tab->texture_tab =
-	findtexture(wn, "editor", "affichage", "params") : 0;
-	edit->tab->onglet == 1 ? edit->tab->texture_tab =
 	findtexture(wn, "editor", "affichage", "texts") : 0;
-	edit->tab->onglet == 2 ? edit->tab->texture_tab =
+	edit->tab->onglet == 1 ? edit->tab->texture_tab =
 	findtexture(wn, "editor", "affichage", "blocs") : 0;
+	edit->tab->onglet == 2 ? edit->tab->texture_tab = print_coor(wn, edit) : 0;
 	edit->tab->onglet == 3 ? edit->tab->texture_tab =
 	findtexture(wn, "editor", "affichage", "background_map") : 0;
 	(edit->tab->texture_tab == NULL) ?

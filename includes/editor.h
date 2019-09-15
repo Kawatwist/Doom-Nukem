@@ -100,6 +100,8 @@ typedef struct 		s_var
 	int 			nb_point;
 	int 			map_saved;
 	int 			on;
+	int				w;
+	int				h;
 }					t_var;
 
 typedef struct 		s_edit
@@ -164,7 +166,6 @@ void				print_text_with_arial_font(t_win *wn, char *s, SDL_Color color, SDL_Rect
 void				print_text_with_arial_path_full(t_win *wn, char *s, SDL_Color color, SDL_Rect position);
 void 				message_bg_editor(t_win *wn, t_edit *edit, char *message);
 void 				load_background(t_win *wn);
-// int 				is_path_ok(t_win *wn, char *path);
 void   				find_last_poly(t_elem **curr);
 void     			find_last_point(t_edit *edit, t_point **point);
 t_mypolygon		 	*polygon_map(t_win *wn);
@@ -179,7 +180,8 @@ void				resetmap(t_win *wn, t_edit *edit);
 void				remove_poly(t_elem *curr);
 void				display_slider(t_win *wn, SDL_Rect rect, SDL_Texture *texture);
 void   				info_bar(t_win *wn, t_edit *edit);
-// void    			draw_to_find_position(t_win *wn);
+void    			draw_to_find_position(t_win *wn, t_edit *edit);
+SDL_Texture			*print_coor(t_win *wn, t_edit *edit);
 void 				test_slider(t_win *wn);
 
 #endif
