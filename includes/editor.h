@@ -102,6 +102,7 @@ typedef struct 		s_var
 	int 			on;
 	int				w;
 	int				h;
+	int 			find;
 }					t_var;
 
 typedef struct 		s_edit

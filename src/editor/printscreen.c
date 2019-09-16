@@ -97,6 +97,6 @@ void		printeditor(t_win *wn)
 	edit->var->cursor = ((edit->var->cursor & 0xFFFF) << 16) + (edit->var->cursor & 0xFFFF); // Save cursor
 	print_save_and_reset(wn, edit);
 	check_hitbox(wn, wn->edit);
-	// draw_to_find_position(wn, wn->edit);
+	edit->var->find == 1 ? draw_to_find_position(wn, wn->edit) : 0;
 	// test_slider(wn);
 }

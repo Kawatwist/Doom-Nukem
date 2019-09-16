@@ -114,6 +114,7 @@ void		init_edit(t_win **wn)
 	edit->var->swapvar = 0;
 	edit->var->nb_point = 1;
 	edit->var->map_saved = 0;
+	edit->var->find = -1;
 	edit->selected = NULL;
 	initmap(*wn, edit);
 	initelem(edit);

@@ -50,10 +50,7 @@ SDL_Texture        *print_coor(t_win *wn, t_edit *edit)
 {
     SDL_Texture     *texture;
     SDL_Texture     *tmp;
-    // SDL_Rect        cursor;
     char            *nb;
-    // int             w;
-    // int             h;
 
     // couleur fond texture
     texture = SDL_CreateTexture(wn->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, wn->xscreen / 4, 7.5 * wn->yscreen / 8);

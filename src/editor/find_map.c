@@ -83,5 +83,4 @@ void    draw_to_find_position(t_win *wn, t_edit *edit)
         intersection = create_t_point(end.x, end.y);
     SDL_SetRenderDrawColor(wn->rend, 255, 0, 0, 0) < 0 ? stop_exec("drawcolor failed in find_map\n", wn) : 0;
     bresenham(wn, &start, &intersection);
-    SDL_RenderPresent(wn->rend);
 }
