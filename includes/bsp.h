@@ -73,8 +73,12 @@ struct	s_poly //polygon
 	int			nb_indices; 
 	int			*indices; //liste de coordonnées des triangles qui forment le polygone
 	t_poly		*next;
+	t_poly 		*prev;  //UNUSED, POSSIBLE FIX
+	int 		nb_leafs; //UNUSED, POSSIBLE FIX
+	int 		leafs[2]; //UNUSED, POSSIBLE FIX
 	char		was_splitter;
 	int			texture;
+	int 		debug_node; //UNUSED, POSSIBLE FIX
 };//				t_poly;
 
 //typedef 
@@ -90,7 +94,8 @@ struct s_portal
 	t_portal 	*prev;
 	int 		nb_leafs;
 	int 		leafs[2];
-
+	char		was_splitter; //UNUSED, POSSIBLE FIX
+	int			texture; //UNUSED, POSSIBLE FIX
 	int 		debug_node; //to remove
 };//				t_portal;
 
@@ -455,6 +460,7 @@ t_poly *render_bsp(t_bsp *bsp, t_vec *pos);
 int 	line_of_sight(t_bsp *bsp, t_vec *start, t_vec *end, int node);
 void 	print_leafs(t_leaf *leafs, int nb_leafs);
 int 	collision(t_bsp *bsp, t_vec *newpos); //UNTESTED
+void 	print_pvs2(t_bsp *bsp);
 //t_poly  *load_obj(t_mypolygon *in);
 //t_mytriangle *make_triangles(t_poly *poly);
 #endif

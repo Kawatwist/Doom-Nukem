@@ -21,6 +21,7 @@ t_poly *visible_polygons(t_bsp *bsp, int leaf)
 				vp.mask = 1 << vp.i;
 				vp.pvs = *vp.pointer;
 				if (vp.pvs & vp.mask)
+				//if (255 & vp.mask) //tets version
 				{
 					vp.start = bsp->leaf[vp.curr_leaf].start_poly;
 					vp.finish = bsp->leaf[vp.curr_leaf].end_poly;

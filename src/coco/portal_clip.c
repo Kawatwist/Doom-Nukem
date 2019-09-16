@@ -62,8 +62,11 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 		}
 		else
 		{
-			if (portal->nb_leafs > 1)
+			if (portal->nb_leafs > 2)
+			{
+				printf("PORTAL CLIP NB LEAFS >2\n"); //testing only, to remove
 				exit(0);
+			}
 			portal->leafs[portal->nb_leafs] = bsp->node[node].front;
 			portal->nb_leafs++;
 			portal->next = NULL;
@@ -163,7 +166,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 	if (pclip.result == 0)
 	{
 		//printf("TEST 0 IN\n");
-		if (bsp->node[node].isleaf != 0)
+		if (bsp->node[node].isleaf == 1)
 		{
 			portal->leafs[portal->nb_leafs] = bsp->node[node].front;
 			portal->nb_leafs++;
@@ -201,7 +204,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 					//printf("345\n");
 					pclip.iter = pclip.iter->next;
 				}
-				pclip.iter->next = pclip.p_list;
+				//pclip.iter->next = pclip.p_list; //possible crash ?
 				if (pclip.p_list != NULL)
 					pclip.p_list->prev = pclip.iter;
 				pclip.p_list = pclip.bp_list;

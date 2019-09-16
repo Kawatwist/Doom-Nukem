@@ -117,7 +117,7 @@ void print_bsp(t_bsp *bsp)
 	print_pvs(bsp);
 }
 
-void print_pvs(t_bsp *bsp)
+void print_pvs2(t_bsp *bsp)
 {
 	int i;
 	int j;
@@ -138,6 +138,58 @@ void print_pvs(t_bsp *bsp)
 		printf(" %d\n", bsp->pvs[i]);
 		i++;
 		c++;
+	}
+	printf("\n");
+}											
+
+ void print_pvs(t_bsp *bsp)
+{
+	int i;
+	int j;
+	int c;
+	int l;
+
+	printf("\nPVS\nSize = %d\n", bsp->pvs_size);
+	printf("TESTING nb leafs %d\n", bsp->nb_leafs);
+	i = 0;
+	c = 0;
+	l = bsp->nb_leafs;
+	while (i < bsp->pvs_size)
+	{
+		if (l >= bsp->nb_leafs)
+		{
+			printf("\nLeaf %d ", c);
+			//l = l % bsp->nb_leafs;
+			l = 0;
+			c++;
+		}
+		while (l < bsp->nb_leafs)
+		{
+			//c++;
+			//printf("\n TEST Leaf %d ", l);
+			//l = l % bsp->nb_leafs;
+			//l = 0;
+			//i = i + (bsp->nb_leafs - (i % bsp->nb_leafs));
+		
+			if (bsp->pvs[i] == 0)
+			{
+				i++;
+				l = l + (bsp->pvs[i] * 8);
+			}
+			else
+			{
+				j = 1;
+				while (j < 256)
+				{
+					if ((bsp->pvs[i] / j) % 2)
+					printf("%d,", l % bsp->nb_leafs); 
+					j *= 2;
+					l++;
+				}
+			}
+			i++;
+		}
+		//i++;
 	}
 	printf("\n");
 }

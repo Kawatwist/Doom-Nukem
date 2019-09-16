@@ -99,7 +99,7 @@ void remove_portal(t_portal *portal)
 		portal->prev->next = portal->next;
 	if (portal->next != NULL)
 		portal->next->prev = portal->prev;
-	//free(portal);
+	free(portal);
 	portal = NULL;
 	//deletes a portal, TO Check
 }
@@ -124,7 +124,7 @@ void build_portal_start(t_bsp *bsp, t_buildp *buildp)
 	buildp->iter = buildp->p_list;
 	while (buildp->iter != NULL)
 	{
-		printf("LOLO %p\n", buildp->iter);
+		printf("LOLO %p %d\n", buildp->iter, buildp->iter->debug_node);
 		if (buildp->iter->nb_leafs != 2)
 		{
 			buildp->tmp = buildp->iter->next;
@@ -133,10 +133,10 @@ void build_portal_start(t_bsp *bsp, t_buildp *buildp)
 		}
 		else
 		{
-			//printf("SKOL\n");
+			printf("SKOL\n");
 			if (check_duplicate(bsp, buildp->iter, &(buildp->portalindex)))
 			{
-				//printf("SKOL1\n");
+				printf("SKOL1\n");
 				buildp->tmp = buildp->iter->next;
 				remove_portal(buildp->iter);
 				buildp->iter = buildp->tmp;
