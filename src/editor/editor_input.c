@@ -57,8 +57,6 @@ void		resetmap(t_win *wn, t_edit *edit)
 	center_map(wn, edit);
 }
 
-
-
 static void	control_map(t_win *wn, t_edit *edit)
 {
 	key_pressed(wn, SDL_SCANCODE_SPACE) ? center_map(wn, edit) : 0;
@@ -88,6 +86,12 @@ static void	keyboardtool(t_win *wn, t_edit *edit)
 
 void		inputeditor(t_win *wn)
 {
+	if (!(wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT))
+		&& (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)))
+		zoom_mouse_map(wn, wn->edit, 1);
+	else if (!(wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_RIGHT))
+		&& (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_RIGHT)))
+		zoom_mouse_map(wn, wn->edit, 0);
 	if (!(wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT))
 		&& (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)))
 		change_bloc(wn, wn->edit);

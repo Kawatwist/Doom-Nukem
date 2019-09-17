@@ -35,14 +35,14 @@ static void         val_coor(t_win *wn, float pos, SDL_Texture **texture, char *
 
     cursor.x = wn->input->x;
     cursor.y = wn->input->y;
+    TTF_SizeText(wn->fonts->arial, nb, &w, &h);
     SDL_SetRenderTarget(wn->rend, NULL);
-    if (boxhitbox(wn->rend, &cursor, create_rect((3 * wn->xscreen / 4) + wn->xscreen / 8 + ((t_edit *)wn->edit)->var->w * 2, (0.5 * wn->yscreen / 8) + pos * (7.5 * wn->yscreen / 8) / 8, ((t_edit *)wn->edit)->var->w * 2, ((t_edit *)wn->edit)->var->h * 2), 1) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+    if (boxhitbox(wn->rend, &cursor, create_rect((3 * wn->xscreen / 4) + wn->xscreen / 8, (0.5 * wn->yscreen / 8) + pos * (7.5 * wn->yscreen / 8) / 8, w * 2, h * 2), 1) && mouse_pressed(wn, SDL_BUTTON_LEFT))
         printf("lalalalalala\n");
     else
     {
         SDL_SetRenderTarget(wn->rend, *texture);
-        TTF_SizeText(wn->fonts->arial, nb, &w, &h);
-        print_text_with_ariel_font(wn, nb, wn->color.noir, define_rect(wn->xscreen / 8 + ((t_edit *)wn->edit)->var->w, pos * 7.5 * wn->yscreen / 64, w * 2, h * 2));
+        print_text_with_ariel_font(wn, nb, wn->color.noir, define_rect(wn->xscreen / 8, pos * 7.5 * wn->yscreen / 64, w * 2, h * 2));
     }
 }
 

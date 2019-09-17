@@ -27,22 +27,22 @@ static t_point	find_intersection(t_win *wn, t_point p1, t_point p2, char side) /
 
 	if (side == 0 || side == 1)
 	{
-		pos.x = 20;
-		pos.y = 100;
+		pos.x = 0;
+		pos.y = 0;
 	}
 	else
 	{
-		pos.x = wn->xscreen - 20;
-		pos.y = wn->yscreen - 100;
+		pos.x = wn->xscreen;
+		pos.y = wn->yscreen;
 	}
-	side == 0 ? dir.x = 20 : 0;
-	side == 0 ? dir.y = wn->yscreen - 100 : 0;
-	side == 1 ? dir.x = wn->xscreen - 20 : 0;
-	side == 1 ? dir.y = 100 : 0;
-	side == 2 ? dir.x = wn->xscreen - 20 : 0;
-	side == 2 ? dir.y = 100 : 0;
-	side == 3 ? dir.x = 20 : 0;
-	side == 3 ? dir.y = wn->yscreen - 100 : 0;
+	side == 0 ? dir.x = 0 : 0;
+	side == 0 ? dir.y = wn->yscreen : 0;
+	side == 1 ? dir.x = wn->xscreen : 0;
+	side == 1 ? dir.y = 0 : 0;
+	side == 2 ? dir.x = wn->xscreen : 0;
+	side == 2 ? dir.y = 0 : 0;
+	side == 3 ? dir.x = 0 : 0;
+	side == 3 ? dir.y = wn->yscreen : 0;
 	a1 = p2.y - p1.y;
 	b1 = p1.x - p2.x;
 	c1 = a1 * p1.x + b1 * p1.y;
