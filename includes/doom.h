@@ -404,7 +404,22 @@ typedef struct		s_win
 	void			*client;
 }					t_win;
 
+typedef struct s_pi 		//COCO
+{
+	t_myvec *start;
+	t_myvec *end;
+	t_myvec plane_n;
+	t_myvec plane_p;
+	t_myvec inter;
+	float 	plane_d;
+	float	a;
+	float 	b;
+	float 	t;
+}				t_pi;
 
+
+t_myvec 	plane_intersection(t_win *wn, t_myvec *v1, t_myvec *v2, char side, float *t); //COCO
+t_myvec 	edge_intersection(t_pi *pi, float *t); //COCO
 /**
  ** JERONEMO.H
  **/
