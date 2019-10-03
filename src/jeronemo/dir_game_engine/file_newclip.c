@@ -34,18 +34,18 @@ t_mytriangle	    *clip_side(t_win *wn, t_mytriangle *toclip, int *value, int sid
 		nb = nb_outside(wn, curr, side);
 		if (nb == 4 || nb == 2 || nb == 1) // <= Need to create a new triangle
 		{
-			printf("1\n");
+			printf("TWO TRIANGLES BASE TEXTURE: %f %f;%f %f;%f %f\n", curr->texture[0].u, curr->texture[0].v, curr->texture[1].u, curr->texture[1].v, curr->texture[2].u, curr->texture[2].v);
 			*value += 1;
 			toadd = malloc(sizeof(t_mytriangle)); // MALLOC SECURE of not malloc if i find how to dodge
-			toadd->texture[0].u = toclip->texture[2].u;
-			toadd->texture[0].v = toclip->texture[2].v;
-			toadd->texture[0].w = toclip->texture[2].w;
-			toadd->texture[1].u = toclip->texture[1].u;
-			toadd->texture[1].v = toclip->texture[1].v;
-			toadd->texture[1].w = toclip->texture[1].w;
-			toadd->texture[2].u = toclip->texture[0].u;
-			toadd->texture[2].v = toclip->texture[0].v;
-			toadd->texture[2].w = toclip->texture[0].w;
+			toadd->texture[0].u = curr->texture[0].u;
+			toadd->texture[0].v = curr->texture[0].v;
+			toadd->texture[0].w = curr->texture[0].w;
+			toadd->texture[1].u = curr->texture[1].u;
+			toadd->texture[1].v = curr->texture[1].v;
+			toadd->texture[1].w = curr->texture[1].w;
+			toadd->texture[2].u = curr->texture[2].u;
+			toadd->texture[2].v = curr->texture[2].v;
+			toadd->texture[2].w = curr->texture[2].w;
 			toadd->zbuff = curr->zbuff;
 			toadd->splitted = 1;
 			toadd->sub = curr->sub + 1;
@@ -59,46 +59,52 @@ t_mytriangle	    *clip_side(t_win *wn, t_mytriangle *toclip, int *value, int sid
 				toadd->vertice[0] = curr->vertice[0]; // point commun
 				toadd->vertice[1] = curr->vertice[1]; // second point inside
 				toadd->vertice[2] = plane_intersection(wn, &curr->vertice[0], &curr->vertice[2], side, &t);
-				printf("TEST %f %f %f \n", toadd->vertice[2].x, toadd->vertice[2].y, toadd->vertice[2].z);
-				toadd->texture[2].u = (toclip->texture[2].u - toclip->texture[0].u) * t + toclip->texture[0].u;
-				toadd->texture[2].v = (toclip->texture[2].v - toclip->texture[0].v) * t + toclip->texture[0].v;
-				toadd->texture[2].w = (toclip->texture[2].w - toclip->texture[0].w) * t + toclip->texture[0].w; // troisieme point bordure scren
+				printf("TEST 1 %f %f %f \n", toadd->vertice[2].x, toadd->vertice[2].y, toadd->vertice[2].z);
+				toadd->texture[2].u = (curr->texture[2].u - curr->texture[0].u) * t + curr->texture[0].u;
+				toadd->texture[2].v = (curr->texture[2].v - curr->texture[0].v) * t + curr->texture[0].v;
+				toadd->texture[2].w = (curr->texture[2].w - curr->texture[0].w) * t + curr->texture[0].w; // troisieme point bordure scren
 				curr->vertice[2] = plane_intersection(wn, &curr->vertice[1], &curr->vertice[2], side, &t);
-				curr->texture[2].u = (toclip->texture[2].u - toclip->texture[1].u) * t + toclip->texture[1].u;
-				curr->texture[2].v = (toclip->texture[2].v - toclip->texture[1].v) * t + toclip->texture[1].v;
-				curr->texture[2].w = (toclip->texture[2].w - toclip->texture[1].w) * t + toclip->texture[1].w;
+				curr->texture[2].u = (curr->texture[2].u - curr->texture[1].u) * t + curr->texture[1].u;
+				curr->texture[2].v = (curr->texture[2].v - curr->texture[1].v) * t + curr->texture[1].v;
+				curr->texture[2].w = (curr->texture[2].w - curr->texture[1].w) * t + curr->texture[1].w;
 				curr->vertice[0] = toadd->vertice[2]; // point bordure screen 1
+				curr->texture[0] = toadd->texture[2];
 			}
 			else if (nb & 0x2)
 			{
 				toadd->vertice[0] = curr->vertice[0];
-				toadd->vertice[1] = curr->vertice[2];
-				toadd->vertice[2] = plane_intersection(wn, &curr->vertice[0], &curr->vertice[1], side, &t);
-				toadd->texture[2].u = (toclip->texture[1].u - toclip->texture[0].u) * t + toclip->texture[0].u;
-				printf("TEST %f %f %f \n", toadd->vertice[2].x, toadd->vertice[2].y, toadd->vertice[2].z);
-				toadd->texture[2].v = (toclip->texture[1].v - toclip->texture[0].v) * t + toclip->texture[0].v;
-				toadd->texture[2].w = (toclip->texture[1].w - toclip->texture[0].w) * t + toclip->texture[0].w; // troisieme point bordure scren
-				curr->vertice[1] = plane_intersection(wn, &curr->vertice[2], &curr->vertice[1], side, &t);
-				curr->texture[1].u = (toclip->texture[1].u - toclip->texture[2].u) * t + toclip->texture[2].u;
-				curr->texture[1].v = (toclip->texture[1].v - toclip->texture[2].v) * t + toclip->texture[2].v;
-				curr->texture[1].w = (toclip->texture[1].w - toclip->texture[2].w) * t + toclip->texture[2].w;
-				curr->vertice[0] = toadd->vertice[2];
+				//toadd->vertice[2] = curr->vertice[2];
+				toadd->vertice[1] = plane_intersection(wn, &curr->vertice[0], &curr->vertice[1], side, &t);
+				toadd->texture[1].u = (curr->texture[1].u - curr->texture[0].u) * t + curr->texture[0].u;
+				printf("TEST 2 %f %f %f \n", toadd->vertice[2].x, toadd->vertice[2].y, toadd->vertice[2].z);
+				toadd->texture[1].v = (curr->texture[1].v - curr->texture[0].v) * t + curr->texture[0].v;
+				toadd->texture[1].w = (curr->texture[1].w - curr->texture[0].w) * t + curr->texture[0].w; // troisieme point bordure scren
+				toadd->vertice[2] = plane_intersection(wn, &curr->vertice[2], &curr->vertice[1], side, &t);
+				toadd->texture[2].u = (curr->texture[1].u - curr->texture[2].u) * t + curr->texture[2].u;
+				toadd->texture[2].v = (curr->texture[1].v - curr->texture[2].v) * t + curr->texture[2].v;
+				toadd->texture[2].w = (curr->texture[1].w - curr->texture[2].w) * t + curr->texture[2].w;
+				curr->vertice[1] = toadd->vertice[2];
+				curr->texture[1] = toadd->texture[2];
 			}
 			else
 			{
-				toadd->vertice[0] = curr->vertice[1];
-				toadd->vertice[1] = curr->vertice[2];
+				//toadd->vertice[0] = curr->vertice[1];
+				toadd->vertice[1] = curr->vertice[1];
+				toadd->texture[1] = curr->texture[1];
 				toadd->vertice[2] = plane_intersection(wn, &curr->vertice[2], &curr->vertice[0], side, &t);
-				printf("TEST %f %f %f \n", toadd->vertice[2].x, toadd->vertice[2].y, toadd->vertice[2].z);
-				toadd->texture[2].u = (toclip->texture[0].u - toclip->texture[2].u) * t + toclip->texture[2].u;
-				toadd->texture[2].v = (toclip->texture[0].v - toclip->texture[2].v) * t + toclip->texture[2].v;
-				toadd->texture[2].w = (toclip->texture[0].w - toclip->texture[2].w) * t + toclip->texture[2].w; // troisieme point bordure scren
-				curr->vertice[0] = plane_intersection(wn, &curr->vertice[1], &curr->vertice[0], side, &t);
-				curr->texture[0].u = (toclip->texture[0].u - toclip->texture[1].u) * t + toclip->texture[1].u;
-				curr->texture[0].v = (toclip->texture[0].v - toclip->texture[1].v) * t + toclip->texture[1].v;
-				curr->texture[0].w = (toclip->texture[0].w - toclip->texture[1].w) * t + toclip->texture[1].w;
-				curr->vertice[2] = toadd->vertice[2];
+				printf("TEST 3 %f %f %f \n", toadd->vertice[2].x, toadd->vertice[2].y, toadd->vertice[2].z);
+				toadd->texture[2].u = (curr->texture[0].u - curr->texture[2].u) * t + curr->texture[2].u;
+				toadd->texture[2].v = (curr->texture[0].v - curr->texture[2].v) * t + curr->texture[2].v;
+				toadd->texture[2].w = (curr->texture[0].w - curr->texture[2].w) * t + curr->texture[2].w; // troisieme point bordure scren
+				toadd->vertice[0] = plane_intersection(wn, &curr->vertice[1], &curr->vertice[0], side, &t);
+				toadd->texture[0].u = (curr->texture[0].u - curr->texture[1].u) * t + curr->texture[1].u;
+				toadd->texture[0].v = (curr->texture[0].v - curr->texture[1].v) * t + curr->texture[1].v;
+				toadd->texture[0].w = (curr->texture[0].w - curr->texture[1].w) * t + curr->texture[1].w;
+				curr->vertice[0] = toadd->vertice[2];
+				curr->texture[0] = toadd->texture[2];
 			}
+			printf("TO ADD TEXTURES: %f %f;%f %f;%f %f\n", toadd->texture[0].u, toadd->texture[0].v, toadd->texture[1].u, toadd->texture[1].v, toadd->texture[2].u, toadd->texture[2].v);
+			printf("CURR TEXTURE: %f %f;%f %f;%f %f\n", curr->texture[0].u, curr->texture[0].v, curr->texture[1].u, curr->texture[1].v, curr->texture[2].u, curr->texture[2].v);
 			toadd->shade = curr->shade;
 			curr->next = toadd;
 		}
@@ -110,19 +116,37 @@ t_mytriangle	    *clip_side(t_win *wn, t_mytriangle *toclip, int *value, int sid
 			{
 				printf("\n CASE 2.1");
 				curr->vertice[0] = plane_intersection(wn, &curr->vertice[2], &curr->vertice[0], side, &t);
+				curr->texture[0].u = (curr->texture[0].u - curr->texture[2].u) * t + curr->texture[2].u;
+				curr->texture[0].v = (curr->texture[0].v - curr->texture[2].v) * t + curr->texture[2].v;
+				curr->texture[0].w = (curr->texture[0].w - curr->texture[2].w) * t + curr->texture[2].w;
 				curr->vertice[1] = plane_intersection(wn, &curr->vertice[2], &curr->vertice[1], side, &t);
+				curr->texture[1].u = (curr->texture[1].u - curr->texture[2].u) * t + curr->texture[2].u;
+				curr->texture[1].v = (curr->texture[1].v - curr->texture[2].v) * t + curr->texture[2].v;
+				curr->texture[1].w = (curr->texture[1].w - curr->texture[2].w) * t + curr->texture[2].w;
 			}
 			if (!(nb & 0x2))
 			{
 				printf("\n CASE 2.2");
 				curr->vertice[0] = plane_intersection(wn, &curr->vertice[1], &curr->vertice[0], side, &t);
+				curr->texture[0].u = (curr->texture[0].u - curr->texture[1].u) * t + curr->texture[1].u;
+				curr->texture[0].v = (curr->texture[0].v - curr->texture[1].v) * t + curr->texture[1].v;
+				curr->texture[0].w = (curr->texture[0].w - curr->texture[1].w) * t + curr->texture[1].w;
 				curr->vertice[2] = plane_intersection(wn, &curr->vertice[1], &curr->vertice[2], side, &t);
+				curr->texture[2].u = (curr->texture[2].u - curr->texture[1].u) * t + curr->texture[1].u;
+				curr->texture[2].v = (curr->texture[2].v - curr->texture[1].v) * t + curr->texture[1].v;
+				curr->texture[2].w = (curr->texture[2].w - curr->texture[1].w) * t + curr->texture[1].w;
 			}
 			if (!(nb & 0x1))
 			{
 				printf("\n CASE 2.3");
 				curr->vertice[1] = plane_intersection(wn, &curr->vertice[0], &curr->vertice[1], side, &t);
+				curr->texture[1].u = (curr->texture[1].u - curr->texture[0].u) * t + curr->texture[0].u;
+				curr->texture[1].v = (curr->texture[1].v - curr->texture[0].v) * t + curr->texture[0].v;
+				curr->texture[1].w = (curr->texture[1].w - curr->texture[0].w) * t + curr->texture[0].w;
 				curr->vertice[2] = plane_intersection(wn, &curr->vertice[0], &curr->vertice[2], side, &t);
+				curr->texture[2].u = (curr->texture[2].u - curr->texture[0].u) * t + curr->texture[0].u;
+				curr->texture[2].v = (curr->texture[2].v - curr->texture[0].v) * t + curr->texture[0].v;
+				curr->texture[2].w = (curr->texture[2].w - curr->texture[0].w) * t + curr->texture[0].w;
 			}
 			printf("OUT \n%f %f %f\n", curr->vertice[0].x, curr->vertice[0].y, curr->vertice[0].z);
 				printf("%f %f %f\n", curr->vertice[1].x, curr->vertice[1].y, curr->vertice[1].z);

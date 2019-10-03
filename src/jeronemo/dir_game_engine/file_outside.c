@@ -118,8 +118,8 @@ t_myvec 	plane_intersection(t_win *wn, t_myvec *v1, t_myvec *v2, char side, floa
 	}
 	pi.start = v1;
 	pi.end = v2;
-	printf("\nPLANE INTERSECTION SIDE %d \n%f %f %f\n", side, v1->x, v1->y, v1->z);
-	printf("%f %f %f\n", v2->x, v2->y, v2->z);
+	//printf("\nPLANE INTERSECTION SIDE %d \n%f %f %f\n", side, v1->x, v1->y, v1->z);
+	//printf("%f %f %f\n", v2->x, v2->y, v2->z);
 	return(edge_intersection(&pi, t));
 }
 
@@ -144,7 +144,7 @@ print I   **/
 
 
 
-		printf("EDGE DEBUG\n");
+		//printf("EDGE DEBUG\n");
 		//pi->plane_d = -(pi->plane_n.x * pi->plane_p.x + pi->plane_n.y * pi->plane_p.y + pi->plane_n.z * pi->plane_p.z);
 		//printf("plane d %f\n", pi->plane_d);
 		//pi->a = pi->start->x * pi->plane_n.x + pi->start->y * pi->plane_n.y + pi->start->z * pi->plane_n.z;
@@ -158,7 +158,7 @@ print I   **/
 		pi->inter.x = pi->start->x + ((pi->end->x - pi->start->x) * (*t));
 		pi->inter.y = pi->start->y + ((pi->end->y - pi->start->y) * (*t));
 		pi->inter.z = pi->start->z + ((pi->end->z - pi->start->z) * (*t));
-		printf("INTER POINT %f %f %f PERC %f \n", pi->inter.x, pi->inter.y, pi->inter.z, *t);
+		//printf("INTER POINT %f %f %f PERC %f \n", pi->inter.x, pi->inter.y, pi->inter.z, *t);
 		//float plane_d = -Vector_DotProduct(plane_n, plane_p);
 		//float ad = Vector_DotProduct(lineStart, plane_n);
 		//float bd = Vector_DotProduct(lineEnd, plane_n);
@@ -175,27 +175,27 @@ int			nb_outside(t_win *wn, t_mytriangle *curr, int side)
 	nb = 0;
 	if (side == 0)
 	{
-		curr->vertice[0].x < -0.1 ? nb = 1 : 0;
-		curr->vertice[1].x < -0.1 ? nb = nb | 0x2 : 0;
-		curr->vertice[2].x < -0.1 ? nb = nb | 0x4 : 0;
+		curr->vertice[0].x < -0.001 ? nb = 1 : 0;
+		curr->vertice[1].x < -0.001 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].x < -0.001 ? nb = nb | 0x4 : 0;
 	}
 	else if (side == 1)
 	{
-		curr->vertice[0].y < -0.1 ? nb = 1 : 0;
-		curr->vertice[1].y < -0.1 ? nb = nb | 0x2 : 0;
-		curr->vertice[2].y < -0.1 ? nb = nb | 0x4 : 0;
+		curr->vertice[0].y < -0.001 ? nb = 1 : 0;
+		curr->vertice[1].y < -0.001 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].y < -0.001 ? nb = nb | 0x4 : 0;
 	}
 	else if (side == 2)
 	{
-		curr->vertice[0].x > wn->xscreen + 0.1 ? nb = 1 : 0;
-		curr->vertice[1].x > wn->xscreen + 0.1 ? nb = nb | 0x2 : 0;
-		curr->vertice[2].x > wn->xscreen + 0.1 ? nb = nb | 0x4 : 0;
+		curr->vertice[0].x > wn->xscreen + 0.001 ? nb = 1 : 0;
+		curr->vertice[1].x > wn->xscreen + 0.001 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].x > wn->xscreen + 0.001 ? nb = nb | 0x4 : 0;
 	}
 	else
 	{
-		curr->vertice[0].y > wn->yscreen + 0.1 ? nb = 1 : 0;
-		curr->vertice[1].y > wn->yscreen + 0.1 ? nb = nb | 0x2 : 0;
-		curr->vertice[2].y > wn->yscreen + 0.1 ? nb = nb | 0x4 : 0;
+		curr->vertice[0].y > wn->yscreen + 0.001 ? nb = 1 : 0;
+		curr->vertice[1].y > wn->yscreen + 0.001 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].y > wn->yscreen + 0.001 ? nb = nb | 0x4 : 0;
 	}
 	return (nb);
 }
