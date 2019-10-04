@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 # include <header_game_engine.h>
+
 t_mypolygon		*ft_read_the_polygon_file(void);
 
 t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
@@ -28,9 +29,25 @@ t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
 	ft_launch_rasterization(wn);
  }
 
+void	free_poly_list(t_mypolygon *lst)
+{
+	t_mypolygon	*keep_next;
+
+	while (lst != NULL)
+	{
+		keep_next = lst->next;
+		free(lst);
+		lst = NULL;
+		lst = keep_next;
+	}
+}
+
 void	turn_rast(t_win *wn)
 {
-	 wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
+	t_mypolygon		*new_lst;
+	t_myvec			camera;
+
+	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
 	//############
 	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
 	{
@@ -68,6 +85,7 @@ void	turn_rast(t_win *wn)
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
 		if (wn->interface == DGAME)
 			SDL_RenderPresent(wn->rend);
+		free_poly_list(new_lst);
 	}
 }
 

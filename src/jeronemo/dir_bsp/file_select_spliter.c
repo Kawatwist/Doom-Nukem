@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <header_bsp.h> 
+#include <header_bsp.h>
 
 //The wall with the lowest score in the list wins and becomes the splitter for that node.Here's the formula
 //score=abs(frontfaces-backfaces)+(splits*8)
@@ -32,7 +32,7 @@ t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst)
 	printf("\n\n==>Select the best splitter<==\n");
 	while (polygon_node != NULL)//boucle des spliter
 	{
-		printf ("On test le polygone splitter qui contient %d vertices\n", polygon_node->number_of_vertex);
+		// printf ("On test le polygone splitter ayant id %d\n", polygon_node->id);
 
 		current_score = 0;
 		front = 0;
@@ -45,17 +45,18 @@ t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst)
 				polygon_lst = polygon_lst->next;
 			if (polygon_lst == NULL)
 				break;
-			printf("\tOn test le polygone ayant %d vertices ", polygon_lst->number_of_vertex);
+			// printf("\tOn test le polygone ayant id %d ", polygon_lst->id);
 			result = ft_classify_polygon(polygon_node, polygon_lst);
 
-			if (result == FRONT)
-			printf(" qui est FRONT\n");
-			if (result == BACK)
-			printf(" qui est BACK\n");
-			if (result == SPANNING)
-			printf(" qui est SPANNING\n");
+			// if (result == FRONT)
+			// printf(" qui est FRONT\n");
+			// if (result == BACK)
+			// printf(" qui est BACK\n");
+			// if (result == SPANNING)
+			// printf(" qui est SPANNING\n");
+			// if (result == ON_PLANE)
+			// printf(" qui est ON_PLANE\n");
 
-			
 			if (result == FRONT || result == ON_PLANE)
 				front++;
 			else if (result == BACK)
@@ -65,7 +66,7 @@ t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst)
 			polygon_lst = polygon_lst->next;
 		}
 		current_score = ft_abs(front - back) + (split * 8);
-		printf ("\t\tle scrore de ce splitter de %d\n", current_score);
+		// printf ("\t\tle scrore de ce splitter de %d\n", current_score);
 		if (current_score < best_score)
 		{
 			best_score = current_score;
@@ -74,6 +75,6 @@ t_mypolygon		*ft_select_the_best_poly_splitter(t_mypolygon *polygon_lst)
 		polygon_node = polygon_node->next;
 	}
 	polygon_lst = keep;
-	printf("\n On choist le poly ayant %d vertex\n", poly_spliter->number_of_vertex);
+	printf("\n On choist le poly ayant id %d\n", poly_spliter->id);
 	return (poly_spliter);
 }

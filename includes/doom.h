@@ -173,7 +173,7 @@ typedef struct		s_load
 	struct s_load	*next;
 }					t_load;
 
-typedef struct 		s_bresenham 
+typedef struct 		s_bresenham
 {
 	int 			x;
 	int 			y;
@@ -227,10 +227,10 @@ typedef struct 		s_color
 	SDL_Color		violetrose;
 	SDL_Color 		red;
 	SDL_Color 		blanc;
-	unsigned char	r;			
-	unsigned char	g;			
-	unsigned char	b;			
-	unsigned char	a;	
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	a;
 }					t_color;
 
 typedef struct 		s_loadbgmap
@@ -270,7 +270,7 @@ typedef struct 		s_var_edit
 	int 			nb_point;
 }					t_var_edit;
 
-// typedef struct 		s_bresenham 
+// typedef struct 		s_bresenham
 // {
 // 	int 			x;
 // 	int 			y;
@@ -298,7 +298,7 @@ typedef struct  	s_fonts
 
 // typedef struct		s_color
 // {
-		
+
 // }					t_color;
 
 //JEROME
@@ -330,10 +330,22 @@ typedef struct				s_mypolygon
 	int						number_of_vertex;        //nombre de vertex
 	int						number_of_indices;       //nombre d'indices
 	int						*indices;                //la listes des indices apres triangulasisation
+	int						id;
 	struct s_mypolygon		*next;                   //le prochain noeud dans la liste
 }							t_mypolygon;
 // FIN JEROME
 //
+
+typedef struct			s_mynode
+{
+	t_mypolygon			*splitter;
+	struct s_mynode		*front;
+	struct s_mynode		*back;
+	char				is_leaf;
+	char				is_solid;
+}						t_mynode;
+
+
 typedef struct		s_rasterizer
 {
 	int				nbr_triangle;
@@ -345,6 +357,7 @@ typedef struct		s_rasterizer
 
 	t_mytriangle	*triangle_array;
 	t_mypolygon		*polygon_lst;
+	t_mynode		*bsp_node;
 }					t_rasterizer;
 
 typedef struct		s_win
@@ -396,7 +409,22 @@ typedef struct		s_win
 	void			*client;
 }					t_win;
 
+typedef struct s_pi 		//COCO
+{
+	t_myvec *start;
+	t_myvec *end;
+	t_myvec plane_n;
+	t_myvec plane_p;
+	t_myvec inter;
+	float 	plane_d;
+	float	a;
+	float 	b;
+	float 	t;
+}				t_pi;
 
+
+t_myvec 	plane_intersection(t_win *wn, t_myvec *v1, t_myvec *v2, char side, float *t); //COCO
+t_myvec 	edge_intersection(t_pi *pi, float *t); //COCO
 /**
  ** JERONEMO.H
  **/
@@ -405,15 +433,19 @@ typedef struct		s_win
 void						clipping(t_win *wn, t_mytriangle toclip, t_mytriangle **tostore);
 void						ft_launch_rasterization(t_win *wn);
 void						turn_rast(t_win *wn);
+void	ft_launch_bsp_tree(t_mypolygon *polygon_lst, t_mynode **bsp_node);
+
 //
 
 
 
 t_mycolor					ft_setcolor(int rrr, int ggg, int bbb);
-void						ft_launch_bsp_tree(t_mypolygon *polygon_lst);
+// void						ft_launch_bsp_tree(t_mypolygon *polygon_lst);
+
 float						ft_dot_product(t_myvec v1, t_myvec v2);
 t_myvec						ft_cross_product(t_myvec v1, t_myvec v2);
 int							ft_abs(int number);
+float						ft_abs_float(float number);
 float						ft_atoi_comma(const char *str);
 
 //commun

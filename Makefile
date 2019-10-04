@@ -158,8 +158,10 @@ SRC += file_test_function.c
 SRC += file_maths.c
 SRC += file_build_bsp_tree.c
 SRC += file_select_spliter.c
-SRC += file_classify_polygon.c 
+SRC += file_classify_polygon.c
 SRC += file_affichage_bsp.c
+SRC += file_split_polygon.c
+SRC += file_walk_bsp_tree.c
 
 #BRESENHAM
 SRC += fille_bresename.c
@@ -197,7 +199,8 @@ LIBFTA			= ./libft \
 
 IMAGE 			= ./libraries \
 
-DEBUG			= -g -fsanitize=address
+# DEBUG			= -g -fsanitize=address
+DEBUG			= -g
 
 all: $(NAME)
 
