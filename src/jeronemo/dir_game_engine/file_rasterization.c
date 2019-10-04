@@ -48,7 +48,7 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->theta_camera = 0;
 	raster->pitch = 0;
 	raster->leave_mouse = 0;
-	raster->v_camera = ft_create_vector(30.0, -30.0, -30.0);
+	raster->v_camera = ft_create_vector(20.0, -30.0, 0.0);
 	raster->avancer = 0;
 	raster->reculer = 0;
 	raster->translate_left = 0;

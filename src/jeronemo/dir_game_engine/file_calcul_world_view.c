@@ -88,7 +88,7 @@ void	ft_free_lst(t_mytriangle *triangle_lst_2)
 }
 
 void	ft_clipping_camera(t_mytriangle *triangle, t_myraster *raster, t_mytriangle **clipped_triangle)
-{
+{ 
 	raster->nbr_of_clipped_triangle_created = 0;
 	if (triangle->vertice[0].z < 0.1 || triangle->vertice[1].z < 0.1 || triangle->vertice[2].z < 0.1)
 		(raster->nbr_of_clipped_triangle_created) = 0; // Un verice ou plus out

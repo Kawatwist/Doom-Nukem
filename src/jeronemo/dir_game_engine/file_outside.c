@@ -116,6 +116,17 @@ t_myvec 	plane_intersection(t_win *wn, t_myvec *v1, t_myvec *v2, char side, floa
 		pi.plane_n.z = 0;
 		pi.plane_n.w = 1;
 	}
+	/** if (side == 4)
+	{
+		pi.plane_p.x = 0;
+		pi.plane_p.y = 0;
+		pi.plane_p.z = 0.1;
+		pi.plane_p.w = 1;
+		pi.plane_n.x = 0;
+		pi.plane_n.y = 0;
+		pi.plane_n.z = -1;
+		pi.plane_n.w = 1;
+	} **/
 	pi.start = v1;
 	pi.end = v2;
 	//printf("\nPLANE INTERSECTION SIDE %d \n%f %f %f\n", side, v1->x, v1->y, v1->z);
@@ -191,6 +202,12 @@ int			nb_outside(t_win *wn, t_mytriangle *curr, int side)
 		curr->vertice[1].x > wn->xscreen + 0.001 ? nb = nb | 0x2 : 0;
 		curr->vertice[2].x > wn->xscreen + 0.001 ? nb = nb | 0x4 : 0;
 	}
+/**	else if (side == 4)
+	{
+		curr->vertice[0].z < 0.1 ? nb = 1 : 0;
+		curr->vertice[1].z < 0.1 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].z < 0.1 ? nb = nb | 0x4 : 0;
+	} **/
 	else
 	{
 		curr->vertice[0].y > wn->yscreen + 0.001 ? nb = 1 : 0;

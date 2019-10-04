@@ -180,7 +180,7 @@ void		clipping(t_win *wn, t_mytriangle toclip, t_mytriangle **tostore) // Need t
 
 	ret = &toclip;
 	side = -1;
-	while (++side < 4)
+	while (++side < 4) //5 if close camera detectionmake
 		ret = clip_side(wn, ret, &nb, side);
 	while (ret)
 	{
