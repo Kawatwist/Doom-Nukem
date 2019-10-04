@@ -44,8 +44,8 @@ void	free_poly_list(t_mypolygon *lst)
 
 void	turn_rast(t_win *wn)
 {
-	t_mypolygon		*new_lst;
-	t_myvec			camera;
+	//t_mypolygon		*new_lst;
+	//t_myvec			camera;
 
 	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
 	//############
@@ -85,7 +85,7 @@ void	turn_rast(t_win *wn)
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
 		if (wn->interface == DGAME)
 			SDL_RenderPresent(wn->rend);
-		free_poly_list(new_lst);
+		//free_poly_list(new_lst);
 	}
 }
 
