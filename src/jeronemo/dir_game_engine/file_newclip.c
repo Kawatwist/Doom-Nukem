@@ -27,7 +27,7 @@ t_mytriangle	    *clip_side(t_win *wn, t_mytriangle *toclip, int *value, int sid
 	before = NULL;
 	while (curr != NULL)
 	{
-		//printf("????\n");
+		//printf("???? %p\n", curr);
 		//printf("%f %f %f ; %f %f %f ; %f %f %f\n", curr->vertice[0].x, curr->vertice[0].y, curr->vertice[0].z,
 		//	curr->vertice[1].x, curr->vertice[1].y, curr->vertice[1].z,
 		//	curr->vertice[2].x, curr->vertice[2].y, curr->vertice[2].z);
@@ -180,6 +180,7 @@ void		clipping(t_win *wn, t_mytriangle toclip, t_mytriangle **tostore) // Need t
 
 	ret = &toclip;
 	side = -1;
+	//printf("HERE\n");
 	while (++side < 4) //5 if close camera detectionmake
 		ret = clip_side(wn, ret, &nb, side);
 	while (ret)
