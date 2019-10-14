@@ -99,7 +99,7 @@ static void fill_file(t_win *wn, t_edit *edit, int fd)
     (void)wn;
     curr_elem = edit->elem;
     nb = 1;
-    while (curr_elem != NULL)
+    while (curr_elem != NULL && curr_elem->next != NULL && curr_elem->point != NULL)
     {
         ft_putstr_fd("o Polygon.", fd);
         ft_putnbr_fd(nb, fd);
@@ -108,6 +108,8 @@ static void fill_file(t_win *wn, t_edit *edit, int fd)
         nb_ver2 = store_reverse_vertice(curr_elem->next, fd);
         create_face(nb_ver1, nb_ver2, fd);
         ft_putstr_fd("s off\n", fd);
+        if (curr_elem->next->next == NULL || curr_elem->next->next->next == NULL)
+            break;
         curr_elem = curr_elem->next->next;
         nb++;
     }
@@ -125,7 +127,7 @@ static void create_obj(t_win *wn, t_edit *edit, char *name)
    fd = 0;
 //    if (!access(name, F_OK))
 //    {
-       if ((fd = creat(name, O_WRONLY)) != -1)
+       if ((fd = creat(name, O_WRONLY | S_IRWXU| S_IROTH)) != -1)
         {
            ft_putstr("File's has been create\n");
            ft_putstr_fd(name, fd);
@@ -147,9 +149,11 @@ void        save_panel(t_win *wn, t_edit *edit)
    SDL_Rect     mouse;
    
    position = define_rect(((t_edit *)wn->edit)->tab->bg.x + ((t_edit*)wn->edit)->tab->bg.w - 100, ((t_edit*)wn->edit)->tab->bg.y + 200, 50, ((t_edit*)wn->edit)->tab->bg.h);	
-   map_name = text_box(wn, map_name);
+   
+    printf("mapname AVANT= %s\n", map_name);
+    map_name = text_box(wn, map_name);
    mouse.x = wn->input->x;
-   mouse.y = wn->input->y;
+    mouse.y = wn->input->y;
     printf("mapname = %s\n", map_name);
    if (edit->elem != NULL && map_name != NULL && boxhitbox(wn->rend, &mouse, &position, 1) && mouse_pressed(wn, SDL_BUTTON_LEFT))
    {

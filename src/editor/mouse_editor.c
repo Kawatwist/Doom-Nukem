@@ -50,8 +50,23 @@ void		print_x_y_z(t_win *wn, t_edit *edit)
 	}
 }
 
+static void	keyboard_select_cursor(t_win *wn, t_edit *edit)
+{
+	key_pressed(wn, SDL_SCANCODE_0) ? edit->var->cursor = (edit->var->cursor & 0xFFFF0000) + CURSOR : 0;
+	key_pressed(wn, SDL_SCANCODE_1) ? edit->var->cursor = (edit->var->cursor & 0xFFFF0000) + SELECT : 0;
+	key_pressed(wn, SDL_SCANCODE_2) ? edit->var->cursor = (edit->var->cursor & 0xFFFF0000) + WAND : 0;
+	key_pressed(wn, SDL_SCANCODE_3) ? edit->var->cursor = (edit->var->cursor & 0xFFFF0000) + DRAW : 0;
+	key_pressed(wn, SDL_SCANCODE_4) ? edit->var->cursor = (edit->var->cursor & 0xFFFF0000) + FORM : 0;
+	key_pressed(wn, SDL_SCANCODE_5) ? edit->var->cursor = (edit->var->cursor & 0xFFFF0000) + ERASE : 0;
+	key_pressed(wn, SDL_SCANCODE_6) ? edit->var->cursor = (edit->var->cursor & 0xFFFF0000) + ZOOM : 0;
+	key_pressed(wn, SDL_SCANCODE_7) ? edit->var->cursor = (edit->var->cursor & 0xFFFF0000) + RESIZE : 0;
+	key_pressed(wn, SDL_SCANCODE_8) ? edit->var->cursor = (edit->var->cursor & 0xFFFF0000) + HAND : 0;
+	key_pressed(wn, SDL_SCANCODE_9) ? edit->var->cursor = (edit->var->cursor & 0xFFFF0000) + SWAP : 0;
+}
+
 void		which_cursor(t_win *wn, t_edit *edit)
 {
+	keyboard_select_cursor(wn, edit);
 	if (hitbox(wn->input->x, wn->input->y, &edit->tab->tab, 0) == FALSE && wn->input->x > (wn->xscreen / 18))
 		edit->indice->on = 1;
 	else

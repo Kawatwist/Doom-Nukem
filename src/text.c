@@ -19,7 +19,7 @@ static char *special_key(t_win *wn, char *line)
 	if (line != NULL)
 	{
 		i = ft_strlen(line);
-		if (key_pressed(wn, SDL_SCANCODE_BACKSPACE))
+		if (key_pressed(wn, SDL_SCANCODE_BACKSPACE) && i > 0)
 			line[i - 1] = '\0';
 		if (key_pressed(wn, SDL_SCANCODE_KP_DIVIDE))
 			line = ft_strjoinfree(line, "/", 1);

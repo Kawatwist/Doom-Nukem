@@ -72,7 +72,7 @@ static void		fill_point(t_win *wn, t_edit *edit, t_point **point, float z)
 	(*point)->z = z;
 	x = (*point)->x - old->x > 0 ? (*point)->x - old->x : old->x - (*point)->x;
 	y = (*point)->y - old->y > 0 ? (*point)->y - old->y : old->y - (*point)->y;
-	if (wn->state[SDL_SCANCODE_LSHIFT])
+	if (wn->state[SDL_SCANCODE_LCTRL])
 	{
 		if (x < y)
 			(*point)->x = old->x;

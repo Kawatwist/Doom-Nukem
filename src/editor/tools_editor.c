@@ -130,14 +130,14 @@ t_point		*find_closer_point(t_win *wn, t_edit *edit)
 	return (point);
 }
 
-void		zoom_mouse_map(t_win *wn, t_edit *edit, int zoom)
-{
-	(void)wn;
-	zoom == 1 ? edit->map->size += 0.4 : 0;
-	zoom == 0 ? edit->map->size -= 0.4 : 0;
-	edit->map->x = edit->map->x - (wn->input->x / 10);
-	edit->map->y = edit->map->y - (wn->input->y / 10);
-}
+// void		zoom_mouse_map(t_win *wn, t_edit *edit, int zoom)
+// {
+// 	(void)wn;
+// 	zoom == 1 ? edit->map->size += 0.4 : 0;
+// 	zoom == 0 ? edit->map->size -= 0.4 : 0;
+// 	edit->map->x = edit->map->x - (wn->input->x / 10);
+// 	edit->map->y = edit->map->y - (wn->input->y / 10);
+// }
 
 SDL_Color	making_color(unsigned char r, unsigned char g, unsigned char b,
 	unsigned char a)
