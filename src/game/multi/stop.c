@@ -14,6 +14,11 @@
 #include "server.h"
 #include "client.h"
 
+
+/*
+** Coupe la communication
+** entre serveur et client.
+*/
 void	stop_com(t_win *wn, int user)
 {
 	int		i;
