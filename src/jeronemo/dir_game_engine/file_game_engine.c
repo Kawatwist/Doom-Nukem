@@ -24,10 +24,10 @@ t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
 	 return (s_color);
 }
 
-     void	ft_game_engine(t_win *wn)
-{
-	ft_launch_rasterization(wn);
- }
+//      void	ft_game_engine(t_win *wn)
+// {
+// 	ft_launch_rasterization(wn);
+//  }
 
 void	free_poly_list(t_mypolygon *lst)
 {
@@ -79,12 +79,12 @@ void	turn_rast(t_win *wn)
 		wn->rasterizer->triangle_array = make_triangles(wn->rasterizer->poly_list, &wn->rasterizer->nbr_triangle);
 		print_pvs(wn->rasterizer->bsp);
 		//print_pvs2(wn->rasterizer->bsp);
-		//! COCO 
+		//! COCO
 		((t_myraster*)(wn->rasterizer->tmp))->nbr_of_triangle = wn->rasterizer->nbr_triangle;
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array , wn);
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
-		if (wn->interface == DGAME)
-			SDL_RenderPresent(wn->rend);
+		// if (wn->interface == DGAME)
+		// 	SDL_RenderPresent(wn->rend);
 		//free_poly_list(new_lst);
 	}
 }

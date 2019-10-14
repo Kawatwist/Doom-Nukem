@@ -665,4 +665,10 @@ t_poly  	 *load_obj(t_mypolygon *in);
 t_mypolygon	 *ft_read_the_polygon_file(void);
 
 void	ft_game_engine(t_win *wn);
+
+/**
+ ** sprite
+ **/
+void	display_monsters(t_win *wn);
+
 #endif

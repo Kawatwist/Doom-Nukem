@@ -22,6 +22,7 @@ void	ingame(t_win *wn)
 	}
 	display_skybox(wn);
 	turn_rast(wn);
+
 //	main_cloud(wn);
 //	display_crosshair(wn);
 }
@@ -35,6 +36,7 @@ void	newgame(t_win *wn)
 		wn->menu->choice = 10;
 	}
 	SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "NG"), NULL, NULL);
+	display_monsters(wn);
 }
 
 void	loadgame(t_win *wn)

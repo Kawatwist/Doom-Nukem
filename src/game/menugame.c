@@ -35,12 +35,14 @@ void	game_interface(t_win *wn)
 		{
 			if (!(wn->rasterizer = malloc(sizeof(t_rasterizer))))
 				return ;
-			printf("mark!!!!!!\n\n\n\n\n\n\n\n\n\n");
 			ft_launch_rasterization(wn);
 		}
 		ingame(wn);
-		SDL_UnlockTexture(wn->gametxt);
-		SDL_RenderCopy(wn->rend, wn->gametxt, NULL, NULL);
+		// SDL_UnlockTexture(wn->gametxt);
+		// SDL_RenderCopy(wn->rend, wn->gametxt, NULL, NULL); //???useless
+		if (wn->interface == DGAME)
+			printf("Now in debug mode\n\n\n\n\n\n\n\n\n\n");
+		display_monsters(wn);
 	}
 	else if (wn->interface == NGAME)
 		newgame(wn);

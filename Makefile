@@ -173,6 +173,8 @@ SRC += fille_bresename.c
 #SRC += file_map_editor_display_right_pan.c
 #SRC += file_map_editor_update_show_cross.c
 
+#SPRITE
+SRC += sprite.c
 ######################################################################
 
 
