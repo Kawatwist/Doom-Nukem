@@ -129,6 +129,25 @@ SRC += file_window.c
 SRC += file_calcul_world_view.c
 SRC += ft_draw_textured_triangle.c
 
+
+#BSP_COCO
+SRC += bsp-test.c
+SRC += bsp.c
+SRC += bsp_aux.c
+SRC += bsp_build.c
+SRC += bsp_class.c
+SRC += bsp_intersect.c
+SRC += bsp_load_poly.c
+SRC += bsp_los.c
+SRC += bsp_split.c
+SRC += build_portal.c
+SRC += draw_bsp.c
+SRC += free_bsp.c
+SRC += portal.c
+SRC += portal_clip.c
+SRC += print_bsp.c
+SRC += pvs.c
+
 #BSP
 SRC += file_bsp.c
 #SRC += file_main_bsp.c

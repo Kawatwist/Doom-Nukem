@@ -1,0 +1,4264 @@
+Load start
+Load menu
+Load game
+Load edit
+Load option
+FICHIER LINE 1
+FICHIER LINE 2
+FICHIER LINE 3
+FICHIER LINE 4
+FICHIER LINE 2
+FICHIER LINE 6
+FICHIER LINE 7
+FICHIER LINE 3
+FICHIER LINE 6
+FICHIER LINE 7
+FICHIER LINE 8
+FICHIER LINE 5
+FICHIER LINE 5
+FICHIER LINE 1
+FICHIER LINE 4
+FICHIER LINE 8
+FICHIER LINE 6
+FICHIER LINE 5
+FICHIER LINE 1
+FICHIER LINE 2
+FICHIER LINE 4
+FICHIER LINE 3
+FICHIER LINE 7
+FICHIER LINE 8
+TEST 6
+TEST 6
+TEST 6
+TEST 6
+TEST 6
+TEST 6
+TREE
+SELECT SPLIT
+TREE
+SELECT SPLIT
+TREE
+SELECT SPLIT
+BACK CALL 3
+TREE
+SELECT SPLIT
+TREE
+SELECT SPLIT
+TREE
+SELECT SPLIT
+tree built
+Nb polys 2
+Polygon 0
+Vertices: (4)
+Vertex: 60.000000 60.000000 60.000000
+Vertex: 0.000000 60.000000 60.000000
+Vertex: 0.000000 0.000000 60.000000
+Vertex: 60.000000 0.000000 60.000000
+Indices: (6)
+0 1 2 0 2 3 Was splitter 1
+
+Polygon 1
+Vertices: (4)
+Vertex: 60.000000 60.000000 60.000000
+Vertex: 60.000000 60.000000 -60.000000
+Vertex: 0.000000 60.000000 -60.000000
+Vertex: 0.000000 60.000000 60.000000
+Indices: (6)
+0 1 2 0 2 3 Was splitter 1
+
+
+NB nodes 5
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (2)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+Node (3)
+Is leaf: 0 Plane: 3
+ Front: 4 Back -1
+Node (4)
+Is leaf: 0 Plane: 4
+ Front: 5 Back -1
+Node (5)
+Is leaf: 1 Plane: 5
+ Front: 1 Back -1
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: -1094795586
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: -1094795586
+
+CREATE PORTAL 60.000000 -60.000000
+NB VER 4 
+Nb polys 1
+Polygon 0
+Vertices: (4)
+Vertex: 103.484695 103.484695 -60.000000
+Vertex: 103.484695 -43.484695 -60.000000
+Vertex: -43.484695 -43.484695 -60.000000
+Vertex: -43.484695 103.484695 -60.000000
+Indices: (6)
+0 1 3 3 1 2 Was splitter 0
+
+
+END CREATE PORTAL 103.484695 103.484695 -60.000000
+INITIAL PORTAL
+
+Nb polys 1
+Polygon 0
+Vertices: (4)
+Vertex: 103.484695 103.484695 -60.000000
+Vertex: 103.484695 -43.484695 -60.000000
+Vertex: -43.484695 -43.484695 -60.000000
+Vertex: -43.484695 103.484695 -60.000000
+Indices: (6)
+0 1 3 3 1 2 Was splitter 0
+
+
+PORTAL CLIP NODE 0 0
+ON PLANE CASE
+PORTAL CLIP NODE 1 0
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 -103.484695 -103.484695 -103.484695
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 2 0
+BACK CASE
+PORTAL CLIP NODE 3 0
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 -43.484695 -43.484695 -43.484695
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 4 0
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 -59.999996 -59.999996 -59.999996
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 5 0
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 60.000000 60.000000 60.000000
+TEST DONE
+ALTPORTAL
+CREATE PORTAL 60.000000 -60.000000
+NB VER 4 
+Nb polys 1
+Polygon 0
+Vertices: (4)
+Vertex: 103.484695 0.000000 73.484695
+Vertex: -43.484695 0.000000 73.484695
+Vertex: -43.484695 0.000000 -73.484695
+Vertex: 103.484695 0.000000 -73.484695
+Indices: (6)
+0 1 3 3 1 2 Was splitter 0
+
+
+END CREATE PORTAL 103.484695 0.000000 73.484695
+INITIAL PORTAL
+
+Nb polys 1
+Polygon 0
+Vertices: (4)
+Vertex: 103.484695 0.000000 73.484695
+Vertex: -43.484695 0.000000 73.484695
+Vertex: -43.484695 0.000000 -73.484695
+Vertex: 103.484695 0.000000 -73.484695
+Indices: (6)
+0 1 3 3 1 2 Was splitter 0
+
+
+PORTAL CLIP NODE 0 1
+before split portal
+SPLIT POLY
+Inter 1 120.000000 120.000000 120.000000
+TEST DONE
+Inter 1 43.484695 43.484695 43.484695
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 1 1
+ON PLANE CASE
+PORTAL CLIP NODE 2 1
+before split portal
+SPLIT POLY
+Inter 1 120.000000 120.000000 120.000000
+TEST DONE
+Inter 1 103.484695 103.484695 103.484695
+TEST DONE
+SPLIT CASE 2
+PORTAL CLIP NODE 3 1
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 103.484695 103.484695 103.484695
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 4 1
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 43.484695 43.484695 43.484695
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 5 1
+ALTPORTAL
+CREATE PORTAL 60.000000 -60.000000
+NB VER 4 
+Nb polys 1
+Polygon 0
+Vertices: (4)
+Vertex: 103.484695 103.484695 60.000000
+Vertex: 103.484695 -43.484695 60.000000
+Vertex: -43.484695 -43.484695 60.000000
+Vertex: -43.484695 103.484695 60.000000
+Indices: (6)
+0 1 3 3 1 2 Was splitter 0
+
+
+END CREATE PORTAL 103.484695 103.484695 60.000000
+INITIAL PORTAL
+
+Nb polys 1
+Polygon 0
+Vertices: (4)
+Vertex: 103.484695 103.484695 60.000000
+Vertex: 103.484695 -43.484695 60.000000
+Vertex: -43.484695 -43.484695 60.000000
+Vertex: -43.484695 103.484695 60.000000
+Indices: (6)
+0 1 3 3 1 2 Was splitter 0
+
+
+PORTAL CLIP NODE 0 2
+FRONT CASE 1
+PORTAL CLIP NODE 1 2
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 -103.484695 -103.484695 -103.484695
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 2 2
+ON PLANE CASE 2
+PORTAL CLIP NODE 3 2
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 -43.484695 -43.484695 -43.484695
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 4 2
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 -59.999996 -59.999996 -59.999996
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 5 2
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 60.000000 60.000000 60.000000
+TEST DONE
+SKOL2
+TESTING : loop 0
+TESTING : loop 1
+ALTPORTAL
+CREATE PORTAL 60.000000 -60.000000
+NB VER 4 
+Nb polys 1
+Polygon 0
+Vertices: (4)
+Vertex: 60.000000 103.484695 73.484695
+Vertex: 60.000000 -43.484695 73.484695
+Vertex: 60.000000 -43.484695 -73.484695
+Vertex: 60.000000 103.484695 -73.484695
+Indices: (6)
+0 1 3 3 1 2 Was splitter 0
+
+
+END CREATE PORTAL 60.000000 103.484695 73.484695
+INITIAL PORTAL
+
+Nb polys 1
+Polygon 0
+Vertices: (4)
+Vertex: 60.000000 103.484695 73.484695
+Vertex: 60.000000 -43.484695 73.484695
+Vertex: 60.000000 -43.484695 -73.484695
+Vertex: 60.000000 103.484695 -73.484695
+Indices: (6)
+0 1 3 3 1 2 Was splitter 0
+
+
+PORTAL CLIP NODE 0 3
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 -60.000000 -60.000000 -60.000000
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 1 3
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 -60.000000 -60.000000 -60.000000
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 2 3
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+SPLIT CASE 2
+PORTAL CLIP NODE 3 3
+ON PLANE CASE
+PORTAL CLIP NODE 4 3
+FRONT CASE 5
+PORTAL CLIP NODE 5 3
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+ALTPORTAL
+CREATE PORTAL 60.000000 -60.000000
+NB VER 4 
+Nb polys 1
+Polygon 0
+Vertices: (4)
+Vertex: 0.000000 103.484695 -73.484695
+Vertex: 0.000000 -43.484695 -73.484695
+Vertex: 0.000000 -43.484695 73.484695
+Vertex: 0.000000 103.484695 73.484695
+Indices: (6)
+0 1 3 3 1 2 Was splitter 0
+
+
+END CREATE PORTAL 0.000000 103.484695 -73.484695
+INITIAL PORTAL
+
+Nb polys 1
+Polygon 0
+Vertices: (4)
+Vertex: 0.000000 103.484695 -73.484695
+Vertex: 0.000000 -43.484695 -73.484695
+Vertex: 0.000000 -43.484695 73.484695
+Vertex: 0.000000 103.484695 73.484695
+Indices: (6)
+0 1 3 3 1 2 Was splitter 0
+
+
+PORTAL CLIP NODE 0 4
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 1 4
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 2 4
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 60.000000 60.000000 60.000000
+TEST DONE
+SPLIT CASE 2
+PORTAL CLIP NODE 3 4
+FRONT CASE 4
+PORTAL CLIP NODE 4 4
+ON PLANE CASE
+PORTAL CLIP NODE 5 4
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 60.000000 60.000000 60.000000
+TEST DONE
+ALTPORTAL
+CREATE PORTAL 60.000000 -60.000000
+NB VER 4 
+Nb polys 1
+Polygon 0
+Vertices: (4)
+Vertex: 103.484695 60.000000 73.484695
+Vertex: -43.484695 60.000000 73.484695
+Vertex: -43.484695 60.000000 -73.484695
+Vertex: 103.484695 60.000000 -73.484695
+Indices: (6)
+0 1 3 3 1 2 Was splitter 0
+
+
+END CREATE PORTAL 103.484695 60.000000 73.484695
+INITIAL PORTAL
+
+Nb polys 1
+Polygon 0
+Vertices: (4)
+Vertex: 103.484695 60.000000 73.484695
+Vertex: -43.484695 60.000000 73.484695
+Vertex: -43.484695 60.000000 -73.484695
+Vertex: 103.484695 60.000000 -73.484695
+Indices: (6)
+0 1 3 3 1 2 Was splitter 0
+
+
+PORTAL CLIP NODE 0 5
+before split portal
+SPLIT POLY
+Inter 1 120.000000 120.000000 120.000000
+TEST DONE
+Inter 1 43.484695 43.484695 43.484695
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 1 5
+FRONT CASE 2
+PORTAL CLIP NODE 2 5
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 103.484695 103.484695 103.484695
+TEST DONE
+SPLIT CASE 2
+PORTAL CLIP NODE 3 5
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 103.484695 103.484695 103.484695
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 4 5
+before split portal
+SPLIT POLY
+Inter 1 0.000000 0.000000 0.000000
+TEST DONE
+Inter 1 43.484695 43.484695 43.484695
+TEST DONE
+SPLIT CASE 1
+PORTAL CLIP NODE 5 5
+COMPRESS LEAF TEST 2 0
+COMPARE POINTERS 0x60b0000161a0 0x60b0000161a2
+COMPRESS LEAF TEST 2 0
+COMPARE POINTERS 0x60b0000161a1 0x60b0000161a2
+
+Max nodes 100
+Max polys 100
+Max planes 100
+Max leafs 100
+Max portals 100
+Nb polys 2
+Polygon 0
+Vertices: (4)
+Vertex: 60.000000 60.000000 60.000000
+Vertex: 0.000000 60.000000 60.000000
+Vertex: 0.000000 0.000000 60.000000
+Vertex: 60.000000 0.000000 60.000000
+Indices: (6)
+0 1 2 0 2 3 Was splitter 1
+
+Polygon 1
+Vertices: (4)
+Vertex: 60.000000 60.000000 60.000000
+Vertex: 60.000000 60.000000 -60.000000
+Vertex: 0.000000 60.000000 -60.000000
+Vertex: 0.000000 60.000000 60.000000
+Indices: (6)
+0 1 2 0 2 3 Was splitter 1
+
+
+NB planes 6
+Plane (0) -> point (x = 0.000000 y = 0.000000 z = -60.000000) ; normal (x = 0.000000 y = 0.000000 z = 1.000000)
+Plane (1) -> point (x = 0.000000 y = 0.000000 z = 60.000000) ; normal (x = -0.000000 y = 1.000000 z = 0.000000)
+Plane (2) -> point (x = 60.000000 y = 60.000000 z = 60.000000) ; normal (x = 0.000000 y = 0.000000 z = 1.000000)
+Plane (3) -> point (x = 60.000000 y = 0.000000 z = 60.000000) ; normal (x = -1.000000 y = 0.000000 z = 0.000000)
+Plane (4) -> point (x = 0.000000 y = 60.000000 z = 60.000000) ; normal (x = 1.000000 y = 0.000000 z = 0.000000)
+Plane (5) -> point (x = 60.000000 y = 60.000000 z = 60.000000) ; normal (x = 0.000000 y = 1.000000 z = 0.000000)
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+NB portals 1
+Portal (0) Leafs: 0 1
+P 0: 0.000000 60.000000 60.000000
+P 1: 0.000000 103.484695 60.000000
+P 2: 60.000000 103.484695 60.000000
+P 3: 60.000000 60.000000 60.000000
+
+NB nodes 5
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (2)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+Node (3)
+Is leaf: 0 Plane: 3
+ Front: 4 Back -1
+Node (4)
+Is leaf: 0 Plane: 4
+ Front: 5 Back -1
+Node (5)
+Is leaf: 1 Plane: 5
+ Front: 1 Back -1
+
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -10.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -11.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -11.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -11.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -11.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -11.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -11.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -11.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -12.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -12.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -12.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -13.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -14.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -14.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -13.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -12.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -11.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 0.000000 -10.000000 -10.999204
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -11.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 2.000000 -10.000000 -12.000796
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -13.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 0.000000 -10.000000 -12.999204
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -12.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 2.000000 -10.000000 -11.000796
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -11.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.000000 -10.000000 -12.000000
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 2.000000 -10.000000 -13.000796
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -13.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.999999 -10.000000 -12.002389
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.000000 -10.000000 -12.001593
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.802024 -9.707628 -12.522433
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 4.604049 -9.415257 -13.043274
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 5.413116 -9.258822 -13.609789
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 6.222182 -9.102388 -14.176304
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 7.031249 -8.945954 -14.742819
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 7.840316 -8.789520 -15.309334
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 7.840316 -8.789520 -15.309334
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 7.840316 -8.789520 -15.309334
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 7.840316 -8.789520 -15.309334
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 7.840316 -8.789520 -15.309334
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 7.840316 -8.789520 -15.309334
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 7.266087 -8.789520 -16.128029
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 6.750367 -8.789520 -16.984785
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 6.558776 -8.789520 -17.966261
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 7.931294 -8.513883 -18.162951
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 7.977112 -8.238245 -16.776064
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 8.022930 -7.962608 -15.389177
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 7.354392 -7.962608 -14.645500
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 6.685853 -7.962608 -13.901823
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 5.302958 -8.238245 -13.801355
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.920063 -8.513883 -13.700888
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 2.537168 -8.789520 -13.600420
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.157801 -9.048339 -13.430650
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 0.376679 -9.290261 -12.277491
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 0.984783 -9.532183 -11.024440
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 2.033420 -9.824554 -10.122577
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.082056 -10.116926 -9.220714
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 4.130693 -10.409298 -8.318851
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 5.179330 -10.701670 -7.416987
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 6.227967 -10.994041 -6.515124
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 6.227967 -11.286413 -5.558820
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+IsEscape
+ leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 4.845343 -11.578785 -5.492546
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.625295 -11.937153 -6.112662
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 2.813461 -12.406625 -7.171873
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 2.934540 -12.406625 -8.164515
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.002598 -11.724627 -9.401076
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 1.920390 -11.568192 -10.297057
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 2.380130 -11.793143 -11.614815
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.366421 -10.865959 -12.023426
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 2.566655 -10.099915 -12.902361
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 3.848775 -10.239088 -13.481346
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 4.774789 -9.264718 -13.920371
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 4.701488 -8.277030 -14.929751
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 4.760639 -7.320725 -15.969711
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 5.182536 -7.320725 -16.876356
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 5.251498 -7.320725 -17.873976
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 5.251498 -7.320725 -17.873976
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 5.251498 -7.320725 -17.873976
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 5.251498 -7.320725 -17.873976
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 5.251498 -7.320725 -17.873976
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 5.251498 -7.320725 -17.873976
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+NB leafs 2
+Leaf (0) 0 - 0 Box: 0.000000 0.000000 60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 0
+Leaf (1) 1 - 1 Box: 0.000000 60.000000 -60.000000 ; 60.000000 60.000000 60.000000 pvs_index: 1
+
+POSITION 5.251498 -7.320725 -17.873976
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 0
+ Front: 1 Back -1
+Node (1)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+
+NB nodes 1
+Node (0)
+Is leaf: 0 Plane: 1
+ Front: 2 Back -1
+Node (1)
+Is leaf: 1 Plane: 2
+ Front: 0 Back 3
+
+IN SOLID
+MAKIng TRIANGLES
+NB TRIANGLES 0
+
+PVS
+Size = 2
+00000011 3
+00000011 3
+
+ESCAPE PRESSED

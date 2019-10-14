@@ -116,6 +116,17 @@ t_myvec 	plane_intersection(t_win *wn, t_myvec *v1, t_myvec *v2, char side, floa
 		pi.plane_n.z = 0;
 		pi.plane_n.w = 1;
 	}
+	if (side == 4)
+	{
+		pi.plane_p.x = 0;
+		pi.plane_p.y = 0;
+		pi.plane_p.z = 0.1;
+		pi.plane_p.w = 1;
+		pi.plane_n.x = 0;
+		pi.plane_n.y = 0;
+		pi.plane_n.z = 1;
+		pi.plane_n.w = 1;
+	}
 	pi.start = v1;
 	pi.end = v2;
 	//printf("\nPLANE INTERSECTION SIDE %d \n%f %f %f\n", side, v1->x, v1->y, v1->z);
@@ -125,46 +136,12 @@ t_myvec 	plane_intersection(t_win *wn, t_myvec *v1, t_myvec *v2, char side, floa
 
 t_myvec 	edge_intersection(t_pi *pi, float *t)
 {
-		/** a tester # n: normal vector of the Plane 
-	# V0: any point that belongs to the Plane 
-	# P0: end point 1 of the segment P0P1
-	# P1:  end point 2 of the segment P0P1
-	n = np.array([1., 1., 1.])
-	V0 = np.array([1., 1., -5.])
-	P0 = np.array([-5., 1., -1.])
-	P1 = np.array([1., 2., 3.])
 
-w = P0 - V0;
-u = P1-P0;
-N = -np.dot(n,w);
-D = np.dot(n,u)
-sI = N / D
-I = P0+ sI*u
-print I   **/
-
-
-
-		//printf("EDGE DEBUG\n");
-		//pi->plane_d = -(pi->plane_n.x * pi->plane_p.x + pi->plane_n.y * pi->plane_p.y + pi->plane_n.z * pi->plane_p.z);
-		//printf("plane d %f\n", pi->plane_d);
-		//pi->a = pi->start->x * pi->plane_n.x + pi->start->y * pi->plane_n.y + pi->start->z * pi->plane_n.z;
-		//printf("a %f\n", pi->a);
-		//pi->b = pi->end->x * pi->plane_n.x + pi->end->y * pi->plane_n.y + pi->end->z * pi->plane_n.z;
-		//printf("b %f\n", pi->b);
-		//*t = (-pi->plane_d - pi->a) / (pi->b - pi->a);
-		//printf("t %f\n", *t);
 		*t = ((pi->plane_p.x - pi->start->x) * pi->plane_n.x + (pi->plane_p.y - pi->start->y) * pi->plane_n.y + (pi->plane_p.z - pi->start->z) * pi->plane_n.z) /
 		((pi->end->x - pi->start->x) * pi->plane_n.x + (pi->end->y - pi->start->y) * pi->plane_n.y + (pi->end->z - pi->start->z) * pi->plane_n.z);
 		pi->inter.x = pi->start->x + ((pi->end->x - pi->start->x) * (*t));
 		pi->inter.y = pi->start->y + ((pi->end->y - pi->start->y) * (*t));
 		pi->inter.z = pi->start->z + ((pi->end->z - pi->start->z) * (*t));
-		//printf("INTER POINT %f %f %f PERC %f \n", pi->inter.x, pi->inter.y, pi->inter.z, *t);
-		//float plane_d = -Vector_DotProduct(plane_n, plane_p);
-		//float ad = Vector_DotProduct(lineStart, plane_n);
-		//float bd = Vector_DotProduct(lineEnd, plane_n);
-		//t = (-plane_d - ad) / (bd - ad);
-		//vec3d lineStartToEnd = Vector_Sub(lineEnd, lineStart);
-		//vec3d lineToIntersect = Vector_Mul(lineStartToEnd, t);
 		return(pi->inter);
 }
 
@@ -190,6 +167,12 @@ int			nb_outside(t_win *wn, t_mytriangle *curr, int side)
 		curr->vertice[0].x > wn->xscreen + 0.001 ? nb = 1 : 0;
 		curr->vertice[1].x > wn->xscreen + 0.001 ? nb = nb | 0x2 : 0;
 		curr->vertice[2].x > wn->xscreen + 0.001 ? nb = nb | 0x4 : 0;
+	}
+	else if (side == 4)
+	{
+		curr->vertice[0].z < 0.098 ? nb = 1 : 0;
+		curr->vertice[1].z < 0.098 ? nb = nb | 0x2 : 0;
+		curr->vertice[2].z < 0.098 ? nb = nb | 0x4 : 0;
 	}
 	else
 	{

@@ -271,7 +271,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 				vertex_node->obj_indice = (int)ft_atoi_comma(&(fichier_lst->line[j]));
 
 				while(fichier_lst->line[j] != '/')
-					j++;
+					printf("FICHIER LINE %c\n" , fichier_lst->line[j++]);
 				j++;
 
 

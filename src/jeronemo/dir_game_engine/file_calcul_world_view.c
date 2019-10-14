@@ -87,16 +87,25 @@ void	ft_free_lst(t_mytriangle *triangle_lst_2)
 	}
 }
 
-void	ft_clipping_camera(t_mytriangle *triangle, t_myraster *raster, t_mytriangle **clipped_triangle)
-{
-	raster->nbr_of_clipped_triangle_created = 0;
+void	ft_clipping_camera(t_mytriangle *triangle, t_win *wn, t_mytriangle **clipped_triangle)
+{ 
+	int nb;
+
+	triangle->next = NULL;
+	*clipped_triangle = clip_side(wn, triangle, &nb, 4);
+	//raster->nbr_of_clipped_triangle_created = 1;
+	/** raster->nbr_of_clipped_triangle_created = 0;
 	if (triangle->vertice[0].z < 0.1 || triangle->vertice[1].z < 0.1 || triangle->vertice[2].z < 0.1)
-		(raster->nbr_of_clipped_triangle_created) = 0; // Un verice ou plus out
+	{
+		//(*clipped_triangle) = triangle;
+		(raster->nbr_of_clipped_triangle_created) = 0; // Un verice ou plus out 0 to work proeprly
+	}
 	else
 	{
 		(*clipped_triangle) = triangle; // All inside
 		(raster->nbr_of_clipped_triangle_created) = 1;
 	}
+	**/
 }
 
 void	ft_clipping_screen(t_win *wn, t_mytriangle *head, t_myraster *raster, t_mytriangle **clipped_triangle)
@@ -171,7 +180,7 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 		float			*depth_buffer;
 
 		depth_buffer = malloc(sizeof(float) * 1920 * 1080);
-		/* printf("hello\n"); */
+		// printf("hello\n"); */
 		if (depth_buffer == NULL)
 			exit(0);
 
