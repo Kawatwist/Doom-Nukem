@@ -114,7 +114,7 @@ typedef struct 		s_edit
 	t_indice 		*indice;
 	t_var 			*var;
 	t_point			**selected;
-	t_point			**center;
+	t_point			**center;	// SHOW CENTER
 	void			(*cursor_fct[10]) (t_win *wn, struct s_edit *edit);
 }					t_edit;
 

@@ -69,7 +69,7 @@ static int  store_vertice(t_elem *elem, int fd)
     return (nb_ver);
 }
 
-static void create_face(Uint32 nb1, Uint32 nb2, int fd)
+static void create_face(Uint32 nb1, Uint32 nb2, Uint32 nb3, int fd)
 {
     Uint32 i;
     
@@ -77,13 +77,13 @@ static void create_face(Uint32 nb1, Uint32 nb2, int fd)
     while (i < nb1 - 1) // ATTENTION SI NB1 != NB2
     {
         ft_putstr_fd("f ", fd);
-        ft_putnbr_fd(i, fd);
+        ft_putnbr_fd(i + nb3, fd);
         ft_putstr_fd(" / ", fd);
-        ft_putnbr_fd(i + 1, fd);
+        ft_putnbr_fd(i + 1 + nb3, fd);
         ft_putstr_fd(" / ", fd);
-        ft_putnbr_fd(nb2 - i, fd);
+        ft_putnbr_fd(nb2 - i + nb3, fd);
         ft_putstr_fd(" / ", fd);
-        ft_putnbr_fd(nb2 - (i + 1), fd);
+        ft_putnbr_fd(nb2 - (i + 1) + nb3, fd);
         ft_putchar_fd('\n', fd);
         i++;
     }
@@ -95,10 +95,12 @@ static void fill_file(t_win *wn, t_edit *edit, int fd)
     Uint32  nb;
     Uint32  nb_ver1;
     Uint32  nb_ver2;
+    Uint32  nb_ver3;
     
     (void)wn;
     curr_elem = edit->elem;
     nb = 1;
+    nb_ver3 = 1;
     while (curr_elem != NULL && curr_elem->next != NULL && curr_elem->point != NULL)
     {
         ft_putstr_fd("o Polygon.", fd);
@@ -106,11 +108,12 @@ static void fill_file(t_win *wn, t_edit *edit, int fd)
         ft_putchar_fd('\n', fd);
         nb_ver1 = store_vertice(curr_elem, fd);
         nb_ver2 = store_reverse_vertice(curr_elem->next, fd);
-        create_face(nb_ver1, nb_ver2, fd);
+        create_face(nb_ver1, nb_ver2, nb_ver3, fd);
         ft_putstr_fd("s off\n", fd);
         if (curr_elem->next->next == NULL || curr_elem->next->next->next == NULL)
             break;
         curr_elem = curr_elem->next->next;
+        nb_ver3 += nb_ver1 + nb_ver2;
         nb++;
     }
     ft_putstr_fd("# ", fd); // DONT NEED THIS BUT COULD BE USEFUL
