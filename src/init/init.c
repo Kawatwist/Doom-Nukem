@@ -55,6 +55,8 @@ int				init(t_win **wn, int argc, char **argv)
 	load_texture(*wn, "game", "menu", "Client");
 	(*wn)->load = ft_strdup("./texture/Menu_Client2.tga");
 	load_texture(*wn, "game", "menu", "Client2");
+	(*wn)->load = ft_strdup("./texture/game/monster.tga");
+	load_texture(*wn, "game", "monster", "alien");
 	initplayer(wn);
 //	SDL_PollEvent(&ev);
 //	SDL_PollEvent(&ev);

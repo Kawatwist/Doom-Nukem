@@ -35,6 +35,7 @@ void	game_interface(t_win *wn)
 		{
 			if (!(wn->rasterizer = malloc(sizeof(t_rasterizer))))
 				return ;
+			printf("mark!!!!!!\n\n\n\n\n\n\n\n\n\n");
 			ft_launch_rasterization(wn);
 		}
 		ingame(wn);
