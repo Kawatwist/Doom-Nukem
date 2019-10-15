@@ -29,15 +29,12 @@ static void               print_text(t_win *wn, char *txt, float pos_line)
 
 static void         val_coor(t_win *wn, float pos, SDL_Texture **texture, char *nb)
 {
-    SDL_Rect        cursor;
     int             w;
     int             h;
 
-    cursor.x = wn->input->x;
-    cursor.y = wn->input->y;
     TTF_SizeText(wn->fonts->arial, nb, &w, &h);
     SDL_SetRenderTarget(wn->rend, NULL);
-    if (boxhitbox(wn->rend, &cursor, create_rect((3 * wn->xscreen / 4) + wn->xscreen / 8, (0.5 * wn->yscreen / 8) + pos * (7.5 * wn->yscreen / 8) / 8, w * 2, h * 2), 1) && mouse_pressed(wn, SDL_BUTTON_LEFT))
+    if (boxhitbox(wn->rend, create_rect(wn->input->x, wn->input->y, 0, 0), create_rect((3 * wn->xscreen / 4) + wn->xscreen / 8, (0.5 * wn->yscreen / 8) + pos * (7.5 * wn->yscreen / 8) / 8, w * 2, h * 2), 3) && mouse_pressed(wn, SDL_BUTTON_LEFT))
         printf("lalalalalala\n");
     else
     {
@@ -62,20 +59,24 @@ SDL_Texture        *print_coor(t_win *wn, t_edit *edit)
     print_text(wn, "x : ", 1);
     nb = ft_itoa(((wn->input->x - ((t_edit *)wn->edit)->map->x) * ((t_edit *)wn->edit)->indice->map_w) / ((t_edit *)wn->edit)->map->w / 10);
     val_coor(wn, 1, &texture, nb);
+    free(nb); // LEAKS
     // print y
     print_text(wn, "y : ", 1.5);
     nb = ft_itoa(((wn->input->y - edit->map->y) * edit->indice->map_h) / edit->map->h / 10);
     val_coor(wn, 1.5, &texture, nb);
+    free(nb); // LEAKS
     // print z
     print_text(wn, "z : ", 2);
     nb = ft_itoa(edit->indice->val_z);
     val_coor(wn, 2, &texture, nb);
+    free(nb); // LEAKS
     // print rot
     print_text(wn, "rot : ", 2.5);
     // print zoom
     print_text(wn, "zoom : ", 3);
     nb = ft_itoa(edit->map->size * 100);
     val_coor(wn, 3, &texture, nb);
+    free(nb); // LEAKS
 
     SDL_SetRenderTarget(wn->rend, NULL);
     return (texture);

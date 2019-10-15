@@ -76,6 +76,22 @@ static void	control_map(t_win *wn, t_edit *edit)
 	!wn->old[SDL_SCANCODE_P] && wn->state[SDL_SCANCODE_P] ? edit->var->find = -edit->var->find : 0;
 }
 
+static void control_bg(t_win *wn, t_edit *edit)
+{
+	wn->state[SDL_SCANCODE_A] ? edit->loadbg->x -= (6.5 - edit->loadbg->size) : 0;
+	wn->state[SDL_SCANCODE_D] ? edit->loadbg->x += (6.5 - edit->loadbg->size) : 0;
+	wn->state[SDL_SCANCODE_W] ? edit->loadbg->y -= (6.5 - edit->loadbg->size) : 0;
+	wn->state[SDL_SCANCODE_S] ? edit->loadbg->y += (6.5 - edit->loadbg->size) : 0;
+	wn->state[SDL_SCANCODE_E] && edit->loadbg->size < 6
+		&& !wn->old[SDL_SCANCODE_E] ? edit->loadbg->size += 0.2 : 0;
+	wn->state[SDL_SCANCODE_E]
+		&& edit->loadbg->size >= 6 ? edit->loadbg->size = 6 : 0;
+	wn->state[SDL_SCANCODE_Q] && edit->loadbg->size > -5
+		&& !wn->old[SDL_SCANCODE_Q] ? edit->loadbg->size -= 0.2 : 0;
+	wn->state[SDL_SCANCODE_Q]
+		&& edit->loadbg->size <= -5 ? edit->loadbg->size = -5 : 0;
+}
+
 static void	keyboardtool(t_win *wn, t_edit *edit)
 {
 	!(wn->flag & CONSOLE) && key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MENU : 0;
@@ -95,7 +111,10 @@ void		inputeditor(t_win *wn)
 	if (!(wn->input->oldmouse & SDL_BUTTON(SDL_BUTTON_LEFT))
 		&& (wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT)))
 		change_bloc(wn, wn->edit);
-	!(((t_edit *)wn->edit)->loadbg->flag & WRITE) ? control_map(wn, wn->edit) : 0;
+	if (key_pressed(wn, SDL_SCANCODE_RCTRL))
+		((t_edit *)wn->edit)->loadbg->flag = set_bit(((t_edit *)wn->edit)->loadbg->flag, MAP);
+	!(((t_edit *)wn->edit)->loadbg->flag & WRITE)  && !(((t_edit *)wn->edit)->loadbg->flag & MAP) ? control_map(wn, wn->edit) : 0;
+	!(((t_edit *)wn->edit)->loadbg->flag & WRITE)  && (((t_edit *)wn->edit)->loadbg->flag & MAP) ? control_bg(wn, wn->edit) : 0;
 	keyboardtool(wn, wn->edit);
 	mouse_input_poly(wn, wn->edit);
 }

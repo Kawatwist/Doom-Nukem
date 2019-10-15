@@ -65,4 +65,5 @@ void           info_bar(t_win *wn, t_edit *edit)
     SDL_SetRenderTarget(wn->rend, NULL);
     rect = define_rect(0, 31 * wn->yscreen / 32, wn->xscreen, wn->yscreen / 32);
     SDL_RenderCopy(wn->rend, texture, NULL, &rect) < 0 ? stop_exec("rendercopy failed in barinfo\n", wn) : 0;
+    SDL_DestroyTexture(texture); // LEAKS
 }

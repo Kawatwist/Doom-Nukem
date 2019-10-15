@@ -60,7 +60,9 @@ typedef struct 		s_loadbg
 	char 			*path;
 	int				x; // Pos of texture x
 	int				y;
-	int				size;
+	int				w;
+	int				h;
+	float			size;
 	char			flag; // active mouvement + write enable
 } 					t_loadbg;
 

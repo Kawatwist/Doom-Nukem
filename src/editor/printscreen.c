@@ -70,10 +70,10 @@ static void	showbgpics(t_win *wn, t_edit *edit)
 {
 	SDL_Rect pos;
 
-	pos.x = edit->map->x;//edit->loadbg->x;
-	pos.y = edit->map->y;//edit->loadbg->y;
-	pos.w = edit->map->w;
-	pos.h = edit->map->h;
+	pos.x = edit->map->x + edit->loadbg->x;
+	pos.y = edit->map->y + edit->loadbg->y;
+	pos.w = edit->map->w + (edit->loadbg->w * edit->loadbg->size);
+	pos.h = edit->map->h + (edit->loadbg->h * edit->loadbg->size);
 	SDL_RenderCopy(wn->rend, edit->tab->bg_pics, NULL, &pos);
 }
 
@@ -89,8 +89,8 @@ void		printeditor(t_win *wn)
 	checkcursor(wn, edit);
 	which_cursor(wn, edit);
 	
-	info_bar(wn, edit);
-	print_tab_editor(wn, edit);
+	info_bar(wn, edit);// <=============== ICI 30MO per ticks
+	print_tab_editor(wn, edit); // <============== ICI 250MO per ticks
 	SDL_Rect	*pos = create_rect(0, 0, 72, 1080);
 	SDL_RenderCopy(wn->rend, findtexture(wn, "editor", "affichage", "cursor_panel"), NULL, pos);
 	free(pos);

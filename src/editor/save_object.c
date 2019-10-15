@@ -1,57 +1,36 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   save_object.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: llejeune <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/12 16:56:40 by llejeune          #+#    #+#             */
-/*   Updated: 2019/09/12 16:56:42 by llejeune         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <doom.h>
 #include <editor.h>
 
-static t_point  *find_before(t_elem *elem, t_point *tofind)
+static int  *ft_storepoint(int i, int j, int k, int l)
 {
-    t_point *curr;
-    
-    curr = elem->point;
-    while (curr != NULL && curr != tofind && curr->next != tofind)
-        curr = curr->next;
-    return (curr == tofind ? NULL : curr);
+    int *ret;
+
+    ret = malloc(sizeof(int) * 4); // NEED SECURE
+    ret[0] = i;
+    ret[1] = j;
+    ret[2] = k;
+    ret[3] = l;
+    return (ret);
 }
 
-static int  store_reverse_vertice(t_elem *elem, int fd)
+static void ft_putface_fd(int *f, int *t, int len,int fd)
 {
-    int     nb_ver;
-    t_point *curr;
-    
-    nb_ver = 0;
-    curr = elem->point;
-    while (curr->next != NULL)
-        curr = curr->next;
-    while (curr != elem->point)
+    int n;
+
+    n = 0;
+    ft_putstr_fd("f ", fd);
+    while (n < len)
     {
-        ft_putstr_fd("v ", fd);
-        ft_ftoafd(curr->x, fd); // NEED TO CHECK THIS FUNCTION
-        ft_putchar_fd(' ', fd);
-        ft_ftoafd(curr->y, fd); // NEED TO CHECK THIS FUNCTION
-        ft_putchar_fd(' ', fd);
-        ft_ftoafd(curr->z, fd); // NEED TO CHECK THIS FUNCTION
-        ft_putchar_fd('\n', fd);
-        nb_ver += 1;
-        curr = find_before(elem, curr);
+        ft_putnbr_fd(f[n], fd);
+        ft_putchar_fd('/', fd);
+        ft_putnbr_fd(t[n], fd);
+        if (n < len-1)
+            ft_putchar_fd(' ', fd);
+        n++;
     }
-    ft_putstr_fd("v ", fd);
-    ft_ftoafd(curr->x, fd); // NEED TO CHECK THIS FUNCTION
-    ft_putchar_fd(' ', fd);
-    ft_ftoafd(curr->y, fd); // NEED TO CHECK THIS FUNCTION
-    ft_putchar_fd(' ', fd);
-    ft_ftoafd(curr->z, fd); // NEED TO CHECK THIS FUNCTION
+    free(f);
+    free(t);
     ft_putchar_fd('\n', fd);
-    return (nb_ver);
 }
 
 static int  store_vertice(t_elem *elem, int fd)
@@ -76,57 +55,106 @@ static int  store_vertice(t_elem *elem, int fd)
     return (nb_ver);
 }
 
-static void create_face(Uint32 nb1, Uint32 nb2, Uint32 nb3, int fd)
+static void create_basic_face(Uint32 nb1, Uint32 nb2, int fd, Uint32 currnb)
 {
     Uint32 i;
     
-    i = 0;
-    while (i < nb1 - 1) // ATTENTION SI NB1 != NB2
+    i = 1;
+    ft_putstr_fd("f ", fd);
+    while (i < (nb1 + 1)) // ATTENTION SI NB1 != NB2
     {
-        ft_putstr_fd("f ", fd);
-        ft_putnbr_fd(i + nb3, fd);
-        ft_putstr_fd("/1 ", fd);
-        ft_putnbr_fd(i + 1 + nb3, fd);
-        ft_putstr_fd("/1 ", fd);
-        ft_putnbr_fd(nb2 - i + nb3, fd);
-        ft_putstr_fd("/1 ", fd);
-        ft_putnbr_fd(nb2 - (i + 1) + nb3, fd);
+        ft_putnbr_fd(i + currnb, fd);
         ft_putstr_fd("/1", fd);
-        ft_putchar_fd('\n', fd);
+        if (i < nb1)
+            ft_putchar_fd(' ', fd);
         i++;
     }
-}
-
-static void ft_putface_fd(int *f, int *t, int len,int fd)
-{
-    int n;
-
-    n = 0;
-    ft_putstr_fd("f ", fd);
-    while (n < len)
+    i--;
+    // CREATE REVERSE
+    ft_putstr_fd("\nf ", fd);
+    while (i > 0) // ATTENTION SI NB1 != NB2
     {
-        ft_putnbr_fd(f[n], fd);
-        ft_putchar_fd('/', fd);
-        ft_putnbr_fd(t[n], fd);
-        if (n < len-1)
+        ft_putnbr_fd(i + currnb, fd);
+        ft_putstr_fd("/1", fd);
+        if (i > 1)
             ft_putchar_fd(' ', fd);
-        n++;
+        i--;
     }
-    free(f);
-    free(t);
+    i = nb1 + 1;
+    ft_putstr_fd("\nf ", fd);
+    while (i < (nb2 + nb1) + 1)
+    {
+        ft_putnbr_fd(i + currnb, fd);
+        ft_putstr_fd("/1", fd);
+        if (i < nb2 + nb1)
+            ft_putchar_fd(' ', fd);
+        i++;
+    }
+    i--;
+    //CREATE REVERSE
+    ft_putstr_fd("\nf ", fd);
+    while (i > nb1) // ATTENTION SI NB1 != NB2
+    {
+        ft_putnbr_fd(i + currnb, fd);
+        ft_putstr_fd("/1", fd);
+        if (i > nb1 + 1)
+            ft_putchar_fd(' ', fd);
+        i--;
+    }
     ft_putchar_fd('\n', fd);
 }
 
-static int  *ft_storepoint(int i, int j, int k, int l)
+static void create_face(Uint32 nb1, Uint32 nb2, int fd, Uint32 currnb)
 {
-    int *ret;
+    Uint32 i;
+    
+    (void)nb2;
+    i = 1;
+    while (i < (nb1)) // ATTENTION SI NB1 != NB2
+    {
+        ft_putstr_fd("f ", fd);
+        ft_putnbr_fd(i + currnb, fd);
+        ft_putstr_fd("/1 ", fd);
+        ft_putnbr_fd(i + 1 + currnb, fd);
+        ft_putstr_fd("/1 ", fd);
+        ft_putnbr_fd(nb1 + i + 1 + currnb, fd);
+        ft_putstr_fd("/1 ", fd);
+        ft_putnbr_fd(nb1 + i + currnb, fd);
+        ft_putstr_fd("/1\n", fd);
 
-    ret = malloc(sizeof(int) * 4); // NEED SECURE
-    ret[0] = i;
-    ret[1] = j;
-    ret[2] = k;
-    ret[3] = l;
-    return (ret);
+        // CREATE REVERSE
+        ft_putstr_fd("f ", fd);
+        ft_putnbr_fd(nb1 + i + currnb, fd);
+        ft_putstr_fd("/1 ", fd);
+        ft_putnbr_fd(nb1 + i + currnb + 1, fd);
+        ft_putstr_fd("/1 ", fd);
+        ft_putnbr_fd(i + 1 + currnb, fd);
+        ft_putstr_fd("/1 ", fd);
+        ft_putnbr_fd(i + currnb, fd);
+        ft_putstr_fd("/1\n", fd);
+        i++;
+    }
+    ft_putstr_fd("f ", fd);
+    ft_putnbr_fd(currnb + 1, fd);
+    ft_putstr_fd("/1 ", fd);
+    ft_putnbr_fd(nb1 + currnb, fd);
+    ft_putstr_fd("/1 ", fd);
+    ft_putnbr_fd(nb2 + nb1 + currnb, fd);
+    ft_putstr_fd("/1 ", fd);
+    ft_putnbr_fd(nb1 + 1 + currnb, fd);
+    ft_putstr_fd("/1\n", fd);
+
+    // CREATE REVERSE
+
+    ft_putstr_fd("f ", fd);
+    ft_putnbr_fd(currnb + 1 + nb1, fd);
+    ft_putstr_fd("/1 ", fd);
+    ft_putnbr_fd(nb1 + currnb + nb2, fd);
+    ft_putstr_fd("/1 ", fd);
+    ft_putnbr_fd(nb1 + currnb, fd);
+    ft_putstr_fd("/1 ", fd);
+    ft_putnbr_fd(1 + currnb, fd);
+    ft_putstr_fd("/1\n", fd);
 }
 
 static void close_map(Uint32 nb, int fd)
@@ -140,61 +168,52 @@ static void close_map(Uint32 nb, int fd)
     ft_putface_fd(ft_storepoint(nb + 4, nb + 3, nb + 7, nb + 8), ft_storepoint( 1, 1, 1, 1), 4, fd);
 }
 
-static void fill_file(t_win *wn, t_edit *edit, int fd)
+static void fill_file(t_edit *edit, int fd)
 {
     t_elem  *curr_elem;
     Uint32  nb;
     Uint32  nb_ver1;
     Uint32  nb_ver2;
-    Uint32  nb_ver3;
-    
-    (void)wn;
+    Uint32  currnb;
+
     curr_elem = edit->elem;
     nb = 1;
-    nb_ver3 = 1;
-    while (curr_elem != NULL && curr_elem->next != NULL && curr_elem->point != NULL)
+    currnb = 0;
+    while (curr_elem != NULL && curr_elem->point != NULL && curr_elem->point->next != NULL)
     {
-        ft_putstr_fd("o Polygon.", fd);
-        ft_putnbr_fd(nb, fd);
-        ft_putchar_fd('\n', fd);
+        // ft_putstr_fd("o Polygon.", fd);
+        // ft_putnbr_fd(nb, fd);
+        // ft_putchar_fd('\n', fd);
         nb_ver1 = store_vertice(curr_elem, fd);
-        nb_ver2 = store_reverse_vertice(curr_elem->next, fd);
-        create_face(nb_ver1, nb_ver2, nb_ver3, fd);
+        nb_ver2 = store_vertice(curr_elem->next, fd);
+        ft_putstr_fd("vt 1.0 1.0 1.0\n", fd);
         ft_putstr_fd("s off\n", fd);
-        if (curr_elem->next->next == NULL || curr_elem->next->next->next == NULL)
-            break;
+        create_basic_face(nb_ver1, nb_ver2, fd, currnb);
+        create_face(nb_ver1, nb_ver2, fd, currnb);
         curr_elem = curr_elem->next->next;
-        nb_ver3 += nb_ver1 + nb_ver2;
+        currnb += nb_ver1 + nb_ver2;
         nb++;
     }
-    close_map(nb_ver3, fd);
+    close_map(currnb, fd);
     ft_putstr_fd("# ", fd); // DONT NEED THIS BUT COULD BE USEFUL
-    ft_putnbr_fd(nb, fd);
+    ft_putnbr_fd(nb - 1, fd);
     ft_putstr_fd(" elements", fd);
 }
 
-static void create_obj(t_win *wn, t_edit *edit, char *name)
+static void create_obj(t_edit *edit, char *name)
 {
    int fd;
 
-   (void)wn;
-   (void)edit;
    fd = 0;
-//    if (!access(name, F_OK))
-//    {
-       if ((fd = creat(name, O_WRONLY | S_IRWXU| S_IROTH)) != -1)
-        {
-           ft_putstr("File's has been create\n");
-           ft_putstr_fd(name, fd);
-           ft_putchar_fd('\n', fd);
-           fill_file(wn, edit, fd);
-           ft_putstr("File's filled\n");
-        }
-       else
-           ft_putstr("File's creation failed\n");
-//    }
-//    else
-//        ft_putstr("File name already used\n"); // POP UP OVERWRITE
+    if ((fd = creat(name, S_IRWXU | S_IRWXG | S_IRWXO)) != -1)
+    {
+        ft_putchar_fd('#', fd);
+        ft_putstr_fd(name, fd);
+        ft_putchar_fd('\n', fd);
+        fill_file(edit, fd);
+    }
+    else
+        ft_putstr("File's creation failed\n");
 }
 
 void        save_panel(t_win *wn, t_edit *edit)
@@ -210,13 +229,12 @@ void        save_panel(t_win *wn, t_edit *edit)
        ((t_edit *)wn->edit)->map->name = map_name;
    else
         ((t_edit *)wn->edit)->map->name = "Untitled(1)";
-   //printf("Prompt => %d \nName => %s\n", prompt, map_name);
    mouse.x = wn->input->x;
     mouse.y = wn->input->y;
    if (edit->elem != NULL && map_name != NULL && boxhitbox(wn->rend, &mouse, &position, 1) && mouse_pressed(wn, SDL_BUTTON_LEFT))
    {
        map_name = ft_strjoinfree(map_name, ".obj", 1);
-       create_obj(wn, edit, map_name);
+       create_obj(edit, map_name);
        printf("Map save will be called %s\n", map_name);
    }
 }

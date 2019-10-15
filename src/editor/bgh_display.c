@@ -105,7 +105,7 @@ void		print_path(t_win *wn, char *s, int posi_x, int posi_y)
 	position.x = posi_x;
 	position.y = posi_y - 5;
 	position.h = h;
-	//SDL_QueryTexture(((t_edit *)wn->edit)->tab->bg_path, NULL, NULL, &w, &h);
+	SDL_QueryTexture(((t_edit *)wn->edit)->tab->bg_path, NULL, NULL, &w, &h);
 	x = w - ((t_edit *)wn->edit)->tab->bg.w - 5;
 	if (w < (((t_edit *)wn->edit)->tab->bg.w - 5))
 	{
@@ -137,6 +137,21 @@ static void	extract_obj(t_win *wn, t_edit *edit)
 	}
 }
 
+static void manage_bg(t_win *wn,  t_edit *edit)
+{
+	static SDL_Rect pos[3] = {{1537, 276, 20, 20},{1563, 318, 10, 10},{1563, 343, 10, 10}};
+
+	SDL_SetRenderDrawColor(wn->rend, 255,255,255,255);
+	SDL_RenderFillRect(wn->rend, &(pos[0]));
+	if ((edit->loadbg->flag & 0x2) == 0)
+	{
+		if ((edit->loadbg->flag & 0x4) == 0)
+			SDL_RenderFillRect(wn->rend, &(pos[1]));
+		else
+			SDL_RenderFillRect(wn->rend, &(pos[2]));
+	}
+}
+
 void		print_bg(t_win *wn, t_edit *edit)
 {
 	static char		*path = NULL;
@@ -145,11 +160,9 @@ void		print_bg(t_win *wn, t_edit *edit)
 		path = ft_strdup("~\0");
 	(path[0] == '~') ? manage_tilde(&path) : 0;
 	text_for_bg(wn, edit);
-	edit->tab->bg = define_rect(5.6 * wn->xscreen / 7,
-		1.5 * wn->yscreen / 7, 1.30 * wn->xscreen / 7, 26);
+	edit->tab->bg = define_rect(5.6 * wn->xscreen / 7, 1.5 * wn->yscreen / 7, 1.30 * wn->xscreen / 7, 26);
 	SDL_SetRenderDrawColor(wn->rend, 250, 250, 250, 0);
-	(SDL_RenderFillRect(wn->rend, &edit->tab->bg) < 0) ?
-	stop_exec("fillrect failed in print_bg\n", wn) : 0;
+	(SDL_RenderFillRect(wn->rend, &edit->tab->bg) < 0) ? stop_exec("fillrect failed in print_bg\n", wn) : 0;
 	if (edit->loadbg->flag & WRITE)
 	{
 		path = printable_input(wn, path);
@@ -168,6 +181,8 @@ void		print_bg(t_win *wn, t_edit *edit)
 		free(path); // ajouter free(path) et path = NULL dans fonction chargement bg
 		path = NULL; // faire ternaire (path != NULL) ? load_bg : ft_pr_mess_err_bg
 	}
+	if (edit->loadbg->path != NULL)
+		manage_bg(wn, edit);
 	extract_obj(wn, edit);
 }
 

@@ -63,7 +63,7 @@ void		print_tab_editor(t_win *wn, t_edit *edit)
 	}
 	if (SDL_RenderCopy(wn->rend, edit->tab->texture_tab, &src, &dst) < 0)
 		stop_exec("render copy failed in print_tbp\n", wn);
-    exec_tab(wn, edit);	
-	draw_rect_tab(wn);	
-	print_arrow(wn, edit);
+    exec_tab(wn, edit);	// correct
+	draw_rect_tab(wn);	// correct
+	print_arrow(wn, edit); // CORRECT
 }

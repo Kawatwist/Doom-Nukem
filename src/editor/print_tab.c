@@ -14,15 +14,21 @@
 
 void    display_tab(t_win *wn, t_edit *edit)
 {
-    edit->tab->onglet == 0 ? edit->tab->texture_tab =
-	findtexture(wn, "editor", "affichage", "texts") : 0;
-	edit->tab->onglet == 1 ? edit->tab->texture_tab =
-	findtexture(wn, "editor", "affichage", "blocs") : 0;
+	static SDL_Texture *save[3] = {NULL,NULL,NULL};
+
+	if ((save[0]) == NULL)
+	{
+		(save[0]) = findtexture(wn, "editor", "affichage", "texts");
+		(save[1]) = findtexture(wn, "editor", "affichage", "blocs");
+		(save[2]) = findtexture(wn, "editor", "affichage", "background_map");
+	}
+	if (edit->tab->texture_tab != save[0] && edit->tab->texture_tab != save[1] && edit->tab->texture_tab != save[2])
+		SDL_DestroyTexture(edit->tab->texture_tab);
+    edit->tab->onglet == 0 ? edit->tab->texture_tab = save[0] : 0;
+	edit->tab->onglet == 1 ? edit->tab->texture_tab = save[1] : 0;
 	edit->tab->onglet == 2 ? edit->tab->texture_tab = print_coor(wn, edit) : 0;
-	edit->tab->onglet == 3 ? edit->tab->texture_tab =
-	findtexture(wn, "editor", "affichage", "background_map") : 0;
-	(edit->tab->texture_tab == NULL) ?
-	stop_exec("texture params failed in print_tab\n", wn) : 0;
+	edit->tab->onglet == 3 ? edit->tab->texture_tab = save[2] : 0;
+	(edit->tab->texture_tab == NULL) ? stop_exec("texture params failed in print_tab\n", wn) : 0;
 }
 
 void    exec_tab(t_win *wn, t_edit *edit)
