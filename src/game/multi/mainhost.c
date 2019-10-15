@@ -39,13 +39,17 @@ static void	freeserv(t_win *wn, t_server *server)
 	int		freeserv;
 
 	freeserv = 0;
+	printf("Key press ESCAPE FREESERVER 1\n");
 	if (server)
 	{
+		printf("Key press ESCAPE FREESERVER 2\n");
 		if (((wn->menu->ask & 0x03) < 3) && ((wn->menu->ask & 0x0C) >> 2) < 3 && ((wn->menu->ask & 0x30) >> 4) < 3)
 			freeserv = 1;
 		server->user[0].name != NULL && (wn->menu->ask & 0x03) < 3 ? free(server->user[0].name) : 0;
 		server->user[1].name != NULL && ((wn->menu->ask & 0x0C) >> 2) < 3 ? free(server->user[1].name) : 0;
 		server->user[2].name != NULL && ((wn->menu->ask & 0x30) >> 4) < 3 ? free(server->user[2].name) : 0;
+		printf("Key press ESCAPE = close server fd -> %d\n", server->sockfd);
+		close(server->sockfd);
 		if (freeserv)
 		{
 			free(server->username);
@@ -67,7 +71,6 @@ static void	listenclient(t_win *wn, int	user)
 		return (perror("Open New socket :"));
 	server->user[user].name = ft_memalloc(sizeof(char) * 8);
 	read(server->user[user].socket, server->user[user].name, 8);
-	printf("TEST LISTEN CLIENT\n");
 }
 
 static void	inputhost(t_win *wn)
