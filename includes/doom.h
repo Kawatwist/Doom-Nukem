@@ -510,7 +510,7 @@ void				showmenu(t_win *wn);
 /**
  ** MAIN
  **/
-
+char				*text_box_prompt(t_win *wn, char *line, int *prompt);
 char				*text_box(t_win *wn, char *line);
 void				main_input(t_win *wn);
 void				turn(t_win *wn);

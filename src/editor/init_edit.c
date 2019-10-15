@@ -47,6 +47,7 @@ static void		load_edit_texture(t_win **wn)
 
 static void	initmap(t_win *wn, t_edit *edit)
 {
+	edit->map->name = NULL;
 	edit->map->size = 1.6;
 	edit->map->w = 1000;
 	edit->map->h = 1000;
@@ -72,6 +73,7 @@ static void	init_editor_fct(t_edit *edit)
 	edit->cursor_fct[ERASE] = erase_cursor;
 	edit->cursor_fct[ZOOM] = zoom_cursor;
 	edit->cursor_fct[RESIZE] = resize_cursor;
+	edit->cursor_fct[ROTATE] = rotate_cursor;
 	edit->cursor_fct[HAND] = hand_cursor;
 	edit->cursor_fct[SWAP] = swap_cursor;
 }
@@ -116,6 +118,7 @@ void		init_edit(t_win **wn)
 	edit->var->map_saved = 0;
 	edit->var->find = -1;
 	edit->selected = NULL;
+	edit->center = NULL;
 	initmap(*wn, edit);
 	initelem(edit);
 	init_editor_fct(edit);

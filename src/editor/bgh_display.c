@@ -90,7 +90,7 @@ void		manage_tilde(char **path)
 	free(*path);
 	getlogin_r(login, 9);
 	*path = ft_strjoinfree(ft_strdup("/Users/"), login, 1);
-	*path = ft_strjoinfree(*path, "/", 1);
+	*path = ft_strjoinfree(*path, "/Downloads/a.tga", 1);
 }
 
 void		print_path(t_win *wn, char *s, int posi_x, int posi_y)

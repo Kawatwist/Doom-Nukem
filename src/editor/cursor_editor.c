@@ -263,7 +263,15 @@ void	swap_cursor(t_win *wn, t_edit *edit)
 	x = wn->input->x;
 	y = wn->input->y;
 }
-void	resize_cursor(t_win *wn, t_edit *edit) // ROTATE
+
+void	resize_cursor(t_win *wn, t_edit *edit)
+{
+	(void)wn;
+	(void)edit;
+	printf("RESIZE\n");
+}
+
+void	rotate_cursor(t_win *wn, t_edit *edit) // ROTATE
 {
 	static t_point  *center = NULL;
 	static float	saverot = 0;
@@ -275,11 +283,14 @@ void	resize_cursor(t_win *wn, t_edit *edit) // ROTATE
 
 	if (center == NULL && edit->selected == NULL)
 		;
-	else if (edit->selected != NULL && (edit->var->cursor & 0xFFFF0000) >> 16 == RESIZE)
+	else if (edit->selected != NULL && (edit->var->cursor & 0xFFFF0000) >> 16 == ROTATE)
+	{
 		center = find_center(edit->selected);
+		edit->center = &center;
+	}
 	if (mouse_pressed(wn, SDL_BUTTON_LEFT))
 		saverot = 0;
-	if (center != NULL && wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT) && (edit->var->cursor & 0xFFFF0000) >> 16 == RESIZE)
+	if (center != NULL && wn->input->mouse & SDL_BUTTON(SDL_BUTTON_LEFT) && (edit->var->cursor & 0xFFFF0000) >> 16 == ROTATE)
 	{
 		anglex = (float)((x - wn->input->x)) / 4;
 		anglex += (float)((y - wn->input->y)) / 4;

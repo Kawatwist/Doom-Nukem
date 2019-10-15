@@ -33,8 +33,9 @@ typedef enum		e_cursor
 	ERASE = 5,
 	ZOOM = 6,
 	RESIZE = 7,
-	HAND = 8,
-	SWAP = 9,
+	ROTATE = 8, // NO KEYBOARD INPUT ENABLE
+	HAND = 9,
+	SWAP = 10,
 }					t_cursor;
 
 typedef struct		s_elem
@@ -115,7 +116,7 @@ typedef struct 		s_edit
 	t_var 			*var;
 	t_point			**selected;
 	t_point			**center;	// SHOW CENTER
-	void			(*cursor_fct[10]) (t_win *wn, struct s_edit *edit);
+	void			(*cursor_fct[11]) (t_win *wn, struct s_edit *edit);
 }					t_edit;
 
 void    			ft_ftoafd(float nbr, int fd);
@@ -136,6 +137,7 @@ void				wand_cursor(t_win *wn, t_edit *edit);
 void				form_cursor(t_win *wn, t_edit *edit);
 void				swap_cursor(t_win *wn, t_edit *edit);
 void				resize_cursor(t_win *wn, t_edit *edit);
+void				rotate_cursor(t_win *wn, t_edit *edit);
 
 void				check_hitbox(t_win *wn, t_edit *edit);
 

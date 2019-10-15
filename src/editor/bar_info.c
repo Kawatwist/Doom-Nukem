@@ -53,7 +53,8 @@ void           info_bar(t_win *wn, t_edit *edit)
     tmp = findtexture(wn, "editor", "affichage", "background_map");
     SDL_SetRenderTarget(wn->rend, texture) < 0 ? stop_exec("rendertarget failed in barinfo\n", wn) : 0;
     SDL_RenderCopy(wn->rend, tmp, NULL, NULL) < 0 ? stop_exec("rendercopytexture failed in barinfo", wn) : 0;
-    ((t_edit *)wn->edit)->map->name = "DOOM";
+    if (((t_edit *)wn->edit)->map->name == NULL)
+        ((t_edit *)wn->edit)->map->name = "Untitled(1)";
     write_on_texture(wn, 1, "map_name : ", 0);
     b = ((wn->input->x - edit->map->x) * edit->indice->map_w) / edit->map->w / 10;
     write_on_texture(wn, 6, "x : ", b);

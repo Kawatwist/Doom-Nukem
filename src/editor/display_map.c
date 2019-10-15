@@ -184,9 +184,28 @@ static void	showselection(t_win *wn, t_edit *edit)
 
 }
 
+static void showcenter(t_win *wn, t_edit *edit)
+{
+	SDL_Rect select;
+
+	if (edit->center)
+	{
+		SDL_SetRenderDrawColor(wn->rend, 0, 255, 255, 255);
+		select.x = (((*edit->center)->x) * edit->map->size * 10) - 10;
+		select.y = (((*edit->center)->y) * edit->map->size * 10) - 10;
+		select.w = 20;
+		select.h = 20;
+		select.x += edit->map->x;
+		select.y += edit->map->y;
+		SDL_RenderFillRect(wn->rend, &select);
+	}
+}
+
 void		showmap(t_win *wn, t_edit *edit)
 {
 	showline(wn, edit);
 	showelem(wn, edit);
 	showselection(wn, edit);
+	if ((edit->var->cursor & 0xFF) == ROTATE)
+		showcenter(wn, edit);
 }

@@ -88,6 +88,7 @@ void		printeditor(t_win *wn)
 	showmap(wn, edit);
 	checkcursor(wn, edit);
 	which_cursor(wn, edit);
+	
 	info_bar(wn, edit);
 	print_tab_editor(wn, edit);
 	SDL_Rect	*pos = create_rect(0, 0, 72, 1080);

@@ -44,6 +44,13 @@ static int  store_reverse_vertice(t_elem *elem, int fd)
         nb_ver += 1;
         curr = find_before(elem, curr);
     }
+    ft_putstr_fd("v ", fd);
+    ft_ftoafd(curr->x, fd); // NEED TO CHECK THIS FUNCTION
+    ft_putchar_fd(' ', fd);
+    ft_ftoafd(curr->y, fd); // NEED TO CHECK THIS FUNCTION
+    ft_putchar_fd(' ', fd);
+    ft_ftoafd(curr->z, fd); // NEED TO CHECK THIS FUNCTION
+    ft_putchar_fd('\n', fd);
     return (nb_ver);
 }
 
@@ -78,15 +85,59 @@ static void create_face(Uint32 nb1, Uint32 nb2, Uint32 nb3, int fd)
     {
         ft_putstr_fd("f ", fd);
         ft_putnbr_fd(i + nb3, fd);
-        ft_putstr_fd(" / ", fd);
+        ft_putstr_fd("/1 ", fd);
         ft_putnbr_fd(i + 1 + nb3, fd);
-        ft_putstr_fd(" / ", fd);
+        ft_putstr_fd("/1 ", fd);
         ft_putnbr_fd(nb2 - i + nb3, fd);
-        ft_putstr_fd(" / ", fd);
+        ft_putstr_fd("/1 ", fd);
         ft_putnbr_fd(nb2 - (i + 1) + nb3, fd);
+        ft_putstr_fd("/1", fd);
         ft_putchar_fd('\n', fd);
         i++;
     }
+}
+
+static void ft_putface_fd(int *f, int *t, int len,int fd)
+{
+    int n;
+
+    n = 0;
+    ft_putstr_fd("f ", fd);
+    while (n < len)
+    {
+        ft_putnbr_fd(f[n], fd);
+        ft_putchar_fd('/', fd);
+        ft_putnbr_fd(t[n], fd);
+        if (n < len-1)
+            ft_putchar_fd(' ', fd);
+        n++;
+    }
+    free(f);
+    free(t);
+    ft_putchar_fd('\n', fd);
+}
+
+static int  *ft_storepoint(int i, int j, int k, int l)
+{
+    int *ret;
+
+    ret = malloc(sizeof(int) * 4); // NEED SECURE
+    ret[0] = i;
+    ret[1] = j;
+    ret[2] = k;
+    ret[3] = l;
+    return (ret);
+}
+
+static void close_map(Uint32 nb, int fd)
+{
+    ft_putstr_fd("v 0.0 0.0 60.0\nv 60.0 0.0 60.0\nv 60.0 0.0 0.0\nv 0.0 0.0 0.0\nv 0.0 60.0 60.0\nv 60.0 60.0 60.0\nv 60.0 60.0 0.0\nv 0.0 60.0 0.0\n", fd);
+    ft_putface_fd(ft_storepoint(nb + 1, nb + 2, nb + 3, nb + 4), ft_storepoint( 1, 1, 1, 1), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 2, nb + 6, nb + 7, nb + 3), ft_storepoint( 1, 1, 1, 1), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 6, nb + 5, nb + 8, nb + 7), ft_storepoint( 1, 1, 1, 1), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 5, nb + 1, nb + 4, nb + 8), ft_storepoint( 1, 1, 1, 1), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 6, nb + 2, nb + 1, nb + 5), ft_storepoint( 1, 1, 1, 1), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 4, nb + 3, nb + 7, nb + 8), ft_storepoint( 1, 1, 1, 1), 4, fd);
 }
 
 static void fill_file(t_win *wn, t_edit *edit, int fd)
@@ -116,6 +167,7 @@ static void fill_file(t_win *wn, t_edit *edit, int fd)
         nb_ver3 += nb_ver1 + nb_ver2;
         nb++;
     }
+    close_map(nb_ver3, fd);
     ft_putstr_fd("# ", fd); // DONT NEED THIS BUT COULD BE USEFUL
     ft_putnbr_fd(nb, fd);
     ft_putstr_fd(" elements", fd);
@@ -148,16 +200,19 @@ static void create_obj(t_win *wn, t_edit *edit, char *name)
 void        save_panel(t_win *wn, t_edit *edit)
 {
    static char *map_name = NULL;
+   static int   prompt = 0;
    SDL_Rect    position;
    SDL_Rect     mouse;
    
-   position = define_rect(((t_edit *)wn->edit)->tab->bg.x + ((t_edit*)wn->edit)->tab->bg.w - 100, ((t_edit*)wn->edit)->tab->bg.y + 200, 50, ((t_edit*)wn->edit)->tab->bg.h);	
-   
-    printf("mapname AVANT= %s\n", map_name);
-    map_name = text_box(wn, map_name);
+   position = define_rect(((t_edit *)wn->edit)->tab->bg.x + ((t_edit*)wn->edit)->tab->bg.w - 100, ((t_edit*)wn->edit)->tab->bg.y + 200, 50, ((t_edit*)wn->edit)->tab->bg.h);
+   map_name = text_box_prompt(wn, map_name, &prompt); /// Prompt mis en place mais pas d'affichage
+   if (map_name != NULL && map_name[0] != '\0')
+       ((t_edit *)wn->edit)->map->name = map_name;
+   else
+        ((t_edit *)wn->edit)->map->name = "Untitled(1)";
+   //printf("Prompt => %d \nName => %s\n", prompt, map_name);
    mouse.x = wn->input->x;
     mouse.y = wn->input->y;
-    printf("mapname = %s\n", map_name);
    if (edit->elem != NULL && map_name != NULL && boxhitbox(wn->rend, &mouse, &position, 1) && mouse_pressed(wn, SDL_BUTTON_LEFT))
    {
        map_name = ft_strjoinfree(map_name, ".obj", 1);
