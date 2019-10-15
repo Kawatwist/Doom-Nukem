@@ -67,6 +67,7 @@ static void	listenclient(t_win *wn, int	user)
 		return (perror("Open New socket :"));
 	server->user[user].name = ft_memalloc(sizeof(char) * 8);
 	read(server->user[user].socket, server->user[user].name, 8);
+	printf("TEST LISTEN CLIENT\n");
 }
 
 static void	inputhost(t_win *wn)

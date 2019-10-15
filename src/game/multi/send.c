@@ -52,6 +52,7 @@ void		send_msg_from_client(t_win *wn, char *msg)
 	msg = add_user(msg, ((t_client *)wn->client)->username);
 	printf("CLIENT ENVOI DE MESSAGE: %s\n", msg);
 	send(((t_client *)wn->client)->sockfd, msg, i, 0);
+	printf("socket fd = %d\n", ((t_client *)wn->client)->sockfd);
 }
 
 void		send_msg_from_server(t_win *wn, char *msg, int	user)

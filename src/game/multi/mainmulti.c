@@ -23,7 +23,7 @@ void	inputmulti(t_win *wn) // => CHOIX DU MENU HOST OU CLIENT
 		wn->oldinterface = wn->interface;
 		wn->menu->choice == 40 ? wn->interface = HOST : 0;
 		wn->menu->choice == 41 ? wn->interface = CLIENT : 0;
-		wn->menu->choice == 42 ? wn->interface = MGAME : 0;
+//		wn->menu->choice == 42 ? wn->interface = MGAME : 0;
 		wn->menu->choice = 10;
 	}
 }
