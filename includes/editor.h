@@ -20,6 +20,7 @@ typedef enum		e_flag
 	WRITE = 1,
 	LOCK = 2,	//BG FOLLOW MAP
 	MAP = 4,	//ONLY MAP or ONLY BG
+	WRITEBG = 8,
 
 }					t_flag;
 

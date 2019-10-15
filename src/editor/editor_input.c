@@ -113,8 +113,8 @@ void		inputeditor(t_win *wn)
 		change_bloc(wn, wn->edit);
 	if (key_pressed(wn, SDL_SCANCODE_RCTRL))
 		((t_edit *)wn->edit)->loadbg->flag = set_bit(((t_edit *)wn->edit)->loadbg->flag, MAP);
-	!(((t_edit *)wn->edit)->loadbg->flag & WRITE)  && !(((t_edit *)wn->edit)->loadbg->flag & MAP) ? control_map(wn, wn->edit) : 0;
-	!(((t_edit *)wn->edit)->loadbg->flag & WRITE)  && (((t_edit *)wn->edit)->loadbg->flag & MAP) ? control_bg(wn, wn->edit) : 0;
+	!(((t_edit *)wn->edit)->loadbg->flag & WRITEBG) && !(((t_edit *)wn->edit)->loadbg->flag & WRITE) && !(((t_edit *)wn->edit)->loadbg->flag & MAP) && !(wn->flag & CONSOLE) ? control_map(wn, wn->edit) : 0;
+	!(((t_edit *)wn->edit)->loadbg->flag & WRITEBG) && !(((t_edit *)wn->edit)->loadbg->flag & WRITE) && (((t_edit *)wn->edit)->loadbg->flag & MAP) && !(wn->flag & CONSOLE) ? control_bg(wn, wn->edit) : 0;
 	keyboardtool(wn, wn->edit);
 	mouse_input_poly(wn, wn->edit);
 }

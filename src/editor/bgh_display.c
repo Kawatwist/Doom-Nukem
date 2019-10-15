@@ -133,8 +133,12 @@ static void	extract_obj(t_win *wn, t_edit *edit)
 	cursor.y = wn->input->y;
 	if (boxhitbox(wn->rend, &cursor, &(position), 1) || boxhitbox(wn->rend, &cursor, &(save), 1))
 	{
+		if (!(edit->loadbg->flag & WRITEBG))
+			edit->loadbg->flag = set_bit(edit->loadbg->flag, WRITEBG);
 		save_panel(wn, edit);
 	}
+	else if (edit->loadbg->flag & WRITEBG)
+		edit->loadbg->flag = set_bit(edit->loadbg->flag, WRITEBG);
 }
 
 static void manage_bg(t_win *wn,  t_edit *edit)

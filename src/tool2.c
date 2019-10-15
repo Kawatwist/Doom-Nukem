@@ -12,6 +12,23 @@
 
 #include <editor.h>
 
+void		print_message_with_time(t_win *wn, char *msg, SDL_Rect pos, Uint32 time) // CAN CHANGE DRAW TIME ?
+{
+	SDL_Color color;
+
+	color.a = 0xFF;
+	color.r = 0xFF;
+	color.g = 0xFF;
+	color.b = 0xFF;
+	if (SDL_GetTicks() - time < 3000)
+	{
+		TTF_SizeText(wn->fonts->arial_path, msg, &pos.w, &pos.h);
+		TTF_SetFontStyle(wn->fonts->arial_path, TTF_STYLE_ITALIC);
+		print_text_with_arial_path_full(wn, msg, color, pos);
+		TTF_SetFontStyle(wn->fonts->arial_path, TTF_STYLE_NORMAL);
+	}
+}
+
 void 		print_message(t_win *wn, char *msg, SDL_Color color)
 {
 	SDL_Rect 	rect;
