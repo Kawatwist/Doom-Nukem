@@ -11,7 +11,7 @@ int bsp_test()
 	t_bsp *bsp;
 	t_vec *pos;
 	t_vec *pos2;
-	
+
 	bsp = bsp_compile();
 	pos = create_vec(1,3,0);
 	pos2 = create_vec(26,3,0);
@@ -28,7 +28,7 @@ int bsp_test()
 }
 
 t_bsp *bsp_compile()
-{	
+{
 	t_bsp *bsp;
 
 	if (!(bsp = (t_bsp*)malloc(sizeof(t_bsp))))
@@ -36,10 +36,10 @@ t_bsp *bsp_compile()
 	bsp_init(bsp);
 	//printf("init done\n");
 	build_bsp_tree(0, bsp);
-	printf("tree built\n");
-	print_polys(bsp->poly, bsp->nb_polys);
-	print_nodes(bsp->node, bsp->nb_nodes);
-	print_leafs(bsp->leaf, bsp->nb_leafs);
+	// printf("tree built\n");
+	// print_polys(bsp->poly, bsp->nb_polys);
+	// print_nodes(bsp->node, bsp->nb_nodes);
+	// print_leafs(bsp->leaf, bsp->nb_leafs);
 	sleep(1000);
 	build_portal(bsp);
 	//printf("portal built\n");

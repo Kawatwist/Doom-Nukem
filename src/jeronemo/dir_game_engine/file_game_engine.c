@@ -49,7 +49,7 @@ void	turn_rast(t_win *wn)
 
 	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
 	//############
-	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
+	if (wn->interface == RGAME)
 	{
 	/**	ft_clear_window(wn);
 		ft_init_update_raster(wn->rasterizer->tmp);
@@ -83,8 +83,6 @@ void	turn_rast(t_win *wn)
 		((t_myraster*)(wn->rasterizer->tmp))->nbr_of_triangle = wn->rasterizer->nbr_triangle;
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array , wn);
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
-		// if (wn->interface == DGAME)
-		// 	SDL_RenderPresent(wn->rend);
 		//free_poly_list(new_lst);
 	}
 }

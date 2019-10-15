@@ -38,10 +38,8 @@ void	game_interface(t_win *wn)
 			ft_launch_rasterization(wn);
 		}
 		ingame(wn);
-		// SDL_UnlockTexture(wn->gametxt);
+		SDL_UnlockTexture(wn->gametxt);
 		// SDL_RenderCopy(wn->rend, wn->gametxt, NULL, NULL); //???useless
-		if (wn->interface == DGAME)
-			printf("Now in debug mode\n\n\n\n\n\n\n\n\n\n");
 		display_monsters(wn);
 	}
 	else if (wn->interface == NGAME)
@@ -51,4 +49,3 @@ void	game_interface(t_win *wn)
 	else
 		menugame(wn);
 }
-		/* ingame(wn); */

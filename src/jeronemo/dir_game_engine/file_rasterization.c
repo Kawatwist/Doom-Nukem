@@ -48,7 +48,7 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->theta_camera = 0;
 	raster->pitch = 0;
 	raster->leave_mouse = 0;
-	raster->v_camera = ft_create_vector(20.0, -30.0, 0.0);
+	raster->v_camera = ft_create_vector(0.0, 0.0, 0.0);
 	raster->avancer = 0;
 	raster->reculer = 0;
 	raster->translate_left = 0;
@@ -277,15 +277,15 @@ printf("nbr_triangle aaaaaaaaaaa:%d\n", raster->nbr_of_triangle);
 //	SDL_RenderDrawLine(wn->rend, 0, YSCREEN - 30, XSCREEN, YSCREEN - 30);
 
 	/**  printf("world view\t=%u\n", raster->time_world_view);
-	  printf("culling\t\t=%u\n", raster->time_culling); 
-	  printf("shade\t\t=%u\n", raster->time_shade); 
-	  printf("cam view\t=%u\n", raster->time_cam_view); 
-	  printf("clip camera\t=%u\n", raster->time_clipping_camera); 
-	  printf("projection\t=%u\n", raster->time_projetion); 
-	  printf("scale\t\t=%u\n", raster->time_scale_screen); 
-	  printf("add lst\t\t=%u\n", raster->time_add_to_lst); 
-	  printf("clip screen\t=%u\n", raster->time_clipping_screen); 
-	  printf("draw\t\t=%u\n", raster->time_draw); 
+	  printf("culling\t\t=%u\n", raster->time_culling);
+	  printf("shade\t\t=%u\n", raster->time_shade);
+	  printf("cam view\t=%u\n", raster->time_cam_view);
+	  printf("clip camera\t=%u\n", raster->time_clipping_camera);
+	  printf("projection\t=%u\n", raster->time_projetion);
+	  printf("scale\t\t=%u\n", raster->time_scale_screen);
+	  printf("add lst\t\t=%u\n", raster->time_add_to_lst);
+	  printf("clip screen\t=%u\n", raster->time_clipping_screen);
+	  printf("draw\t\t=%u\n", raster->time_draw);
 	  printf("free\t\t=%u\n\n\n\n", raster->time_free_lst); **/
 
 }

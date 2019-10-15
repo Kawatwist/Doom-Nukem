@@ -5,7 +5,6 @@ void print_polys(t_poly *poly, int nb_polys)
 	int i;
 	int j;
 	//t_vec *tmp;
-
 	i = 0;
 	printf("Nb polys %d\n", nb_polys);
 	while (i < nb_polys)
@@ -140,7 +139,7 @@ void print_pvs2(t_bsp *bsp)
 		c++;
 	}
 	printf("\n");
-}											
+}
 
  void print_pvs(t_bsp *bsp)
 {
@@ -170,7 +169,7 @@ void print_pvs2(t_bsp *bsp)
 			//l = l % bsp->nb_leafs;
 			//l = 0;
 			//i = i + (bsp->nb_leafs - (i % bsp->nb_leafs));
-		
+
 			if (bsp->pvs[i] == 0)
 			{
 				i++;
@@ -182,7 +181,7 @@ void print_pvs2(t_bsp *bsp)
 				while (j < 256)
 				{
 					if ((bsp->pvs[i] / j) % 2)
-					printf("%d,", l % bsp->nb_leafs); 
+					printf("%d,", l % bsp->nb_leafs);
 					j *= 2;
 					l++;
 				}
