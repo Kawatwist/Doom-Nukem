@@ -34,6 +34,7 @@ char		*parse_packet(t_win *wn, char *msg)
 	return (ret);
 }
 
+/* Message recu par le CLIENT en provenance du SERVEUR */
 char		*get_msg_client(t_win *wn)
 {
 	char	*buff;
@@ -46,13 +47,30 @@ char		*get_msg_client(t_win *wn)
 	return (buff);
 }
 
+/* Message recu par le SERVEUR en provenance du CLIENT */
 char		*get_msg_server(t_win *wn, int user)
 {
 	char	*buff;
 
-	buff = malloc(sizeof(char) * 1024);
-	recv(((t_server *)wn->serv)->user[user].socket, buff, 1024, 0);
+	if ((buff = malloc(sizeof(char) * 1024)) == NULL)
+		return (NULL);
+	if ((recv(((t_server *)wn->serv)->user[user].socket, buff, 1024, 0)) < 0)
+	{
+		buff != NULL ? free(buff) : 0;
+		return (NULL);
+	}
+//	buff != NULL ? printf("BEFORE PARSING ---> = %s\n", buff) : 0;
 	buff = parse_packet(wn, buff);
+//	buff != NULL ? printf("AFTER PARSING ---> = %s\n", buff) : 0;
+//	printf("USER = %d\n", user);
+
+/*
+** Ajouter une verification de user connecte...
+*/
+
+/*	user == 0 ? 0 : send_msg_from_server(wn, buff, 0);
+	user == 1 ? 0 : send_msg_from_server(wn, buff, 1);
+	user == 2 ? 0 : send_msg_from_server(wn, buff, 2);*/
 	ft_putstrindec(buff, ft_strlen(buff));
 	return (buff);
 }

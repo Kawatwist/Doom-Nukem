@@ -57,6 +57,7 @@ SRC				= main.c										\
 				  mainmulti.c									\
 				  mainhost.c									\
 				  mainclient.c									\
+				  input_show_host.c								\
 				  maingame.c 									\
 				  mainmenu.c									\
 				  menuinput.c									\
