@@ -64,7 +64,10 @@ void		add_chat(t_win *wn, int user)
 		msg != NULL && wn->serv != NULL ? printf("(SERVER)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
 		msg != NULL && wn->client != NULL ? printf("(CLIENT)J'AI RECU SE MESSAGE : %s\n", msg) : 0;
 		if (msg == NULL)
+		{
 			dc++;
+			printf("DC = %d\n", dc);
+		}
 //		else
 //			msg = removemsg(msg);
 		if (dc > 2)

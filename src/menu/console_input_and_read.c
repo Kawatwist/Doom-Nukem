@@ -119,7 +119,7 @@ void	inputconsole(t_win *wn)
 		command[ft_strlen(command) - 1] = 0;
 	if (key_pressed(wn, SDL_SCANCODE_UP) && wn->console->index > 0)
 	{
-		command = ft_strdup(wn->console->history[wn->console->index - 1]);
+		command = ft_strdup(wn->console->history[(wn->console->index > 10 ? 10 : wn->console->index) - 1]);
 		if (ft_strchrlen(command, '*') != -1)
 			command[ft_strchrlen(command, '*') - 1] = 0;
 	}
