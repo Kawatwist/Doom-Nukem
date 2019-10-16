@@ -75,29 +75,32 @@ static void	showclient(t_win *wn, char *ip, char *port)
 	port != NULL && ft_strlen(port) && wn->client == NULL ? print_one_line(wn, port, (wn->xscreen >> 1) - ((ft_strlen(port) >> 1) * 10), (wn->yscreen / 3) << 1) : 0;
 }
 
+// NEED DOUBLE POINTEUR POUR FREE IP
+
 static void	*msn_client(void *params)
 {
 	t_thread	*thd;
 	t_win		*wn;
-	char		*ip;
+	char		**ip;
 	int			port;
 
 	thd = (t_thread *)params;
 	wn = (t_win *)thd->wn;
 	ip = thd->str;
 	port = thd->value;
-	tryconnect(wn, ip, port);
+	tryconnect(wn, *ip, port);
 	if (wn->client == NULL || ((t_client *)wn->client)->sockfd < 0)
 		return (NULL);
 	wn->menu->connected = 3;
 	add_chat(wn, 0);
-	free(ip);
+	free(*ip);
+	*ip = NULL;
 	close(((t_client *)wn->client)->sockfd);
 	wn->client = NULL; // NEED CLEAN CLIENT BEFORE SET TO NULL (FREE)
 	return (NULL);
 }
 
-static void	client_threads(t_win *wn, char *ip, int port)
+static void	client_threads(t_win *wn, char **ip, int port)
 {
 	t_thread	*thread;
 
@@ -121,7 +124,7 @@ void		mainclient(t_win *wn)
 	if (wn->menu->connected == 1)
 	{
 		time = SDL_GetTicks();
-		client_threads(wn, ip, ft_atoi(port));
+		client_threads(wn, &ip, ft_atoi(port));
 		wn->menu->connected = 2;
 	}
 	if (select == 1)

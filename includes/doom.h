@@ -192,7 +192,7 @@ typedef struct		s_thread
 	t_load			*file;
 	struct s_win	*wn;
 	int				value;
-	char			*str;
+	char			**str;
 }					t_thread;
 
 typedef struct		s_menu
