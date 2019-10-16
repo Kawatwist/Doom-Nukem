@@ -157,15 +157,21 @@ static void create_face(Uint32 nb1, Uint32 nb2, int fd, Uint32 currnb)
     ft_putstr_fd("/1\n", fd);
 }
 
-static void close_map(Uint32 nb, int fd)
+static void close_map(Uint32 nb, Uint32 nbvt, int fd)
 {
+    ft_putstr_fd("g Skybox\n", fd);
+    ft_putstr_fd("mtllib master.mtl\n", fd);
+    ft_putstr_fd("usemtl blue\n", fd);
     ft_putstr_fd("v 0.0 0.0 60.0\nv 60.0 0.0 60.0\nv 60.0 0.0 0.0\nv 0.0 0.0 0.0\nv 0.0 60.0 60.0\nv 60.0 60.0 60.0\nv 60.0 60.0 0.0\nv 0.0 60.0 0.0\n", fd);
-    ft_putface_fd(ft_storepoint(nb + 1, nb + 2, nb + 3, nb + 4), ft_storepoint( 1, 1, 1, 1), 4, fd);
-    ft_putface_fd(ft_storepoint(nb + 2, nb + 6, nb + 7, nb + 3), ft_storepoint( 1, 1, 1, 1), 4, fd);
-    ft_putface_fd(ft_storepoint(nb + 6, nb + 5, nb + 8, nb + 7), ft_storepoint( 1, 1, 1, 1), 4, fd);
-    ft_putface_fd(ft_storepoint(nb + 5, nb + 1, nb + 4, nb + 8), ft_storepoint( 1, 1, 1, 1), 4, fd);
-    ft_putface_fd(ft_storepoint(nb + 6, nb + 2, nb + 1, nb + 5), ft_storepoint( 1, 1, 1, 1), 4, fd);
-    ft_putface_fd(ft_storepoint(nb + 4, nb + 3, nb + 7, nb + 8), ft_storepoint( 1, 1, 1, 1), 4, fd);
+    ft_putstr_fd("vt 0.0 0.0\nvt 512.0 0.0\nvt 1024.0 0.0\nvt 1536.0 0.0\n", fd);
+    ft_putstr_fd("vt 0.0 512.0\nvt 512.0 512.0\nvt 1024.0 512.0\nvt 1536.0 512.0\n", fd);
+    ft_putstr_fd("vt 0.0 1022.0\nvt 512.0 1022.0\nvt 1024.0 1022.0\nvt 1536.0 1022.0\n", fd);
+    ft_putface_fd(ft_storepoint(nb + 1, nb + 2, nb + 3, nb + 4), ft_storepoint( nbvt + 1, nbvt + 2, nbvt + 6, nbvt + 5), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 2, nb + 6, nb + 7, nb + 3), ft_storepoint( nbvt + 2, nbvt + 3, nbvt + 7, nbvt + 6), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 6, nb + 5, nb + 8, nb + 7), ft_storepoint( nbvt + 3, nbvt + 4, nbvt + 8, nbvt + 7), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 5, nb + 1, nb + 4, nb + 8), ft_storepoint( nbvt + 6, nbvt + 5, nbvt + 10, nbvt + 9), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 6, nb + 2, nb + 1, nb + 5), ft_storepoint( nbvt + 7, nbvt + 6, nbvt + 11, nbvt + 10), 4, fd);
+    ft_putface_fd(ft_storepoint(nb + 4, nb + 3, nb + 7, nb + 8), ft_storepoint( nbvt + 8, nbvt + 9, nbvt + 12, nbvt + 11), 4, fd);
 }
 
 static void fill_file(t_edit *edit, int fd)
@@ -175,18 +181,20 @@ static void fill_file(t_edit *edit, int fd)
     Uint32  nb_ver1;
     Uint32  nb_ver2;
     Uint32  currnb;
+    Uint32  currvt;
 
     curr_elem = edit->elem;
     nb = 1;
     currnb = 0;
+    currvt = 0;
     while (curr_elem != NULL && curr_elem->point != NULL && curr_elem->point->next != NULL)
     {
-        // ft_putstr_fd("o Polygon.", fd);
+        ft_putstr_fd("g Polygon.", fd);
         // ft_putnbr_fd(nb, fd);
         // ft_putchar_fd('\n', fd);
         nb_ver1 = store_vertice(curr_elem, fd);
         nb_ver2 = store_vertice(curr_elem->next, fd);
-        ft_putstr_fd("vt 1.0 1.0 1.0\n", fd);
+        // ft_putstr_fd("vt 1.0 1.0 1.0\n", fd);
         ft_putstr_fd("s off\n", fd);
         create_basic_face(nb_ver1, nb_ver2, fd, currnb);
         create_face(nb_ver1, nb_ver2, fd, currnb);
@@ -194,7 +202,7 @@ static void fill_file(t_edit *edit, int fd)
         currnb += nb_ver1 + nb_ver2;
         nb++;
     }
-    close_map(currnb, fd);
+    close_map(currnb, currvt, fd);
     ft_putstr_fd("# ", fd); // DONT NEED THIS BUT COULD BE USEFUL
     ft_putnbr_fd(nb - 1, fd);
     ft_putstr_fd(" elements", fd);
