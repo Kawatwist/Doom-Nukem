@@ -61,9 +61,9 @@ static void	checkcursor(t_win *wn, t_edit *edit)
 {
 	if (mouse_pressed(wn, SDL_BUTTON_LEFT))
 		if (!is_between(wn->input->x, wn->xscreen / 101, wn->xscreen / 32.54))
-			if (!is_between(wn->input->y, wn->yscreen / 8.64, wn->yscreen / 1.56))
+			if (!is_between(wn->input->y, wn->yscreen / 8.64, wn->yscreen / 1.434))
 				edit->var->cursor = ((wn->input->y - (wn->yscreen / 8.64)) / 58) + (edit->var->cursor & 0xFFFF0000);
-	(edit->var->cursor & 0xFF) < 0 || (edit->var->cursor & 0xFF) > 9 ? edit->var->cursor = edit->var->cursor & 0xFFFF0000 : 0;
+	(edit->var->cursor & 0xFF) < 0 || (edit->var->cursor & 0xFF) > 10 ? edit->var->cursor = edit->var->cursor & 0xFFFF0000 : 0;
 }
 
 static void	showbgpics(t_win *wn, t_edit *edit)

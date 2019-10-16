@@ -65,7 +65,7 @@ void	draw_cursor(t_win *wn, t_edit *edit)
 	bresenham(wn, &start, &end);
 }
 
-void	erase_cursor(t_win *wn, t_edit *edit)
+void	erase_cursor(t_win *wn, t_edit *edit) // REMOVE ?
 {
 	static t_point	*selected = NULL;
 	static int		x = 0;
