@@ -14,6 +14,10 @@
 #include "server.h"
 #include "client.h"
 
+/*
+** Fonction basic de formatage de messages
+** a modifier pour en 
+*/
 static char	*add_user(char *msg, char *user)
 {
 	char	*ret;
@@ -60,13 +64,13 @@ void		send_msg_from_server(t_win *wn, char *msg, int	user)
 	int	i;
 
 	i = 0;
-/*	if (((t_server *)wn->serv)->username == NULL)
+	if (((t_server *)wn->serv)->username == NULL)
 	{
 		((t_server *)wn->serv)->username = malloc(sizeof(char) * 8);
 		getlogin_r(((t_server *)wn->serv)->username, 8);
-	}*/
-	i = ft_strlen(msg)/* + ft_strlen(((t_server *)wn->serv)->username) + 3*/;
-//	msg = add_user(msg, ((t_server *)wn->serv)->username);
+	}
+	i = ft_strlen(msg) + ft_strlen(((t_server *)wn->serv)->username) + 3;
+	msg = add_user(msg, ((t_server *)wn->serv)->username);
 	printf("SERVEUR ENVOI DE MESSAGE: %s\n", msg);
 	send(((t_server *)wn->serv)->user[user].socket, msg, i, 0);
 }
