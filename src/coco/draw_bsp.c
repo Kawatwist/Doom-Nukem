@@ -112,7 +112,7 @@ t_mytriangle *make_triangles(t_poly *list, int *max) //LISTE DE TRIANGLE
 	int i;
 	int j;
 
-	printf("MAKIng TRIANGLES\n");
+	// printf("MAKIng TRIANGLES\n");
 	tmp = list;
 	*max = 0;
 	while(tmp != NULL)

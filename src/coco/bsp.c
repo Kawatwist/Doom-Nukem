@@ -225,7 +225,7 @@ Runtime:
 
 
 - check PVS data : render only leafs that are potentially visible
-- use Z-buffer to store the distance to each leaf 
+- use Z-buffer to store the distance to each leaf
 
 	Code example:
 	void DrawTree (long CameraLeaf)

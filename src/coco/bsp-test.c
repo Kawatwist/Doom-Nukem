@@ -40,7 +40,7 @@ t_bsp *bsp_compile()
 	// print_polys(bsp->poly, bsp->nb_polys);
 	// print_nodes(bsp->node, bsp->nb_nodes);
 	// print_leafs(bsp->leaf, bsp->nb_leafs);
-	sleep(1000);
+	// sleep(1000);
 	build_portal(bsp);
 	//printf("portal built\n");
 	if (!(bsp->pvs = (unsigned char*)malloc(sizeof(char) * bsp->nb_leafs * ((bsp->nb_leafs + 7) / 8))))

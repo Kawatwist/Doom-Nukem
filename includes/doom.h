@@ -358,6 +358,7 @@ typedef struct		s_rasterizer
 	t_mytriangle	*triangle_array;
 	t_mypolygon		*polygon_lst;
 	t_mynode		*bsp_node;
+	t_poly			*sprite_lst;
 }					t_rasterizer;
 
 typedef struct		s_win
