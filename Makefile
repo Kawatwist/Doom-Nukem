@@ -109,6 +109,7 @@ SRC				= main.c										\
 				  world2view.c									\
 				  world2view_mat.c 								\
 				  tool2.c 										\
+				  vec.c											\
 				  save.c 										\
 				  print_tab.c 									\
 				  popup.c 										\

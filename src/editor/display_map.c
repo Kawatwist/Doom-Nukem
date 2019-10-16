@@ -206,6 +206,6 @@ void		showmap(t_win *wn, t_edit *edit)
 	showline(wn, edit);
 	showelem(wn, edit);
 	showselection(wn, edit);
-	if ((edit->var->cursor & 0xFF) == ROTATE)
+	if ((edit->var->cursor & 0xFF) == ROTATE || (edit->var->cursor & 0xFF) == RESIZE)
 		showcenter(wn, edit);
 }

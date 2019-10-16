@@ -142,6 +142,8 @@ void				swap_cursor(t_win *wn, t_edit *edit);
 void				resize_cursor(t_win *wn, t_edit *edit);
 void				rotate_cursor(t_win *wn, t_edit *edit);
 
+t_point				normalize(t_point src);
+
 void				check_hitbox(t_win *wn, t_edit *edit);
 
 t_point				**find_box_point(t_win *wn, t_edit *edit, SDL_Rect box);

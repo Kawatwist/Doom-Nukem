@@ -266,9 +266,45 @@ void	swap_cursor(t_win *wn, t_edit *edit)
 
 void	resize_cursor(t_win *wn, t_edit *edit)
 {
-	(void)wn;
-	(void)edit;
-	printf("RESIZE\n");
+	static t_point	range = {0,0,0, NULL};
+	static t_point  *center = NULL;
+	static int 		x = 0;
+	static int 		y = 0;
+	static char		actif = -1;
+	// t_point			tmp;
+	int				nb;
+
+	if (!(((edit->var->cursor & 0xFFFF0000) >> 16) == RESIZE) || actif == -1)
+	{
+		x = wn->input->x;
+		y = wn->input->y;
+		actif = -1;
+	}
+	if (mouse_pressed(wn, SDL_BUTTON_LEFT) && (((edit->var->cursor & 0xFFFF0000) >> 16) == RESIZE))
+		actif *= -1;
+	if ((center == NULL || (((edit->var->cursor & 0xFFFF0000) >> 16) != RESIZE)) && edit->selected != NULL)
+	{
+		center = find_center(edit->selected);
+		edit->center = &center;
+	}
+	if (edit->selected != NULL && center != NULL)
+	{
+		nb = 0;
+		while (edit->selected[nb] != NULL)
+		{
+			range.x = center->x - edit->selected[nb]->x;
+			range.y = center->y - edit->selected[nb]->y;
+			range = normalize(range);
+			if ((fabsf(center->x - edit->selected[nb]->x) + fabsf(center->y - edit->selected[nb]->y)) > 10 && (((range.x / 100) * (x - wn->input->x) < 0) || ((range.y / 100) * (y - wn->input->y < 0))))
+			{
+				edit->selected[nb]->x += (range.x / 100) * (x - wn->input->x);
+				edit->selected[nb]->y += (range.y / 100) * (y - wn->input->y);
+			}
+			nb++;
+		}
+	}
+	x = wn->input->x;
+	y = wn->input->y;
 }
 
 void	rotate_cursor(t_win *wn, t_edit *edit) // ROTATE
