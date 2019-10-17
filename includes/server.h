@@ -37,6 +37,6 @@ typedef struct	s_server
 void	inputhost(t_win *wn);
 void	showhost(t_win *wn);
 void	freeserv(t_win *wn, t_server *server);
-
+void	resend_msg_from_server(t_win *wn, char *msg, int user);
 
 #endif

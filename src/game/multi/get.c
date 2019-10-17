@@ -21,13 +21,15 @@ char		*parse_packet(t_win *wn, char *msg)
 	int		len;
 
 	len = 0;
+	ret = NULL;
 	if (msg[1] == 1)
 	{
 		len = (msg[2] << 8);
 		len += (unsigned char)msg[3];
 		ret = malloc(sizeof(char) * len + 1);
+		printf("TAILLE recu %d\n", len);
 		ft_memcpy(ret, &msg[4], len);
-		ret[len] = 0;
+		ret[len] = '\0';
 	}
 	else
 		return (NULL);
@@ -43,6 +45,7 @@ char		*get_msg_client(t_win *wn)
 	recv(((t_client *)wn->client)->sockfd, buff, 1024, 0);
 //	ft_putstrindec(buff, ft_strlen(buff + 4) + 4);
 	buff = parse_packet(wn, buff);
+	printf("CLIENT A PARSER => %s\n", buff);
 	ft_putstrindec(buff, ft_strlen(buff));
 	return (buff);
 }
@@ -68,9 +71,13 @@ char		*get_msg_server(t_win *wn, int user)
 ** Ajouter une verification de user connecte...
 */
 
-/*	user == 0 ? 0 : send_msg_from_server(wn, buff, 0);
-	user == 1 ? 0 : send_msg_from_server(wn, buff, 1);
-	user == 2 ? 0 : send_msg_from_server(wn, buff, 2);*/
+	if (buff != NULL)
+	{
+		printf("Retransmission de |%s|\n", buff);
+		user == 0 ? 0 : resend_msg_from_server(wn, buff, 0);
+		user == 1 ? 0 : resend_msg_from_server(wn, buff, 1);
+		user == 2 ? 0 : resend_msg_from_server(wn, buff, 2);
+	}
 	ft_putstrindec(buff, ft_strlen(buff));
 	return (buff);
 }
