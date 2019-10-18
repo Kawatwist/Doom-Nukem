@@ -45,8 +45,8 @@ static char	*add_user(char *msg, char *user)
 	ret[2] = (len >> 8) & 0xFF;											// len 1
 	ret[3] = len & 0xFF;												// len 2
 	if (user != NULL)
-		ret = ft_memjoinfree(ret, " : ", 4 + ulen, 3);					// Separation USER : MESSAGE
-	ret = ft_memjoinfree(ret, &msg[(user == NULL ? 0 : 4)], ((user == NULL) ? 4 : 7) + ulen, ft_strlen(&msg[(user == NULL ? 0 : 4)]));	// Ajout du message
+		ret = ft_memjoinfree(ret, " :", 4 + ulen, 2);					// Separation USER : MESSAGE
+	ret = ft_memjoinfree(ret, &msg[(user == NULL ? 0 : 4)], ((user == NULL) ? 4 : 6) + ulen, ft_strlen(&msg[(user == NULL ? 0 : 4)]));	// Ajout du message
 	ret = ft_memjoinfree(ret, ";\0", len + 4, 2);	// Fin d'intruction
 	//ft_putstrindec(ret, len + 6);  /// PRINTF DANS LIBFT !
 	return (ret);
