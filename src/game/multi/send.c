@@ -88,8 +88,6 @@ void		resend_msg_from_server(t_win *wn, char *msg, int user)
 
 	i = 0;
 	i = ft_strlen(msg) + 4;
-	printf("SERVEUR RENVOI DE MESSAGE: |%s|, de taille |%zu|\n", msg, ft_strlen(msg));
 	msg = add_user(msg, NULL);
-	printf("SERVEUR RENVOI DE MESSAGE: %s\n", msg);
 	send(((t_server *)wn->serv)->user[user].socket, msg, i, 0);
 }

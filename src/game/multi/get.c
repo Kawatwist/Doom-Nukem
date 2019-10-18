@@ -42,7 +42,7 @@ char		*get_msg_client(t_win *wn)
 	char	*buff;
 
 	buff = malloc(sizeof(char) * 1024);
-	recv(((t_client *)wn->client)->sockfd, buff, 1024, 0);
+	fcntl(((t_client *)wn->client)->sockfd, F_GETFD) != -1 ? (recv(((t_client *)wn->client)->sockfd, buff, 1024, 0)) : 0;
 //	ft_putstrindec(buff, ft_strlen(buff + 4) + 4);
 	buff = parse_packet(wn, buff);
 	printf("CLIENT A PARSER => %s\n", buff);
@@ -62,21 +62,16 @@ char		*get_msg_server(t_win *wn, int user)
 		buff != NULL ? free(buff) : 0;
 		return (NULL);
 	}
-//	buff != NULL ? printf("BEFORE PARSING ---> = %s\n", buff) : 0;
 	buff = parse_packet(wn, buff);
-//	buff != NULL ? printf("AFTER PARSING ---> = %s\n", buff) : 0;
-//	printf("USER = %d\n", user);
-
 /*
 ** Ajouter une verification de user connecte...
 */
-
 	if (buff != NULL)
 	{
 		printf("Retransmission de |%s|\n", buff);
-		user == 0 ? 0 : resend_msg_from_server(wn, buff, 0);
-		user == 1 ? 0 : resend_msg_from_server(wn, buff, 1);
-		user == 2 ? 0 : resend_msg_from_server(wn, buff, 2);
+		((wn->menu->ask & 0x03) < 3) || user == 0 ? printf("Pas de client 1\n") : resend_msg_from_server(wn, buff, 0);
+		(((wn->menu->ask & 0x0C) >> 2) < 3) || user == 1 ? printf("Pas de client 2\n") : resend_msg_from_server(wn, buff, 1);
+		(((wn->menu->ask & 0x30) >> 4) < 3) || user == 2 ? printf("Pas de client 3\n") : resend_msg_from_server(wn, buff, 2);
 	}
 	ft_putstrindec(buff, ft_strlen(buff));
 	return (buff);
