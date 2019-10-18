@@ -131,7 +131,11 @@ void		mainclient(t_win *wn)
 	if (select == 1)
 		ip = text_box(wn, ip);
 	else if (select == 2)
-		port = text_box(wn, port);
+	{
+			port = text_box(wn, port);
+			port != NULL ? free(port): 0;
+			port = ft_strdup("4242");
+	}
 	select = inputclient(wn, select, ip, port);
 	showclient(wn, ip ,port);
 	difftime = SDL_GetTicks();

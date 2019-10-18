@@ -28,7 +28,7 @@ char		*parse_packet(t_win *wn, char *msg)
 		len += (unsigned char)msg[3];
 		ret = malloc(sizeof(char) * len + 1);
 		printf("TAILLE recu %d\n", len);
-		ft_memcpy(ret, &msg[4], len);
+		ft_memcpy(ret, &msg[5], len);
 		ret[len] = '\0';
 	}
 	else

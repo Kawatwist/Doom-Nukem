@@ -16,6 +16,7 @@
 void	inputhost(t_win *wn)
 {
 	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->interface = MULTI : 0;
+	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? wn->menu->choice = 40 : 0;
 	key_pressed(wn, SDL_SCANCODE_ESCAPE) ? freeserv(wn, (t_server *)wn->serv) : 0;
 	if ((wn->menu->ask & 0x03) == 1 || (wn->menu->ask & 0x03) == 2)
 	{
@@ -44,6 +45,8 @@ void	inputhost(t_win *wn)
 void	showhost(t_win *wn)
 {
 	SDL_RenderCopy(wn->rend, findtexture(wn, "game", "menu", "Host"), NULL, NULL);
+	if (wn->serv != NULL && ((t_server *)wn->serv)->username)
+		print_one_line(wn, ((t_server *)wn->serv)->username, 880, 150);
 	if ((wn->menu->ask & 0x03) == 3)
 		print_one_line(wn, ((t_server *)wn->serv)->user[0].name, 880, 380);
 	else if ((wn->menu->ask & 0x03) == 1 || (wn->menu->ask & 0x03) == 2)

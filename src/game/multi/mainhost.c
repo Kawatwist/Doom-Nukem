@@ -48,9 +48,7 @@ static t_server	*initserv(t_server *server)
 		return (NULL);
 	ft_bzero((char *)&server->serv_addr, sizeof(server->serv_addr));
 	server->username = malloc(sizeof(char) * 8);
-	if ((getlogin_r(server->username, 8)) == 0)
-		printf("OK\n");
-	printf("SERVER NAME = %s\n", server->username);
+	getlogin_r(server->username, 8);
 	server->port = 4242;
 	server->serv_addr.sin_family = AF_INET;
 	server->serv_addr.sin_addr.s_addr = INADDR_ANY;
@@ -73,7 +71,7 @@ static int	listenclient(t_win *wn, int	user)
 	server->user[user].socket = accept(server->sockfd, (struct sockaddr *)&server->user[user].cli_addr, (socklen_t *)&server->len);
 	if (server->user[user].socket < 0 || server->len < 0)
 	{
-		perror("Open New socket :");
+		perror("Open New socket ");
 		return (-1);
 	}
 	server->user[user].name = ft_memalloc(sizeof(char) * 8);
