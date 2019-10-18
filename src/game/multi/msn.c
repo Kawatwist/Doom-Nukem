@@ -58,7 +58,8 @@ void		add_chat(t_win *wn, int user)
 	{
 		msg = NULL;
 		printf("J'attend un message\n");
-		msg = (wn->serv == NULL ? get_msg_client(wn) : get_msg_server(wn, user));
+		if (wn->client != NULL || wn->serv != NULL)
+			msg = (wn->serv == NULL ? get_msg_client(wn) : get_msg_server(wn, user));
 		printf("J'ai recu un message : %s\n", msg);
 //		msg = convmsg(msg);
 		msg != NULL && wn->serv != NULL ? printf("(SERVER)J'AI RECU SE MESSAGE : %s\n", msg) : 0;

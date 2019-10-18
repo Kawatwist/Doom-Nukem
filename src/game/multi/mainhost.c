@@ -61,7 +61,7 @@ static t_server	*initserv(t_server *server)
 	return (server);
 }
 
-static void	listenclient(t_win *wn, int	user)
+static int	listenclient(t_win *wn, int	user)
 {
 	t_server *server;
 
@@ -70,9 +70,13 @@ static void	listenclient(t_win *wn, int	user)
 	server->len = sizeof(server->user[user].cli_addr);
 	server->user[user].socket = accept(server->sockfd, (struct sockaddr *)&server->user[user].cli_addr, (socklen_t *)&server->len);
 	if (server->user[user].socket < 0 || server->len < 0)
-		return (perror("Open New socket :"));
+	{
+		perror("Open New socket :");
+		return (-1);
+	}
 	server->user[user].name = ft_memalloc(sizeof(char) * 8);
 	read(server->user[user].socket, server->user[user].name, 8);
+	return (0);
 }
 
 static void	*find_connection(void *params)
@@ -82,7 +86,8 @@ static void	*find_connection(void *params)
 
 	thd = (t_thread *)params;
 	wn = (t_win *)thd->wn;
-	listenclient(wn, thd->value);
+	if (listenclient(wn, thd->value) == -1)
+		return (NULL);
 	if (thd->value == 0)
 		wn->menu->ask += 1;
 	else if (thd->value == 1)
