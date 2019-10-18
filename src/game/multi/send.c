@@ -38,7 +38,7 @@ static char	*add_user(char *msg, char *user)
 	else
 	{
 		ulen = 0;
-		len = (ft_strlen(msg))/* + 3*/;
+		len = (ft_strlen(msg));
 	}
 	ret = (user != NULL) ? ft_strjoin(";ill", user) : ft_strdup(";ill");	// i = index ll = len;
 	ret[1] = 1;															// index
@@ -71,11 +71,14 @@ void		send_msg_from_server(t_win *wn, char *msg, int	user)
 	int	i;
 
 	i = 0;
+	printf("SEND FROM SERVER\n");
 	if (((t_server *)wn->serv)->username == NULL)
 	{
+		printf("SET SERVER NAME\n");
 		((t_server *)wn->serv)->username = malloc(sizeof(char) * 8);
 		getlogin_r(((t_server *)wn->serv)->username, 8);
 	}
+	printf("SERVER NAME = %s\n", ((t_server *)wn->serv)->username);
 	i = ft_strlen(msg) + ft_strlen(((t_server *)wn->serv)->username) + 3;
 	msg = add_user(msg, ((t_server *)wn->serv)->username);
 	printf("SERVEUR ENVOI DE MESSAGE: %s\n", msg);
