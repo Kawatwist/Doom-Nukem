@@ -48,7 +48,9 @@ static t_server	*initserv(t_server *server)
 		return (NULL);
 	ft_bzero((char *)&server->serv_addr, sizeof(server->serv_addr));
 	server->username = malloc(sizeof(char) * 8);
-	getlogin_r(server->username, 8);
+	if ((getlogin_r(server->username, 8)) == 0)
+		printf("OK\n");
+	printf("SERVER NAME = %s\n", server->username);
 	server->port = 4242;
 	server->serv_addr.sin_family = AF_INET;
 	server->serv_addr.sin_addr.s_addr = INADDR_ANY;
@@ -65,6 +67,7 @@ static void	listenclient(t_win *wn, int	user)
 {
 	t_server *server;
 
+printf("=============================================\n");
 	server = (t_server *)wn->serv;
 	listen(server->sockfd, 5);
 	server->len = sizeof(server->user[user].cli_addr);
@@ -73,6 +76,7 @@ static void	listenclient(t_win *wn, int	user)
 		return (perror("Open New socket :"));
 	server->user[user].name = ft_memalloc(sizeof(char) * 8);
 	read(server->user[user].socket, server->user[user].name, 8);
+printf("=============================================\n");
 }
 
 static void	*find_connection(void *params)
@@ -113,7 +117,7 @@ static void host_threads(t_win *wn, int user)
 
 void	mainhost(t_win *wn)
 {
-	wn->serv == NULL ? wn->serv = (t_server *)initserv((t_server *)wn->serv) : 0;
+	(wn->serv == NULL) ? wn->serv = (t_server *)initserv((t_server *)wn->serv) : 0;
 	if (wn->serv != NULL)
 	{
 		((wn->menu->ask & 0x03) == 1) ? host_threads(wn, 0) : 0;

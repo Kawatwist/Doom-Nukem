@@ -52,6 +52,7 @@ static void	tryconnect(t_win *wn, char *ip, int port)
 	client->serv_addr.sin_port = htons(client->port);
 	if (connect(client->sockfd, (struct sockaddr *)&client->serv_addr, sizeof(client->serv_addr)) < 0)
 		return (perror("Can't connect to the server : "));
+	printf("Connected on socket fd |%d|\n", client->sockfd);
 	write(client->sockfd, client->username, ft_strlen(client->username));
 	wn->client = client;
 	wn->menu->connected = 1;
