@@ -79,7 +79,7 @@ void	turn_rast(t_win *wn)
 		wn->rasterizer->triangle_array = make_triangles(wn->rasterizer->poly_list, &wn->rasterizer->nbr_triangle);
 		// print_pvs(wn->rasterizer->bsp);
 		//print_pvs2(wn->rasterizer->bsp);
-		//! COCOµ
+		//! COCO
 		((t_myraster*)(wn->rasterizer->tmp))->nbr_of_triangle = wn->rasterizer->nbr_triangle;
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array , wn);
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;

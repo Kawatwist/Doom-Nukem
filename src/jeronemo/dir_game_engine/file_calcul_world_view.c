@@ -88,7 +88,7 @@ void	ft_free_lst(t_mytriangle *triangle_lst_2)
 }
 
 void	ft_clipping_camera(t_mytriangle *triangle, t_win *wn, t_mytriangle **clipped_triangle)
-{ 
+{
 	int nb;
 
 	triangle->next = NULL;
@@ -123,7 +123,6 @@ void	ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster)
 void	ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster)
 {
 	/* printf("le w=%f\n", triangle->vertice[0].w); */
-	/* exit(0); */
 	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_proje);//PROJECTION
 
 	triangle->texture[0].u /= triangle->vertice[0].w;
@@ -216,6 +215,7 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	free(depth_buffer);
 	SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels, 1920 * sizeof(Uint32));
 	SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
+
 /*	start.x = 20;
 	start.y = 100;
 	end.x = 20;

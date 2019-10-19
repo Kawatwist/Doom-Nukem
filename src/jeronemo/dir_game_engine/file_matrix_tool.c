@@ -177,7 +177,7 @@ void	ft_set_pro(t_myraster *raster)
 
 	height = YSCREEN;
 	width = XSCREEN;
-	fov = 90.0;
+	fov = ANGLE_DE_VUE_CAMERA;
 	z_far = 1000.0;
 	z_near = 0.1;
 	screen_ratio = height / width;

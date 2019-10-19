@@ -14,6 +14,8 @@
 # include <tga_reader.h>
 # include <header_bsp.h>
 
+# define ANGLE_DE_VUE_CAMERA 90.0
+
 typedef struct	s_mytex
 {
 	t_tga		*tga;
