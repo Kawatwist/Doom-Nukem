@@ -180,5 +180,10 @@ int			nb_outside(t_win *wn, t_mytriangle *curr, int side)
 		curr->vertice[1].y > wn->yscreen + 0.001 ? nb = nb | 0x2 : 0;
 		curr->vertice[2].y > wn->yscreen + 0.001 ? nb = nb | 0x4 : 0;
 	}
+	if (nb == 0)
+	{
+		//printf("TRIANGLE %f %f - %f %f - %f %f rejected by side %d \n", curr->vertice[0].x, curr->vertice[0].y,
+		//	curr->vertice[1].x, curr->vertice[1].y, curr->vertice[2].x, curr->vertice[2].y, side);
+	}
 	return (nb);
 }

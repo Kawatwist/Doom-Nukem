@@ -148,11 +148,13 @@ void	build_bsp_tree(int node, t_bsp *bsp)
 		//printf("END\n");
 	}
 	//printf("TFRONT\n");
-	//print_nodes(t->front);
+//	if (node == 0)
+//		print_poly_list(t->front);
+//	sleep(100);
 	t->temp = t->front;
 	while (t->temp != NULL)
 	{
-		if (t->temp->was_splitter == 0)
+		if (t->temp->was_splitter == 0) //check if all polys in front have been used as splitters
 			t->count++;
 		t->temp = t->temp->next;
 	}
