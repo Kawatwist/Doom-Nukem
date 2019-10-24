@@ -21,8 +21,8 @@ t_myraster	*ft_keyboard_event_check(t_win *wn, t_myraster *raster)
 		wn->interface = MGAME;
 		wn->menu->choice = 10;
 	}
-	if (key_pressed(wn, SDL_SCANCODE_SPACE) && wn->interface == RGAME)
-		wn->interface = DGAME;
+	// if (key_pressed(wn, SDL_SCANCODE_SPACE) && wn->interface == RGAME)
+	// 	wn->interface = DGAME;
 	else if (key_pressed(wn, SDL_SCANCODE_SPACE))
 		wn->interface = RGAME;
 	if (wn->state[SDL_SCANCODE_UP])

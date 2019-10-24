@@ -74,8 +74,8 @@ void	turn_rast(t_win *wn)
 		wn->rasterizer->curr_pos.x = ((t_myraster*)wn->rasterizer->tmp)->v_camera.x;
 		wn->rasterizer->curr_pos.y = -((t_myraster*)wn->rasterizer->tmp)->v_camera.y;
 		wn->rasterizer->curr_pos.z = -((t_myraster*)wn->rasterizer->tmp)->v_camera.z;
-		wn->rasterizer->poly_list = render_bsp(wn->rasterizer->bsp, &wn->rasterizer->curr_pos);
-
+		if (((t_myraster*)wn->rasterizer->tmp)->modif == 1)
+			wn->rasterizer->poly_list = render_bsp(wn->rasterizer->bsp, &wn->rasterizer->curr_pos);
 		wn->rasterizer->triangle_array = make_triangles(wn->rasterizer->poly_list, &wn->rasterizer->nbr_triangle);
 		// print_pvs(wn->rasterizer->bsp);
 		//print_pvs2(wn->rasterizer->bsp);
