@@ -50,6 +50,13 @@ typedef struct	s_mytex
 	float		tex_ev;
 	float		tex_ew;
 
+	float 		tex_u_add;
+	float 		tex_v_add;
+	float 		tex_w_add; //??
+	float 		tex_u_step;
+	float 		tex_v_step;
+	float 		tex_w_step;
+
 	float		tex_u;
 	float		tex_v;
 	float		tstep;

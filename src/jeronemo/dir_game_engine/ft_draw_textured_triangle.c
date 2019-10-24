@@ -70,6 +70,13 @@ void	ft_order_point(
 	}
 }
 
+void correct_limits(float *value, float min, float max) //focntion qui s'assure que la valeur est bien dans les bonnes limites
+{
+	if (*value < min)
+		*value = min;
+	if (*value > max)
+		*value = max;
+}
 
 void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_buffer)
 {
@@ -174,12 +181,30 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 			s_tex->tstep = 1.0 / ((float)(s_tex->bx - s_tex->ax));
 			t = 0.0;
 			j = s_tex->ax;
+
+			//optimisation coco
+
+			s_tex->tex_u = (1.0f - t) * s_tex->tex_su + t * s_tex->tex_eu;
+			s_tex->tex_v = (1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev;
+			s_tex->tex_w = (1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew;
+			s_tex->tex_u_step = ((1.0f - (t + s_tex->tstep)) * s_tex->tex_su + (t + s_tex->tstep) * s_tex->tex_eu) -
+								((1.0f - t) * s_tex->tex_su + t * s_tex->tex_eu);
+			s_tex->tex_v_step = ((1.0f - (t + s_tex->tstep)) * s_tex->tex_sv + (t + s_tex->tstep) * s_tex->tex_ev) -
+								((1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev);
+			s_tex->tex_w_step = ((1.0f - (t + s_tex->tstep)) * s_tex->tex_sw + (t + s_tex->tstep) * s_tex->tex_ew) -
+								((1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew);
+
 			while (j < s_tex->bx)
 			{
-				s_tex->tex_u = (1.0 - t) * s_tex->tex_su + t * s_tex->tex_eu;
+			/**	s_tex->tex_u = (1.0 - t) * s_tex->tex_su + t * s_tex->tex_eu;
 				s_tex->tex_v = (1.0 - t) * s_tex->tex_sv + t * s_tex->tex_ev;
 				s_tex->tex_w = (1.0 - t) * s_tex->tex_sw + t * s_tex->tex_ew;
-				t += s_tex->tstep;
+				t += s_tex->tstep; **/
+
+				s_tex->tex_u = s_tex->tex_u + s_tex->tex_u_step;
+				s_tex->tex_v = s_tex->tex_v + s_tex->tex_v_step;
+				s_tex->tex_w = s_tex->tex_w + s_tex->tex_w_step;
+				
 				//printf("PRE %f %f %f %d\n", s_tex->tex_u, s_tex->tex_v, s_tex->tex_w, s_tex->tga->w);
 				s_tex->srcrect.x = s_tex->tex_u / s_tex->tex_w * s_tex->tga->w;
 				if (s_tex->srcrect.x > 511)
@@ -272,11 +297,28 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 			s_tex->tstep = 1.0f / ((float)(s_tex->bx - s_tex->ax));
 			t = 0.0f;
 			j = s_tex->ax;
+
+			//optimisation coco
+
+			s_tex->tex_u = (1.0f - t) * s_tex->tex_su + t * s_tex->tex_eu;
+			s_tex->tex_v = (1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev;
+			s_tex->tex_w = (1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew;
+			s_tex->tex_u_step = ((1.0f - (t + s_tex->tstep)) * s_tex->tex_su + (t + s_tex->tstep) * s_tex->tex_eu) -
+								((1.0f - t) * s_tex->tex_su + t * s_tex->tex_eu);
+			s_tex->tex_v_step = ((1.0f - (t + s_tex->tstep)) * s_tex->tex_sv + (t + s_tex->tstep) * s_tex->tex_ev) -
+								((1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev);
+			s_tex->tex_w_step = ((1.0f - (t + s_tex->tstep)) * s_tex->tex_sw + (t + s_tex->tstep) * s_tex->tex_ew) -
+								((1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew);
+
 			while (j < s_tex->bx)
 			{
-				s_tex->tex_u = (1.0f - t) * s_tex->tex_su + t * s_tex->tex_eu;
+			/**	s_tex->tex_u = (1.0f - t) * s_tex->tex_su + t * s_tex->tex_eu;
 				s_tex->tex_v = (1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev;
-				s_tex->tex_w = (1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew;
+				s_tex->tex_w = (1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew; **/
+
+				s_tex->tex_u = s_tex->tex_u + s_tex->tex_u_step;
+				s_tex->tex_v = s_tex->tex_v + s_tex->tex_v_step;
+				s_tex->tex_w = s_tex->tex_w + s_tex->tex_w_step;
 
 				s_tex->srcrect.x = s_tex->tex_u / s_tex->tex_w * s_tex->tga->w;
 				if (s_tex->srcrect.x > 511)
@@ -305,7 +347,7 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 
 				/* SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect)); */
 				j++;
-				t += s_tex->tstep;
+				//t += s_tex->tstep;
 			}
 			i++;
 		}

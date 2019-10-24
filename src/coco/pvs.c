@@ -2,6 +2,7 @@
 
 void init_cpvs(t_bsp *bsp, t_cpvs *cpvs)
 {
+	printf("INIT PVS %d\n", (bsp->nb_leafs + 7) / 8);
 	if (!(cpvs->leaf_pvs = (char *)malloc(bsp->nb_leafs * ((bsp->nb_leafs + 7) / 8))))
 		exit(0);
 	cpvs->pvs_pointer = 0;
@@ -31,7 +32,7 @@ int calc_pvs(t_bsp *bsp)
 			cpvs.target_leaf = cpvs.source_portal->leafs[0];
 			if (cpvs.target_leaf == cpvs.leaf)
 				cpvs.target_leaf = cpvs.source_portal->leafs[1];
-			set_pvs_bit(cpvs.leaf_pvs, cpvs.target_leaf); ///??
+			set_pvs_bit(cpvs.leaf_pvs, cpvs.target_leaf);
 			cpvs.dp_index = 0;
 			while(cpvs.dp_index < bsp->leaf[cpvs.target_leaf].nbportals)
 			{
@@ -361,6 +362,6 @@ int compress_leaf(t_bsp *bsp, char *leaf_pvs, int position)
 		cl.dest_p++;
 		//cl.i++;
 	}
-	//printf("CL DONE\n");
+	printf("CL DONE %ld\n", cl.dest_p - cl.dest);
 	return (cl.dest_p - cl.dest);
 }

@@ -24,11 +24,14 @@ void	ft_calcul_world_view_matrix(t_myraster *raster)
 
 void	ft_calcul_world_view(t_mytriangle *triangle, t_myraster *raster)
 {
+	//printf("ROT Z\n");
 	//ROTATION Z
 	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_z);
 	//ROTATION X
+	//printf("ROT X\n");
 	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_x);
 	//TRANSLATION (offset in screen)
+	//printf("TRANS\n");
 	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_trans);
 }
 
@@ -178,7 +181,10 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 		t_mytriangle	*keep;
 		float			*depth_buffer;
 
-		depth_buffer = malloc(sizeof(float) * 1920 * 1080);
+		int count;
+
+		count = 0;
+		depth_buffer = malloc(sizeof(float) * 1920 * 1080); //il faut le bouger d'ici pour l'optimisatio
 		// printf("hello\n"); */
 		if (depth_buffer == NULL)
 			exit(0);
@@ -194,6 +200,7 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 		keep = triangle_lst_2;
 		while (triangle_lst_2 != NULL)
 		{
+			count++;
 			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
 			// printf("%p\n", triangle_lst_2);
 			if (wn->flag & MESH)
@@ -216,6 +223,7 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels, 1920 * sizeof(Uint32));
 	SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
 
+	// printf("TEST TRIANGLES %d\n", count);
 /*	start.x = 20;
 	start.y = 100;
 	end.x = 20;

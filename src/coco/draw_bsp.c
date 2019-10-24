@@ -154,6 +154,13 @@ t_mytriangle *make_triangles(t_poly *list, int *max) //LISTE DE TRIANGLE
 			res[j].texture[2].u = poly->ver_list[poly->indices[(i * 3) + 2]].tx;
 			res[j].texture[2].v = poly->ver_list[poly->indices[(i * 3) + 2]].ty;
 			res[j].texture[2].w = poly->ver_list[poly->indices[(i * 3) + 2]].tz;
+			//printf("TRIANGLE %f\n", res[j].vertice[0].x);
+
+
+			//TEST CODE FIX DISAPPEARING TRIANGLES
+			res[j].vertice[0].w = 1;
+			res[j].vertice[1].w = 1;
+			res[j].vertice[2].w = 1;
 
 			/**if (!(new = (t_mytriangle*)malloc(sizeof(t_mytriangle))))
 				exit(0);
@@ -181,7 +188,7 @@ t_mytriangle *make_triangles(t_poly *list, int *max) //LISTE DE TRIANGLE
 			//res = new;
 			i++;
 		}
-		//printf("TRIANGLE\n");
+		//printf("TRIANGLE %f\n", res[j].vertice[0].x);
 		list = list->next;
 	}
 	/**i = 0;

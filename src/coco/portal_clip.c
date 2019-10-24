@@ -43,7 +43,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 {
 	t_pclip pclip;
 
-	printf("PORTAL CLIP NODE %d %d\n", node, portal->debug_node);//bsp->node[node].plane);
+	//printf("PORTAL CLIP NODE %d %d\n", node, portal->debug_node);//bsp->node[node].plane);
 	init_pclip(&pclip);
 	/** if (bsp->node[node].plane == -1) //check segv
 		pclip.result = 1;
@@ -55,7 +55,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 		//printf("TEST 1 IN\n");
 		if (bsp->node[node].isleaf == 0)
 		{
-			printf("FRONT CASE %d\n",bsp->node[node].front );
+			//printf("FRONT CASE %d\n",bsp->node[node].front );
 			pclip.p_list = clip_portal(bsp, bsp->node[node].front, portal);
 			//printf("TEST 1 OUT\n");
 			return (pclip.p_list);
@@ -81,7 +81,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 		//printf("TEST -1 IN\n");
 		if (bsp->node[node].back != -1)
 		{
-			printf("BACK CASE\n");
+			//printf("BACK CASE\n");
 			pclip.p_list = clip_portal(bsp, bsp->node[node].back, portal);
 			//printf("TEST -1 OUT\n");
 			return (pclip.p_list);
@@ -104,7 +104,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 			exit(0);
 		init_portal(pclip.front_split);
 		init_portal(pclip.back_split);
-		printf("before split portal\n");
+		//printf("before split portal\n");
 		//print_polys((t_poly*)portal, 1);
 		split_portal(pclip.front_split, pclip.back_split, portal, &bsp->plane[bsp->node[node].plane]); ///to check
 		//split_portal(portal,  &bsp->plane[bsp->node[node].plane], pclip.front_split, pclip.back_split);
@@ -113,7 +113,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 		//printf("post delete\n");
 		if (bsp->node[node].isleaf == 0)
 		{
-			printf("SPLIT CASE 1\n");
+			//printf("SPLIT CASE 1\n");
 			pclip.fp_list = clip_portal(bsp, bsp->node[node].front, pclip.front_split);
 		}
 		else
@@ -127,7 +127,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 		//printf("checkyty\n");
 		if (bsp->node[node].back != -1)
 		{
-			printf("SPLIT CASE 2\n");
+			//printf("SPLIT CASE 2\n");
 			pclip.bp_list = clip_portal(bsp, bsp->node[node].back, pclip.back_split);
 		}
 		else
@@ -176,7 +176,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 		}
 		else
 		{
-			printf("ON PLANE CASE\n");
+			//printf("ON PLANE CASE\n");
 			pclip.fp_list = clip_portal(bsp, bsp->node[node].front, portal);
 		}
 		if (pclip.fp_list == NULL)
@@ -194,7 +194,7 @@ t_portal *clip_portal(t_bsp *bsp, int node, t_portal *portal)
 			//printf("344\n");
 			pclip.tmp = pclip.fp_list->next;
 			pclip.bp_list = NULL;
-			printf("ON PLANE CASE 2\n");
+			//printf("ON PLANE CASE 2\n");
 			pclip.bp_list = clip_portal(bsp, bsp->node[node].back, pclip.fp_list);
 			if (pclip.bp_list != NULL)
 			{

@@ -48,7 +48,7 @@ t_myraster	*ft_init_rasterization(t_win *wn, t_myraster *raster)
 	raster->theta_camera = 0;
 	raster->pitch = 0;
 	raster->leave_mouse = 0;
-	raster->v_camera = ft_create_vector(0.0, 10.0, 0.0);
+	raster->v_camera = ft_create_vector(27.0, -30.0, -5.0);
 	raster->avancer = 0;
 	raster->reculer = 0;
 	raster->translate_left = 0;
@@ -190,20 +190,37 @@ printf("nbr_triangle aaaaaaaaaaa:%d\n", raster->nbr_of_triangle);
 		//		raster->triangle->vertice[2].x, raster->triangle->vertice[2].y, raster->triangle->vertice[2].z);
 
 
+<<<<<<< HEAD
 
 		ft_calcul_world_view(raster->triangle, raster);
 		// ft_my_time(&(raster->time_world_view), &current_time, &last_time);
+=======
+		//printf("Before world view %f %f %f %f\n", raster->triangle->vertice[0].x,
+		//			raster->triangle->vertice[0].y,raster->triangle->vertice[0].z, raster->triangle->vertice[0].w );
+		ft_calcul_world_view(raster->triangle, raster); //IN FAIT DES NAN
+		//printf("After world view %f %f %f\n", raster->triangle->vertice[0].x,
+		//			raster->triangle->vertice[0].y,raster->triangle->vertice[0].z );
+		ft_my_time(&(raster->time_world_view), &current_time, &last_time);
+>>>>>>> 358b2080d07da9bbfa89041bd6c58193494684fa
 
 		//if (ft_culling(raster->triangle, raster) == 1)
 		//{
 			// ft_my_time(&(raster->time_culling), &current_time, &last_time);
 
 			ft_calcul_shade(raster->triangle, raster);
+			//printf("After shade %f %f %f\n", raster->triangle->vertice[0].x,
+			//		raster->triangle->vertice[0].y,raster->triangle->vertice[0].z );
 			raster->triangle->shade *= 100;
 			// ft_my_time(&(raster->time_shade), &current_time, &last_time);
 
 			ft_calcul_cam_view(raster->triangle, raster);
+<<<<<<< HEAD
 			// ft_my_time(&(raster->time_cam_view), &current_time, &last_time);
+=======
+			//printf("After cam view %f %f %f\n", raster->triangle->vertice[0].x,
+			//		raster->triangle->vertice[0].y,raster->triangle->vertice[0].z );
+			ft_my_time(&(raster->time_cam_view), &current_time, &last_time);
+>>>>>>> 358b2080d07da9bbfa89041bd6c58193494684fa
 
 			ft_clipping_camera(raster->triangle, wn, &(raster->clipped_triangle));
 			raster->nbr_of_clipped_triangle_created = 1;
@@ -227,8 +244,16 @@ printf("nbr_triangle aaaaaaaaaaa:%d\n", raster->nbr_of_triangle);
 				raster->j = 0;
 				while (raster->j < raster->nbr_of_clipped_triangle_created)
 				{
+					//printf("Before projection %f %f %f\n", raster->clipped_triangle[raster->j].vertice[0].x,
+					//raster->clipped_triangle[raster->j].vertice[0].y,raster->clipped_triangle[raster->j].vertice[0].z );
 					ft_calcul_projection_view(&(raster->clipped_triangle[raster->j]), raster);
+<<<<<<< HEAD
 					// ft_my_time(&(raster->time_projetion), &current_time, &last_time);
+=======
+					//printf("After projection %f %f %f\n", raster->clipped_triangle[raster->j].vertice[0].x,
+					//raster->clipped_triangle[raster->j].vertice[0].y,raster->clipped_triangle[raster->j].vertice[0].z );
+					ft_my_time(&(raster->time_projetion), &current_time, &last_time);
+>>>>>>> 358b2080d07da9bbfa89041bd6c58193494684fa
 
 					ft_scale_screen(&(raster->clipped_triangle[raster->j]));
 					// ft_my_time(&(raster->time_scale_screen), &current_time, &last_time);
@@ -243,8 +268,35 @@ printf("nbr_triangle aaaaaaaaaaa:%d\n", raster->nbr_of_triangle);
 			}
 		//}
 	}
+/**	raster->j = 0;
+	raster->triangle_lst_2 = raster->triangle_lst;
+	while (raster->triangle_lst_2 != NULL)
+	{
+		//raster->triangle_lst = raster->triangle_lst->next;
+		//if (raster->triangle_lst->vertice[0].x > 0 && raster->triangle_lst->vertice[0].x <= 0)
+			printf("%f\n", raster->triangle_lst_2->vertice[0].x );
+		raster->triangle_lst_2 = raster->triangle_lst_2->next;
+		raster->j++;
+	} **/
+
 	ft_clipping_screen(wn, raster->triangle_lst, raster, &(raster->clipped_triangle));
+<<<<<<< HEAD
 	// ft_my_time(&(raster->time_clipping_screen), &current_time, &last_time);
+=======
+
+/**	raster->j = 0;
+	raster->triangle_lst = raster->triangle_lst_2;
+	while (raster->triangle_lst != NULL)
+	{
+		//raster->triangle_lst = raster->triangle_lst->next;
+		//if (raster->triangle_lst->vertice[0].x > 0 && raster->triangle_lst->vertice[0].x <= 0)
+			printf("%f\n", raster->triangle_lst->vertice[0].x );
+		raster->triangle_lst = raster->triangle_lst->next;
+		raster->j++;
+	}
+	printf("TRIANGLES APRES CLIPPING %d\n",raster->j ); **/
+	ft_my_time(&(raster->time_clipping_screen), &current_time, &last_time);
+>>>>>>> 358b2080d07da9bbfa89041bd6c58193494684fa
 
 	//printf("fin clipping screen \n");
 	//	raster->triangle_lst_2 = raster->triangle_lst;
