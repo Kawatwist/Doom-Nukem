@@ -50,6 +50,7 @@ void		send_msg_from_client(t_win *wn, char *msg)
 		getlogin_r(((t_client *)wn->client)->username, 8);
 	i = ft_strlen(msg) + ft_strlen(((t_client *)wn->client)->username) + 3;
 	msg = add_user(msg, ((t_client *)wn->client)->username);
+	printf("CLIENT ENVOI DE MESSAGE: %s\n", msg);
 	send(((t_client *)wn->client)->sockfd, msg, i, 0);
 }
 
@@ -65,5 +66,6 @@ void		send_msg_from_server(t_win *wn, char *msg, int	user)
 	}
 	i = ft_strlen(msg) + ft_strlen(((t_server *)wn->serv)->username)  + 3;
 	msg = add_user(msg, ((t_server *)wn->serv)->username);
+	printf("SERVEUR ENVOI DE MESSAGE: %s\n", msg);
 	send(((t_server *)wn->serv)->user[user].socket, msg, i, 0);
 }

@@ -40,6 +40,7 @@ char		*get_msg_client(t_win *wn)
 
 	buff = malloc(sizeof(char) * 1024);
 	recv(((t_client *)wn->client)->sockfd, buff, 1024, 0);
+//	ft_putstrindec(buff, ft_strlen(buff + 4) + 4);
 	buff = parse_packet(wn, buff);
 	ft_putstrindec(buff, ft_strlen(buff));
 	return (buff);

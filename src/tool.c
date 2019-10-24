@@ -12,7 +12,7 @@
 
 #include "doom.h"
 
-SDL_Rect	*create_rect(int	x, int	y, int	w, int	h)
+SDL_Rect	*create_rect(int x, int y, int w, int h)
 {
 	SDL_Rect	*pos;
 
