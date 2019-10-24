@@ -45,7 +45,7 @@ t_portal *calculate_init_portal(t_bsp *bsp, int node)
 		printf("ALTPORTAL %d\n", node);
 		//sleep(100);
 	}
-	printf("CREATE PORTAL %f %f\n", bsp->node[node].bbox.boxmax.z, bsp->node[node].bbox.boxmin.z);
+	//printf("CREATE PORTAL %f %f\n", bsp->node[node].bbox.boxmax.z, bsp->node[node].bbox.boxmin.z);
 	calc.maxp = bsp->node[node].bbox.boxmax;
 	calc.minp = bsp->node[node].bbox.boxmin;
 	//printf("test node %d\n", bsp->node[node].plane);
@@ -112,9 +112,9 @@ t_portal *calculate_init_portal(t_bsp *bsp, int node)
 	calc.portal->indices[3] = 3;
 	calc.portal->indices[4] = 1;
 	calc.portal->indices[5] = 2;
-	printf("NB VER %d \n", calc.portal->nb_ver);
-	print_polys((t_poly*)calc.portal, 1);
-	printf("END CREATE PORTAL %f %f %f\n", calc.portal->ver_list[0].x, calc.portal->ver_list[0].y, calc.portal->ver_list[0].z);
+	//printf("NB VER %d \n", calc.portal->nb_ver);
+	//print_polys((t_poly*)calc.portal, 1);
+	//printf("END CREATE PORTAL %f %f %f\n", calc.portal->ver_list[0].x, calc.portal->ver_list[0].y, calc.portal->ver_list[0].z);
 	//sleep(1000);
 	return (calc.portal);
 }

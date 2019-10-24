@@ -216,6 +216,7 @@ void print_poly_list(t_poly *poly)
 			printf("%d ",poly->indices[j]);
 			j++;
 		}
+		printf("Normal: %f %f %f \n", poly->normal.x, poly->normal.y, poly->normal.z);
 		printf("Was splitter %d\n", poly->was_splitter);
 		printf("\n");
 		poly = poly->next;

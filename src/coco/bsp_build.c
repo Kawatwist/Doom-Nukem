@@ -78,7 +78,7 @@ static void class_case2(t_tree *t, t_bsp *bsp)
 		exit(0);
 	if (!(back = (t_poly*)malloc(sizeof(t_poly))))
 		exit(0);
-	printf("CC2 %d \n", bsp->node[t->node].plane);
+	//printf("CC2 %d \n", bsp->node[t->node].plane);
 	split_poly(t->test, &bsp->plane[bsp->node[t->node].plane], front, back);
 	//printf("HOP\n");
 	front->was_splitter = t->test->was_splitter;
@@ -113,14 +113,19 @@ void	build_bsp_tree(int node, t_bsp *bsp)
 {
 	t_tree *t;
 
-	printf("TREE\n");
+	//printf("TREE %d\n", node);
 	//print_poly_list(bsp->poly_list);//si ily a plus de poly qui peuvent etre splitters ????
 	//sleep(100);
 	//printf("VER %d\n", bsp->poly_list->nb_ver);
 	t = init_tree(node);
 	//printf("TREE2 %d\n", bsp->node[t->node].plane);
 	bsp->node[t->node].plane = select_splitter(bsp);
+
 	//printf("TREE 3\n");
+/**int i = bsp->node[t->node].plane;
+	printf("FIRST PLANE POINT %f %f %f NORMAL %f %f %f\n", bsp->plane[i].point.x, bsp->plane[i].point.y,
+		bsp->plane[i].point.z, bsp->plane[i].normal.x, bsp->plane[i].normal.y, bsp->plane[i].normal.z);
+	sleep(100); **/
 	if (bsp->node[t->node].plane == -1)
 	{
 		printf("AH %d\n", node);
@@ -152,22 +157,43 @@ void	build_bsp_tree(int node, t_bsp *bsp)
 //		print_poly_list(t->front);
 //	sleep(100);
 	t->temp = t->front;
+	//int i = 0; //temp
 	while (t->temp != NULL)
 	{
 		if (t->temp->was_splitter == 0) //check if all polys in front have been used as splitters
 			t->count++;
 		t->temp = t->temp->next;
+	//	i++;
 	}
 	//if (node == 17)
 	//	printf("t count %d \n", t->count);
 	calc_box(&bsp->node[t->node].bbox, t->front);
 	t->leaf_box = bsp->node[t->node].bbox;
 	calc_box(&bsp->node[t->node].bbox, t->back);
+	//i = bsp->node[t->node].plane;
+//	printf("FIRST PLANE POINT %f %f %f NORMAL %f %f %f\n", bsp->plane[i].point.x, bsp->plane[i].point.y,
+//		bsp->plane[i].point.z, bsp->plane[i].normal.x, bsp->plane[i].normal.y, bsp->plane[i].normal.z);
+	//print_poly_list(bsp->poly_list);
+//	sleep(25);
+/**	if (bsp->node[t->node].plane == 5)
+	{
+		printf("NB OF POLYS %d\n", i);
+		i = bsp->node[t->node].plane;
+		printf("FIRST PLANE POINT %f %f %f NORMAL %f %f %f\n", bsp->plane[i].point.x, bsp->plane[i].point.y,
+		bsp->plane[i].point.z, bsp->plane[i].normal.x, bsp->plane[i].normal.y, bsp->plane[i].normal.z);
+		sleep(100);
+	} **/
 	//printf("ICI ??\n");
 	if (t->count == 0)
 	{
 		//if (node == 17)
 		//	printf("ON EST LAS %d\n", t->node);
+		//printf("NB OF POLYS %d\n", i);
+		//i = bsp->node[t->node].plane;
+	//printf("FIRST PLANE POINT %f %f %f NORMAL %f %f %f\n", bsp->plane[i].point.x, bsp->plane[i].point.y,
+	//	bsp->plane[i].point.z, bsp->plane[i].normal.x, bsp->plane[i].normal.y, bsp->plane[i].normal.z);
+	//sleep(100);
+
 		t->iter = t->front;
 		bsp->leaf[bsp->nb_leafs].start_poly = bsp->nb_polys;
 		while (t->iter != NULL)
@@ -211,12 +237,12 @@ void	build_bsp_tree(int node, t_bsp *bsp)
 			free(t);
 			return;
 		}
-							//temp
+							//temp 
 
 		bsp->node[t->node].back = bsp->nb_nodes + 1;
 		inc_nodes(bsp);
 		bsp->poly_list = t->back;
-		printf("BACK CALL %d\n", bsp->nb_nodes);
+		//printf("BACK CALL %d\n", bsp->nb_nodes);
 		build_bsp_tree(bsp->nb_nodes, bsp);
 	}
 	free(t);
