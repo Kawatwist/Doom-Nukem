@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 13:57:48 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/10 11:06:55 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/10/25 15:47:21 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 /*
 ** LISTE D'INDEX:
 ** 1 = message
-** 2 = message retransmit
+** 2 = message retransmit (serveur uniquement)
+** 3 = command (admin uniquement, voir quelques unes pour les joueurs)
+** 4 = information du joueur (Gestion en temp reel => surement une refonte du serveur en UDP pour une optimisation)
+** 255 = instruction incomplete => index envoyer dans la derniere instruction.
 */
 
 /*
