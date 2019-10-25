@@ -178,46 +178,47 @@ void	ft_scale_screen(t_mytriangle *triangle)
 
 void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
-		t_mytriangle	*keep;
-		float			*depth_buffer;
+	t_mytriangle	*keep;
+	float			*depth_buffer;
 
-		int count;
+	int count;
 
-		count = 0;
-		depth_buffer = malloc(sizeof(float) * 1920 * 1080); //il faut le bouger d'ici pour l'optimisatio
-		// printf("hello\n"); */
-		if (depth_buffer == NULL)
-			exit(0);
+	count = 0;
+	depth_buffer = malloc(sizeof(float) * 1920 * 1080); //il faut le bouger d'ici pour l'optimisatio
+	// printf("hello\n"); */
+	if (depth_buffer == NULL)
+		exit(0);
 
-		int i = 0;
-		while (i < 1920 * 1080)
+	int i = 0;
+	while (i < 1920 * 1080)
+	{
+		if(((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] != 0xFF00FFFF)
+			((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFF00FFFF;
+		depth_buffer[i] = 0.0;
+		i++;
+	}
+
+	keep = triangle_lst_2;
+	while (triangle_lst_2 != NULL)
+	{
+		count++;
+		//DRAW FILL TRIANGLE WITH SHADE/LIGHT
+		// printf("%p\n", triangle_lst_2);
+		if (wn->flag & MESH)
 		{
-			if(((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] != 0xFF00FFFF)
-				((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFF00FFFF;
-			depth_buffer[i] = 0.0;
-			i++;
+			ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade);
+			ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
+			triangle_lst_2 = triangle_lst_2->next;
 		}
-		keep = triangle_lst_2;
-		while (triangle_lst_2 != NULL)
+		else
 		{
-			count++;
-			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
-			// printf("%p\n", triangle_lst_2);
-			if (wn->flag & MESH)
-			{
-				ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade);
-				ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
-				triangle_lst_2 = triangle_lst_2->next;
-			}
-			else
-			{
-				ft_draw_textured_triangle(
-						triangle_lst_2,
-						((t_myraster*)wn->rasterizer->tmp)->s_tex,
-						depth_buffer);
-				triangle_lst_2 = triangle_lst_2->next;
-			}
+			ft_draw_textured_triangle(
+					triangle_lst_2,
+					((t_myraster*)wn->rasterizer->tmp)->s_tex,
+					depth_buffer);
+			triangle_lst_2 = triangle_lst_2->next;
 		}
+	}
 	triangle_lst_2 = keep;
 	free(depth_buffer);
 	SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels, 1920 * sizeof(Uint32));
