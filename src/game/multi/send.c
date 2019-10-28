@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 13:57:48 by lomasse           #+#    #+#             */
-/*   Updated: 2019/10/25 15:47:21 by naali            ###   ########.fr       */
+/*   Updated: 2019/10/28 13:33:38 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,15 @@ static char	*add_user(char *msg, char *user)
 		len = (ft_strlen(msg));
 	}
 	ret = (user != NULL) ? ft_strjoin(";ill", user) : ft_strdup(";ill");	// i = index ll = len;
-	ret[1] = 1;															// index
-	ret[2] = (len >> 8) & 0xFF;											// len 1
-	ret[3] = len & 0xFF;												// len 2
+	ret[1] = 1;																// index
+	ret[2] = (len >> 8) & 0xFF;												// len 1
+	ret[3] = len & 0xFF;													// len 2
 	if (user != NULL)
-		ret = ft_memjoinfree(ret, " :", 4 + ulen, 2);					// Separation USER : MESSAGE
-	ret = ft_memjoinfree(ret, &msg[(user == NULL ? 0 : 4)], ((user == NULL) ? 4 : 6) + ulen, ft_strlen(&msg[(user == NULL ? 0 : 4)]));	// Ajout du message
-	ret = ft_memjoinfree(ret, ";\0", len + 4, 2);	// Fin d'intruction
+		ret = ft_memjoinfree(ret, " :", 4 + ulen, 2);						// Separation USER : MESSAGE
+	ret = ft_memjoinfree(ret, &msg[(user == NULL ? 0 : 4)], \\
+						 ((user == NULL) ? 4 : 6) + ulen, \\
+						 ft_strlen(&msg[(user == NULL ? 0 : 4)]));			// Ajout du message
+	ret = ft_memjoinfree(ret, ";\0", len + 4, 2);							// Fin d'intruction
 	//ft_putstrindec(ret, len + 6);  /// PRINTF DANS LIBFT !
 	return (ret);
 }
