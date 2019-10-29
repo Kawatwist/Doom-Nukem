@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 15:27:36 by naali             #+#    #+#             */
-/*   Updated: 2019/10/28 13:35:25 by naali            ###   ########.fr       */
+/*   Updated: 2019/10/29 13:02:11 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,18 @@ void		*string_to_voidptr(char *s, size_t len)
 /* Test de formatage de commande DEBUT */
 /***************************************/
 
-char		*ft_memjoin(char *s1, char *s2, size_t len1, size_t len2)
+char		*ft_memcat(char *s1, char *s2, size_t len1, size_t len2)
 {
-	char 			*ret;
+	char			*ret;
 	unsigned int	i;
 
-	if (!(ret = malloc(sizeof(char) * (len1 + len2))))
+	if ((ret = malloc(sizeof(char) * (len1 + len2 + 2))) == NULL)
 		return (NULL);
 	i = -1;
 	while (++i < len1)
 		ret[i] = s1[i];
 	i = -1;
-	while (++i < len2 - 2)
+	while (++i < len2)
 		ret[i + len1] = s2[i];
 	return (ret);
 }
@@ -75,9 +75,9 @@ char		*cmd_format(char id, short len, void *info)
 	tmp[1] = id;
 	tmp[2] = (len >> 8) & 0xFF;
 	tmp[3] = len & 0xFF;
-	ret = ft_memjoin(tmp, info, 4, len + 2);
-	ret[sz_max - 1] = ';';
-	ret[sz_max] = '\0';
+	ret = ft_memcat(tmp, info, 4, len);
+	ret[sz_max - 2] = ';';
+	ret[sz_max - 1] = '\0';
 	free(info);
 	info = NULL;
 	return (ret);
@@ -86,6 +86,35 @@ char		*cmd_format(char id, short len, void *info)
 /*************************************/
 /* Test de formatage de commande FIN */
 /*************************************/
+
+/*********************/
+/* 2eme Main de test */
+/*********************/
+/*
+#include <string.h>
+#include <stdio.h>
+
+int		main(int ac, char **av)
+{
+	short	size;
+	char	*info;
+
+	size = 0;
+	info = NULL;
+	if (ac < 2)
+		return (0);
+	info = strdup(av[1]);
+	size = (short)strlen(info);
+	info = cmd_format(1, size, info);
+	if (size > 0)
+		printf("id = |%d|\nlen = |%d|\nstr = |%s|\n",					\
+			info[1], ((short)(info[2]) << 8) + (short)(info[3]), &info[4]);
+	free(info);
+	info = NULL;
+	return (0);
+}
+*/
+/*********************/
 
 /***************************************/
 /* MAIN d'exemple avec MEMCPY + STRUCT */

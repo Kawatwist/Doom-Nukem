@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 12:55:16 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/09 19:59:51 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/10/29 11:58:01 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		add_chat(t_win *wn, int user)
 {
 	char	*msg;
 	char	dc;
-	
+
 	dc = 0;
 	while (TRUE)
 	{
