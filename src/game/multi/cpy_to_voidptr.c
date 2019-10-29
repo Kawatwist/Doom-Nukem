@@ -6,7 +6,7 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 15:27:36 by naali             #+#    #+#             */
-/*   Updated: 2019/10/29 13:02:11 by naali            ###   ########.fr       */
+/*   Updated: 2019/10/29 13:45:17 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,20 @@
 /* ATTENTION MEMCPY A TRANSFORMER EN FT_MEMCPY */
 /***********************************************/
 
+/* recuperation de la taille en fonction de l'id */
+short	get_type_size(int flg, void *cmd)
+{
+	short	sz;
+
+	sz = 0;
+	if (flg == 1 || flg == 2 || flg == 3)
+		sz = /*ft_*/strlen((char*)cmd);
+	else if (flg == 4)
+		sz = sizeof(float) * 3;// Pour la transmission de coordonnees faire attention a taille sera modifier 3 fois
+	return (sz);
+}
+
+/* Type a envoyer vers la commande  */
 int		voidptr_to_string(char **dst, void *src, size_t len)
 {
 	if (dst != NULL && src != NULL)
@@ -30,6 +44,7 @@ int		voidptr_to_string(char **dst, void *src, size_t len)
 	return (STCPY_SUCCESS);
 }
 
+/* Commande recu vers le type correspondant  */
 void		*string_to_voidptr(char *s, size_t len)
 {
 	void	*ret;
@@ -61,6 +76,7 @@ char		*ft_memcat(char *s1, char *s2, size_t len1, size_t len2)
 	return (ret);
 }
 
+/* Sera tres certainement MODIFIER pour feat avec les differents type, ou pas!!!!!!! */
 char		*cmd_format(char id, short len, void *info)
 {
 	char			*ret;
@@ -90,30 +106,32 @@ char		*cmd_format(char id, short len, void *info)
 /*********************/
 /* 2eme Main de test */
 /*********************/
-/*
-#include <string.h>
-#include <stdio.h>
 
-int		main(int ac, char **av)
-{
-	short	size;
-	char	*info;
+/* #include <string.h> */
+/* #include <stdio.h> */
 
-	size = 0;
-	info = NULL;
-	if (ac < 2)
-		return (0);
-	info = strdup(av[1]);
-	size = (short)strlen(info);
-	info = cmd_format(1, size, info);
-	if (size > 0)
-		printf("id = |%d|\nlen = |%d|\nstr = |%s|\n",					\
-			info[1], ((short)(info[2]) << 8) + (short)(info[3]), &info[4]);
-	free(info);
-	info = NULL;
-	return (0);
-}
-*/
+/* int		main(int ac, char **av) */
+/* { */
+/* 	short	size; */
+/* 	char	*info; */
+/* 	void	*ptr; */
+
+/* 	size = 0; */
+/* 	info = NULL; */
+/* 	ptr = NULL; */
+/* 	if (ac < 2) */
+/* 		return (0); */
+/* 	info = strdup(av[1]); */
+/* 	size = (short)strlen(info); */
+/* 	info = cmd_format(1, size, info); */
+/* 	if (size > 0) */
+/* 		printf("id = |%d|\nlen = |%d|\nstr = |%s|\n",					\ */
+/* 			info[1], ((short)(info[2]) << 8) + (short)(info[3]), &info[4]); */
+/* 	free(info); */
+/* 	info = NULL; */
+/* 	return (0); */
+/* } */
+
 /*********************/
 
 /***************************************/
