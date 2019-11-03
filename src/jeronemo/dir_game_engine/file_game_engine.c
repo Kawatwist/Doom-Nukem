@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 19:11:55 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/03 16:41:14 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	turn_rast(t_win *wn)
 
 		wn->rasterizer->triangle_array = ft_get_triangles_array(new_lst);
 		wn->rasterizer->nbr_triangle = ft_get_nbr_of_triangle(new_lst);
-		printf("nbr_triangle%d\n", wn->rasterizer->nbr_triangle);
+		/* printf("nbr_triangle%d\n", wn->rasterizer->nbr_triangle); */
 		((t_myraster*)wn->rasterizer->tmp)->nbr_of_triangle = wn->rasterizer->nbr_triangle;
 
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array, wn);

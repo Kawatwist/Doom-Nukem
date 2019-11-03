@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 19:48:09 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/03 16:52:51 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,9 +178,9 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 		int i = 0;
 		while (i < 1920 * 1080)
 		{
-			if(((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] != 0xFF00FFFF)
-				((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFF00FFFF;
-			depth_buffer[i] = 0.0;
+			/* if(((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] != 0xFF00FFFF) */
+				((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFFFFFFFF;
+			/* depth_buffer[i] = 0.0; */
 			i++;
 		}
 		keep = triangle_lst_2;
@@ -188,20 +188,18 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 		{
 			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
 			// printf("%p\n", triangle_lst_2);
-			if (wn->flag & MESH)
-			{
-				ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade);
-				ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn);
+			/* if (wn->flag & MESH) */
+			/* { */
+				/* ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade); */
+				/* ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn); */
+				/* triangle_lst_2 = triangle_lst_2->next; */
+			/* } */
+			/* else */
+			/* { */
+				ft_draw_textured_triangle( triangle_lst_2, ((t_myraster*)wn->rasterizer->tmp)->s_tex, depth_buffer);
+
 				triangle_lst_2 = triangle_lst_2->next;
-			}
-			else
-			{
-				ft_draw_textured_triangle(
-						triangle_lst_2,
-						((t_myraster*)wn->rasterizer->tmp)->s_tex,
-						depth_buffer);
-				triangle_lst_2 = triangle_lst_2->next;
-			}
+			/* } */
 		}
 	triangle_lst_2 = keep;
 	free(depth_buffer);

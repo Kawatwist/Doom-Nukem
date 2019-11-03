@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 17:54:18 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 19:10:03 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/03 16:30:39 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	int				id_counter = 1;
 
 	fichier_lst = NULL;
-	fd = open("planche et cube.obj", O_RDWR); // <= PATH OBJ
+	fd = open(" pyramide.obj", O_RDWR); // <= PATH OBJ
 	// fd = open("carre_avec_uv_texture_coordinate.obj", O_RDWR); // <= PATH OBJ
 	// fd = open(" pyramide.obj", O_RDWR); // <= PATH OBJ
 	// fd = open("5 cubes.obj", O_RDWR); // <= PATH OBJ
