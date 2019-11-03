@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/08/25 19:38:46 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/03 17:19:09 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,7 @@ void			ft_scale_screen(t_mytriangle *triangle);
 void			ft_clipping_screen(t_win *wn, t_mytriangle *triangle,
 							t_myraster *raster,
 							t_mytriangle **clipped_triangle);
-void			ft_draw(t_mytriangle *triangle_lst_2, t_win *wn);
+int			ft_draw(t_mytriangle *triangle_lst_2, t_win *wn);
 void			ft_make_the_world_spin(int turn, t_myraster *raster);
 
 

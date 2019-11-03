@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/03 16:52:51 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/03 18:07:02 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void	ft_scale_screen(t_mytriangle *triangle)
 	triangle->vertice[2].y *= 0.5 * (float)YSCREEN;
 }
 
-void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
+int	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
 		t_mytriangle	*keep;
 		float			*depth_buffer;
@@ -184,6 +184,7 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 			i++;
 		}
 		keep = triangle_lst_2;
+		i = 0;
 		while (triangle_lst_2 != NULL)
 		{
 			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
@@ -197,6 +198,7 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 			/* else */
 			/* { */
 				ft_draw_textured_triangle( triangle_lst_2, ((t_myraster*)wn->rasterizer->tmp)->s_tex, depth_buffer);
+				i++;
 
 				triangle_lst_2 = triangle_lst_2->next;
 			/* } */
@@ -225,7 +227,9 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	end.y = YSCREEN - 100;
 	drawline(wn, 0xFF0000FF, start, end);
 	triangle_lst_2 = keep;
-*/}
+	*/
+	return (i);
+}
 
 void	ft_make_the_world_spin(int turn, t_myraster *raster)
 {
