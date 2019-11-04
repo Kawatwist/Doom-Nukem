@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/04 13:22:40 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 14:25:54 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	ft_order_point(
 }
 
 
-void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_buffer, int** pixel)
+void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, int** pixel)
 {
 
-	int		x1 = tri->vertice[0].x;
 
+	int		x1 = tri->vertice[0].x;
 	int		y1 = tri->vertice[0].y;
 	float	u1 = tri->texture[0].u;
 	float	v1 = tri->texture[0].v;
@@ -94,12 +94,6 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 	int		i;
 	float	t;
 
-
-	/* printf("le u1=%f le v1=%f le w1=%f\n", u1, v1, w1); */
-	/* printf("le u2=%f le v2=%f le w2=%f\n", u2, v2, w2); */
-	/* printf("le u3=%f le v3=%f le w3=%f\n", u3, v3, w3); */
-
-
 	s_tex->dax_step = 0;
 	s_tex->dbx_step = 0;
 	s_tex->du1_step = 0;
@@ -110,7 +104,6 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 	s_tex->dw2_step = 0;
 
 	ft_order_point( &x1, &y1, &u1, &v1, &w1, &x2, &y2, &u2, &v2, &w2, &x3, &y3, &u3, &v3, &w3);
-
 	/* ************************************************************************/
 	/*	on draw le triangle du haut        bleu                               */
 	/* ************************************************************************/
@@ -179,37 +172,13 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 				s_tex->dstrect.x = j;
 				s_tex->dstrect.y = i;
 
-				/* s_tex->m_ppixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * 512)]; */
-
-
-
-
-	/* printf("le 1 %p\n", *pixel); */
-
-
-
 				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
 				{
-					// if (s_tex->tex_w > depth_buffer[i * XSCREEN + j] )
-					// {
-					/* if (*pixel == NULL) */
-						/* printf("hello world\n"); */
-
 					if ((i * 1920 + j)   <  (1920 * 1080)  )
 					{
-
-
 						(*pixel)[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
 					}
-						/* depth_buffer[i * XSCREEN + j] = s_tex->tex_w; */
-					// }
 				}
-				(void)depth_buffer;
-				// s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF;
-
-			/* printf("s_tex->tex_w=%f\n", s_tex->tex_w); */
-
-				/* SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect)); */
 				j++;
 			}
 			i++;
@@ -273,26 +242,14 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 				s_tex->srcrect.y = s_tex->tex_v / s_tex->tex_w * s_tex->tga->w;
 				s_tex->dstrect.x = j;
 				s_tex->dstrect.y = i;
-				/* s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF; */
-
-	/* printf("le 2 %p\n", pixel); */
 
 				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
 				{
-					// if (s_tex->tex_w > depth_buffer[i * XSCREEN + j])
-					// {
 					if ((i * 1920 + j)   <  (1920 * 1080)  )
 					{
 						(*pixel)[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
 					}
-						/* depth_buffer[i * XSCREEN + j] = s_tex->tex_w; */
-					// }
 				}
-	/* printf("le 3 %p\n", pixel); */
-	/* exit(0); */
-				// s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF;
-
-				/* SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect)); */
 				j++;
 				t += s_tex->tstep;
 			}

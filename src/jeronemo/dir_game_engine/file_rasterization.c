@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/04 13:40:40 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 14:33:34 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,18 +119,18 @@ void	SHOW_TRIANGLE(t_mytriangle *trg, int nb)
 }
 
 
-void		ft_my_time(unsigned int *total, clock_t *current_time, clock_t *last_time)
+void		ft_my_time(double *total, clock_t *current_time, clock_t *last_time)
 {
 	*last_time = *current_time;
 	*current_time = clock();
-	*total += (*current_time - *last_time);
+	*total = (double)(*current_time - *last_time);
 }
 
 
 void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *wn)
 {
-	/* clock_t	current_time; */
-	/* clock_t	last_time; */
+	clock_t	current_time;
+	clock_t	last_time;
 
 	/* current_time = 0; */
 	ft_init_update_raster(raster);
@@ -151,11 +151,11 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	raster->i = -1;
 	while (++(raster->i) < raster->nbr_of_triangle)
 	{
-		/* current_time = clock(); */
 		*(raster->triangle) = triangle_array[raster->i];
 
+		current_time = clock();
 		ft_calcul_world_view(raster->triangle, raster);
-		/* ft_my_time(&(raster->time_world_view), &current_time, &last_time); */
+		ft_my_time(&(raster->time_world_view), &current_time, &last_time);
 
 		//if (ft_culling(raster->triangle, raster) == 1)
 		/* ft_my_time(&(raster->time_culling), &current_time, &last_time); */
@@ -165,47 +165,47 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 		/* ft_my_time(&(raster->time_shade), &current_time, &last_time); */
 
 		ft_calcul_cam_view(raster->triangle, raster);
-		/* ft_my_time(&(raster->time_cam_view), &current_time, &last_time); */
+		ft_my_time(&(raster->time_cam_view), &current_time, &last_time);
 
 		ft_clipping_camera(raster->triangle, raster, &(raster->clipped_triangle));
-		/* ft_my_time(&(raster->time_clipping_camera), &current_time, &last_time); */
+		ft_my_time(&(raster->time_clipping_camera), &current_time, &last_time);
 
 		raster->j = 0;
 		while (raster->j < raster->nbr_of_clipped_triangle_created)
 		{
 			ft_calcul_projection_view(&(raster->clipped_triangle[raster->j]), raster);
-			/* ft_my_time(&(raster->time_projetion), &current_time, &last_time); */
+			ft_my_time(&(raster->time_projetion), &current_time, &last_time);
 
 			ft_scale_screen(&(raster->clipped_triangle[raster->j]));
-			/* ft_my_time(&(raster->time_scale_screen), &current_time, &last_time); */
+			ft_my_time(&(raster->time_scale_screen), &current_time, &last_time);
 
 			ft_store_in_lst(ft_triangle_node_create(raster->clipped_triangle[raster->j]), &raster->triangle_lst); // Place in the linked list @ the right place
-			/* ft_my_time(&(raster->time_add_to_lst), &current_time, &last_time); */
+			ft_my_time(&(raster->time_add_to_lst), &current_time, &last_time);
 
 			raster->j += 1;
 		}
 	}
 	ft_clipping_screen(wn, raster->triangle_lst, raster, &(raster->clipped_triangle));
-	/* ft_my_time(&(raster->time_clipping_screen), &current_time, &last_time); */
+	ft_my_time(&(raster->time_clipping_screen), &current_time, &last_time);
 
-	/* int nbr_of_triangle = ft_draw(raster->triangle_lst_2, wn); */
-	ft_draw(raster->triangle_lst_2, wn);
-	/* ft_my_time(&(raster->time_draw), &current_time, &last_time); */
+	int nbr_of_triangle = ft_draw(raster->triangle_lst_2, wn);
+	/* ft_draw(raster->triangle_lst_2, wn); */
+	ft_my_time(&(raster->time_draw), &current_time, &last_time);
 
 	ft_free_lst(raster->triangle_lst_2);
-	/* ft_my_time(&(raster->time_free_lst), &current_time, &last_time); */
+	ft_my_time(&(raster->time_free_lst), &current_time, &last_time);
 
-	/* /1* printf("world view\t=%u\n", raster->time_world_view); *1/ */
-	/* /1* printf("culling\t\t=%u\n", raster->time_culling); *1/ */
-	/* /1* printf("shade\t\t=%u\n", raster->time_shade); *1/ */
-	/* /1* printf("cam view\t=%u\n", raster->time_cam_view); *1/ */
-	/* /1* printf("clip camera\t=%u\n", raster->time_clipping_camera); *1/ */
-	/* /1* printf("projection\t=%u\n", raster->time_projetion); *1/ */
-	/* /1* printf("scale\t\t=%u\n", raster->time_scale_screen); *1/ */
-	/* /1* printf("add lst\t\t=%u\n", raster->time_add_to_lst); *1/ */
-	/* /1* printf("clip screen\t=%u\n", raster->time_clipping_screen); *1/ */
-	/* /1* printf("nombre of triangle\t=%d\n", nbr_of_triangle); *1/ */
-	/* printf("draw\t\t=%u\n", raster->time_draw / nbr_of_triangle); */
-	/* printf("free\t\t=%u\n\n\n\n", raster->time_free_lst); */
+	printf("world view\t=%f\n", raster->time_world_view);
+	/* printf("culling\t\t=%u\n", raster->time_culling); */
+	/* printf("shade\t\t=%u\n", raster->time_shade); */
+	printf("cam view\t=%f\n", raster->time_cam_view);
+	printf("clip camera\t=%f\n", raster->time_clipping_camera);
+	printf("projection\t=%f\n", raster->time_projetion);
+	printf("scale\t\t=%f\n", raster->time_scale_screen);
+	printf("add lst\t\t=%f\n", raster->time_add_to_lst);
+	printf("clip screen\t=%f\n", raster->time_clipping_screen);
+	printf("nombre of triangle\t=%d\n", nbr_of_triangle);
+	printf("draw\t\t=%f\n", (raster->time_draw / nbr_of_triangle));
+	printf("free\t\t=%f\n\n\n\n", raster->time_free_lst);
 
 }

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/04 13:15:26 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 14:33:45 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,14 +168,6 @@ void	ft_scale_screen(t_mytriangle *triangle)
 int	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
 		t_mytriangle	*keep;
-		float			*depth_buffer;
-		depth_buffer = NULL;
-
-
-		/* depth_buffer = malloc(sizeof(float) * 1920 * 1080); */
-		/* printf("hello\n"); */
-		/* if (depth_buffer == NULL) */
-			/* exit(0); */
 
 		int i = 0;
 		/* while (i < 1920 * 1080) */
@@ -202,7 +194,7 @@ int	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 	/* printf("hello-update-rast\n"); */
 	/* printf("%p\n", *wn->pixels); */
 
-				ft_draw_textured_triangle( triangle_lst_2, ((t_myraster*)wn->rasterizer->tmp)->s_tex, depth_buffer, (int**)(&wn->pixels));
+				ft_draw_textured_triangle( triangle_lst_2, ((t_myraster*)wn->rasterizer->tmp)->s_tex, (int**)(&wn->pixels));
 				i++;
 
 				triangle_lst_2 = triangle_lst_2->next;

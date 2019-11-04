@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 12:53:25 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/04 12:47:52 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 14:26:07 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,18 +131,18 @@ typedef struct				s_myraster
 	int						nbr_of_clipped_triangle_created;
 
 
-	unsigned int			time_world_view;
-	unsigned int			time_culling;
-	unsigned int			time_shade;
-	unsigned int			time_cam_view;
-	unsigned int			time_clipping_camera;
-	unsigned int			time_projetion;
-	unsigned int			time_scale_screen;
-	unsigned int			time_add_to_lst;
-	unsigned int			time_z_buffer;
-	unsigned int			time_clipping_screen;
-	unsigned int			time_draw;
-	unsigned int			time_free_lst;
+	double time_world_view;
+	double time_culling;
+	double time_shade;
+	double time_cam_view;
+	double time_clipping_camera;
+	double time_projetion;
+	double time_scale_screen;
+	double time_add_to_lst;
+	double time_z_buffer;
+	double time_clipping_screen;
+	double time_draw;
+	double time_free_lst;
 
 
 }							t_myraster;
@@ -247,7 +247,8 @@ void			ft_make_the_world_spin(int turn, t_myraster *raster);
 /* 		float	*depth_buffer); */
 
 
-void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_buffer, int** pixel);
+/* void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_buffer, int** pixel); */
 
 
+void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, int** pixel);
 
