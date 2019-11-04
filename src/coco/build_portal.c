@@ -115,16 +115,32 @@ void init_buildp(t_bsp *bsp, t_buildp *buildp)
 
 void build_portal_start(t_bsp *bsp, t_buildp *buildp)
 {
+	//t_portal *tmp; //to remove
+
 	//printf("BUILD PORTAL START %d\n", buildp->nodestack[buildp->stackpointer].node);
 	buildp->init = calculate_init_portal(bsp, buildp->nodestack[buildp->stackpointer].node);
-	printf("INITIAL PORTAL\n\n");
+	//printf("INITIAL PORTAL\n\n");
 	print_polys((t_poly*)buildp->init, 1);
 	//print_portals(&buildp->init, 1);
 	buildp->p_list = clip_portal(bsp, 0, buildp->init);
+
+/**	if(buildp->nodestack[buildp->stackpointer].node == 0)			//to remove
+	{
+		printf("TEST PORTAL OCT\n");
+		tmp = buildp->p_list;
+		while (tmp)
+		{
+			printf("PORTAL OUT\n");
+			print_portal(tmp);
+			tmp = tmp->next;
+		}
+		sleep(100);
+	}**/
+
 	buildp->iter = buildp->p_list;
 	while (buildp->iter != NULL)
 	{
-		printf("LOLO %p %d\n", buildp->iter, buildp->iter->debug_node);
+		//printf("LOLO %p %d\n", buildp->iter, buildp->iter->debug_node);
 		if (buildp->iter->nb_leafs != 2)
 		{
 			buildp->tmp = buildp->iter->next;
@@ -133,24 +149,24 @@ void build_portal_start(t_bsp *bsp, t_buildp *buildp)
 		}
 		else
 		{
-			printf("SKOL\n");
+			//printf("SKOL\n");
 			if (check_duplicate(bsp, buildp->iter, &(buildp->portalindex)))
 			{
-				printf("SKOL1\n");
+				//printf("SKOL1\n");
 				buildp->tmp = buildp->iter->next;
 				remove_portal(buildp->iter);
 				buildp->iter = buildp->tmp;
 			}
 			else
 			{
-				printf("SKOL2\n");
+				//printf("SKOL2\n");
 				bsp->portal[buildp->portalindex] = buildp->iter;
 				if (buildp->portalindex == bsp->nb_portals)
 				{
 					buildp->i = 0;
 					while (buildp->i < buildp->iter->nb_leafs)
 					{
-						printf("TESTING : loop %d\n", bsp->leaf[0].nbportals);
+						//printf("TESTING : loop %d\n", bsp->leaf[0].nbportals);
 						buildp->index = buildp->iter->leafs[buildp->i];
 						bsp->leaf[buildp->index].portal[bsp->leaf[buildp->index].nbportals] = bsp->nb_portals;
 						bsp->leaf[buildp->index].nbportals++;

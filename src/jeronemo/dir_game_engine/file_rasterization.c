@@ -310,7 +310,7 @@ printf("nbr_triangle aaaaaaaaaaa:%d\n", raster->nbr_of_triangle);
 //	SDL_RenderDrawLine(wn->rend, 0, 30, XSCREEN, 30);
 //	SDL_RenderDrawLine(wn->rend, 0, YSCREEN - 30, XSCREEN, YSCREEN - 30);
 
-	/**  printf("world view\t=%u\n", raster->time_world_view);
+/**	  printf("world view\t=%u\n", raster->time_world_view);
 	  printf("culling\t\t=%u\n", raster->time_culling); 
 	  printf("shade\t\t=%u\n", raster->time_shade); 
 	  printf("cam view\t=%u\n", raster->time_cam_view); 

@@ -14,6 +14,7 @@
 
 void	ingame(t_win *wn)
 {
+
 //	gameinput(wn);
 	if (key_pressed(wn, SDL_SCANCODE_ESCAPE))
 	{

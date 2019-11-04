@@ -34,6 +34,7 @@ char class_poly(t_plane *plane, t_poly *poly)
 	t_cpoly	c;
 
 	//printf("CLASS POLY\n");
+	//print_polys(poly, 1);
 	c.behind = 0;
 	c.onplane = 0;
 	c.infront = 0;
@@ -64,7 +65,7 @@ char class_poly(t_plane *plane, t_poly *poly)
 	//	printf("CLASS POLY 2\n");
 		c.i++;
 	}
-	//printf("FIN CLASS POLY\n");
+	//printf("FIN CLASS POLY %d %d %d\n", c.onplane, c.behind, c.infront);
 	if (c.onplane == poly->nb_ver)
 		return (0);
 	if (c.behind == poly->nb_ver)

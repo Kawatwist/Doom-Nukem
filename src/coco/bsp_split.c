@@ -76,7 +76,7 @@ int			select_splitter(t_bsp *bsp) //function choosing best splitter for a more b
 {
 	t_select_split	s;
 
-	printf("SELECT SPLIT\n");
+	//printf("SELECT SPLIT\n");
 	init_select_split(&s, bsp->poly_list);
 	//printf(" WAS SPLIT %d\n", bsp->poly_list->was_splitter);
 	while(s.splitter != NULL)
@@ -91,12 +91,7 @@ int			select_splitter(t_bsp *bsp) //function choosing best splitter for a more b
 	}
 	//printf("WTF\n");
 	if (s.selected == NULL)
-	{ 	
-		//print_poly_list(bsp->poly_list);//si ily a plus de poly qui peuvent etre splitters ????
-		//printf("------------------\n");
-		//sleep(100);
 		return (-1);
-	}
 	//printf("SELECT SPLIT\n");
 	s.selected->was_splitter = 1;
 	//printf("SELECT SPLIT22\n");
@@ -113,7 +108,7 @@ void		split_poly(t_poly *poly, t_plane *plane, t_poly *front, t_poly *back)
 {
 	t_split split;
 
-	printf("SPLIT POLY\n");
+	//printf("SPLIT POLY\n");
 	//print_planes(plane, 1);
 	//print_polys(poly, 1);
 	init_split(&split);
@@ -228,8 +223,8 @@ void		split_poly(t_poly *poly, t_plane *plane, t_poly *front, t_poly *back)
 	}
 	front->nb_indices = (front->nb_ver - 2) * 3;
 	back->nb_indices = (back->nb_ver - 2) * 3;
-	if (front->nb_indices < 0 || back->nb_indices < 0)
-		printf("HOP %d %d \n", front->nb_indices, back->nb_indices);
+	/**if (front->nb_indices < 0 || back->nb_indices < 0)
+		printf("HOP %d %d \n", front->nb_indices, back->nb_indices); **/
 	if (!(front->indices = (int*)malloc(sizeof(int) * front->nb_indices)))
 		exit(0);
 	//printf("HOP %d\n",back->nb_indices );

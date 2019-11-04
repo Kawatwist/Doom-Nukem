@@ -37,12 +37,12 @@ t_bsp *bsp_compile()
 	//printf("init done\n");
 	build_bsp_tree(0, bsp);
 	printf("tree built\n");
-	print_polys(bsp->poly, bsp->nb_polys);
+	//print_polys(bsp->poly, bsp->nb_polys);
 	print_nodes(bsp->node, bsp->nb_nodes);
+	print_planes(bsp->plane, bsp->nb_planes);
 	print_leafs(bsp->leaf, bsp->nb_leafs);
-	sleep(1000);
+	//sleep(1000);
 	build_portal(bsp);
-	//printf("portal built\n");
 	if (!(bsp->pvs = (unsigned char*)malloc(sizeof(char) * bsp->nb_leafs * ((bsp->nb_leafs + 7) / 8) * 2)))
 		exit(0);
 	ft_bzero(bsp->pvs, bsp->nb_leafs * ((bsp->nb_leafs + 7) / 8));

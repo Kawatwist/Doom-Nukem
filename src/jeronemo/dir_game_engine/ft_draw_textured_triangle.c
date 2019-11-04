@@ -104,7 +104,6 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 	// printf("le u2=%f le v2=%f le w2=%f\n", u2, v2, w2); 
 	// printf("le u3=%f le v3=%f le w3=%f\n", u3, v3, w3); 
 
-
 	s_tex->dax_step = 0;
 	s_tex->dbx_step = 0;
 	s_tex->du1_step = 0;
@@ -182,7 +181,7 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 			t = 0.0;
 			j = s_tex->ax;
 
-			//optimisation coco
+		/**	//optimisation coco
 
 			s_tex->tex_u = (1.0f - t) * s_tex->tex_su + t * s_tex->tex_eu;
 			s_tex->tex_v = (1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev;
@@ -192,45 +191,48 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 			s_tex->tex_v_step = ((1.0f - (t + s_tex->tstep)) * s_tex->tex_sv + (t + s_tex->tstep) * s_tex->tex_ev) -
 								((1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev);
 			s_tex->tex_w_step = ((1.0f - (t + s_tex->tstep)) * s_tex->tex_sw + (t + s_tex->tstep) * s_tex->tex_ew) -
-								((1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew);
+								((1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew); **/
 
 			while (j < s_tex->bx)
 			{
-			/**	s_tex->tex_u = (1.0 - t) * s_tex->tex_su + t * s_tex->tex_eu;
-				s_tex->tex_v = (1.0 - t) * s_tex->tex_sv + t * s_tex->tex_ev;
 				s_tex->tex_w = (1.0 - t) * s_tex->tex_sw + t * s_tex->tex_ew;
-				t += s_tex->tstep; **/
 
-				s_tex->tex_u = s_tex->tex_u + s_tex->tex_u_step;
-				s_tex->tex_v = s_tex->tex_v + s_tex->tex_v_step;
-				s_tex->tex_w = s_tex->tex_w + s_tex->tex_w_step;
+				if (s_tex->tex_w > depth_buffer[i * XSCREEN + j])
+				{
+					s_tex->tex_u = (1.0 - t) * s_tex->tex_su + t * s_tex->tex_eu;
+					s_tex->tex_v = (1.0 - t) * s_tex->tex_sv + t * s_tex->tex_ev;
+					//s_tex->tex_w = (1.0 - t) * s_tex->tex_sw + t * s_tex->tex_ew;
+
+					/** s_tex->tex_u = s_tex->tex_u + s_tex->tex_u_step;
+					s_tex->tex_v = s_tex->tex_v + s_tex->tex_v_step;
+					s_tex->tex_w = s_tex->tex_w + s_tex->tex_w_step; **/
 				
 				//printf("PRE %f %f %f %d\n", s_tex->tex_u, s_tex->tex_v, s_tex->tex_w, s_tex->tga->w);
-				s_tex->srcrect.x = s_tex->tex_u / s_tex->tex_w * s_tex->tga->w;
-				if (s_tex->srcrect.x > 511)
-					s_tex->srcrect.x = 511;
-				if (s_tex->srcrect.x < 0)
-					s_tex->srcrect.x = 0; 
-				s_tex->srcrect.y = s_tex->tex_v / s_tex->tex_w * s_tex->tga->w;
-				if (s_tex->srcrect.y > 511)
-					s_tex->srcrect.y = 511;
-				if (s_tex->srcrect.y < 0)
-					s_tex->srcrect.y = 0; 
-				s_tex->dstrect.x = j;
-				s_tex->dstrect.y = i;
-				//printf("DEBUG %d %d %d\n", s_tex->bx , s_tex->ax, s_tex->tga->w);
+					s_tex->srcrect.x = s_tex->tex_u / s_tex->tex_w * s_tex->tga->w;
+					if (s_tex->srcrect.x > 511)
+						s_tex->srcrect.x = 511;
+					if (s_tex->srcrect.x < 0)
+						s_tex->srcrect.x = 0; 
+					s_tex->srcrect.y = s_tex->tex_v / s_tex->tex_w * s_tex->tga->w;
+					if (s_tex->srcrect.y > 511)
+						s_tex->srcrect.y = 511;
+					if (s_tex->srcrect.y < 0)
+						s_tex->srcrect.y = 0; 
+					s_tex->dstrect.x = j;
+					s_tex->dstrect.y = i;
+					//printf("DEBUG %d %d %d\n", s_tex->bx , s_tex->ax, s_tex->tga->w);
 
-
-				/* s_tex->m_ppixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * 512)]; */
-				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
-				{
-					 if (s_tex->tex_w > depth_buffer[i * XSCREEN + j] )
-					 {
-					 	//printf("DEBUG %f %f %f\n", tri->vertice[0].z, tri->vertice[1].z, tri->vertice[2].z);
-						s_tex->m_pPixels[i * XSCREEN + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
-						depth_buffer[i * XSCREEN + j] = s_tex->tex_w;
-					 }
+					//if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
+					//{
+						//if (s_tex->tex_w > depth_buffer[i * XSCREEN + j] )
+					 	//{
+					 		//printf("DEBUG %f %f %f\n", tri->vertice[0].z, tri->vertice[1].z, tri->vertice[2].z);
+							s_tex->m_pPixels[i * XSCREEN + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
+							depth_buffer[i * XSCREEN + j] = s_tex->tex_w;
+						//}
+					//}
 				}
+				t += s_tex->tstep;
 				// s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF;
 
 			/* printf("s_tex->tex_w=%f\n", s_tex->tex_w); */
@@ -298,7 +300,7 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 			t = 0.0f;
 			j = s_tex->ax;
 
-			//optimisation coco
+		/**	//optimisation coco
 
 			s_tex->tex_u = (1.0f - t) * s_tex->tex_su + t * s_tex->tex_eu;
 			s_tex->tex_v = (1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev;
@@ -308,46 +310,50 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 			s_tex->tex_v_step = ((1.0f - (t + s_tex->tstep)) * s_tex->tex_sv + (t + s_tex->tstep) * s_tex->tex_ev) -
 								((1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev);
 			s_tex->tex_w_step = ((1.0f - (t + s_tex->tstep)) * s_tex->tex_sw + (t + s_tex->tstep) * s_tex->tex_ew) -
-								((1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew);
+								((1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew); **/
 
 			while (j < s_tex->bx)
 			{
-			/**	s_tex->tex_u = (1.0f - t) * s_tex->tex_su + t * s_tex->tex_eu;
-				s_tex->tex_v = (1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev;
-				s_tex->tex_w = (1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew; **/
+				s_tex->tex_w = (1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew;
 
-				s_tex->tex_u = s_tex->tex_u + s_tex->tex_u_step;
+				if (s_tex->tex_w > depth_buffer[i * XSCREEN + j])
+				{
+					s_tex->tex_u = (1.0f - t) * s_tex->tex_su + t * s_tex->tex_eu;
+					s_tex->tex_v = (1.0f - t) * s_tex->tex_sv + t * s_tex->tex_ev;
+					//s_tex->tex_w = (1.0f - t) * s_tex->tex_sw + t * s_tex->tex_ew;
+
+				/**s_tex->tex_u = s_tex->tex_u + s_tex->tex_u_step;
 				s_tex->tex_v = s_tex->tex_v + s_tex->tex_v_step;
-				s_tex->tex_w = s_tex->tex_w + s_tex->tex_w_step;
+				s_tex->tex_w = s_tex->tex_w + s_tex->tex_w_step; **/
 
-				s_tex->srcrect.x = s_tex->tex_u / s_tex->tex_w * s_tex->tga->w;
-				if (s_tex->srcrect.x > 511)
-					s_tex->srcrect.x = 511;
-				if (s_tex->srcrect.x < 0)
-					s_tex->srcrect.x = 0;
-				s_tex->srcrect.y = s_tex->tex_v / s_tex->tex_w * s_tex->tga->w;
-				if (s_tex->srcrect.y > 511)
-					s_tex->srcrect.y = 511;
-				if (s_tex->srcrect.y < 0)
-					s_tex->srcrect.y = 0;
-				s_tex->dstrect.x = j;
-				s_tex->dstrect.y = i;
+					s_tex->srcrect.x = s_tex->tex_u / s_tex->tex_w * s_tex->tga->w;
+					if (s_tex->srcrect.x > 511)
+						s_tex->srcrect.x = 511;
+					if (s_tex->srcrect.x < 0)
+						s_tex->srcrect.x = 0;
+					s_tex->srcrect.y = s_tex->tex_v / s_tex->tex_w * s_tex->tga->w;
+					if (s_tex->srcrect.y > 511)
+						s_tex->srcrect.y = 511;
+					if (s_tex->srcrect.y < 0)
+						s_tex->srcrect.y = 0;
+					s_tex->dstrect.x = j;
+					s_tex->dstrect.y = i;
 				/* s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF; */
 
 
-				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
-				{
-					 if (s_tex->tex_w > depth_buffer[i * XSCREEN + j])
-					 {
-						s_tex->m_pPixels[i * XSCREEN + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
-						depth_buffer[i * XSCREEN + j] = s_tex->tex_w;
-					 }
-				}
+					//if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
+					//{
+						// if (s_tex->tex_w > depth_buffer[i * XSCREEN + j])
+					 	//{
+							s_tex->m_pPixels[i * XSCREEN + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
+							depth_buffer[i * XSCREEN + j] = s_tex->tex_w;
+					 	//}
+					//}
 				// s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF;
-
+				}
 				/* SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect)); */
 				j++;
-				//t += s_tex->tstep;
+				t += s_tex->tstep;
 			}
 			i++;
 		}

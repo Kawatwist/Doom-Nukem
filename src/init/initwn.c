@@ -96,6 +96,9 @@ void		initwn(t_win **wn)
 	(*wn)->oldinterface = MENU;
 	(*wn)->xscreen = XSCREEN;
 	(*wn)->yscreen = YSCREEN;
+	(*wn)->depth_buffer = malloc(sizeof(float) * 1920 * 1080); //il faut le free !!!
+	if ((*wn)->depth_buffer == NULL)
+		exit(0);
 	initconsole(wn);
 	initmap(wn);
 	initelem(wn);

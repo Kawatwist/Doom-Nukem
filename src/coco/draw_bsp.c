@@ -1,7 +1,7 @@
 #include <bsp.h>
 #include <doom.h>
 
-t_poly *visible_polygons(t_bsp *bsp, int leaf)
+t_poly *visible_polygons(t_bsp *bsp, int leaf) 	//returns poly list visibles from a given leaf
 {
 	t_vp vp;
 
@@ -59,7 +59,7 @@ t_poly *visible_polygons(t_bsp *bsp, int leaf)
 	return (vp.list);
 }
 
-t_poly *render_bsp(t_bsp *bsp, t_vec *pos)
+t_poly *render_bsp(t_bsp *bsp, t_vec *pos)		//checks in which leaf sits the given position (pos); returns polygon list potentially visible
 {
 	int node;
 	int leaf;
@@ -69,8 +69,8 @@ t_poly *render_bsp(t_bsp *bsp, t_vec *pos)
 	node = 0;
 	leaf = 0;
 	//printf("RENDER\n");
-	print_leafs(bsp->leaf, bsp->nb_leafs);
-	printf("POSITION %f %f %f\n", pos->x, pos->y, pos->z);
+	print_leafs(bsp->leaf, bsp->nb_leafs);	//debugging
+	printf("POSITION %f %f %f\n", pos->x, pos->y, pos->z); //debugging
 	while(1)
 	{
 		result = class_point(pos, &(bsp->plane[bsp->node[node].plane]));
@@ -103,7 +103,7 @@ t_poly *render_bsp(t_bsp *bsp, t_vec *pos)
 	return (NULL);
 }
 
-t_mytriangle *make_triangles(t_poly *list, int *max) //LISTE DE TRIANGLE
+t_mytriangle *make_triangles(t_poly *list, int *max) //transforms a t_poly list into a t_mytriangle list
 {
 	t_poly		 *tmp;
 	//t_mytriangle *new;

@@ -46,6 +46,8 @@ void	turn_rast(t_win *wn)
 {
 	//t_mypolygon		*new_lst;
 	//t_myvec			camera;
+	int time1;
+	int time2;
 
 	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
 	//############
@@ -75,9 +77,22 @@ void	turn_rast(t_win *wn)
 		wn->rasterizer->curr_pos.x = ((t_myraster*)wn->rasterizer->tmp)->v_camera.x;
 		wn->rasterizer->curr_pos.y = -((t_myraster*)wn->rasterizer->tmp)->v_camera.y;
 		wn->rasterizer->curr_pos.z = -((t_myraster*)wn->rasterizer->tmp)->v_camera.z;
-		wn->rasterizer->poly_list = render_bsp(wn->rasterizer->bsp, &wn->rasterizer->curr_pos);
+		time1 = clock();
+		wn->rasterizer->poly_list = render_bsp(wn->rasterizer->bsp, &wn->rasterizer->curr_pos); 
+		if (wn->rasterizer->poly_list == NULL) //collision
+		{
+			((t_myraster*)wn->rasterizer->tmp)->v_camera.x = wn->rasterizer->prev_pos.x;
+			((t_myraster*)wn->rasterizer->tmp)->v_camera.y = -wn->rasterizer->prev_pos.y;
+			((t_myraster*)wn->rasterizer->tmp)->v_camera.z = -wn->rasterizer->prev_pos.z;
+			return;
+		} 
+		wn->rasterizer->prev_pos.x = wn->rasterizer->curr_pos.x;
+		wn->rasterizer->prev_pos.y = wn->rasterizer->curr_pos.y;
+		wn->rasterizer->prev_pos.z = wn->rasterizer->curr_pos.z;
 		wn->rasterizer->triangle_array = make_triangles(wn->rasterizer->poly_list, &wn->rasterizer->nbr_triangle);
 		print_pvs(wn->rasterizer->bsp);
+		time2 = clock();
+		printf("TRIANGLE LIST CREATION TIME %d\n", time2 - time1);
 		//print_pvs2(wn->rasterizer->bsp);
 		//! COCO 
 		((t_myraster*)(wn->rasterizer->tmp))->nbr_of_triangle = wn->rasterizer->nbr_triangle;

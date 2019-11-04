@@ -180,22 +180,17 @@ void	ft_scale_screen(t_mytriangle *triangle)
 void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
 		t_mytriangle	*keep;
-		float			*depth_buffer;
 
 		int count;
 
 		count = 0;
-		depth_buffer = malloc(sizeof(float) * 1920 * 1080); //il faut le bouger d'ici pour l'optimisatio
-		// printf("hello\n"); */
-		if (depth_buffer == NULL)
-			exit(0);
 
 		int i = 0;
-		while (i < 1920 * 1080)
+		while (i < 1920 * 1080) //faut trouver une solution plus rapide
 		{
 			if(((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] != 0xFF00FFFF)
 				((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFF00FFFF;
-			depth_buffer[i] = 0.0;
+			wn->depth_buffer[i] = 0.0;
 			i++;
 		}
 		keep = triangle_lst_2;
@@ -215,12 +210,11 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 				ft_draw_textured_triangle(
 						triangle_lst_2,
 						((t_myraster*)wn->rasterizer->tmp)->s_tex,
-						depth_buffer);
+						wn->depth_buffer);
 				triangle_lst_2 = triangle_lst_2->next;
 			}
 		}
 	triangle_lst_2 = keep;
-	free(depth_buffer);
 	SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels, 1920 * sizeof(Uint32));
 	SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
 	printf("TEST TRIANGLES %d\n", count);

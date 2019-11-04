@@ -80,6 +80,20 @@ void print_portals(t_portal **portal, int nb_portals)
 	printf("\n");
 }
 
+void print_portal(t_portal *portal)
+{
+	int j;
+
+	printf("Portal  Leafs: %d %d\n",portal->leafs[0], portal->leafs[1]);
+	j = 0;
+	while (j < portal->nb_ver)
+	{
+		printf("P %d: %f %f %f\n", j, portal->ver_list[j].x, portal->ver_list[j].y, portal->ver_list[j].z);
+		j++;
+	}
+	printf("\n");
+}
+
 void print_nodes(t_node *node, int nb_nodes)
 {
 	int i;

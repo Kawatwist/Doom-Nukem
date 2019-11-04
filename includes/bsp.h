@@ -424,6 +424,7 @@ void	print_nodes(t_node *node, int nb_nodes);
 t_poly 	*clone_poly(t_poly *poly);
 void 	print_planes(t_plane *planes, int nb_planes);
 void	print_polys(t_poly *poly, int nb_polys);
+void 	print_portal(t_portal *portal);
 void	vec_cross_prod(t_vec* a, t_vec *b, t_vec *c);
 t_portal *calculate_init_portal(t_bsp *bsp, int node);
 float	vec_dot_prod(t_vec *a, t_vec *b);

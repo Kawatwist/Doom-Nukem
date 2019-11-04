@@ -352,6 +352,7 @@ typedef struct		s_rasterizer
 	void			*tmp;
 
 	t_vec 			curr_pos;
+	t_vec 			prev_pos;
 	t_poly 			*poly_list;
 	t_bsp 			*bsp;
 
@@ -407,6 +408,7 @@ typedef struct		s_win
 	t_rasterizer	*rasterizer;
 	void			*serv;
 	void			*client;
+	float 			*depth_buffer;
 }					t_win;
 
 typedef struct s_pi 		//COCO
