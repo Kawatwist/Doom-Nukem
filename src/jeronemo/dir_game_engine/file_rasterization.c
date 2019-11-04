@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/04 17:38:54 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:44:34 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,10 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 
 			raster->j += 1;
 		}
+
+
+
+
 	}
 	ft_clipping_screen(wn, raster->triangle_lst, raster, &(raster->clipped_triangle));
 	/* ft_my_time(&(raster->time_clipping_screen), &current_time, &last_time); */

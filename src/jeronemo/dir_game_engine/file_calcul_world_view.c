@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/04 17:38:59 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 18:00:35 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,10 +169,9 @@ int	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
 	t_mytriangle	*keep;
 	int i;
-
-
-
-
+	Uint32	difftime;
+	Uint32	time;
+	Uint32	ladiff;
 
 
 	keep = triangle_lst_2;
@@ -182,10 +181,16 @@ int	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 
 	while (triangle_lst_2 != NULL)
 	{
+		time = SDL_GetTicks();
 		ft_draw_textured_triangle( triangle_lst_2, ((t_myraster*)wn->rasterizer->tmp)->s_tex, (int**)(&wn->pixels));
+		difftime = SDL_GetTicks();
+		ladiff = (difftime - time);
+		printf("le diff time=%u\n", ladiff);
+		SDL_Delay(100);
 		i++;
 		triangle_lst_2 = triangle_lst_2->next;
 	}
+	printf("\n\n");
 	triangle_lst_2 = keep;
 	SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels, 1920 * sizeof(Uint32));
 	SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
