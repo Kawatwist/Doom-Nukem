@@ -220,7 +220,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 	int				id_counter = 1;
 
 	fichier_lst = NULL;
-	fd = open("planche et cube.obj", O_RDWR); // <= PATH OBJ
+	fd = open("x_map.obj", O_RDWR); // <= PATH OBJ
 	// fd = open("carre_avec_uv_texture_coordinate.obj", O_RDWR); // <= PATH OBJ
 	// fd = open(" pyramide.obj", O_RDWR); // <= PATH OBJ
 	// fd = open("5 cubes.obj", O_RDWR); // <= PATH OBJ
@@ -270,7 +270,7 @@ t_mypolygon		*ft_read_the_polygon_file(void)
 				vertex_node->obj_indice = (int)ft_atoi_comma(&(fichier_lst->line[j]));
 
 				while(fichier_lst->line[j] != '/')
-					j++;
+					printf("FICHIER LINE %c\n" , fichier_lst->line[j++]);
 				j++;
 
 

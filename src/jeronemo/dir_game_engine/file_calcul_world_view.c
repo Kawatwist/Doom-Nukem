@@ -24,11 +24,14 @@ void	ft_calcul_world_view_matrix(t_myraster *raster)
 
 void	ft_calcul_world_view(t_mytriangle *triangle, t_myraster *raster)
 {
+	//printf("ROT Z\n");
 	//ROTATION Z
 	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_z);
 	//ROTATION X
+	//printf("ROT X\n");
 	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_rot_x);
 	//TRANSLATION (offset in screen)
+	//printf("TRANS\n");
 	ft_apply_calucul(ft_matrix_multiply_vector, triangle, raster->mat_trans);
 }
 
@@ -87,16 +90,25 @@ void	ft_free_lst(t_mytriangle *triangle_lst_2)
 	}
 }
 
-void	ft_clipping_camera(t_mytriangle *triangle, t_myraster *raster, t_mytriangle **clipped_triangle)
-{
-	raster->nbr_of_clipped_triangle_created = 0;
+void	ft_clipping_camera(t_mytriangle *triangle, t_win *wn, t_mytriangle **clipped_triangle)
+{ 
+	int nb;
+
+	triangle->next = NULL;
+	*clipped_triangle = clip_side(wn, triangle, &nb, 4);
+	//raster->nbr_of_clipped_triangle_created = 1;
+	/** raster->nbr_of_clipped_triangle_created = 0;
 	if (triangle->vertice[0].z < 0.1 || triangle->vertice[1].z < 0.1 || triangle->vertice[2].z < 0.1)
-		(raster->nbr_of_clipped_triangle_created) = 0; // Un verice ou plus out
+	{
+		//(*clipped_triangle) = triangle;
+		(raster->nbr_of_clipped_triangle_created) = 0; // Un verice ou plus out 0 to work proeprly
+	}
 	else
 	{
 		(*clipped_triangle) = triangle; // All inside
 		(raster->nbr_of_clipped_triangle_created) = 1;
 	}
+	**/
 }
 
 void	ft_clipping_screen(t_win *wn, t_mytriangle *head, t_myraster *raster, t_mytriangle **clipped_triangle)
@@ -168,24 +180,23 @@ void	ft_scale_screen(t_mytriangle *triangle)
 void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
 		t_mytriangle	*keep;
-		float			*depth_buffer;
 
-		depth_buffer = malloc(sizeof(float) * 1920 * 1080);
-		/* printf("hello\n"); */
-		if (depth_buffer == NULL)
-			exit(0);
+		int count;
+
+		count = 0;
 
 		int i = 0;
-		while (i < 1920 * 1080)
+		while (i < 1920 * 1080) //faut trouver une solution plus rapide
 		{
 			if(((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] != 0xFF00FFFF)
 				((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFF00FFFF;
-			depth_buffer[i] = 0.0;
+			wn->depth_buffer[i] = 0.0;
 			i++;
 		}
 		keep = triangle_lst_2;
 		while (triangle_lst_2 != NULL)
 		{
+			count++;
 			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
 			// printf("%p\n", triangle_lst_2);
 			if (wn->flag & MESH)
@@ -199,14 +210,14 @@ void	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 				ft_draw_textured_triangle(
 						triangle_lst_2,
 						((t_myraster*)wn->rasterizer->tmp)->s_tex,
-						depth_buffer);
+						wn->depth_buffer);
 				triangle_lst_2 = triangle_lst_2->next;
 			}
 		}
 	triangle_lst_2 = keep;
-	free(depth_buffer);
 	SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels, 1920 * sizeof(Uint32));
 	SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
+	printf("TEST TRIANGLES %d\n", count);
 /*	start.x = 20;
 	start.y = 100;
 	end.x = 20;

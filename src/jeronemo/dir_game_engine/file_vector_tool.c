@@ -73,6 +73,7 @@ t_myvec		 ft_matrix_multiply_vector(float **m, t_myvec i)
 	v.y = i.x * m[0][1] + i.y * m[1][1] + i.z * m[2][1] + i.w * m[3][1];
 	v.z = i.x * m[0][2] + i.y * m[1][2] + i.z * m[2][2] + i.w * m[3][2];
 	v.w = i.x * m[0][3] + i.y * m[1][3] + i.z * m[2][3] + i.w * m[3][3];
+
 	/* w = i.x * m[0][3] + i.y * m[1][3] + i.z * m[2][3] + m[3][3]; */
 	/* if (w != 0.0) */
 	/* { */

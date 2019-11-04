@@ -13,18 +13,25 @@
 #ifndef RASTERISATION_H
 # define RASTERISATION_H
 
-#include "doom.h"
+//#include "doom.h"
 
-typedef struct		s_vec
+typedef struct	s_vec t_vec;
+typedef struct	s_poly t_poly;
+typedef struct	s_inter t_inter;
+typedef struct 	s_portal t_portal;
+
+//typedef
+struct		s_vec
 {
 	float			x;
 	float			y;
 	float			z;
 	int				tx;
 	int				ty;
-}					t_vec;
+};//					t_vec;
 
-typedef struct		s_poly
+//typedef 
+struct		s_poly
 {
 	t_vec			*ver_list;
 	t_vec			*ver_tmp;
@@ -35,7 +42,7 @@ typedef struct		s_poly
 	struct s_poly	*next;
 	char			was_splitter;
 	int				texture;
-}					t_poly;
+};//					t_poly;
 
 typedef	struct		s_rast
 {

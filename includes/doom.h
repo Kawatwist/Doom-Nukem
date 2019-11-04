@@ -18,12 +18,12 @@
 # include <pthread.h>
 # include <libft.h>
 # include <game.h>
-# include <rasterisation.h>
+//# include <rasterisation.h>
 # include <skybox.h>
 # include <header_bresenham.h>
 # include <SDL.h>
 # include <SDL_ttf.h>
-
+# include <bsp.h>
 # include <SDL2/SDL.h>
 # include <SDL_image.h>
 
@@ -350,6 +350,12 @@ typedef struct		s_rasterizer
 {
 	int				nbr_triangle;
 	void			*tmp;
+
+	t_vec 			curr_pos;
+	t_vec 			prev_pos;
+	t_poly 			*poly_list;
+	t_bsp 			*bsp;
+
 	t_mytriangle	*triangle_array;
 	t_mypolygon		*polygon_lst;
 	t_mynode		*bsp_node;
@@ -402,6 +408,7 @@ typedef struct		s_win
 	t_rasterizer	*rasterizer;
 	void			*serv;
 	void			*client;
+	float 			*depth_buffer;
 }					t_win;
 
 typedef struct s_pi 		//COCO
@@ -654,6 +661,10 @@ int					key_pressed(t_win *wn, int key_value);
 /**
  ** jeronemo game engine
  **/
+
+t_mytriangle *make_triangles(t_poly *list, int *max);
+t_poly  	 *load_obj(t_mypolygon *in);
+t_mypolygon	 *ft_read_the_polygon_file(void);
 
 void	ft_game_engine(t_win *wn);
 #endif

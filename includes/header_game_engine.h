@@ -48,6 +48,13 @@ typedef struct	s_mytex
 	float		tex_ev;
 	float		tex_ew;
 
+	float 		tex_u_add;
+	float 		tex_v_add;
+	float 		tex_w_add; //??
+	float 		tex_u_step;
+	float 		tex_v_step;
+	float 		tex_w_step;
+
 	float		tex_u;
 	float		tex_v;
 	float		tstep;
@@ -228,7 +235,7 @@ void			ft_calcul_world_and_view_matrix(t_myraster *raster);
 void			ft_free_lst(t_mytriangle *triangle_lst_2);
 void			ft_calcul_cam_view(t_mytriangle *triangle, t_myraster *raster);
 void			ft_clipping_camera(t_mytriangle *triangle,
-									t_myraster *raster,
+									t_win *wn,
 									t_mytriangle **clipped_triangle);
 void			ft_calcul_projection_view(t_mytriangle *triangle, t_myraster *raster);
 void			ft_scale_screen(t_mytriangle *triangle);
@@ -238,6 +245,7 @@ void			ft_clipping_screen(t_win *wn, t_mytriangle *triangle,
 							t_mytriangle **clipped_triangle);
 void			ft_draw(t_mytriangle *triangle_lst_2, t_win *wn);
 void			ft_make_the_world_spin(int turn, t_myraster *raster);
+t_mytriangle	*clip_side(t_win *wn, t_mytriangle *toclip, int *value, int side);
 
 
 

@@ -44,39 +44,86 @@ void	free_poly_list(t_mypolygon *lst)
 
 void	turn_rast(t_win *wn)
 {
-	t_mypolygon		*new_lst;
-	t_myvec			camera;
+	//t_mypolygon		*new_lst;
+	//t_myvec			camera;
+	int time1;
+	int time2;
 
 	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
 	//############
 	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
 	{
-		// ft_clear_window(wn);
-		new_lst = NULL;
-		camera.x = ((t_myraster *)wn->rasterizer->tmp)->v_camera.x;
-		camera.y = -((t_myraster *)wn->rasterizer->tmp)->v_camera.y;
-		camera.z = -(((t_myraster *)wn->rasterizer->tmp)->v_camera.z);
-		ft_walk_bsp_tree(wn->rasterizer->bsp_node, &(camera), &new_lst);
- 		ft_display_the_polygon_list(new_lst);
+	/**	ft_clear_window(wn);
+		ft_init_update_raster(wn->rasterizer->tmp);
 
-		wn->rasterizer->triangle_array = ft_get_triangles_array(new_lst);
-		wn->rasterizer->nbr_triangle = ft_get_nbr_of_triangle(new_lst);
-		printf("nbr_triangle%d\n", wn->rasterizer->nbr_triangle);
-		((t_myraster*)wn->rasterizer->tmp)->nbr_of_triangle = wn->rasterizer->nbr_triangle;
 
-		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array, wn);
+		//ici v_camera est ok
+		wn->rasterizer->curr_pos.x = ((t_myraster*)wn->rasterizer->tmp)->v_camera.x;
+		wn->rasterizer->curr_pos.y = ((t_myraster*)wn->rasterizer->tmp)->v_camera.y;
+		wn->rasterizer->curr_pos.z = ((t_myraster*)wn->rasterizer->tmp)->v_camera.z;
+		wn->rasterizer->poly_list = render_bsp(wn->rasterizer->bsp, &wn->rasterizer->curr_pos);
+		//print_poly_list(wn->rasterizer->poly_list);
+		printf("BFR POS %f %f %f %d\n", wn->rasterizer->curr_pos.x, wn->rasterizer->curr_pos.y, wn->rasterizer->curr_pos.z, ((t_myraster*)wn->rasterizer->tmp)->nbr_of_triangle);
+		wn->rasterizer->tmp2 = make_triangles(wn->rasterizer->poly_list, &((t_myraster*)wn->rasterizer->tmp)->nbr_of_triangle);
+		printf("POS %f %f %f %d\n", wn->rasterizer->curr_pos.x, wn->rasterizer->curr_pos.y, wn->rasterizer->curr_pos.z, ((t_myraster*)wn->rasterizer->tmp)->nbr_of_triangle);
+
+		//tmp2 = triangle array
+		// + jai besoin du nombre max de triangle
+
+		//wn->rasterizer->max = ft_get_nbr_of_triangle(wn->rasterizer->tmp3);
+
+		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->tmp2, wn); **/
+//		ft_clear_window(wn);
+		wn->rasterizer->curr_pos.x = ((t_myraster*)wn->rasterizer->tmp)->v_camera.x;
+		wn->rasterizer->curr_pos.y = -((t_myraster*)wn->rasterizer->tmp)->v_camera.y;
+		wn->rasterizer->curr_pos.z = -((t_myraster*)wn->rasterizer->tmp)->v_camera.z;
+		time1 = clock();
+		wn->rasterizer->poly_list = render_bsp(wn->rasterizer->bsp, &wn->rasterizer->curr_pos); 
+		if (wn->rasterizer->poly_list == NULL) //collision
+		{
+			((t_myraster*)wn->rasterizer->tmp)->v_camera.x = wn->rasterizer->prev_pos.x;
+			((t_myraster*)wn->rasterizer->tmp)->v_camera.y = -wn->rasterizer->prev_pos.y;
+			((t_myraster*)wn->rasterizer->tmp)->v_camera.z = -wn->rasterizer->prev_pos.z;
+			return;
+		} 
+		wn->rasterizer->prev_pos.x = wn->rasterizer->curr_pos.x;
+		wn->rasterizer->prev_pos.y = wn->rasterizer->curr_pos.y;
+		wn->rasterizer->prev_pos.z = wn->rasterizer->curr_pos.z;
+		wn->rasterizer->triangle_array = make_triangles(wn->rasterizer->poly_list, &wn->rasterizer->nbr_triangle);
+		print_pvs(wn->rasterizer->bsp);
+		time2 = clock();
+		printf("TRIANGLE LIST CREATION TIME %d\n", time2 - time1);
+		//print_pvs2(wn->rasterizer->bsp);
+		//! COCO 
+		((t_myraster*)(wn->rasterizer->tmp))->nbr_of_triangle = wn->rasterizer->nbr_triangle;
+		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array , wn);
 		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
 		if (wn->interface == DGAME)
 			SDL_RenderPresent(wn->rend);
-		free_poly_list(new_lst);
+		//free_poly_list(new_lst);
 	}
 }
 
 void	ft_launch_rasterization(t_win *wn)
 {
+	/** wn->rasterizer->tmp3 = NULL;
+	//wn->rasterizer->tmp3 = ft_read_the_polygon_file();
+	//ft_launch_bsp_tree(wn->rasterizer->tmp3);
+	//wn->rasterizer->tmp2 = ft_get_triangles_array(wn->rasterizer->tmp3); **/
 	wn->rasterizer->polygon_lst = NULL;
-  	wn->rasterizer->polygon_lst = ft_read_the_polygon_file();
-	ft_launch_bsp_tree(wn->rasterizer->polygon_lst, &(wn->rasterizer->bsp_node)); // PROTECTION POUR SAVE FROM EDITOR
+  	//wn->rasterizer->polygon_lst = ft_read_the_polygon_file();
+	//ft_launch_bsp_tree(wn->rasterizer->polygon_lst); // PROTECTION POUR SAVE FROM EDITOR
+	//wn->rasterizer->triangle_array = ft_get_triangles_array(wn->rasterizer->polygon_lst);
+	//wn->rasterizer->nbr_triangle = ft_get_nbr_of_triangle(wn->rasterizer->polygon_lst);
 	wn->rasterizer->tmp = malloc(sizeof(t_myraster));
 	wn->rasterizer->tmp = ft_init_rasterization(wn, (t_myraster*)(wn->rasterizer->tmp));
+	wn->rasterizer->bsp = bsp_compile();
+	wn->rasterizer->curr_pos.x = ((t_myraster*)wn->rasterizer->tmp)->v_camera.x;
+	wn->rasterizer->curr_pos.y = ((t_myraster*)wn->rasterizer->tmp)->v_camera.y;
+	wn->rasterizer->curr_pos.z = ((t_myraster*)wn->rasterizer->tmp)->v_camera.z;
+	wn->rasterizer->poly_list = render_bsp(wn->rasterizer->bsp, &wn->rasterizer->curr_pos);
+	wn->rasterizer->triangle_array = make_triangles(wn->rasterizer->poly_list, &wn->rasterizer->nbr_triangle);
+	// wn->rasterizer->triangle_array = make_triangles(wn->rasterizer->poly_list, &wn->rasterizer->nbr_triangle);
+	//wn->rasterizer->tmp = malloc(sizeof(t_myraster));
+	//wn->rasterizer->tmp = ft_init_rasterization(wn, (t_myraster*)(wn->rasterizer->tmp));
 }
