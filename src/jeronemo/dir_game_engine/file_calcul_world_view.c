@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/04 14:33:45 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 14:43:23 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,64 +167,20 @@ void	ft_scale_screen(t_mytriangle *triangle)
 
 int	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
-		t_mytriangle	*keep;
+	t_mytriangle	*keep;
 
-		int i = 0;
-		/* while (i < 1920 * 1080) */
-		/* { */
-			/* if(((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] != 0xFF00FFFF) */
-				/* ((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFFFFFFFF; */
-			/* depth_buffer[i] = 0.0; */
-			/* i++; */
-		/* } */
-		keep = triangle_lst_2;
-		i = 0;
-		while (triangle_lst_2 != NULL)
-		{
-			//DRAW FILL TRIANGLE WITH SHADE/LIGHT
-			// printf("%p\n", triangle_lst_2);
-			/* if (wn->flag & MESH) */
-			/* { */
-				/* ft_fill_triangle_shade((*triangle_lst_2), wn, triangle_lst_2->shade); */
-				/* ft_draw_triangle_base(&(triangle_lst_2->vertice[0]), &(triangle_lst_2->vertice[1]), &(triangle_lst_2->vertice[2]), wn); */
-				/* triangle_lst_2 = triangle_lst_2->next; */
-			/* } */
-			/* else */
-			/* { */
-	/* printf("hello-update-rast\n"); */
-	/* printf("%p\n", *wn->pixels); */
-
-				ft_draw_textured_triangle( triangle_lst_2, ((t_myraster*)wn->rasterizer->tmp)->s_tex, (int**)(&wn->pixels));
-				i++;
-
-				triangle_lst_2 = triangle_lst_2->next;
-			/* } */
-		}
+	int i;
+	keep = triangle_lst_2;
+	i = 0;
+	while (triangle_lst_2 != NULL)
+	{
+		ft_draw_textured_triangle( triangle_lst_2, ((t_myraster*)wn->rasterizer->tmp)->s_tex, (int**)(&wn->pixels));
+		i++;
+		triangle_lst_2 = triangle_lst_2->next;
+	}
 	triangle_lst_2 = keep;
-	/* free(depth_buffer); */
 	SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels, 1920 * sizeof(Uint32));
 	SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
-/*	start.x = 20;
-	start.y = 100;
-	end.x = 20;
-	end.y = YSCREEN - 100;
-	drawline(wn, 0xFF0000FF, start, end); start.x = XSCREEN - 20;
-	start.y = 100;
-	end.x = XSCREEN - 20;
-	end.y = YSCREEN - 100;
-	drawline(wn, 0xFF0000FF, start, end);
-	start.x = 20;
-	start.y = 100;
-	end.x = XSCREEN - 20;
-	end.y = 100;
-	drawline(wn, 0xFF0000FF, start, end);
-	start.x = 20;
-	start.y = YSCREEN - 100;
-	end.x = XSCREEN - 20;
-	end.y = YSCREEN - 100;
-	drawline(wn, 0xFF0000FF, start, end);
-	triangle_lst_2 = keep;
-	*/
 	return (i);
 }
 

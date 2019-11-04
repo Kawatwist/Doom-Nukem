@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:57:44 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/04 14:33:34 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 14:42:55 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void		ft_my_time(double *total, clock_t *current_time, clock_t *last_time)
 {
 	*last_time = *current_time;
 	*current_time = clock();
-	*total = (double)(*current_time - *last_time);
+	*total += (double)(*current_time - *last_time);
 }
 
 
@@ -135,18 +135,18 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	/* current_time = 0; */
 	ft_init_update_raster(raster);
 
-	/* raster->time_world_view = 0; */
-	/* raster->time_culling = 0; */
-	/* raster->time_shade = 0; */
-	/* raster->time_cam_view = 0; */
-	/* raster->time_clipping_camera = 0; */
-	/* raster->time_projetion = 0; */
-	/* raster->time_scale_screen = 0; */
-	/* raster->time_add_to_lst = 0; */
-	/* raster->time_z_buffer = 0; */
-	/* raster->time_clipping_screen = 0; */
-	/* raster->time_draw = 0; */
-	/* raster->time_free_lst = 0; */
+	raster->time_world_view = 0;
+	raster->time_culling = 0;
+	raster->time_shade = 0;
+	raster->time_cam_view = 0;
+	raster->time_clipping_camera = 0;
+	raster->time_projetion = 0;
+	raster->time_scale_screen = 0;
+	raster->time_add_to_lst = 0;
+	raster->time_z_buffer = 0;
+	raster->time_clipping_screen = 0;
+	raster->time_draw = 0;
+	raster->time_free_lst = 0;
 
 	raster->i = -1;
 	while (++(raster->i) < raster->nbr_of_triangle)
@@ -205,7 +205,7 @@ void		ft_update_raster(t_myraster *raster, t_mytriangle *triangle_array, t_win *
 	printf("add lst\t\t=%f\n", raster->time_add_to_lst);
 	printf("clip screen\t=%f\n", raster->time_clipping_screen);
 	printf("nombre of triangle\t=%d\n", nbr_of_triangle);
-	printf("draw\t\t=%f\n", (raster->time_draw / nbr_of_triangle));
+	printf("draw\t\t=%f\n", raster->time_draw);
 	printf("free\t\t=%f\n\n\n\n", raster->time_free_lst);
 
 }
