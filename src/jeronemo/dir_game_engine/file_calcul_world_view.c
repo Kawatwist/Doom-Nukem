@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/04 18:14:37 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 19:04:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,11 +190,12 @@ int	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 		i++;
 		triangle_lst_2 = triangle_lst_2->next;
 	}
-	printf("\n\n");
+
+	/* printf("%d\n\n", i); */
 	triangle_lst_2 = keep;
 	SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels, 1920 * sizeof(Uint32));
 	SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
-	return (i);
+	return (0);
 }
 
 void	ft_make_the_world_spin(int turn, t_myraster *raster)

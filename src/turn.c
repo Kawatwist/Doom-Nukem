@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/11/04 17:51:36 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 19:03:49 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ static void		interface(t_win *wn)
 
 void			turn(t_win *wn)
 {
-	Uint32	difftime;
-	Uint32	time;
-	Uint32	ladiff;
+	/* Uint32	difftime; */
+	/* Uint32	time; */
+	/* Uint32	ladiff; */
 
 	mainintro(wn, "main", "intro", 1);
 	while (TRUE)
 	{
-		time = SDL_GetTicks();
+		/* time = SDL_GetTicks(); */
 		main_input(wn);
 		interface(wn);
-		difftime = SDL_GetTicks();
-		ladiff = (difftime - time);
-		if (ladiff != 0)
-		printf("le diff time=%u\n", ladiff);
+		/* difftime = SDL_GetTicks(); */
+		/* ladiff = (difftime - time); */
+		/* if (ladiff != 0) */
+		/* printf("le diff time=%u\n", ladiff); */
 		/* (difftime - time) < (1000 / 60) ? SDL_Delay((1000 / 60) - (difftime - time)) : 0; */
 		SDL_RenderPresent(wn->rend);
 	}
