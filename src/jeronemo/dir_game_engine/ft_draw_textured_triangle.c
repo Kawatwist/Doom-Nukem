@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/04 15:29:54 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:01:07 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,23 +77,35 @@ void	ft_order_point(
 }
 
 
+void ft_clear_screen(int** pixel)
+{
+	int *val;
+	int i =0;
+	val = malloc(sizeof(int));
+	*val = 0;
+	while (i   <  (1920 * 1080)   )
+	{
+		(*pixel)[i] = val[0];
+		i++;
+	}
+}
+
+
 void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, int** pixel)
 {
-
-
 	/* int		tri->vertice[0].x = tri->vertice[0].x;    //x1 */
 	/* int		tri->vertice[0].y = tri->vertice[0].y;    //y1 */
 	/* float	tri->texture[0].u = tri->texture[0].u;    //u1 */
 	/* float	tri->texture[0].v = tri->texture[0].v;    //v1 */
 	/* float	tri->texture[0].w = tri->texture[0].w;    //w1 */
 
-	float	x2 = tri->vertice[1].x;    //x2
-	float	y2 = tri->vertice[1].y;    //y2
-	float	u2 = tri->texture[1].u;    //u2
-	float	v2 = tri->texture[1].v;    //v2
-	float	w2 = tri->texture[1].w;    //w2
+	/* float	tri->vertice[1].x = tri->vertice[1].x;    //x2 */
+	/* float	tri->vertice[1].y = tri->vertice[1].y;    //y2 */
+	/* float	tri->texture[1].u = tri->texture[1].u;    //u2 */
+	/* float	tri->texture[1].v = tri->texture[1].v;    //v2 */
+	/* float	tri->texture[1].w = tri->texture[1].w;    //w2 */
 
-	float	x3 = tri->vertice[2].x;    //x3
+	/* float	tri->vertice[2].x = tri->vertice[2].x;    //x3 */
 	float	y3 = tri->vertice[2].y;    //y3
 	float	u3 = tri->texture[2].u;    //u3
 	float	v3 = tri->texture[2].v;    //v3
@@ -113,18 +125,18 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, int** pixel)
 	s_tex->dw1_step = 0;
 	s_tex->dw2_step = 0;
 
-	ft_order_point( &(tri->vertice[0].x), &(tri->vertice[0].y), &(tri->texture[0].u), &(tri->texture[0].v), &(tri->texture[0].w), &x2, &y2, &u2, &v2, &w2, &x3, &y3, &u3, &v3, &w3);
+	ft_order_point( &(tri->vertice[0].x), &(tri->vertice[0].y), &(tri->texture[0].u), &(tri->texture[0].v), &(tri->texture[0].w), &(tri->vertice[1].x), &(tri->vertice[1].y), &(tri->texture[1].u), &(tri->texture[1].v), &(tri->texture[1].w), &(tri->vertice[2].x), &y3, &u3, &v3, &w3);
 	/* ************************************************************************/
 	/*	on draw le triangle du haut        bleu                               */
 	/* ************************************************************************/
-	s_tex->dy1 = y2 - tri->vertice[0].y;
-	s_tex->dv1 = v2 - tri->texture[0].v;
-	s_tex->dx1 = x2 - tri->vertice[0].x;
-	s_tex->du1 = u2 - tri->texture[0].u;
-	s_tex->dw1 = w2 - tri->texture[0].w;
+	s_tex->dy1 = tri->vertice[1].y - tri->vertice[0].y;
+	s_tex->dv1 = tri->texture[1].v - tri->texture[0].v;
+	s_tex->dx1 = tri->vertice[1].x - tri->vertice[0].x;
+	s_tex->du1 = tri->texture[1].u - tri->texture[0].u;
+	s_tex->dw1 = tri->texture[1].w - tri->texture[0].w;
 	s_tex->dy2 = y3 - tri->vertice[0].y;
 	s_tex->dv2 = v3 - tri->texture[0].v;
-	s_tex->dx2 = x3 - tri->vertice[0].x;
+	s_tex->dx2 = tri->vertice[2].x - tri->vertice[0].x;
 	s_tex->du2 = u3 - tri->texture[0].u;
 	s_tex->dw2 = w3 - tri->texture[0].w;
 
@@ -145,7 +157,7 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, int** pixel)
 	if (s_tex->dy1 > 0)
 	{
 		i = tri->vertice[0].y;
-		while (i < y2)
+		while (i < tri->vertice[1].y)
 		{
 			s_tex->ax = tri->vertice[0].x + (float)(i - tri->vertice[0].y) * s_tex->dax_step;
 			s_tex->bx = tri->vertice[0].x + (float)(i - tri->vertice[0].y) * s_tex->dbx_step;
@@ -198,11 +210,11 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, int** pixel)
 	/**************************************************************************/
 	/*	on draw le triangle du bas                                            */
 	/**************************************************************************/
-	s_tex->dy1 = y3 - y2;
-	s_tex->dx1 = x3 - x2;
-	s_tex->dv1 = v3 - v2;
-	s_tex->du1 = u3 - u2;
-	s_tex->dw1 = w3 - w2;
+	s_tex->dy1 = y3 - tri->vertice[1].y;
+	s_tex->dx1 = tri->vertice[2].x - tri->vertice[1].x;
+	s_tex->dv1 = v3 - tri->texture[1].v;
+	s_tex->du1 = u3 - tri->texture[1].u;
+	s_tex->dw1 = w3 - tri->texture[1].w;
 	if (s_tex->dy1)
 		s_tex->dax_step = s_tex->dx1 / (float)abs(s_tex->dy1);
 	if (s_tex->dy2)
@@ -217,14 +229,14 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, int** pixel)
 	}
 	if (s_tex->dy1 > 0)
 	{
-		i = y2;
+		i = tri->vertice[1].y;
 		while (i < y3)
 		{
-			s_tex->ax = x2 + (float)(i - y2) * s_tex->dax_step;
+			s_tex->ax = tri->vertice[1].x + (float)(i - tri->vertice[1].y) * s_tex->dax_step;
 			s_tex->bx = tri->vertice[0].x + (float)(i - tri->vertice[0].y) * s_tex->dbx_step;
-			s_tex->tex_su = u2 + (float)(i - y2) * s_tex->du1_step;
-			s_tex->tex_sv = v2 + (float)(i - y2) * s_tex->dv1_step;
-			s_tex->tex_sw = w2 + (float)(i - y2) * s_tex->dw1_step;
+			s_tex->tex_su = tri->texture[1].u + (float)(i - tri->vertice[1].y) * s_tex->du1_step;
+			s_tex->tex_sv = tri->texture[1].v + (float)(i - tri->vertice[1].y) * s_tex->dv1_step;
+			s_tex->tex_sw = tri->texture[1].w + (float)(i - tri->vertice[1].y) * s_tex->dw1_step;
 
 			s_tex->tex_eu = tri->texture[0].u + (float)(i - tri->vertice[0].y) * s_tex->du2_step;
 			s_tex->tex_ev = tri->texture[0].v + (float)(i - tri->vertice[0].y) * s_tex->dv2_step;

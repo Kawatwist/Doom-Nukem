@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/04 14:03:24 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 16:40:28 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	turn_rast(t_win *wn)
 {
 	t_mypolygon		*new_lst;
 	t_myvec			camera;
+	/* Uint32	difftime; */
+	/* Uint32	time; */
+	/* Uint32	ladiff; */
 
 	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
 	/* printf("hello-turn-rast\n"); */
@@ -53,15 +56,33 @@ void	turn_rast(t_win *wn)
 		camera.x = ((t_myraster *)wn->rasterizer->tmp)->v_camera.x;
 		camera.y = -((t_myraster *)wn->rasterizer->tmp)->v_camera.y;
 		camera.z = -(((t_myraster *)wn->rasterizer->tmp)->v_camera.z);
-		ft_walk_bsp_tree(wn->rasterizer->bsp_node, &(camera), &new_lst);
- 		ft_display_the_polygon_list(new_lst);
 
+
+		/* time = SDL_GetTicks(); */
+		ft_walk_bsp_tree(wn->rasterizer->bsp_node, &(camera), &new_lst);
+		/* difftime = SDL_GetTicks(); */
+		/* printf("BSP le diff time=%u\n", ladiff = (difftime - time)); */
+
+
+
+		/* time = SDL_GetTicks(); */
+ 		/* ft_display_the_polygon_list(new_lst); */
 		wn->rasterizer->triangle_array = ft_get_triangles_array(new_lst);
 		wn->rasterizer->nbr_triangle = ft_get_nbr_of_triangle(new_lst);
 		/* printf("nbr_triangle%d\n", wn->rasterizer->nbr_triangle); */
 		((t_myraster*)wn->rasterizer->tmp)->nbr_of_triangle = wn->rasterizer->nbr_triangle;
+		/* difftime = SDL_GetTicks(); */
+		/* printf("Autre le diff time=%u\n", ladiff = (difftime - time)); */
 
+
+		/* time = SDL_GetTicks(); */
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array, wn);
+		/* difftime = SDL_GetTicks(); */
+		/* printf("Raster le diff time=%u\n", ladiff = (difftime - time)); */
+
+
+
+
 		/* ((t_myraster *)wn->rasterizer->tmp)->modif = 0; */
 		/* if (wn->interface == DGAME) */
 		/* 	SDL_RenderPresent(wn->rend); */

@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/04 14:43:23 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 16:50:13 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,10 +168,18 @@ void	ft_scale_screen(t_mytriangle *triangle)
 int	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
 	t_mytriangle	*keep;
-
 	int i;
+
+
+
+
+
+
 	keep = triangle_lst_2;
 	i = 0;
+
+	ft_clear_screen((int**)(&wn->pixels));
+
 	while (triangle_lst_2 != NULL)
 	{
 		ft_draw_textured_triangle( triangle_lst_2, ((t_myraster*)wn->rasterizer->tmp)->s_tex, (int**)(&wn->pixels));
