@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 15:29:27 by lomasse           #+#    #+#             */
-/*   Updated: 2019/07/27 14:25:46 by lomasse          ###   ########.fr       */
+/*   Updated: 2019/11/04 13:50:00 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		drawlinexyz(t_win *wn, int color, t_xyz_point origin, t_xyz_point dest)
 {
 	t_point	neworigin;
 	t_point	newdest;
-	
+
 	neworigin.x = origin.a;
 	neworigin.y = origin.b;
 	newdest.x = dest.a;

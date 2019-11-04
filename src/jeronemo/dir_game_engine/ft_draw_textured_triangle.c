@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 16:09:20 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/03 17:20:58 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 13:22:40 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_order_point(
 }
 
 
-void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_buffer)
+void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_buffer, int** pixel)
 {
 
 	int		x1 = tri->vertice[0].x;
@@ -180,14 +180,31 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 				s_tex->dstrect.y = i;
 
 				/* s_tex->m_ppixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * 512)]; */
+
+
+
+
+	/* printf("le 1 %p\n", *pixel); */
+
+
+
 				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
 				{
 					// if (s_tex->tex_w > depth_buffer[i * XSCREEN + j] )
 					// {
-						s_tex->m_pPixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
-						depth_buffer[i * XSCREEN + j] = s_tex->tex_w;
+					/* if (*pixel == NULL) */
+						/* printf("hello world\n"); */
+
+					if ((i * 1920 + j)   <  (1920 * 1080)  )
+					{
+
+
+						(*pixel)[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
+					}
+						/* depth_buffer[i * XSCREEN + j] = s_tex->tex_w; */
 					// }
 				}
+				(void)depth_buffer;
 				// s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF;
 
 			/* printf("s_tex->tex_w=%f\n", s_tex->tex_w); */
@@ -258,15 +275,21 @@ void	ft_draw_textured_triangle(t_mytriangle *tri, t_mytext *s_tex, float *depth_
 				s_tex->dstrect.y = i;
 				/* s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF; */
 
+	/* printf("le 2 %p\n", pixel); */
 
 				if ((s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w) < 512 * 512)
 				{
 					// if (s_tex->tex_w > depth_buffer[i * XSCREEN + j])
 					// {
-						s_tex->m_pPixels[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
-						depth_buffer[i * XSCREEN + j] = s_tex->tex_w;
+					if ((i * 1920 + j)   <  (1920 * 1080)  )
+					{
+						(*pixel)[i * 1920 + j] = ((int *)s_tex->tga->data)[(s_tex->srcrect.x + s_tex->srcrect.y * s_tex->tga->w)];
+					}
+						/* depth_buffer[i * XSCREEN + j] = s_tex->tex_w; */
 					// }
 				}
+	/* printf("le 3 %p\n", pixel); */
+	/* exit(0); */
 				// s_tex->m_pPixels[i * 1920 + j] = 0x00FF00FF;
 
 				/* SDL_RenderCopy(wn->rend, texture, &(s_tex->srcrect), &(s_tex->dstrect)); */

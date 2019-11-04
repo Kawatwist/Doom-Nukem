@@ -6,11 +6,11 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 16:12:44 by lomasse           #+#    #+#             */
-/*   Updated: 2019/11/03 18:03:45 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 12:40:50 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom.h"
+#include <doom.h>
 
 static void		interface(t_win *wn)
 {
@@ -36,15 +36,11 @@ void			turn(t_win *wn)
 	while (TRUE)
 	{
 		time = SDL_GetTicks();
-		/* SDL_Delay(10); */
 		main_input(wn);
 		interface(wn);
 		difftime = SDL_GetTicks();
-		(difftime - time) < (1000 / 60) ? SDL_Delay((1000 / 60) - (difftime - time)) : 0;
-		/* printf("\n\n"); */
-		/* printf("le time =%u\n", time); */ 
-		/* printf("le diff time =%u\n", difftime); */
-		/* printf("la diff time =%u\n", (difftime - time) ); */
-		wn->interface != DGAME ? SDL_RenderPresent(wn->rend) : 0;
+		printf("le diff time=%u\n", (difftime - time));
+		/* (difftime - time) < (1000 / 60) ? SDL_Delay((1000 / 60) - (difftime - time)) : 0; */
+		SDL_RenderPresent(wn->rend);
 	}
 }

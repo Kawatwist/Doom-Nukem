@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 11:45:42 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/03 18:21:15 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 13:41:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ t_mycolor	ft_setcolor(int rrr, int ggg, int bbb)
 	s_color.bbb = bbb;
 	 return (s_color);
 }
-
-     void	ft_game_engine(t_win *wn)
-{
-	ft_launch_rasterization(wn);
- }
 
 void	free_poly_list(t_mypolygon *lst)
 {
@@ -48,9 +43,11 @@ void	turn_rast(t_win *wn)
 	t_myvec			camera;
 
 	wn->rasterizer->tmp = (void *)ft_input_event_check(wn, wn->rasterizer->tmp);
+	/* printf("hello-turn-rast\n"); */
+	/* printf("%p\n", wn->pixels); */
 	//############
-	if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME)
-	{
+	/* if ((((t_myraster*)wn->rasterizer->tmp)->modif == 1 && wn->interface == DGAME) || wn->interface == RGAME) */
+	/* { */
 		// ft_clear_window(wn);
 		new_lst = NULL;
 		camera.x = ((t_myraster *)wn->rasterizer->tmp)->v_camera.x;
@@ -65,11 +62,11 @@ void	turn_rast(t_win *wn)
 		((t_myraster*)wn->rasterizer->tmp)->nbr_of_triangle = wn->rasterizer->nbr_triangle;
 
 		ft_update_raster(wn->rasterizer->tmp, wn->rasterizer->triangle_array, wn);
-		((t_myraster *)wn->rasterizer->tmp)->modif = 0;
-		if (wn->interface == DGAME)
-			SDL_RenderPresent(wn->rend);
+		/* ((t_myraster *)wn->rasterizer->tmp)->modif = 0; */
+		/* if (wn->interface == DGAME) */
+		/* 	SDL_RenderPresent(wn->rend); */
 		free_poly_list(new_lst);
-	}
+	/* } */
 }
 
 void	ft_launch_rasterization(t_win *wn)

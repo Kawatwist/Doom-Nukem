@@ -6,21 +6,23 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/11/03 18:05:46 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 13:38:27 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom.h"
+#include <doom.h>
 
 void	ingame(t_win *wn)
 {
+	/* printf("hello-game-ingame\n"); */
+	/* printf("%p\n", *wn->pixels); */
 //	gameinput(wn);
 	if (key_pressed(wn, SDL_SCANCODE_ESCAPE))
 	{
 		wn->interface = MGAME;
 		wn->menu->choice = 10;
 	}
-	display_skybox(wn);
+	/* display_skybox(wn); */
 	turn_rast(wn);
 //	main_cloud(wn);
 //	display_crosshair(wn);

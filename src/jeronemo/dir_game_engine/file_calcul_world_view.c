@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:36:58 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/03 18:22:50 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 13:15:26 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,20 +169,22 @@ int	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 {
 		t_mytriangle	*keep;
 		float			*depth_buffer;
+		depth_buffer = NULL;
 
-		depth_buffer = malloc(sizeof(float) * 1920 * 1080);
+
+		/* depth_buffer = malloc(sizeof(float) * 1920 * 1080); */
 		/* printf("hello\n"); */
-		if (depth_buffer == NULL)
-			exit(0);
+		/* if (depth_buffer == NULL) */
+			/* exit(0); */
 
 		int i = 0;
-		while (i < 1920 * 1080)
-		{
+		/* while (i < 1920 * 1080) */
+		/* { */
 			/* if(((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] != 0xFF00FFFF) */
-				((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFFFFFFFF;
+				/* ((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels[i] = 0xFFFFFFFF; */
 			/* depth_buffer[i] = 0.0; */
-			i++;
-		}
+			/* i++; */
+		/* } */
 		keep = triangle_lst_2;
 		i = 0;
 		while (triangle_lst_2 != NULL)
@@ -197,14 +199,17 @@ int	ft_draw(t_mytriangle *triangle_lst_2, t_win *wn)
 			/* } */
 			/* else */
 			/* { */
-				ft_draw_textured_triangle( triangle_lst_2, ((t_myraster*)wn->rasterizer->tmp)->s_tex, depth_buffer);
+	/* printf("hello-update-rast\n"); */
+	/* printf("%p\n", *wn->pixels); */
+
+				ft_draw_textured_triangle( triangle_lst_2, ((t_myraster*)wn->rasterizer->tmp)->s_tex, depth_buffer, (int**)(&wn->pixels));
 				i++;
 
 				triangle_lst_2 = triangle_lst_2->next;
 			/* } */
 		}
 	triangle_lst_2 = keep;
-	free(depth_buffer);
+	/* free(depth_buffer); */
 	SDL_UpdateTexture(((t_myraster*)wn->rasterizer->tmp)->texture, NULL,((t_myraster*)wn->rasterizer->tmp)->s_tex->m_pPixels, 1920 * sizeof(Uint32));
 	SDL_RenderCopy(wn->rend, ((t_myraster*)wn->rasterizer->tmp)->texture, NULL, NULL);
 /*	start.x = 20;

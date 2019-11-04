@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 15:27:26 by lomasse           #+#    #+#             */
-/*   Updated: 2019/11/03 15:28:27 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 12:27:49 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ int		main(int argc, char **argv)
 
 	(wn = malloc(sizeof(t_win))) == NULL ? stop_exec("Malloc failed\n", wn): 0;
 	init(&wn, argc, argv) == 0 ? stop_exec("Init failed\n", wn) : 0;
-	if (argc > 1 && ft_strcmp(argv[1], "doom_engine") == 0)
-		ft_game_engine(wn);
-	else
-		turn(wn);
+	turn(wn);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lomasse <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 21:01:14 by lomasse           #+#    #+#             */
-/*   Updated: 2019/11/03 15:51:10 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 13:48:17 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,16 @@ void	show_game_cursor(t_win *wn)
 void	game_interface(t_win *wn)
 {
 	if (wn->gametxt == NULL)
-		wn->gametxt = SDL_CreateTexture(wn->rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, wn->xscreen, wn->yscreen);
+		wn->gametxt = SDL_CreateTexture(wn->rend, SDL_PIXELFORMAT_BGRA8888, SDL_TEXTUREACCESS_STREAMING, wn->xscreen, wn->yscreen);
 	SDL_LockTexture(wn->gametxt, NULL, (void **)&wn->pixels, &wn->pitch);
+
+	/* drawsquare(wn->pixels, 1920 * 4, define_rect(0, 0, 1920 - 100, 1080 - 100), itocolor(0)); */
+
+	/* printf("hello-game-interface\n"); */
+	/* printf("%p\n", *wn->pixels); */
+
+
+
 	if (wn->interface == RGAME || wn->interface == DGAME)
 	{
 		if (wn->rasterizer == NULL)
