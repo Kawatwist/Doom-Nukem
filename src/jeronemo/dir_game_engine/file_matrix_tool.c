@@ -6,7 +6,7 @@
 /*   By: jchardin <jerome.chardin@outlook.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 17:17:48 by jchardin          #+#    #+#             */
-/*   Updated: 2019/11/03 18:14:40 by jchardin         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:39:06 by jchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ float	**t_camera_compute_view(t_myraster *raster) //calcul de la matrice de vue
 	if (raster->avancer == 1)
 	{
 		raster->forward = ft_normalise(raster->forward);
-		raster->forward = ft_vector_multiply(raster->forward, 2);
 		raster->v_camera  = ft_vector_sub(raster->v_camera, raster->forward);
 		raster->avancer = 0;
 	}
