@@ -6,10 +6,11 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 15:27:36 by naali             #+#    #+#             */
-/*   Updated: 2019/10/29 13:45:17 by naali            ###   ########.fr       */
+/*   Updated: 2019/11/05 13:59:23 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "cpy_to_voidptr.h"
 
 /***********************************************/
@@ -22,10 +23,10 @@ short	get_type_size(int flg, void *cmd)
 	short	sz;
 
 	sz = 0;
-	if (flg == 1 || flg == 2 || flg == 3)
+	if (flg == 1 || flg == 2 || flg == 3)	// Type message ou commande texte
 		sz = /*ft_*/strlen((char*)cmd);
-	else if (flg == 4)
-		sz = sizeof(float) * 3;// Pour la transmission de coordonnees faire attention a taille sera modifier 3 fois
+	else if (flg == 4)						// Type position en float
+		sz = sizeof(float) * 3;
 	return (sz);
 }
 
@@ -84,7 +85,7 @@ char		*cmd_format(char id, short len, void *info)
 	unsigned int	sz_max;
 
 	ret = NULL;
-	if (id < 0 || len == 0 || info == NULL)
+	if (id <= 0 || len == 0 || info == NULL)
 		return (ret);
 	sz_max = 6 + len;
 	tmp[0] = ';';
@@ -94,14 +95,86 @@ char		*cmd_format(char id, short len, void *info)
 	ret = ft_memcat(tmp, info, 4, len);
 	ret[sz_max - 2] = ';';
 	ret[sz_max - 1] = '\0';
-	free(info);
-	info = NULL;
+	if (id > 0 && id < 4)
+	{
+		free(info);
+		info = NULL;
+	}
 	return (ret);
 }
+
+char		*pos_to_tab(float x, float y, float z)
+{
+	char	*ret;
+	float	tab[3];
+
+	ret = NULL;
+	tab[0] = x;
+	tab[1] = y;
+	tab[2] = z;
+	ret = cmd_format(4, sizeof(float) * 3, (void*)tab);
+	return (ret);
+}
+
+char		*pos_player_to_tab(t_joueur *j)
+{
+	char	*ret;
+	float	tab[3];
+
+	ret = NULL;
+	tab[0] = (float)(j->x);
+	tab[1] = (float)(j->y);
+	tab[2] = (float)(j->z);
+	ret = cmd_format(4, sizeof(float) * 3, (void*)tab);
+	return (ret);
+0}
 
 /*************************************/
 /* Test de formatage de commande FIN */
 /*************************************/
+
+/*********************/
+/* 3eme Main de test */
+/*********************/
+
+int		main()
+{
+	int		i;
+	int		id;
+	int		size;
+	char	*info;
+	char	*test;
+
+	i = 0;
+	id = -1;
+	test = NULL;
+	if (id <= 0)
+		test = cmd_format(id, 0, NULL);
+	else if (id == 4)
+	{
+		test = pos_to_tab(0.42f, 4.2f, 42.0f);
+		size = 6 + (sizeof(float) * 3);
+	}
+	else
+	{
+		info = strdup("test 42");
+		size = 6 + strlen(info);
+		test = cmd_format(id, size - 6, info);
+	}
+	while (i < size)
+	{
+		if (id == 4)
+			printf("%d == %d\n", i, test[i]);
+		else
+			printf("%d == %c\n", i, test[i]);
+		i++;
+	}
+	if (id <= 0)
+		printf("%s\n", test);
+	free(test);
+	test = NULL;
+	return (0);
+}
 
 /*********************/
 /* 2eme Main de test */
