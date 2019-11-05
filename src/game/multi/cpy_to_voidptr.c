@@ -6,12 +6,24 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 15:27:36 by naali             #+#    #+#             */
-/*   Updated: 2019/11/05 13:59:23 by naali            ###   ########.fr       */
+/*   Updated: 2019/11/05 14:09:06 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "cpy_to_voidptr.h"
+
+/************/
+/* todolist */
+/************/
+
+/*
+  - Formatage des infos DONE
+  - mettre le code en relation avec doom IN PROGRESS
+  - verifier que la recuperation depuis le client ou le serveur se fait correctement IN PROGRESS
+*/
+
+/************/
 
 /***********************************************/
 /* ATTENTION MEMCPY A TRANSFORMER EN FT_MEMCPY */
