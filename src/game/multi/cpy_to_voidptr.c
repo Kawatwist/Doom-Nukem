@@ -6,11 +6,12 @@
 /*   By: naali <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 15:27:36 by naali             #+#    #+#             */
-/*   Updated: 2019/11/05 14:09:06 by naali            ###   ########.fr       */
+/*   Updated: 2019/11/06 12:04:17 by naali            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+/* #include "game.h" */
+/* #include "client.h" */
 #include "cpy_to_voidptr.h"
 
 /************/
@@ -90,21 +91,23 @@ char		*ft_memcat(char *s1, char *s2, size_t len1, size_t len2)
 }
 
 /* Sera tres certainement MODIFIER pour feat avec les differents type, ou pas!!!!!!! */
-char		*cmd_format(char id, short len, void *info)
+char		*cmd_format(char id, char client_id, short len, void *info)
 {
 	char			*ret;
-	char			tmp[4];
+	char			tmp[5];
 	unsigned int	sz_max;
 
 	ret = NULL;
-	if (id <= 0 || len == 0 || info == NULL)
+	if (id <= 0 || (client_id < 0 || client_id > 2)
+		|| len == 0 || info == NULL)
 		return (ret);
-	sz_max = 6 + len;
+	sz_max = 7 + len;
 	tmp[0] = ';';
 	tmp[1] = id;
-	tmp[2] = (len >> 8) & 0xFF;
-	tmp[3] = len & 0xFF;
-	ret = ft_memcat(tmp, info, 4, len);
+	tmp[2] = client_id;
+	tmp[3] = (len >> 8) & 0xFF;
+	tmp[4] = len & 0xFF;
+	ret = ft_memcat(tmp, info, 5, len);
 	ret[sz_max - 2] = ';';
 	ret[sz_max - 1] = '\0';
 	if (id > 0 && id < 4)
@@ -115,20 +118,7 @@ char		*cmd_format(char id, short len, void *info)
 	return (ret);
 }
 
-char		*pos_to_tab(float x, float y, float z)
-{
-	char	*ret;
-	float	tab[3];
-
-	ret = NULL;
-	tab[0] = x;
-	tab[1] = y;
-	tab[2] = z;
-	ret = cmd_format(4, sizeof(float) * 3, (void*)tab);
-	return (ret);
-}
-
-char		*pos_player_to_tab(t_joueur *j)
+char		*pos_player_to_tab(t_joueur *j, t_client *c)
 {
 	char	*ret;
 	float	tab[3];
@@ -137,56 +127,138 @@ char		*pos_player_to_tab(t_joueur *j)
 	tab[0] = (float)(j->x);
 	tab[1] = (float)(j->y);
 	tab[2] = (float)(j->z);
-	ret = cmd_format(4, sizeof(float) * 3, (void*)tab);
+	ret = cmd_format(4, c->id, sizeof(float) * 3, (void*)tab);
 	return (ret);
-0}
+}
+
+char		*pos_to_tab(t_client *c, float x, float y, float z)
+{
+	char	*ret;
+	float	tab[3];
+
+	ret = NULL;
+	tab[0] = x;
+	tab[1] = y;
+	tab[2] = z;
+	ret = cmd_format(4, c->id, sizeof(float) * 3, (void*)tab);
+	return (ret);
+}
 
 /*************************************/
 /* Test de formatage de commande FIN */
 /*************************************/
 
 /*********************/
+/* 4eme Main de test */
+/*********************/
+
+/* void			init_client_player(t_client **c, t_joueur **j, char id) */
+/* { */
+/* 	if (c != NULL && j != NULL && (id >= 0 && id < 3)) */
+/* 	{ */
+/* 		*c = (t_client*)malloc(sizeof(t_client)); */
+/* 		*j = (t_joueur*)malloc(sizeof(t_joueur)); */
+/* 		if (*c == NULL && *j != NULL) */
+/* 		{ */
+/* 			free(*j); */
+/* 			*j = NULL; */
+/* 		} */
+/* 		else if (*j == NULL && *c != NULL) */
+/* 		{ */
+/* 			free(*c); */
+/* 			*c = NULL; */
+/* 		} */
+/* 		else */
+/* 		{ */
+/* 			(*c)->id = id; */
+/* 			(*j)->x = 0.42f; */
+/* 			(*j)->y = 4.20f; */
+/* 			(*j)->z = 42.0f; */
+/* 		} */
+/* 	} */
+/* } */
+
+/* int			main(int ac, char **av) */
+/* { */
+/* 	t_client	*c; */
+/* 	t_joueur	*j; */
+/* 	char		*res; */
+/* 	char		*test; */
+
+/* 	c = NULL; */
+/* 	j = NULL; */
+/* 	test = NULL; */
+/* 	if (ac < 2 || av[1] == NULL) */
+/* 		return (-1); */
+/* 	init_client_player(&c, &j, (char)atoi(av[1])); */
+/* 	if (c == NULL || j == NULL) */
+/* 		return (-1); */
+/* 	if (ac == 2) */
+/* 		res = pos_player_to_tab(j, c); */
+/* 	else if (ac == 3) */
+/* 	{ */
+/* 		test = strdup(av[2]); */
+/* 		res = cmd_format(1, (char)atoi(av[1]), strlen(av[2]), (void*)test); */
+/* 	} */
+/* 	if (ac == 2) */
+/* 		for (int i = 0; i < (7 + sizeof(float) * 3); i++) */
+/* 			printf("res[%d] = %d\n", i, res[i]); */
+/* 	else if (ac == 3) */
+/* 		for (int i = 0; i < 7 + strlen(test); i++) */
+/* 		{ */
+/* 			if (res[i] >= ' ' && (i == 0 || (i >= 5 && i <= 6 + strlen(test)))) */
+/* 				printf("res[%d] = %c\n", i, res[i]); */
+/* 			else */
+/* 				printf("res[%d] = %d\n", i, res[i]); */
+/* 		} */
+/* 	free(c); */
+/* 	free(j); */
+/* 	free(res); */
+/* 	return (0); */
+/* } */
+
+/*********************/
 /* 3eme Main de test */
 /*********************/
 
-int		main()
-{
-	int		i;
-	int		id;
-	int		size;
-	char	*info;
-	char	*test;
+/* int		main() */
+/* { */
+/* 	int			i; */
+/* 	int			id; */
+/* 	int			size; */
+/* 	char		*info; */
+/* 	char		*test; */
 
-	i = 0;
-	id = -1;
-	test = NULL;
-	if (id <= 0)
-		test = cmd_format(id, 0, NULL);
-	else if (id == 4)
-	{
-		test = pos_to_tab(0.42f, 4.2f, 42.0f);
-		size = 6 + (sizeof(float) * 3);
-	}
-	else
-	{
-		info = strdup("test 42");
-		size = 6 + strlen(info);
-		test = cmd_format(id, size - 6, info);
-	}
-	while (i < size)
-	{
-		if (id == 4)
-			printf("%d == %d\n", i, test[i]);
-		else
-			printf("%d == %c\n", i, test[i]);
-		i++;
-	}
-	if (id <= 0)
-		printf("%s\n", test);
-	free(test);
-	test = NULL;
-	return (0);
-}
+/* 	i = 0; */
+/* 	id = -1; */
+/* 	test = NULL; */
+/* 	if (id <= 0) */
+/* 		test = cmd_format(id, 0, NULL); */
+/* 	else if (id == 4) */
+/* 	{ */
+/* 		test = pos_to_tab(0.42f, 4.2f, 42.0f); */
+/* 		size = 6 + (sizeof(float) * 3); */
+/* 	} */
+/* 	else */
+/* 	{ */
+/* 		info = strdup("test 42"); */
+/* 		size = 6 + strlen(info); */
+/* 		test = cmd_format(id, size - 6, info); */
+/* 	} */
+/* 	while (i < size) */
+/* 	{ */
+/* 		if (id == 4) */
+/* 			printf("%d == %d\n", i, test[i]); */
+/* 		else */
+/* 			printf("%d == %c\n", i, test[i]); */
+/* 		i++; */
+/* 	} */
+/* 	if (id <= 0) */
+/* 		printf("%s\n", test); */
+/* 	free(test); */
+/* 	test = NULL; */
+/* 	return (0); */
+/* } */
 
 /*********************/
 /* 2eme Main de test */
